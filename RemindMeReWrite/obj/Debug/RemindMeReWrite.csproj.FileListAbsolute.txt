@@ -1,0 +1,60 @@
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.Properties.Resources.resources
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.Form1.resources
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\bin\Debug\RemindMeReWrite.exe
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\bin\Debug\RemindMeReWrite.pdb
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.exe
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.pdb
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\bin\Debug\FSManager.dll
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\bin\Debug\FSManager.pdb
+d:\users\rs\documents\visual studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\bin\Debug\FSManager.xml
+D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMeReWrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.Popup.resources
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\bin\Debug\RemindMeReWrite.exe
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\bin\Debug\RemindMeReWrite.pdb
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\bin\Debug\FSManager.dll
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.Form1.resources
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.Popup.resources
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.Properties.Resources.resources
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.exe
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.pdb
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.Settings.resources
+C:\Users\kebab\Desktop\Rewrite\RemindMeReWrite\obj\Debug\RemindMeReWrite.UCMusic.resources
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.exe
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.pdb
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\RemindMeReWrite.exe
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\RemindMeReWrite.pdb
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\FSManager.dll
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.ErrorPopup.resources
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.Form1.resources
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.Popup.resources
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.Properties.Resources.resources
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.Settings.resources
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.UCMusic.resources
+C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.exe
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.pdb
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\FSManager.dll
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\FSManager.pdb
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\FSManager.xml
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.ErrorPopup.resources
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Form1.resources
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Popup.resources
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Properties.Resources.resources
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Settings.resources
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCMusic.resources
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCWindows.resources
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb

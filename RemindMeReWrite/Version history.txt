@@ -1,0 +1,4 @@
+﻿//RemindMe has been rewritten from the ground up because the code wasn't neccesarely messy, but i really wasn't happy with the way it was coded.
+
+(14-4-2017) V1.0.0 - First release of the completely rewritten RemindMe.
+(14-4-2017) V1.0.1 - Reminders will now be sorted in the listview. Earliest date will be the first in the list

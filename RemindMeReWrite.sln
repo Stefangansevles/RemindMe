@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemindMeReWrite", "RemindMeReWrite\RemindMeReWrite.csproj", "{92A8E96F-7ED8-4657-BEA8-9A5485BC3553}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupRemindMe", "SetupRemindMe\SetupRemindMe.vdproj", "{6898E839-D40C-4041-A89D-14AB69231C54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92A8E96F-7ED8-4657-BEA8-9A5485BC3553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A8E96F-7ED8-4657-BEA8-9A5485BC3553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A8E96F-7ED8-4657-BEA8-9A5485BC3553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A8E96F-7ED8-4657-BEA8-9A5485BC3553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6898E839-D40C-4041-A89D-14AB69231C54}.Debug|Any CPU.ActiveCfg = Debug
+		{6898E839-D40C-4041-A89D-14AB69231C54}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
