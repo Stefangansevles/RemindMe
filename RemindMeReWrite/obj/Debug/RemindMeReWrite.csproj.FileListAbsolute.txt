@@ -42,7 +42,6 @@ C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.S
 C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.UCMusic.resources
 C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
 C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.exe
-C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.pdb
 C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\FSManager.dll
 C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\FSManager.pdb
 C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\FSManager.xml
@@ -58,3 +57,4 @@ C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCWindo
 C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
 C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
 C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb
+C:\Users\stefan\Google Drive\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.pdb

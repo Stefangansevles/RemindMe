@@ -591,7 +591,8 @@ namespace RemindMe
             cbSound.Text = "";
 
             //Fill the form with the data from the single reminder selected from the listview.
-            FillControlsForEdit(BLIO.ReadSingleReminder(lvReminders.SelectedItems[0].Text));            
+            if(lvReminders.SelectedItems.Count > 0)
+                FillControlsForEdit(BLIO.ReadSingleReminder(lvReminders.SelectedItems[0].Text));            
         }
 
         private void btnDisableEnable_Click(object sender, EventArgs e)

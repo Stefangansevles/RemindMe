@@ -13,14 +13,13 @@ namespace RemindMe
     {
         static IWshShortcut Shortcut;
         static WshShell shell = new WshShell();
-
         /// <summary>
         /// Creates the folders and files needed by RemindMe. This should only occur once, during first use.
         /// </summary>
         public static void CreateSettings()
         {
             FSManager.Folders.CreateHiddenFolder(Variables.IOVariables.rootFolder);
-            FSManager.Folders.CreateHiddenFolder(Variables.IOVariables.remindersFolder);          
+            FSManager.Folders.CreateHiddenFolder(Variables.IOVariables.remindersFolder);
         }
         /// <summary>
         /// Adds all the selected sounds to the settings.ini of RemindMe
@@ -40,18 +39,24 @@ namespace RemindMe
         public static List<string> ReadSoundFiles()
         {
             List<string> currentSoundFiles = null;
-            using (StreamReader read = new StreamReader(Variables.IOVariables.settingsIni))
+
+            if (System.IO.File.Exists(Variables.IOVariables.settingsIni))
             {
-                while (!read.EndOfStream)
+                using (StreamReader read = new StreamReader(Variables.IOVariables.settingsIni))
                 {
-                    string line = read.ReadLine();
-                    if (line.Contains("Sound files = <"))                    
-                        currentSoundFiles = BLUtilities.stripString(line, "<", ">").Split(';').ToList();
-                    
+                    while (!read.EndOfStream)
+                    {
+                        string line = read.ReadLine();
+                        if (line.Contains("Sound files = <"))
+                            currentSoundFiles = BLUtilities.stripString(line, "<", ">").Split(';').ToList();
+
+                    }
                 }
+                if (currentSoundFiles != null && currentSoundFiles[0] == "")
+                    currentSoundFiles.RemoveAt(0);
             }
-            if (currentSoundFiles != null && currentSoundFiles[0] == "")
-                currentSoundFiles.RemoveAt(0);
+            else
+                WriteError(new FileNotFoundException(), "Could not find settings.ini", false);
 
             return currentSoundFiles;
         }
@@ -62,20 +67,27 @@ namespace RemindMe
         /// </summary>
         /// <returns>true if the user selected the popup to be always on top, false if not</returns>
         public static bool ReadAlwaysOnTop()
-        {            
-            using (StreamReader read = new StreamReader(Variables.IOVariables.settingsIni))
+        {
+            if (System.IO.File.Exists(Variables.IOVariables.settingsIni))
             {
-                while (!read.EndOfStream)
+                using (StreamReader read = new StreamReader(Variables.IOVariables.settingsIni))
                 {
-                    string line = read.ReadLine();
+                    while (!read.EndOfStream)
+                    {
+                        string line = read.ReadLine();
 
-                    if (line.Contains("Always on top = <"))
-                        return Boolean.Parse(BLUtilities.stripString(line, "<", ">"));
+                        if (line.Contains("Always on top = <"))
+                            return Boolean.Parse(BLUtilities.stripString(line, "<", ">"));
 
+                    }
                 }
+
             }
+            else
+                WriteError(new FileNotFoundException(), "Could not find settings.ini",false);
             return true;
-            
+
+
         }
 
 
@@ -117,19 +129,21 @@ namespace RemindMe
                         //soundFileWritePaths = soundFileWritePaths.Remove(soundFileWritePaths.Length - 1);
                     }
                 }
-                
 
-                foreach (string soundPath in soundFiles)
+                if (soundFiles != null)
                 {
-                    if (!overWriteCurrentSoundFiles)
+                    foreach (string soundPath in soundFiles)
                     {
-                        if (!currentSoundFiles.Contains(soundPath))
+                        if (!overWriteCurrentSoundFiles)
+                        {
+                            if (!currentSoundFiles.Contains(soundPath))
+                                allSoundFilePaths += soundPath + ";";
+                        }
+                        else
                             allSoundFilePaths += soundPath + ";";
-                    }
-                    else
-                        allSoundFilePaths += soundPath + ";";
 
-                    //sw.Write(soundPath + ";");
+                        //sw.Write(soundPath + ";");
+                    }
                 }
                 if(allSoundFilePaths.Length > 0)
                     allSoundFilePaths = allSoundFilePaths.Remove(allSoundFilePaths.Length - 1);
