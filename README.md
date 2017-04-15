@@ -2,7 +2,8 @@
 RemindMe is a windows desktop application that will notify you of events that you created using this application.
 
 I Have rewritten RemindMe because i wasn't happy with the way certain things were coded. 
-I think it is much cleaner now. It also resulted in some new features it didn't have before
+
+Overall it is much cleaner-written. It also resulted in some new features it didn't have before
 
 You can install RemindMe by downloading the installer and running it.
 
