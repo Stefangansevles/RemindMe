@@ -546,8 +546,9 @@ namespace RemindMe
                 if (rem != null)
                     BLIO.WriteReminderToFile(rem);
 
-
-                BLFormLogic.AddReminderToListview(lvReminders, rem);
+                //clear the entire listview an re-fill it so that the listview is ordered by date again
+                lvReminders.Items.Clear();
+                BLFormLogic.AddRemindersToListview(lvReminders, ReminderManager.GetReminders());
                 BLFormLogic.SwitchPanels(pnlMain, pnlNewReminder);
             }
             else

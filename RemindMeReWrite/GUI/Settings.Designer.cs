@@ -119,11 +119,11 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(404, 337);
+            this.label2.Location = new System.Drawing.Point(403, 338);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(161, 16);
             this.label2.TabIndex = 0;
-            this.label2.Text = "RemindMe - Version 1.0.1";
+            this.label2.Text = "RemindMe - Version 1.0.2";
             // 
             // pictureBox3
             // 
