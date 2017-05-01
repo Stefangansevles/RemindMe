@@ -33,11 +33,10 @@ namespace RemindMe
         /// <returns>A comboboxitem with the given text and value. null if it doesnt exist</returns>
         public static ComboBoxItem GetComboBoxItem(string text, object value)
         {
-            foreach (ComboBoxItem cb in items)
-            {
+            foreach (ComboBoxItem cb in items)            
                 if (cb.Text == text && cb.Value.Equals(value))
                     return cb;
-            }
+            
             return null;
         }
     }

@@ -63,16 +63,10 @@ namespace RemindMe
                 lblErrorMessage.Text += x + "\r\n";
 
             pbErrorIcon.BringToFront();
-            //Make the button look better-------------------------------------------
-            btnClose.TabStop = false;
-            btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.FlatAppearance.BorderSize = 0;
+            //Make the button look better
+            BLFormLogic.removeButtonBorders(btnClose);
+            BLFormLogic.removeButtonBorders(btnOpenErrorLog);
 
-            btnOpenErrorLog.TabStop = false;
-            btnOpenErrorLog.FlatStyle = FlatStyle.Flat;
-            btnOpenErrorLog.FlatAppearance.BorderSize = 0;
-
-            //--------------------------------------------------------------------
 
             btnClose.Focus();
         }

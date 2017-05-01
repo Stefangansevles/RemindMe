@@ -27,6 +27,7 @@ namespace RemindMe
         UCWindows windows;
         public Settings()
         {
+            
             InitializeComponent();
             music = new UCMusic();
             windows = new UCWindows();
@@ -35,7 +36,7 @@ namespace RemindMe
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            pbLogo.BringToFront();
+            pbLogo.BringToFront();            
         }
 
         private void pbClose_Click(object sender, EventArgs e)
