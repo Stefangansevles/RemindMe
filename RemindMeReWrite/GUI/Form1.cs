@@ -347,7 +347,7 @@ namespace RemindMe
                     if (rem.RepeatingType == ReminderRepeatType.MONTHLY)
                     {
                         //Add a month. Change this while into: date = Datetime.Today.THISMONTH + addMonth(1);  ? maybe.
-                        while(rem.CompleteDate < DateTime.Today)
+                        while(rem.CompleteDate < DateTime.Now)
                             rem.CompleteDate = rem.CompleteDate.AddMonths(1);
                         
                         //Write the changes to the file

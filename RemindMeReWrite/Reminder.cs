@@ -30,7 +30,7 @@ namespace RemindMe
         /// <param name="repeatingType">How often the reminder should repeat (None,Daily,Workdays,Weekly,Monthly)</param>
         /// <param name="note">The note that you want to add to the reminder</param>
         /// <param name="enabled">Enable if you want this reminder to pop up if it's time to pop up</param>
-        public Reminder(string name, DateTime date, ReminderRepeatType repeatingType, string note, bool enabled)
+        public Reminder(string name, DateTime date, ReminderRepeatType repeatingType, string note, bool enabled) 
         {
             this.name = name;
             this.date = date;
