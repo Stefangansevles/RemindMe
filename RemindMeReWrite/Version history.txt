@@ -4,3 +4,4 @@
 (14-4-2017) V1.0.1 -  Reminders will now be sorted in the listview. Earliest date will be the first in the list
 (15-4-2017) V1.0.2 -  Newly made reminders are placed correctly in the listview depending on their date, rather than always at the end.
 (15-4-2017) V.1.0.3 - Fixed some first use issues when trying to read files that don't exist
+(21-5-2017)V.1.1.0 - New feature: You can now make reminders repeat every x days. i.e. every 3 days

@@ -180,6 +180,7 @@ namespace RemindMe
                 int dayOfWeek = -1;
                 bool enabled = true;
                 string note = "";
+                int everyXDays = -1;
                 string soundPath = "";
 
                                 
@@ -200,6 +201,9 @@ namespace RemindMe
 
                         if (line.Contains("DayOfWeek = <"))
                             dayOfWeek = Convert.ToInt16(BLUtilities.stripString(line, "<", ">"));
+
+                        if(line.Contains("EveryXDays = <"))
+                            everyXDays = Convert.ToInt16(BLUtilities.stripString(line, "<", ">"));
 
                         if (line.Contains("Enabled = <"))
                             enabled = Boolean.Parse(BLUtilities.stripString(line, "<", ">"));
@@ -242,6 +246,8 @@ namespace RemindMe
                     remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, dayOfMonth, note, enabled);
                 else if (dayOfWeek != -1)
                     remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, note, dayOfWeek, enabled);
+                else if(everyXDays != -1)
+                    remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, note, enabled,everyXDays);
                 else
                     remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, note, enabled);
 
@@ -354,9 +360,11 @@ namespace RemindMe
                 sw.WriteLine("RepeatingType = <" + rem.RepeatingType.ToString().ToUpper() + ">");
                 if (rem.DayOfMonth != 0)
                     sw.WriteLine("DayOfMonth = <" + rem.DayOfMonth + ">");
-                if (rem.DayOfWeek  != -1) 
+                if (rem.DayOfWeek  > 0) 
                     sw.WriteLine("DayOfWeek = <" + rem.DayOfWeek + ">");
-                
+
+                if(rem.EveryXDays > 0)
+                    sw.WriteLine("EveryXDays = <" + rem.EveryXDays + ">");
 
                 sw.WriteLine("Enabled = <" + rem.Enabled.ToString() + ">");
                 sw.WriteLine("Note = <" + rem.Note + ">");
@@ -407,11 +415,13 @@ namespace RemindMe
 
                 sw.WriteLine("Date = <" + rem.CompleteDate + ">");
                 sw.WriteLine("RepeatingType = <" + rem.RepeatingType.ToString().ToUpper() + ">");
-                if (rem.DayOfMonth != 0)
+                if (rem.DayOfMonth > 0)
                     sw.WriteLine("DayOfMonth = <" + rem.DayOfMonth + ">");
-                if (rem.DayOfWeek != -1)
+                if (rem.DayOfWeek > 0)
                     sw.WriteLine("DayOfWeek = <" + rem.DayOfWeek + ">");
 
+                if (rem.EveryXDays > 0)
+                    sw.WriteLine("EveryXDays = <" + rem.EveryXDays + ">");
 
                 sw.WriteLine("Enabled = <" + rem.Enabled.ToString() + ">");
                 sw.WriteLine("Note = <" + rem.Note + ">");

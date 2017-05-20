@@ -111,14 +111,13 @@ namespace RemindMe
 
             //Set the custom format for the time datetime picker (HH:mm) instead of HH:mm:ss
             dtpTime.Format = DateTimePickerFormat.Custom;
-
             btnPlaySound.BackgroundImage = imgPlayResume;
 
 
 
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if(!File.Exists(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk"))            
-                BLIO.CreateShortcut();            
+                BLIO.CreateShortcut();
         }
 
         
@@ -134,6 +133,24 @@ namespace RemindMe
             btnConfirm.Location = new Point(btnConfirm.Location.X, (tbNote.Location.Y + tbNote.Height + 3));
             btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
             lblNote.Location = new Point(lblNote.Location.X, tbNote.Location.Y);
+
+            if (rbEveryXDays.Checked)
+            {
+                numEveryXDays.Visible = true;
+                lblEveryXDays.Visible = true;
+            }
+            else
+            {
+                numEveryXDays.Visible = false;
+                lblEveryXDays.Visible = false;
+            }
+
+            if (rbMonthly.Checked || rbWeekly.Checked)
+                cbEvery.Visible = true;
+            else
+                cbEvery.Visible = false;
+
+            
         }
 
 
@@ -144,6 +161,8 @@ namespace RemindMe
         {
             cbEvery.Visible = false;
             lblEvery.Visible = false;
+            numEveryXDays.Visible = false;
+            lblEveryXDays.Visible = false;
 
             tbNote.Location = new Point(cbEvery.Location.X, cbEvery.Location.Y);
             lblNote.Location = new Point(lblEvery.Location.X, lblEvery.Location.Y);
@@ -163,6 +182,7 @@ namespace RemindMe
                     FillSoundComboBoxFromFile();
                     tbNote.Text = rem.Note.Replace("\\n",Environment.NewLine);
                     tbReminderName.Text = rem.Name;
+
                     if (rem.SoundFilePath != null)
                     {
                         string song = Path.GetFileNameWithoutExtension(rem.SoundFilePath);
@@ -354,6 +374,15 @@ namespace RemindMe
                         BLIO.WriteChangedReminderToFile(rem);
                     }
 
+                    if (rem.RepeatingType == ReminderRepeatType.EVERY_X_DAYS)
+                    {
+                        //Add a day to the reminder
+                        rem.CompleteDate = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + rem.Time).AddDays(rem.EveryXDays);
+
+                        //Write the changes to the file
+                        BLIO.WriteChangedReminderToFile(rem);
+                    }
+
                 }                                             
             }
 
@@ -408,7 +437,7 @@ namespace RemindMe
                 dtpTime.ResetText();
             }
 
-            if (cbEvery.Visible)
+            if (cbEvery.Visible || numEveryXDays.Visible)
                 RemoveComboboxMonthlyWeekly();
         }
 
@@ -522,6 +551,9 @@ namespace RemindMe
                 if (rbNoRepeat.Checked)
                     repeat = ReminderRepeatType.NONE;
 
+                if (rbEveryXDays.Checked)
+                    repeat = ReminderRepeatType.EVERY_X_DAYS;
+
 
 
 
@@ -537,6 +569,8 @@ namespace RemindMe
                     rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, dayOfMonth, tbNote.Text.Replace(Environment.NewLine, "\\n"), true);
                 else if (repeat == ReminderRepeatType.WEEKLY)
                     rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true);
+                else if (repeat == ReminderRepeatType.EVERY_X_DAYS)
+                    rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, Convert.ToInt32(numEveryXDays.Value));
                 else
                     rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine,"\\n"), true);
 
@@ -635,13 +669,13 @@ namespace RemindMe
         private void rbDaily_CheckedChanged(object sender, EventArgs e)
         {
 
-            if(cbEvery.Visible)
+            if(cbEvery.Visible || numEveryXDays.Visible)
                 RemoveComboboxMonthlyWeekly();
         }
 
         private void rbWorkDays_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbEvery.Visible)
+            if (cbEvery.Visible || numEveryXDays.Visible)
                 RemoveComboboxMonthlyWeekly();
 
             if (!rbWorkDays.Checked)
@@ -789,6 +823,23 @@ namespace RemindMe
                     illegalCharacters = false;
                 }
             }
+        }
+
+        private void rbEveryXDays_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbEveryXDays.Checked)
+            {
+                lblEvery.Text = "Every:";                                                
+
+                AddComboboxMonthlyWeekly();
+            }
+                       
+        }
+
+        private void numEveryXDays_ValueChanged(object sender, EventArgs e)
+        {
+            if (numEveryXDays.Value <= 0) //You can't make a reminder that repeats every 0 days
+                numEveryXDays.Value = 1;
         }
     }
 }

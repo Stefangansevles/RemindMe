@@ -19,8 +19,10 @@ namespace RemindMe
         private bool enabled;        
         private int dayOfWeek;
         private int dayOfMonth;
+        private int everyXDays;
         private string soundFilePath;
-               
+        private decimal value;
+
 
         /// <summary>
         /// Sets the data of an reminder
@@ -41,36 +43,29 @@ namespace RemindMe
             //Automatically add it to the manager's list when a new object is created
             ReminderManager.GetReminders().Add(this);            
         }
-        public Reminder(string name, DateTime date, ReminderRepeatType repeatingType, int dayOfMonth, string note, bool enabled)
-        {
-            this.name = name;
-            this.date = date;
-            this.repeatingType = repeatingType;
-            this.note = note;
-            this.enabled = enabled;
-            this.dayOfMonth = dayOfMonth;
-
-            //Automatically add it to the manager's list when a new object is created
-            ReminderManager.GetReminders().Add(this);
+        public Reminder(string name, DateTime date, ReminderRepeatType repeatingType, int dayOfMonth, string note, bool enabled) : this(name,date,repeatingType,note,enabled)
+        {                        
+            this.dayOfMonth = dayOfMonth;            
         }
 
-        public Reminder(string name, DateTime date, ReminderRepeatType repeatingType,  string note, int dayOfWeek, bool enabled)
-        {
-            this.name = name;
-            this.date = date;
-            this.repeatingType = repeatingType;
-            this.note = note;
+        public Reminder(string name, DateTime date, ReminderRepeatType repeatingType,  string note, int dayOfWeek, bool enabled) : this(name, date, repeatingType, note, enabled)
+        {           
             this.dayOfWeek = dayOfWeek;
-            this.enabled = enabled;
+        }
 
-            //Automatically add it to the manager's list when a new object is created
-            ReminderManager.GetReminders().Add(this);
+        public Reminder(string name, DateTime date, ReminderRepeatType repeatingType, string note,  bool enabled,int everyXDays) : this(name, date, repeatingType, note, enabled)
+        {
+            this.everyXDays = everyXDays;
         }
 
         
-       
-     
-        
+
+
+
+
+
+
+
         /// <summary>
         /// The name and title of the reminder
         /// </summary>
@@ -147,6 +142,15 @@ namespace RemindMe
         {
             get { return dayOfMonth; }
             set { dayOfMonth = value; }
+        }
+
+        /// <summary>
+        /// The amount of days added to the next date of this reminder. i.e reminder should pop up every 3 days
+        /// </summary> 
+        public int EveryXDays
+        {
+            get { return everyXDays; }
+            set { everyXDays = value; }
         }
 
 

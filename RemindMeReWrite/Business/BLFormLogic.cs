@@ -110,7 +110,10 @@ namespace RemindMe
                 else
                     itm.SubItems.Add(rem.Date);
 
-                itm.SubItems.Add(rem.RepeatingType.ToString().ToLower());
+                if(rem.RepeatingType != ReminderRepeatType.EVERY_X_DAYS)
+                    itm.SubItems.Add(rem.RepeatingType.ToString().ToLower());
+                else
+                    itm.SubItems.Add("every " + rem.EveryXDays + "d");
                 itm.SubItems.Add(rem.Enabled.ToString());
 
                 lv.Items.Add(itm);

@@ -24,6 +24,11 @@
         /// <summary>
         /// The reminder will show up every month
         /// </summary>
-        MONTHLY
+        MONTHLY,
+        /// <summary>
+        /// The reminder will show up every x amount of days, i.e every 3 days.
+        /// </summary>
+        EVERY_X_DAYS
+
     }
 }

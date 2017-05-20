@@ -84,6 +84,9 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.rbEveryXDays = new System.Windows.Forms.RadioButton();
+            this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
+            this.lblEveryXDays = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -97,6 +100,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -238,6 +242,8 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNewReminder.Controls.Add(this.lblEveryXDays);
+            this.pnlNewReminder.Controls.Add(this.numEveryXDays);
             this.pnlNewReminder.Controls.Add(this.pbExclamationWorkday);
             this.pnlNewReminder.Controls.Add(this.pbExclamationTitle);
             this.pnlNewReminder.Controls.Add(this.pbExclamationDate);
@@ -422,6 +428,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbEveryXDays);
             this.groupBox1.Controls.Add(this.rbWorkDays);
             this.groupBox1.Controls.Add(this.rbNoRepeat);
             this.groupBox1.Controls.Add(this.rbWeekly);
@@ -437,11 +444,11 @@
             // rbWorkDays
             // 
             this.rbWorkDays.AutoSize = true;
-            this.rbWorkDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.rbWorkDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbWorkDays.ForeColor = System.Drawing.Color.White;
             this.rbWorkDays.Location = new System.Drawing.Point(78, 11);
             this.rbWorkDays.Name = "rbWorkDays";
-            this.rbWorkDays.Size = new System.Drawing.Size(84, 19);
+            this.rbWorkDays.Size = new System.Drawing.Size(78, 18);
             this.rbWorkDays.TabIndex = 62;
             this.rbWorkDays.Text = "Work days";
             this.rbWorkDays.UseVisualStyleBackColor = true;
@@ -451,11 +458,11 @@
             // 
             this.rbNoRepeat.AutoSize = true;
             this.rbNoRepeat.Checked = true;
-            this.rbNoRepeat.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.rbNoRepeat.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbNoRepeat.ForeColor = System.Drawing.Color.White;
-            this.rbNoRepeat.Location = new System.Drawing.Point(78, 30);
+            this.rbNoRepeat.Location = new System.Drawing.Point(165, 30);
             this.rbNoRepeat.Name = "rbNoRepeat";
-            this.rbNoRepeat.Size = new System.Drawing.Size(54, 19);
+            this.rbNoRepeat.Size = new System.Drawing.Size(51, 18);
             this.rbNoRepeat.TabIndex = 61;
             this.rbNoRepeat.TabStop = true;
             this.rbNoRepeat.Text = "None";
@@ -465,11 +472,11 @@
             // rbWeekly
             // 
             this.rbWeekly.AutoSize = true;
-            this.rbWeekly.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.rbWeekly.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbWeekly.ForeColor = System.Drawing.Color.White;
             this.rbWeekly.Location = new System.Drawing.Point(165, 11);
             this.rbWeekly.Name = "rbWeekly";
-            this.rbWeekly.Size = new System.Drawing.Size(66, 19);
+            this.rbWeekly.Size = new System.Drawing.Size(61, 18);
             this.rbWeekly.TabIndex = 60;
             this.rbWeekly.Text = "Weekly";
             this.rbWeekly.UseVisualStyleBackColor = true;
@@ -478,11 +485,11 @@
             // rbMonthly
             // 
             this.rbMonthly.AutoSize = true;
-            this.rbMonthly.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.rbMonthly.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbMonthly.ForeColor = System.Drawing.Color.White;
             this.rbMonthly.Location = new System.Drawing.Point(6, 30);
             this.rbMonthly.Name = "rbMonthly";
-            this.rbMonthly.Size = new System.Drawing.Size(71, 19);
+            this.rbMonthly.Size = new System.Drawing.Size(64, 18);
             this.rbMonthly.TabIndex = 59;
             this.rbMonthly.Text = "Monthly";
             this.rbMonthly.UseVisualStyleBackColor = true;
@@ -491,11 +498,11 @@
             // rbDaily
             // 
             this.rbDaily.AutoSize = true;
-            this.rbDaily.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.rbDaily.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbDaily.ForeColor = System.Drawing.Color.White;
             this.rbDaily.Location = new System.Drawing.Point(6, 11);
             this.rbDaily.Name = "rbDaily";
-            this.rbDaily.Size = new System.Drawing.Size(54, 19);
+            this.rbDaily.Size = new System.Drawing.Size(50, 18);
             this.rbDaily.TabIndex = 58;
             this.rbDaily.Text = "Daily";
             this.rbDaily.UseVisualStyleBackColor = true;
@@ -730,6 +737,48 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
+            // rbEveryXDays
+            // 
+            this.rbEveryXDays.AutoSize = true;
+            this.rbEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.rbEveryXDays.ForeColor = System.Drawing.Color.White;
+            this.rbEveryXDays.Location = new System.Drawing.Point(78, 30);
+            this.rbEveryXDays.Name = "rbEveryXDays";
+            this.rbEveryXDays.Size = new System.Drawing.Size(87, 18);
+            this.rbEveryXDays.TabIndex = 63;
+            this.rbEveryXDays.Text = "Every x days";
+            this.rbEveryXDays.UseVisualStyleBackColor = true;
+            this.rbEveryXDays.CheckedChanged += new System.EventHandler(this.rbEveryXDays_CheckedChanged);
+            // 
+            // numEveryXDays
+            // 
+            this.numEveryXDays.BackColor = System.Drawing.Color.DimGray;
+            this.numEveryXDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.numEveryXDays.ForeColor = System.Drawing.Color.White;
+            this.numEveryXDays.Location = new System.Drawing.Point(109, 266);
+            this.numEveryXDays.Name = "numEveryXDays";
+            this.numEveryXDays.Size = new System.Drawing.Size(73, 20);
+            this.numEveryXDays.TabIndex = 71;
+            this.numEveryXDays.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numEveryXDays.Visible = false;
+            this.numEveryXDays.ValueChanged += new System.EventHandler(this.numEveryXDays_ValueChanged);
+            // 
+            // lblEveryXDays
+            // 
+            this.lblEveryXDays.AutoSize = true;
+            this.lblEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblEveryXDays.ForeColor = System.Drawing.Color.White;
+            this.lblEveryXDays.Location = new System.Drawing.Point(182, 267);
+            this.lblEveryXDays.Name = "lblEveryXDays";
+            this.lblEveryXDays.Size = new System.Drawing.Size(34, 15);
+            this.lblEveryXDays.TabIndex = 72;
+            this.lblEveryXDays.Text = "Days";
+            this.lblEveryXDays.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -764,6 +813,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -825,6 +875,9 @@
         private System.Windows.Forms.PictureBox pbExclamationTitle;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pbExclamationWorkday;
+        private System.Windows.Forms.RadioButton rbEveryXDays;
+        private System.Windows.Forms.NumericUpDown numEveryXDays;
+        private System.Windows.Forms.Label lblEveryXDays;
     }
 }
 
