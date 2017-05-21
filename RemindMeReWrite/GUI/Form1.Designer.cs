@@ -43,6 +43,8 @@
             this.cbEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddReminder = new System.Windows.Forms.Button();
             this.pnlNewReminder = new System.Windows.Forms.Panel();
+            this.lblEveryXDays = new System.Windows.Forms.Label();
+            this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
             this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
             this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
             this.pbExclamationDate = new System.Windows.Forms.PictureBox();
@@ -56,6 +58,7 @@
             this.lblEvery = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbEveryXDays = new System.Windows.Forms.RadioButton();
             this.rbWorkDays = new System.Windows.Forms.RadioButton();
             this.rbNoRepeat = new System.Windows.Forms.RadioButton();
             this.rbWeekly = new System.Windows.Forms.RadioButton();
@@ -84,13 +87,11 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
-            this.rbEveryXDays = new System.Windows.Forms.RadioButton();
-            this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
-            this.lblEveryXDays = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pnlNewReminder.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
@@ -100,7 +101,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -271,6 +271,40 @@
             this.pnlNewReminder.TabIndex = 27;
             this.pnlNewReminder.Visible = false;
             // 
+            // lblEveryXDays
+            // 
+            this.lblEveryXDays.AutoSize = true;
+            this.lblEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblEveryXDays.ForeColor = System.Drawing.Color.White;
+            this.lblEveryXDays.Location = new System.Drawing.Point(182, 267);
+            this.lblEveryXDays.Name = "lblEveryXDays";
+            this.lblEveryXDays.Size = new System.Drawing.Size(34, 15);
+            this.lblEveryXDays.TabIndex = 72;
+            this.lblEveryXDays.Text = "Days";
+            this.lblEveryXDays.Visible = false;
+            // 
+            // numEveryXDays
+            // 
+            this.numEveryXDays.BackColor = System.Drawing.Color.DimGray;
+            this.numEveryXDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.numEveryXDays.ForeColor = System.Drawing.Color.White;
+            this.numEveryXDays.Location = new System.Drawing.Point(109, 266);
+            this.numEveryXDays.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numEveryXDays.Name = "numEveryXDays";
+            this.numEveryXDays.Size = new System.Drawing.Size(73, 20);
+            this.numEveryXDays.TabIndex = 71;
+            this.numEveryXDays.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numEveryXDays.Visible = false;
+            this.numEveryXDays.ValueChanged += new System.EventHandler(this.numEveryXDays_ValueChanged);
+            // 
             // pbExclamationWorkday
             // 
             this.pbExclamationWorkday.BackgroundImage = global::RemindMe.Properties.Resources.exl;
@@ -440,6 +474,19 @@
             this.groupBox1.Size = new System.Drawing.Size(234, 53);
             this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
+            // 
+            // rbEveryXDays
+            // 
+            this.rbEveryXDays.AutoSize = true;
+            this.rbEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.rbEveryXDays.ForeColor = System.Drawing.Color.White;
+            this.rbEveryXDays.Location = new System.Drawing.Point(78, 30);
+            this.rbEveryXDays.Name = "rbEveryXDays";
+            this.rbEveryXDays.Size = new System.Drawing.Size(87, 18);
+            this.rbEveryXDays.TabIndex = 63;
+            this.rbEveryXDays.Text = "Every x days";
+            this.rbEveryXDays.UseVisualStyleBackColor = true;
+            this.rbEveryXDays.CheckedChanged += new System.EventHandler(this.rbEveryXDays_CheckedChanged);
             // 
             // rbWorkDays
             // 
@@ -737,48 +784,6 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
-            // rbEveryXDays
-            // 
-            this.rbEveryXDays.AutoSize = true;
-            this.rbEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.rbEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.rbEveryXDays.Location = new System.Drawing.Point(78, 30);
-            this.rbEveryXDays.Name = "rbEveryXDays";
-            this.rbEveryXDays.Size = new System.Drawing.Size(87, 18);
-            this.rbEveryXDays.TabIndex = 63;
-            this.rbEveryXDays.Text = "Every x days";
-            this.rbEveryXDays.UseVisualStyleBackColor = true;
-            this.rbEveryXDays.CheckedChanged += new System.EventHandler(this.rbEveryXDays_CheckedChanged);
-            // 
-            // numEveryXDays
-            // 
-            this.numEveryXDays.BackColor = System.Drawing.Color.DimGray;
-            this.numEveryXDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.numEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.numEveryXDays.Location = new System.Drawing.Point(109, 266);
-            this.numEveryXDays.Name = "numEveryXDays";
-            this.numEveryXDays.Size = new System.Drawing.Size(73, 20);
-            this.numEveryXDays.TabIndex = 71;
-            this.numEveryXDays.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numEveryXDays.Visible = false;
-            this.numEveryXDays.ValueChanged += new System.EventHandler(this.numEveryXDays_ValueChanged);
-            // 
-            // lblEveryXDays
-            // 
-            this.lblEveryXDays.AutoSize = true;
-            this.lblEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.lblEveryXDays.Location = new System.Drawing.Point(182, 267);
-            this.lblEveryXDays.Name = "lblEveryXDays";
-            this.lblEveryXDays.Size = new System.Drawing.Size(34, 15);
-            this.lblEveryXDays.TabIndex = 72;
-            this.lblEveryXDays.Text = "Days";
-            this.lblEveryXDays.Visible = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -803,6 +808,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.pnlNewReminder.ResumeLayout(false);
             this.pnlNewReminder.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
@@ -813,7 +819,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

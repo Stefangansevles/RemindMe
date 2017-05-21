@@ -165,6 +165,11 @@
             "AssemblyAsmDisplayName" = "8:FSManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_CDF6F5FB8F400594621B0C68E668BBCF"
+                    {
+                    "Name" = "8:FSManager.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:FSManager.dll"
             "TargetName" = "8:"
@@ -240,15 +245,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{7ADDF56A-62A2-452C-A21C-58D0474511E1}"
-        "PackageCode" = "8:{80D19F6C-8676-472D-B3A4-CE905551D131}"
+        "ProductCode" = "8:{E13075C7-A51F-4B3B-A5AB-862F3D7FD3C0}"
+        "PackageCode" = "8:{94279162-E011-48A0-86E7-F4FE633E11A8}"
         "UpgradeCode" = "8:{AD8F3D12-D27D-4910-A7A4-222CAA0A511D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.0"
+        "ProductVersion" = "8:1.1.01"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
