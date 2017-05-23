@@ -206,29 +206,26 @@ namespace RemindMe
                             break;
                         case ReminderRepeatType.MONTHLY:
                             rbMonthly.Checked = true;
+                            cbEvery.SelectedItem = rem.DayOfMonth.ToString();
                             break;
                         case ReminderRepeatType.WORKDAYS:
                             rbWorkDays.Checked = true;
                             break;
                         case ReminderRepeatType.WEEKLY:
                             rbWeekly.Checked = true;
+
+                            //Load combobox with monday-sunday
+                            if (rem.DayOfWeek == 0) //0 = sunday. combobox starts with monday. sunday being 6
+                                cbEvery.SelectedItem = cbEvery.Items[6];
+                            else
+                                cbEvery.SelectedItem = cbEvery.Items[rem.DayOfWeek - 1];
+
                             break;
-                    }
-
-                    if(rem.RepeatingType == ReminderRepeatType.WEEKLY)
-                    {
-                        //Load combobox with monday-sunday
-                        if(rem.DayOfWeek == 0) //0 = sunday. combobox starts with monday. sunday being 6
-                            cbEvery.SelectedItem = cbEvery.Items[6];
-                        else
-                            cbEvery.SelectedItem = cbEvery.Items[rem.DayOfWeek - 1];
-                    }
-                    else if (rem.RepeatingType == ReminderRepeatType.MONTHLY)
-                    {
-                        //Load combobox with 1-31
-                        cbEvery.SelectedItem = rem.DayOfMonth.ToString();
-                    }
-
+                        case ReminderRepeatType.EVERY_X_DAYS:
+                            rbEveryXDays.Checked = true;
+                            numEveryXDays.Value = rem.EveryXDays;
+                            break;
+                    }                                        
                 }
                 else                                   
                     BLIO.WriteError(new ArgumentNullException(), "Error loading reminder",true);                
@@ -626,7 +623,7 @@ namespace RemindMe
 
             //Fill the form with the data from the single reminder selected from the listview.
             if(lvReminders.SelectedItems.Count > 0)
-                FillControlsForEdit(BLIO.ReadSingleReminder(lvReminders.SelectedItems[0].Text));            
+                FillControlsForEdit(ReminderManager.GetReminderByName(lvReminders.SelectedItems[0].Text));            
         }
 
         private void btnDisableEnable_Click(object sender, EventArgs e)

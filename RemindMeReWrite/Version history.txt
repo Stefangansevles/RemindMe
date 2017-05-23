@@ -6,3 +6,4 @@
 (15-4-2017) V.1.0.3 - Fixed some first use issues when trying to read files that don't exist
 (21-5-2017)V.1.1.0 - New feature: You can now make reminders repeat every x days. i.e. every 3 days
 (21-5-2017)1.1.01 - Increased the limit on repeating reminders every x days from 100 to 1000
+(23-5-2017)1.1.2 - Fixed an issue where duplicate objects were made and shown in the listview / The create form will now be filled when you press edit on an reminder with an repeat type of every x days

@@ -256,14 +256,17 @@ namespace RemindMe
 
             return ReminderManager.GetReminders();
         }
-
+        /*
         /// <summary>
         /// Reads a single reminder
         /// </summary>
         /// <param name="reminderName">The name of the reminder</param>
         /// <returns></returns>
         public static Reminder ReadSingleReminder(string reminderName)
-        {
+        {            
+            return ReminderManager.GetReminderByName(reminderName);            
+            
+            
             Reminder remin = null;
 
             DateTime completeDate = new DateTime();
@@ -342,8 +345,9 @@ namespace RemindMe
                 return remin;
             }
             else                            
-                return null;            
-        }
+                return null; 
+           
+    }*/
 
 
         /// <summary>
