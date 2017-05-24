@@ -1,11 +1,7 @@
 ![](http://i.imgur.com/jRNzEVV.png)
 
 # RemindMe
-RemindMe is a windows desktop application that will notify you of events that you created using this application.
-
-I Have rewritten RemindMe because i wasn't happy with the way certain things were coded. 
-
-Overall it is much cleaner-written. It also resulted in some new features it didn't have before
+RemindMe is a windows desktop application that will notify you of events that you created using this application. RemindMe will create a popup on the middle of the monitor you have your mouse cursor on(if you have multiple monitors). The popup will always be on top(Can be changed in the settings)so that you will never miss it if you are on your computer/laptop at the time the reminder pops up
 
 You can install RemindMe by downloading the installer and running it.
 
