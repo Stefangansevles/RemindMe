@@ -124,7 +124,7 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.BackgroundImage = global::RemindMe.Properties.Resources.clock2;
+            this.pictureBox5.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe1;
             this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox5.Location = new System.Drawing.Point(1, 23);
             this.pictureBox5.Name = "pictureBox5";
@@ -205,7 +205,7 @@
             // pictureBox6
             // 
             this.pictureBox6.BackColor = System.Drawing.Color.Black;
-            this.pictureBox6.BackgroundImage = global::RemindMe.Properties.Resources.clock2;
+            this.pictureBox6.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe1;
             this.pictureBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox6.Location = new System.Drawing.Point(0, -1);
             this.pictureBox6.Name = "pictureBox6";

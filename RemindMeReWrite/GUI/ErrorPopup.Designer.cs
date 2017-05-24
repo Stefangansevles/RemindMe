@@ -146,7 +146,7 @@
             // pictureBox4
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.Black;
-            this.pictureBox4.BackgroundImage = global::RemindMe.Properties.Resources.clock21;
+            this.pictureBox4.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe1;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox4.Location = new System.Drawing.Point(-2, 0);
             this.pictureBox4.Name = "pictureBox4";

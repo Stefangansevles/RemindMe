@@ -61,13 +61,6 @@ C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
 C:\Users\kebab\Google Drive\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.exe
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.xml
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.ErrorPopup.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Form1.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Popup.resources
@@ -76,4 +69,11 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Se
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCMusic.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCWindows.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.exe
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache

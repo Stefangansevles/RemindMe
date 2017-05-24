@@ -31,32 +31,20 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pbSettings = new System.Windows.Forms.PictureBox();
-            this.btnDisableEnable = new System.Windows.Forms.Button();
-            this.btnRemoveReminder = new System.Windows.Forms.Button();
-            this.btnEditReminder = new System.Windows.Forms.Button();
             this.lvReminders = new System.Windows.Forms.ListView();
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chRepeat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cbEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnAddReminder = new System.Windows.Forms.Button();
             this.pnlNewReminder = new System.Windows.Forms.Panel();
             this.lblEveryXDays = new System.Windows.Forms.Label();
             this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
-            this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
-            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
-            this.pbExclamationDate = new System.Windows.Forms.PictureBox();
-            this.btnPlaySound = new System.Windows.Forms.Button();
             this.cbSound = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.pbEdit = new System.Windows.Forms.PictureBox();
             this.dtpTime = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.cbEvery = new System.Windows.Forms.ComboBox();
             this.lblEvery = new System.Windows.Forms.Label();
-            this.btnConfirm = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbEveryXDays = new System.Windows.Forms.RadioButton();
             this.rbWorkDays = new System.Windows.Forms.RadioButton();
@@ -72,14 +60,11 @@
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.lblNote = new System.Windows.Forms.Label();
             this.tbNote = new System.Windows.Forms.TextBox();
-            this.btnBack = new System.Windows.Forms.Button();
             this.cbDayBefore = new System.Windows.Forms.CheckBox();
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tmrUpdateListview = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -87,20 +72,35 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
+            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
+            this.pbExclamationDate = new System.Windows.Forms.PictureBox();
+            this.btnPlaySound = new System.Windows.Forms.Button();
+            this.pbEdit = new System.Windows.Forms.PictureBox();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbSettings = new System.Windows.Forms.PictureBox();
+            this.btnDisableEnable = new System.Windows.Forms.Button();
+            this.btnRemoveReminder = new System.Windows.Forms.Button();
+            this.btnEditReminder = new System.Windows.Forms.Button();
+            this.btnAddReminder = new System.Windows.Forms.Button();
+            this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pnlNewReminder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -117,73 +117,6 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(475, 406);
             this.pnlMain.TabIndex = 26;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(463, 97);
-            this.pictureBox1.TabIndex = 59;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pbSettings
-            // 
-            this.pbSettings.BackColor = System.Drawing.Color.Transparent;
-            this.pbSettings.BackgroundImage = global::RemindMe.Properties.Resources.cog;
-            this.pbSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbSettings.Location = new System.Drawing.Point(433, 381);
-            this.pbSettings.Name = "pbSettings";
-            this.pbSettings.Size = new System.Drawing.Size(25, 24);
-            this.pbSettings.TabIndex = 66;
-            this.pbSettings.TabStop = false;
-            this.pbSettings.Click += new System.EventHandler(this.pbSettings_Click);
-            // 
-            // btnDisableEnable
-            // 
-            this.btnDisableEnable.BackColor = System.Drawing.Color.Transparent;
-            this.btnDisableEnable.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnDisableEnable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnDisableEnable.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnDisableEnable.ForeColor = System.Drawing.Color.Transparent;
-            this.btnDisableEnable.Location = new System.Drawing.Point(324, 383);
-            this.btnDisableEnable.Name = "btnDisableEnable";
-            this.btnDisableEnable.Size = new System.Drawing.Size(105, 23);
-            this.btnDisableEnable.TabIndex = 58;
-            this.btnDisableEnable.Text = "Disable/Enable";
-            this.btnDisableEnable.UseVisualStyleBackColor = false;
-            this.btnDisableEnable.Click += new System.EventHandler(this.btnDisableEnable_Click);
-            // 
-            // btnRemoveReminder
-            // 
-            this.btnRemoveReminder.BackColor = System.Drawing.Color.Transparent;
-            this.btnRemoveReminder.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnRemoveReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRemoveReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnRemoveReminder.ForeColor = System.Drawing.Color.Transparent;
-            this.btnRemoveReminder.Location = new System.Drawing.Point(100, 383);
-            this.btnRemoveReminder.Name = "btnRemoveReminder";
-            this.btnRemoveReminder.Size = new System.Drawing.Size(124, 23);
-            this.btnRemoveReminder.TabIndex = 29;
-            this.btnRemoveReminder.Text = "Remove Reminder";
-            this.btnRemoveReminder.UseVisualStyleBackColor = false;
-            this.btnRemoveReminder.Click += new System.EventHandler(this.btnRemoveReminder_Click);
-            // 
-            // btnEditReminder
-            // 
-            this.btnEditReminder.BackColor = System.Drawing.Color.Transparent;
-            this.btnEditReminder.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnEditReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnEditReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnEditReminder.ForeColor = System.Drawing.Color.Transparent;
-            this.btnEditReminder.Location = new System.Drawing.Point(224, 383);
-            this.btnEditReminder.Name = "btnEditReminder";
-            this.btnEditReminder.Size = new System.Drawing.Size(100, 23);
-            this.btnEditReminder.TabIndex = 28;
-            this.btnEditReminder.Text = "Edit Reminder";
-            this.btnEditReminder.UseVisualStyleBackColor = false;
-            this.btnEditReminder.Click += new System.EventHandler(this.btnEditReminder_Click);
             // 
             // lvReminders
             // 
@@ -223,21 +156,6 @@
             // cbEnabled
             // 
             this.cbEnabled.Text = "Enabled";
-            // 
-            // btnAddReminder
-            // 
-            this.btnAddReminder.BackColor = System.Drawing.Color.Transparent;
-            this.btnAddReminder.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnAddReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnAddReminder.ForeColor = System.Drawing.Color.Transparent;
-            this.btnAddReminder.Location = new System.Drawing.Point(3, 383);
-            this.btnAddReminder.Name = "btnAddReminder";
-            this.btnAddReminder.Size = new System.Drawing.Size(97, 23);
-            this.btnAddReminder.TabIndex = 25;
-            this.btnAddReminder.Text = "Add Reminder";
-            this.btnAddReminder.UseVisualStyleBackColor = false;
-            this.btnAddReminder.Click += new System.EventHandler(this.btnAddReminder_Click);
             // 
             // pnlNewReminder
             // 
@@ -305,50 +223,6 @@
             this.numEveryXDays.Visible = false;
             this.numEveryXDays.ValueChanged += new System.EventHandler(this.numEveryXDays_ValueChanged);
             // 
-            // pbExclamationWorkday
-            // 
-            this.pbExclamationWorkday.BackgroundImage = global::RemindMe.Properties.Resources.exl;
-            this.pbExclamationWorkday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationWorkday.Location = new System.Drawing.Point(347, 174);
-            this.pbExclamationWorkday.Name = "pbExclamationWorkday";
-            this.pbExclamationWorkday.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationWorkday.TabIndex = 70;
-            this.pbExclamationWorkday.TabStop = false;
-            this.pbExclamationWorkday.Visible = false;
-            // 
-            // pbExclamationTitle
-            // 
-            this.pbExclamationTitle.BackgroundImage = global::RemindMe.Properties.Resources.exl;
-            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationTitle.Location = new System.Drawing.Point(347, 107);
-            this.pbExclamationTitle.Name = "pbExclamationTitle";
-            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationTitle.TabIndex = 69;
-            this.pbExclamationTitle.TabStop = false;
-            this.pbExclamationTitle.Visible = false;
-            // 
-            // pbExclamationDate
-            // 
-            this.pbExclamationDate.BackgroundImage = global::RemindMe.Properties.Resources.exl;
-            this.pbExclamationDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationDate.Location = new System.Drawing.Point(347, 174);
-            this.pbExclamationDate.Name = "pbExclamationDate";
-            this.pbExclamationDate.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationDate.TabIndex = 68;
-            this.pbExclamationDate.TabStop = false;
-            this.pbExclamationDate.Visible = false;
-            // 
-            // btnPlaySound
-            // 
-            this.btnPlaySound.BackgroundImage = global::RemindMe.Properties.Resources.resume;
-            this.btnPlaySound.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPlaySound.Location = new System.Drawing.Point(317, 137);
-            this.btnPlaySound.Name = "btnPlaySound";
-            this.btnPlaySound.Size = new System.Drawing.Size(24, 21);
-            this.btnPlaySound.TabIndex = 66;
-            this.btnPlaySound.UseVisualStyleBackColor = true;
-            this.btnPlaySound.Click += new System.EventHandler(this.btnPlaySound_Click);
-            // 
             // cbSound
             // 
             this.cbSound.BackColor = System.Drawing.Color.DimGray;
@@ -376,16 +250,6 @@
             this.label5.Text = "Popup \r\nsound:";
             this.toolTip1.SetToolTip(this.label5, "Enter an URL or click the folder button.\r\nWhen an reminder pops up, you will see\r" +
         "\nthe image you selected with it");
-            // 
-            // pbEdit
-            // 
-            this.pbEdit.BackgroundImage = global::RemindMe.Properties.Resources.Create_new;
-            this.pbEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbEdit.Location = new System.Drawing.Point(0, 0);
-            this.pbEdit.Name = "pbEdit";
-            this.pbEdit.Size = new System.Drawing.Size(466, 97);
-            this.pbEdit.TabIndex = 60;
-            this.pbEdit.TabStop = false;
             // 
             // dtpTime
             // 
@@ -444,21 +308,6 @@
             this.lblEvery.TabIndex = 57;
             this.lblEvery.Text = "Every:";
             this.lblEvery.Visible = false;
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.BackColor = System.Drawing.Color.Transparent;
-            this.btnConfirm.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnConfirm.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnConfirm.ForeColor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Location = new System.Drawing.Point(107, 337);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(106, 23);
-            this.btnConfirm.TabIndex = 30;
-            this.btnConfirm.Text = "Confirm";
-            this.btnConfirm.UseVisualStyleBackColor = false;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // groupBox1
             // 
@@ -646,21 +495,6 @@
             this.tbNote.Size = new System.Drawing.Size(234, 68);
             this.tbNote.TabIndex = 29;
             // 
-            // btnBack
-            // 
-            this.btnBack.BackColor = System.Drawing.Color.Transparent;
-            this.btnBack.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBack.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnBack.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBack.Location = new System.Drawing.Point(214, 337);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(67, 23);
-            this.btnBack.TabIndex = 28;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
             // cbDayBefore
             // 
             this.cbDayBefore.AutoSize = true;
@@ -695,33 +529,16 @@
             this.showRemindMeToolStripMenuItem,
             this.tsSettings});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(165, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(165, 92);
             this.contextMenuStrip1.Text = "contextmenustrip";
-            // 
-            // tsExit
-            // 
-            this.tsExit.Image = global::RemindMe.Properties.Resources.bin;
-            this.tsExit.Name = "tsExit";
-            this.tsExit.Size = new System.Drawing.Size(164, 22);
-            this.tsExit.Text = "Exit RemindMe";
-            this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
             // 
             // showRemindMeToolStripMenuItem
             // 
-            this.showRemindMeToolStripMenuItem.Image = global::RemindMe.Properties.Resources.clock2;
+            this.showRemindMeToolStripMenuItem.Image = global::RemindMe.Properties.Resources.RemindMe1;
             this.showRemindMeToolStripMenuItem.Name = "showRemindMeToolStripMenuItem";
             this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
             this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
-            // 
-            // tsSettings
-            // 
-            this.tsSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tsSettings.Image = global::RemindMe.Properties.Resources.cog;
-            this.tsSettings.Name = "tsSettings";
-            this.tsSettings.Size = new System.Drawing.Size(164, 22);
-            this.tsSettings.Text = "Settings";
-            this.tsSettings.Click += new System.EventHandler(this.tsSettings_Click);
             // 
             // textBox1
             // 
@@ -752,7 +569,7 @@
             // pictureBox4
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.Black;
-            this.pictureBox4.BackgroundImage = global::RemindMe.Properties.Resources.clock21;
+            this.pictureBox4.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe1;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox4.Location = new System.Drawing.Point(0, 0);
             this.pictureBox4.Name = "pictureBox4";
@@ -785,6 +602,189 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
+            // pbExclamationWorkday
+            // 
+            this.pbExclamationWorkday.BackgroundImage = global::RemindMe.Properties.Resources.exl;
+            this.pbExclamationWorkday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationWorkday.Location = new System.Drawing.Point(347, 174);
+            this.pbExclamationWorkday.Name = "pbExclamationWorkday";
+            this.pbExclamationWorkday.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationWorkday.TabIndex = 70;
+            this.pbExclamationWorkday.TabStop = false;
+            this.pbExclamationWorkday.Visible = false;
+            // 
+            // pbExclamationTitle
+            // 
+            this.pbExclamationTitle.BackgroundImage = global::RemindMe.Properties.Resources.exl;
+            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationTitle.Location = new System.Drawing.Point(347, 107);
+            this.pbExclamationTitle.Name = "pbExclamationTitle";
+            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationTitle.TabIndex = 69;
+            this.pbExclamationTitle.TabStop = false;
+            this.pbExclamationTitle.Visible = false;
+            // 
+            // pbExclamationDate
+            // 
+            this.pbExclamationDate.BackgroundImage = global::RemindMe.Properties.Resources.exl;
+            this.pbExclamationDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationDate.Location = new System.Drawing.Point(347, 174);
+            this.pbExclamationDate.Name = "pbExclamationDate";
+            this.pbExclamationDate.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationDate.TabIndex = 68;
+            this.pbExclamationDate.TabStop = false;
+            this.pbExclamationDate.Visible = false;
+            // 
+            // btnPlaySound
+            // 
+            this.btnPlaySound.BackgroundImage = global::RemindMe.Properties.Resources.resume;
+            this.btnPlaySound.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPlaySound.Location = new System.Drawing.Point(317, 137);
+            this.btnPlaySound.Name = "btnPlaySound";
+            this.btnPlaySound.Size = new System.Drawing.Size(24, 21);
+            this.btnPlaySound.TabIndex = 66;
+            this.btnPlaySound.UseVisualStyleBackColor = true;
+            this.btnPlaySound.Click += new System.EventHandler(this.btnPlaySound_Click);
+            // 
+            // pbEdit
+            // 
+            this.pbEdit.BackgroundImage = global::RemindMe.Properties.Resources.Create_new;
+            this.pbEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbEdit.Location = new System.Drawing.Point(0, 0);
+            this.pbEdit.Name = "pbEdit";
+            this.pbEdit.Size = new System.Drawing.Size(466, 97);
+            this.pbEdit.TabIndex = 60;
+            this.pbEdit.TabStop = false;
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.BackColor = System.Drawing.Color.Transparent;
+            this.btnConfirm.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnConfirm.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnConfirm.ForeColor = System.Drawing.Color.Transparent;
+            this.btnConfirm.Location = new System.Drawing.Point(107, 337);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(106, 23);
+            this.btnConfirm.TabIndex = 30;
+            this.btnConfirm.Text = "Confirm";
+            this.btnConfirm.UseVisualStyleBackColor = false;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.Transparent;
+            this.btnBack.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBack.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnBack.ForeColor = System.Drawing.Color.Transparent;
+            this.btnBack.Location = new System.Drawing.Point(214, 337);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(67, 23);
+            this.btnBack.TabIndex = 28;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(463, 97);
+            this.pictureBox1.TabIndex = 59;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pbSettings
+            // 
+            this.pbSettings.BackColor = System.Drawing.Color.Transparent;
+            this.pbSettings.BackgroundImage = global::RemindMe.Properties.Resources.cog;
+            this.pbSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbSettings.Location = new System.Drawing.Point(433, 381);
+            this.pbSettings.Name = "pbSettings";
+            this.pbSettings.Size = new System.Drawing.Size(25, 24);
+            this.pbSettings.TabIndex = 66;
+            this.pbSettings.TabStop = false;
+            this.pbSettings.Click += new System.EventHandler(this.pbSettings_Click);
+            // 
+            // btnDisableEnable
+            // 
+            this.btnDisableEnable.BackColor = System.Drawing.Color.Transparent;
+            this.btnDisableEnable.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnDisableEnable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnDisableEnable.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnDisableEnable.ForeColor = System.Drawing.Color.Transparent;
+            this.btnDisableEnable.Location = new System.Drawing.Point(324, 383);
+            this.btnDisableEnable.Name = "btnDisableEnable";
+            this.btnDisableEnable.Size = new System.Drawing.Size(105, 23);
+            this.btnDisableEnable.TabIndex = 58;
+            this.btnDisableEnable.Text = "Disable/Enable";
+            this.btnDisableEnable.UseVisualStyleBackColor = false;
+            this.btnDisableEnable.Click += new System.EventHandler(this.btnDisableEnable_Click);
+            // 
+            // btnRemoveReminder
+            // 
+            this.btnRemoveReminder.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemoveReminder.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnRemoveReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRemoveReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnRemoveReminder.ForeColor = System.Drawing.Color.Transparent;
+            this.btnRemoveReminder.Location = new System.Drawing.Point(100, 383);
+            this.btnRemoveReminder.Name = "btnRemoveReminder";
+            this.btnRemoveReminder.Size = new System.Drawing.Size(124, 23);
+            this.btnRemoveReminder.TabIndex = 29;
+            this.btnRemoveReminder.Text = "Remove Reminder";
+            this.btnRemoveReminder.UseVisualStyleBackColor = false;
+            this.btnRemoveReminder.Click += new System.EventHandler(this.btnRemoveReminder_Click);
+            // 
+            // btnEditReminder
+            // 
+            this.btnEditReminder.BackColor = System.Drawing.Color.Transparent;
+            this.btnEditReminder.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnEditReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEditReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnEditReminder.ForeColor = System.Drawing.Color.Transparent;
+            this.btnEditReminder.Location = new System.Drawing.Point(224, 383);
+            this.btnEditReminder.Name = "btnEditReminder";
+            this.btnEditReminder.Size = new System.Drawing.Size(100, 23);
+            this.btnEditReminder.TabIndex = 28;
+            this.btnEditReminder.Text = "Edit Reminder";
+            this.btnEditReminder.UseVisualStyleBackColor = false;
+            this.btnEditReminder.Click += new System.EventHandler(this.btnEditReminder_Click);
+            // 
+            // btnAddReminder
+            // 
+            this.btnAddReminder.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddReminder.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnAddReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnAddReminder.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddReminder.Location = new System.Drawing.Point(3, 383);
+            this.btnAddReminder.Name = "btnAddReminder";
+            this.btnAddReminder.Size = new System.Drawing.Size(97, 23);
+            this.btnAddReminder.TabIndex = 25;
+            this.btnAddReminder.Text = "Add Reminder";
+            this.btnAddReminder.UseVisualStyleBackColor = false;
+            this.btnAddReminder.Click += new System.EventHandler(this.btnAddReminder_Click);
+            // 
+            // tsExit
+            // 
+            this.tsExit.Image = global::RemindMe.Properties.Resources.bin;
+            this.tsExit.Name = "tsExit";
+            this.tsExit.Size = new System.Drawing.Size(164, 22);
+            this.tsExit.Text = "Exit RemindMe";
+            this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
+            // 
+            // tsSettings
+            // 
+            this.tsSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tsSettings.Image = global::RemindMe.Properties.Resources.cog;
+            this.tsSettings.Name = "tsSettings";
+            this.tsSettings.Size = new System.Drawing.Size(164, 22);
+            this.tsSettings.Text = "Settings";
+            this.tsSettings.Click += new System.EventHandler(this.tsSettings_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -805,21 +805,21 @@
             this.Text = "RemindMe";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnlMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.pnlNewReminder.ResumeLayout(false);
             this.pnlNewReminder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>clock2.ico</ApplicationIcon>
+    <ApplicationIcon>RemindMe.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FSManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -105,8 +105,10 @@
     <Compile Include="Variables\IOVariables.cs" />
     <None Include="Resources\exl.png" />
     <None Include="Resources\clock21.png" />
-    <Content Include="clock2.ico" />
     <None Include="Resources\RemindMeSettings.png" />
+    <None Include="Resources\RemindMe.png" />
+    <None Include="Resources\RemindMeSettingsNew.png" />
+    <Content Include="RemindMe.ico" />
     <Content Include="Version history.txt" />
     <EmbeddedResource Include="GUI\ErrorPopup.resx">
       <DependentUpon>ErrorPopup.cs</DependentUpon>

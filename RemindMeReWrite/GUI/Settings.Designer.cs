@@ -33,18 +33,18 @@
             this.pnlParent = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pbWindows = new System.Windows.Forms.PictureBox();
-            this.pbMusic = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pbClose = new System.Windows.Forms.PictureBox();
             this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.pbWindows = new System.Windows.Forms.PictureBox();
+            this.pbMusic = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -90,30 +90,6 @@
             this.panel1.Size = new System.Drawing.Size(61, 336);
             this.panel1.TabIndex = 83;
             // 
-            // pbWindows
-            // 
-            this.pbWindows.BackColor = System.Drawing.Color.Transparent;
-            this.pbWindows.BackgroundImage = global::RemindMe.Properties.Resources.win8;
-            this.pbWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbWindows.Location = new System.Drawing.Point(7, 67);
-            this.pbWindows.Name = "pbWindows";
-            this.pbWindows.Size = new System.Drawing.Size(49, 42);
-            this.pbWindows.TabIndex = 75;
-            this.pbWindows.TabStop = false;
-            this.pbWindows.Click += new System.EventHandler(this.pbWindows_Click);
-            // 
-            // pbMusic
-            // 
-            this.pbMusic.BackColor = System.Drawing.Color.Transparent;
-            this.pbMusic.BackgroundImage = global::RemindMe.Properties.Resources.music_icon;
-            this.pbMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbMusic.Location = new System.Drawing.Point(7, 17);
-            this.pbMusic.Name = "pbMusic";
-            this.pbMusic.Size = new System.Drawing.Size(49, 42);
-            this.pbMusic.TabIndex = 74;
-            this.pbMusic.TabStop = false;
-            this.pbMusic.Click += new System.EventHandler(this.pbMusic_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -123,7 +99,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(169, 16);
             this.label2.TabIndex = 0;
-            this.label2.Text = "RemindMe - Version 1.1.21";
+            this.label2.Text = "RemindMe - Version 1.1.23";
             // 
             // pictureBox3
             // 
@@ -150,13 +126,37 @@
             // pbLogo
             // 
             this.pbLogo.BackColor = System.Drawing.Color.Black;
-            this.pbLogo.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeSettings;
+            this.pbLogo.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeSettingsNew;
             this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbLogo.Location = new System.Drawing.Point(0, 0);
             this.pbLogo.Name = "pbLogo";
             this.pbLogo.Size = new System.Drawing.Size(28, 22);
             this.pbLogo.TabIndex = 77;
             this.pbLogo.TabStop = false;
+            // 
+            // pbWindows
+            // 
+            this.pbWindows.BackColor = System.Drawing.Color.Transparent;
+            this.pbWindows.BackgroundImage = global::RemindMe.Properties.Resources.win8;
+            this.pbWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbWindows.Location = new System.Drawing.Point(7, 67);
+            this.pbWindows.Name = "pbWindows";
+            this.pbWindows.Size = new System.Drawing.Size(49, 42);
+            this.pbWindows.TabIndex = 75;
+            this.pbWindows.TabStop = false;
+            this.pbWindows.Click += new System.EventHandler(this.pbWindows_Click);
+            // 
+            // pbMusic
+            // 
+            this.pbMusic.BackColor = System.Drawing.Color.Transparent;
+            this.pbMusic.BackgroundImage = global::RemindMe.Properties.Resources.music_icon;
+            this.pbMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbMusic.Location = new System.Drawing.Point(7, 17);
+            this.pbMusic.Name = "pbMusic";
+            this.pbMusic.Size = new System.Drawing.Size(49, 42);
+            this.pbMusic.TabIndex = 74;
+            this.pbMusic.TabStop = false;
+            this.pbMusic.Click += new System.EventHandler(this.pbMusic_Click);
             // 
             // Settings
             // 
@@ -178,11 +178,11 @@
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
