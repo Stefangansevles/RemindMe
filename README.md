@@ -12,6 +12,6 @@ You can install RemindMe by downloading the installer and running it.
 RemindMe lurks in the windows system tray and will not show itself until you double click the icon, or right click it and select show RemindMe
 
 
-![](http://i.imgur.com/SKoYjEl.png)
+![](http://i.imgur.com/TzSCXmr.png)
 
 You can also exit RemindMe this way, or go to the settings without opening RemindMe
