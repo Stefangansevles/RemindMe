@@ -759,6 +759,7 @@
             this.pictureBox4.Size = new System.Drawing.Size(28, 22);
             this.pictureBox4.TabIndex = 66;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // pbMinimizeApplication
             // 

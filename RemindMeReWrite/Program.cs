@@ -34,7 +34,7 @@ namespace RemindMe
         //All exceptions will go here instead. We will replace the default windows popup with our own custom one
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            BLIO.WriteError(e.Exception, "Exception in main.\n\n" + e.Exception.GetType().ToString(), true);
+            BLIO.WriteError(e.Exception, "Exception in main.", true);
         }
     }
 }

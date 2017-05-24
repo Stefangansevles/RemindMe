@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorPopup));
             this.pbErrorIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.lblErrorMessage = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnOpenErrorLog = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
+            this.tbError = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             this.SuspendLayout();
             // 
             // pbErrorIcon
             // 
             this.pbErrorIcon.BackgroundImage = global::RemindMe.Properties.Resources.err;
             this.pbErrorIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbErrorIcon.Location = new System.Drawing.Point(345, 23);
+            this.pbErrorIcon.Location = new System.Drawing.Point(342, 23);
             this.pbErrorIcon.Name = "pbErrorIcon";
             this.pbErrorIcon.Size = new System.Drawing.Size(101, 86);
             this.pbErrorIcon.TabIndex = 0;
@@ -58,18 +61,18 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(2, 23);
+            this.label1.Location = new System.Drawing.Point(0, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(164, 40);
+            this.label1.Size = new System.Drawing.Size(219, 40);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Whoops!";
+            this.label1.Text = "Aww Damn!";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS Reference Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(9, 71);
+            this.label2.Location = new System.Drawing.Point(3, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(239, 24);
             this.label2.TabIndex = 2;
@@ -100,24 +103,6 @@
             this.label3.Size = new System.Drawing.Size(441, 15);
             this.label3.TabIndex = 24;
             this.label3.Text = "Click \"Open error log\" to see advanced information of this error.";
-            // 
-            // lblErrorMessage
-            // 
-            this.lblErrorMessage.AutoSize = true;
-            this.lblErrorMessage.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorMessage.ForeColor = System.Drawing.Color.White;
-            this.lblErrorMessage.Location = new System.Drawing.Point(8, 9);
-            this.lblErrorMessage.Name = "lblErrorMessage";
-            this.lblErrorMessage.Size = new System.Drawing.Size(0, 15);
-            this.lblErrorMessage.TabIndex = 25;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblErrorMessage);
-            this.panel1.Location = new System.Drawing.Point(2, 107);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(444, 190);
-            this.panel1.TabIndex = 26;
             // 
             // pbCloseApplication
             // 
@@ -158,30 +143,69 @@
             this.btnOpenErrorLog.UseVisualStyleBackColor = false;
             this.btnOpenErrorLog.Click += new System.EventHandler(this.btnOpenErrorLog_Click);
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Black;
+            this.pictureBox4.BackgroundImage = global::RemindMe.Properties.Resources.clock21;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.Location = new System.Drawing.Point(-2, 0);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(28, 22);
+            this.pictureBox4.TabIndex = 70;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pbMinimizeApplication
+            // 
+            this.pbMinimizeApplication.BackColor = System.Drawing.Color.Black;
+            this.pbMinimizeApplication.BackgroundImage = global::RemindMe.Properties.Resources.min;
+            this.pbMinimizeApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbMinimizeApplication.Location = new System.Drawing.Point(402, 0);
+            this.pbMinimizeApplication.Name = "pbMinimizeApplication";
+            this.pbMinimizeApplication.Size = new System.Drawing.Size(22, 22);
+            this.pbMinimizeApplication.TabIndex = 69;
+            this.pbMinimizeApplication.TabStop = false;
+            this.pbMinimizeApplication.Click += new System.EventHandler(this.pbMinimizeApplication_Click);
+            // 
+            // tbError
+            // 
+            this.tbError.BackColor = System.Drawing.Color.DimGray;
+            this.tbError.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbError.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.tbError.ForeColor = System.Drawing.Color.White;
+            this.tbError.Location = new System.Drawing.Point(7, 115);
+            this.tbError.Multiline = true;
+            this.tbError.Name = "tbError";
+            this.tbError.ReadOnly = true;
+            this.tbError.Size = new System.Drawing.Size(428, 165);
+            this.tbError.TabIndex = 100;
+            // 
             // ErrorPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(447, 344);
+            this.Controls.Add(this.tbError);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.btnOpenErrorLog);
             this.Controls.Add(this.pbCloseApplication);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbErrorIcon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ErrorPopup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ErrorPopup";
             this.Load += new System.EventHandler(this.ErrorPopup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,10 +218,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lblErrorMessage;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnOpenErrorLog;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pbMinimizeApplication;
+        private System.Windows.Forms.TextBox tbError;
     }
 }

@@ -137,7 +137,7 @@ namespace RemindMe
                 }
                 else
                 {
-                    BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore (" + rem.SoundFilePath + ")", true);                                    
+                    BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore \r\n(" + rem.SoundFilePath + ")","\r\nHave you deleted or moved " + Path.GetFileName(rem.SoundFilePath) + "? Please re-add it to RemindMe to use it again", true);                                    
                 }
             }
 

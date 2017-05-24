@@ -8,3 +8,4 @@
 (21-5-2017)1.1.01 - Increased the limit on repeating reminders every x days from 100 to 1000
 (23-5-2017)1.1.2 - Fixed an issue where duplicate objects were made and shown in the listview / The create form will now be filled when you press edit on an reminder with an repeat type of every x days
 (24-5-2017)1.1.21 - Unhandled exceptions will now not show the default windows popup, but our custom ErrorPopup instead. It will also write the error to the errorlog.
+(24-5-2017)1.1.22 - Polished up the custom error form. It wil now use an untargetable-readonly textbox to display the text. The error form now has its own icon

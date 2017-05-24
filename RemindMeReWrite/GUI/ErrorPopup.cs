@@ -13,12 +13,21 @@ namespace RemindMe
 {
     public partial class ErrorPopup : Form
     {
-        string message;
-        public ErrorPopup(string message)
+        private string message;
+        private string description;
+        private Exception ex;        
+        public ErrorPopup(string message, Exception ex)
         {
             InitializeComponent();
-            this.message = message;            
-           
+            this.message = message;
+            this.ex = ex;
+        }
+        public ErrorPopup(string message,Exception ex,string description) 
+        {
+            InitializeComponent();
+            this.message = message;
+            this.ex = ex;
+            this.description = description;
         }
 
         private const int WM_NCHITTEST = 0x84;
@@ -31,44 +40,26 @@ namespace RemindMe
             base.WndProc(ref m);
             if (m.Msg == WM_NCHITTEST)
                 m.Result = (IntPtr)(HT_CAPTION);
+
+            label3.Focus(); //Like this the textbox won't be focused, else the textbox has the ugly blue selected text
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            string t = tbError.Text;
             this.Dispose();
             this.Close();
         }
 
         private void ErrorPopup_Load(object sender, EventArgs e)
         {
-            int myLimit = 60;            
-            string[] words = message.Split(new char[] { ' ' });
-            IList<string> sentenceParts = new List<string>();
-            sentenceParts.Add(string.Empty);
-
-            int partCounter = 0;
-
-            foreach (string word in words)
-            {
-                if ((sentenceParts[partCounter] + word).Length > myLimit)
-                {
-                    partCounter++;
-                    sentenceParts.Add(string.Empty);
-                }
-
-                sentenceParts[partCounter] += word + " ";
-            }
-
-            foreach (string x in sentenceParts)
-                lblErrorMessage.Text += x + "\r\n";
+            tbError.Text = message + "\r\n\r\nException type: " + ex.GetType() + "\r\n" + description;
 
             pbErrorIcon.BringToFront();
+
             //Make the button look better
             BLFormLogic.removeButtonBorders(btnClose);
             BLFormLogic.removeButtonBorders(btnOpenErrorLog);
-
-
-            btnClose.Focus();
         }
 
         
@@ -81,6 +72,11 @@ namespace RemindMe
         private void btnOpenErrorLog_Click(object sender, EventArgs e)
         {
             Process.Start(Variables.IOVariables.errorLog);
+        }
+
+        private void pbMinimizeApplication_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

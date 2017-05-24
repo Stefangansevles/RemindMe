@@ -76,9 +76,9 @@ namespace RemindMe
         
 
         private void Form1_Load(object sender, EventArgs e)
-        {            
-                      
-            
+        {
+            //BLIO.WriteError(new FieldAccessException(), "Exception in main.", true);
+
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
             {
@@ -708,7 +708,7 @@ namespace RemindMe
                             myPlayer.controls.play();
                         }
                         else
-                            BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore (" + selectedItem.Value.ToString() + ")", true);
+                            BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore \r\n(" + selectedItem.Value.ToString() + ")", "\r\nHave you deleted or moved " + Path.GetFileName(selectedItem.Value.ToString()) + "? Please re-add it to RemindMe to use it again" , true);
                     }
                 }
                 else
@@ -720,7 +720,7 @@ namespace RemindMe
             }
             catch(Exception ex)
             {
-                BLIO.WriteError(ex, "Error while playing song " + myPlayer.URL + ". \r\nException type: " + ex.GetType().ToString(),true);
+                BLIO.WriteError(ex, "Error while playing song " + myPlayer.URL + ".",true);
             }
         }
 
@@ -837,6 +837,11 @@ namespace RemindMe
         {
             if (numEveryXDays.Value <= 0) //You can't make a reminder that repeats every 0 days
                 numEveryXDays.Value = 1;
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

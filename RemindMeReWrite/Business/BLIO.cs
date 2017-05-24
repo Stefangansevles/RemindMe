@@ -56,7 +56,7 @@ namespace RemindMe
                     currentSoundFiles.RemoveAt(0);
             }
             else
-                WriteError(new FileNotFoundException(), "Could not find settings.ini", false);
+                WriteError(new FileNotFoundException(), "Could not find settings.ini","Have you deleted or moved the file, or the folder it was in?" , false);
 
             return currentSoundFiles;
         }
@@ -84,7 +84,7 @@ namespace RemindMe
 
             }
             else
-                WriteError(new FileNotFoundException(), "Could not find settings.ini",false);
+                WriteError(new FileNotFoundException(), "Could not find settings.ini", "Have you deleted or moved the file, or the folder it was in?",false);
             return true;
 
 
@@ -438,21 +438,42 @@ namespace RemindMe
         }
 
         /// <summary>
-        /// Writes an error to the errorlog.txt
+        ///  Writes an error to the errorlog.txt
         /// </summary>
         /// <param name="ex">The occured exception</param>
-        /// <param name="description">A custom description of the error</param>
+        /// <param name="message">A short message i.e "Error while loading reminders"</param>
         /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
-        public static void WriteError(Exception ex,string description,bool showErrorPopup)
+        public static void WriteError(Exception ex, string message, bool showErrorPopup)
         {
             using (FileStream fs = new FileStream(Variables.IOVariables.errorLog, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.WriteLine("[" + DateTime.Now + "] - " + description + "\r\n" + ex.ToString() + "\r\n\r\n");
+                sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
             }
-            if(showErrorPopup)
+            if (showErrorPopup)
             {
-                ErrorPopup popup = new ErrorPopup(description);
+                ErrorPopup popup = new ErrorPopup(message, ex);
+                popup.Show();
+            }
+        }
+
+        /// <summary>
+        /// Writes an error to the errorlog.txt
+        /// </summary>
+        /// <param name="ex">The occured exception</param>
+        /// <param name="message">A short message i.e "Error while loading reminders"</param>
+        /// <param name="description">A custom description of the error</param>
+        /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
+        public static void WriteError(Exception ex, string message, string description, bool showErrorPopup)
+        {
+            using (FileStream fs = new FileStream(Variables.IOVariables.errorLog, FileMode.Append))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
+            }
+            if (showErrorPopup)
+            {
+                ErrorPopup popup = new ErrorPopup(message, ex, description);
                 popup.Show();
             }
         }
