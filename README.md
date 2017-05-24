@@ -1,3 +1,5 @@
+![](http://i.imgur.com/jRNzEVV.png)
+
 # RemindMe
 RemindMe is a windows desktop application that will notify you of events that you created using this application.
 
