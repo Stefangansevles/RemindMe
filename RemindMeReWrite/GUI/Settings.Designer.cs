@@ -99,7 +99,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(169, 16);
             this.label2.TabIndex = 0;
-            this.label2.Text = "RemindMe - Version 1.1.23";
+            this.label2.Text = "RemindMe - Version 1.1.24";
             // 
             // pictureBox3
             // 
@@ -149,7 +149,7 @@
             // pbMusic
             // 
             this.pbMusic.BackColor = System.Drawing.Color.Transparent;
-            this.pbMusic.BackgroundImage = global::RemindMe.Properties.Resources.music_icon;
+            this.pbMusic.BackgroundImage = global::RemindMe.Properties.Resources.blue_sound_icon;
             this.pbMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbMusic.Location = new System.Drawing.Point(7, 17);
             this.pbMusic.Name = "pbMusic";

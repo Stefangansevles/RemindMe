@@ -109,6 +109,7 @@
     <None Include="Resources\RemindMe.png" />
     <None Include="Resources\RemindMeSettingsNew.png" />
     <Content Include="RemindMe.ico" />
+    <None Include="Resources\blue sound icon.png" />
     <Content Include="Version history.txt" />
     <EmbeddedResource Include="GUI\ErrorPopup.resx">
       <DependentUpon>ErrorPopup.cs</DependentUpon>

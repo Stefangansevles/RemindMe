@@ -56,15 +56,7 @@ namespace RemindMe
         public Reminder(string name, DateTime date, ReminderRepeatType repeatingType, string note,  bool enabled,int everyXDays) : this(name, date, repeatingType, note, enabled)
         {
             this.everyXDays = everyXDays;
-        }
-
-        
-
-
-
-
-
-
+        }        
 
         /// <summary>
         /// The name and title of the reminder

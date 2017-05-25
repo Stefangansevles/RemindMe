@@ -36,7 +36,11 @@ namespace RemindMe
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            pbLogo.BringToFront();            
+            pbLogo.BringToFront();
+
+            //When the user loads the settings, the music tab will load by default
+            pnlParent.Controls.Clear();
+            pnlParent.Controls.Add(music);
         }
 
         private void pbClose_Click(object sender, EventArgs e)
