@@ -34,6 +34,7 @@ namespace RemindMe
         {
             this.Close();
             this.Dispose();
+            
         }
 
         private void Popup_Load(object sender, EventArgs e)

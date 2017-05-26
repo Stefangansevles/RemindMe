@@ -97,9 +97,9 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(397, 338);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(169, 16);
+            this.label2.Size = new System.Drawing.Size(161, 16);
             this.label2.TabIndex = 0;
-            this.label2.Text = "RemindMe - Version 1.1.24";
+            this.label2.Text = "RemindMe - Version 1.1.3";
             // 
             // pictureBox3
             // 

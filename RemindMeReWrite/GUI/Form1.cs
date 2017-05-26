@@ -44,8 +44,8 @@ namespace RemindMe
         //Determines if the user entered characters that can't be used
         bool illegalCharacters = false;
 
-        //Determines if the user is editing an reminder
-        bool editing = false;
+        //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
+        Reminder editableReminder;        
         public Form1()
         {
             InitializeComponent();
@@ -60,7 +60,9 @@ namespace RemindMe
 
 
             //Read through all the reminders
-            BLIO.ReadAllReminders();                     
+            BLIO.ReadAllReminders();
+
+            
         }
 
 
@@ -98,12 +100,12 @@ namespace RemindMe
             this.Size = new Size(463, 430);
 
             //Make the buttons borderless-------------------
-            BLFormLogic.removeButtonBorders(btnAddReminder);
-            BLFormLogic.removeButtonBorders(btnBack);
-            BLFormLogic.removeButtonBorders(btnRemoveReminder);
-            BLFormLogic.removeButtonBorders(btnEditReminder);
-            BLFormLogic.removeButtonBorders(btnConfirm);
-            BLFormLogic.removeButtonBorders(btnDisableEnable);
+            BLFormLogic.RemovebuttonBorders(btnAddReminder);
+            BLFormLogic.RemovebuttonBorders(btnBack);
+            BLFormLogic.RemovebuttonBorders(btnRemoveReminder);
+            BLFormLogic.RemovebuttonBorders(btnEditReminder);
+            BLFormLogic.RemovebuttonBorders(btnConfirm);
+            BLFormLogic.RemovebuttonBorders(btnDisableEnable);
             //----------------------------------------------   
 
 
@@ -111,9 +113,8 @@ namespace RemindMe
 
             //Set the custom format for the time datetime picker (HH:mm) instead of HH:mm:ss
             dtpTime.Format = DateTimePickerFormat.Custom;
+
             btnPlaySound.BackgroundImage = imgPlayResume;
-
-
 
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if(!File.Exists(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk"))            
@@ -174,13 +175,13 @@ namespace RemindMe
         /// Fills the controls of creating a new reminder with the data from the reminder
         /// </summary>
         private void FillControlsForEdit(Reminder rem)
-        {            
+        {
             if (lvReminders.SelectedItems.Count == 1)
-            {                
+            {
                 if (rem != null)
                 {
                     FillSoundComboBoxFromFile();
-                    tbNote.Text = rem.Note.Replace("\\n",Environment.NewLine);
+                    tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
                     tbReminderName.Text = rem.Name;
 
                     if (rem.SoundFilePath != null)
@@ -225,13 +226,13 @@ namespace RemindMe
                             rbEveryXDays.Checked = true;
                             numEveryXDays.Value = rem.EveryXDays;
                             break;
-                    }                                        
+                    }
                 }
-                else                                   
-                    BLIO.WriteError(new ArgumentNullException(), "Error loading reminder",true);                
+                else
+                    BLIO.WriteError(new ArgumentNullException(), "Error loading reminder", true);
             }
-            else
-                MessageBox.Show("Please select one reminder to edit at a time", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else                                
+                RemindMeBox.Show("Please select one reminder to edit at a time", RemindMeBoxIcon.INFORMATION);
         }
 
 
@@ -239,7 +240,7 @@ namespace RemindMe
         /// Determines wether the exlamation sign should be visible or not, with an tooltip saying the entered date is invalid
         /// </summary>
         private void ShowOrHideExclamation() 
-        {
+        {            
             if (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) < DateTime.Now)
             {//User selected a date in the past
                 pbExclamationDate.Visible = true;
@@ -274,7 +275,7 @@ namespace RemindMe
 
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
-            editing = false;
+            editableReminder = null;
 
             //Switch the 2 panels giving the user the option to create or edit an reminder
             BLFormLogic.SwitchPanels(pnlNewReminder, pnlMain);
@@ -329,7 +330,7 @@ namespace RemindMe
                     if (rem.RepeatingType == ReminderRepeatType.NONE)
                         toRemoveReminders.Add(rem);
 
-                    BLFormLogic.makePopup(rem);
+                    BLFormLogic.MakePopup(rem);
 
 
                     if (rem.RepeatingType == ReminderRepeatType.WORKDAYS)
@@ -428,7 +429,7 @@ namespace RemindMe
 
         private void rbNoRepeat_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbNoRepeat.Checked && !editing)
+            if (rbNoRepeat.Checked && editableReminder == null)
             {
                 dtpDate.ResetText();
                 dtpTime.ResetText();
@@ -517,27 +518,12 @@ namespace RemindMe
             //Will be different based on what repeating method the user has selected
             if (tbReminderName.Text != "" && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now) && !illegalCharacters)
             {
-                tbReminderName.BackColor = Color.DimGray;
-                pbExclamationTitle.Visible = false;
-
-                pbExclamationDate.Visible = true;
-                Reminder rem = null;
-                int dayOfMonth = -1;
-                int dayOfWeek = -1;
-                string soundPath = "";
                 ReminderRepeatType repeat = new ReminderRepeatType();
-                if (rbMonthly.Checked)
-                {
-                    dayOfMonth = Convert.ToInt16(cbEvery.SelectedItem.ToString());
-                    repeat = ReminderRepeatType.MONTHLY;
-                }
+                if (rbMonthly.Checked)                                    
+                    repeat = ReminderRepeatType.MONTHLY;                
 
-                if (rbWeekly.Checked)
-                {                    
-                    if(cbEvery.SelectedItem != null)
-                        dayOfWeek = (int)(cbEvery.SelectedItem as ComboBoxItem).Value;
-                    repeat = ReminderRepeatType.WEEKLY;
-                }
+                if (rbWeekly.Checked)                                    
+                    repeat = ReminderRepeatType.WEEKLY;                
 
                 if (rbWorkDays.Checked)
                     repeat = ReminderRepeatType.WORKDAYS;
@@ -552,30 +538,64 @@ namespace RemindMe
                     repeat = ReminderRepeatType.EVERY_X_DAYS;
 
 
-
-
-
-                if (cbSound.SelectedItem != null && cbSound.SelectedItem.ToString() != "Add files...")
+                if (editableReminder == null) //If the user isn't editing an existing reminder, he's creating one
                 {
-                    ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
-                    soundPath = selectedItem.Value.ToString();
+                    Reminder rem = null;
+                    tbReminderName.BackColor = Color.DimGray;
+                    pbExclamationTitle.Visible = false;
+                    pbExclamationDate.Visible = true;
+                    
+                    int dayOfMonth = -1;
+                    int dayOfWeek = -1;
+                    string soundPath = "";
+
+                    if (repeat == ReminderRepeatType.MONTHLY)
+                    {
+                        if (cbEvery.SelectedItem != null)
+                            dayOfMonth = Convert.ToInt16(cbEvery.SelectedItem.ToString());                        
+                    }
+
+                    if (repeat == ReminderRepeatType.WEEKLY)
+                    {
+                        if (cbEvery.SelectedItem != null)
+                            dayOfWeek = (int)(cbEvery.SelectedItem as ComboBoxItem).Value;                        
+                    }
+
+
+
+
+
+                    if (cbSound.SelectedItem != null && cbSound.SelectedItem.ToString() != "Add files...")
+                    {
+                        ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
+                        soundPath = selectedItem.Value.ToString();
+                    }
+
+                    if (repeat == ReminderRepeatType.MONTHLY)
+                        rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, dayOfMonth, tbNote.Text.Replace(Environment.NewLine, "\\n"), true);
+                    else if (repeat == ReminderRepeatType.WEEKLY)
+                        rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true);
+                    else if (repeat == ReminderRepeatType.EVERY_X_DAYS)
+                        rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, Convert.ToInt32(numEveryXDays.Value));
+                    else
+                        rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), true);
+
+
+                    rem.SoundFilePath = soundPath;
+
+                    if (rem != null)
+                        BLIO.WriteReminderToFile(rem);
                 }
-
-
-                if (repeat == ReminderRepeatType.MONTHLY)
-                    rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, dayOfMonth, tbNote.Text.Replace(Environment.NewLine, "\\n"), true);
-                else if (repeat == ReminderRepeatType.WEEKLY)
-                    rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true);
-                else if (repeat == ReminderRepeatType.EVERY_X_DAYS)
-                    rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, Convert.ToInt32(numEveryXDays.Value));
                 else
-                    rem = new Reminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine,"\\n"), true);
+                {//The user is editing an existing reminder
 
-
-                rem.SoundFilePath = soundPath;
-
-                if (rem != null)
-                    BLIO.WriteReminderToFile(rem);
+                    string oldReminderName = editableReminder.Name; //The name before the change
+                    editableReminder.Name = tbReminderName.Text;
+                    editableReminder.CompleteDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
+                    editableReminder.RepeatingType = repeat;
+                    editableReminder.Note = tbNote.Text.Replace(Environment.NewLine, "\\n");
+                    BLIO.WriteExistingReminderToFile(editableReminder, oldReminderName);
+                }
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again
                 lvReminders.Items.Clear();
@@ -618,12 +638,13 @@ namespace RemindMe
 
         private void btnEditReminder_Click(object sender, EventArgs e)
         {
-            editing = true;
-            cbSound.Text = "";
-
             //Fill the form with the data from the single reminder selected from the listview.
-            if(lvReminders.SelectedItems.Count > 0)
-                FillControlsForEdit(ReminderManager.GetReminderByName(lvReminders.SelectedItems[0].Text));            
+            if (lvReminders.SelectedItems.Count > 0)
+            {
+                editableReminder = ReminderManager.GetReminderByName(lvReminders.SelectedItems[0].Text);
+                cbSound.Text = "";
+                FillControlsForEdit(editableReminder);
+            }
         }
 
         private void btnDisableEnable_Click(object sender, EventArgs e)

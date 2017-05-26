@@ -60,6 +60,12 @@
     <Compile Include="Business\BLIO.cs" />
     <Compile Include="Business\BLUtilities.cs" />
     <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="GUI\CustomMessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CustomMessageForm.Designer.cs">
+      <DependentUpon>CustomMessageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ErrorPopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,7 @@
     <Compile Include="GUI\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="RemindMeBoxIcon.cs" />
     <Compile Include="UC\UCMusic.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,6 +118,9 @@
     <Content Include="RemindMe.ico" />
     <None Include="Resources\blue sound icon.png" />
     <Content Include="Version history.txt" />
+    <EmbeddedResource Include="GUI\CustomMessageForm.resx">
+      <DependentUpon>CustomMessageForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ErrorPopup.resx">
       <DependentUpon>ErrorPopup.cs</DependentUpon>
     </EmbeddedResource>

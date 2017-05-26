@@ -173,8 +173,11 @@ namespace RemindMe
             foreach (string rem in reminderNames)
             {
                 Reminder remin = null;
-                
-                DateTime completeDate = new DateTime();
+
+                //Default because it is non-nullable. If there is an .ini that doesn't contain a date this will be the default value and will not show up in the listview
+                //This happens if there are somehow other .ini files in the reminders folder(the user might have done this deliberately)
+                DateTime completeDate = new DateTime(1337, 4, 20); 
+
                 ReminderRepeatType repeatingType = new ReminderRepeatType();
                 int dayOfMonth = -1;
                 int dayOfWeek = -1;
@@ -241,17 +244,18 @@ namespace RemindMe
                     }
                 }
 
-                
+
                 if (dayOfMonth != -1)
                     remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, dayOfMonth, note, enabled);
                 else if (dayOfWeek != -1)
                     remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, note, dayOfWeek, enabled);
-                else if(everyXDays != -1)
-                    remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, note, enabled,everyXDays);
-                else
+                else if (everyXDays != -1)
+                    remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, note, enabled, everyXDays);
+                else if (completeDate > new DateTime(1337, 4, 20))
                     remin = new Reminder(Path.GetFileNameWithoutExtension(rem), completeDate, repeatingType, note, enabled);
 
-                remin.SoundFilePath = soundPath;
+                if(remin != null)
+                    remin.SoundFilePath = soundPath;
             }
 
             return ReminderManager.GetReminders();
@@ -356,28 +360,78 @@ namespace RemindMe
         /// <param name="rem"></param>
         public static void WriteReminderToFile(Reminder rem)
         {
-            using (FileStream fs = new FileStream(Variables.IOVariables.remindersFolder + rem.Name + ".ini", FileMode.Create))
-            using (StreamWriter sw = new StreamWriter(fs))
+            try
             {
-                
-                sw.WriteLine("Date = <" + rem.CompleteDate + ">");
-                sw.WriteLine("RepeatingType = <" + rem.RepeatingType.ToString().ToUpper() + ">");
-                if (rem.DayOfMonth != 0)
-                    sw.WriteLine("DayOfMonth = <" + rem.DayOfMonth + ">");
-                if (rem.DayOfWeek  > 0) 
-                    sw.WriteLine("DayOfWeek = <" + rem.DayOfWeek + ">");
+                using (FileStream fs = new FileStream(Variables.IOVariables.remindersFolder + rem.Name + ".ini", FileMode.Create))
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
 
-                if(rem.EveryXDays > 0)
-                    sw.WriteLine("EveryXDays = <" + rem.EveryXDays + ">");
+                    sw.WriteLine("Date = <" + rem.CompleteDate + ">");
+                    sw.WriteLine("RepeatingType = <" + rem.RepeatingType.ToString().ToUpper() + ">");
+                    if (rem.DayOfMonth != 0)
+                        sw.WriteLine("DayOfMonth = <" + rem.DayOfMonth + ">");
+                    if (rem.DayOfWeek > 0)
+                        sw.WriteLine("DayOfWeek = <" + rem.DayOfWeek + ">");
 
-                sw.WriteLine("Enabled = <" + rem.Enabled.ToString() + ">");
-                sw.WriteLine("Note = <" + rem.Note + ">");
+                    if (rem.EveryXDays > 0)
+                        sw.WriteLine("EveryXDays = <" + rem.EveryXDays + ">");
 
-                if (rem.SoundFilePath != null && rem.SoundFilePath != "")
-                    sw.WriteLine("Sound = <" + rem.SoundFilePath + ">");
-                
+                    sw.WriteLine("Enabled = <" + rem.Enabled.ToString() + ">");
+                    sw.WriteLine("Note = <" + rem.Note + ">");
+
+                    if (rem.SoundFilePath != null && rem.SoundFilePath != "")
+                        sw.WriteLine("Sound = <" + rem.SoundFilePath + ">");
+
+                }
             }
-                
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Something went wrong, could not edit the reminder", true);
+            }
+
+        }
+
+        /// <summary>
+        /// Writes and renames an reminder to the reminder folder.
+        /// </summary>
+        /// <param name="rem">The reminder</param>
+        /// <param name="oldReminderName">The name of the current reminder</param>
+        public static void WriteExistingReminderToFile(Reminder rem,string oldReminderName)
+        {
+            //Rename the file
+            try
+            {
+                System.IO.File.Move(Variables.IOVariables.remindersFolder + oldReminderName + ".ini", Variables.IOVariables.remindersFolder + rem.Name + ".ini");
+
+                using (FileStream fs = new FileStream(Variables.IOVariables.remindersFolder + rem.Name + ".ini", FileMode.Create))
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+
+                    sw.WriteLine("Date = <" + rem.CompleteDate + ">");
+                    sw.WriteLine("RepeatingType = <" + rem.RepeatingType.ToString().ToUpper() + ">");
+                    if (rem.DayOfMonth != 0)
+                        sw.WriteLine("DayOfMonth = <" + rem.DayOfMonth + ">");
+                    if (rem.DayOfWeek > 0)
+                        sw.WriteLine("DayOfWeek = <" + rem.DayOfWeek + ">");
+
+                    if (rem.EveryXDays > 0)
+                        sw.WriteLine("EveryXDays = <" + rem.EveryXDays + ">");
+
+                    sw.WriteLine("Enabled = <" + rem.Enabled.ToString() + ">");
+                    sw.WriteLine("Note = <" + rem.Note + ">");
+
+                    if (rem.SoundFilePath != null && rem.SoundFilePath != "")
+                        sw.WriteLine("Sound = <" + rem.SoundFilePath + ">");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex,"Something went wrong, could not edit the (existing)reminder", true);
+            }
+
+           
+
         }
 
         /// <summary>
@@ -406,13 +460,9 @@ namespace RemindMe
             }
         }
 
+        
         public static void WriteChangedReminderToFile(Reminder rem)
         {
-            //This is how it is before we change it.
-            //Reminder oldReminder = ReadSingleReminder(rem.Name);
-            
-           
-
             using (FileStream fs = new FileStream(Variables.IOVariables.remindersFolder + rem.Name + ".ini", FileMode.Create))
             using (StreamWriter sw = new StreamWriter(fs))
             {

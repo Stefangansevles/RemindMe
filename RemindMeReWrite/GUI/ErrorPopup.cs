@@ -58,8 +58,8 @@ namespace RemindMe
             pbErrorIcon.BringToFront();
 
             //Make the button look better
-            BLFormLogic.removeButtonBorders(btnClose);
-            BLFormLogic.removeButtonBorders(btnOpenErrorLog);
+            BLFormLogic.RemovebuttonBorders(btnClose);
+            BLFormLogic.RemovebuttonBorders(btnOpenErrorLog);
         }
 
         

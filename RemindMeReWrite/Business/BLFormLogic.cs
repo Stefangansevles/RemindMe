@@ -18,7 +18,7 @@ namespace RemindMe
         /// Removes borders from buttons to make them look better with a background
         /// </summary>
         /// <param name="b"></param>
-        public static void removeButtonBorders(Button b)
+        public static void RemovebuttonBorders(Button b)
         {
             b.TabStop = false;
             b.FlatStyle = FlatStyle.Flat;
@@ -122,7 +122,7 @@ namespace RemindMe
         /// <summary>
         /// Creates a new instance of popup
         /// </summary>
-        public static void makePopup(Reminder rem)
+        public static void MakePopup(Reminder rem)
         {
             Popup p = new Popup(rem);
             p.Show();
@@ -146,5 +146,9 @@ namespace RemindMe
                 File.Delete(Variables.IOVariables.remindersFolder + rem.Name + ".ini");
             }
         }
+
+        
+
+        
     }
 }

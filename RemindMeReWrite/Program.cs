@@ -20,7 +20,7 @@ namespace RemindMe
             using (Mutex mutex = new Mutex(false, "Global\\" + "RemindMe"))
             {
                 if (!mutex.WaitOne(0, false))
-                {
+                {                    
                     //one instance of remindme already running                                        
                     return;
                 }
