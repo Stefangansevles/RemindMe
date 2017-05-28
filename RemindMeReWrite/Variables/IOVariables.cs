@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace RemindMe.Variables
 {
@@ -16,6 +17,11 @@ namespace RemindMe.Variables
         public static readonly string userProfile = System.Environment.GetEnvironmentVariable("USERPROFILE");
 
         /// <summary>
+        /// Contains the path to the SQLite Database of RemindMe
+        /// </summary>
+        public static readonly string databaseFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
+        
+        /// <summary>
         /// Contains the startup folder path. 
         /// </summary>
         public static readonly string startupFolderPath = userProfile + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\";
@@ -23,22 +29,12 @@ namespace RemindMe.Variables
         /// <summary>
         /// Contains the path to the root folder of RemindMe
         /// </summary>
-        public static readonly string rootFolder = userProfile + @"\RemindMe Data\";
-
-        /// <summary>
-        /// Contains the path to the folder with every reminder.ini
-        /// </summary>
-        public static readonly string remindersFolder = userProfile + @"\RemindMe Data\Reminders\";        
-
-        /// <summary>
-        /// Contains the path to the reminders.ini file of RemindMe
-        /// </summary>
-        public static readonly string settingsIni = userProfile + @"\RemindMe Data\Settings.ini";
+        public static readonly string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\RemindMe\";              
 
         /// <summary>
         /// Contains the path to the error log file of RemindMe. This contains exceptions and when they occured.
         /// </summary>
-        public static readonly string errorLog = userProfile + @"\RemindMe Data\ErrorLog.txt";
+        public static readonly string errorLog = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\RemindMe\ErrorLog.txt";
 
         
     }

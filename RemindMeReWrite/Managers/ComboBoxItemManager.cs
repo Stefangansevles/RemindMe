@@ -33,9 +33,13 @@ namespace RemindMe
         /// <returns>A comboboxitem with the given text and value. null if it doesnt exist</returns>
         public static ComboBoxItem GetComboBoxItem(string text, object value)
         {
-            foreach (ComboBoxItem cb in items)            
-                if (cb.Text == text && cb.Value.Equals(value))
-                    return cb;
+            Songs paramSong = (Songs)value;
+            foreach (ComboBoxItem cbItem in items)
+            {
+                Songs cbItemSong = (Songs)cbItem.Value;
+                if (cbItem.Text == text && cbItemSong.SongFilePath == paramSong.SongFilePath)                
+                    return cbItem;                
+            }
             
             return null;
         }

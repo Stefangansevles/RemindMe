@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RemindMeDbModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Reminder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="RepeatType" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Enabled" Type="integer" Nullable="false" />
+          <Property Name="DayOfWeek" Type="integer" />
+          <Property Name="DayOfMonth" Type="integer" />
+          <Property Name="EveryXDays" Type="integer" />
+          <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="AlwaysOnTop" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Songs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="SongFileName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SongFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="RemindMeDbModelStoreContainer">
+          <EntitySet Name="Reminder" EntityType="Self.Reminder" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" store:Type="Tables" />
+          <EntitySet Name="Songs" EntityType="Self.Songs" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RemindMeDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Reminder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RepeatType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Enabled" Type="Int64" Nullable="false" />
+          <Property Name="DayOfWeek" Type="Int64" />
+          <Property Name="DayOfMonth" Type="Int64" />
+          <Property Name="EveryXDays" Type="Int64" />
+          <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="RemindMeDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Reminder" EntityType="Self.Reminder" />
+          <EntitySet Name="Settings" EntityType="RemindMeDbModel.Settings" />
+          <EntitySet Name="Songs" EntityType="RemindMeDbModel.Songs" />
+        </EntityContainer>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="AlwaysOnTop" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Songs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="SongFileName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SongFilePath" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RemindMeDbModelStoreContainer" CdmEntityContainer="RemindMeDbEntities">
+          <EntitySetMapping Name="Reminder">
+            <EntityTypeMapping TypeName="RemindMeDbModel.Reminder">
+              <MappingFragment StoreEntitySet="Reminder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="RepeatType" ColumnName="RepeatType" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
+                <ScalarProperty Name="EveryXDays" ColumnName="EveryXDays" />
+                <ScalarProperty Name="SoundFilePath" ColumnName="SoundFilePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="RemindMeDbModel.Settings">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="AlwaysOnTop" ColumnName="AlwaysOnTop" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Songs">
+            <EntityTypeMapping TypeName="RemindMeDbModel.Songs">
+              <MappingFragment StoreEntitySet="Songs">
+                <ScalarProperty Name="SongFilePath" ColumnName="SongFilePath" />
+                <ScalarProperty Name="SongFileName" ColumnName="SongFileName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

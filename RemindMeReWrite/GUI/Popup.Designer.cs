@@ -124,7 +124,7 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe1;
+            this.pictureBox5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox5.BackgroundImage")));
             this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox5.Location = new System.Drawing.Point(1, 23);
             this.pictureBox5.Name = "pictureBox5";
@@ -144,7 +144,7 @@
             // btnOk
             // 
             this.btnOk.BackColor = System.Drawing.Color.Transparent;
-            this.btnOk.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnOk.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnOk.BackgroundImage")));
             this.btnOk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOk.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.btnOk.ForeColor = System.Drawing.Color.White;
@@ -159,7 +159,7 @@
             // pbMinimizePopup
             // 
             this.pbMinimizePopup.BackColor = System.Drawing.Color.Black;
-            this.pbMinimizePopup.BackgroundImage = global::RemindMe.Properties.Resources.min;
+            this.pbMinimizePopup.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbMinimizePopup.BackgroundImage")));
             this.pbMinimizePopup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbMinimizePopup.Location = new System.Drawing.Point(297, 0);
             this.pbMinimizePopup.Name = "pbMinimizePopup";
@@ -171,7 +171,7 @@
             // pbClosePopup
             // 
             this.pbClosePopup.BackColor = System.Drawing.Color.Black;
-            this.pbClosePopup.BackgroundImage = global::RemindMe.Properties.Resources.redx;
+            this.pbClosePopup.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbClosePopup.BackgroundImage")));
             this.pbClosePopup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbClosePopup.Location = new System.Drawing.Point(320, 0);
             this.pbClosePopup.Name = "pbClosePopup";
@@ -193,7 +193,7 @@
             // pbCloseApplication
             // 
             this.pbCloseApplication.BackColor = System.Drawing.Color.Black;
-            this.pbCloseApplication.BackgroundImage = global::RemindMe.Properties.Resources.redx;
+            this.pbCloseApplication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCloseApplication.BackgroundImage")));
             this.pbCloseApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbCloseApplication.Location = new System.Drawing.Point(322, 0);
             this.pbCloseApplication.Name = "pbCloseApplication";
@@ -205,7 +205,7 @@
             // pictureBox6
             // 
             this.pictureBox6.BackColor = System.Drawing.Color.Black;
-            this.pictureBox6.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe1;
+            this.pictureBox6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox6.BackgroundImage")));
             this.pictureBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox6.Location = new System.Drawing.Point(0, -1);
             this.pictureBox6.Name = "pictureBox6";
@@ -216,7 +216,7 @@
             // pbMinimizeApplication
             // 
             this.pbMinimizeApplication.BackColor = System.Drawing.Color.Black;
-            this.pbMinimizeApplication.BackgroundImage = global::RemindMe.Properties.Resources.min;
+            this.pbMinimizeApplication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbMinimizeApplication.BackgroundImage")));
             this.pbMinimizeApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbMinimizeApplication.Location = new System.Drawing.Point(300, 0);
             this.pbMinimizeApplication.Name = "pbMinimizeApplication";

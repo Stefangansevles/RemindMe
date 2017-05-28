@@ -11,7 +11,7 @@ namespace RemindMe
 {
     public partial class UCWindows : UserControl
     {
-        bool alwaysOnTop = true;
+        int alwaysOnTop = 1;
         public UCWindows()
         {
             InitializeComponent();
@@ -21,17 +21,26 @@ namespace RemindMe
         {
             
             if(cbPopupType.SelectedItem.ToString() == "Always on top (Recommended)")
-                alwaysOnTop = true;            
+                alwaysOnTop = 1;            
             else
-                alwaysOnTop = false;
+                alwaysOnTop = 0;
 
-            BLIO.WriteSettings(BLIO.ReadSoundFiles(), false, alwaysOnTop);
+            Settings set = DLSettings.GetSettings();
+            set.AlwaysOnTop = alwaysOnTop;
+
+            DLSettings.UpdateAlwaysOnTop(set);            
         }
 
         private void UCWindows_Load(object sender, EventArgs e)
-        {
+        {           
+            if(DLSettings.GetSettings() == null)
+            {
+                Settings set = new Settings();
+                set.AlwaysOnTop = alwaysOnTop;
+                DLSettings.UpdateAlwaysOnTop(set);
+            }
             //Since we're not going to change the contents of this combobox anyway, we're just going to do it like this
-            if (BLIO.ReadAlwaysOnTop())
+            if (DLSettings.IsAlwaysOnTop())
                 cbPopupType.SelectedItem = cbPopupType.Items[0]; 
             else
                 cbPopupType.SelectedItem = cbPopupType.Items[1];

@@ -13,3 +13,4 @@
 (25-5-2017)V1.1.24 -  Sound icon in the settings has been changed. When the user loads the settings, the music tab will load by default
 (26-5-2016)V1.1.3 -   RemindMe now has a custom version of the default MessageBox. used by calling RemindMeBox.Show()
 				      You can now change the name of an existing reminder. Previously it would create a new reminder
+(27-5-2016)V1.2  -    RemindMe has been rewritten to now use SQLite to store reminders and settings. 

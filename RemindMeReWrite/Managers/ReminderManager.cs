@@ -18,7 +18,7 @@ namespace RemindMe
         /// <returns>The list containing all reminders</returns>
         public static List<Reminder> GetReminders()
         {
-            return reminders;
+            return DLReminders.GetReminders();
         }
 
         /// <summary>
@@ -42,17 +42,17 @@ namespace RemindMe
         public static void SetNextReminderWorkDay(Reminder rem)
         {//This method is placed in ReminderManager because it directly alters an reminder. BLDateTime just has usefull date methods
 
-            if (rem.RepeatingType == ReminderRepeatType.WORKDAYS)
+            if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString())
             {
                 if (DateTime.Now.DayOfWeek != DayOfWeek.Friday && DateTime.Now.DayOfWeek != DayOfWeek.Saturday)
-                    rem.CompleteDate = Convert.ToDateTime(DateTime.Now.AddDays(1).ToShortDateString() + " " + rem.Time); //You can safely add just one day
+                    rem.Date = Convert.ToDateTime(DateTime.Now.AddDays(1).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString(); //You can safely add just one day
                 else
                 {
                     switch (DateTime.Now.DayOfWeek)
                     {//Add days to the datetime picker so that the value will be monday depending on the day after thursday
-                        case DayOfWeek.Friday: rem.CompleteDate = Convert.ToDateTime(DateTime.Now.AddDays(3).ToShortDateString() + " " + rem.Time);
+                        case DayOfWeek.Friday: rem.Date = Convert.ToDateTime(DateTime.Now.AddDays(3).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();
                             break;
-                        case DayOfWeek.Saturday: rem.CompleteDate = Convert.ToDateTime(DateTime.Now.AddDays(2).ToShortDateString() + " " + rem.Time);
+                        case DayOfWeek.Saturday: rem.Date = Convert.ToDateTime(DateTime.Now.AddDays(2).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();
                             break;
                     }
                 }

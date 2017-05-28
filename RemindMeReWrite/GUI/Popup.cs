@@ -15,7 +15,7 @@ namespace RemindMe
         public Popup(Reminder rem)
         {
             InitializeComponent();
-            this.rem = rem;
+            this.rem = rem;            
         }
 
         private const int WM_NCHITTEST = 0x84;
@@ -39,7 +39,7 @@ namespace RemindMe
 
         private void Popup_Load(object sender, EventArgs e)
         {
-            if (BLIO.ReadAlwaysOnTop())
+            if (DLSettings.IsAlwaysOnTop())
                 this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
             else
             {
@@ -51,35 +51,9 @@ namespace RemindMe
             tbText.Text = rem.Note.Replace("\\n", Environment.NewLine);
 
             //Show what date this reminder was set for
-            lblDate.Text = "This reminder was set for " + rem.CompleteDate.ToString();
+            lblDate.Text = "This reminder was set for " + rem.Date;
 
-
-            #region add line breaks when the title becomes too long
-            int myLimit = 30;
-            string[] words = rem.Name.Split(new char[] { ' ' });
-            IList<string> sentenceParts = new List<string>();
-            sentenceParts.Add(string.Empty);
-
-            int partCounter = 0;
-
-            foreach (string word in words)
-            {
-                if ((sentenceParts[partCounter] + word).Length > myLimit)
-                {
-                    partCounter++;
-                    sentenceParts.Add(string.Empty);
-                }
-
-                sentenceParts[partCounter] += word + " ";
-            }
-           
-
-
-            lblTitle.Text = "";
-            foreach (string x in sentenceParts)
-                lblTitle.Text += x + "\r\n";
-
-            #endregion
+            lblTitle.Text = rem.Name;
 
 
             //Make the button look better

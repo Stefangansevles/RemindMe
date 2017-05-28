@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace RemindMe
 {
@@ -18,43 +19,67 @@ namespace RemindMe
 
         private void UCMusic_Load(object sender, EventArgs e)
         {
-            List<string> sounds = BLIO.ReadSoundFiles();
-            if(sounds != null && sounds.Count > 0)
-                AddItemToListView(sounds);            
+            List<Songs> songs = DLSongs.GetSongs();
+            if (songs != null && songs.Count > 0)
+            {
+
+                foreach (Songs sng in songs)
+                {
+                    ListViewItem item = new ListViewItem(sng.SongFilePath);
+                    item.Tag = sng.Id;
+                    lvSoundFiles.Items.Add(item);
+                }
+            }
         }
 
         private void pbAddSounds_Click(object sender, EventArgs e)
         {
-            List<string> sounds = BLIO.AddSoundsToFile();
-            if(sounds.Count > 0)
-                AddItemToListView(sounds);
-        }
+            List<string> songPaths = FSManager.Files.getSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+            List<Songs> songs = new List<Songs>();
 
-        private void AddItemToListView(List<string> files)
-        {
-            foreach(string file in files)
+            foreach(string songPath in songPaths)
             {
-                if(file != "")
-                lvSoundFiles.Items.Add(file);
+                Songs song = new Songs();
+                song.SongFileName = Path.GetFileName(songPath);
+                song.SongFilePath = songPath;
+                songs.Add(song);                
+            }
+            DLSongs.InsertSongs(songs);
+
+            foreach (Songs song in songs)
+            {
+                if (!ListViewContains(song.SongFilePath))
+                {
+                    ListViewItem item = new ListViewItem(song.SongFilePath);
+                    item.Tag = song.Id;
+                    lvSoundFiles.Items.Add(item);
+                }
             }
         }
 
+       
+        private bool ListViewContains(string songPath)
+        {
+            foreach(ListViewItem item in lvSoundFiles.Items)
+            {
+                if (item.Text == songPath)
+                    return true;
+            }
+            return false;
+        }
         private void pbRemoveSounds_Click(object sender, EventArgs e)
         {
-            List<string> currentSounds = BLIO.ReadSoundFiles();
+            List<Songs> toRemoveSongs = new List<Songs>();
 
             foreach (ListViewItem selectedItem in lvSoundFiles.SelectedItems)
-            {                
-                if (currentSounds.Contains(selectedItem.Text))
-                {
-                    currentSounds.Remove(selectedItem.Text);
-                }
+            {
+                if (DLSongs.SongExistsInDatabase(selectedItem.Text))
+                    toRemoveSongs.Add(DLSongs.GetSongById(Convert.ToInt32(selectedItem.Tag)));
+
                 lvSoundFiles.Items.Remove(selectedItem);
             }
 
-            BLIO.WriteSettings(currentSounds,true, BLIO.ReadAlwaysOnTop());
-                //if(song == lvSoundFiles.SelectedItems)
-            
+            DLSongs.RemoveSongs(toRemoveSongs);                                     
         }
     }
 }
