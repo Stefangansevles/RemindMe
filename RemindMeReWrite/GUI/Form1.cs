@@ -37,8 +37,7 @@ namespace RemindMe
         //to potentionally show a time instead of a date in the listview for reminders that are set for the new day
         int dayOfStartRemindMe;
 
-        //Determines if the user entered characters that can't be used
-        bool illegalCharacters = false;
+
 
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;        
@@ -509,7 +508,7 @@ namespace RemindMe
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             //Will be different based on what repeating method the user has selected
-            if (tbReminderName.Text != "" && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now) && !illegalCharacters)
+            if (tbReminderName.Text != "" && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now))
             {
                 ReminderRepeatType repeat = new ReminderRepeatType();
                 if (rbMonthly.Checked)                                    
@@ -610,11 +609,7 @@ namespace RemindMe
                     pbExclamationTitle.Visible = false;
                 }
 
-                if(illegalCharacters)
-                {
-                    pbExclamationTitle.Visible = true;                    
-                    toolTip1.SetToolTip(pbExclamationTitle, "The title contains characters that you can't use.\r\nCharacters: \\ / : * ? \" < > | [ ]");
-                }
+
                 ShowOrHideExclamation();
 
 
@@ -829,27 +824,7 @@ namespace RemindMe
             btnEditReminder_Click(sender, e);
         }
 
-        private void tbReminderName_KeyUp(object sender, KeyEventArgs e)
-        {
-            List<string> blackList = new List<string> { "\\", "/", ":", "*", "?", "\"", "<", ">", "|", "[", "]" };
-
-
-            for (int i = 0; i < blackList.Count; i++)
-            {
-                if (tbReminderName.Text.Contains(blackList[i]) || tbReminderName.Text.Count() >= 240)
-                {
-                    pbExclamationTitle.Visible = true;
-                    illegalCharacters = true;
-                    toolTip1.SetToolTip(pbExclamationTitle, "The title contains characters that you can't use.\r\nCharacters: \\ / : * ? \" < > | [ ]");
-                    break;
-                }
-                else
-                {
-                    pbExclamationTitle.Visible = false;
-                    illegalCharacters = false;
-                }
-            }
-        }
+      
 
         private void rbEveryXDays_CheckedChanged(object sender, EventArgs e)
         {

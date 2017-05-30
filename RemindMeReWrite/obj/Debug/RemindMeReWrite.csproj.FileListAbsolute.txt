@@ -107,3 +107,13 @@ D:\Users\rs\Documents\remindme sqlite\RemindMe\RemindMeReWrite\bin\Debug\FSManag
 D:\Users\rs\Documents\remindme sqlite\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Documents\remindme sqlite\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
 D:\Users\rs\Documents\remindme sqlite\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.SettingsForm.resources
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\RemindMe.exe.config
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.SettingsForm.resources

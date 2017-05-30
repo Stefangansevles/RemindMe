@@ -46,7 +46,6 @@
             this.lblEveryXDays = new System.Windows.Forms.Label();
             this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
             this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
-            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
             this.pbExclamationDate = new System.Windows.Forms.PictureBox();
             this.btnPlaySound = new System.Windows.Forms.Button();
             this.cbSound = new System.Windows.Forms.ComboBox();
@@ -87,13 +86,13 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pnlNewReminder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -101,6 +100,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -315,17 +315,6 @@
             this.pbExclamationWorkday.TabIndex = 70;
             this.pbExclamationWorkday.TabStop = false;
             this.pbExclamationWorkday.Visible = false;
-            // 
-            // pbExclamationTitle
-            // 
-            this.pbExclamationTitle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationTitle.BackgroundImage")));
-            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationTitle.Location = new System.Drawing.Point(347, 107);
-            this.pbExclamationTitle.Name = "pbExclamationTitle";
-            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationTitle.TabIndex = 69;
-            this.pbExclamationTitle.TabStop = false;
-            this.pbExclamationTitle.Visible = false;
             // 
             // pbExclamationDate
             // 
@@ -610,7 +599,6 @@
             this.tbReminderName.Name = "tbReminderName";
             this.tbReminderName.Size = new System.Drawing.Size(234, 20);
             this.tbReminderName.TabIndex = 32;
-            this.tbReminderName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReminderName_KeyUp);
             // 
             // dtpDate
             // 
@@ -785,6 +773,17 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
+            // pbExclamationTitle
+            // 
+            this.pbExclamationTitle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationTitle.BackgroundImage")));
+            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationTitle.Location = new System.Drawing.Point(347, 107);
+            this.pbExclamationTitle.Name = "pbExclamationTitle";
+            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationTitle.TabIndex = 69;
+            this.pbExclamationTitle.TabStop = false;
+            this.pbExclamationTitle.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -811,7 +810,6 @@
             this.pnlNewReminder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -820,6 +818,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -878,12 +877,12 @@
         private System.Windows.Forms.Button btnPlaySound;
         private System.Windows.Forms.Timer tmrMusic;
         private System.Windows.Forms.PictureBox pbExclamationDate;
-        private System.Windows.Forms.PictureBox pbExclamationTitle;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pbExclamationWorkday;
         private System.Windows.Forms.RadioButton rbEveryXDays;
         private System.Windows.Forms.NumericUpDown numEveryXDays;
         private System.Windows.Forms.Label lblEveryXDays;
+        private System.Windows.Forms.PictureBox pbExclamationTitle;
     }
 }
 
