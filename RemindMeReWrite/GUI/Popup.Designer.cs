@@ -130,7 +130,7 @@
             this.btnOk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOk.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.btnOk.ForeColor = System.Drawing.Color.White;
-            this.btnOk.Location = new System.Drawing.Point(265, 281);
+            this.btnOk.Location = new System.Drawing.Point(265, 280);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(76, 25);
             this.btnOk.TabIndex = 21;
@@ -220,6 +220,7 @@
             this.cbPostponeType.Name = "cbPostponeType";
             this.cbPostponeType.Size = new System.Drawing.Size(85, 21);
             this.cbPostponeType.TabIndex = 69;
+            this.cbPostponeType.SelectedIndexChanged += new System.EventHandler(this.cbPostponeType_SelectedIndexChanged);
             // 
             // cbPostponeTime
             // 
@@ -240,6 +241,7 @@
             0,
             0,
             0});
+            this.cbPostponeTime.ValueChanged += new System.EventHandler(this.cbPostponeTime_ValueChanged);
             // 
             // cbPostpone
             // 

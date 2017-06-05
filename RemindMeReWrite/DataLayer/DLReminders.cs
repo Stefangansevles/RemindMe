@@ -191,8 +191,9 @@ namespace RemindMe
                     rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays((double)rem.EveryXDays).ToString();                    
                 }
 
-                //finally, Write the changes to the database                
-                DLReminders.EditReminder(rem);
+                //finally, Write the changes to the database  
+                if(rem.RepeatType != ReminderRepeatType.NONE.ToString())              
+                    DLReminders.EditReminder(rem);
             }
             else
                 throw new ArgumentNullException("parameter rem in UpdateReminder is null.");

@@ -140,5 +140,18 @@ namespace RemindMe
             ListView lvReminders = (ListView)mainForm.Controls["pnlMain"].Controls["lvReminders"];
             BLFormLogic.RefreshListview(lvReminders);
         }
+
+        private void cbPostponeTime_ValueChanged(object sender, EventArgs e)
+        {
+            cbPostpone.Checked = true;
+        }
+
+        private void cbPostponeType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbPostponeType.SelectedItem.ToString() == "Hours")
+                cbPostponeTime.Maximum = 23;
+            else
+                cbPostponeTime.Maximum = 1400;
+        }
     }
 }
