@@ -65,7 +65,7 @@ namespace RemindMe
 
             cbPostponeType.SelectedItem = cbPostponeType.Items[0];
 
-            btnOk.Focus();
+            lblDate.Focus();            
         }
 
         private void pbMinimizePopup_Click(object sender, EventArgs e)
