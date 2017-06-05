@@ -47,19 +47,23 @@ namespace RemindMe
                 this.WindowState = FormWindowState.Minimized;             
             }
 
-            //Show the reminder note
+            //Show the reminder note            
             tbText.Text = rem.Note.Replace("\\n", Environment.NewLine);
 
             //Show what date this reminder was set for
-            lblDate.Text = "This reminder was set for " + rem.Date;
+            if(rem.PostponeDate == null)
+                lblDate.Text = "This reminder was set for " + rem.Date;
+            else
+                lblDate.Text = "This reminder was set for " + rem.PostponeDate;
 
-            lblTitle.Text = rem.Name;
-
+            tbTitle.Text = rem.Name;            
 
             //Make the button look better
             btnOk.TabStop = false;
             btnOk.FlatStyle = FlatStyle.Flat;
             btnOk.FlatAppearance.BorderSize = 0;
+
+            cbPostponeType.SelectedItem = cbPostponeType.Items[0];
 
             btnOk.Focus();
         }
@@ -70,13 +74,40 @@ namespace RemindMe
         }
 
         private void btnOk_Click(object sender, EventArgs e)
-        {
+        {            
+         
+
+            if (cbPostpone.Checked)
+            {
+                DateTime newReminderTime = new DateTime();
+                if (cbPostponeType.SelectedItem == cbPostponeType.Items[0])
+                {//postpone option is x minutes
+                    newReminderTime = DateTime.Now.AddMinutes((double)cbPostponeTime.Value);
+                }
+                else
+                {//postpone option is x hours
+                    newReminderTime = DateTime.Now.AddHours((double)cbPostponeTime.Value);
+                }
+                rem.PostponeDate = newReminderTime.ToString();
+                rem.Enabled = 1;
+                DLReminders.EditReminder(rem);
+            }
+            else
+            {
+                rem.PostponeDate = null;
+                DLReminders.UpdateReminder(rem);
+            }
+            RefreshMainFormListView();
+
             this.Dispose();
             this.Close();
         }
 
         private void pbCloseApplication_Click(object sender, EventArgs e)
         {
+            rem.PostponeDate = null;
+            DLReminders.UpdateReminder(rem);
+            RefreshMainFormListView();
             this.Close();
             this.Dispose();
         }
@@ -85,6 +116,29 @@ namespace RemindMe
         {
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = true;            
+        }
+
+        private void cbPostpone_CheckedChanged(object sender, EventArgs e)
+        {            
+            if (cbPostpone.Checked)
+                btnOk.Text = "Postpone";
+            else
+                btnOk.Text = "Ok";
+        }
+
+        private void Popup_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Try to update the reminder before the form unexpectedly closes
+            rem.PostponeDate = null;
+            DLReminders.UpdateReminder(rem);
+            RefreshMainFormListView();
+        }
+
+        private void RefreshMainFormListView()
+        {
+            Form mainForm = Application.OpenForms["Form1"];
+            ListView lvReminders = (ListView)mainForm.Controls["pnlMain"].Controls["lvReminders"];
+            BLFormLogic.RefreshListview(lvReminders);
         }
     }
 }

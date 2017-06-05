@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Popup));
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.tbText = new System.Windows.Forms.RichTextBox();
             this.lblDate = new System.Windows.Forms.Label();
@@ -44,7 +42,10 @@
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
-            this.panel1.SuspendLayout();
+            this.cbPostponeType = new System.Windows.Forms.ComboBox();
+            this.cbPostponeTime = new System.Windows.Forms.NumericUpDown();
+            this.cbPostpone = new System.Windows.Forms.CheckBox();
+            this.tbTitle = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizePopup)).BeginInit();
@@ -53,27 +54,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbPostponeTime)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(4, 2);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(54, 26);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Title";
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Location = new System.Drawing.Point(4, 81);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(337, 62);
-            this.panel1.TabIndex = 28;
             // 
             // label1
             // 
@@ -92,7 +74,7 @@
             this.tbText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbText.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.tbText.ForeColor = System.Drawing.Color.White;
-            this.tbText.Location = new System.Drawing.Point(9, 152);
+            this.tbText.Location = new System.Drawing.Point(9, 156);
             this.tbText.Name = "tbText";
             this.tbText.ReadOnly = true;
             this.tbText.Size = new System.Drawing.Size(324, 112);
@@ -104,7 +86,7 @@
             this.lblDate.AutoSize = true;
             this.lblDate.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.lblDate.ForeColor = System.Drawing.Color.White;
-            this.lblDate.Location = new System.Drawing.Point(6, 284);
+            this.lblDate.Location = new System.Drawing.Point(57, 52);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(31, 17);
             this.lblDate.TabIndex = 23;
@@ -148,7 +130,7 @@
             this.btnOk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOk.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.btnOk.ForeColor = System.Drawing.Color.White;
-            this.btnOk.Location = new System.Drawing.Point(265, 276);
+            this.btnOk.Location = new System.Drawing.Point(265, 281);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(76, 25);
             this.btnOk.TabIndex = 21;
@@ -225,17 +207,81 @@
             this.pbMinimizeApplication.TabStop = false;
             this.pbMinimizeApplication.Click += new System.EventHandler(this.pbMinimizeApplication_Click);
             // 
+            // cbPostponeType
+            // 
+            this.cbPostponeType.BackColor = System.Drawing.Color.DimGray;
+            this.cbPostponeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.cbPostponeType.ForeColor = System.Drawing.Color.White;
+            this.cbPostponeType.FormattingEnabled = true;
+            this.cbPostponeType.Items.AddRange(new object[] {
+            "Minutes",
+            "Hours"});
+            this.cbPostponeType.Location = new System.Drawing.Point(174, 281);
+            this.cbPostponeType.Name = "cbPostponeType";
+            this.cbPostponeType.Size = new System.Drawing.Size(85, 21);
+            this.cbPostponeType.TabIndex = 69;
+            // 
+            // cbPostponeTime
+            // 
+            this.cbPostponeTime.BackColor = System.Drawing.Color.DimGray;
+            this.cbPostponeTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.cbPostponeTime.ForeColor = System.Drawing.Color.White;
+            this.cbPostponeTime.Location = new System.Drawing.Point(95, 281);
+            this.cbPostponeTime.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.cbPostponeTime.Name = "cbPostponeTime";
+            this.cbPostponeTime.Size = new System.Drawing.Size(73, 20);
+            this.cbPostponeTime.TabIndex = 72;
+            this.cbPostponeTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // cbPostpone
+            // 
+            this.cbPostpone.AutoSize = true;
+            this.cbPostpone.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
+            this.cbPostpone.ForeColor = System.Drawing.Color.White;
+            this.cbPostpone.Location = new System.Drawing.Point(6, 281);
+            this.cbPostpone.Name = "cbPostpone";
+            this.cbPostpone.Size = new System.Drawing.Size(78, 21);
+            this.cbPostpone.TabIndex = 73;
+            this.cbPostpone.Text = "Postpone";
+            this.cbPostpone.UseVisualStyleBackColor = true;
+            this.cbPostpone.CheckedChanged += new System.EventHandler(this.cbPostpone_CheckedChanged);
+            // 
+            // tbTitle
+            // 
+            this.tbTitle.BackColor = System.Drawing.Color.DimGray;
+            this.tbTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbTitle.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Bold);
+            this.tbTitle.ForeColor = System.Drawing.Color.White;
+            this.tbTitle.Location = new System.Drawing.Point(9, 97);
+            this.tbTitle.Name = "tbTitle";
+            this.tbTitle.ReadOnly = true;
+            this.tbTitle.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.tbTitle.Size = new System.Drawing.Size(324, 60);
+            this.tbTitle.TabIndex = 74;
+            this.tbTitle.Text = "";
+            // 
             // Popup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(343, 307);
+            this.Controls.Add(this.tbTitle);
+            this.Controls.Add(this.cbPostpone);
+            this.Controls.Add(this.cbPostponeTime);
+            this.Controls.Add(this.cbPostponeType);
             this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pbCloseApplication);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.tbText);
@@ -250,9 +296,8 @@
             this.Name = "Popup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Popup";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Popup_FormClosing);
             this.Load += new System.EventHandler(this.Popup_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizePopup)).EndInit();
@@ -261,6 +306,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbPostponeTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,12 +324,14 @@
         private System.Windows.Forms.RichTextBox tbText;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pbMinimizePopup;
         private System.Windows.Forms.PictureBox pbClosePopup;
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pbMinimizeApplication;
+        public System.Windows.Forms.ComboBox cbPostponeType;
+        private System.Windows.Forms.NumericUpDown cbPostponeTime;
+        private System.Windows.Forms.CheckBox cbPostpone;
+        private System.Windows.Forms.RichTextBox tbTitle;
     }
 }

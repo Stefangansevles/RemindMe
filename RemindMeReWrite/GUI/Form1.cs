@@ -69,7 +69,6 @@ namespace RemindMe
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            
             //No database? create
             BLIO.CreateDatabaseIfNotExist();
 
@@ -317,76 +316,39 @@ namespace RemindMe
             foreach (Reminder rem in DLReminders.GetReminders())
             {
                 //Create the popup. Do the other stuff afterwards.
-                if (Convert.ToDateTime(rem.Date) <= DateTime.Now && rem.Enabled == 1) //Check if it is enabled, and if it is ready to popup (Date of the reminder is smaller than date now)
-                {                    
+                if(rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now)
+                {
                     allowRefreshListview = true;
 
-                    if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
-                        DLReminders.DeleteReminder(rem);
+                    //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
+                    rem.Enabled = 0;
+                    DLReminders.EditReminder(rem);
 
                     BLFormLogic.MakePopup(rem);
+                }
+                else if(Convert.ToDateTime(rem.Date) <= DateTime.Now && rem.PostponeDate == null)
+                {
+                    allowRefreshListview = true;
 
+                    //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
+                    rem.Enabled = 0;
+                    DLReminders.EditReminder(rem);
 
-                    if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString())
-                    {
-                        //Add days to the reminder so that the next date will be a new workday
-                        ReminderManager.SetNextReminderWorkDay(rem);
-
-                        //Write the changes to the database
-                        DLReminders.EditReminder(rem);                        
-                    }
-
-                    if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())
-                    {
-                        //Add a day to the reminder
-                        rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();
-
-                        //Write the changes to the database
-                        DLReminders.EditReminder(rem);
-                    }
-                                        
-                    if (rem.RepeatType == ReminderRepeatType.WEEKLY.ToString())
-                    {
-                        //Add a week to the reminder
-                        //No matter what date the time was set to, the new date will be the date of the next x. x being the day of the week of the reminder.
-                        //Like this, you won't get multiple popups if RemindMe hasnt been launched in a while, one popup for every week. 
-                        rem.Date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay(BLDateTime.GetDayOfWeekFromInt((int)rem.DayOfWeek)).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();
-
-                        //Write the changes to the database
-                        DLReminders.EditReminder(rem);
-                    }
-
-                    if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
-                    {
-                        //Add a month. Change this while into: date = Datetime.Today.THISMONTH + addMonth(1);  ? maybe.
-                        while(Convert.ToDateTime(rem.Date) < DateTime.Now)
-                            rem.Date = Convert.ToDateTime(rem.Date).AddMonths(1).ToString();
-
-                        //Write the changes to the database
-                        DLReminders.EditReminder(rem);
-                    }
-
-                    if (rem.RepeatType == ReminderRepeatType.EVERY_X_DAYS.ToString())
-                    {
-                        //Add a day to the reminder
-                        rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays((double)rem.EveryXDays).ToString();
-
-                        //Write the changes to the database
-                        DLReminders.EditReminder(rem);
-                    }
-
-                }                                             
+                    BLFormLogic.MakePopup(rem);
+                }
+                                                                    
             }             
             //Refresh the listview. Using the boolean refreshListview, we dont refresh the listview every tick of the timer, that would be very unnecessary
             if (allowRefreshListview)
-            {
-                lvReminders.Items.Clear();
-                BLFormLogic.AddRemindersToListview(lvReminders, ReminderManager.GetReminders());
+            {                
+                BLFormLogic.RefreshListview(lvReminders);
 
                 //set it to false again, otherwise it will continue to refresh every tick
                 allowRefreshListview = false;
             }
         }
+
+        
 
        
 
@@ -531,7 +493,7 @@ namespace RemindMe
 
                 int dayOfMonth = -1;
                 int dayOfWeek = -1;
-                string soundPath = "";
+                string soundPath = "";  
 
                 if (repeat == ReminderRepeatType.MONTHLY)
                 {
@@ -557,11 +519,18 @@ namespace RemindMe
                 pbExclamationDate.Visible = true;
 
                 if (editableReminder == null) //If the user isn't editing an existing reminder, he's creating one
-                {                                                            
+                {
                     if (repeat == ReminderRepeatType.MONTHLY)
                         DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, dayOfMonth, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.WEEKLY)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true, soundPath);
+                    {
+                        DateTime date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
+
+                        if (Convert.ToDateTime(dtpTime.Value.ToShortTimeString()) > Convert.ToDateTime(DateTime.Now.ToShortTimeString()))
+                            date = date.AddDays(-7);
+
+                        DLReminders.InsertReminder(tbReminderName.Text, date, repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true, soundPath);
+                    }
                     else if (repeat == ReminderRepeatType.EVERY_X_DAYS)
                         DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, Convert.ToInt32(numEveryXDays.Value), soundPath);
                     else

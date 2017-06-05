@@ -21,18 +21,7 @@ namespace RemindMe
             return DLReminders.GetReminders();
         }
 
-        /// <summary>
-        /// Finds an reminder in the list which matches the given name
-        /// </summary>
-        /// <param name="name">The name of the reminder</param>
-        /// <returns>A reminder with the given name. Null if it wasn't found</returns>
-        public static Reminder GetReminderByName(string name)
-        {
-            foreach (Reminder rem in reminders)
-                if (rem.Name == name)
-                    return rem;
-            return null;
-        }        
+               
 
 
         /// <summary>

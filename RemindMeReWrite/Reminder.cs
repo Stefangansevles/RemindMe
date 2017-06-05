@@ -24,5 +24,6 @@ namespace RemindMe
         public Nullable<long> DayOfMonth { get; set; }
         public Nullable<long> EveryXDays { get; set; }
         public string SoundFilePath { get; set; }
+        public string PostponeDate { get; set; }
     }
 }

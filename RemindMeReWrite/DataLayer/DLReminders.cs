@@ -62,6 +62,8 @@ namespace RemindMe
 
         }
 
+
+        
         public static void InsertReminder(string name, DateTime date, ReminderRepeatType repeatingType, int dayOfMonth, string note, bool enabled, string soundPath) 
         {
             Reminder rem = new Reminder();
@@ -140,6 +142,60 @@ namespace RemindMe
                 db.Dispose();
             }
             return rem;
+        }
+
+        /// <summary>
+        /// Gives a new value to a reminder based on it's repeating type, and inserts it into the database
+        /// </summary>
+        /// <param name="rem"></param>
+        public static void UpdateReminder(Reminder rem)
+        {
+            if (rem != null)
+            {
+                //Enable the reminder again
+                rem.Enabled = 1;
+
+                if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
+                    DLReminders.DeleteReminder(rem);
+
+                if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString())
+                {
+                    //Add days to the reminder so that the next date will be a new workday
+                    ReminderManager.SetNextReminderWorkDay(rem);                    
+                }
+
+                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())
+                {
+                    //Add a day to the reminder
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();
+                }
+
+                if (rem.RepeatType == ReminderRepeatType.WEEKLY.ToString())
+                {
+                    //Add a week to the reminder
+                    //No matter what date the time was set to, the new date will be the date of the next x. x being the day of the week of the reminder.
+                    //Like this, you won't get multiple popups if RemindMe hasnt been launched in a while, one popup for every week. 
+                    rem.Date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay(BLDateTime.GetDayOfWeekFromInt((int)rem.DayOfWeek)).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();                    
+                }
+
+                if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
+                {
+                    //Add a month. Change this while into: date = Datetime.Today.THISMONTH + addMonth(1);  ? maybe.
+                    while (Convert.ToDateTime(rem.Date) < DateTime.Now)
+                        rem.Date = Convert.ToDateTime(rem.Date).AddMonths(1).ToString();                    
+                }
+
+                if (rem.RepeatType == ReminderRepeatType.EVERY_X_DAYS.ToString())
+                {
+                    //Add x days to the reminder
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays((double)rem.EveryXDays).ToString();                    
+                }
+
+                //finally, Write the changes to the database                
+                DLReminders.EditReminder(rem);
+            }
+            else
+                throw new ArgumentNullException("parameter rem in UpdateReminder is null.");
         }
 
         /// <summary>

@@ -14,6 +14,7 @@
     <Property Name="DayOfMonth" Type="integer" />
     <Property Name="EveryXDays" Type="integer" />
     <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>

@@ -14,6 +14,7 @@
     <Property Name="DayOfMonth" Type="Int64" />
     <Property Name="EveryXDays" Type="Int64" />
     <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="RemindMeDbEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Reminder" EntityType="Self.Reminder" />

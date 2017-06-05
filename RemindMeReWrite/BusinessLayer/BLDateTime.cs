@@ -9,23 +9,7 @@ namespace RemindMe
     /// This class handles the dates and times of reminders.
     /// </summary>
     public abstract class BLDateTime
-    {
-        /// <summary>
-        /// Gets the next popup date of a reminder. 
-        /// </summary>
-        /// <param name="rem">The reminder</param>
-        /// <returns>Next date for when the reminder should pop up</returns>
-        /*public static DateTime GetNextReminderDate(Reminder rem)
-        {
-            switch(rem.RepeatingType)
-            {
-                case ReminderRepeatType.MONTHLY:
-                    break;
-                case ReminderRepeatType.WEEKLY: //return GetDateOfNextDay(rem.DayOfWeek);
-                    break;
-            }
-            return new DateTime(); //TODO
-        }*/
+    {  
 
         /// <summary>
         /// Gets the date of the next day of the week. The time will be 00:00:00
@@ -34,12 +18,12 @@ namespace RemindMe
         /// <returns>Date of the next day of the week</returns>
         public static DateTime GetDateOfNextDay(DayOfWeek day)
         {
-            int daysToAdd = ((int)day - (int)DateTime.Now.DayOfWeek + 7) % 7;  
-            
-            if(day != DateTime.Now.DayOfWeek)          
+            int daysToAdd = ((int)day - (int)DateTime.Now.DayOfWeek + 7) % 7;
+
+            if (day != DateTime.Now.DayOfWeek)
                 return Convert.ToDateTime(DateTime.Now.AddDays(daysToAdd).ToShortDateString() + " 00:00:00");
-            else
-                return Convert.ToDateTime(DateTime.Now.AddDays(7).ToShortDateString() + " 00:00:00");
+            else                            
+                return Convert.ToDateTime(DateTime.Now.AddDays(7).ToShortDateString() + " 00:00:00");            
         }
 
         /// <summary>

@@ -86,7 +86,7 @@ namespace RemindMe
             
             ListViewItem itm = new ListViewItem(rem.Name);
             itm.Tag = rem.Id; //Add the id as a tag(invisible)
-            if (DateTime.Today.ToShortDateString() == Convert.ToDateTime(rem.Date).ToShortDateString())
+            if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortDateString()))
                 itm.SubItems.Add(Convert.ToDateTime(rem.Date).ToShortTimeString());
             else
                 itm.SubItems.Add(Convert.ToDateTime(rem.Date).ToShortDateString());
@@ -115,6 +115,12 @@ namespace RemindMe
             {
                 AddReminderToListview(lv, rem);
             }
+        }
+
+        public static void RefreshListview(ListView lv)
+        {
+            lv.Items.Clear();
+            AddRemindersToListview(lv, ReminderManager.GetReminders());
         }
 
         /// <summary>
@@ -156,10 +162,8 @@ namespace RemindMe
                     myPlayer.URL = rem.SoundFilePath;
                     myPlayer.controls.play();
                 }
-                else
-                {
-                    BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore \r\n(" + rem.SoundFilePath + ")","\r\nHave you deleted or moved " + Path.GetFileName(rem.SoundFilePath) + "? Please re-add it to RemindMe to use it again", true);                                    
-                }
+                else                
+                    BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore \r\n(" + rem.SoundFilePath + ")","\r\nHave you deleted or moved " + Path.GetFileName(rem.SoundFilePath) + "? Please re-add it to RemindMe to use it again", true);                
             }
         }
 
