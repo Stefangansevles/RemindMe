@@ -80,14 +80,12 @@ namespace RemindMe
             if (cbPostpone.Checked)
             {
                 DateTime newReminderTime = new DateTime();
-                if (cbPostponeType.SelectedItem == cbPostponeType.Items[0])
-                {//postpone option is x minutes
-                    newReminderTime = DateTime.Now.AddMinutes((double)cbPostponeTime.Value);
-                }
-                else
-                {//postpone option is x hours
-                    newReminderTime = DateTime.Now.AddHours((double)cbPostponeTime.Value);
-                }
+
+                if (cbPostponeType.SelectedItem == cbPostponeType.Items[0]) //postpone option is x minutes                
+                    newReminderTime = DateTime.Now.AddMinutes((double)cbPostponeTime.Value);                
+                else //postpone option is x hours                
+                    newReminderTime = DateTime.Now.AddHours((double)cbPostponeTime.Value);                
+
                 rem.PostponeDate = newReminderTime.ToString();
                 rem.Enabled = 1;
                 DLReminders.EditReminder(rem);

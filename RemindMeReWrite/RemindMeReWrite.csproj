@@ -62,11 +62,13 @@
     </Reference>
     <Reference Include="FSManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Users\rs\Documents\Visual Studio 2015\Projects\FSManager\FSManager\bin\Debug\FSManager.dll</HintPath>
+      <HintPath>libs\FSManager.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.IWshRuntimeLibrary">
-      <HintPath>D:\Users\rs\Documents\Visual Studio 2015\Projects\ClipboardWatcher\ClipboardWatcher\Interop.IWshRuntimeLibrary.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="Interop.IWshRuntimeLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>libs\Interop.IWshRuntimeLibrary.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -176,6 +178,8 @@
       <DependentUpon>UCWindows.cs</DependentUpon>
     </Compile>
     <Compile Include="Variables\IOVariables.cs" />
+    <Content Include="libs\FSManager.dll" />
+    <Content Include="libs\Interop.IWshRuntimeLibrary.dll" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config" />

@@ -86,10 +86,21 @@ namespace RemindMe
             
             ListViewItem itm = new ListViewItem(rem.Name);
             itm.Tag = rem.Id; //Add the id as a tag(invisible)
-            if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortDateString()))
-                itm.SubItems.Add(Convert.ToDateTime(rem.Date).ToShortTimeString());
+
+            if (rem.PostponeDate == null)
+            {
+                if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortDateString()))
+                    itm.SubItems.Add(Convert.ToDateTime(rem.Date).ToShortTimeString());
+                else
+                    itm.SubItems.Add(Convert.ToDateTime(rem.Date).ToShortDateString());
+            }
             else
-                itm.SubItems.Add(Convert.ToDateTime(rem.Date).ToShortDateString());
+            {
+                if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.PostponeDate).ToShortDateString()))
+                    itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortTimeString() + " (p)");
+                else
+                    itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " (p)");
+            }
 
             if (rem.RepeatType != ReminderRepeatType.EVERY_X_DAYS.ToString())
                 itm.SubItems.Add(rem.RepeatType.ToString().ToLower());
@@ -111,10 +122,8 @@ namespace RemindMe
         public static void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
         {
             List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date)).ToList();
-            foreach (Reminder rem in list)
-            {
-                AddReminderToListview(lv, rem);
-            }
+            foreach (Reminder rem in list)            
+                AddReminderToListview(lv, rem);            
         }
 
         public static void RefreshListview(ListView lv)
@@ -141,7 +150,7 @@ namespace RemindMe
                         cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
 
 
-            cbSound.Items.Remove(" A dd files...");
+            cbSound.Items.Remove(" Add files...");
             cbSound.Items.Add(" Add files...");
             cbSound.Sorted = true;
         }

@@ -316,7 +316,7 @@ namespace RemindMe
             foreach (Reminder rem in DLReminders.GetReminders())
             {
                 //Create the popup. Do the other stuff afterwards.
-                if(rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled != 0)
+                if(rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1)
                 {
                     allowRefreshListview = true;
 
@@ -326,7 +326,7 @@ namespace RemindMe
 
                     BLFormLogic.MakePopup(rem);
                 }
-                else if(Convert.ToDateTime(rem.Date) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled != 0)
+                else if(Convert.ToDateTime(rem.Date) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1)
                 {
                     allowRefreshListview = true;
 
