@@ -68,12 +68,24 @@ namespace RemindMe
        
         
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {            
+            //For testing purposes. create a test-reminder on startup------------------------
+            /*Reminder rem = new Reminder();
+            rem.Date = "2016-6-2 13:00:00";
+            rem.Name = "testReminder";
+            rem.Note = "This is a note for a test reminder\nwith\n\nsome spaces";
+            rem.RepeatType = ReminderRepeatType.CUSTOM.ToString();
+            rem.EveryXCustom = 5;
+            rem.SoundFilePath = @"D:\users\rs\Music\sound effects\onee toch niet.wav";
+            BLFormLogic.MakePopup(rem);*/
+            //-------------------------------------------------------------------------------                
+            
             //No database? create
             BLIO.CreateDatabaseIfNotExist();
-
             DLReminders.GetReminders();
 
+
+            
             
             //BLIO.WriteError(new FieldAccessException(), "Exception in main.", true);
 
@@ -83,8 +95,9 @@ namespace RemindMe
                     Hide();
                 }));
 
+
             //Add all reminders to the listview
-            BLFormLogic.AddRemindersToListview(lvReminders, ReminderManager.GetReminders());
+            BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
 
             this.BackgroundImage = Properties.Resources.gray;
             pictureBox4.BringToFront();
@@ -115,6 +128,7 @@ namespace RemindMe
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if(!File.Exists(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk"))            
                 BLIO.CreateShortcut();
+            
         }
 
         
@@ -131,15 +145,15 @@ namespace RemindMe
             btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
             lblNote.Location = new Point(lblNote.Location.X, tbNote.Location.Y);
 
-            if (rbEveryXDays.Checked)
+            if (rbEveryXCustom.Checked)
             {
                 numEveryXDays.Visible = true;
-                lblEveryXDays.Visible = true;
+                cbEveryXCustom.Visible = true;
             }
             else
             {
                 numEveryXDays.Visible = false;
-                lblEveryXDays.Visible = false;
+                cbEveryXCustom.Visible = false;
             }
 
             if (rbMonthly.Checked || rbWeekly.Checked)
@@ -159,7 +173,7 @@ namespace RemindMe
             cbEvery.Visible = false;
             lblEvery.Visible = false;
             numEveryXDays.Visible = false;
-            lblEveryXDays.Visible = false;
+            cbEveryXCustom.Visible = false;
 
             tbNote.Location = new Point(cbEvery.Location.X, cbEvery.Location.Y);
             lblNote.Location = new Point(lblEvery.Location.X, lblEvery.Location.Y);
@@ -175,7 +189,7 @@ namespace RemindMe
             if (lvReminders.SelectedItems.Count == 1)
             {
                 if (rem != null)
-                {
+                {                    
                     BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
                     tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
                     tbReminderName.Text = rem.Name;
@@ -216,12 +230,27 @@ namespace RemindMe
                                 cbEvery.SelectedItem = cbEvery.Items[6];
                             else
                                 cbEvery.SelectedItem = cbEvery.Items[(int)rem.DayOfWeek - 1];
+                            break;                        
+                    }
+                    if(rem.EveryXCustom != null)
+                    {
+                        rbEveryXCustom.Checked = true;
+                        numEveryXDays.Value = (decimal)rem.EveryXCustom;
 
-                            break;
-                        case "EVERY_X_DAYS":
-                            rbEveryXDays.Checked = true;
-                            numEveryXDays.Value = (decimal)rem.EveryXDays;
-                            break;
+                        //The repeating type will now be different, because the user selected a custom reminder. repeating types will now be minutes,hours,days,weeks or months
+                        switch (rem.RepeatType.ToLower())
+                        {
+                            case "minutes": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[0];
+                                break;
+                            case "hours": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[1];
+                                break; 
+                            case "days": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2];
+                                break;
+                            case "weeks": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[3];
+                                break;
+                            case "months": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[4];
+                                break;
+                        }
                     }
                 }
                 else
@@ -286,19 +315,25 @@ namespace RemindMe
             BLFormLogic.FillSoundComboboxFromDatabase(cbSound); 
 
             //There's no selected item, so it should not appear that way either
-            cbSound.Text = "";
+            cbSound.Text = "";            
+            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2]; //days
         }
 
         private void btnRemoveReminder_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in lvReminders.SelectedItems)
+            if (lvReminders.SelectedItems.Count > 0)
             {
-                DLReminders.DeleteReminder(DLReminders.GetReminderById(Convert.ToInt32(item.Tag))); //Remove it from the database
-                lvReminders.Items.Remove(item);                                                     //Remove it from the listview
-            }
-
-
-            ReminderManager.GetReminders().Clear();
+                List<Reminder> toRemoveReminders = new List<Reminder>();
+                foreach (ListViewItem item in lvReminders.SelectedItems)
+                {
+                    toRemoveReminders.Add(DLReminders.GetReminderById(Convert.ToInt32(item.Tag)));
+                    lvReminders.Items.Remove(item);                                                     //Remove it from the listview
+                }
+                
+                //If the user selected multiple reminders, you don't open the database, remove the reminder, and close the database for every selected reminder this way
+                DLReminders.DeleteReminders(toRemoveReminders);
+                DLReminders.GetReminders().Clear();
+            }                        
         }
 
         private void tmrCheckReminder_Tick(object sender, EventArgs e)
@@ -443,6 +478,8 @@ namespace RemindMe
                 //clear the combobox of previous data
                 cbEvery.Items.Clear();
 
+                
+
                 ComboBoxItem[] days = { new ComboBoxItem("Monday", DayOfWeek.Monday), new ComboBoxItem("Tuesday", DayOfWeek.Tuesday) ,
                     new ComboBoxItem("Wednesday", DayOfWeek.Wednesday) , new ComboBoxItem("Thursday", DayOfWeek.Thursday) , new ComboBoxItem("Friday", DayOfWeek.Friday),
                     new ComboBoxItem("Saturday", DayOfWeek.Saturday) , new ComboBoxItem("Sunday", DayOfWeek.Sunday) };
@@ -488,8 +525,8 @@ namespace RemindMe
                 if (rbNoRepeat.Checked)
                     repeat = ReminderRepeatType.NONE;
 
-                if (rbEveryXDays.Checked)
-                    repeat = ReminderRepeatType.EVERY_X_DAYS;
+                if (rbEveryXCustom.Checked)
+                    repeat = ReminderRepeatType.CUSTOM;
 
                 int dayOfMonth = -1;
                 int dayOfWeek = -1;
@@ -521,7 +558,7 @@ namespace RemindMe
                 if (editableReminder == null) //If the user isn't editing an existing reminder, he's creating one
                 {
                     if (repeat == ReminderRepeatType.MONTHLY)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, dayOfMonth, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), dayOfMonth, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.WEEKLY)
                     {
                         DateTime date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
@@ -529,12 +566,12 @@ namespace RemindMe
                         if (Convert.ToDateTime(dtpTime.Value.ToShortTimeString()) > Convert.ToDateTime(DateTime.Now.ToShortTimeString()))
                             date = date.AddDays(-7);
 
-                        DLReminders.InsertReminder(tbReminderName.Text, date, repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, date, repeat.ToString(), tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true, soundPath);
                     }
-                    else if (repeat == ReminderRepeatType.EVERY_X_DAYS)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, Convert.ToInt32(numEveryXDays.Value), soundPath);
+                    else if (repeat == ReminderRepeatType.CUSTOM)
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), cbEveryXCustom.SelectedItem.ToString(), tbNote.Text.Replace(Environment.NewLine, "\\n"), true, Convert.ToInt32(numEveryXDays.Value), soundPath);
                     else
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                                         
                     
                 }
@@ -542,7 +579,12 @@ namespace RemindMe
                 {//The user is editing an existing reminder                                        
                     editableReminder.Name = tbReminderName.Text;
                     editableReminder.Date = dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString();
-                    editableReminder.RepeatType = repeat.ToString();                    
+
+                    if (editableReminder.EveryXCustom == null)
+                        editableReminder.RepeatType = repeat.ToString();
+                    else
+                        editableReminder.RepeatType = cbEveryXCustom.SelectedItem.ToString();
+
                     editableReminder.SoundFilePath = soundPath;
                     editableReminder.Note = tbNote.Text.Replace(Environment.NewLine, "\\n");
 
@@ -552,8 +594,8 @@ namespace RemindMe
                     if (repeat == ReminderRepeatType.MONTHLY)
                         editableReminder.DayOfMonth = dayOfMonth;
 
-                    if (repeat == ReminderRepeatType.EVERY_X_DAYS)
-                        editableReminder.EveryXDays = Convert.ToInt32(numEveryXDays.Value);
+                    if (editableReminder.EveryXCustom != null)
+                        editableReminder.EveryXCustom = Convert.ToInt32(numEveryXDays.Value);
 
 
                     DLReminders.EditReminder(editableReminder);                    
@@ -561,7 +603,7 @@ namespace RemindMe
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again
                 lvReminders.Items.Clear();
-                BLFormLogic.AddRemindersToListview(lvReminders, ReminderManager.GetReminders());
+                BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
                 BLFormLogic.SwitchPanels(pnlMain, pnlNewReminder);
             }
             else
@@ -596,7 +638,7 @@ namespace RemindMe
 
         private void btnEditReminder_Click(object sender, EventArgs e)
         {
-            BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
+           
 
             //Fill the form with the data from the single reminder selected from the listview.
             if (lvReminders.SelectedItems.Count > 0)
@@ -797,10 +839,9 @@ namespace RemindMe
 
         private void rbEveryXDays_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbEveryXDays.Checked)
+            if (rbEveryXCustom.Checked)
             {
                 lblEvery.Text = "Every:";                                                
-
                 AddComboboxMonthlyWeekly();
             }
                        
@@ -812,9 +853,6 @@ namespace RemindMe
                 numEveryXDays.Value = 1;
         }
 
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

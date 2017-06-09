@@ -12,7 +12,7 @@
     <Property Name="Enabled" Type="integer" Nullable="false" />
     <Property Name="DayOfWeek" Type="integer" />
     <Property Name="DayOfMonth" Type="integer" />
-    <Property Name="EveryXDays" Type="integer" />
+    <Property Name="EveryXCustom" Type="integer" />
     <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>

@@ -69,8 +69,11 @@ namespace RemindMe
                 }
                 if (c is ComboBox)
                 {
-                    ComboBox cb = (ComboBox)c;
-                    cb.Items.Clear();
+                    if (c.Name != "cbEveryXCustom")
+                    {
+                        ComboBox cb = (ComboBox)c;
+                        cb.Items.Clear();
+                    }
                 }
                 if (c is PictureBox && c.Name != "pbEdit")                
                     c.Visible = false;                
@@ -102,10 +105,10 @@ namespace RemindMe
                     itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " (p)");
             }
 
-            if (rem.RepeatType != ReminderRepeatType.EVERY_X_DAYS.ToString())
+            if (rem.EveryXCustom == null)
                 itm.SubItems.Add(rem.RepeatType.ToString().ToLower());
             else
-                itm.SubItems.Add("every " + rem.EveryXDays + "d");
+                itm.SubItems.Add("every " + rem.EveryXCustom + " " + rem.RepeatType);
 
             if (rem.Enabled == 1)
                 itm.SubItems.Add("True");
@@ -129,7 +132,7 @@ namespace RemindMe
         public static void RefreshListview(ListView lv)
         {
             lv.Items.Clear();
-            AddRemindersToListview(lv, ReminderManager.GetReminders());
+            AddRemindersToListview(lv, DLReminders.GetReminders());
         }
 
         /// <summary>

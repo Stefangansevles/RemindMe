@@ -9,21 +9,7 @@ namespace RemindMe
     /// Contains methods that handle reminders
     /// </summary>
     public abstract class ReminderManager
-    {
-        private static List<Reminder> reminders = new List<Reminder>();
-
-        /// <summary>
-        /// Gets the list of all reminders
-        /// </summary>
-        /// <returns>The list containing all reminders</returns>
-        public static List<Reminder> GetReminders()
-        {
-            return DLReminders.GetReminders();
-        }
-
-               
-
-
+    {                               
         /// <summary>
         /// Adds a day to the reminder so that the next date will be a weekly day. If the day is friday, the next popup date of the reminder will be monday
         /// </summary>

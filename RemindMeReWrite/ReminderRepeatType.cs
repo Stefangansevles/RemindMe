@@ -26,9 +26,9 @@
         /// </summary>
         MONTHLY,
         /// <summary>
-        /// The reminder will show up every x amount of days, i.e every 3 days.
+        /// The reminder will show up every x amount of x, custom. Can be every 5 months, every 3 minutes, etc
         /// </summary>
-        EVERY_X_DAYS
+        CUSTOM
 
     }
 }

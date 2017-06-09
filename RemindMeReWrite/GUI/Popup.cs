@@ -74,9 +74,7 @@ namespace RemindMe
         }
 
         private void btnOk_Click(object sender, EventArgs e)
-        {            
-         
-
+        {                     
             if (cbPostpone.Checked)
             {
                 DateTime newReminderTime = new DateTime();

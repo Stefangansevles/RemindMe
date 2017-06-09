@@ -36,7 +36,7 @@ namespace RemindMe
                 SQLiteCommand tableReminder = new SQLiteCommand();
                 SQLiteCommand tableSettings = new SQLiteCommand();
                 SQLiteCommand tableSongs = new SQLiteCommand();
-                tableReminder.CommandText = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfWeek]       bigint NULL, [DayOfMonth] bigint NULL, [EveryXDays] bigint NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
+                tableReminder.CommandText = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfWeek]bigint NULL, [DayOfMonth] bigint NULL, [EveryXCustom] bigint NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
                 tableSettings.CommandText = "CREATE TABLE [Settings] ( [Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
                 tableSongs.CommandText = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
 

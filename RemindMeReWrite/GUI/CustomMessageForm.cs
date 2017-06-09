@@ -32,7 +32,7 @@ namespace RemindMe
         public CustomMessageForm(string description, RemindMeBoxIcon icon)
         {
             InitializeComponent();
-
+            this.TopMost = true;
             BLFormLogic.RemovebuttonBorders(btnOk);
             switch (icon)
             {

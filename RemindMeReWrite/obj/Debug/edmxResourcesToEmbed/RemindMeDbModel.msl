@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Reminder">
       <EntityTypeMapping TypeName="RemindMeDbModel.Reminder">
         <MappingFragment StoreEntitySet="Reminder">
+          <ScalarProperty Name="EveryXCustom" ColumnName="EveryXCustom" />
           <ScalarProperty Name="PostponeDate" ColumnName="PostponeDate" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -13,7 +14,6 @@
           <ScalarProperty Name="Enabled" ColumnName="Enabled" />
           <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
           <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
-          <ScalarProperty Name="EveryXDays" ColumnName="EveryXDays" />
           <ScalarProperty Name="SoundFilePath" ColumnName="SoundFilePath" />
         </MappingFragment>
       </EntityTypeMapping>

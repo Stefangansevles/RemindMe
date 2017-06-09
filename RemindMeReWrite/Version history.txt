@@ -25,3 +25,14 @@ It now shows time when it is less than today aswell.
 -Fixed a bug where the date of an newly made (weekly)reminder would be an week in the future even if the selected time is larger than the current time
 i.e. an user creates a reminder every thursday at 11:00am(selected), and at the time of creation it is thursday, 10:50 pm(current).
 The first reminder should then be in 10 minutes, not in a week and 10 minutes
+
+(6-6-2017)V1.3.1 - Fixed a small bug where non-repeating reminders were deleted instantly,
+so they couldn't be postponed. They are now temporarily set to disabled like the other reminders
+
+(7-6-2017)V1.3.2 
+-If you postponed a reminder, it will now show the date of the postponedate in the listview, and will show its date with an (p) which means postponed
+-Updated the create if not exists SQLite table query
+
+(10-6-2017)V1.4.0
+-Reminders can now be repeated at custom. 
+custom: every x minutes,hours,days,weeks, or months. i.e. every 4 hours, or every 2 weeks

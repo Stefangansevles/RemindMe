@@ -12,9 +12,9 @@
     <Property Name="Enabled" Type="Int64" Nullable="false" />
     <Property Name="DayOfWeek" Type="Int64" />
     <Property Name="DayOfMonth" Type="Int64" />
-    <Property Name="EveryXDays" Type="Int64" />
     <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="EveryXCustom" Type="Int64" />
   </EntityType>
   <EntityContainer Name="RemindMeDbEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Reminder" EntityType="Self.Reminder" />

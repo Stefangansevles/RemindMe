@@ -43,9 +43,11 @@
             this.cbEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddReminder = new System.Windows.Forms.Button();
             this.pnlNewReminder = new System.Windows.Forms.Panel();
+            this.cbEveryXCustom = new System.Windows.Forms.ComboBox();
             this.lblEveryXDays = new System.Windows.Forms.Label();
             this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
             this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
+            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
             this.pbExclamationDate = new System.Windows.Forms.PictureBox();
             this.btnPlaySound = new System.Windows.Forms.Button();
             this.cbSound = new System.Windows.Forms.ComboBox();
@@ -57,7 +59,7 @@
             this.lblEvery = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbEveryXDays = new System.Windows.Forms.RadioButton();
+            this.rbEveryXCustom = new System.Windows.Forms.RadioButton();
             this.rbWorkDays = new System.Windows.Forms.RadioButton();
             this.rbNoRepeat = new System.Windows.Forms.RadioButton();
             this.rbWeekly = new System.Windows.Forms.RadioButton();
@@ -86,13 +88,13 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
-            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pnlNewReminder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -100,7 +102,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -208,7 +209,7 @@
             // chName
             // 
             this.chName.Text = "Title";
-            this.chName.Width = 200;
+            this.chName.Width = 185;
             // 
             // chDate
             // 
@@ -218,7 +219,7 @@
             // chRepeat
             // 
             this.chRepeat.Text = "Repeating";
-            this.chRepeat.Width = 90;
+            this.chRepeat.Width = 120;
             // 
             // cbEnabled
             // 
@@ -242,6 +243,7 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNewReminder.Controls.Add(this.cbEveryXCustom);
             this.pnlNewReminder.Controls.Add(this.lblEveryXDays);
             this.pnlNewReminder.Controls.Add(this.numEveryXDays);
             this.pnlNewReminder.Controls.Add(this.pbExclamationWorkday);
@@ -270,6 +272,24 @@
             this.pnlNewReminder.Size = new System.Drawing.Size(467, 406);
             this.pnlNewReminder.TabIndex = 27;
             this.pnlNewReminder.Visible = false;
+            // 
+            // cbEveryXCustom
+            // 
+            this.cbEveryXCustom.BackColor = System.Drawing.Color.DimGray;
+            this.cbEveryXCustom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.cbEveryXCustom.ForeColor = System.Drawing.Color.White;
+            this.cbEveryXCustom.FormattingEnabled = true;
+            this.cbEveryXCustom.Items.AddRange(new object[] {
+            "Minutes",
+            "Hours",
+            "Days",
+            "Weeks",
+            "Months"});
+            this.cbEveryXCustom.Location = new System.Drawing.Point(185, 265);
+            this.cbEveryXCustom.Name = "cbEveryXCustom";
+            this.cbEveryXCustom.Size = new System.Drawing.Size(132, 21);
+            this.cbEveryXCustom.TabIndex = 74;
+            this.cbEveryXCustom.Visible = false;
             // 
             // lblEveryXDays
             // 
@@ -315,6 +335,17 @@
             this.pbExclamationWorkday.TabIndex = 70;
             this.pbExclamationWorkday.TabStop = false;
             this.pbExclamationWorkday.Visible = false;
+            // 
+            // pbExclamationTitle
+            // 
+            this.pbExclamationTitle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationTitle.BackgroundImage")));
+            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationTitle.Location = new System.Drawing.Point(347, 107);
+            this.pbExclamationTitle.Name = "pbExclamationTitle";
+            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationTitle.TabIndex = 69;
+            this.pbExclamationTitle.TabStop = false;
+            this.pbExclamationTitle.Visible = false;
             // 
             // pbExclamationDate
             // 
@@ -451,7 +482,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbEveryXDays);
+            this.groupBox1.Controls.Add(this.rbEveryXCustom);
             this.groupBox1.Controls.Add(this.rbWorkDays);
             this.groupBox1.Controls.Add(this.rbNoRepeat);
             this.groupBox1.Controls.Add(this.rbWeekly);
@@ -464,18 +495,18 @@
             this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
             // 
-            // rbEveryXDays
+            // rbEveryXCustom
             // 
-            this.rbEveryXDays.AutoSize = true;
-            this.rbEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.rbEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.rbEveryXDays.Location = new System.Drawing.Point(78, 30);
-            this.rbEveryXDays.Name = "rbEveryXDays";
-            this.rbEveryXDays.Size = new System.Drawing.Size(87, 18);
-            this.rbEveryXDays.TabIndex = 63;
-            this.rbEveryXDays.Text = "Every x days";
-            this.rbEveryXDays.UseVisualStyleBackColor = true;
-            this.rbEveryXDays.CheckedChanged += new System.EventHandler(this.rbEveryXDays_CheckedChanged);
+            this.rbEveryXCustom.AutoSize = true;
+            this.rbEveryXCustom.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.rbEveryXCustom.ForeColor = System.Drawing.Color.White;
+            this.rbEveryXCustom.Location = new System.Drawing.Point(78, 30);
+            this.rbEveryXCustom.Name = "rbEveryXCustom";
+            this.rbEveryXCustom.Size = new System.Drawing.Size(63, 18);
+            this.rbEveryXCustom.TabIndex = 63;
+            this.rbEveryXCustom.Text = "Custom";
+            this.rbEveryXCustom.UseVisualStyleBackColor = true;
+            this.rbEveryXCustom.CheckedChanged += new System.EventHandler(this.rbEveryXDays_CheckedChanged);
             // 
             // rbWorkDays
             // 
@@ -498,10 +529,10 @@
             this.rbNoRepeat.ForeColor = System.Drawing.Color.White;
             this.rbNoRepeat.Location = new System.Drawing.Point(165, 30);
             this.rbNoRepeat.Name = "rbNoRepeat";
-            this.rbNoRepeat.Size = new System.Drawing.Size(51, 18);
+            this.rbNoRepeat.Size = new System.Drawing.Size(50, 18);
             this.rbNoRepeat.TabIndex = 61;
             this.rbNoRepeat.TabStop = true;
-            this.rbNoRepeat.Text = "None";
+            this.rbNoRepeat.Text = "Once";
             this.rbNoRepeat.UseVisualStyleBackColor = true;
             this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);
             // 
@@ -747,7 +778,6 @@
             this.pictureBox4.Size = new System.Drawing.Size(28, 22);
             this.pictureBox4.TabIndex = 66;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // pbMinimizeApplication
             // 
@@ -772,17 +802,6 @@
             this.pbCloseApplication.TabIndex = 64;
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
-            // 
-            // pbExclamationTitle
-            // 
-            this.pbExclamationTitle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationTitle.BackgroundImage")));
-            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationTitle.Location = new System.Drawing.Point(347, 107);
-            this.pbExclamationTitle.Name = "pbExclamationTitle";
-            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationTitle.TabIndex = 69;
-            this.pbExclamationTitle.TabStop = false;
-            this.pbExclamationTitle.Visible = false;
             // 
             // Form1
             // 
@@ -810,6 +829,7 @@
             this.pnlNewReminder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -818,7 +838,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -879,10 +898,11 @@
         private System.Windows.Forms.PictureBox pbExclamationDate;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pbExclamationWorkday;
-        private System.Windows.Forms.RadioButton rbEveryXDays;
+        private System.Windows.Forms.RadioButton rbEveryXCustom;
         private System.Windows.Forms.NumericUpDown numEveryXDays;
         private System.Windows.Forms.Label lblEveryXDays;
         private System.Windows.Forms.PictureBox pbExclamationTitle;
+        private System.Windows.Forms.ComboBox cbEveryXCustom;
     }
 }
 

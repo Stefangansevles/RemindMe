@@ -36,7 +36,7 @@ namespace RemindMe
         /// <param name="note">The optionaln ote</param>
         /// <param name="enabled"></param>
         /// <param name="soundPath">The path to the sound file that plays when this reminder pops up</param>
-        public static void InsertReminder(string name, DateTime date, ReminderRepeatType repeatingType, string note, bool enabled, string soundPath)
+        public static void InsertReminder(string name, DateTime date, string repeatingType, string note, bool enabled, string soundPath)
         {
             Reminder rem = new Reminder();
             rem.Name = name;
@@ -64,7 +64,7 @@ namespace RemindMe
 
 
         
-        public static void InsertReminder(string name, DateTime date, ReminderRepeatType repeatingType, int dayOfMonth, string note, bool enabled, string soundPath) 
+        public static void InsertReminder(string name, DateTime date, string repeatingType, int dayOfMonth, string note, bool enabled, string soundPath) 
         {
             Reminder rem = new Reminder();
             rem.Name = name;
@@ -80,7 +80,7 @@ namespace RemindMe
             PushReminderToDatabase(rem);
         }
 
-        public static void InsertReminder(string name, DateTime date, ReminderRepeatType repeatingType, string note, int dayOfWeek, bool enabled, string soundPath)
+        public static void InsertReminder(string name, DateTime date, string repeatingType, string note, int dayOfWeek, bool enabled, string soundPath)
         {
             Reminder rem = new Reminder();
             rem.Name = name;
@@ -96,13 +96,13 @@ namespace RemindMe
             PushReminderToDatabase(rem);
         }
 
-        public static void InsertReminder(string name, DateTime date, ReminderRepeatType repeatingType, string note, bool enabled, int everyXDays, string soundPath) 
+        public static void InsertReminder(string name, DateTime date, string repeatingType, string note, bool enabled, int everyXDays, string soundPath) 
         {
             Reminder rem = new Reminder();
             rem.Name = name;
             rem.Date = date.ToString();
             rem.RepeatType = repeatingType.ToString();
-            rem.EveryXDays = everyXDays;
+            rem.EveryXCustom = everyXDays;
             rem.Note = note;
             rem.SoundFilePath = soundPath;
             
@@ -185,10 +185,28 @@ namespace RemindMe
                         rem.Date = Convert.ToDateTime(rem.Date).AddMonths(1).ToString();                    
                 }
 
-                if (rem.RepeatType == ReminderRepeatType.EVERY_X_DAYS.ToString())
+                if (rem.EveryXCustom != null)
                 {
-                    //Add x days to the reminder
-                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays((double)rem.EveryXDays).ToString();                    
+                    //The user has a custom reminder, every x minutes,hours,days,weeks, or months
+                    switch(rem.RepeatType.ToLower())
+                    {
+                        case "minutes":
+                            rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddMinutes((double)rem.EveryXCustom).ToString();
+                            break;
+                        case "hours":
+                            rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddHours((double)rem.EveryXCustom).ToString();
+                            break;
+                        case "days":
+                            rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays((double)rem.EveryXCustom).ToString();
+                            break;
+                        case "weeks":
+                            rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays( ((double)rem.EveryXCustom * 7)).ToString();
+                            break;
+                        case "months":
+                            rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddMonths((int)rem.EveryXCustom).ToString();
+                            break;
+                    }
+                    
                 }
 
                 //finally, Write the changes to the database  
@@ -233,5 +251,25 @@ namespace RemindMe
                 }
             }
         }
+
+        public static void DeleteReminders(List<Reminder> rems)
+        {
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                foreach (Reminder rem in rems)
+                {
+                    if (GetReminderById(rem.Id) != null) //Check if the reminder exists
+                    {
+                        db.Reminder.Attach(rem);
+                        db.Reminder.Remove(rem);                        
+                    }
+                }
+                db.SaveChanges();
+                db.Dispose();
+            }
+                
+            
+        }
+
     }
 }
