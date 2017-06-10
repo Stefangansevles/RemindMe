@@ -563,7 +563,7 @@ namespace RemindMe
                     {
                         DateTime date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
 
-                        if (Convert.ToDateTime(dtpTime.Value.ToShortTimeString()) > Convert.ToDateTime(DateTime.Now.ToShortTimeString()))
+                        if (Convert.ToDateTime(dtpTime.Value.ToShortTimeString()) > Convert.ToDateTime(DateTime.Now.ToShortTimeString()) && DateTime.Now.Day == date.Day)
                             date = date.AddDays(-7);
 
                         DLReminders.InsertReminder(tbReminderName.Text, date, repeat.ToString(), tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true, soundPath);
@@ -799,14 +799,7 @@ namespace RemindMe
         private void dtpTime_ValueChanged(object sender, EventArgs e)
         {
             ShowOrHideExclamation();
-
-            if (rbWeekly.Checked)
-            {
-                //Set the date to today, instead of the next week IF the time is greater than now
-                ComboBoxItem selectedItem = (ComboBoxItem)cbEvery.SelectedItem; //Error als maand geselecteer is
-                if (dtpTime.Value > DateTime.Now.ToLocalTime() && selectedItem.Value.Equals(DateTime.Today.DayOfWeek))                
-                    dtpDate.Value = DateTime.Today;                
-            }
+            cbEvery_SelectedIndexChanged(sender, e);            
         }
         
         private void dtpDate_ValueChanged(object sender, EventArgs e)

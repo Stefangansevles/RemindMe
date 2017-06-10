@@ -44,7 +44,6 @@
             this.btnAddReminder = new System.Windows.Forms.Button();
             this.pnlNewReminder = new System.Windows.Forms.Panel();
             this.cbEveryXCustom = new System.Windows.Forms.ComboBox();
-            this.lblEveryXDays = new System.Windows.Forms.Label();
             this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
             this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
             this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
@@ -244,7 +243,6 @@
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
             this.pnlNewReminder.Controls.Add(this.cbEveryXCustom);
-            this.pnlNewReminder.Controls.Add(this.lblEveryXDays);
             this.pnlNewReminder.Controls.Add(this.numEveryXDays);
             this.pnlNewReminder.Controls.Add(this.pbExclamationWorkday);
             this.pnlNewReminder.Controls.Add(this.pbExclamationTitle);
@@ -290,18 +288,6 @@
             this.cbEveryXCustom.Size = new System.Drawing.Size(132, 21);
             this.cbEveryXCustom.TabIndex = 74;
             this.cbEveryXCustom.Visible = false;
-            // 
-            // lblEveryXDays
-            // 
-            this.lblEveryXDays.AutoSize = true;
-            this.lblEveryXDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.lblEveryXDays.Location = new System.Drawing.Point(182, 267);
-            this.lblEveryXDays.Name = "lblEveryXDays";
-            this.lblEveryXDays.Size = new System.Drawing.Size(34, 15);
-            this.lblEveryXDays.TabIndex = 72;
-            this.lblEveryXDays.Text = "Days";
-            this.lblEveryXDays.Visible = false;
             // 
             // numEveryXDays
             // 
@@ -900,7 +886,6 @@
         private System.Windows.Forms.PictureBox pbExclamationWorkday;
         private System.Windows.Forms.RadioButton rbEveryXCustom;
         private System.Windows.Forms.NumericUpDown numEveryXDays;
-        private System.Windows.Forms.Label lblEveryXDays;
         private System.Windows.Forms.PictureBox pbExclamationTitle;
         private System.Windows.Forms.ComboBox cbEveryXCustom;
     }

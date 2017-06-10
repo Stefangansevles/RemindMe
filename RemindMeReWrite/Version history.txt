@@ -36,3 +36,7 @@ so they couldn't be postponed. They are now temporarily set to disabled like the
 (10-6-2017)V1.4.0
 -Reminders can now be repeated at custom. 
 custom: every x minutes,hours,days,weeks, or months. i.e. every 4 hours, or every 2 weeks
+
+(10-6-2017)V1.4.1
+Fixed a small problem where the date timepicker would not update when you change the time. 
+If it's 2:00 am, and you select the reminder time to be 1:00am and on the same weekly/monthly date as today, it should not set it to today, but to the next week/month instead
