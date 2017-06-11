@@ -42,5 +42,5 @@ Fixed a small problem where the date timepicker would not update when you change
 If it's 2:00 am, and you select the reminder time to be 1:00am and on the same weekly/monthly date as today, it should not set it to today, but to the next week/month instead
 
 (11-6-2017)V1.4.11
-Reminders will now be read from the database once, and every tick of the timer a local cached reminder list will be read, instead of connecting with the database every tick of the timer
-Because this is a local database, it doesn't matter that much, but it's good practise.
+Reminders will now be read from the database once on start, and everytime the database changes.
+Every tick of the timer a local cached reminder list will be read, instead of connecting with the database every tick of the timer, which is now the case because the database is local(SQLite), because of this it doesn't matter that much, but it's good practise.
