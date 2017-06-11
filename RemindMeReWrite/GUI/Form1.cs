@@ -40,7 +40,9 @@ namespace RemindMe
 
 
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
-        Reminder editableReminder;        
+        Reminder editableReminder;
+
+        List<Reminder> reminders;
         public Form1()
         {
             InitializeComponent();
@@ -53,6 +55,8 @@ namespace RemindMe
             imgPlayResume = Properties.Resources.resume;
 
             toRemoveReminders = new List<Reminder>();
+
+            reminders = DLReminders.GetReminders();
         }
 
 
@@ -82,7 +86,7 @@ namespace RemindMe
             
             //No database? create
             BLIO.CreateDatabaseIfNotExist();
-            DLReminders.GetReminders();
+            
 
 
             
@@ -97,7 +101,7 @@ namespace RemindMe
 
 
             //Add all reminders to the listview
-            BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
+            BLFormLogic.AddRemindersToListview(lvReminders, reminders);
 
             this.BackgroundImage = Properties.Resources.gray;
             pictureBox4.BringToFront();
@@ -328,11 +332,12 @@ namespace RemindMe
                 {
                     toRemoveReminders.Add(DLReminders.GetReminderById(Convert.ToInt32(item.Tag)));
                     lvReminders.Items.Remove(item);                                                     //Remove it from the listview
+                    reminders.Remove(DLReminders.GetReminderById(Convert.ToInt32(item.Tag)));
                 }
                 
                 //If the user selected multiple reminders, you don't open the database, remove the reminder, and close the database for every selected reminder this way
                 DLReminders.DeleteReminders(toRemoveReminders);
-                DLReminders.GetReminders().Clear();
+                reminders = DLReminders.GetReminders();
             }                        
         }
 
@@ -348,7 +353,7 @@ namespace RemindMe
                 
 
             //We will check for reminders here every 30 seconds.
-            foreach (Reminder rem in DLReminders.GetReminders())
+            foreach (Reminder rem in reminders)
             {
                 //Create the popup. Do the other stuff afterwards.
                 if(rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1)
@@ -380,6 +385,7 @@ namespace RemindMe
 
                 //set it to false again, otherwise it will continue to refresh every tick
                 allowRefreshListview = false;
+                reminders = DLReminders.GetReminders();
             }
         }
 
@@ -603,8 +609,9 @@ namespace RemindMe
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again
                 lvReminders.Items.Clear();
-                BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
+                BLFormLogic.AddRemindersToListview(lvReminders, reminders);
                 BLFormLogic.SwitchPanels(pnlMain, pnlNewReminder);
+                reminders = DLReminders.GetReminders();
             }
             else
             {
@@ -654,21 +661,26 @@ namespace RemindMe
 
         private void btnDisableEnable_Click(object sender, EventArgs e)
         {
-            foreach(ListViewItem itm in lvReminders.SelectedItems)
+            if (lvReminders.SelectedItems.Count > 0)
             {
-                if (itm.SubItems[3].Text == "True")
-                    itm.SubItems[3].Text = "False";
-                else
-                    itm.SubItems[3].Text = "True";
+                foreach (ListViewItem itm in lvReminders.SelectedItems)
+                {
+                    if (itm.SubItems[3].Text == "True")
+                        itm.SubItems[3].Text = "False";
+                    else
+                        itm.SubItems[3].Text = "True";
 
-                Reminder rem = DLReminders.GetReminderById(Convert.ToInt32(itm.Tag));
+                    Reminder rem = DLReminders.GetReminderById(Convert.ToInt32(itm.Tag));
 
-                if (Boolean.Parse(itm.SubItems[3].Text))
-                    rem.Enabled = 1;
-                else
-                    rem.Enabled = 0;
+                    if (Boolean.Parse(itm.SubItems[3].Text))
+                        rem.Enabled = 1;
+                    else
+                        rem.Enabled = 0;
 
-                DLReminders.EditReminder(rem);                
+                    DLReminders.EditReminder(rem);
+
+                }
+                reminders = DLReminders.GetReminders();
             }
         }
 
