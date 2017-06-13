@@ -16,5 +16,6 @@ namespace RemindMe
     {
         public long Id { get; set; }
         public long AlwaysOnTop { get; set; }
+        public long StickyForm { get; set; }
     }
 }

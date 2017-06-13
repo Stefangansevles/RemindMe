@@ -65,7 +65,7 @@ namespace RemindMe
                 {
                     DateTimePicker pick = (DateTimePicker)c;
                     pick.Enabled = true;
-                    pick.Value = DateTime.Today;
+                    pick.Value = DateTime.Today.AddMinutes(1);
                 }
                 if (c is ComboBox)
                 {

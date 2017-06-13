@@ -21,6 +21,7 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDbModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="StickyForm" ColumnName="StickyForm" />
           <ScalarProperty Name="AlwaysOnTop" ColumnName="AlwaysOnTop" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

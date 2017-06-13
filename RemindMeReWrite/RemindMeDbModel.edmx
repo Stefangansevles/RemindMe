@@ -27,6 +27,7 @@
           </Key>
           <Property Name="Id" Type="integer" Nullable="false" />
           <Property Name="AlwaysOnTop" Type="integer" Nullable="false" />
+          <Property Name="StickyForm" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -72,6 +73,7 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="AlwaysOnTop" Type="Int64" Nullable="false" />
+          <Property Name="StickyForm" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -107,6 +109,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDbModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="StickyForm" ColumnName="StickyForm" />
                 <ScalarProperty Name="AlwaysOnTop" ColumnName="AlwaysOnTop" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

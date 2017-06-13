@@ -28,7 +28,7 @@ namespace RemindMe
             Settings set = DLSettings.GetSettings();
             set.AlwaysOnTop = alwaysOnTop;
 
-            DLSettings.UpdateAlwaysOnTop(set);            
+            DLSettings.UpdateSettings(set);            
         }
 
         private void UCWindows_Load(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace RemindMe
             {
                 Settings set = new Settings();
                 set.AlwaysOnTop = alwaysOnTop;
-                DLSettings.UpdateAlwaysOnTop(set);
+                DLSettings.UpdateSettings(set);
             }
             //Since we're not going to change the contents of this combobox anyway, we're just going to do it like this
             if (DLSettings.IsAlwaysOnTop())

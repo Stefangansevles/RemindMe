@@ -57,6 +57,9 @@ namespace RemindMe
             toRemoveReminders = new List<Reminder>();
 
             reminders = DLReminders.GetReminders();
+
+            //We just call this method once, because if the settings table does not yet have a column AlwaysOnTop, it will default it to 1(true)
+            DLSettings.IsAlwaysOnTop();
         }
 
 
@@ -119,6 +122,7 @@ namespace RemindMe
             BLFormLogic.RemovebuttonBorders(btnEditReminder);
             BLFormLogic.RemovebuttonBorders(btnConfirm);
             BLFormLogic.RemovebuttonBorders(btnDisableEnable);
+            BLFormLogic.RemovebuttonBorders(btnClear);
             //----------------------------------------------   
 
 
@@ -132,7 +136,8 @@ namespace RemindMe
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if(!File.Exists(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk"))            
                 BLIO.CreateShortcut();
-            
+
+            BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
         }
 
         
@@ -147,6 +152,7 @@ namespace RemindMe
             tbNote.Location = new Point(tbNote.Location.X, cbEvery.Location.Y + (cbEvery.Height + 3));
             btnConfirm.Location = new Point(btnConfirm.Location.X, (tbNote.Location.Y + tbNote.Height + 3));
             btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
+            btnClear.Location = new Point(btnBack.Location.X + (btnBack.Width + 3), btnBack.Location.Y);
             lblNote.Location = new Point(lblNote.Location.X, tbNote.Location.Y);
 
             if (rbEveryXCustom.Checked)
@@ -183,6 +189,7 @@ namespace RemindMe
             lblNote.Location = new Point(lblEvery.Location.X, lblEvery.Location.Y);
             btnConfirm.Location = new Point(btnConfirm.Location.X, (tbNote.Location.Y + tbNote.Height + 3));
             btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
+            btnClear.Location = new Point(btnBack.Location.X + (btnBack.Width + 3), btnBack.Location.Y);
         }
 
         /// <summary>
@@ -302,25 +309,41 @@ namespace RemindMe
             this.Hide();
         }
 
+        private void ResetReminderForm()
+        {
+            cbSound.SelectedItem = null;
+
+            //Reset the controls to their default values, empty text boxes etc
+            BLFormLogic.ResetControlValues(pnlNewReminder);
+
+            rbNoRepeat.Checked = true;
+
+
+            //There's no selected item, so it should not appear that way either
+            cbSound.Text = "";
+            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2]; //days
+
+            dtpTime.Value = Convert.ToDateTime(DateTime.Now.ToString("HH:mm")).AddMinutes(1); //Add 1 minute so the exclamination won't show
+            
+
+            BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
+        }
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
             editableReminder = null;
-            cbSound.SelectedItem = null;
 
-            //Switch the 2 panels giving the user the option to create or edit an reminder
-            BLFormLogic.SwitchPanels(pnlNewReminder, pnlMain);
-            //Reset the controls to their default values, empty text boxes etc
-            BLFormLogic.ResetControlValues(pnlNewReminder);
-            rbNoRepeat.Checked = true;
+            if(!DLSettings.IsStickyForm())
+            {
+                ResetReminderForm();
+                cbStickyForm.Checked = false;                
+            }
+            else
+                cbStickyForm.Checked = true;
 
-            dtpTime.Value = Convert.ToDateTime(DateTime.Now.ToString("HH:mm"));
             pbExclamationDate.Visible = false;
 
-            BLFormLogic.FillSoundComboboxFromDatabase(cbSound); 
-
-            //There's no selected item, so it should not appear that way either
-            cbSound.Text = "";            
-            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2]; //days
+            //Switch the 2 panels giving the user the option to create or edit an reminder
+            BLFormLogic.SwitchPanels(pnlNewReminder, pnlMain);                                              
         }
 
         private void btnRemoveReminder_Click(object sender, EventArgs e)
@@ -858,6 +881,25 @@ namespace RemindMe
                 numEveryXDays.Value = 1;
         }
 
-        
+        private void cbStickyForm_CheckedChanged(object sender, EventArgs e)
+        {
+            //Get the settings from the database and put it in an object
+            Settings set = DLSettings.GetSettings();
+
+
+            //Give a new value to the Stickyform property
+            if (cbStickyForm.Checked)
+                set.StickyForm = 1;
+            else
+                set.StickyForm = 0;
+
+            //Push it to the database
+            DLSettings.UpdateSettings(set);
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ResetReminderForm();
+        }
     }
 }

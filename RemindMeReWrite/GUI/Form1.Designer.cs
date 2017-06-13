@@ -87,6 +87,8 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.cbStickyForm = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -242,6 +244,8 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNewReminder.Controls.Add(this.cbStickyForm);
+            this.pnlNewReminder.Controls.Add(this.btnClear);
             this.pnlNewReminder.Controls.Add(this.cbEveryXCustom);
             this.pnlNewReminder.Controls.Add(this.numEveryXDays);
             this.pnlNewReminder.Controls.Add(this.pbExclamationWorkday);
@@ -460,7 +464,7 @@
             this.btnConfirm.ForeColor = System.Drawing.Color.Transparent;
             this.btnConfirm.Location = new System.Drawing.Point(107, 337);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(106, 23);
+            this.btnConfirm.Size = new System.Drawing.Size(89, 23);
             this.btnConfirm.TabIndex = 30;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = false;
@@ -658,7 +662,7 @@
             this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnBack.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnBack.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBack.Location = new System.Drawing.Point(214, 337);
+            this.btnBack.Location = new System.Drawing.Point(198, 337);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(67, 23);
             this.btnBack.TabIndex = 28;
@@ -746,9 +750,10 @@
             // 
             // toolTip1
             // 
+            this.toolTip1.AutomaticDelay = 0;
             this.toolTip1.AutoPopDelay = 10000;
-            this.toolTip1.InitialDelay = 500;
-            this.toolTip1.ReshowDelay = 100;
+            this.toolTip1.InitialDelay = 0;
+            this.toolTip1.ReshowDelay = 0;
             // 
             // tmrMusic
             // 
@@ -788,6 +793,36 @@
             this.pbCloseApplication.TabIndex = 64;
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.BackColor = System.Drawing.Color.Transparent;
+            this.btnClear.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClear.BackgroundImage")));
+            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClear.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnClear.ForeColor = System.Drawing.Color.Transparent;
+            this.btnClear.Location = new System.Drawing.Point(266, 337);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(67, 23);
+            this.btnClear.TabIndex = 75;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // cbStickyForm
+            // 
+            this.cbStickyForm.AutoSize = true;
+            this.cbStickyForm.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbStickyForm.ForeColor = System.Drawing.Color.White;
+            this.cbStickyForm.Location = new System.Drawing.Point(4, 386);
+            this.cbStickyForm.Name = "cbStickyForm";
+            this.cbStickyForm.Size = new System.Drawing.Size(84, 18);
+            this.cbStickyForm.TabIndex = 76;
+            this.cbStickyForm.Text = "Sticky form";
+            this.toolTip1.SetToolTip(this.cbStickyForm, "When checked, data from the form will not be\r\ncleared. Data from the previous rem" +
+        "inder\r\nwill still be in the fields when adding a new reminder");
+            this.cbStickyForm.UseVisualStyleBackColor = true;
+            this.cbStickyForm.CheckedChanged += new System.EventHandler(this.cbStickyForm_CheckedChanged);
             // 
             // Form1
             // 
@@ -888,6 +923,8 @@
         private System.Windows.Forms.NumericUpDown numEveryXDays;
         private System.Windows.Forms.PictureBox pbExclamationTitle;
         private System.Windows.Forms.ComboBox cbEveryXCustom;
+        private System.Windows.Forms.CheckBox cbStickyForm;
+        public System.Windows.Forms.Button btnClear;
     }
 }
 

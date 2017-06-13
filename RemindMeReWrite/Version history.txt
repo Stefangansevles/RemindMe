@@ -44,3 +44,7 @@ If it's 2:00 am, and you select the reminder time to be 1:00am and on the same w
 (11-6-2017)V1.4.11
 Reminders will now be read from the database once on start, and everytime the database changes.
 Every tick of the timer a local cached reminder list will be read, instead of connecting with the database every tick of the timer, which is now the case because the database is local(SQLite), because of this it doesn't matter that much, but it's good practise.
+
+(13-6-2017)V1.4.2
+-New feature: Sticky form. Sticky form will save the values in the reminder form, so that when you create a new reminder, the fields will still have the data
+from the previous edited/created reminder. Toggleable
