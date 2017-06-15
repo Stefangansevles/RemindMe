@@ -158,17 +158,11 @@ namespace RemindMe
                 if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
                     DLReminders.DeleteReminder(rem);
 
-                if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString())
-                {
-                    //Add days to the reminder so that the next date will be a new workday
-                    ReminderManager.SetNextReminderWorkDay(rem);                    
-                }
+                if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString()) //Add days to the reminder so that the next date will be a new workday      
+                    ReminderManager.SetNextReminderWorkDay(rem);                                    
 
-                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())
-                {
-                    //Add a day to the reminder
-                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();
-                }
+                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder                                   
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();                
 
                 if (rem.RepeatType == ReminderRepeatType.WEEKLY.ToString())
                 {

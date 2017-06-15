@@ -49,6 +49,10 @@ namespace RemindMe
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
             BLIO.CreateSettings();
 
+            //No database? create
+            BLIO.CreateDatabaseIfNotExist();
+
+
             dayOfStartRemindMe = DateTime.Now.Day;
 
             imgStop = Properties.Resources.stopBlack;
@@ -87,9 +91,7 @@ namespace RemindMe
             BLFormLogic.MakePopup(rem);*/
             //-------------------------------------------------------------------------------                
             
-            //No database? create
-            BLIO.CreateDatabaseIfNotExist();
-            
+           
 
 
             
