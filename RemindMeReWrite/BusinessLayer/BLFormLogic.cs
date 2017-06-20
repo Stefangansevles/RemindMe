@@ -58,7 +58,12 @@ namespace RemindMe
                 if (c is RadioButton)
                 {
                     rb = (RadioButton)c;
-                    rb.Checked = false;
+                    
+
+                    if (rb.Name == "rbNoRepeat")
+                        rb.Checked = true; //The default radio button should be rbNoRepeat
+                    else
+                        rb.Checked = false;
                 }
 
                 if (c is DateTimePicker)

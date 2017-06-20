@@ -5,24 +5,46 @@ using System.Text;
 
 namespace RemindMe
 {
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //TODO: Find a way to call RefreshList() whenever the SQLite database changes(if possible). Currently, we just call RefreshList() in every method that alters the database
+    //It would be much nicer  if there was some kind of listener for SQLite database changes, but i couldn't find any
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
     /// <summary>
     /// This class handles reminders in the database.
     /// </summary>
     public abstract class DLReminders
-    {
+    {        
+        //Instead of connecting with the database everytime, we fill this list and return it when the user calls GetReminders(). 
+        static List<Reminder> localReminders;
+
         /// <summary>
         /// Gets all reminders from the database
         /// </summary>
         /// <returns></returns>
         public static List<Reminder> GetReminders()
         {
-            List<Reminder> storedDatabaseReminders = null;            
+            //If the list  is still null, it means GetReminders() hasn't been called yet. So, we give it a value once. Then, the list will only
+            //be altered when the database changes. This way we minimize the amount of database calls
+            if (localReminders == null)            
+                RefreshList();            
+
+            //If the list was null, it now returns the list of reminders from the database.
+            //If it wasn't null, it will return the list as it was last known, which should be how the database is.
+            return localReminders;
+        }
+
+        /// <summary>
+        /// Gives the localReminders list a new value after the database has changed.
+        /// </summary>
+        private static void RefreshList()
+        {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {                
-                storedDatabaseReminders = (from g in db.Reminder select g).ToList();
+            {
+                localReminders = (from g in db.Reminder select g).ToList();
                 db.Dispose();
             }
-            return storedDatabaseReminders;
         }
 
 
@@ -57,6 +79,7 @@ namespace RemindMe
                 
                 db.Reminder.Add(rem);
                 db.SaveChanges();
+                RefreshList();
                 db.Dispose();                
             }
 
@@ -124,6 +147,7 @@ namespace RemindMe
 
                 db.Reminder.Add(rem);
                 db.SaveChanges();
+                RefreshList();
                 db.Dispose();
             }
         }
@@ -225,6 +249,7 @@ namespace RemindMe
                     var entry = db.Entry(rem);
                     entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                
                     db.SaveChanges();                                      //push to database
+                    RefreshList();
                     db.Dispose();
                 }
             }
@@ -241,6 +266,7 @@ namespace RemindMe
                     db.Reminder.Attach(rem);
                     db.Reminder.Remove(rem);                                              
                     db.SaveChanges();
+                    RefreshList();
                     db.Dispose();
                 }
             }
@@ -259,6 +285,7 @@ namespace RemindMe
                     }
                 }
                 db.SaveChanges();
+                RefreshList();
                 db.Dispose();
             }
                 

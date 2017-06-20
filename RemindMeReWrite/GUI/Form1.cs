@@ -41,8 +41,7 @@ namespace RemindMe
 
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;
-
-        List<Reminder> reminders;
+        
         public Form1()
         {
             InitializeComponent();
@@ -58,9 +57,7 @@ namespace RemindMe
             imgStop = Properties.Resources.stopBlack;
             imgPlayResume = Properties.Resources.resume;
 
-            toRemoveReminders = new List<Reminder>();
-
-            reminders = DLReminders.GetReminders();
+            toRemoveReminders = new List<Reminder>();            
 
             //We just call this method once, because if the settings table does not yet have a column AlwaysOnTop, it will default it to 1(true)
             DLSettings.IsAlwaysOnTop();
@@ -79,7 +76,7 @@ namespace RemindMe
        
         
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {
             //For testing purposes. create a test-reminder on startup------------------------
             /*Reminder rem = new Reminder();
             rem.Date = "2016-6-2 13:00:00";
@@ -90,13 +87,8 @@ namespace RemindMe
             rem.SoundFilePath = @"D:\users\rs\Music\sound effects\onee toch niet.wav";
             BLFormLogic.MakePopup(rem);*/
             //-------------------------------------------------------------------------------                
-            
-           
 
-
-            
-            
-            //BLIO.WriteError(new FieldAccessException(), "Exception in main.", true);
+            ResetReminderForm();                     
 
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
@@ -106,7 +98,7 @@ namespace RemindMe
 
 
             //Add all reminders to the listview
-            BLFormLogic.AddRemindersToListview(lvReminders, reminders);
+            BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
 
             this.BackgroundImage = Properties.Resources.gray;
             pictureBox4.BringToFront();
@@ -356,13 +348,11 @@ namespace RemindMe
                 foreach (ListViewItem item in lvReminders.SelectedItems)
                 {
                     toRemoveReminders.Add(DLReminders.GetReminderById(Convert.ToInt32(item.Tag)));
-                    lvReminders.Items.Remove(item);                                                     //Remove it from the listview
-                    reminders.Remove(DLReminders.GetReminderById(Convert.ToInt32(item.Tag)));
+                    lvReminders.Items.Remove(item);                                                     //Remove it from the listview                    
                 }
                 
                 //If the user selected multiple reminders, you don't open the database, remove the reminder, and close the database for every selected reminder this way
-                DLReminders.DeleteReminders(toRemoveReminders);
-                reminders = DLReminders.GetReminders();
+                DLReminders.DeleteReminders(toRemoveReminders);                
             }                        
         }
 
@@ -378,7 +368,7 @@ namespace RemindMe
                 
 
             //We will check for reminders here every 30 seconds.
-            foreach (Reminder rem in reminders)
+            foreach (Reminder rem in DLReminders.GetReminders())
             {
                 //Create the popup. Do the other stuff afterwards.
                 if(rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1)
@@ -409,8 +399,7 @@ namespace RemindMe
                 BLFormLogic.RefreshListview(lvReminders);
 
                 //set it to false again, otherwise it will continue to refresh every tick
-                allowRefreshListview = false;
-                reminders = DLReminders.GetReminders();
+                allowRefreshListview = false;                
             }
         }
 
@@ -536,7 +525,7 @@ namespace RemindMe
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
-        {
+        {            
             //Will be different based on what repeating method the user has selected
             if (tbReminderName.Text != "" && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now))
             {
@@ -633,10 +622,10 @@ namespace RemindMe
                 }
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again
-                lvReminders.Items.Clear();
-                BLFormLogic.AddRemindersToListview(lvReminders, reminders);
+                lvReminders.Items.Clear();                
+                BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
                 BLFormLogic.SwitchPanels(pnlMain, pnlNewReminder);
-                reminders = DLReminders.GetReminders();
+                
             }
             else
             {
@@ -704,8 +693,7 @@ namespace RemindMe
 
                     DLReminders.EditReminder(rem);
 
-                }
-                reminders = DLReminders.GetReminders();
+                }                
             }
         }
 
