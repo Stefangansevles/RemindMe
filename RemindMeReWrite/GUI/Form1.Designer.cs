@@ -43,6 +43,16 @@
             this.cbEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddReminder = new System.Windows.Forms.Button();
             this.pnlNewReminder = new System.Windows.Forms.Panel();
+            this.pnlDayCheckBoxes = new System.Windows.Forms.Panel();
+            this.cbSunday = new System.Windows.Forms.CheckBox();
+            this.cbSaturday = new System.Windows.Forms.CheckBox();
+            this.cbFriday = new System.Windows.Forms.CheckBox();
+            this.cbThursday = new System.Windows.Forms.CheckBox();
+            this.cbWednesday = new System.Windows.Forms.CheckBox();
+            this.cbTuesday = new System.Windows.Forms.CheckBox();
+            this.cbMonday = new System.Windows.Forms.CheckBox();
+            this.cbStickyForm = new System.Windows.Forms.CheckBox();
+            this.btnClear = new System.Windows.Forms.Button();
             this.cbEveryXCustom = new System.Windows.Forms.ComboBox();
             this.numEveryXDays = new System.Windows.Forms.NumericUpDown();
             this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
@@ -57,7 +67,8 @@
             this.cbEvery = new System.Windows.Forms.ComboBox();
             this.lblEvery = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupRepeatRadiobuttons = new System.Windows.Forms.GroupBox();
+            this.rbMultipleDays = new System.Windows.Forms.RadioButton();
             this.rbEveryXCustom = new System.Windows.Forms.RadioButton();
             this.rbWorkDays = new System.Windows.Forms.RadioButton();
             this.rbNoRepeat = new System.Windows.Forms.RadioButton();
@@ -87,18 +98,17 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.cbStickyForm = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pnlNewReminder.SuspendLayout();
+            this.pnlDayCheckBoxes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupRepeatRadiobuttons.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
@@ -117,7 +127,7 @@
             this.pnlMain.Controls.Add(this.btnAddReminder);
             this.pnlMain.Location = new System.Drawing.Point(0, 22);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(475, 406);
+            this.pnlMain.Size = new System.Drawing.Size(475, 457);
             this.pnlMain.TabIndex = 26;
             // 
             // pictureBox1
@@ -135,7 +145,7 @@
             this.pbSettings.BackColor = System.Drawing.Color.Transparent;
             this.pbSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbSettings.BackgroundImage")));
             this.pbSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbSettings.Location = new System.Drawing.Point(433, 381);
+            this.pbSettings.Location = new System.Drawing.Point(433, 426);
             this.pbSettings.Name = "pbSettings";
             this.pbSettings.Size = new System.Drawing.Size(25, 24);
             this.pbSettings.TabIndex = 66;
@@ -149,7 +159,7 @@
             this.btnDisableEnable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDisableEnable.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnDisableEnable.ForeColor = System.Drawing.Color.Transparent;
-            this.btnDisableEnable.Location = new System.Drawing.Point(324, 383);
+            this.btnDisableEnable.Location = new System.Drawing.Point(324, 428);
             this.btnDisableEnable.Name = "btnDisableEnable";
             this.btnDisableEnable.Size = new System.Drawing.Size(105, 23);
             this.btnDisableEnable.TabIndex = 58;
@@ -164,7 +174,7 @@
             this.btnRemoveReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRemoveReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnRemoveReminder.ForeColor = System.Drawing.Color.Transparent;
-            this.btnRemoveReminder.Location = new System.Drawing.Point(100, 383);
+            this.btnRemoveReminder.Location = new System.Drawing.Point(100, 428);
             this.btnRemoveReminder.Name = "btnRemoveReminder";
             this.btnRemoveReminder.Size = new System.Drawing.Size(124, 23);
             this.btnRemoveReminder.TabIndex = 29;
@@ -179,7 +189,7 @@
             this.btnEditReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnEditReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnEditReminder.ForeColor = System.Drawing.Color.Transparent;
-            this.btnEditReminder.Location = new System.Drawing.Point(224, 383);
+            this.btnEditReminder.Location = new System.Drawing.Point(224, 428);
             this.btnEditReminder.Name = "btnEditReminder";
             this.btnEditReminder.Size = new System.Drawing.Size(100, 23);
             this.btnEditReminder.TabIndex = 28;
@@ -200,7 +210,7 @@
             this.lvReminders.FullRowSelect = true;
             this.lvReminders.Location = new System.Drawing.Point(0, 95);
             this.lvReminders.Name = "lvReminders";
-            this.lvReminders.Size = new System.Drawing.Size(464, 281);
+            this.lvReminders.Size = new System.Drawing.Size(464, 329);
             this.lvReminders.TabIndex = 0;
             this.lvReminders.UseCompatibleStateImageBehavior = false;
             this.lvReminders.View = System.Windows.Forms.View.Details;
@@ -233,7 +243,7 @@
             this.btnAddReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddReminder.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnAddReminder.ForeColor = System.Drawing.Color.Transparent;
-            this.btnAddReminder.Location = new System.Drawing.Point(3, 383);
+            this.btnAddReminder.Location = new System.Drawing.Point(3, 428);
             this.btnAddReminder.Name = "btnAddReminder";
             this.btnAddReminder.Size = new System.Drawing.Size(97, 23);
             this.btnAddReminder.TabIndex = 25;
@@ -244,6 +254,7 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNewReminder.Controls.Add(this.pnlDayCheckBoxes);
             this.pnlNewReminder.Controls.Add(this.cbStickyForm);
             this.pnlNewReminder.Controls.Add(this.btnClear);
             this.pnlNewReminder.Controls.Add(this.cbEveryXCustom);
@@ -260,7 +271,7 @@
             this.pnlNewReminder.Controls.Add(this.cbEvery);
             this.pnlNewReminder.Controls.Add(this.lblEvery);
             this.pnlNewReminder.Controls.Add(this.btnConfirm);
-            this.pnlNewReminder.Controls.Add(this.groupBox1);
+            this.pnlNewReminder.Controls.Add(this.groupRepeatRadiobuttons);
             this.pnlNewReminder.Controls.Add(this.label3);
             this.pnlNewReminder.Controls.Add(this.label2);
             this.pnlNewReminder.Controls.Add(this.label1);
@@ -271,9 +282,140 @@
             this.pnlNewReminder.Controls.Add(this.btnBack);
             this.pnlNewReminder.Location = new System.Drawing.Point(530, 22);
             this.pnlNewReminder.Name = "pnlNewReminder";
-            this.pnlNewReminder.Size = new System.Drawing.Size(467, 406);
+            this.pnlNewReminder.Size = new System.Drawing.Size(467, 458);
             this.pnlNewReminder.TabIndex = 27;
             this.pnlNewReminder.Visible = false;
+            // 
+            // pnlDayCheckBoxes
+            // 
+            this.pnlDayCheckBoxes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlDayCheckBoxes.Controls.Add(this.cbSunday);
+            this.pnlDayCheckBoxes.Controls.Add(this.cbSaturday);
+            this.pnlDayCheckBoxes.Controls.Add(this.cbFriday);
+            this.pnlDayCheckBoxes.Controls.Add(this.cbThursday);
+            this.pnlDayCheckBoxes.Controls.Add(this.cbWednesday);
+            this.pnlDayCheckBoxes.Controls.Add(this.cbTuesday);
+            this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
+            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(109, 284);
+            this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
+            this.pnlDayCheckBoxes.Size = new System.Drawing.Size(234, 65);
+            this.pnlDayCheckBoxes.TabIndex = 77;
+            this.pnlDayCheckBoxes.Visible = false;
+            this.pnlDayCheckBoxes.VisibleChanged += new System.EventHandler(this.pnlDayCheckBoxes_VisibleChanged);
+            // 
+            // cbSunday
+            // 
+            this.cbSunday.AutoSize = true;
+            this.cbSunday.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbSunday.ForeColor = System.Drawing.Color.White;
+            this.cbSunday.Location = new System.Drawing.Point(2, 35);
+            this.cbSunday.Name = "cbSunday";
+            this.cbSunday.Size = new System.Drawing.Size(62, 18);
+            this.cbSunday.TabIndex = 6;
+            this.cbSunday.Text = "Sunday";
+            this.cbSunday.UseVisualStyleBackColor = true;
+            // 
+            // cbSaturday
+            // 
+            this.cbSaturday.AutoSize = true;
+            this.cbSaturday.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbSaturday.ForeColor = System.Drawing.SystemColors.Window;
+            this.cbSaturday.Location = new System.Drawing.Point(148, 18);
+            this.cbSaturday.Name = "cbSaturday";
+            this.cbSaturday.Size = new System.Drawing.Size(70, 18);
+            this.cbSaturday.TabIndex = 5;
+            this.cbSaturday.Text = "Saturday";
+            this.cbSaturday.UseVisualStyleBackColor = true;
+            // 
+            // cbFriday
+            // 
+            this.cbFriday.AutoSize = true;
+            this.cbFriday.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbFriday.ForeColor = System.Drawing.SystemColors.Window;
+            this.cbFriday.Location = new System.Drawing.Point(72, 18);
+            this.cbFriday.Name = "cbFriday";
+            this.cbFriday.Size = new System.Drawing.Size(56, 18);
+            this.cbFriday.TabIndex = 4;
+            this.cbFriday.Text = "Friday";
+            this.cbFriday.UseVisualStyleBackColor = true;
+            // 
+            // cbThursday
+            // 
+            this.cbThursday.AutoSize = true;
+            this.cbThursday.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbThursday.ForeColor = System.Drawing.Color.White;
+            this.cbThursday.Location = new System.Drawing.Point(2, 18);
+            this.cbThursday.Name = "cbThursday";
+            this.cbThursday.Size = new System.Drawing.Size(71, 18);
+            this.cbThursday.TabIndex = 3;
+            this.cbThursday.Text = "Thursday";
+            this.cbThursday.UseVisualStyleBackColor = true;
+            // 
+            // cbWednesday
+            // 
+            this.cbWednesday.AutoSize = true;
+            this.cbWednesday.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbWednesday.ForeColor = System.Drawing.Color.White;
+            this.cbWednesday.Location = new System.Drawing.Point(148, 1);
+            this.cbWednesday.Name = "cbWednesday";
+            this.cbWednesday.Size = new System.Drawing.Size(83, 18);
+            this.cbWednesday.TabIndex = 2;
+            this.cbWednesday.Text = "Wednesday";
+            this.cbWednesday.UseVisualStyleBackColor = true;
+            // 
+            // cbTuesday
+            // 
+            this.cbTuesday.AutoSize = true;
+            this.cbTuesday.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbTuesday.ForeColor = System.Drawing.Color.White;
+            this.cbTuesday.Location = new System.Drawing.Point(72, 1);
+            this.cbTuesday.Name = "cbTuesday";
+            this.cbTuesday.Size = new System.Drawing.Size(67, 18);
+            this.cbTuesday.TabIndex = 1;
+            this.cbTuesday.Text = "Tuesday";
+            this.cbTuesday.UseVisualStyleBackColor = true;
+            // 
+            // cbMonday
+            // 
+            this.cbMonday.AutoSize = true;
+            this.cbMonday.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbMonday.ForeColor = System.Drawing.Color.White;
+            this.cbMonday.Location = new System.Drawing.Point(2, 1);
+            this.cbMonday.Name = "cbMonday";
+            this.cbMonday.Size = new System.Drawing.Size(64, 18);
+            this.cbMonday.TabIndex = 0;
+            this.cbMonday.Text = "Monday";
+            this.cbMonday.UseVisualStyleBackColor = true;
+            // 
+            // cbStickyForm
+            // 
+            this.cbStickyForm.AutoSize = true;
+            this.cbStickyForm.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbStickyForm.ForeColor = System.Drawing.Color.White;
+            this.cbStickyForm.Location = new System.Drawing.Point(3, 438);
+            this.cbStickyForm.Name = "cbStickyForm";
+            this.cbStickyForm.Size = new System.Drawing.Size(84, 18);
+            this.cbStickyForm.TabIndex = 76;
+            this.cbStickyForm.Text = "Sticky form";
+            this.toolTip1.SetToolTip(this.cbStickyForm, "When checked, data from the form will not be\r\ncleared. Data from the previous rem" +
+        "inder\r\nwill still be in the fields when adding a new reminder");
+            this.cbStickyForm.UseVisualStyleBackColor = true;
+            this.cbStickyForm.CheckedChanged += new System.EventHandler(this.cbStickyForm_CheckedChanged);
+            // 
+            // btnClear
+            // 
+            this.btnClear.BackColor = System.Drawing.Color.Transparent;
+            this.btnClear.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClear.BackgroundImage")));
+            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClear.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnClear.ForeColor = System.Drawing.Color.Transparent;
+            this.btnClear.Location = new System.Drawing.Point(266, 355);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(67, 23);
+            this.btnClear.TabIndex = 75;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // cbEveryXCustom
             // 
@@ -287,7 +429,7 @@
             "Days",
             "Weeks",
             "Months"});
-            this.cbEveryXCustom.Location = new System.Drawing.Point(185, 265);
+            this.cbEveryXCustom.Location = new System.Drawing.Point(185, 284);
             this.cbEveryXCustom.Name = "cbEveryXCustom";
             this.cbEveryXCustom.Size = new System.Drawing.Size(132, 21);
             this.cbEveryXCustom.TabIndex = 74;
@@ -298,7 +440,7 @@
             this.numEveryXDays.BackColor = System.Drawing.Color.DimGray;
             this.numEveryXDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.numEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.numEveryXDays.Location = new System.Drawing.Point(109, 266);
+            this.numEveryXDays.Location = new System.Drawing.Point(109, 284);
             this.numEveryXDays.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -314,6 +456,7 @@
             0});
             this.numEveryXDays.Visible = false;
             this.numEveryXDays.ValueChanged += new System.EventHandler(this.numEveryXDays_ValueChanged);
+            this.numEveryXDays.VisibleChanged += new System.EventHandler(this.numEveryXDays_VisibleChanged);
             // 
             // pbExclamationWorkday
             // 
@@ -435,12 +578,13 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.cbEvery.Location = new System.Drawing.Point(107, 265);
+            this.cbEvery.Location = new System.Drawing.Point(109, 284);
             this.cbEvery.Name = "cbEvery";
             this.cbEvery.Size = new System.Drawing.Size(234, 21);
             this.cbEvery.TabIndex = 58;
             this.cbEvery.Visible = false;
             this.cbEvery.SelectedIndexChanged += new System.EventHandler(this.cbEvery_SelectedIndexChanged);
+            this.cbEvery.VisibleChanged += new System.EventHandler(this.cbEvery_VisibleChanged);
             // 
             // lblEvery
             // 
@@ -448,7 +592,7 @@
             this.lblEvery.BackColor = System.Drawing.Color.Transparent;
             this.lblEvery.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblEvery.ForeColor = System.Drawing.Color.White;
-            this.lblEvery.Location = new System.Drawing.Point(42, 266);
+            this.lblEvery.Location = new System.Drawing.Point(42, 284);
             this.lblEvery.Name = "lblEvery";
             this.lblEvery.Size = new System.Drawing.Size(42, 15);
             this.lblEvery.TabIndex = 57;
@@ -462,7 +606,7 @@
             this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnConfirm.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnConfirm.ForeColor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Location = new System.Drawing.Point(107, 337);
+            this.btnConfirm.Location = new System.Drawing.Point(107, 355);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(89, 23);
             this.btnConfirm.TabIndex = 30;
@@ -470,20 +614,36 @@
             this.btnConfirm.UseVisualStyleBackColor = false;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
-            // groupBox1
+            // groupRepeatRadiobuttons
             // 
-            this.groupBox1.Controls.Add(this.rbEveryXCustom);
-            this.groupBox1.Controls.Add(this.rbWorkDays);
-            this.groupBox1.Controls.Add(this.rbNoRepeat);
-            this.groupBox1.Controls.Add(this.rbWeekly);
-            this.groupBox1.Controls.Add(this.rbMonthly);
-            this.groupBox1.Controls.Add(this.rbDaily);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Location = new System.Drawing.Point(107, 207);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(234, 53);
-            this.groupBox1.TabIndex = 56;
-            this.groupBox1.TabStop = false;
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbMultipleDays);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbEveryXCustom);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbWorkDays);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbNoRepeat);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbWeekly);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbMonthly);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbDaily);
+            this.groupRepeatRadiobuttons.Controls.Add(this.radioButton2);
+            this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(109, 207);
+            this.groupRepeatRadiobuttons.Name = "groupRepeatRadiobuttons";
+            this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(234, 71);
+            this.groupRepeatRadiobuttons.TabIndex = 56;
+            this.groupRepeatRadiobuttons.TabStop = false;
+            // 
+            // rbMultipleDays
+            // 
+            this.rbMultipleDays.AutoSize = true;
+            this.rbMultipleDays.Checked = true;
+            this.rbMultipleDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.rbMultipleDays.ForeColor = System.Drawing.Color.White;
+            this.rbMultipleDays.Location = new System.Drawing.Point(6, 49);
+            this.rbMultipleDays.Name = "rbMultipleDays";
+            this.rbMultipleDays.Size = new System.Drawing.Size(92, 18);
+            this.rbMultipleDays.TabIndex = 64;
+            this.rbMultipleDays.TabStop = true;
+            this.rbMultipleDays.Text = "Multiple days";
+            this.rbMultipleDays.UseVisualStyleBackColor = true;
+            this.rbMultipleDays.CheckedChanged += new System.EventHandler(this.rbMultipleDays_CheckedChanged);
             // 
             // rbEveryXCustom
             // 
@@ -648,12 +808,13 @@
             this.tbNote.BackColor = System.Drawing.Color.DimGray;
             this.tbNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tbNote.ForeColor = System.Drawing.Color.White;
-            this.tbNote.Location = new System.Drawing.Point(107, 266);
+            this.tbNote.Location = new System.Drawing.Point(107, 284);
             this.tbNote.Multiline = true;
             this.tbNote.Name = "tbNote";
             this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbNote.Size = new System.Drawing.Size(234, 68);
             this.tbNote.TabIndex = 29;
+            this.tbNote.LocationChanged += new System.EventHandler(this.tbNote_LocationChanged);
             // 
             // btnBack
             // 
@@ -662,7 +823,7 @@
             this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnBack.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnBack.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBack.Location = new System.Drawing.Point(198, 337);
+            this.btnBack.Location = new System.Drawing.Point(198, 355);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(67, 23);
             this.btnBack.TabIndex = 28;
@@ -675,7 +836,7 @@
             this.cbDayBefore.AutoSize = true;
             this.cbDayBefore.Font = new System.Drawing.Font("Franklin Gothic Medium", 8F, System.Drawing.FontStyle.Bold);
             this.cbDayBefore.ForeColor = System.Drawing.Color.White;
-            this.cbDayBefore.Location = new System.Drawing.Point(856, 461);
+            this.cbDayBefore.Location = new System.Drawing.Point(859, 501);
             this.cbDayBefore.Name = "cbDayBefore";
             this.cbDayBefore.Size = new System.Drawing.Size(157, 19);
             this.cbDayBefore.TabIndex = 61;
@@ -794,43 +955,13 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
-            // btnClear
-            // 
-            this.btnClear.BackColor = System.Drawing.Color.Transparent;
-            this.btnClear.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClear.BackgroundImage")));
-            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnClear.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnClear.ForeColor = System.Drawing.Color.Transparent;
-            this.btnClear.Location = new System.Drawing.Point(266, 337);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(67, 23);
-            this.btnClear.TabIndex = 75;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // cbStickyForm
-            // 
-            this.cbStickyForm.AutoSize = true;
-            this.cbStickyForm.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.cbStickyForm.ForeColor = System.Drawing.Color.White;
-            this.cbStickyForm.Location = new System.Drawing.Point(4, 386);
-            this.cbStickyForm.Name = "cbStickyForm";
-            this.cbStickyForm.Size = new System.Drawing.Size(84, 18);
-            this.cbStickyForm.TabIndex = 76;
-            this.cbStickyForm.Text = "Sticky form";
-            this.toolTip1.SetToolTip(this.cbStickyForm, "When checked, data from the form will not be\r\ncleared. Data from the previous rem" +
-        "inder\r\nwill still be in the fields when adding a new reminder");
-            this.cbStickyForm.UseVisualStyleBackColor = true;
-            this.cbStickyForm.CheckedChanged += new System.EventHandler(this.cbStickyForm_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1018, 443);
+            this.ClientSize = new System.Drawing.Size(1018, 519);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.pbCloseApplication);
@@ -848,13 +979,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.pnlNewReminder.ResumeLayout(false);
             this.pnlNewReminder.PerformLayout();
+            this.pnlDayCheckBoxes.ResumeLayout(false);
+            this.pnlDayCheckBoxes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupRepeatRadiobuttons.ResumeLayout(false);
+            this.groupRepeatRadiobuttons.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
@@ -880,7 +1013,7 @@
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Label lblNote;
         public System.Windows.Forms.TextBox tbNote;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupRepeatRadiobuttons;
         private System.Windows.Forms.RadioButton radioButton2;
         public System.Windows.Forms.Button btnRemoveReminder;
         public System.Windows.Forms.Button btnEditReminder;
@@ -925,6 +1058,15 @@
         private System.Windows.Forms.ComboBox cbEveryXCustom;
         private System.Windows.Forms.CheckBox cbStickyForm;
         public System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Panel pnlDayCheckBoxes;
+        private System.Windows.Forms.CheckBox cbSunday;
+        private System.Windows.Forms.CheckBox cbSaturday;
+        private System.Windows.Forms.CheckBox cbFriday;
+        private System.Windows.Forms.CheckBox cbThursday;
+        private System.Windows.Forms.CheckBox cbWednesday;
+        private System.Windows.Forms.CheckBox cbTuesday;
+        private System.Windows.Forms.CheckBox cbMonday;
+        private System.Windows.Forms.RadioButton rbMultipleDays;
     }
 }
 

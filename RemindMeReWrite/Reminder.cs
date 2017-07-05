@@ -25,5 +25,6 @@ namespace RemindMe
         public string SoundFilePath { get; set; }
         public string PostponeDate { get; set; }
         public Nullable<long> EveryXCustom { get; set; }
+        public string RepeatDays { get; set; }
     }
 }

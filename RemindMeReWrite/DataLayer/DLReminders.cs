@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SQLite;
+using System.Data.Entity;
 
 namespace RemindMe
 {
@@ -41,101 +43,153 @@ namespace RemindMe
         private static void RefreshList()
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
+            {                
                 localReminders = (from g in db.Reminder select g).ToList();
+                db.Dispose();                
+            }
+        }
+
+        /// <summary>
+        /// Checks wether the table Reminder has column x
+        /// </summary>
+        /// <param name="columnName">The column you want to check on</param>
+        /// <returns></returns>
+        public static bool HasColumn(string columnName)
+        {
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                try
+                {
+                    var t = db.Database.SqlQuery<object>("SELECT " + columnName + " FROM Reminder").ToList();
+                    db.Dispose();
+                    return true;
+                }
+                catch (SQLiteException ex)
+                {
+                    db.Dispose();
+                    //if (ex.Message.ToLower().Contains("no such column"))
+                    //{
+                        return false;
+                    //}                                        
+                }
+            }
+        }
+
+        public static bool HasAllColumns()
+        {
+            var names = typeof(Reminder).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in names)
+            {
+                if (!HasColumn(columnName))
+                {
+                    //aww damn! the user has an outdated .db file!
+                    return false;                    
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// This method will insert missing columns into the table reminder. Will only be called if HasallColumns() returns false. This means the user has an outdated .db file
+        /// </summary>
+        public static void InsertNewcolumns()
+        {
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                //every column that SHOULD exist
+                var names = typeof(Reminder).GetProperties().Select(property => property.Name).ToArray();
+
+                foreach(string column in names)
+                {
+                    if (!HasColumn(column))                    
+                        db.Database.ExecuteSqlCommand("ALTER TABLE REMINDER ADD COLUMN " + column + " " + GetColumnSqlType(column));                    
+                }
+                
                 db.Dispose();
             }
         }
 
-
-
         /// <summary>
-        /// Inserts an reminder in the database.
+        /// Gets the SQLite data types of the columns, "text not null", "bigint null", etc
         /// </summary>
-        /// <param name="name">The name of the reminder</param>
-        /// <param name="date">The date it should pop up</param>
-        /// <param name="repeatingType">The type of repeat</param>
-        /// <param name="note">The optionaln ote</param>
-        /// <param name="enabled"></param>
-        /// <param name="soundPath">The path to the sound file that plays when this reminder pops up</param>
-        public static void InsertReminder(string name, DateTime date, string repeatingType, string note, bool enabled, string soundPath)
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
+        private static string GetColumnSqlType(string columnName)
+        {
+            //Yes, this is not really the "correct" way of dealing with a problem, but after a lot of searching it's quite a struggle
+            //to get the data types of the sqlite columns, especially when they're nullable.
+            switch(columnName)
+            {
+                case "Id": return "INTEGER NOT NULL";                    
+                case "Name": return "text NOT NULL DEFAULT ''";
+                case "Date": return "text NOT NULL DEFAULT '1-1-1990'";
+                case "RepeatType": return "text NOT NULL DEFAULT 'none'";
+                case "Note": return "text NULL ";
+                case "Enabled": return "bigint NOT NULL DEFAULT '1'";
+                case "DayOfWeek": return "bigint NULL";
+                case "DayOfMonth": return "bigint NULL";
+                case "EveryXCustom": return "bigint NULL";
+                case "RepeatDays": return "text NULL";
+                case "SoundFilePath": return "text NULL";
+                case "PostponeDate": return "text NULL";
+                default: return "text NULL";
+            }
+        }
+
+
+
+
+
+        public static void InsertReminder(string name, DateTime date, string repeatingType, int? dayOfMonth, int? dayOfWeek, int? everyXDays,List<string> selectedMultipleDays, string note, bool enabled, string soundPath)
         {
             Reminder rem = new Reminder();
             rem.Name = name;
             rem.Date = date.ToString();
             rem.RepeatType = repeatingType.ToString();
+
+            //below are nullable parameters. a reminder can have a dayofweek, if it does, it won't have a dayofmonth.
+            if(dayOfWeek.HasValue)
+                rem.DayOfWeek = dayOfWeek;
+
+            if (dayOfMonth.HasValue)
+                rem.DayOfMonth = dayOfMonth;
+
+            if(everyXDays.HasValue)
+                rem.EveryXCustom = everyXDays;
+
+            //will containall selected days. example: "monday,thursday,saturday"
+            string dayString = "";        
+            if (selectedMultipleDays != null && selectedMultipleDays.Count > 0)
+            {
+                
+                foreach (string day in selectedMultipleDays)
+                    dayString += day + ",";
+
+                //remove the last ","
+                dayString = dayString.Remove(dayString.Length - 1, 1);
+            }
+            rem.RepeatDays = dayString;
             rem.Note = note;
             rem.SoundFilePath = soundPath;
             if (enabled)
                 rem.Enabled = 1;
             else
                 rem.Enabled = 0;
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                if (db.Reminder.Count() > 0)
-                    rem.Id = db.Reminder.Max(i => i.Id) + 1;
-                else
-                    rem.Id = 0;
-                
-                db.Reminder.Add(rem);
-                db.SaveChanges();
-                RefreshList();
-                db.Dispose();                
-            }
-
+            PushReminderToDatabase(rem);            
         }
 
 
         
-        public static void InsertReminder(string name, DateTime date, string repeatingType, int dayOfMonth, string note, bool enabled, string soundPath) 
-        {
-            Reminder rem = new Reminder();
-            rem.Name = name;
-            rem.Date = date.ToString();
-            rem.RepeatType = repeatingType.ToString();
-            rem.DayOfMonth = dayOfMonth;
-            rem.Note = note;
-            rem.SoundFilePath = soundPath;
-            if (enabled)
-                rem.Enabled = 1;
-            else
-                rem.Enabled = 0;
-            PushReminderToDatabase(rem);
-        }
 
-        public static void InsertReminder(string name, DateTime date, string repeatingType, string note, int dayOfWeek, bool enabled, string soundPath)
-        {
-            Reminder rem = new Reminder();
-            rem.Name = name;
-            rem.Date = date.ToString();
-            rem.RepeatType = repeatingType.ToString();
-            rem.DayOfWeek = dayOfWeek;
-            rem.Note = note;
-            rem.SoundFilePath = soundPath;
-            if (enabled)
-                rem.Enabled = 1;
-            else
-                rem.Enabled = 0;
-            PushReminderToDatabase(rem);
-        }
+        
 
-        public static void InsertReminder(string name, DateTime date, string repeatingType, string note, bool enabled, int everyXDays, string soundPath) 
-        {
-            Reminder rem = new Reminder();
-            rem.Name = name;
-            rem.Date = date.ToString();
-            rem.RepeatType = repeatingType.ToString();
-            rem.EveryXCustom = everyXDays;
-            rem.Note = note;
-            rem.SoundFilePath = soundPath;
-            
-            if (enabled)
-                rem.Enabled = 1;
-            else
-                rem.Enabled = 0;
-            PushReminderToDatabase(rem);
-        }
+        
 
+        /// <summary>
+        /// Inserts the reminder into the database.
+        /// </summary>
+        /// <param name="rem">The reminder you want added into the database</param>
         private static void PushReminderToDatabase(Reminder rem)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
@@ -180,7 +234,7 @@ namespace RemindMe
                 rem.Enabled = 1;
 
                 if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
-                    DLReminders.DeleteReminder(rem);
+                    DeleteReminder(rem);
 
                 if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString()) //Add days to the reminder so that the next date will be a new workday      
                     ReminderManager.SetNextReminderWorkDay(rem);                                    
@@ -202,6 +256,9 @@ namespace RemindMe
                     while (Convert.ToDateTime(rem.Date) < DateTime.Now)
                         rem.Date = Convert.ToDateTime(rem.Date).AddMonths(1).ToString();                    
                 }
+
+                if(rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())                
+                    rem.Date = Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(rem.RepeatDays)).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();                
 
                 if (rem.EveryXCustom != null)
                 {
@@ -245,6 +302,7 @@ namespace RemindMe
             {
                 using (RemindMeDbEntities db = new RemindMeDbEntities())
                 {
+                    
                     db.Reminder.Attach(rem);
                     var entry = db.Entry(rem);
                     entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                

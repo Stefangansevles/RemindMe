@@ -85,7 +85,7 @@ namespace RemindMe
             }
         }
         /// <summary>
-        /// Adds an reminder to the listview
+        /// Adds an reminder to the listview, showing the details of that reminder.
         /// </summary>
         /// <param name="lv">The listview</param>
         /// <param name="rem">The reminder</param>
@@ -111,7 +111,20 @@ namespace RemindMe
             }
 
             if (rem.EveryXCustom == null)
-                itm.SubItems.Add(rem.RepeatType.ToString().ToLower());
+            {
+                
+                if(rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
+                {
+                    string cutOffString = "";
+                    foreach(string day in rem.RepeatDays.Split(','))                   
+                        cutOffString += day.Substring(0, 3) + ",";
+
+                    cutOffString = cutOffString.Remove(cutOffString.Length - 1, 1); //remove the final ','
+                    itm.SubItems.Add(cutOffString); //Add all the repeating days to the listview column. example: mon,tue,sat
+                }
+                else
+                    itm.SubItems.Add(rem.RepeatType.ToString().ToLower());
+            }
             else
                 itm.SubItems.Add("every " + rem.EveryXCustom + " " + rem.RepeatType);
 
@@ -179,8 +192,8 @@ namespace RemindMe
                     myPlayer.URL = rem.SoundFilePath;
                     myPlayer.controls.play();
                 }
-                else                
-                    BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore \r\n(" + rem.SoundFilePath + ")","\r\nHave you deleted or moved " + Path.GetFileName(rem.SoundFilePath) + "? Please re-add it to RemindMe to use it again", true);                
+                else
+                    throw new FileNotFoundException("", rem.SoundFilePath);                             
             }
         }
 

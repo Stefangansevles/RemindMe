@@ -70,14 +70,19 @@ namespace RemindMe
     }
 
     /// <summary>
-    /// Your custom message box helper.
+    /// Custom RemindMe message box helper.
     /// </summary>
     public static class RemindMeBox
     {
+        /// <summary>
+        /// Pops up the RemindMeBox.
+        /// </summary>
+        /// <param name="title">The text you want the user to see</param>
+        /// <param name="icon">The Icon that the RemindMeBox should show</param>
         public static void Show(string title, RemindMeBoxIcon icon)
         {
             // using construct ensures the resources are freed when form is closed
-            using (var form = new CustomMessageForm(title, icon))
+            using (CustomMessageForm form = new CustomMessageForm(title, icon))
             {
                 form.ShowDialog();
             }

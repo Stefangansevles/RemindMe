@@ -13,6 +13,7 @@
     <Property Name="DayOfWeek" Type="integer" />
     <Property Name="DayOfMonth" Type="integer" />
     <Property Name="EveryXCustom" Type="integer" />
+    <Property Name="RepeatDays" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>

@@ -107,7 +107,7 @@ namespace RemindMe
             tmrCheckReminder.Start();
 
             //Resizes the form to it's original size.            
-            this.Size = new Size(463, 430);
+            this.Size = new Size(463, 475);
 
             //Make the buttons borderless-------------------
             BLFormLogic.RemovebuttonBorders(btnAddReminder);
@@ -134,20 +134,31 @@ namespace RemindMe
             BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
         }
 
-        
         /// <summary>
-        /// Adds the week/monthly combobox between the layout and adjusts the location of the note textbox, and the two buttons below it.
+        /// Adds the DayCheckBoxes panel between the layout and adjusts the location of the note textbox, and the buttons below it.
         /// </summary>
-        private void AddComboboxMonthlyWeekly()
+        private void PlaceDayCheckBoxesPanel()
+        {
+            //place it just under the panel under the radio buttons
+            pnlDayCheckBoxes.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
+            pnlDayCheckBoxes.Visible = true;
+            //place the textbox under this panel
+            
+
+            
+        }
+
+        /// <summary>
+        /// Adds the week/monthly combobox between the layout and adjusts the location of the note textbox, and the buttons below it.
+        /// </summary>
+        private void PlaceComboboxMonthlyWeekly()
         {
             lblEvery.Visible = true;
-            cbEvery.Visible = true;
+            //cbEvery.Visible = true; ?
+            pnlDayCheckBoxes.Visible = false;
 
-            tbNote.Location = new Point(tbNote.Location.X, cbEvery.Location.Y + (cbEvery.Height + 3));
-            btnConfirm.Location = new Point(btnConfirm.Location.X, (tbNote.Location.Y + tbNote.Height + 3));
-            btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
-            btnClear.Location = new Point(btnBack.Location.X + (btnBack.Width + 3), btnBack.Location.Y);
-            lblNote.Location = new Point(lblNote.Location.X, tbNote.Location.Y);
+            
+            
 
             if (rbEveryXCustom.Checked)
             {
@@ -160,7 +171,7 @@ namespace RemindMe
                 cbEveryXCustom.Visible = false;
             }
 
-            if (rbMonthly.Checked || rbWeekly.Checked)
+            if ((rbMonthly.Checked || rbWeekly.Checked) && !rbEveryXCustom.Checked)
                 cbEvery.Visible = true;
             else
                 cbEvery.Visible = false;
@@ -174,16 +185,12 @@ namespace RemindMe
         /// </summary>
         private void RemoveComboboxMonthlyWeekly()
         {
+            pnlDayCheckBoxes.Visible = false;
             cbEvery.Visible = false;
             lblEvery.Visible = false;
             numEveryXDays.Visible = false;
             cbEveryXCustom.Visible = false;
-
-            tbNote.Location = new Point(cbEvery.Location.X, cbEvery.Location.Y);
-            lblNote.Location = new Point(lblEvery.Location.X, lblEvery.Location.Y);
-            btnConfirm.Location = new Point(btnConfirm.Location.X, (tbNote.Location.Y + tbNote.Height + 3));
-            btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
-            btnClear.Location = new Point(btnBack.Location.X + (btnBack.Width + 3), btnBack.Location.Y);
+                                                
         }
 
         /// <summary>
@@ -193,6 +200,8 @@ namespace RemindMe
         {
             if (lvReminders.SelectedItems.Count == 1)
             {
+                pnlDayCheckBoxes.Visible = false;
+
                 if (rem != null)
                 {                    
                     BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
@@ -212,6 +221,7 @@ namespace RemindMe
                     dtpDate.Value = Convert.ToDateTime(rem.Date);
                     dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortTimeString());
 
+                    
                     switch (rem.RepeatType)
                     {
                         case "NONE":
@@ -235,7 +245,11 @@ namespace RemindMe
                                 cbEvery.SelectedItem = cbEvery.Items[6];
                             else
                                 cbEvery.SelectedItem = cbEvery.Items[(int)rem.DayOfWeek - 1];
-                            break;                        
+                            break;
+                        case "MULTIPLE_DAYS": PlaceDayCheckBoxesPanel();
+                            List<string> repeatDays = rem.RepeatDays.Split(',').ToList();
+                            CheckDayCheckBoxes(repeatDays);
+                            break;                   
                     }
                     if(rem.EveryXCustom != null)
                     {
@@ -265,12 +279,50 @@ namespace RemindMe
                 RemindMeBox.Show("Please select one reminder to edit at a time", RemindMeBoxIcon.INFORMATION);
         }
 
+        private void CheckDayCheckBoxes(List<string> days)
+        {
+            if (days.Contains("monday"))
+                cbMonday.Checked = true;
+            else
+                cbMonday.Checked = false;
+
+            if (days.Contains("tuesday"))
+                cbTuesday.Checked = true;
+            else
+                cbTuesday.Checked = false;
+
+            if (days.Contains("wednesday"))
+                cbWednesday.Checked = true;
+            else
+                cbWednesday.Checked = false;
+
+            if (days.Contains("thursday"))
+                cbThursday.Checked = true;
+            else
+                cbThursday.Checked = false;
+
+            if (days.Contains("friday"))
+                cbFriday.Checked = true;
+            else
+                cbFriday.Checked = false;
+
+            if (days.Contains("saturday"))
+                cbSaturday.Checked = true;
+            else
+                cbSaturday.Checked = false;
+
+            if (days.Contains("sunday"))
+                cbSunday.Checked = true;
+            else
+                cbSunday.Checked = false;
+        }
 
         /// <summary>
         /// Determines wether the exlamation sign should be visible or not, with an tooltip saying the entered date is invalid
         /// </summary>
         private void ShowOrHideExclamation() 
-        {            
+        {
+            
             if (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) < DateTime.Now)
             {//User selected a date in the past
                 pbExclamationDate.Visible = true;
@@ -324,9 +376,9 @@ namespace RemindMe
         }
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
-            editableReminder = null;
+            editableReminder = null;            
 
-            if(!DLSettings.IsStickyForm())
+            if (!DLSettings.IsStickyForm())
             {
                 ResetReminderForm();
                 cbStickyForm.Checked = false;                
@@ -461,8 +513,7 @@ namespace RemindMe
                 dtpTime.ResetText();
             }
 
-            if (cbEvery.Visible || numEveryXDays.Visible)
-                RemoveComboboxMonthlyWeekly();
+            RemoveComboboxMonthlyWeekly();
         }
 
         
@@ -482,7 +533,7 @@ namespace RemindMe
                 lblEvery.Text = "Day:";
 
                 if (!cbEvery.Visible)
-                    AddComboboxMonthlyWeekly();
+                    PlaceComboboxMonthlyWeekly();
                 dtpDate.Enabled = false;
             }
             else            
@@ -512,7 +563,7 @@ namespace RemindMe
                 lblEvery.Text = "Every:";
 
                 if(!cbEvery.Visible)
-                    AddComboboxMonthlyWeekly(); 
+                    PlaceComboboxMonthlyWeekly(); 
             }
             else           
                 dtpDate.Enabled = true;                          
@@ -525,7 +576,11 @@ namespace RemindMe
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
-        {            
+        {
+            //set it to null at first, the user may not have this option selected
+            List<string> selectedMultipleDays = null;
+            string commaSeperatedDays = "";
+
             //Will be different based on what repeating method the user has selected
             if (tbReminderName.Text != "" && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now))
             {
@@ -548,6 +603,12 @@ namespace RemindMe
                 if (rbEveryXCustom.Checked)
                     repeat = ReminderRepeatType.CUSTOM;
 
+                if (rbMultipleDays.Checked)
+                {
+                    repeat = ReminderRepeatType.MULTIPLE_DAYS;
+                    selectedMultipleDays = new List<string>(); //now we initialize  it
+                }
+
                 int dayOfMonth = -1;
                 int dayOfWeek = -1;
                 string soundPath = "";  
@@ -563,7 +624,19 @@ namespace RemindMe
                     if (cbEvery.SelectedItem != null)
                         dayOfWeek = (int)(cbEvery.SelectedItem as ComboBoxItem).Value;
                 }
-
+                if(repeat == ReminderRepeatType.MULTIPLE_DAYS)
+                {
+                    //loop through the selected checkboxes
+                    foreach(CheckBox cb in pnlDayCheckBoxes.Controls)
+                    {
+                        if (cb.Checked)
+                        {
+                            selectedMultipleDays.Add(cb.Text.ToLower());
+                            commaSeperatedDays += cb.Text.ToLower() + ",";
+                        }
+                    }
+                    commaSeperatedDays = commaSeperatedDays.Remove(commaSeperatedDays.Length - 1, 1); //remove the last ','
+                }
                 if (cbSound.SelectedItem != null && cbSound.SelectedItem.ToString() != " Add files...")
                 {
                     ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
@@ -578,7 +651,7 @@ namespace RemindMe
                 if (editableReminder == null) //If the user isn't editing an existing reminder, he's creating one
                 {
                     if (repeat == ReminderRepeatType.MONTHLY)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), dayOfMonth, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), dayOfMonth,null,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.WEEKLY)
                     {
                         DateTime date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
@@ -586,12 +659,15 @@ namespace RemindMe
                         if (Convert.ToDateTime(dtpTime.Value.ToShortTimeString()) > Convert.ToDateTime(DateTime.Now.ToShortTimeString()) && DateTime.Now.Day == date.Day)
                             date = date.AddDays(-7);
 
-                        DLReminders.InsertReminder(tbReminderName.Text, date, repeat.ToString(), tbNote.Text.Replace(Environment.NewLine, "\\n"), dayOfWeek, true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, date, repeat.ToString(), null,dayOfWeek,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+
                     }
+                    else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), null, null, null, selectedMultipleDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.CUSTOM)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), cbEveryXCustom.SelectedItem.ToString(), tbNote.Text.Replace(Environment.NewLine, "\\n"), true, Convert.ToInt32(numEveryXDays.Value), soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), cbEveryXCustom.SelectedItem.ToString(), null, null, Convert.ToInt32(numEveryXDays.Value),null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true,  soundPath);                    
                     else
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(),null,null,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                                         
                     
                 }
@@ -613,6 +689,9 @@ namespace RemindMe
                     
                     if (repeat == ReminderRepeatType.MONTHLY)
                         editableReminder.DayOfMonth = dayOfMonth;
+
+                    if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
+                        editableReminder.RepeatDays = commaSeperatedDays;
 
                     if (editableReminder.EveryXCustom != null)
                         editableReminder.EveryXCustom = Convert.ToInt32(numEveryXDays.Value);
@@ -652,15 +731,13 @@ namespace RemindMe
      
 
         private void pbSettings_Click(object sender, EventArgs e)
-        {
+        {            
             set = new SettingsForm();
             set.Show();
         }
 
         private void btnEditReminder_Click(object sender, EventArgs e)
-        {
-           
-
+        {           
             //Fill the form with the data from the single reminder selected from the listview.
             if (lvReminders.SelectedItems.Count > 0)
             {
@@ -720,15 +797,12 @@ namespace RemindMe
 
         private void rbDaily_CheckedChanged(object sender, EventArgs e)
         {
-
-            if(cbEvery.Visible || numEveryXDays.Visible)
-                RemoveComboboxMonthlyWeekly();
+            RemoveComboboxMonthlyWeekly();
         }
 
         private void rbWorkDays_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbEvery.Visible || numEveryXDays.Visible)
-                RemoveComboboxMonthlyWeekly();
+            RemoveComboboxMonthlyWeekly();
 
             if (!rbWorkDays.Checked)
                 pbExclamationWorkday.Visible = false;
@@ -736,52 +810,60 @@ namespace RemindMe
 
         private void btnPlaySound_Click(object sender, EventArgs e)
         {
-            try
+
+            ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
+            if (selectedItem != null)
             {
-                ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;                
-                if (selectedItem != null)
-                { 
-                    Songs selectedSong = (Songs)selectedItem.Value;
+                Songs selectedSong = (Songs)selectedItem.Value;
 
-                    if (btnPlaySound.BackgroundImage == imgPlayResume)
+                if (btnPlaySound.BackgroundImage == imgPlayResume)
+                {
+
+                    if (selectedItem != null)
                     {
-
-                        if (selectedItem != null)
+                        if (System.IO.File.Exists(selectedSong.SongFilePath))
                         {
-                            if (System.IO.File.Exists(selectedSong.SongFilePath))
-                            {
-                                btnPlaySound.BackgroundImage = imgStop;
+                            btnPlaySound.BackgroundImage = imgStop;
 
-                                myPlayer.URL = selectedSong.SongFilePath;
-                                mediaInfo = myPlayer.newMedia(myPlayer.URL);
+                            myPlayer.URL = selectedSong.SongFilePath;
+                            mediaInfo = myPlayer.newMedia(myPlayer.URL);
 
-                                //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
-                                if (mediaInfo.duration > 0)
-                                    tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
-                                else
-                                    tmrMusic.Interval = 1000;
-                                tmrMusic.Start();
-
-
-                                myPlayer.controls.play();
-                            }
+                            //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
+                            if (mediaInfo.duration > 0)
+                                tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
                             else
-                                BLIO.WriteError(new System.IO.FileNotFoundException(), "Song doesn't exist in the specified folder anymore \r\n(" + selectedItem.Value.ToString() + ")", "\r\nHave you deleted or moved " + Path.GetFileName(selectedItem.Value.ToString()) + "? Please re-add it to RemindMe to use it again", true);
+                                tmrMusic.Interval = 1000;
+                            tmrMusic.Start();
+
+
+                            myPlayer.controls.play();
+                        }
+                        else
+                        {
+                            //Get the song object from the combobox value
+                            Songs song = (Songs)selectedItem.Value;
+                            if (song != null)
+                            {
+                                //Remove the song from the SQLite Database
+                                DLSongs.RemoveSong(DLSongs.GetSongByFullPath(song.SongFilePath));
+
+                                //We're throwing a new exception here. We're going to pass the song file path to the constructor of the exception, which will be read from program.cs
+                                //All exceptions will be caught in Program.cs
+                                throw new FileNotFoundException("", song.SongFilePath);
+                            }
                         }
                     }
-                    else
-                    {
-                        btnPlaySound.BackgroundImage = imgPlayResume;
-                        myPlayer.controls.stop();
-                        tmrMusic.Stop();
-                    }
                 }
-                
+                else
+                {
+                    btnPlaySound.BackgroundImage = imgPlayResume;
+                    myPlayer.controls.stop();
+                    tmrMusic.Stop();
+                }
             }
-            catch(Exception ex)
-            {
-                BLIO.WriteError(ex, "Error while playing song " + myPlayer.URL + ".",true);
-            }
+
+
+
         }
 
         private void tmrMusic_Tick(object sender, EventArgs e)
@@ -860,7 +942,7 @@ namespace RemindMe
             if (rbEveryXCustom.Checked)
             {
                 lblEvery.Text = "Every:";                                                
-                AddComboboxMonthlyWeekly();
+                PlaceComboboxMonthlyWeekly();
             }
                        
         }
@@ -890,6 +972,52 @@ namespace RemindMe
         private void btnClear_Click(object sender, EventArgs e)
         {
             ResetReminderForm();
+        }
+
+        private void rbMultipleDays_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbMultipleDays.Checked)                            
+                PlaceDayCheckBoxesPanel();            
+            else            
+                pnlDayCheckBoxes.Visible = false;            
+        }
+
+        private void tbNote_LocationChanged(object sender, EventArgs e)
+        {
+            //Whenever the textbox changes location somehow, these buttons need to be placed below it again
+            btnConfirm.Location = new Point(btnConfirm.Location.X, (tbNote.Location.Y + tbNote.Height + 3));
+            btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
+            btnClear.Location = new Point(btnBack.Location.X + (btnBack.Width + 3), btnBack.Location.Y);
+            lblNote.Location = new Point(lblNote.Location.X, tbNote.Location.Y);
+        }
+
+        private void pnlDayCheckBoxes_VisibleChanged(object sender, EventArgs e)
+        {
+            //The note textbox has to be placed below the panel if its visible
+            if(pnlDayCheckBoxes.Visible)
+                tbNote.Location = new Point(pnlDayCheckBoxes.Location.X, (pnlDayCheckBoxes.Location.Y + pnlDayCheckBoxes.Size.Height) + 3);
+            else if(cbEvery.Visible || numEveryXDays.Visible) //if those are visible, place the textbox below them
+                tbNote.Location = new Point(cbEvery.Location.X, (cbEvery.Location.Y + cbEvery.Size.Height) + 3);
+            else // if they're not, AND the pnlDaycheckBoxes isnt visible EITHER, place them below the groupbox of radio buttons
+                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
+        }
+
+        private void cbEvery_VisibleChanged(object sender, EventArgs e)
+        {
+            //The note textbox has to be placed below the combobox if its visible
+            if (cbEvery.Visible)
+                tbNote.Location = new Point(cbEvery.Location.X, (cbEvery.Location.Y + cbEvery.Size.Height) + 3);
+            else if(!pnlDayCheckBoxes.Visible && (!cbEvery.Visible && !numEveryXDays.Visible))
+                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
+        }
+
+        private void numEveryXDays_VisibleChanged(object sender, EventArgs e)
+        {
+            //The note textbox has to be placed below this control if its visible
+            if (numEveryXDays.Visible)
+                tbNote.Location = new Point(numEveryXDays.Location.X, (numEveryXDays.Location.Y + numEveryXDays.Size.Height) + 3);
+            else if (!pnlDayCheckBoxes.Visible)
+                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
         }
     }
 }

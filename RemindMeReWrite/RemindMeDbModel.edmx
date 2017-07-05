@@ -18,6 +18,7 @@
           <Property Name="DayOfWeek" Type="integer" />
           <Property Name="DayOfMonth" Type="integer" />
           <Property Name="EveryXCustom" Type="integer" />
+          <Property Name="RepeatDays" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
@@ -61,6 +62,7 @@
           <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="EveryXCustom" Type="Int64" />
+          <Property Name="RepeatDays" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="RemindMeDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Reminder" EntityType="Self.Reminder" />
@@ -92,6 +94,7 @@
           <EntitySetMapping Name="Reminder">
             <EntityTypeMapping TypeName="RemindMeDbModel.Reminder">
               <MappingFragment StoreEntitySet="Reminder">
+                <ScalarProperty Name="RepeatDays" ColumnName="RepeatDays" />
                 <ScalarProperty Name="EveryXCustom" ColumnName="EveryXCustom" />
                 <ScalarProperty Name="PostponeDate" ColumnName="PostponeDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

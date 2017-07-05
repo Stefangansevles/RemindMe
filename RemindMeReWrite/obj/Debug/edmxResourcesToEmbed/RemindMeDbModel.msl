@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Reminder">
       <EntityTypeMapping TypeName="RemindMeDbModel.Reminder">
         <MappingFragment StoreEntitySet="Reminder">
+          <ScalarProperty Name="RepeatDays" ColumnName="RepeatDays" />
           <ScalarProperty Name="EveryXCustom" ColumnName="EveryXCustom" />
           <ScalarProperty Name="PostponeDate" ColumnName="PostponeDate" />
           <ScalarProperty Name="Id" ColumnName="Id" />
