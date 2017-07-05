@@ -65,7 +65,14 @@ namespace RemindMe
                     else
                         rb.Checked = false;
                 }
-
+                if(c is CheckBox)
+                {
+                    if (c.Name != "cbStickyForm")//we dont want to reset the sticky form checkbox
+                    {
+                        CheckBox check = (CheckBox)c;
+                        check.Checked = false;
+                    }
+                }
                 if (c is DateTimePicker)
                 {
                     DateTimePicker pick = (DateTimePicker)c;

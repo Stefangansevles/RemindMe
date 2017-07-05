@@ -141,7 +141,7 @@ namespace RemindMe
 
 
 
-        public static void InsertReminder(string name, DateTime date, string repeatingType, int? dayOfMonth, int? dayOfWeek, int? everyXDays,List<string> selectedMultipleDays, string note, bool enabled, string soundPath)
+        public static void InsertReminder(string name, DateTime date, string repeatingType, int? dayOfMonth, int? dayOfWeek, int? everyXDays,string commaSeperatedDays, string note, bool enabled, string soundPath)
         {
             Reminder rem = new Reminder();
             rem.Name = name;
@@ -158,18 +158,10 @@ namespace RemindMe
             if(everyXDays.HasValue)
                 rem.EveryXCustom = everyXDays;
 
-            //will containall selected days. example: "monday,thursday,saturday"
-            string dayString = "";        
-            if (selectedMultipleDays != null && selectedMultipleDays.Count > 0)
-            {
-                
-                foreach (string day in selectedMultipleDays)
-                    dayString += day + ",";
-
-                //remove the last ","
-                dayString = dayString.Remove(dayString.Length - 1, 1);
-            }
-            rem.RepeatDays = dayString;
+            //will containall selected days. example: "monday,thursday,saturday"          
+            if(commaSeperatedDays != null && commaSeperatedDays != "")
+                rem.RepeatDays = commaSeperatedDays;            
+            
             rem.Note = note;
             rem.SoundFilePath = soundPath;
             if (enabled)

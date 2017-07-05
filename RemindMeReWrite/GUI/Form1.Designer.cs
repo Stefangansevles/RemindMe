@@ -633,14 +633,12 @@
             // rbMultipleDays
             // 
             this.rbMultipleDays.AutoSize = true;
-            this.rbMultipleDays.Checked = true;
             this.rbMultipleDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbMultipleDays.ForeColor = System.Drawing.Color.White;
             this.rbMultipleDays.Location = new System.Drawing.Point(6, 49);
             this.rbMultipleDays.Name = "rbMultipleDays";
             this.rbMultipleDays.Size = new System.Drawing.Size(92, 18);
             this.rbMultipleDays.TabIndex = 64;
-            this.rbMultipleDays.TabStop = true;
             this.rbMultipleDays.Text = "Multiple days";
             this.rbMultipleDays.UseVisualStyleBackColor = true;
             this.rbMultipleDays.CheckedChanged += new System.EventHandler(this.rbMultipleDays_CheckedChanged);
@@ -681,7 +679,6 @@
             this.rbNoRepeat.Name = "rbNoRepeat";
             this.rbNoRepeat.Size = new System.Drawing.Size(50, 18);
             this.rbNoRepeat.TabIndex = 61;
-            this.rbNoRepeat.TabStop = true;
             this.rbNoRepeat.Text = "Once";
             this.rbNoRepeat.UseVisualStyleBackColor = true;
             this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);

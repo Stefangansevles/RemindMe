@@ -86,8 +86,17 @@ namespace RemindMe
             rem.EveryXCustom = 5;
             rem.SoundFilePath = @"D:\users\rs\Music\sound effects\onee toch niet.wav";
             BLFormLogic.MakePopup(rem);*/
-            //-------------------------------------------------------------------------------                
+            //-------------------------------------------------------------------------------   
 
+
+            //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will be fired
+            cbMonday.CheckedChanged += cbDaysCheckedChangeEvent;            
+            cbTuesday.CheckedChanged += cbDaysCheckedChangeEvent;
+            cbWednesday.CheckedChanged += cbDaysCheckedChangeEvent;
+            cbThursday.CheckedChanged += cbDaysCheckedChangeEvent;
+            cbFriday.CheckedChanged += cbDaysCheckedChangeEvent;
+            cbSaturday.CheckedChanged += cbDaysCheckedChangeEvent;
+            cbSunday.CheckedChanged += cbDaysCheckedChangeEvent;
             ResetReminderForm();                     
 
             //hide the form on startup
@@ -358,9 +367,10 @@ namespace RemindMe
         private void ResetReminderForm()
         {
             cbSound.SelectedItem = null;
-
+            pnlDayCheckBoxes.Visible = false;
             //Reset the controls to their default values, empty text boxes etc
             BLFormLogic.ResetControlValues(pnlNewReminder);
+            BLFormLogic.ResetControlValues(pnlDayCheckBoxes);
 
             rbNoRepeat.Checked = true;
 
@@ -374,10 +384,17 @@ namespace RemindMe
 
             BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
         }
+
+        private void cbDaysCheckedChangeEvent(object sender, EventArgs e)
+        {
+            dtpDate.Value = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())?? DateTime.Now; 
+            
+        }
+
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
-            editableReminder = null;            
-
+            editableReminder = null;
+            bool test = pnlDayCheckBoxes.Visible;
             if (!DLSettings.IsStickyForm())
             {
                 ResetReminderForm();
@@ -511,6 +528,7 @@ namespace RemindMe
             {
                 dtpDate.ResetText();
                 dtpTime.ResetText();
+                pnlDayCheckBoxes_VisibleChanged(sender, e);
             }
 
             RemoveComboboxMonthlyWeekly();
@@ -577,8 +595,7 @@ namespace RemindMe
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            //set it to null at first, the user may not have this option selected
-            List<string> selectedMultipleDays = null;
+            //set it to null at first, the user may not have this option selected            
             string commaSeperatedDays = "";
 
             //Will be different based on what repeating method the user has selected
@@ -603,11 +620,8 @@ namespace RemindMe
                 if (rbEveryXCustom.Checked)
                     repeat = ReminderRepeatType.CUSTOM;
 
-                if (rbMultipleDays.Checked)
-                {
-                    repeat = ReminderRepeatType.MULTIPLE_DAYS;
-                    selectedMultipleDays = new List<string>(); //now we initialize  it
-                }
+                if (rbMultipleDays.Checked)                
+                    repeat = ReminderRepeatType.MULTIPLE_DAYS;                                    
 
                 int dayOfMonth = -1;
                 int dayOfWeek = -1;
@@ -624,19 +638,10 @@ namespace RemindMe
                     if (cbEvery.SelectedItem != null)
                         dayOfWeek = (int)(cbEvery.SelectedItem as ComboBoxItem).Value;
                 }
-                if(repeat == ReminderRepeatType.MULTIPLE_DAYS)
-                {
-                    //loop through the selected checkboxes
-                    foreach(CheckBox cb in pnlDayCheckBoxes.Controls)
-                    {
-                        if (cb.Checked)
-                        {
-                            selectedMultipleDays.Add(cb.Text.ToLower());
-                            commaSeperatedDays += cb.Text.ToLower() + ",";
-                        }
-                    }
-                    commaSeperatedDays = commaSeperatedDays.Remove(commaSeperatedDays.Length - 1, 1); //remove the last ','
-                }
+
+                if(repeat == ReminderRepeatType.MULTIPLE_DAYS)                
+                    commaSeperatedDays = GetCommaSeperatedDayCheckboxesString();
+
                 if (cbSound.SelectedItem != null && cbSound.SelectedItem.ToString() != " Add files...")
                 {
                     ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
@@ -663,7 +668,7 @@ namespace RemindMe
 
                     }
                     else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), null, null, null, selectedMultipleDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), null, null, null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.CUSTOM)
                         DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), cbEveryXCustom.SelectedItem.ToString(), null, null, Convert.ToInt32(numEveryXDays.Value),null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true,  soundPath);                    
                     else
@@ -734,6 +739,25 @@ namespace RemindMe
         {            
             set = new SettingsForm();
             set.Show();
+        }
+
+        /// <summary>
+        /// gets all the checked day comboboxes and puts them into a string. example: monday,tuesday,friday
+        /// </summary>
+        /// <returns></returns>
+        private string GetCommaSeperatedDayCheckboxesString()
+        {
+            string commaSeperatedDays = "";
+            //loop through the selected checkboxes
+            foreach (CheckBox cb in pnlDayCheckBoxes.Controls)
+            {
+                if (cb.Checked)
+                    commaSeperatedDays += cb.Text.ToLower() + ",";
+            }
+            if(commaSeperatedDays.Length > 0)
+                commaSeperatedDays = commaSeperatedDays.Remove(commaSeperatedDays.Length - 1, 1); //remove the last ','
+
+            return commaSeperatedDays;
         }
 
         private void btnEditReminder_Click(object sender, EventArgs e)
@@ -1019,5 +1043,7 @@ namespace RemindMe
             else if (!pnlDayCheckBoxes.Visible)
                 tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
         }
+
+        
     }
 }

@@ -45,9 +45,9 @@ namespace RemindMe
                     case 5: return DayOfWeek.Friday;
                     case 6: return DayOfWeek.Saturday;                    
                 }
-            }            
+            }
 
-            return DayOfWeek.Monday;
+            return DateTime.Now.DayOfWeek;
         }
 
         /// <summary>
@@ -103,22 +103,25 @@ namespace RemindMe
             int today = BLDateTime.GetIntFromDayOfWeek(DateTime.Now.DayOfWeek);
             //monday,tuesday,friday etc as ints                
             List<int> repeatDaysAsInteger = new List<int>();
+            List<DateTime> datesFromInt = new List<DateTime>();
 
 
             //fill the int list with selected days. sunday = 0, monday = 1, etc
-            foreach (string repeatDay in dayList.ToLower().Split(',').ToList())
-                repeatDaysAsInteger.Add(GetIntWeekdayFromString(repeatDay));
+            if (dayList != "")
+            {
+                foreach (string repeatDay in dayList.ToLower().Split(',').ToList())
+                    repeatDaysAsInteger.Add(GetIntWeekdayFromString(repeatDay));
+            }
 
             //make sure the first day is at the beginning
             repeatDaysAsInteger.Sort();
 
-            foreach (int day in repeatDaysAsInteger)
-            {
-                if (day > today)
-                {
-                    return Convert.ToDateTime(GetDateOfNextDay(GetDayOfWeekFromInt(day)).ToShortDateString());
-                }
-            }
+            foreach (int day in repeatDaysAsInteger)            
+                datesFromInt.Add(Convert.ToDateTime(GetDateOfNextDay(GetDayOfWeekFromInt(day)).ToShortDateString()));            
+
+            if (datesFromInt.Count > 0)
+                return datesFromInt.Min();
+
             return null;
         }
 
