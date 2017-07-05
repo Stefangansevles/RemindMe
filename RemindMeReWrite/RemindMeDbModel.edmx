@@ -15,7 +15,6 @@
           <Property Name="RepeatType" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Enabled" Type="integer" Nullable="false" />
-          <Property Name="DayOfWeek" Type="integer" />
           <Property Name="DayOfMonth" Type="integer" />
           <Property Name="EveryXCustom" Type="integer" />
           <Property Name="RepeatDays" Type="nvarchar" MaxLength="2147483647" />
@@ -57,7 +56,6 @@
           <Property Name="RepeatType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Enabled" Type="Int64" Nullable="false" />
-          <Property Name="DayOfWeek" Type="Int64" />
           <Property Name="DayOfMonth" Type="Int64" />
           <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -103,7 +101,6 @@
                 <ScalarProperty Name="RepeatType" ColumnName="RepeatType" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
                 <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
                 <ScalarProperty Name="SoundFilePath" ColumnName="SoundFilePath" />
               </MappingFragment>

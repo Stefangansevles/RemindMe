@@ -49,6 +49,29 @@ namespace RemindMe
             }
         }
 
+        public static void CreateDatabase()
+        {
+            SQLiteConnection conn = new SQLiteConnection();
+            conn.ConnectionString = "data source = " + Variables.IOVariables.databaseFile;
+            conn.Open();
+
+            SQLiteCommand tableReminder = new SQLiteCommand();
+            SQLiteCommand tableSettings = new SQLiteCommand();
+            SQLiteCommand tableSongs = new SQLiteCommand();
+            tableReminder.CommandText = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
+            tableSettings.CommandText = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
+            tableSongs.CommandText = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
+
+            tableReminder.Connection = conn;
+            tableSettings.Connection = conn;
+            tableSongs.Connection = conn;
+
+            tableReminder.ExecuteNonQuery();
+            tableSettings.ExecuteNonQuery();
+            tableSongs.ExecuteNonQuery();
+            conn.Close();
+        }
+
         /// <summary>
         /// Checks wether the table Reminder has column x
         /// </summary>
@@ -148,9 +171,7 @@ namespace RemindMe
             rem.Date = date.ToString();
             rem.RepeatType = repeatingType.ToString();
 
-            //below are nullable parameters. a reminder can have a dayofweek, if it does, it won't have a dayofmonth.
-            if(dayOfWeek.HasValue)
-                rem.DayOfWeek = dayOfWeek;
+            //below are nullable parameters. a reminder can have a dayofmonth, if it does, it won't have a everyXDays.            
 
             if (dayOfMonth.HasValue)
                 rem.DayOfMonth = dayOfMonth;
@@ -234,13 +255,6 @@ namespace RemindMe
                 if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder                                   
                     rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();                
 
-                if (rem.RepeatType == ReminderRepeatType.WEEKLY.ToString())
-                {
-                    //Add a week to the reminder
-                    //No matter what date the time was set to, the new date will be the date of the next x. x being the day of the week of the reminder.
-                    //Like this, you won't get multiple popups if RemindMe hasnt been launched in a while, one popup for every week. 
-                    rem.Date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay(BLDateTime.GetDayOfWeekFromInt((int)rem.DayOfWeek)).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();                    
-                }
 
                 if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
                 {

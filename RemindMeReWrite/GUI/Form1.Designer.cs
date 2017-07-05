@@ -72,7 +72,6 @@
             this.rbEveryXCustom = new System.Windows.Forms.RadioButton();
             this.rbWorkDays = new System.Windows.Forms.RadioButton();
             this.rbNoRepeat = new System.Windows.Forms.RadioButton();
-            this.rbWeekly = new System.Windows.Forms.RadioButton();
             this.rbMonthly = new System.Windows.Forms.RadioButton();
             this.rbDaily = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -296,7 +295,7 @@
             this.pnlDayCheckBoxes.Controls.Add(this.cbWednesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbTuesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
-            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(109, 284);
+            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(115, 299);
             this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
             this.pnlDayCheckBoxes.Size = new System.Drawing.Size(234, 65);
             this.pnlDayCheckBoxes.TabIndex = 77;
@@ -409,9 +408,9 @@
             this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnClear.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnClear.ForeColor = System.Drawing.Color.Transparent;
-            this.btnClear.Location = new System.Drawing.Point(266, 355);
+            this.btnClear.Location = new System.Drawing.Point(265, 341);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(67, 23);
+            this.btnClear.Size = new System.Drawing.Size(77, 23);
             this.btnClear.TabIndex = 75;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
@@ -429,7 +428,7 @@
             "Days",
             "Weeks",
             "Months"});
-            this.cbEveryXCustom.Location = new System.Drawing.Point(185, 284);
+            this.cbEveryXCustom.Location = new System.Drawing.Point(185, 270);
             this.cbEveryXCustom.Name = "cbEveryXCustom";
             this.cbEveryXCustom.Size = new System.Drawing.Size(132, 21);
             this.cbEveryXCustom.TabIndex = 74;
@@ -440,7 +439,7 @@
             this.numEveryXDays.BackColor = System.Drawing.Color.DimGray;
             this.numEveryXDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.numEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.numEveryXDays.Location = new System.Drawing.Point(109, 284);
+            this.numEveryXDays.Location = new System.Drawing.Point(109, 270);
             this.numEveryXDays.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -578,7 +577,7 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.cbEvery.Location = new System.Drawing.Point(109, 284);
+            this.cbEvery.Location = new System.Drawing.Point(109, 270);
             this.cbEvery.Name = "cbEvery";
             this.cbEvery.Size = new System.Drawing.Size(234, 21);
             this.cbEvery.TabIndex = 58;
@@ -606,7 +605,7 @@
             this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnConfirm.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnConfirm.ForeColor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Location = new System.Drawing.Point(107, 355);
+            this.btnConfirm.Location = new System.Drawing.Point(109, 341);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(89, 23);
             this.btnConfirm.TabIndex = 30;
@@ -620,13 +619,12 @@
             this.groupRepeatRadiobuttons.Controls.Add(this.rbEveryXCustom);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbWorkDays);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbNoRepeat);
-            this.groupRepeatRadiobuttons.Controls.Add(this.rbWeekly);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbMonthly);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbDaily);
             this.groupRepeatRadiobuttons.Controls.Add(this.radioButton2);
             this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(109, 207);
             this.groupRepeatRadiobuttons.Name = "groupRepeatRadiobuttons";
-            this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(234, 71);
+            this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(234, 59);
             this.groupRepeatRadiobuttons.TabIndex = 56;
             this.groupRepeatRadiobuttons.TabStop = false;
             // 
@@ -635,11 +633,11 @@
             this.rbMultipleDays.AutoSize = true;
             this.rbMultipleDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbMultipleDays.ForeColor = System.Drawing.Color.White;
-            this.rbMultipleDays.Location = new System.Drawing.Point(6, 49);
+            this.rbMultipleDays.Location = new System.Drawing.Point(159, 11);
             this.rbMultipleDays.Name = "rbMultipleDays";
-            this.rbMultipleDays.Size = new System.Drawing.Size(92, 18);
+            this.rbMultipleDays.Size = new System.Drawing.Size(76, 18);
             this.rbMultipleDays.TabIndex = 64;
-            this.rbMultipleDays.Text = "Multiple days";
+            this.rbMultipleDays.Text = "Weekdays";
             this.rbMultipleDays.UseVisualStyleBackColor = true;
             this.rbMultipleDays.CheckedChanged += new System.EventHandler(this.rbMultipleDays_CheckedChanged);
             // 
@@ -648,7 +646,7 @@
             this.rbEveryXCustom.AutoSize = true;
             this.rbEveryXCustom.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbEveryXCustom.ForeColor = System.Drawing.Color.White;
-            this.rbEveryXCustom.Location = new System.Drawing.Point(78, 30);
+            this.rbEveryXCustom.Location = new System.Drawing.Point(74, 30);
             this.rbEveryXCustom.Name = "rbEveryXCustom";
             this.rbEveryXCustom.Size = new System.Drawing.Size(63, 18);
             this.rbEveryXCustom.TabIndex = 63;
@@ -661,7 +659,7 @@
             this.rbWorkDays.AutoSize = true;
             this.rbWorkDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbWorkDays.ForeColor = System.Drawing.Color.White;
-            this.rbWorkDays.Location = new System.Drawing.Point(78, 11);
+            this.rbWorkDays.Location = new System.Drawing.Point(74, 11);
             this.rbWorkDays.Name = "rbWorkDays";
             this.rbWorkDays.Size = new System.Drawing.Size(78, 18);
             this.rbWorkDays.TabIndex = 62;
@@ -675,26 +673,13 @@
             this.rbNoRepeat.Checked = true;
             this.rbNoRepeat.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbNoRepeat.ForeColor = System.Drawing.Color.White;
-            this.rbNoRepeat.Location = new System.Drawing.Point(165, 30);
+            this.rbNoRepeat.Location = new System.Drawing.Point(159, 30);
             this.rbNoRepeat.Name = "rbNoRepeat";
             this.rbNoRepeat.Size = new System.Drawing.Size(50, 18);
             this.rbNoRepeat.TabIndex = 61;
             this.rbNoRepeat.Text = "Once";
             this.rbNoRepeat.UseVisualStyleBackColor = true;
             this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);
-            // 
-            // rbWeekly
-            // 
-            this.rbWeekly.AutoSize = true;
-            this.rbWeekly.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.rbWeekly.ForeColor = System.Drawing.Color.White;
-            this.rbWeekly.Location = new System.Drawing.Point(165, 11);
-            this.rbWeekly.Name = "rbWeekly";
-            this.rbWeekly.Size = new System.Drawing.Size(61, 18);
-            this.rbWeekly.TabIndex = 60;
-            this.rbWeekly.Text = "Weekly";
-            this.rbWeekly.UseVisualStyleBackColor = true;
-            this.rbWeekly.CheckedChanged += new System.EventHandler(this.rbWeekly_CheckedChanged);
             // 
             // rbMonthly
             // 
@@ -794,7 +779,7 @@
             this.lblNote.BackColor = System.Drawing.Color.Transparent;
             this.lblNote.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblNote.ForeColor = System.Drawing.Color.White;
-            this.lblNote.Location = new System.Drawing.Point(42, 240);
+            this.lblNote.Location = new System.Drawing.Point(41, 269);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(38, 15);
             this.lblNote.TabIndex = 30;
@@ -805,7 +790,7 @@
             this.tbNote.BackColor = System.Drawing.Color.DimGray;
             this.tbNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tbNote.ForeColor = System.Drawing.Color.White;
-            this.tbNote.Location = new System.Drawing.Point(107, 284);
+            this.tbNote.Location = new System.Drawing.Point(109, 269);
             this.tbNote.Multiline = true;
             this.tbNote.Name = "tbNote";
             this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -820,7 +805,7 @@
             this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnBack.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnBack.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBack.Location = new System.Drawing.Point(198, 355);
+            this.btnBack.Location = new System.Drawing.Point(198, 341);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(67, 23);
             this.btnBack.TabIndex = 28;
@@ -1014,7 +999,6 @@
         private System.Windows.Forms.RadioButton radioButton2;
         public System.Windows.Forms.Button btnRemoveReminder;
         public System.Windows.Forms.Button btnEditReminder;
-        private System.Windows.Forms.RadioButton rbWeekly;
         private System.Windows.Forms.RadioButton rbMonthly;
         private System.Windows.Forms.RadioButton rbDaily;
         private System.Windows.Forms.RadioButton rbNoRepeat;

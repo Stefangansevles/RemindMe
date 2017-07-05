@@ -87,7 +87,7 @@ namespace RemindMe
             rem.SoundFilePath = @"D:\users\rs\Music\sound effects\onee toch niet.wav";
             BLFormLogic.MakePopup(rem);*/
             //-------------------------------------------------------------------------------   
-
+            
 
             //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will be fired
             cbMonday.CheckedChanged += cbDaysCheckedChangeEvent;            
@@ -180,7 +180,7 @@ namespace RemindMe
                 cbEveryXCustom.Visible = false;
             }
 
-            if ((rbMonthly.Checked || rbWeekly.Checked) && !rbEveryXCustom.Checked)
+            if ((rbMonthly.Checked) && !rbEveryXCustom.Checked)
                 cbEvery.Visible = true;
             else
                 cbEvery.Visible = false;
@@ -245,15 +245,6 @@ namespace RemindMe
                             break;
                         case "WORKDAYS":
                             rbWorkDays.Checked = true;
-                            break;
-                        case "WEEKLY":
-                            rbWeekly.Checked = true;
-
-                            //Load combobox with monday-sunday
-                            if (rem.DayOfWeek == 0) //0 = sunday. combobox starts with monday. sunday being 6
-                                cbEvery.SelectedItem = cbEvery.Items[6];
-                            else
-                                cbEvery.SelectedItem = cbEvery.Items[(int)rem.DayOfWeek - 1];
                             break;
                         case "MULTIPLE_DAYS": PlaceDayCheckBoxesPanel();
                             List<string> repeatDays = rem.RepeatDays.Split(',').ToList();
@@ -387,8 +378,7 @@ namespace RemindMe
 
         private void cbDaysCheckedChangeEvent(object sender, EventArgs e)
         {
-            dtpDate.Value = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())?? DateTime.Now; 
-            
+            dtpDate.Value = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())?? DateTime.Now;             
         }
 
         private void btnAddReminder_Click(object sender, EventArgs e)
@@ -398,7 +388,7 @@ namespace RemindMe
             if (!DLSettings.IsStickyForm())
             {
                 ResetReminderForm();
-                cbStickyForm.Checked = false;                
+                cbStickyForm.Checked = false;
             }
             else
                 cbStickyForm.Checked = true;
@@ -524,14 +514,13 @@ namespace RemindMe
 
         private void rbNoRepeat_CheckedChanged(object sender, EventArgs e)
         {
+            RemoveComboboxMonthlyWeekly();
             if (rbNoRepeat.Checked && editableReminder == null)
             {
                 dtpDate.ResetText();
                 dtpTime.ResetText();
                 pnlDayCheckBoxes_VisibleChanged(sender, e);
-            }
-
-            RemoveComboboxMonthlyWeekly();
+            }            
         }
 
         
@@ -558,34 +547,7 @@ namespace RemindMe
                 dtpDate.Enabled = true;                            
         }
 
-        private void rbWeekly_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbWeekly.Checked)
-            {
-            
-
-                //clear the combobox of previous data
-                cbEvery.Items.Clear();
-
-                
-
-                ComboBoxItem[] days = { new ComboBoxItem("Monday", DayOfWeek.Monday), new ComboBoxItem("Tuesday", DayOfWeek.Tuesday) ,
-                    new ComboBoxItem("Wednesday", DayOfWeek.Wednesday) , new ComboBoxItem("Thursday", DayOfWeek.Thursday) , new ComboBoxItem("Friday", DayOfWeek.Friday),
-                    new ComboBoxItem("Saturday", DayOfWeek.Saturday) , new ComboBoxItem("Sunday", DayOfWeek.Sunday) };
-                
-                dtpDate.Enabled = false;
-
-                cbEvery.Items.AddRange(days);
-
-                cbEvery.SelectedItem = cbEvery.Items[0];
-                lblEvery.Text = "Every:";
-
-                if(!cbEvery.Visible)
-                    PlaceComboboxMonthlyWeekly(); 
-            }
-            else           
-                dtpDate.Enabled = true;                          
-        }
+       
 
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -604,9 +566,7 @@ namespace RemindMe
                 ReminderRepeatType repeat = new ReminderRepeatType();
                 if (rbMonthly.Checked)                                    
                     repeat = ReminderRepeatType.MONTHLY;                
-
-                if (rbWeekly.Checked)                                    
-                    repeat = ReminderRepeatType.WEEKLY;                
+             
 
                 if (rbWorkDays.Checked)
                     repeat = ReminderRepeatType.WORKDAYS;
@@ -633,11 +593,7 @@ namespace RemindMe
                         dayOfMonth = Convert.ToInt16(cbEvery.SelectedItem.ToString());
                 }
 
-                if (repeat == ReminderRepeatType.WEEKLY)
-                {
-                    if (cbEvery.SelectedItem != null)
-                        dayOfWeek = (int)(cbEvery.SelectedItem as ComboBoxItem).Value;
-                }
+
 
                 if(repeat == ReminderRepeatType.MULTIPLE_DAYS)                
                     commaSeperatedDays = GetCommaSeperatedDayCheckboxesString();
@@ -657,16 +613,7 @@ namespace RemindMe
                 {
                     if (repeat == ReminderRepeatType.MONTHLY)
                         DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), dayOfMonth,null,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
-                    else if (repeat == ReminderRepeatType.WEEKLY)
-                    {
-                        DateTime date = Convert.ToDateTime(BLDateTime.GetDateOfNextDay((DayOfWeek)(cbEvery.SelectedItem as ComboBoxItem).Value).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
 
-                        if (Convert.ToDateTime(dtpTime.Value.ToShortTimeString()) > Convert.ToDateTime(DateTime.Now.ToShortTimeString()) && DateTime.Now.Day == date.Day)
-                            date = date.AddDays(-7);
-
-                        DLReminders.InsertReminder(tbReminderName.Text, date, repeat.ToString(), null,dayOfWeek,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
-
-                    }
                     else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
                         DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), null, null, null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.CUSTOM)
@@ -688,9 +635,6 @@ namespace RemindMe
 
                     editableReminder.SoundFilePath = soundPath;
                     editableReminder.Note = tbNote.Text.Replace(Environment.NewLine, "\\n");
-
-                    if (repeat == ReminderRepeatType.WEEKLY)
-                        editableReminder.DayOfWeek = dayOfWeek;
                     
                     if (repeat == ReminderRepeatType.MONTHLY)
                         editableReminder.DayOfMonth = dayOfMonth;
@@ -903,17 +847,6 @@ namespace RemindMe
 
         private void cbEvery_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(rbWeekly.Checked)
-            {
-                ComboBoxItem selectedItem = (ComboBoxItem)cbEvery.SelectedItem;                
-                                
-                //Set the date of the weekly reminder to today, instead of next week. 
-                //If the user wants a weekly reminder every wednesday, and it's wednesday today, we don't want to select next week's wednesday as the starting date of the reminder.
-                if (dtpTime.Value > DateTime.Now.ToLocalTime() && selectedItem.Value.Equals(DateTime.Today.DayOfWeek))                
-                    dtpDate.Value = DateTime.Today;                
-                else
-                    dtpDate.Value = BLDateTime.GetDateOfNextDay((DayOfWeek)selectedItem.Value);
-            }
             if(rbMonthly.Checked)
             {
                 dtpDate.ResetText();
@@ -1030,8 +963,11 @@ namespace RemindMe
         {
             //The note textbox has to be placed below the combobox if its visible
             if (cbEvery.Visible)
+            {
                 tbNote.Location = new Point(cbEvery.Location.X, (cbEvery.Location.Y + cbEvery.Size.Height) + 3);
-            else if(!pnlDayCheckBoxes.Visible && (!cbEvery.Visible && !numEveryXDays.Visible))
+                lblEvery.Location = new Point(lblEvery.Location.X, cbEvery.Location.Y);
+            }
+            else if (!pnlDayCheckBoxes.Visible && (!cbEvery.Visible && !numEveryXDays.Visible))
                 tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
         }
 

@@ -123,7 +123,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(169, 16);
             this.label2.TabIndex = 0;
-            this.label2.Text = "RemindMe - Version 1.5.01";
+            this.label2.Text = "RemindMe - Version 1.5.02";
             // 
             // pictureBox3
             // 

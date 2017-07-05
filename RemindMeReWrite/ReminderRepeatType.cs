@@ -18,10 +18,6 @@
         /// </summary>
         WORKDAYS,
         /// <summary>
-        /// The reminder will show up every week
-        /// </summary>
-        WEEKLY,
-        /// <summary>
         /// The reminder will show up every month
         /// </summary>
         MONTHLY,

@@ -27,28 +27,8 @@ namespace RemindMe
         /// </summary>
         public static void CreateDatabaseIfNotExist()
         {
-            if (!System.IO.File.Exists(Variables.IOVariables.databaseFile))
-            {
-                SQLiteConnection conn = new SQLiteConnection();
-                conn.ConnectionString = "data source = " + Variables.IOVariables.databaseFile;
-                conn.Open();
-
-                SQLiteCommand tableReminder = new SQLiteCommand();
-                SQLiteCommand tableSettings = new SQLiteCommand();
-                SQLiteCommand tableSongs = new SQLiteCommand();
-                tableReminder.CommandText = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfWeek]bigint NULL, [DayOfMonth] bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
-                tableSettings.CommandText = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
-                tableSongs.CommandText = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
-
-                tableReminder.Connection = conn;
-                tableSettings.Connection = conn;
-                tableSongs.Connection = conn;
-
-                tableReminder.ExecuteNonQuery();
-                tableSettings.ExecuteNonQuery();
-                tableSongs.ExecuteNonQuery();
-                conn.Close();
-            }
+            if (!System.IO.File.Exists(Variables.IOVariables.databaseFile))            
+                DLReminders.CreateDatabase();            
             else
             {
                 //great! the .db file exists. Now lets check if the user's .db file is up-to-date. let's see if the reminder table has all the required columns.
