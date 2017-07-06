@@ -11,3 +11,10 @@ RemindMe lurks in the windows system tray and will not show itself until you dou
 ![](http://i.imgur.com/TzSCXmr.png)
 
 You can also exit RemindMe this way, or go to the settings without opening RemindMe
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Written in: C#
+
+Uses: SQLite, Entity Framework
