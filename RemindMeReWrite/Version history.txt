@@ -48,3 +48,63 @@ Every tick of the timer a local cached reminder list will be read, instead of co
 (13-6-2017)V1.4.2
 -New feature: Sticky form. Sticky form will save the values in the reminder form, so that when you create a new reminder, the fields will still have the data
 from the previous edited/created reminder. Toggleable
+
+(15-6-2017) - Fixed a small issue where RemindMe was trying to check something from the database, even if you do not have a sqlite database file yet
+
+(20-6-2017) - -Fixed an issue when postponing a reminder. 
+The list that was checked in the timer_tick wasn't being updated,but that list isnt being used anymore with this update
+
+-Created a new list of reminders that is only being refreshed when the database changes to minimize the amount of database calls. 
+Even though this doesn't really matter since SQLite a local database, it's good practise
+
+-Fixed an issue where the default value of the first datetimepicker was set to somewhere in 2016, if the sticky form setting was set to true. 
+it now defaults to today.
+
+(4-7-2017)V1.5.0 - Big update.
+-Reminders can now be repeated at multiple days. Example: every monday,friday and sunday.
+Reminders that have this repeating type will show their repeating type in RemindMe's main listview as the first 3 letters of the day. Example: mon,fri,sun
+The interface has been altered to work with this new feature. When selecting "Multiple days" a new panel will show with checkboxes for monday-sunday
+The SQlite database has been altered to work with this new feature. there is a new column called RepeatDays wich will contain the comma seperated string of days. Example "monday,friday,sunday"
+Updated the CreateDatabaseIfNotExist() queries for creating tables, so that the tables contain all the columns it should have.
+
+-RemindMe now checks if the user's .db file has all the columns with the DLReminders.HasColumn() method. if the user has an outdated .db file, new columns will be inserted with DLReminders.InsertNewcolumns();
+
+-Changed the way RemindMe inserts new reminders. Previously, there were multiple(too much) overload methods for different reminders(different method for weekly,monhtly,custom, etc).
+There is now óne InsertReminder() method that inserts the reminder into the database, with nullable parameters. Inside this method there will be checked if the parameters are null with .HasValue()
+
+-RemindMe now catches more exceptions in Program.cs.
+Whenever there is an uncaught exception, the Application_ThreadException in program.cs will check the exception type (FileNotFoundException,SQLiteException,PathTooLongException etc) and will pop up RemindMe's custom ErrorPopup form with an message.
+
+-Changed the way RemindMe places controls when selecting different repeating types(note textbox will be below the monthly combobox if it is visible, below the repeating radiogroup if not)
+Instead of changing the locations on the checked_changed events, the controls now use their own visible_changed and location_changed event.
+example: tbNote_LocationChanged. Whenever, however, the location of tbNote changes, the 3 buttons below it will be given a new location aswell(always below the textbox)
+
+(5-7-2017)
+V 1.5.01 - Small update  
+-When selecting one or multiple checkboxes when te multiple days radiobutton is selected, RemindMe will now automatically give the date for the next earliest day from the selected days
+
+-The day checkboxes now all share one custom event, cbDaysCheckedChangeEvent. They still have the original checked_changed event, of course.
+The earliest selected day will be calculated here, and then BLDateTime will calculate the date for that day.
+
+-The checkboxes will now clear too when the reminder form clears
+
+(7-7-2017)V1.5.02
+-Refactored some code that didn't belong in BLIO and moved it to an method in DLReminder instead
+
+-Refactored the weekly type of reminder. removed it since there's now the weekdays option where the user can select multiple week days, so only one, too. 
+This has the same functionality as the previous "weekly" reminder
+
+(10-7-2017)V1.5.03
+
+-Reminders can now be previewed by right clicking the reminder and selecting:
+*Preview this reminder now
+*Preview this reminder in 5 seconds
+*Preview this reminder in 10 seconds
+
+-Removed the ReminderManager class, as it has been stripped down to only 1 method in the past. Changed the only remaining method SetNextReminderWorkDay to
+BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of the given reminder
+
+ -Changed the DLSongs class to work with a local list like the DLReminder class
+
+ -Fixed an issue where the textbox wasn't placed below the radio button groupbox when the day checkboxes panel was invisible. 
+ This happened when you pressed the back button while having the radio button weekdays selected, and then pressing the Add reminder button again.

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
 
@@ -46,10 +47,19 @@ namespace RemindMe
         {
             InitializeComponent();
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
-            BLIO.CreateSettings();
 
             //No database? create
             BLIO.CreateDatabaseIfNotExist();
+
+            
+           
+
+            //initialize the local songs list inside DLSongs
+            DLSongs.GetSongs();            
+
+            BLIO.CreateSettings();
+
+            
 
 
             dayOfStartRemindMe = DateTime.Now.Day;
@@ -89,7 +99,7 @@ namespace RemindMe
             //-------------------------------------------------------------------------------   
             
 
-            //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will be fired
+            //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will fire
             cbMonday.CheckedChanged += cbDaysCheckedChangeEvent;            
             cbTuesday.CheckedChanged += cbDaysCheckedChangeEvent;
             cbWednesday.CheckedChanged += cbDaysCheckedChangeEvent;
@@ -105,6 +115,7 @@ namespace RemindMe
                     Hide();
                 }));
 
+            
 
             //Add all reminders to the listview
             BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
@@ -202,6 +213,17 @@ namespace RemindMe
                                                 
         }
 
+        private List<Reminder> GetSelectedRemindersFromListview()
+        {
+            List<Reminder> selectedReminders = new List<Reminder>();
+
+            foreach(ListViewItem item in lvReminders.SelectedItems)            
+                selectedReminders.Add(DLReminders.GetReminderById((long)item.Tag));
+
+            return selectedReminders;
+            
+        }
+
         /// <summary>
         /// Fills the controls of creating a new reminder with the data from the reminder
         /// </summary>
@@ -230,7 +252,9 @@ namespace RemindMe
                     dtpDate.Value = Convert.ToDateTime(rem.Date);
                     dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortTimeString());
 
-                    
+                    //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
+                    pnlDayCheckBoxes_VisibleChanged(null, null);
+
                     switch (rem.RepeatType)
                     {
                         case "NONE":
@@ -247,7 +271,9 @@ namespace RemindMe
                             rbWorkDays.Checked = true;
                             break;
                         case "MULTIPLE_DAYS": PlaceDayCheckBoxesPanel();
+                            //get the RepeatDays string (monday,friday,saturday) and split them.
                             List<string> repeatDays = rem.RepeatDays.Split(',').ToList();
+                            //check all the checkboxes from the split string. did it contain monday? check the checkbox "cbMonday", etc
                             CheckDayCheckBoxes(repeatDays);
                             break;                   
                     }
@@ -345,6 +371,7 @@ namespace RemindMe
             }
         }
 
+        
         /// <summary>
         /// Closes RemindMe to the system tray. RemindMe can be terminated through it's icon in the tray
         /// </summary>
@@ -378,13 +405,12 @@ namespace RemindMe
 
         private void cbDaysCheckedChangeEvent(object sender, EventArgs e)
         {
-            dtpDate.Value = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())?? DateTime.Now;             
+            dtpDate.Value = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString()) ?? DateTime.Now;
         }
 
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
-            editableReminder = null;
-            bool test = pnlDayCheckBoxes.Visible;
+            editableReminder = null;            
             if (!DLSettings.IsStickyForm())
             {
                 ResetReminderForm();
@@ -395,6 +421,7 @@ namespace RemindMe
 
             pbExclamationDate.Visible = false;
 
+           
             //Switch the 2 panels giving the user the option to create or edit an reminder
             BLFormLogic.SwitchPanels(pnlNewReminder, pnlMain);                                              
         }
@@ -456,7 +483,7 @@ namespace RemindMe
             if (allowRefreshListview)
             {                
                 BLFormLogic.RefreshListview(lvReminders);
-
+                
                 //set it to false again, otherwise it will continue to refresh every tick
                 allowRefreshListview = false;                
             }
@@ -584,7 +611,6 @@ namespace RemindMe
                     repeat = ReminderRepeatType.MULTIPLE_DAYS;                                    
 
                 int dayOfMonth = -1;
-                int dayOfWeek = -1;
                 string soundPath = "";  
 
                 if (repeat == ReminderRepeatType.MONTHLY)
@@ -975,11 +1001,69 @@ namespace RemindMe
         {
             //The note textbox has to be placed below this control if its visible
             if (numEveryXDays.Visible)
+            {
                 tbNote.Location = new Point(numEveryXDays.Location.X, (numEveryXDays.Location.Y + numEveryXDays.Size.Height) + 3);
+                lblEvery.Location = new Point(lblEvery.Location.X, numEveryXDays.Location.Y);
+            }
             else if (!pnlDayCheckBoxes.Visible)
                 tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
         }
 
-        
+        private void enableDisableReminderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnDisableEnable_Click(sender, e);
+        }
+
+        private void editReminderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnEditReminder_Click(sender, e);
+        }
+
+        private void removeReminderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnRemoveReminder_Click(sender, e);
+        }
+
+        private void lvReminders_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count > 0)
+            {
+                ReminderMenuStrip.Show(Cursor.Position);
+            }
+        }
+
+        private void PreviewReminder(Reminder rem)
+        {
+            Reminder previewRem = rem;
+            previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered
+            BLFormLogic.MakePopup(previewRem);
+        }
+
+        private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            foreach (Reminder rem in GetSelectedRemindersFromListview())
+                PreviewReminder(rem);
+        }       
+
+        private async void previewThisReminderIn5SecondsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
+
+            await Task.Delay(5000);
+
+            foreach(Reminder rem in selectedReminders)            
+                PreviewReminder(rem);            
+            
+        }
+
+        private async void previewThisReminderIn10SecondsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
+
+            await Task.Delay(10000);
+
+            foreach (Reminder rem in selectedReminders)
+                PreviewReminder(rem);
+        }
     }
 }

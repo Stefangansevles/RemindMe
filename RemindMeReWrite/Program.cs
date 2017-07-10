@@ -41,9 +41,19 @@ namespace RemindMe
             {
                 FileNotFoundException theException = (FileNotFoundException)e.Exception; //needs in instance to call .FileName
                 BLIO.WriteError(theException, "File not found.","Could not find the file located at \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted the file?" , true);                
-            }            
-            else if(e.Exception is SQLiteException)            
-                BLIO.WriteError(e.Exception, "SQLite Database exception","Remindme has encountered a database error!\r\nThis might or might not be on your end. It can be on your end if you modified the database file", true);            
+            }
+
+            else if (e.Exception is System.Data.Entity.Core.EntityException)
+                BLIO.WriteError(e.Exception, "System.Data.Entity.Core.EntityException", "There was a problem executing SQL!", true);
+
+            else if(e.Exception is ArgumentNullException)            
+                BLIO.WriteError(e.Exception, "Null argument", "Null argument exception! Whoops! this is not on your end!", true);
+
+            else if (e.Exception is NullReferenceException)
+                BLIO.WriteError(e.Exception, "Null reference", "Null reference exception! Whoops! this is not on your end!", true);
+
+            else if (e.Exception is SQLiteException)
+                BLIO.WriteError(e.Exception, "SQLite Database exception", "Remindme has encountered a database error!\r\nThis might or might not be on your end. It can be on your end if you modified the database file", true);
 
             else if (e.Exception is PathTooLongException)            
                 BLIO.WriteError(e.Exception, "File Path too long.","The path to the file is too long!.", true);            

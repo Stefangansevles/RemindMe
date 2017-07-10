@@ -6,11 +6,12 @@ using System.Text;
 namespace RemindMe
 {
     /// <summary>
-    /// This class handles all database-sided logic for songs that users can import
+    /// This class handles all database-sided logic for sound effects
     /// </summary>
     public abstract class DLSongs
     {
-        //List<string> selectedFiles = FSManager.Files.getSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+        //Instead of connecting with the database everytime, we fill this list and return it when the user calls GetSongs(). 
+        static List<Songs> localSongs;
 
 
         /// <summary>
@@ -21,11 +22,9 @@ namespace RemindMe
         public static Songs GetSongById(int id)
         {
             Songs song = null;
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                song = (from s in db.Songs select s).Where(i => i.Id == id).SingleOrDefault();
-                db.Dispose();
-            }
+
+            song = (from s in localSongs select s).Where(i => i.Id == id).SingleOrDefault();
+            
             return song;
         }
 
@@ -36,13 +35,11 @@ namespace RemindMe
         /// <returns></returns>
         public static Songs GetSongByFullPath(string path)
         {
-            //We can also make a method GetSongByFullPath because the path to the song is always unique.
+            //the path to the song is always unique.
             Songs song = null;
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                song = (from s in db.Songs select s).Where(i => i.SongFilePath == path).SingleOrDefault();
-                db.Dispose();
-            }
+
+            song = (from s in localSongs select s).Where(i => i.SongFilePath == path).SingleOrDefault();     
+                   
             return song;
         }
         /// <summary>
@@ -51,15 +48,29 @@ namespace RemindMe
         /// <returns></returns>
         public static List<Songs> GetSongs()
         {
-            List<Songs> storedSongs = null;
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                storedSongs = (from s in db.Songs select s).ToList();
-                db.Dispose();
-            }
-            return storedSongs;
+            //If the list  is still null, it means GetSongs() hasn't been called yet. So, we give it a value once. Then, the list will only
+            //be altered when the database changes. This way we minimize the amount of database calls
+            if (localSongs == null)
+                RefreshLocalList();
+
+            //If the list was null, it now returns the list of reminders from the database.
+            //If it wasn't null, it will return the list as it was last known, which should be how the database is.
+            return localSongs;            
         }
 
+        private static void RefreshLocalList()
+        {            
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                localSongs = (from s in db.Songs select s).ToList();
+                db.Dispose();
+            }            
+        }
+
+        /// <summary>
+        /// Insert a song into the database
+        /// </summary>
+        /// <param name="song">The song</param>
         public static void InsertSong(Songs song)
         {
             if (!SongExistsInDatabase(song.SongFilePath))
@@ -73,11 +84,49 @@ namespace RemindMe
 
                     db.Songs.Add(song);
                     db.SaveChanges();
-                    db.Dispose();
+                    db.Dispose();                    
                 }
+                RefreshLocalList();
             }
         }
 
+        /// <summary>
+        /// Insert multiple songs into the database
+        /// </summary>
+        /// <param name="songs">List of songs</param>
+        public static void InsertSongs(List<Songs> songs)
+        {
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                int songsAdded = 1;
+                foreach (Songs sng in songs)
+                {
+                    if (!SongExistsInDatabase(sng.SongFilePath))
+                    {
+                        if (db.Songs.Count() > 0)
+                        {
+                            sng.Id = db.Songs.Max(i => i.Id) + songsAdded;
+                        }
+                        else
+                        {
+                            sng.Id = songsAdded;
+                        }
+
+                        songsAdded++;
+                        db.Songs.Add(sng);
+
+                    }
+                }
+                db.SaveChanges();
+                db.Dispose();
+            }
+            RefreshLocalList();
+        }
+
+        /// <summary>
+        /// Removes a song from the database
+        /// </summary>
+        /// <param name="song">the song you want to remove</param>
         public static void RemoveSong(Songs song)
         {
             if (SongExistsInDatabase(song.SongFilePath))
@@ -87,10 +136,16 @@ namespace RemindMe
                     db.Songs.Attach(song);
                     db.Songs.Remove(song);
                     db.SaveChanges();
-                    db.Dispose();
+                    db.Dispose();                    
                 }
+                RefreshLocalList();
             }
         }
+
+        /// <summary>
+        /// Removes multiple songs from the database
+        /// </summary>
+        /// <param name="song">the list of songs you want to remove</param>
         public static void RemoveSongs(List<Songs> songs)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
@@ -109,44 +164,20 @@ namespace RemindMe
                 db.SaveChanges();
                 db.Dispose();
             }
+            RefreshLocalList();
         }
-        public static void InsertSongs(List<Songs> songs)
-        {
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                int songsAdded = 1;
-                foreach(Songs sng in songs)
-                {
-                    if (!SongExistsInDatabase(sng.SongFilePath))
-                    {
-                        if (db.Songs.Count() > 0)
-                        {
-                            sng.Id = db.Songs.Max(i => i.Id) + songsAdded;                            
-                        }
-                        else
-                        {
-                            sng.Id = songsAdded;                            
-                        }
-
-                        songsAdded++;
-                        db.Songs.Add(sng);
-                       
-                    }
-                }
-                db.SaveChanges();
-                db.Dispose();
-            }            
-        }
-
+        
+        /// <summary>
+        /// Checks if there is a song in the databse with the given path
+        /// </summary>
+        /// <param name="pathToSong">full path to the song. for example: C:\users\you\music\song.mp3</param>
+        /// <returns></returns>
         public static bool SongExistsInDatabase(string pathToSong)
         {
             Songs sng = null;
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                sng = (from s in db.Songs select s).Where(i => i.SongFilePath == pathToSong).SingleOrDefault();
-                db.Dispose();
-            }
 
+            sng = (from s in localSongs select s).Where(i => i.SongFilePath == pathToSong).SingleOrDefault();
+                        
             return sng != null;
         }
     }

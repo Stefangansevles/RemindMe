@@ -74,27 +74,31 @@ namespace RemindMe
         }
 
         private void btnOk_Click(object sender, EventArgs e)
-        {                     
-            if (cbPostpone.Checked)
+        {
+            if (rem.Id != -1) //Don't do stuff if the id is -1, invalid. the id is set to -1 when the user previews an reminder
             {
-                DateTime newReminderTime = new DateTime();
+                if (cbPostpone.Checked)
+                {
+                    DateTime newReminderTime = new DateTime();
 
-                if (cbPostponeType.SelectedItem == cbPostponeType.Items[0]) //postpone option is x minutes                
-                    newReminderTime = DateTime.Now.AddMinutes((double)cbPostponeTime.Value);                
-                else //postpone option is x hours                
-                    newReminderTime = DateTime.Now.AddHours((double)cbPostponeTime.Value);                
+                    if (cbPostponeType.SelectedItem == cbPostponeType.Items[0]) //postpone option is x minutes                
+                        newReminderTime = DateTime.Now.AddMinutes((double)cbPostponeTime.Value);
+                    else //postpone option is x hours                
+                        newReminderTime = DateTime.Now.AddHours((double)cbPostponeTime.Value);
 
-                rem.PostponeDate = newReminderTime.ToString();
-                rem.Enabled = 1;
-                DLReminders.EditReminder(rem);
+                    rem.PostponeDate = newReminderTime.ToString();
+                    rem.Enabled = 1;
+                    DLReminders.EditReminder(rem);
+                }
+                else
+                {
+                    rem.PostponeDate = null;
+                    DLReminders.UpdateReminder(rem);
+                }
+
+
+                RefreshMainFormListView();
             }
-            else
-            {
-                rem.PostponeDate = null;
-                DLReminders.UpdateReminder(rem);
-            }
-            RefreshMainFormListView();
-
             this.Dispose();
             this.Close();
         }

@@ -104,11 +104,8 @@ namespace RemindMe
 
             foreach (string columnName in names)
             {
-                if (!HasColumn(columnName))
-                {
-                    //aww damn! the user has an outdated .db file!
-                    return false;                    
-                }
+                if (!HasColumn(columnName))                                   
+                    return false; //aww damn! the user has an outdated .db file!                
             }
             return true;
         }
@@ -130,6 +127,7 @@ namespace RemindMe
                 }
                 
                 db.Dispose();
+                RefreshList();
             }
         }
 
@@ -250,7 +248,7 @@ namespace RemindMe
                     DeleteReminder(rem);
 
                 if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString()) //Add days to the reminder so that the next date will be a new workday      
-                    ReminderManager.SetNextReminderWorkDay(rem);                                    
+                    rem.Date = BLDateTime.GetNextReminderWorkDay(rem).ToString();                                    
 
                 if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder                                   
                     rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();                
@@ -292,7 +290,7 @@ namespace RemindMe
 
                 //finally, Write the changes to the database  
                 if(rem.RepeatType != ReminderRepeatType.NONE.ToString())              
-                    DLReminders.EditReminder(rem);
+                    EditReminder(rem);
             }
             else
                 throw new ArgumentNullException("parameter rem in UpdateReminder is null.");
@@ -321,6 +319,10 @@ namespace RemindMe
                 RemindMeBox.Show("Could not edit that reminder, it doesn't exist.", RemindMeBoxIcon.EXCLAMATION);
         }
 
+        /// <summary>
+        /// Deletes a single reminder from the database
+        /// </summary>
+        /// <param name="rem"></param>
         public static void DeleteReminder(Reminder rem)
         {
             if (GetReminderById(rem.Id) != null) //Check if the reminder exists
@@ -336,8 +338,14 @@ namespace RemindMe
             }
         }
 
+        /// <summary>
+        /// Deletes multiple reminders from the database. 
+        /// </summary>
+        /// <param name="rems"></param>
         public static void DeleteReminders(List<Reminder> rems)
         {
+            //We use this method so we can attach and remove the reminders in a foreach loop, and save changes to the database after the loop.
+            //If you use the DeleteReminder method in a foreach loop, it will open and close the database each time
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 foreach (Reminder rem in rems)

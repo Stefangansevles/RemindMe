@@ -29,7 +29,7 @@ namespace RemindMe
         /// <summary>
         /// Gets the day of the week in DayOfWeek
         /// </summary>
-        /// <param name="day">The day , 1 being monday</param>
+        /// <param name="day">The day , 1 being monday. Note: sunday is 0, not 7.</param>
         /// <returns>The day in DayOfWeek format</returns>
         public static DayOfWeek GetDayOfWeekFromInt(int day)
         {
@@ -100,11 +100,12 @@ namespace RemindMe
         public static DateTime? GetEarliestDateFromListOfStringDays(string dayList)
         {
             //what day is it today?                    
-            int today = BLDateTime.GetIntFromDayOfWeek(DateTime.Now.DayOfWeek);
+            int today = GetIntFromDayOfWeek(DateTime.Now.DayOfWeek);
             //monday,tuesday,friday etc as ints                
             List<int> repeatDaysAsInteger = new List<int>();
             List<DateTime> datesFromInt = new List<DateTime>();
 
+            
 
             //fill the int list with selected days. sunday = 0, monday = 1, etc
             if (dayList != "")
@@ -116,7 +117,7 @@ namespace RemindMe
             //make sure the first day is at the beginning
             repeatDaysAsInteger.Sort();
 
-            foreach (int day in repeatDaysAsInteger)            
+            foreach (int day in repeatDaysAsInteger)                           
                 datesFromInt.Add(Convert.ToDateTime(GetDateOfNextDay(GetDayOfWeekFromInt(day)).ToShortDateString()));            
 
             if (datesFromInt.Count > 0)
@@ -125,6 +126,34 @@ namespace RemindMe
             return null;
         }
 
-        
+
+        /// <summary>
+        /// Adds day(s) to the reminder so that the next date will be a weekly day. If the day is friday, the next popup date of the reminder will be monday
+        /// </summary>
+        /// <param name="rem"></param>
+        public static DateTime? GetNextReminderWorkDay(Reminder rem)
+        {//This method is placed in ReminderManager because it directly alters an reminder. BLDateTime just has usefull date methods
+
+            if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString())
+            {
+                switch (DateTime.Now.DayOfWeek)
+                {
+                    case DayOfWeek.Friday:
+                        return Convert.ToDateTime(DateTime.Now.AddDays(3).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString());
+
+                    case DayOfWeek.Saturday:
+                        return Convert.ToDateTime(DateTime.Now.AddDays(2).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString());
+
+                    default:
+                        return Convert.ToDateTime(DateTime.Now.AddDays(1).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString());
+
+                }
+
+            }
+            else
+                return null;
+        }
+
+
     }
 }

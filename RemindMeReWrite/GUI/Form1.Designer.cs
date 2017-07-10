@@ -86,7 +86,7 @@
             this.cbDayBefore = new System.Windows.Forms.CheckBox();
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,6 +97,14 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.ReminderMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previewThisReminderNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previewThisReminderIn5SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previewThisReminderIn10SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableDisableReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -108,10 +116,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).BeginInit();
             this.groupRepeatRadiobuttons.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
+            this.RemindMeTrayIconMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
+            this.ReminderMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -215,6 +224,7 @@
             this.lvReminders.View = System.Windows.Forms.View.Details;
             this.lvReminders.DoubleClick += new System.EventHandler(this.lvReminders_DoubleClick);
             this.lvReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvReminders_KeyDown);
+            this.lvReminders.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvReminders_MouseClick);
             // 
             // chName
             // 
@@ -295,7 +305,7 @@
             this.pnlDayCheckBoxes.Controls.Add(this.cbWednesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbTuesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
-            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(115, 299);
+            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(110, 270);
             this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
             this.pnlDayCheckBoxes.Size = new System.Drawing.Size(234, 65);
             this.pnlDayCheckBoxes.TabIndex = 77;
@@ -677,6 +687,7 @@
             this.rbNoRepeat.Name = "rbNoRepeat";
             this.rbNoRepeat.Size = new System.Drawing.Size(50, 18);
             this.rbNoRepeat.TabIndex = 61;
+            this.rbNoRepeat.TabStop = true;
             this.rbNoRepeat.Text = "Once";
             this.rbNoRepeat.UseVisualStyleBackColor = true;
             this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);
@@ -834,21 +845,21 @@
             // RemindMeIcon
             // 
             this.RemindMeIcon.BalloonTipText = "RemindMe";
-            this.RemindMeIcon.ContextMenuStrip = this.contextMenuStrip1;
+            this.RemindMeIcon.ContextMenuStrip = this.RemindMeTrayIconMenuStrip;
             this.RemindMeIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("RemindMeIcon.Icon")));
             this.RemindMeIcon.Text = "RemindMe";
             this.RemindMeIcon.Visible = true;
             this.RemindMeIcon.DoubleClick += new System.EventHandler(this.RemindMeIcon_DoubleClick);
             // 
-            // contextMenuStrip1
+            // RemindMeTrayIconMenuStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsExit,
             this.showRemindMeToolStripMenuItem,
             this.tsSettings});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(165, 70);
-            this.contextMenuStrip1.Text = "contextmenustrip";
+            this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(165, 70);
+            this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
             // 
             // tsExit
             // 
@@ -937,6 +948,68 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
+            // ReminderMenuStrip
+            // 
+            this.ReminderMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.previewToolStripMenuItem,
+            this.removeReminderToolStripMenuItem,
+            this.editReminderToolStripMenuItem,
+            this.enableDisableReminderToolStripMenuItem});
+            this.ReminderMenuStrip.Name = "ReminderMenuStrip";
+            this.ReminderMenuStrip.Size = new System.Drawing.Size(204, 114);
+            // 
+            // previewToolStripMenuItem
+            // 
+            this.previewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.previewThisReminderNowToolStripMenuItem,
+            this.previewThisReminderIn5SecondsToolStripMenuItem,
+            this.previewThisReminderIn10SecondsToolStripMenuItem});
+            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.previewToolStripMenuItem.Text = "Preview reminder";
+            // 
+            // previewThisReminderNowToolStripMenuItem
+            // 
+            this.previewThisReminderNowToolStripMenuItem.Name = "previewThisReminderNowToolStripMenuItem";
+            this.previewThisReminderNowToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.previewThisReminderNowToolStripMenuItem.Text = "Preview this reminder now";
+            this.previewThisReminderNowToolStripMenuItem.Click += new System.EventHandler(this.previewThisReminderNowToolStripMenuItem_Click);
+            // 
+            // previewThisReminderIn5SecondsToolStripMenuItem
+            // 
+            this.previewThisReminderIn5SecondsToolStripMenuItem.Name = "previewThisReminderIn5SecondsToolStripMenuItem";
+            this.previewThisReminderIn5SecondsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.previewThisReminderIn5SecondsToolStripMenuItem.Text = "Preview this reminder in 5 seconds";
+            this.previewThisReminderIn5SecondsToolStripMenuItem.Click += new System.EventHandler(this.previewThisReminderIn5SecondsToolStripMenuItem_Click);
+            // 
+            // previewThisReminderIn10SecondsToolStripMenuItem
+            // 
+            this.previewThisReminderIn10SecondsToolStripMenuItem.Name = "previewThisReminderIn10SecondsToolStripMenuItem";
+            this.previewThisReminderIn10SecondsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.previewThisReminderIn10SecondsToolStripMenuItem.Text = "Preview this reminder in 10 seconds";
+            this.previewThisReminderIn10SecondsToolStripMenuItem.Click += new System.EventHandler(this.previewThisReminderIn10SecondsToolStripMenuItem_Click);
+            // 
+            // removeReminderToolStripMenuItem
+            // 
+            this.removeReminderToolStripMenuItem.Name = "removeReminderToolStripMenuItem";
+            this.removeReminderToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.removeReminderToolStripMenuItem.Text = "Remove reminder";
+            this.removeReminderToolStripMenuItem.Click += new System.EventHandler(this.removeReminderToolStripMenuItem_Click);
+            // 
+            // editReminderToolStripMenuItem
+            // 
+            this.editReminderToolStripMenuItem.Name = "editReminderToolStripMenuItem";
+            this.editReminderToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.editReminderToolStripMenuItem.Text = "Edit reminder";
+            this.editReminderToolStripMenuItem.Click += new System.EventHandler(this.editReminderToolStripMenuItem_Click);
+            // 
+            // enableDisableReminderToolStripMenuItem
+            // 
+            this.enableDisableReminderToolStripMenuItem.Name = "enableDisableReminderToolStripMenuItem";
+            this.enableDisableReminderToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.enableDisableReminderToolStripMenuItem.Text = "Enable/Disable reminder";
+            this.enableDisableReminderToolStripMenuItem.Click += new System.EventHandler(this.enableDisableReminderToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -970,10 +1043,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).EndInit();
             this.groupRepeatRadiobuttons.ResumeLayout(false);
             this.groupRepeatRadiobuttons.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.RemindMeTrayIconMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
+            this.ReminderMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1016,7 +1090,7 @@
         private System.Windows.Forms.PictureBox pbEdit;
         private System.Windows.Forms.RadioButton rbWorkDays;
         private System.Windows.Forms.CheckBox cbDayBefore;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip RemindMeTrayIconMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsExit;
         private System.Windows.Forms.ToolStripMenuItem showRemindMeToolStripMenuItem;
         private System.Windows.Forms.PictureBox pbMinimizeApplication;
@@ -1048,6 +1122,14 @@
         private System.Windows.Forms.CheckBox cbTuesday;
         private System.Windows.Forms.CheckBox cbMonday;
         private System.Windows.Forms.RadioButton rbMultipleDays;
+        private System.Windows.Forms.ContextMenuStrip ReminderMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previewThisReminderNowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previewThisReminderIn5SecondsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previewThisReminderIn10SecondsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeReminderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editReminderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enableDisableReminderToolStripMenuItem;
     }
 }
 
