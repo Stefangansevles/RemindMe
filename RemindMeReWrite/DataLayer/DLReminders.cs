@@ -8,7 +8,8 @@ using System.Data.Entity;
 namespace RemindMe
 {
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //TODO: Find a way to call RefreshList() whenever the SQLite database changes(if possible). Currently, we just call RefreshList() in every method that alters the database
+    //TODO: Find a way to call RefreshList() whenever the SQLite database changes(if possible)
+    //Currently, there is a custom method SaveAndCloseDataBase() which saves the pending changes, closes the database, and refreshes the list
     //It would be much nicer  if there was some kind of listener for SQLite database changes, but i couldn't find any
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -19,7 +20,7 @@ namespace RemindMe
     public abstract class DLReminders
     {        
         //Instead of connecting with the database everytime, we fill this list and return it when the user calls GetReminders(). 
-        static List<Reminder> localReminders;
+        private static List<Reminder> localReminders;
 
         /// <summary>
         /// Gets all reminders from the database
@@ -28,9 +29,9 @@ namespace RemindMe
         public static List<Reminder> GetReminders()
         {
             //If the list  is still null, it means GetReminders() hasn't been called yet. So, we give it a value once. Then, the list will only
-            //be altered when the database changes. This way we minimize the amount of database calls
+            //be altered when the database changes. This way we minimize wthe amount of database calls
             if (localReminders == null)            
-                RefreshList();            
+                RefreshCacheList();            
 
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
@@ -40,7 +41,7 @@ namespace RemindMe
         /// <summary>
         /// Gives the localReminders list a new value after the database has changed.
         /// </summary>
-        private static void RefreshList()
+        private static void RefreshCacheList()
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {                
@@ -49,6 +50,9 @@ namespace RemindMe
             }
         }
 
+        /// <summary>
+        /// Creates the database with associated tables
+        /// </summary>
         public static void CreateDatabase()
         {
             SQLiteConnection conn = new SQLiteConnection();
@@ -70,8 +74,7 @@ namespace RemindMe
             tableSettings.ExecuteNonQuery();
             tableSongs.ExecuteNonQuery();
             conn.Close();
-        }
-
+        }        
         /// <summary>
         /// Checks wether the table Reminder has column x
         /// </summary>
@@ -94,10 +97,14 @@ namespace RemindMe
                     //{
                         return false;
                     //}                                        
-                }
+                }                
             }
         }
 
+        /// <summary>
+        /// Checks if the user's .db file has all the columns from the database model.
+        /// </summary>
+        /// <returns></returns>
         public static bool HasAllColumns()
         {
             var names = typeof(Reminder).GetProperties().Select(property => property.Name).ToList();
@@ -113,7 +120,7 @@ namespace RemindMe
         /// <summary>
         /// This method will insert missing columns into the table reminder. Will only be called if HasallColumns() returns false. This means the user has an outdated .db file
         /// </summary>
-        public static void InsertNewcolumns()
+        public static void InsertNewColumns()
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
@@ -125,9 +132,7 @@ namespace RemindMe
                     if (!HasColumn(column))                    
                         db.Database.ExecuteSqlCommand("ALTER TABLE REMINDER ADD COLUMN " + column + " " + GetColumnSqlType(column));                    
                 }
-                
-                db.Dispose();
-                RefreshList();
+                SaveAndCloseDataBase(db);
             }
         }
 
@@ -161,7 +166,19 @@ namespace RemindMe
 
 
 
-
+        /// <summary>
+        /// Inserts a new reminder into the database
+        /// </summary>
+        /// <param name="name">The name of the reminder</param>
+        /// <param name="date">The date the reminder should pop up</param>
+        /// <param name="repeatingType"></param>
+        /// <param name="dayOfMonth">The day of the month this reminder should pop up at each month. null if the reminder isn't monthly</param>
+        /// <param name="dayOfWeek">The day of the week this reminder should pop up at each week. null if the reminder isn't weekly</param>
+        /// <param name="everyXDays">The amount of x. example: every 5 days</param>
+        /// <param name="commaSeperatedDays">a string with days seperated by a comma. example: monday,friday,sunday</param>
+        /// <param name="note">The optional note of this reminder</param>
+        /// <param name="enabled">Wether this reminder is enabled or not. 1 = enabled   0 = not enabled</param>
+        /// <param name="soundPath">The path to the sound effect that should play when this reminder pops up</param>
         public static void InsertReminder(string name, DateTime date, string repeatingType, int? dayOfMonth, int? dayOfWeek, int? everyXDays,string commaSeperatedDays, string note, bool enabled, string soundPath)
         {
             Reminder rem = new Reminder();
@@ -211,9 +228,7 @@ namespace RemindMe
                     rem.Id = 0;
 
                 db.Reminder.Add(rem);
-                db.SaveChanges();
-                RefreshList();
-                db.Dispose();
+                SaveAndCloseDataBase(db);
             }
         }
 
@@ -310,9 +325,7 @@ namespace RemindMe
                     db.Reminder.Attach(rem);
                     var entry = db.Entry(rem);
                     entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                
-                    db.SaveChanges();                                      //push to database
-                    RefreshList();
-                    db.Dispose();
+                    SaveAndCloseDataBase(db);
                 }
             }
             else
@@ -330,10 +343,8 @@ namespace RemindMe
                 using (RemindMeDbEntities db = new RemindMeDbEntities())
                 {
                     db.Reminder.Attach(rem);
-                    db.Reminder.Remove(rem);                                              
-                    db.SaveChanges();
-                    RefreshList();
-                    db.Dispose();
+                    db.Reminder.Remove(rem);
+                    SaveAndCloseDataBase(db);
                 }
             }
         }
@@ -356,13 +367,20 @@ namespace RemindMe
                         db.Reminder.Remove(rem);                        
                     }
                 }
-                db.SaveChanges();
-                RefreshList();
-                db.Dispose();
+                SaveAndCloseDataBase(db);
             }
                 
             
         }
-
+        /// <summary>
+        /// Saves pending changes to the database, disposes it, and refreshes the local cache list
+        /// </summary>
+        /// <param name="db"></param>
+        private static void SaveAndCloseDataBase(RemindMeDbEntities db)
+        {
+            db.SaveChanges();
+            RefreshCacheList();
+            db.Dispose();
+        }
     }
 }

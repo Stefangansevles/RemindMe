@@ -132,7 +132,7 @@ namespace RemindMe
         /// </summary>
         /// <param name="rem"></param>
         public static DateTime? GetNextReminderWorkDay(Reminder rem)
-        {//This method is placed in ReminderManager because it directly alters an reminder. BLDateTime just has usefull date methods
+        {
 
             if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString())
             {

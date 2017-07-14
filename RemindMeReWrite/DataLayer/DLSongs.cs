@@ -13,7 +13,7 @@ namespace RemindMe
         //Instead of connecting with the database everytime, we fill this list and return it when the user calls GetSongs(). 
         static List<Songs> localSongs;
 
-
+        
         /// <summary>
         /// Gets the song object from the database with the given id
         /// </summary>
@@ -24,7 +24,7 @@ namespace RemindMe
             Songs song = null;
 
             song = (from s in localSongs select s).Where(i => i.Id == id).SingleOrDefault();
-            
+                        
             return song;
         }
 
@@ -51,14 +51,14 @@ namespace RemindMe
             //If the list  is still null, it means GetSongs() hasn't been called yet. So, we give it a value once. Then, the list will only
             //be altered when the database changes. This way we minimize the amount of database calls
             if (localSongs == null)
-                RefreshLocalList();
+                RefreshCacheList();
 
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
             return localSongs;            
         }
 
-        private static void RefreshLocalList()
+        private static void RefreshCacheList()
         {            
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
@@ -86,7 +86,7 @@ namespace RemindMe
                     db.SaveChanges();
                     db.Dispose();                    
                 }
-                RefreshLocalList();
+                RefreshCacheList();
             }
         }
 
@@ -97,20 +97,19 @@ namespace RemindMe
         public static void InsertSongs(List<Songs> songs)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
+            {                
                 int songsAdded = 1;
                 foreach (Songs sng in songs)
                 {
                     if (!SongExistsInDatabase(sng.SongFilePath))
                     {
-                        if (db.Songs.Count() > 0)
-                        {
-                            sng.Id = db.Songs.Max(i => i.Id) + songsAdded;
-                        }
-                        else
-                        {
-                            sng.Id = songsAdded;
-                        }
+                        //The id of the new song will be the max of the database, plus the amount of songs added.
+                        //The reason why songsAdded is used, is because db.SaveChanges() will only get called after inserting all the songs.
+                        //because of this, you can't do Songs.Max +1 everytime, because it will give the same number every time
+                        if (db.Songs.Count() > 0)                        
+                            sng.Id = db.Songs.Max(i => i.Id) + songsAdded;                        
+                        else                        
+                            sng.Id = songsAdded;                        
 
                         songsAdded++;
                         db.Songs.Add(sng);
@@ -120,7 +119,7 @@ namespace RemindMe
                 db.SaveChanges();
                 db.Dispose();
             }
-            RefreshLocalList();
+            RefreshCacheList();
         }
 
         /// <summary>
@@ -138,7 +137,7 @@ namespace RemindMe
                     db.SaveChanges();
                     db.Dispose();                    
                 }
-                RefreshLocalList();
+                RefreshCacheList();
             }
         }
 
@@ -164,7 +163,7 @@ namespace RemindMe
                 db.SaveChanges();
                 db.Dispose();
             }
-            RefreshLocalList();
+            RefreshCacheList();
         }
         
         /// <summary>

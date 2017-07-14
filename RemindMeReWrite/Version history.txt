@@ -108,3 +108,6 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  -Fixed an issue where the textbox wasn't placed below the radio button groupbox when the day checkboxes panel was invisible. 
  This happened when you pressed the back button while having the radio button weekdays selected, and then pressing the Add reminder button again.
+
+ V1.5.04
+ Gave the context menu strip a gray-white theme, to match the theme of RemindMe

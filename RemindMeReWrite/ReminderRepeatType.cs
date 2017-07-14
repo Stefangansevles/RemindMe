@@ -1,7 +1,7 @@
 ﻿namespace RemindMe
 {
     /// <summary>
-    /// Contains the repeat types of an reminder.
+    /// Contains the different repeat types of an reminder.
     /// </summary>
     public enum ReminderRepeatType
     {

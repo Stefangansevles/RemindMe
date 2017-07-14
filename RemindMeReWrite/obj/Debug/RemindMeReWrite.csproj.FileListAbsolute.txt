@@ -116,3 +116,8 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReW
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\CoContra.net45.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.Triggers.net45.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.TypedOriginalValues.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Collections.Immutable.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Collections.Immutable.xml

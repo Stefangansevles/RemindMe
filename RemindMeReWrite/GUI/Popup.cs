@@ -105,9 +105,12 @@ namespace RemindMe
 
         private void pbCloseApplication_Click(object sender, EventArgs e)
         {
-            rem.PostponeDate = null;
-            DLReminders.UpdateReminder(rem);
-            RefreshMainFormListView();
+            if (rem.Id != -1)
+            {
+                rem.PostponeDate = null;
+                DLReminders.UpdateReminder(rem);
+                RefreshMainFormListView();
+            }
             this.Close();
             this.Dispose();
         }
@@ -129,9 +132,12 @@ namespace RemindMe
         private void Popup_FormClosing(object sender, FormClosingEventArgs e)
         {
             //Try to update the reminder before the form unexpectedly closes
-            rem.PostponeDate = null;
-            DLReminders.UpdateReminder(rem);
-            RefreshMainFormListView();
+            if (rem.Id != -1)
+            {
+                rem.PostponeDate = null;
+                DLReminders.UpdateReminder(rem);
+                RefreshMainFormListView();
+            }
         }
 
         private void RefreshMainFormListView()
@@ -139,6 +145,7 @@ namespace RemindMe
             Form mainForm = Application.OpenForms["Form1"];
             ListView lvReminders = (ListView)mainForm.Controls["pnlMain"].Controls["lvReminders"];
             BLFormLogic.RefreshListview(lvReminders);
+                        
         }
 
         private void cbPostponeTime_ValueChanged(object sender, EventArgs e)

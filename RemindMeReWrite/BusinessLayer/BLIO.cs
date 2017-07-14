@@ -33,7 +33,7 @@ namespace RemindMe
             {
                 //great! the .db file exists. Now lets check if the user's .db file is up-to-date. let's see if the reminder table has all the required columns.
                 if(!DLReminders.HasAllColumns())
-                    DLReminders.InsertNewcolumns(); //not up to date. insert !
+                    DLReminders.InsertNewColumns(); //not up to date. insert !
             }
         }
 
