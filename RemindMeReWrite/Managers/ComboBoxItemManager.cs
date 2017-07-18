@@ -17,12 +17,38 @@ namespace RemindMe
 
 
         /// <summary>
-        /// Gets the list of all comboboxitems
+        /// Gets the (read-only)list of all comboboxitems
         /// </summary>
         /// <returns></returns>
-        public static List<ComboBoxItem> GetComboboxItems()
+        public static IReadOnlyList<ComboBoxItem> GetComboboxItems()
         {
-            return items;
+            return items.AsReadOnly();            
+        }
+
+        /// <summary>
+        /// Adds an combobox item to the list
+        /// </summary>
+        /// <param name="item">The object you wish to add</param>
+        public static void AddComboboxItem(ComboBoxItem item)
+        {
+            items.Add(item);
+        }
+
+        /// <summary>
+        /// Clears the entire list of combobox items
+        /// </summary>
+        public static void ClearComboboxItems()
+        {
+            items.Clear();
+        }
+
+        /// <summary>
+        /// Removes the specified comboboxitem from the list
+        /// </summary>
+        /// <param name="item">The object you wish to remove</param>
+        public static void RemoveComboboxItem(ComboBoxItem item)
+        {
+            items.Remove(item);
         }
 
         /// <summary>

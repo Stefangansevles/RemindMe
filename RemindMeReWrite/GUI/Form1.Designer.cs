@@ -959,7 +959,7 @@
             this.enableDisableReminderToolStripMenuItem});
             this.ReminderMenuStrip.Name = "ReminderMenuStrip";
             this.ReminderMenuStrip.ShowImageMargin = false;
-            this.ReminderMenuStrip.Size = new System.Drawing.Size(186, 114);
+            this.ReminderMenuStrip.Size = new System.Drawing.Size(186, 92);
             // 
             // previewToolStripMenuItem
             // 
@@ -1003,7 +1003,7 @@
             // 
             this.removeReminderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.removeReminderToolStripMenuItem.Name = "removeReminderToolStripMenuItem";
-            this.removeReminderToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.removeReminderToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.removeReminderToolStripMenuItem.Text = "Remove reminder";
             this.removeReminderToolStripMenuItem.Click += new System.EventHandler(this.removeReminderToolStripMenuItem_Click);
             // 
@@ -1011,7 +1011,7 @@
             // 
             this.editReminderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.editReminderToolStripMenuItem.Name = "editReminderToolStripMenuItem";
-            this.editReminderToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.editReminderToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.editReminderToolStripMenuItem.Text = "Edit reminder";
             this.editReminderToolStripMenuItem.Click += new System.EventHandler(this.editReminderToolStripMenuItem_Click);
             // 
@@ -1019,7 +1019,7 @@
             // 
             this.enableDisableReminderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.enableDisableReminderToolStripMenuItem.Name = "enableDisableReminderToolStripMenuItem";
-            this.enableDisableReminderToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.enableDisableReminderToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.enableDisableReminderToolStripMenuItem.Text = "Enable/Disable reminder";
             this.enableDisableReminderToolStripMenuItem.Click += new System.EventHandler(this.enableDisableReminderToolStripMenuItem_Click);
             // 

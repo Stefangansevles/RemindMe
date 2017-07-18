@@ -109,5 +109,35 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  -Fixed an issue where the textbox wasn't placed below the radio button groupbox when the day checkboxes panel was invisible. 
  This happened when you pressed the back button while having the radio button weekdays selected, and then pressing the Add reminder button again.
 
- V1.5.04
+ (15-7-2017)V1.5.04
  Gave the context menu strip a gray-white theme, to match the theme of RemindMe
+
+ Added a new method SaveAndCloseDataBase() to DLReminder. This simply saves and disposes the database, but also refreshes the local list. 
+ Everytime when the database needs saving, instead of calling RemindMeDbEntities.SaveChanges, we call this method. Then, the local cache list also gets updated.
+
+ fixed a small bug where if you pressed the "x" button on a reminder preview popup, it would say that the reminder doesn't exist(because the id is -1, and that doesn't exist in the database)
+
+ (18-7-2017)V1.5.05
+ Added unit tests to RemindMe for the following classes:
+ (Business Logic Layer)
+ -BLDateTime
+ -BLIO
+ (Data Access Layer)
+ -DLReminders
+ -DLSettings
+ -DLSongs
+
+ Made changes to ComboBoxItemManager to be more OOP-Friendly. The comboboxitem list method GetComboboxItems() now returns a ReadOnly version of the list.
+ this way it can't be changed. If the list needs changing however, the new methods AddComboboxItem(), RemoveComboboxItem() and ClearComboboxItems() can be used
+
+ Changed the DLSettings class to work with a local variable with database information, like the DLSongs and DLReminder classes.
+
+ Removed the remaining DayOfWeek parameter from InsertReminder() as this is no longer needed, because weekly reminders are no longer a thing.
+
+ Prevented multiple instances of the settings form by checking if it is already open
+
+ Changed the BLDateTime.GetNextReminderWorkDay() method to give the next work day of that reminder. 
+ Previously it would get the first friday if the next workday of that reminder would be friday. It now returns the next friday based of the date of the reminder.
+ If the reminder's date is in Thursday April 6th, 2017 the next workday will be Friday April 7th, 2017, in stead of the next friday based on the current time.
+ Because of this change the GetNextReminderWorkDay() now uses a while loop to keep adding days until the next work day is larger than DateTime.Now
+

@@ -62,7 +62,7 @@
             this.pbRemoveSounds.BackColor = System.Drawing.Color.White;
             this.pbRemoveSounds.BackgroundImage = global::RemindMe.Properties.Resources.minus_xxl;
             this.pbRemoveSounds.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbRemoveSounds.Location = new System.Drawing.Point(436, 60);
+            this.pbRemoveSounds.Location = new System.Drawing.Point(413, 60);
             this.pbRemoveSounds.Name = "pbRemoveSounds";
             this.pbRemoveSounds.Size = new System.Drawing.Size(23, 20);
             this.pbRemoveSounds.TabIndex = 15;
@@ -74,7 +74,7 @@
             this.pbAddSounds.BackColor = System.Drawing.Color.White;
             this.pbAddSounds.BackgroundImage = global::RemindMe.Properties.Resources.green_plus_add;
             this.pbAddSounds.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbAddSounds.Location = new System.Drawing.Point(407, 60);
+            this.pbAddSounds.Location = new System.Drawing.Point(384, 60);
             this.pbAddSounds.Name = "pbAddSounds";
             this.pbAddSounds.Size = new System.Drawing.Size(23, 20);
             this.pbAddSounds.TabIndex = 14;

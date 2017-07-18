@@ -22,7 +22,7 @@ namespace RemindMe
             this.value = value;
 
             //Automatically add it to the manager's list when a new object is created
-            ComboBoxItemManager.GetComboboxItems().Add(this);            
+            ComboBoxItemManager.AddComboboxItem(this);            
         }
                        
         public override string ToString()

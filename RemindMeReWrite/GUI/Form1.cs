@@ -49,13 +49,7 @@ namespace RemindMe
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
 
             //No database? create
-            BLIO.CreateDatabaseIfNotExist();
-
-            
-           
-
-            //initialize the local songs list inside DLSongs
-            DLSongs.GetSongs();            
+            BLIO.CreateDatabaseIfNotExist();                  
 
             BLIO.CreateSettings();
 
@@ -68,9 +62,6 @@ namespace RemindMe
             imgPlayResume = Properties.Resources.resume;
 
             toRemoveReminders = new List<Reminder>();            
-
-            //We just call this method once, because if the settings table does not yet have a column AlwaysOnTop, it will default it to 1(true)
-            DLSettings.IsAlwaysOnTop();
         }
 
 
@@ -434,7 +425,7 @@ namespace RemindMe
                 foreach (ListViewItem item in lvReminders.SelectedItems)
                 {
                     toRemoveReminders.Add(DLReminders.GetReminderById(Convert.ToInt32(item.Tag)));
-                    lvReminders.Items.Remove(item);                                                     //Remove it from the listview                    
+                    lvReminders.Items.Remove(item);//Remove it from the listview                    
                 }
                 
                 //If the user selected multiple reminders, you don't open the database, remove the reminder, and close the database for every selected reminder this way
@@ -507,7 +498,7 @@ namespace RemindMe
                     if (selectedFiles.Count >= 1 && selectedFiles[0] != "") //[0] == "" if the user pressed cancel
                     {
                         cbSound.Items.Clear();
-                        ComboBoxItemManager.GetComboboxItems().Clear();
+                        ComboBoxItemManager.ClearComboboxItems();
 
 
 
@@ -638,14 +629,14 @@ namespace RemindMe
                 if (editableReminder == null) //If the user isn't editing an existing reminder, he's creating one
                 {
                     if (repeat == ReminderRepeatType.MONTHLY)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), dayOfMonth,null,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), dayOfMonth,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
 
                     else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), null, null, null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(), null, null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.CUSTOM)
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), cbEveryXCustom.SelectedItem.ToString(), null, null, Convert.ToInt32(numEveryXDays.Value),null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true,  soundPath);                    
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), cbEveryXCustom.SelectedItem.ToString(), null,  Convert.ToInt32(numEveryXDays.Value),null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true,  soundPath);                    
                     else
-                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(),null,null,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()), repeat.ToString(),null,null,null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                                         
                     
                 }
@@ -707,8 +698,11 @@ namespace RemindMe
 
         private void pbSettings_Click(object sender, EventArgs e)
         {            
-            set = new SettingsForm();
-            set.Show();
+            if (Application.OpenForms.OfType<SettingsForm>().Count() == 0)
+            {
+                set = new SettingsForm();
+                set.Show();
+            }
         }
 
         /// <summary>

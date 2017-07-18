@@ -116,14 +116,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLayer\BLDateTime.cs" />
-    <Compile Include="BusinessLayer\BLFormLogic.cs" />
-    <Compile Include="BusinessLayer\BLIO.cs" />
-    <Compile Include="BusinessLayer\BLUtilities.cs" />
+    <Compile Include="Business Logic Layer\BLDateTime.cs" />
+    <Compile Include="Business Logic Layer\BLFormLogic.cs" />
+    <Compile Include="Business Logic Layer\BLIO.cs" />
+    <Compile Include="Business Logic Layer\BLUtilities.cs" />
     <Compile Include="ComboBoxItem.cs" />
-    <Compile Include="DataLayer\DLReminders.cs" />
-    <Compile Include="DataLayer\DLSettings.cs" />
-    <Compile Include="DataLayer\DLSongs.cs" />
+    <Compile Include="Data Access Layer\DLReminders.cs" />
+    <Compile Include="Data Access Layer\DLSettings.cs" />
+    <Compile Include="Data Access Layer\DLSongs.cs" />
     <Compile Include="GUI\CustomMessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
