@@ -147,3 +147,6 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  The settings form is now no longer being used. The cog(settings) button on the "home screen" of RemindMe will now load the new settings panel.
  This way there will be now new windows created, but everything will be in the same RemindMe window. Any setting logic has not been altered, as the logic is contained
  in user controls. these user controls simply get loaded into the panels in the settings panel
+
+ (19-7-2017)V1.5.07 - Minor change
+ Made the settings panel more visually appealing

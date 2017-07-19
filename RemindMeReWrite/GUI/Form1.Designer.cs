@@ -43,6 +43,7 @@
             this.cbEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddReminder = new System.Windows.Forms.Button();
             this.pnlNewReminder = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.pnlDayCheckBoxes = new System.Windows.Forms.Panel();
             this.cbSunday = new System.Windows.Forms.CheckBox();
             this.cbSaturday = new System.Windows.Forms.CheckBox();
@@ -103,6 +104,7 @@
             this.editReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableDisableReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlSettings = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.btnBackFromSettings = new System.Windows.Forms.Button();
             this.pbWindows = new System.Windows.Forms.PictureBox();
             this.pbMusic = new System.Windows.Forms.PictureBox();
@@ -111,8 +113,6 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -307,6 +307,17 @@
             this.pnlNewReminder.Size = new System.Drawing.Size(467, 458);
             this.pnlNewReminder.TabIndex = 27;
             this.pnlNewReminder.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(295, 435);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(169, 16);
+            this.label4.TabIndex = 67;
+            this.label4.Text = "RemindMe - Version 1.5.07";
             // 
             // pnlDayCheckBoxes
             // 
@@ -1015,6 +1026,17 @@
             this.pnlSettings.Size = new System.Drawing.Size(475, 457);
             this.pnlSettings.TabIndex = 67;
             // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(-4, 409);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(600, 3);
+            this.textBox2.TabIndex = 80;
+            // 
             // btnBackFromSettings
             // 
             this.btnBackFromSettings.BackgroundImage = global::RemindMe.Properties.Resources.back;
@@ -1104,29 +1126,6 @@
             this.pbCloseApplication.TabIndex = 64;
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(-4, 409);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(600, 3);
-            this.textBox2.TabIndex = 80;
-            this.textBox2.Visible = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(295, 435);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 16);
-            this.label4.TabIndex = 67;
-            this.label4.Text = "RemindMe - Version 1.5.06";
             // 
             // Form1
             // 

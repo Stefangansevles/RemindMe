@@ -45,7 +45,7 @@
             this.lvSoundFiles.Font = new System.Drawing.Font("MS Reference Sans Serif", 7.25F, System.Drawing.FontStyle.Bold);
             this.lvSoundFiles.ForeColor = System.Drawing.Color.White;
             this.lvSoundFiles.FullRowSelect = true;
-            this.lvSoundFiles.Location = new System.Drawing.Point(13, 57);
+            this.lvSoundFiles.Location = new System.Drawing.Point(5, 57);
             this.lvSoundFiles.Name = "lvSoundFiles";
             this.lvSoundFiles.Size = new System.Drawing.Size(452, 174);
             this.lvSoundFiles.TabIndex = 13;
