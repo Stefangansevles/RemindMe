@@ -30,9 +30,9 @@
         {
             this.lvSoundFiles = new System.Windows.Forms.ListView();
             this.chSound = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label2 = new System.Windows.Forms.Label();
             this.pbRemoveSounds = new System.Windows.Forms.PictureBox();
             this.pbAddSounds = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbRemoveSounds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddSounds)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +56,18 @@
             // 
             this.chSound.Text = "Sound File";
             this.chSound.Width = 420;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(10, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(317, 34);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "These are the popup sounds you\'ve added to RemindMe.\r\nYou can add or remove them " +
+    "here";
             // 
             // pbRemoveSounds
             // 
@@ -81,23 +93,11 @@
             this.pbAddSounds.TabStop = false;
             this.pbAddSounds.Click += new System.EventHandler(this.pbAddSounds_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(10, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(317, 34);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "These are the popup sounds you\'ve added to RemindMe.\r\nYou can add or remove them " +
-    "here";
-            // 
             // UCMusic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DimGray;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pbRemoveSounds);
             this.Controls.Add(this.pbAddSounds);

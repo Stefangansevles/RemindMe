@@ -33,18 +33,19 @@
             this.pnlParent = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pbWindows = new System.Windows.Forms.PictureBox();
-            this.pbMusic = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pbClose = new System.Windows.Forms.PictureBox();
             this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.pbWindows = new System.Windows.Forms.PictureBox();
+            this.pbMusic = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -64,7 +65,7 @@
             this.pnlParent.BackColor = System.Drawing.Color.Transparent;
             this.pnlParent.Location = new System.Drawing.Point(67, 28);
             this.pnlParent.Name = "pnlParent";
-            this.pnlParent.Size = new System.Drawing.Size(484, 315);
+            this.pnlParent.Size = new System.Drawing.Size(484, 307);
             this.pnlParent.TabIndex = 81;
             // 
             // textBox1
@@ -89,30 +90,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(61, 336);
             this.panel1.TabIndex = 83;
-            // 
-            // pbWindows
-            // 
-            this.pbWindows.BackColor = System.Drawing.Color.Transparent;
-            this.pbWindows.BackgroundImage = global::RemindMe.Properties.Resources.win8;
-            this.pbWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbWindows.Location = new System.Drawing.Point(7, 67);
-            this.pbWindows.Name = "pbWindows";
-            this.pbWindows.Size = new System.Drawing.Size(49, 42);
-            this.pbWindows.TabIndex = 75;
-            this.pbWindows.TabStop = false;
-            this.pbWindows.Click += new System.EventHandler(this.pbWindows_Click);
-            // 
-            // pbMusic
-            // 
-            this.pbMusic.BackColor = System.Drawing.Color.Transparent;
-            this.pbMusic.BackgroundImage = global::RemindMe.Properties.Resources.blue_sound_icon;
-            this.pbMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbMusic.Location = new System.Drawing.Point(7, 17);
-            this.pbMusic.Name = "pbMusic";
-            this.pbMusic.Size = new System.Drawing.Size(49, 42);
-            this.pbMusic.TabIndex = 74;
-            this.pbMusic.TabStop = false;
-            this.pbMusic.Click += new System.EventHandler(this.pbMusic_Click);
             // 
             // label2
             // 
@@ -158,12 +135,48 @@
             this.pbLogo.TabIndex = 77;
             this.pbLogo.TabStop = false;
             // 
+            // pbWindows
+            // 
+            this.pbWindows.BackColor = System.Drawing.Color.Transparent;
+            this.pbWindows.BackgroundImage = global::RemindMe.Properties.Resources.win8;
+            this.pbWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbWindows.Location = new System.Drawing.Point(7, 67);
+            this.pbWindows.Name = "pbWindows";
+            this.pbWindows.Size = new System.Drawing.Size(49, 42);
+            this.pbWindows.TabIndex = 75;
+            this.pbWindows.TabStop = false;
+            this.pbWindows.Click += new System.EventHandler(this.pbWindows_Click);
+            // 
+            // pbMusic
+            // 
+            this.pbMusic.BackColor = System.Drawing.Color.Transparent;
+            this.pbMusic.BackgroundImage = global::RemindMe.Properties.Resources.blue_sound_icon;
+            this.pbMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbMusic.Location = new System.Drawing.Point(7, 17);
+            this.pbMusic.Name = "pbMusic";
+            this.pbMusic.Size = new System.Drawing.Size(49, 42);
+            this.pbMusic.TabIndex = 74;
+            this.pbMusic.TabStop = false;
+            this.pbMusic.Click += new System.EventHandler(this.pbMusic_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(67, 338);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(211, 16);
+            this.label3.TabIndex = 84;
+            this.label3.Text = "THIS FORM IS NO LONGER IN USE";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(563, 355);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pnlParent);
@@ -178,11 +191,11 @@
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,5 +213,6 @@
         private System.Windows.Forms.PictureBox pbMusic;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -38,7 +38,8 @@ namespace RemindMe
         //to potentionally show a time instead of a date in the listview for reminders that are set for the new day
         int dayOfStartRemindMe;
 
-
+        UCWindows ucWindows;
+        UCMusic ucMusic;
 
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;
@@ -53,7 +54,8 @@ namespace RemindMe
 
             BLIO.CreateSettings();
 
-            
+            ucWindows = new UCWindows();
+            ucMusic = new UCMusic();
 
 
             dayOfStartRemindMe = DateTime.Now.Day;
@@ -88,7 +90,12 @@ namespace RemindMe
             rem.SoundFilePath = @"D:\users\rs\Music\sound effects\onee toch niet.wav";
             BLFormLogic.MakePopup(rem);*/
             //-------------------------------------------------------------------------------   
-            
+
+            //place all panels on top of eachother, they won't all be visible, though
+            pnlMain.Location = new Point(0, 22);
+            pnlNewReminder.Location = new Point(0, 22);
+            pnlSettings.Location = new Point(0, 22);
+            ShowPanel(pnlMain);
 
             //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will fire
             cbMonday.CheckedChanged += cbDaysCheckedChangeEvent;            
@@ -128,6 +135,7 @@ namespace RemindMe
             BLFormLogic.RemovebuttonBorders(btnConfirm);
             BLFormLogic.RemovebuttonBorders(btnDisableEnable);
             BLFormLogic.RemovebuttonBorders(btnClear);
+            BLFormLogic.RemovebuttonBorders(btnBackFromSettings);
             //----------------------------------------------   
 
 
@@ -238,7 +246,7 @@ namespace RemindMe
                         if (reminderItem != null)
                             cbSound.SelectedItem = reminderItem;
                     }
-                    BLFormLogic.SwitchPanels(pnlNewReminder, pnlMain);
+                    ShowPanel(pnlNewReminder);
 
                     dtpDate.Value = Convert.ToDateTime(rem.Date);
                     dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortTimeString());
@@ -412,9 +420,34 @@ namespace RemindMe
 
             pbExclamationDate.Visible = false;
 
-           
-            //Switch the 2 panels giving the user the option to create or edit an reminder
-            BLFormLogic.SwitchPanels(pnlNewReminder, pnlMain);                                              
+            
+            ShowPanel(pnlNewReminder);
+        }
+
+        private void ShowPanel(Panel thePanel)
+        {
+            //Show the panel and hide the others
+
+            switch(thePanel.Name)
+            {
+                case "pnlMain":
+                    pnlNewReminder.Visible = false;
+                    pnlSettings.Visible = false;
+                    pnlMain.Visible = true;                    
+                    break;
+
+                case "pnlNewReminder":
+                    pnlMain.Visible = false;                    
+                    pnlSettings.Visible = false;
+                    pnlNewReminder.Visible = true;
+                    break;
+
+                case "pnlSettings":
+                    pnlMain.Visible = false;
+                    pnlNewReminder.Visible = false;
+                    pnlSettings.Visible = true;
+                    break;
+            }
         }
 
         private void btnRemoveReminder_Click(object sender, EventArgs e)
@@ -569,8 +602,7 @@ namespace RemindMe
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //Switch the 2 panels giving the user the option to create or edit an reminder
-            BLFormLogic.SwitchPanels(pnlMain, pnlNewReminder);                        
+            ShowPanel(pnlMain);
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -669,8 +701,8 @@ namespace RemindMe
                 //clear the entire listview an re-fill it so that the listview is ordered by date again
                 lvReminders.Items.Clear();                
                 BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
-                BLFormLogic.SwitchPanels(pnlMain, pnlNewReminder);
-                
+                ShowPanel(pnlMain);
+
             }
             else
             {
@@ -697,12 +729,17 @@ namespace RemindMe
      
 
         private void pbSettings_Click(object sender, EventArgs e)
-        {            
-            if (Application.OpenForms.OfType<SettingsForm>().Count() == 0)
+        {
+            ShowPanel(pnlSettings);            
+            if(pnlUserControls.Controls.Count == 0)
+                pnlUserControls.Controls.Add(ucWindows);
+            
+            //The old settings form that isn't being used anymore
+            /*if (Application.OpenForms.OfType<SettingsForm>().Count() == 0)
             {
                 set = new SettingsForm();
                 set.Show();
-            }
+            }*/
         }
 
         /// <summary>
@@ -1058,6 +1095,23 @@ namespace RemindMe
 
             foreach (Reminder rem in selectedReminders)
                 PreviewReminder(rem);
+        }
+
+        private void pbWindows_Click(object sender, EventArgs e)
+        {
+            pnlUserControls.Controls.Clear();
+            pnlUserControls.Controls.Add(ucWindows);
+        }
+
+        private void pbMusic_Click(object sender, EventArgs e)
+        {
+            pnlUserControls.Controls.Clear();
+            pnlUserControls.Controls.Add(ucMusic);
+        }
+
+        private void btnBackFromSettings_Click(object sender, EventArgs e)
+        {
+            ShowPanel(pnlMain);
         }
     }
 }

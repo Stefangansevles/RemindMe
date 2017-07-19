@@ -198,6 +198,14 @@
     <Compile Include="Variables\IOVariables.cs" />
     <Content Include="libs\FSManager.dll" />
     <Content Include="libs\Interop.IWshRuntimeLibrary.dll" />
+    <None Include="Resources\back-button.png" />
+    <None Include="Resources\app-1646213_1920.png" />
+    <None Include="Resources\back.png" />
+    <None Include="Resources\ontop.png" />
+    <None Include="Resources\2windows.png" />
+    <None Include="Resources\2windows2.png" />
+    <None Include="Resources\sound.png" />
+    <None Include="Resources\sound2.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config" />

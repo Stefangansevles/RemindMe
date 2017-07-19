@@ -141,3 +141,9 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  If the reminder's date is in Thursday April 6th, 2017 the next workday will be Friday April 7th, 2017, in stead of the next friday based on the current time.
  Because of this change the GetNextReminderWorkDay() now uses a while loop to keep adding days until the next work day is larger than DateTime.Now
 
+ (19-7-2017)V1.5.06
+ Added a few more unit tests to DLReminders
+
+ The settings form is now no longer being used. The cog(settings) button on the "home screen" of RemindMe will now load the new settings panel.
+ This way there will be now new windows created, but everything will be in the same RemindMe window. Any setting logic has not been altered, as the logic is contained
+ in user controls. these user controls simply get loaded into the panels in the settings panel

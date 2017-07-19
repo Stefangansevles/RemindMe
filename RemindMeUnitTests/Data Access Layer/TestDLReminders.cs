@@ -25,6 +25,207 @@ namespace RemindMeUnitTests
             Assert.IsNotNull(DLReminders.GetReminders());                        
         }
         [TestMethod]
+        public void TestReminderEveryXMinutes()
+        {
+            //We're going to make a every 5 days reminder here.
+            Reminder rem = new Reminder();
+            rem.Name = "every35minutes";
+            rem.Date = DateTime.Now.AddDays(-10).ToString();
+            rem.EveryXCustom = 35;
+            rem.RepeatType = "minutes";
+            rem.Enabled = 1;
+            rem.SoundFilePath = "";
+            rem.RepeatDays = "";
+            rem.Note = "A reminder for every 35 minutes";
+            rem.PostponeDate = "";
+            rem.Id = DLReminders.InsertReminder(rem.Name, Convert.ToDateTime(rem.Date), rem.RepeatType, null, rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+
+
+            DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
+            DateTime expectedDate = Convert.ToDateTime(rem.Date);
+
+            while (expectedDate < DateTime.Now)
+                expectedDate = expectedDate.AddMinutes((double)rem.EveryXCustom);
+
+            DLReminders.UpdateReminder(rem);
+
+            Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
+
+            //finally remove the testing-purpose reminder
+            DLReminders.DeleteReminder(rem);
+        }
+        [TestMethod]
+        public void TestReminderEveryXHours()
+        {
+            //We're going to make a every 5 days reminder here.
+            Reminder rem = new Reminder();
+            rem.Name = "every10hours";
+            rem.Date = DateTime.Now.AddDays(-10).ToString();
+            rem.EveryXCustom = 10;
+            rem.RepeatType = "hours";
+            rem.Enabled = 1;
+            rem.SoundFilePath = "";
+            rem.RepeatDays = "";
+            rem.Note = "A reminder for every 10 hours";
+            rem.PostponeDate = "";
+            rem.Id = DLReminders.InsertReminder(rem.Name, Convert.ToDateTime(rem.Date), rem.RepeatType, null, rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+
+
+            DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
+            DateTime expectedDate = Convert.ToDateTime(rem.Date);
+
+            while (expectedDate < DateTime.Now)
+                expectedDate = expectedDate.AddHours((double)rem.EveryXCustom);
+
+            DLReminders.UpdateReminder(rem);
+
+            Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
+
+            //finally remove the testing-purpose reminder
+            DLReminders.DeleteReminder(rem);
+        }
+        [TestMethod]
+        public void TestReminderEveryXDays()
+        {
+            //We're going to make a every 5 days reminder here.
+            Reminder rem = new Reminder();
+            rem.Name = "every5days";
+            rem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
+            rem.EveryXCustom = 5;
+            rem.RepeatType = "days";
+            rem.Enabled = 1;
+            rem.SoundFilePath = "";
+            rem.RepeatDays = "";            
+            rem.Note = "A reminder for every 5 d ays";
+            rem.PostponeDate = "";
+            rem.Id = DLReminders.InsertReminder(rem.Name, Convert.ToDateTime(rem.Date), rem.RepeatType, null, rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            
+
+            DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
+            DateTime expectedDate = Convert.ToDateTime(rem.Date);
+
+            while (expectedDate < DateTime.Now)
+                expectedDate = expectedDate.AddDays(5);
+
+            DLReminders.UpdateReminder(rem);
+            
+            Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));            
+
+            //finally remove the testing-purpose reminder
+            DLReminders.DeleteReminder(rem);
+        }
+        [TestMethod]
+        public void TestReminderEveryXWeeks()
+        {
+            //We're going to make a every 5 weeks reminder here.
+            Reminder rem = new Reminder();
+            rem.Name = "every5weeks";
+            rem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
+            rem.EveryXCustom = 5;
+            rem.RepeatType = "weeks";
+            rem.Enabled = 1;
+            rem.SoundFilePath = "";
+            rem.RepeatDays = "";
+            rem.Note = "A reminder for every 5 weeks";
+            rem.PostponeDate = "";
+            rem.Id = DLReminders.InsertReminder(rem.Name, Convert.ToDateTime(rem.Date), rem.RepeatType, null, rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+
+
+            DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
+            DateTime expectedDate = Convert.ToDateTime(rem.Date);
+
+            while (expectedDate < DateTime.Now)
+                expectedDate = expectedDate.AddDays((double)rem.EveryXCustom * 7);
+
+            DLReminders.UpdateReminder(rem);
+
+            Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
+
+            //finally remove the testing-purpose reminder
+            DLReminders.DeleteReminder(rem);
+        }
+        [TestMethod]
+        public void TestReminderEveryXMonths()
+        {
+            //We're going to make a every 2 months reminder here.
+            Reminder rem = new Reminder();
+            rem.Name = "every5months";
+            rem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
+            rem.EveryXCustom = 2;
+            rem.RepeatType = "months";
+            rem.Enabled = 1;
+            rem.SoundFilePath = "";
+            rem.RepeatDays = "";
+            rem.Note = "A reminder for every 2 months";
+            rem.PostponeDate = "";
+            rem.Id = DLReminders.InsertReminder(rem.Name, Convert.ToDateTime(rem.Date), rem.RepeatType, null, rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+
+
+            DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
+            DateTime expectedDate = Convert.ToDateTime(rem.Date);
+
+            while (expectedDate < DateTime.Now)
+                expectedDate = expectedDate.AddMonths((int)rem.EveryXCustom);
+
+            DLReminders.UpdateReminder(rem);
+
+            Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
+
+            //finally remove the testing-purpose reminder
+            DLReminders.DeleteReminder(rem);
+        }
+        [TestMethod]
+        public void TestReminderDaily()
+        {
+            //We're going to make a every day reminder here.
+            Reminder rem = new Reminder();
+            rem.Name = "every day";
+            rem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
+            rem.EveryXCustom = 0;
+            rem.RepeatType = ReminderRepeatType.DAILY.ToString();
+            rem.Enabled = 1;
+            rem.SoundFilePath = "";
+            rem.RepeatDays = "";
+            rem.Note = "A reminder for every day";
+            rem.PostponeDate = "";
+            rem.Id = DLReminders.InsertReminder(rem.Name, Convert.ToDateTime(rem.Date), rem.RepeatType, null, rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+
+
+            
+            DateTime expectedDate = Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1); 
+                                        
+            DLReminders.UpdateReminder(rem);
+
+            Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
+
+            //finally remove the testing-purpose reminder
+            DLReminders.DeleteReminder(rem);
+        }
+        [TestMethod]
+        public void TestReminderWeekdays()
+        {
+            //We're going to make a every friday reminder here.
+            Reminder rem = new Reminder();
+            rem.Name = "reminder for monday,thursday and sunday";
+            rem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
+            rem.EveryXCustom = 0;
+            rem.RepeatType = ReminderRepeatType.MULTIPLE_DAYS.ToString();
+            rem.Enabled = 1;
+            rem.SoundFilePath = "";
+            rem.RepeatDays = "friday";
+            rem.Note = "A reminder for every friday";
+            rem.PostponeDate = "";
+            rem.Id = DLReminders.InsertReminder(rem.Name, Convert.ToDateTime(rem.Date), rem.RepeatType, null, rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+
+                                   
+            DLReminders.UpdateReminder(rem);
+
+            Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Friday).ToShortDateString(), Convert.ToDateTime(rem.Date).ToShortDateString());
+
+            //finally remove the testing-purpose reminder
+            DLReminders.DeleteReminder(rem);
+        }
+        [TestMethod]
         public void TestInsertUpdateDeleteReminder()
         {
             int databaseReminderCount = DLReminders.GetReminders().Count;
@@ -41,7 +242,7 @@ namespace RemindMeUnitTests
             Reminder reminderOnce = DLReminders.GetReminderById(idReminderOnce);
             Reminder reminder5Days = DLReminders.GetReminderById(idReminderEvery5Days);
             Reminder reminderMonthly = DLReminders.GetReminderById(idReminderMonthly);
-
+            
             //reminderOnce
             Assert.AreEqual(reminderOnce.Name, "Some Reminder");
             Assert.AreEqual(reminderOnce.Date, Convert.ToDateTime("2011-11-11 00:00:00").ToString()); //we convert it to datetime, and then back to string to avoid american/europe date difference issues

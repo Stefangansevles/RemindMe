@@ -94,9 +94,6 @@
             this.tmrUpdateListview = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
-            this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.ReminderMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewThisReminderNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,6 +102,17 @@
             this.removeReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableDisableReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlSettings = new System.Windows.Forms.Panel();
+            this.btnBackFromSettings = new System.Windows.Forms.Button();
+            this.pbWindows = new System.Windows.Forms.PictureBox();
+            this.pbMusic = new System.Windows.Forms.PictureBox();
+            this.pnlUserControls = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
+            this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -117,10 +125,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbEdit)).BeginInit();
             this.groupRepeatRadiobuttons.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
+            this.ReminderMenuStrip.SuspendLayout();
+            this.pnlSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
-            this.ReminderMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -263,6 +275,7 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNewReminder.Controls.Add(this.label4);
             this.pnlNewReminder.Controls.Add(this.pnlDayCheckBoxes);
             this.pnlNewReminder.Controls.Add(this.cbStickyForm);
             this.pnlNewReminder.Controls.Add(this.btnClear);
@@ -913,41 +926,6 @@
             // 
             this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Black;
-            this.pictureBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.BackgroundImage")));
-            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox4.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(28, 22);
-            this.pictureBox4.TabIndex = 66;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pbMinimizeApplication
-            // 
-            this.pbMinimizeApplication.BackColor = System.Drawing.Color.Black;
-            this.pbMinimizeApplication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbMinimizeApplication.BackgroundImage")));
-            this.pbMinimizeApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbMinimizeApplication.Location = new System.Drawing.Point(417, 0);
-            this.pbMinimizeApplication.Name = "pbMinimizeApplication";
-            this.pbMinimizeApplication.Size = new System.Drawing.Size(22, 22);
-            this.pbMinimizeApplication.TabIndex = 65;
-            this.pbMinimizeApplication.TabStop = false;
-            this.pbMinimizeApplication.Click += new System.EventHandler(this.pbMinimizeApplication_Click);
-            // 
-            // pbCloseApplication
-            // 
-            this.pbCloseApplication.BackColor = System.Drawing.Color.Black;
-            this.pbCloseApplication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCloseApplication.BackgroundImage")));
-            this.pbCloseApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbCloseApplication.Location = new System.Drawing.Point(440, 0);
-            this.pbCloseApplication.Name = "pbCloseApplication";
-            this.pbCloseApplication.Size = new System.Drawing.Size(22, 22);
-            this.pbCloseApplication.TabIndex = 64;
-            this.pbCloseApplication.TabStop = false;
-            this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
-            // 
             // ReminderMenuStrip
             // 
             this.ReminderMenuStrip.BackColor = System.Drawing.Color.DimGray;
@@ -1023,13 +1001,141 @@
             this.enableDisableReminderToolStripMenuItem.Text = "Enable/Disable reminder";
             this.enableDisableReminderToolStripMenuItem.Click += new System.EventHandler(this.enableDisableReminderToolStripMenuItem_Click);
             // 
+            // pnlSettings
+            // 
+            this.pnlSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pnlSettings.Controls.Add(this.textBox2);
+            this.pnlSettings.Controls.Add(this.btnBackFromSettings);
+            this.pnlSettings.Controls.Add(this.pbWindows);
+            this.pnlSettings.Controls.Add(this.pbMusic);
+            this.pnlSettings.Controls.Add(this.pnlUserControls);
+            this.pnlSettings.Controls.Add(this.pictureBox2);
+            this.pnlSettings.Location = new System.Drawing.Point(1003, 23);
+            this.pnlSettings.Name = "pnlSettings";
+            this.pnlSettings.Size = new System.Drawing.Size(475, 457);
+            this.pnlSettings.TabIndex = 67;
+            // 
+            // btnBackFromSettings
+            // 
+            this.btnBackFromSettings.BackgroundImage = global::RemindMe.Properties.Resources.back;
+            this.btnBackFromSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBackFromSettings.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnBackFromSettings.Location = new System.Drawing.Point(7, 418);
+            this.btnBackFromSettings.Name = "btnBackFromSettings";
+            this.btnBackFromSettings.Size = new System.Drawing.Size(83, 29);
+            this.btnBackFromSettings.TabIndex = 79;
+            this.btnBackFromSettings.Text = " ";
+            this.btnBackFromSettings.UseVisualStyleBackColor = true;
+            this.btnBackFromSettings.Click += new System.EventHandler(this.btnBackFromSettings_Click);
+            // 
+            // pbWindows
+            // 
+            this.pbWindows.BackColor = System.Drawing.Color.Transparent;
+            this.pbWindows.BackgroundImage = global::RemindMe.Properties.Resources._2windows2;
+            this.pbWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbWindows.Location = new System.Drawing.Point(416, 412);
+            this.pbWindows.Name = "pbWindows";
+            this.pbWindows.Size = new System.Drawing.Size(49, 42);
+            this.pbWindows.TabIndex = 77;
+            this.pbWindows.TabStop = false;
+            this.pbWindows.Click += new System.EventHandler(this.pbWindows_Click);
+            // 
+            // pbMusic
+            // 
+            this.pbMusic.BackColor = System.Drawing.Color.Transparent;
+            this.pbMusic.BackgroundImage = global::RemindMe.Properties.Resources.sound2;
+            this.pbMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbMusic.Location = new System.Drawing.Point(361, 412);
+            this.pbMusic.Name = "pbMusic";
+            this.pbMusic.Size = new System.Drawing.Size(49, 42);
+            this.pbMusic.TabIndex = 76;
+            this.pbMusic.TabStop = false;
+            this.pbMusic.Click += new System.EventHandler(this.pbMusic_Click);
+            // 
+            // pnlUserControls
+            // 
+            this.pnlUserControls.BackColor = System.Drawing.Color.Transparent;
+            this.pnlUserControls.Location = new System.Drawing.Point(2, 101);
+            this.pnlUserControls.Name = "pnlUserControls";
+            this.pnlUserControls.Size = new System.Drawing.Size(469, 297);
+            this.pnlUserControls.TabIndex = 68;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(463, 97);
+            this.pictureBox2.TabIndex = 67;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Black;
+            this.pictureBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.BackgroundImage")));
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(28, 22);
+            this.pictureBox4.TabIndex = 66;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pbMinimizeApplication
+            // 
+            this.pbMinimizeApplication.BackColor = System.Drawing.Color.Black;
+            this.pbMinimizeApplication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbMinimizeApplication.BackgroundImage")));
+            this.pbMinimizeApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbMinimizeApplication.Location = new System.Drawing.Point(417, 0);
+            this.pbMinimizeApplication.Name = "pbMinimizeApplication";
+            this.pbMinimizeApplication.Size = new System.Drawing.Size(22, 22);
+            this.pbMinimizeApplication.TabIndex = 65;
+            this.pbMinimizeApplication.TabStop = false;
+            this.pbMinimizeApplication.Click += new System.EventHandler(this.pbMinimizeApplication_Click);
+            // 
+            // pbCloseApplication
+            // 
+            this.pbCloseApplication.BackColor = System.Drawing.Color.Black;
+            this.pbCloseApplication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCloseApplication.BackgroundImage")));
+            this.pbCloseApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbCloseApplication.Location = new System.Drawing.Point(440, 0);
+            this.pbCloseApplication.Name = "pbCloseApplication";
+            this.pbCloseApplication.Size = new System.Drawing.Size(22, 22);
+            this.pbCloseApplication.TabIndex = 64;
+            this.pbCloseApplication.TabStop = false;
+            this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(-4, 409);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(600, 3);
+            this.textBox2.TabIndex = 80;
+            this.textBox2.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(295, 435);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(169, 16);
+            this.label4.TabIndex = 67;
+            this.label4.Text = "RemindMe - Version 1.5.06";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1018, 519);
+            this.ClientSize = new System.Drawing.Size(1491, 519);
+            this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.pbCloseApplication);
@@ -1057,10 +1163,15 @@
             this.groupRepeatRadiobuttons.ResumeLayout(false);
             this.groupRepeatRadiobuttons.PerformLayout();
             this.RemindMeTrayIconMenuStrip.ResumeLayout(false);
+            this.ReminderMenuStrip.ResumeLayout(false);
+            this.pnlSettings.ResumeLayout(false);
+            this.pnlSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWindows)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMusic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
-            this.ReminderMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1143,6 +1254,14 @@
         private System.Windows.Forms.ToolStripMenuItem removeReminderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editReminderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableDisableReminderToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlSettings;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Panel pnlUserControls;
+        private System.Windows.Forms.PictureBox pbWindows;
+        private System.Windows.Forms.PictureBox pbMusic;
+        private System.Windows.Forms.Button btnBackFromSettings;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label4;
     }
 }
 
