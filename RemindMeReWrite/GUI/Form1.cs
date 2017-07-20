@@ -249,10 +249,7 @@ namespace RemindMe
                     ShowPanel(pnlNewReminder);
 
                     dtpDate.Value = Convert.ToDateTime(rem.Date);
-                    dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortTimeString());
-
-                    //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
-                    pnlDayCheckBoxes_VisibleChanged(null, null);
+                    dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date).ToShortTimeString());                  
 
                     switch (rem.RepeatType)
                     {
@@ -270,6 +267,7 @@ namespace RemindMe
                             rbWorkDays.Checked = true;
                             break;
                         case "MULTIPLE_DAYS": PlaceDayCheckBoxesPanel();
+                            rbMultipleDays.Checked = true;
                             //get the RepeatDays string (monday,friday,saturday) and split them.
                             List<string> repeatDays = rem.RepeatDays.Split(',').ToList();
                             //check all the checkboxes from the split string. did it contain monday? check the checkbox "cbMonday", etc
@@ -296,6 +294,9 @@ namespace RemindMe
                                 break;
                         }
                     }
+
+                    //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
+                    pnlDayCheckBoxes_VisibleChanged(null, null);
                 }
                 else
                     BLIO.WriteError(new ArgumentNullException(), "Error loading reminder", true);
@@ -528,14 +529,8 @@ namespace RemindMe
 
                     List<string> selectedFiles = FSManager.Files.getSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
 
-                    if (selectedFiles.Count >= 1 && selectedFiles[0] != "") //[0] == "" if the user pressed cancel
-                    {
-                        cbSound.Items.Clear();
-                        ComboBoxItemManager.ClearComboboxItems();
-
-
-
-                    }
+                    if (selectedFiles.Count == 1 && selectedFiles[0] == "")
+                        return;                  
 
                     List<Songs> toInsertSongs = new List<Songs>();
                     foreach (string sound in selectedFiles)
@@ -550,14 +545,18 @@ namespace RemindMe
                     }
                     DLSongs.InsertSongs(toInsertSongs);
 
-
-
-
-                    foreach (Songs item in DLSongs.GetSongs())
+                    foreach (Songs item in toInsertSongs) //already inserted, but iterating through them to add to the combobox
                         if (item.SongFileName != "")
-                            cbSound.Items.Add(new ComboBoxItem(item.SongFileName, DLSongs.GetSongByFullPath(item.SongFilePath)));
+                            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), DLSongs.GetSongByFullPath(item.SongFilePath)));
+
+
+
+                    /*foreach (Songs item in DLSongs.GetSongs())
+                        if (item.SongFileName != "")
+                            cbSound.Items.Add(new ComboBoxItem(item.SongFileName, DLSongs.GetSongByFullPath(item.SongFilePath)));*/
 
                     //Make sure that Add files... is in the combobox
+                    cbSound.Items.Remove(" Add files...");
                     cbSound.Items.Add(" Add files...");
                 }
             }
@@ -724,15 +723,25 @@ namespace RemindMe
 
                 
             }
-        }
-
+        }        
      
 
         private void pbSettings_Click(object sender, EventArgs e)
         {
-            ShowPanel(pnlSettings);            
+            ShowPanel(pnlSettings);  
+             
+            //no controls in this panel yet. this means that the settings button has been pressed for the first time, so we load ucWindows in by default.         
             if(pnlUserControls.Controls.Count == 0)
                 pnlUserControls.Controls.Add(ucWindows);
+            else
+            {
+                if (pnlUserControls.Controls[0].Name == "UCMusic")
+                {//re-load the ucmusic user control so the load function will be called again. there might have been changes made to the database.
+                    pnlUserControls.Controls.Clear();
+                    ucMusic = new UCMusic();
+                    pnlUserControls.Controls.Add(ucMusic);
+                }
+            }
             
             //The old settings form that isn't being used anymore
             /*if (Application.OpenForms.OfType<SettingsForm>().Count() == 0)
@@ -769,8 +778,7 @@ namespace RemindMe
                 ListViewItem item = lvReminders.SelectedItems[0];                
                 int id = Convert.ToInt32(item.Tag);
                 editableReminder = DLReminders.GetReminderById(id);                            
-                cbSound.Text = "";
-                //cbSound.SelectedItem = ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(editableReminder.SoundFilePath), DLSongs.GetSongByFullPath(editableReminder.SoundFilePath));
+                cbSound.Text = "";                
                 FillControlsForEdit(editableReminder);
             }
         }
@@ -787,8 +795,8 @@ namespace RemindMe
                         itm.SubItems[3].Text = "True";
 
                     Reminder rem = DLReminders.GetReminderById(Convert.ToInt32(itm.Tag));
-
-                    if (Boolean.Parse(itm.SubItems[3].Text))
+                    
+                    if (bool.Parse(itm.SubItems[3].Text))
                         rem.Enabled = 1;
                     else
                         rem.Enabled = 0;
@@ -872,9 +880,14 @@ namespace RemindMe
                                 //Remove the song from the SQLite Database
                                 DLSongs.RemoveSong(DLSongs.GetSongByFullPath(song.SongFilePath));
 
-                                //We're throwing a new exception here. We're going to pass the song file path to the constructor of the exception, which will be read from program.cs
-                                //All exceptions will be caught in Program.cs
-                                throw new FileNotFoundException("", song.SongFilePath);
+                                //Remove the song from the combobox
+                                cbSound.Items.Remove(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
+
+                                //Remove the song from the combobox list in the manager
+                                ComboBoxItemManager.RemoveComboboxItem(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
+                                
+                                
+                                RemindMeBox.Show("Could not play " + song.SongFileName + ". Did you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION);                                
                             }
                         }
                     }

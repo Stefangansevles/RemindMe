@@ -50,7 +50,7 @@ namespace RemindMe
         {
             items.Remove(item);
         }
-
+        
         /// <summary>
         /// Get a specific comboboxitem
         /// </summary>

@@ -27,7 +27,7 @@ namespace RemindMe
                 m.Result = (IntPtr)(HT_CAPTION);
 
             pictureBox1.Focus();
-        }
+        }              
 
         public CustomMessageForm(string description, RemindMeBoxIcon icon)
         {
@@ -48,10 +48,32 @@ namespace RemindMe
                 case RemindMeBoxIcon.NONE:
                     pbErrorIcon.BackgroundImage = null;
                     break;
-            }
+            }            
+
+            
+
             tbError.Text = description;
 
+            EnlargeTextbox();  
         }
+
+        /// <summary>
+        /// Enlarges the textbox if the text exceeds the textbox.
+        /// </summary>
+        private void EnlargeTextbox()
+        {
+            Font tempFont = tbError.Font;
+            int textLength = tbError.Text.Length;
+            int textLines = tbError.GetLineFromCharIndex(textLength) + 1;
+            int Margin = tbError.Bounds.Height - tbError.ClientSize.Height;
+            tbError.Height = (TextRenderer.MeasureText(" ", tempFont).Height * textLines) + Margin + 2;
+
+            if (tbError.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
+                this.Height = tbError.Height + 62;
+        }
+
+
+
 
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -66,6 +88,17 @@ namespace RemindMe
         private void pbCloseApplication_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void CustomMessageForm_SizeChanged(object sender, EventArgs e)
+        {
+            btnOk.Location = new Point(btnOk.Location.X, this.Size.Height - btnOk.Height);
+            tbError.Height = this.Height - 62;
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 

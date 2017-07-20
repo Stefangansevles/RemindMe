@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomMessageForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnOk = new System.Windows.Forms.Button();
-            this.tbError = new System.Windows.Forms.TextBox();
             this.pbErrorIcon = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbError = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -48,7 +48,7 @@
             // 
             this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe1;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(352, 17);
+            this.pictureBox1.Location = new System.Drawing.Point(382, 17);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(50, 50);
             this.pictureBox1.TabIndex = 0;
@@ -61,26 +61,13 @@
             this.btnOk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOk.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnOk.ForeColor = System.Drawing.Color.Transparent;
-            this.btnOk.Location = new System.Drawing.Point(326, 116);
+            this.btnOk.Location = new System.Drawing.Point(360, 116);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(73, 23);
             this.btnOk.TabIndex = 59;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = false;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // tbError
-            // 
-            this.tbError.BackColor = System.Drawing.Color.DimGray;
-            this.tbError.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbError.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
-            this.tbError.ForeColor = System.Drawing.Color.White;
-            this.tbError.Location = new System.Drawing.Point(70, 50);
-            this.tbError.Multiline = true;
-            this.tbError.Name = "tbError";
-            this.tbError.ReadOnly = true;
-            this.tbError.Size = new System.Drawing.Size(270, 46);
-            this.tbError.TabIndex = 101;
             // 
             // pbErrorIcon
             // 
@@ -107,7 +94,7 @@
             this.pbMinimizeApplication.BackColor = System.Drawing.Color.Black;
             this.pbMinimizeApplication.BackgroundImage = global::RemindMe.Properties.Resources.min;
             this.pbMinimizeApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbMinimizeApplication.Location = new System.Drawing.Point(355, 0);
+            this.pbMinimizeApplication.Location = new System.Drawing.Point(385, 0);
             this.pbMinimizeApplication.Name = "pbMinimizeApplication";
             this.pbMinimizeApplication.Size = new System.Drawing.Size(22, 22);
             this.pbMinimizeApplication.TabIndex = 105;
@@ -119,7 +106,7 @@
             this.pbCloseApplication.BackColor = System.Drawing.Color.Black;
             this.pbCloseApplication.BackgroundImage = global::RemindMe.Properties.Resources.redx;
             this.pbCloseApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbCloseApplication.Location = new System.Drawing.Point(378, 0);
+            this.pbCloseApplication.Location = new System.Drawing.Point(408, 0);
             this.pbCloseApplication.Name = "pbCloseApplication";
             this.pbCloseApplication.Size = new System.Drawing.Size(22, 22);
             this.pbCloseApplication.TabIndex = 104;
@@ -135,21 +122,35 @@
             this.textBox1.Location = new System.Drawing.Point(0, 0);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(402, 22);
+            this.textBox1.Size = new System.Drawing.Size(434, 22);
             this.textBox1.TabIndex = 103;
+            // 
+            // tbError
+            // 
+            this.tbError.BackColor = System.Drawing.Color.DimGray;
+            this.tbError.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbError.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.tbError.ForeColor = System.Drawing.Color.White;
+            this.tbError.Location = new System.Drawing.Point(68, 43);
+            this.tbError.Name = "tbError";
+            this.tbError.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.tbError.Size = new System.Drawing.Size(292, 85);
+            this.tbError.TabIndex = 107;
+            this.tbError.Text = "";
+            this.tbError.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // CustomMessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(401, 140);
+            this.ClientSize = new System.Drawing.Size(434, 140);
+            this.Controls.Add(this.tbError);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.pbCloseApplication);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pbErrorIcon);
-            this.Controls.Add(this.tbError);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -157,6 +158,7 @@
             this.Name = "CustomMessageForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RemindMe";
+            this.SizeChanged += new System.EventHandler(this.CustomMessageForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
@@ -171,11 +173,11 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.TextBox tbError;
         private System.Windows.Forms.PictureBox pbErrorIcon;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pbMinimizeApplication;
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RichTextBox tbError;
     }
 }

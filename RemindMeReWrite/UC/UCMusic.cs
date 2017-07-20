@@ -19,6 +19,11 @@ namespace RemindMe
 
         private void UCMusic_Load(object sender, EventArgs e)
         {
+            LoadSongsIntoListview();
+        }
+
+        private void LoadSongsIntoListview()
+        {
             List<Songs> songs = DLSongs.GetSongs();
             if (songs != null && songs.Count > 0)
             {
@@ -35,6 +40,10 @@ namespace RemindMe
         private void pbAddSounds_Click(object sender, EventArgs e)
         {
             List<string> songPaths = FSManager.Files.getSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+
+            if(songPaths.Count == 1 && songPaths[0] == "")//The user canceled out
+                return;            
+
             List<Songs> songs = new List<Songs>();
 
             foreach(string songPath in songPaths)

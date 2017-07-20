@@ -150,3 +150,18 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  (19-7-2017)V1.5.07 - Minor change
  Made the settings panel more visually appealing
+
+ (20-7-2017)V1.5.08
+ The heigth of the RemindMeBox form will now enlarge if the error text exceeds the size of the textbox :) 
+ Errors with a lot of text will now result in a larger RemindMeBox
+
+ Fixed an issue with the Add files... from the combobox, it now works as it should again.
+
+ Fixed an issue where if an error occurs when playing a sound(file is renamed,removed or moved) the item didn't get removed from the combobox so it could be played again.
+
+ Fixed an issue where the weekdays(multipledays) radiobutton didn't check when editing an weekdays reminder. Because of this the tbNote was not placed correctly
+ below the GroupBox groupRepeatRadiobuttons creating a gap.
+
+ Fixed an issue where if you pressed the button(from UCMusic) to add a new sound effect to RemindMe's list in the settings, and pressed cancel at the openfiledialog
+ the empty string would be inserted into the database. When pressing cancel, the openfiledialog returns 1 result with an empty string.
+ It now checks on that and does nothing when this happens
