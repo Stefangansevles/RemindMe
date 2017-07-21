@@ -13,6 +13,12 @@ RemindMe lurks in the windows system tray and will not show itself until you dou
 You can also exit RemindMe this way, or go to the settings without opening RemindMe
 
 
+Want to know how to use this?
+
+
+[click here](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to%20use%20RemindMe.md)
+
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 Written in: C#
