@@ -165,3 +165,16 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  Fixed an issue where if you pressed the button(from UCMusic) to add a new sound effect to RemindMe's list in the settings, and pressed cancel at the openfiledialog
  the empty string would be inserted into the database. When pressing cancel, the openfiledialog returns 1 result with an empty string.
  It now checks on that and does nothing when this happens
+
+ V1.5.1 - Big update
+ 2 New features!
+ 1)RemindMe now has a custom "scroll" message that contains a custom message and uses an animation to scroll up from the bottom right corner of RemindMe.
+ 2)Monthly reminders can now contain multiple days each month. Example: you can create a reminder for each 1st, 10th and 20th of the month.
+
+ Because monthly reminders can now contain multiple days, a LOT of code had to be rewritten.
+ The date datetimepicker shows the earliest date from the selected monthly days. example: monthly days:1,5,10. If it's the 3th of the month, it picks the 5th.
+
+ The version label of RemindMe now gets the version from the assembly, so the label doesnt have to get updated manually
+
+ More unit tests
+

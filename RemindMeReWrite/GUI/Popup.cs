@@ -52,7 +52,7 @@ namespace RemindMe
 
             //Show what date this reminder was set for
             if(rem.PostponeDate == null)
-                lblDate.Text = "This reminder was set for " + rem.Date;
+                lblDate.Text = "This reminder was set for " + rem.Date.Split(',')[0];
             else
                 lblDate.Text = "This reminder was set for " + rem.PostponeDate;
 

@@ -20,7 +20,6 @@ namespace RemindMe
         public string RepeatType { get; set; }
         public string Note { get; set; }
         public long Enabled { get; set; }
-        public Nullable<long> DayOfMonth { get; set; }
         public string SoundFilePath { get; set; }
         public string PostponeDate { get; set; }
         public Nullable<long> EveryXCustom { get; set; }

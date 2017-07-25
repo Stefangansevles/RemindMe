@@ -24,6 +24,8 @@ namespace RemindMeUnitTests
         {
             if (DLSongs.GetSongs().Count > 0)
                 Assert.IsNotNull(DLSongs.GetSongById(DLSongs.GetSongs()[0].Id));
+
+            Assert.IsNull(DLSongs.GetSongById(-1));
         }
         [TestMethod]
         public void TestInsertDeleteSong()

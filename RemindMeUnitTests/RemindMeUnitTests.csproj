@@ -60,8 +60,10 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.105.2\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
@@ -82,6 +84,7 @@
     <Compile Include="Business Logic Layer\TestBLDateTime.cs" />
     <Compile Include="Business Logic Layer\TestBLIO.cs" />
     <Compile Include="Data Access Layer\TestDLSongs.cs" />
+    <Compile Include="Presentation Layer\TestFormLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data Access Layer\TestDLReminders.cs" />
     <Compile Include="Data Access Layer\TestDLSettings.cs" />

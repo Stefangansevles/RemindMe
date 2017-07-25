@@ -43,7 +43,11 @@
             this.cbEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddReminder = new System.Windows.Forms.Button();
             this.pnlNewReminder = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.pnlPopup = new System.Windows.Forms.Panel();
+            this.cbMonthlyDays = new System.Windows.Forms.ComboBox();
+            this.btnRemoveMonthlyDay = new System.Windows.Forms.Button();
+            this.btnAddMonthlyDay = new System.Windows.Forms.Button();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.pnlDayCheckBoxes = new System.Windows.Forms.Panel();
             this.cbSunday = new System.Windows.Forms.CheckBox();
             this.cbSaturday = new System.Windows.Forms.CheckBox();
@@ -113,6 +117,8 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.tmrAnimationScrollUp = new System.Windows.Forms.Timer(this.components);
+            this.tmrAnimationScrollDown = new System.Windows.Forms.Timer(this.components);
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -275,7 +281,11 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
-            this.pnlNewReminder.Controls.Add(this.label4);
+            this.pnlNewReminder.Controls.Add(this.pnlPopup);
+            this.pnlNewReminder.Controls.Add(this.cbMonthlyDays);
+            this.pnlNewReminder.Controls.Add(this.btnRemoveMonthlyDay);
+            this.pnlNewReminder.Controls.Add(this.btnAddMonthlyDay);
+            this.pnlNewReminder.Controls.Add(this.lblVersion);
             this.pnlNewReminder.Controls.Add(this.pnlDayCheckBoxes);
             this.pnlNewReminder.Controls.Add(this.cbStickyForm);
             this.pnlNewReminder.Controls.Add(this.btnClear);
@@ -308,16 +318,80 @@
             this.pnlNewReminder.TabIndex = 27;
             this.pnlNewReminder.Visible = false;
             // 
-            // label4
+            // pnlPopup
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(295, 435);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 16);
-            this.label4.TabIndex = 67;
-            this.label4.Text = "RemindMe - Version 1.5.07";
+            this.pnlPopup.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPopup.Location = new System.Drawing.Point(242, 401);
+            this.pnlPopup.Name = "pnlPopup";
+            this.pnlPopup.Size = new System.Drawing.Size(221, 54);
+            this.pnlPopup.TabIndex = 81;
+            this.pnlPopup.Visible = false;
+            // 
+            // cbMonthlyDays
+            // 
+            this.cbMonthlyDays.BackColor = System.Drawing.Color.DimGray;
+            this.cbMonthlyDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMonthlyDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.cbMonthlyDays.ForeColor = System.Drawing.Color.White;
+            this.cbMonthlyDays.FormattingEnabled = true;
+            this.cbMonthlyDays.Items.AddRange(new object[] {
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Tuesday",
+            "Friday",
+            "Saturday",
+            "Sunday"});
+            this.cbMonthlyDays.Location = new System.Drawing.Point(266, 270);
+            this.cbMonthlyDays.Name = "cbMonthlyDays";
+            this.cbMonthlyDays.Size = new System.Drawing.Size(76, 21);
+            this.cbMonthlyDays.TabIndex = 80;
+            this.cbMonthlyDays.Visible = false;
+            // 
+            // btnRemoveMonthlyDay
+            // 
+            this.btnRemoveMonthlyDay.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemoveMonthlyDay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRemoveMonthlyDay.BackgroundImage")));
+            this.btnRemoveMonthlyDay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRemoveMonthlyDay.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnRemoveMonthlyDay.ForeColor = System.Drawing.Color.Transparent;
+            this.btnRemoveMonthlyDay.Location = new System.Drawing.Point(227, 270);
+            this.btnRemoveMonthlyDay.Name = "btnRemoveMonthlyDay";
+            this.btnRemoveMonthlyDay.Size = new System.Drawing.Size(37, 20);
+            this.btnRemoveMonthlyDay.TabIndex = 79;
+            this.btnRemoveMonthlyDay.Text = "-";
+            this.btnRemoveMonthlyDay.UseVisualStyleBackColor = false;
+            this.btnRemoveMonthlyDay.Visible = false;
+            this.btnRemoveMonthlyDay.Click += new System.EventHandler(this.btnRemoveMonthlyDay_Click);
+            // 
+            // btnAddMonthlyDay
+            // 
+            this.btnAddMonthlyDay.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddMonthlyDay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddMonthlyDay.BackgroundImage")));
+            this.btnAddMonthlyDay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddMonthlyDay.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnAddMonthlyDay.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddMonthlyDay.Location = new System.Drawing.Point(188, 270);
+            this.btnAddMonthlyDay.Name = "btnAddMonthlyDay";
+            this.btnAddMonthlyDay.Size = new System.Drawing.Size(37, 20);
+            this.btnAddMonthlyDay.TabIndex = 78;
+            this.btnAddMonthlyDay.Text = "+";
+            this.toolTip1.SetToolTip(this.btnAddMonthlyDay, "Adds the monthly day to this reminder.\r\nYou can also press enter while your curso" +
+        "r is in the field");
+            this.btnAddMonthlyDay.UseVisualStyleBackColor = false;
+            this.btnAddMonthlyDay.Visible = false;
+            this.btnAddMonthlyDay.Click += new System.EventHandler(this.btnAddMonthlyDay_Click);
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.White;
+            this.lblVersion.Location = new System.Drawing.Point(295, 435);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(135, 16);
+            this.lblVersion.TabIndex = 67;
+            this.lblVersion.Text = "RemindMe - Version x";
             // 
             // pnlDayCheckBoxes
             // 
@@ -329,7 +403,7 @@
             this.pnlDayCheckBoxes.Controls.Add(this.cbWednesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbTuesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
-            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(110, 270);
+            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(107, 270);
             this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
             this.pnlDayCheckBoxes.Size = new System.Drawing.Size(234, 65);
             this.pnlDayCheckBoxes.TabIndex = 77;
@@ -442,7 +516,7 @@
             this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnClear.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnClear.ForeColor = System.Drawing.Color.Transparent;
-            this.btnClear.Location = new System.Drawing.Point(265, 341);
+            this.btnClear.Location = new System.Drawing.Point(263, 341);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(77, 23);
             this.btnClear.TabIndex = 75;
@@ -464,7 +538,7 @@
             "Months"});
             this.cbEveryXCustom.Location = new System.Drawing.Point(185, 270);
             this.cbEveryXCustom.Name = "cbEveryXCustom";
-            this.cbEveryXCustom.Size = new System.Drawing.Size(132, 21);
+            this.cbEveryXCustom.Size = new System.Drawing.Size(156, 21);
             this.cbEveryXCustom.TabIndex = 74;
             this.cbEveryXCustom.Visible = false;
             // 
@@ -613,11 +687,12 @@
             "Sunday"});
             this.cbEvery.Location = new System.Drawing.Point(109, 270);
             this.cbEvery.Name = "cbEvery";
-            this.cbEvery.Size = new System.Drawing.Size(234, 21);
+            this.cbEvery.Size = new System.Drawing.Size(76, 21);
             this.cbEvery.TabIndex = 58;
             this.cbEvery.Visible = false;
             this.cbEvery.SelectedIndexChanged += new System.EventHandler(this.cbEvery_SelectedIndexChanged);
             this.cbEvery.VisibleChanged += new System.EventHandler(this.cbEvery_VisibleChanged);
+            this.cbEvery.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbEvery_KeyUp);
             // 
             // lblEvery
             // 
@@ -639,7 +714,7 @@
             this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnConfirm.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnConfirm.ForeColor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Location = new System.Drawing.Point(109, 341);
+            this.btnConfirm.Location = new System.Drawing.Point(107, 341);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(89, 23);
             this.btnConfirm.TabIndex = 30;
@@ -656,7 +731,7 @@
             this.groupRepeatRadiobuttons.Controls.Add(this.rbMonthly);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbDaily);
             this.groupRepeatRadiobuttons.Controls.Add(this.radioButton2);
-            this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(109, 207);
+            this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(107, 207);
             this.groupRepeatRadiobuttons.Name = "groupRepeatRadiobuttons";
             this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(234, 59);
             this.groupRepeatRadiobuttons.TabIndex = 56;
@@ -840,7 +915,7 @@
             this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnBack.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnBack.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBack.Location = new System.Drawing.Point(198, 341);
+            this.btnBack.Location = new System.Drawing.Point(196, 341);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(67, 23);
             this.btnBack.TabIndex = 28;
@@ -1044,7 +1119,7 @@
             this.btnBackFromSettings.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnBackFromSettings.Location = new System.Drawing.Point(7, 418);
             this.btnBackFromSettings.Name = "btnBackFromSettings";
-            this.btnBackFromSettings.Size = new System.Drawing.Size(83, 29);
+            this.btnBackFromSettings.Size = new System.Drawing.Size(53, 29);
             this.btnBackFromSettings.TabIndex = 79;
             this.btnBackFromSettings.Text = " ";
             this.btnBackFromSettings.UseVisualStyleBackColor = true;
@@ -1127,6 +1202,16 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
+            // tmrAnimationScrollUp
+            // 
+            this.tmrAnimationScrollUp.Interval = 10;
+            this.tmrAnimationScrollUp.Tick += new System.EventHandler(this.tmrAnimationScrollUp_Tick);
+            // 
+            // tmrAnimationScrollDown
+            // 
+            this.tmrAnimationScrollDown.Interval = 10;
+            this.tmrAnimationScrollDown.Tick += new System.EventHandler(this.tmrAnimationScrollDown_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1179,9 +1264,6 @@
         #endregion
 
         public System.Windows.Forms.Button btnAddReminder;
-        private System.Windows.Forms.Panel pnlMain;
-        private System.Windows.Forms.Panel pnlNewReminder;
-        private System.Windows.Forms.ListView lvReminders;
         private System.Windows.Forms.ColumnHeader chName;
         private System.Windows.Forms.ColumnHeader chDate;
         public System.Windows.Forms.Button btnBack;
@@ -1189,29 +1271,21 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox tbReminderName;
-        private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Label lblNote;
         public System.Windows.Forms.TextBox tbNote;
-        private System.Windows.Forms.GroupBox groupRepeatRadiobuttons;
         private System.Windows.Forms.RadioButton radioButton2;
         public System.Windows.Forms.Button btnRemoveReminder;
         public System.Windows.Forms.Button btnEditReminder;
-        private System.Windows.Forms.RadioButton rbMonthly;
-        private System.Windows.Forms.RadioButton rbDaily;
-        private System.Windows.Forms.RadioButton rbNoRepeat;
         public System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.ColumnHeader chRepeat;
-        private System.Windows.Forms.Label lblEvery;
         public System.Windows.Forms.ComboBox cbEvery;
         private System.Windows.Forms.Timer tmrCheckReminder;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DateTimePicker dtpTime;
         public System.Windows.Forms.Button btnDisableEnable;
         private System.Windows.Forms.ColumnHeader cbEnabled;
         public System.Windows.Forms.NotifyIcon RemindMeIcon;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pbEdit;
-        private System.Windows.Forms.RadioButton rbWorkDays;
         private System.Windows.Forms.CheckBox cbDayBefore;
         private System.Windows.Forms.ContextMenuStrip RemindMeTrayIconMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsExit;
@@ -1221,30 +1295,15 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripMenuItem tsSettings;
         private System.Windows.Forms.Timer tmrUpdateListview;
-        private System.Windows.Forms.PictureBox pbSettings;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolTip toolTip1;
         public System.Windows.Forms.ComboBox cbSound;
-        private System.Windows.Forms.Button btnPlaySound;
         private System.Windows.Forms.Timer tmrMusic;
         private System.Windows.Forms.PictureBox pbExclamationDate;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pbExclamationWorkday;
-        private System.Windows.Forms.RadioButton rbEveryXCustom;
-        private System.Windows.Forms.NumericUpDown numEveryXDays;
         private System.Windows.Forms.PictureBox pbExclamationTitle;
-        private System.Windows.Forms.ComboBox cbEveryXCustom;
-        private System.Windows.Forms.CheckBox cbStickyForm;
         public System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Panel pnlDayCheckBoxes;
-        private System.Windows.Forms.CheckBox cbSunday;
-        private System.Windows.Forms.CheckBox cbSaturday;
-        private System.Windows.Forms.CheckBox cbFriday;
-        private System.Windows.Forms.CheckBox cbThursday;
-        private System.Windows.Forms.CheckBox cbWednesday;
-        private System.Windows.Forms.CheckBox cbTuesday;
-        private System.Windows.Forms.CheckBox cbMonday;
-        private System.Windows.Forms.RadioButton rbMultipleDays;
         private System.Windows.Forms.ContextMenuStrip ReminderMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previewThisReminderNowToolStripMenuItem;
@@ -1253,14 +1312,46 @@
         private System.Windows.Forms.ToolStripMenuItem removeReminderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editReminderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableDisableReminderToolStripMenuItem;
-        private System.Windows.Forms.Panel pnlSettings;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Panel pnlUserControls;
-        private System.Windows.Forms.PictureBox pbWindows;
-        private System.Windows.Forms.PictureBox pbMusic;
-        private System.Windows.Forms.Button btnBackFromSettings;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblVersion;
+        public System.Windows.Forms.Panel pnlNewReminder;
+        public System.Windows.Forms.ListView lvReminders;
+        public System.Windows.Forms.DateTimePicker dtpDate;
+        public System.Windows.Forms.GroupBox groupRepeatRadiobuttons;
+        public System.Windows.Forms.RadioButton rbMonthly;
+        public System.Windows.Forms.RadioButton rbDaily;
+        public System.Windows.Forms.RadioButton rbNoRepeat;
+        public System.Windows.Forms.DateTimePicker dtpTime;
+        public System.Windows.Forms.RadioButton rbWorkDays;
+        public System.Windows.Forms.PictureBox pbSettings;
+        public System.Windows.Forms.Button btnPlaySound;
+        public System.Windows.Forms.RadioButton rbEveryXCustom;
+        public System.Windows.Forms.NumericUpDown numEveryXDays;
+        public System.Windows.Forms.ComboBox cbEveryXCustom;
+        public System.Windows.Forms.Panel pnlDayCheckBoxes;
+        public System.Windows.Forms.CheckBox cbSunday;
+        public System.Windows.Forms.CheckBox cbSaturday;
+        public System.Windows.Forms.CheckBox cbFriday;
+        public System.Windows.Forms.CheckBox cbThursday;
+        public System.Windows.Forms.CheckBox cbWednesday;
+        public System.Windows.Forms.CheckBox cbTuesday;
+        public System.Windows.Forms.CheckBox cbMonday;
+        public System.Windows.Forms.RadioButton rbMultipleDays;
+        public System.Windows.Forms.Panel pnlUserControls;
+        public System.Windows.Forms.PictureBox pbWindows;
+        public System.Windows.Forms.PictureBox pbMusic;
+        public System.Windows.Forms.Button btnBackFromSettings;
+        public System.Windows.Forms.Panel pnlMain;
+        public System.Windows.Forms.Panel pnlSettings;
+        public System.Windows.Forms.Label lblEvery;
+        public System.Windows.Forms.CheckBox cbStickyForm;
+        public System.Windows.Forms.ComboBox cbMonthlyDays;
+        public System.Windows.Forms.Button btnRemoveMonthlyDay;
+        public System.Windows.Forms.Button btnAddMonthlyDay;
+        private System.Windows.Forms.Panel pnlPopup;
+        private System.Windows.Forms.Timer tmrAnimationScrollUp;
+        private System.Windows.Forms.Timer tmrAnimationScrollDown;
     }
 }
 

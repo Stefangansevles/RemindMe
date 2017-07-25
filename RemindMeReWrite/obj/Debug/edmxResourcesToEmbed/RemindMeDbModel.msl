@@ -13,7 +13,6 @@
           <ScalarProperty Name="RepeatType" ColumnName="RepeatType" />
           <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-          <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
           <ScalarProperty Name="SoundFilePath" ColumnName="SoundFilePath" />
         </MappingFragment>
       </EntityTypeMapping>

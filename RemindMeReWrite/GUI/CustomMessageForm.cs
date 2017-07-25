@@ -78,6 +78,7 @@ namespace RemindMe
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.Dispose();
         }
 
         private void pbMinimizeApplication_Click(object sender, EventArgs e)

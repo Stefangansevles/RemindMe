@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,10 +27,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,6 +53,18 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>RemindMe.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoContra.net45, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -183,6 +195,12 @@
     <Compile Include="Songs.cs">
       <DependentUpon>RemindMeDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UC\UCPopupMessage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCPopupMessage.Designer.cs">
+      <DependentUpon>UCPopupMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC\UCMusic.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -198,6 +216,7 @@
     <Compile Include="Variables\IOVariables.cs" />
     <Content Include="libs\FSManager.dll" />
     <Content Include="libs\Interop.IWshRuntimeLibrary.dll" />
+    <None Include="Properties\app.manifest" />
     <None Include="Resources\back-button.png" />
     <None Include="Resources\app-1646213_1920.png" />
     <None Include="Resources\back.png" />
@@ -262,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCPopupMessage.resx">
+      <DependentUpon>UCPopupMessage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC\UCMusic.resx">
       <DependentUpon>UCMusic.cs</DependentUpon>
