@@ -131,8 +131,7 @@ namespace RemindMe
             BLFormLogic.RemovebuttonBorders(btnRemoveMonthlyDay);
             //----------------------------------------------   
 
-            //set the combobox with the added monthly days to sorted.
-            cbMonthlyDays.Sorted = true;
+            
 
 
             //Set the custom format for the time datetime picker (HH:mm) instead of HH:mm:ss
@@ -165,7 +164,7 @@ namespace RemindMe
         }
 
         /// <summary>
-        /// Adds the week/monthly combobox between the layout and adjusts the location of the note textbox, and the buttons below it.
+        /// Adds the monthly combobox between the layout and adjusts the location of the note textbox, and the buttons below it.
         /// </summary>
         private void PlaceComboboxMonthlyWeekly()
         {
@@ -588,6 +587,7 @@ namespace RemindMe
             {
                 cbEvery.Visible = true;
                 lblEvery.Visible = true;
+                           
                 //clear the combobox of previous data
                 cbEvery.Items.Clear();
 
@@ -623,7 +623,7 @@ namespace RemindMe
             
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        public void btnConfirm_Click(object sender, EventArgs e)
         {
             //set it to null at first, the user may not have this option selected            
             string commaSeperatedDays = "";
@@ -635,7 +635,6 @@ namespace RemindMe
                 if (rbMonthly.Checked)                                    
                     repeat = ReminderRepeatType.MONTHLY;                
              
-
                 if (rbWorkDays.Checked)
                     repeat = ReminderRepeatType.WORKDAYS;
 
@@ -685,7 +684,7 @@ namespace RemindMe
                     else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
                         DLReminders.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(),  null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.CUSTOM)
-                        DLReminders.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(),  null, Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        DLReminders.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else
                         DLReminders.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(),  null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                                         
@@ -998,12 +997,10 @@ namespace RemindMe
 
         private void rbEveryXDays_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbEveryXCustom.Checked)
-            {
-                lblEvery.Text = "Every:";                                                
-                PlaceComboboxMonthlyWeekly();
-            }
-                       
+            if (rbEveryXCustom.Checked)            
+                lblEvery.Text = "Every:";
+
+            PlaceComboboxMonthlyWeekly();
         }
 
         private void numEveryXDays_ValueChanged(object sender, EventArgs e)
@@ -1043,10 +1040,10 @@ namespace RemindMe
 
         private void tbNote_LocationChanged(object sender, EventArgs e)
         {
-            //Whenever the textbox changes location somehow, these buttons need to be placed below it again
+            //Whenever, however the textbox changes location, these buttons need to be placed below it again
             btnConfirm.Location = new Point(btnConfirm.Location.X, (tbNote.Location.Y + tbNote.Height + 3));
-            btnBack.Location = new Point(btnBack.Location.X, btnConfirm.Location.Y);
-            btnClear.Location = new Point(btnBack.Location.X + (btnBack.Width + 3), btnBack.Location.Y);
+            btnBack.Location = new Point(btnConfirm.Location.X + btnConfirm.Width, btnConfirm.Location.Y);
+            btnClear.Location = new Point(btnBack.Location.X + (btnBack.Width), btnBack.Location.Y);
             lblNote.Location = new Point(lblNote.Location.X, tbNote.Location.Y);
         }
 
@@ -1195,7 +1192,7 @@ namespace RemindMe
             ShowPanel(pnlMain);
         }             
 
-        private void btnAddMonthlyDay_Click(object sender, EventArgs e)
+        public void btnAddMonthlyDay_Click(object sender, EventArgs e)
         {
             int newValue = 1;
             try
@@ -1228,7 +1225,7 @@ namespace RemindMe
             
         }
 
-        private void btnRemoveMonthlyDay_Click(object sender, EventArgs e)
+        public void btnRemoveMonthlyDay_Click(object sender, EventArgs e)
         {
             cbMonthlyDays.Items.Remove(cbMonthlyDays.SelectedItem);
             SetDateTimePickerMonthlyValue();
@@ -1305,6 +1302,12 @@ namespace RemindMe
         {
             if(e.KeyCode == Keys.Enter)
                 btnAddMonthlyDay_Click(sender, e);            
+        }
+
+        private void cbEveryXCustom_TextChanged(object sender, EventArgs e)
+        {
+            if (cbEveryXCustom.SelectedItem == null)
+                cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[0]; //make sure the user cant type some random text into the combobox
         }
     }
 }

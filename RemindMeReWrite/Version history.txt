@@ -178,3 +178,8 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  More unit tests
 
+ (26-7-2017)V1.5.101 - small fixes
+ Fixed a small graphical issue with controls overlapping
+ Fixed an issue with creating a custom reminder
+ Added more unit tests
+

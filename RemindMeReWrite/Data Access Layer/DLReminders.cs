@@ -191,7 +191,6 @@ namespace RemindMe
             rem.RepeatType = repeatingType.ToString();
 
             //below are nullable parameters. a reminder can have a dayofmonth, if it does, it won't have a everyXDays.            
-
             if(everyXDays.HasValue)
                 rem.EveryXCustom = everyXDays;
 

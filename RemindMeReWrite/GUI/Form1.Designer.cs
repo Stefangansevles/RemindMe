@@ -541,6 +541,7 @@
             this.cbEveryXCustom.Size = new System.Drawing.Size(156, 21);
             this.cbEveryXCustom.TabIndex = 74;
             this.cbEveryXCustom.Visible = false;
+            this.cbEveryXCustom.TextChanged += new System.EventHandler(this.cbEveryXCustom_TextChanged);
             // 
             // numEveryXDays
             // 

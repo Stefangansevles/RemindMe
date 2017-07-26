@@ -274,7 +274,7 @@ namespace RemindMeUnitTests
             Assert.AreEqual(reminderMonthly.Date, Convert.ToDateTime("2011-11-11 00:00:00").ToString()); //we convert it to datetime, and then back to string to avoid american/europe date difference issues
             Assert.AreEqual(reminderMonthly.Id, idReminderMonthly);
             Assert.AreEqual(reminderMonthly.RepeatType, ReminderRepeatType.MONTHLY.ToString());
-            Assert.AreEqual(reminderMonthly.EveryXCustom, null);
+            Assert.AreEqual(reminderMonthly.EveryXCustom, 15);
             Assert.AreEqual(reminderMonthly.RepeatDays, null);
             Assert.AreEqual(reminderMonthly.Note, "Some Note");
             Assert.AreEqual(reminderMonthly.Enabled, 1);

@@ -316,12 +316,10 @@ namespace RemindMeUnitTests
             Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
             Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath)));
             Assert.AreEqual(mainForm.dtpDate.Value, Convert.ToDateTime(testReminder.Date));
-            Assert.AreEqual(mainForm.cbEvery.SelectedItem.ToString(), "10");
             Assert.AreEqual(mainForm.dtpTime.Value, Convert.ToDateTime(Convert.ToDateTime(testReminder.Date).ToShortTimeString()));
             Assert.IsTrue(mainForm.rbMonthly.Checked);
-            Assert.AreEqual(mainForm.lblEvery.Text, "Day(s):");            
-
-           
+            Assert.AreEqual(mainForm.lblEvery.Text, "Day(s):");
+            
             //delete it so it wont stay in the database
             DLReminders.DeleteReminder(testReminder);
         }
@@ -416,7 +414,303 @@ namespace RemindMeUnitTests
             Assert.AreEqual(mainForm.cbSound.Text, "");
             Assert.AreEqual(mainForm.cbEveryXCustom.SelectedItem, mainForm.cbEveryXCustom.Items[2]);
         }
-       
+
+        //from here on, we are going to test the form logic with the controls itself. we're going to insert data into the controls and raising the click events of buttons
+        //NOTE: Yes. making the _click event on a button public is bad. BUT, in these unit tests, all the controls are not visible. therefore PerformClick() will do nothing, because the button is invisible            
+        [TestMethod]
+        public void TestMakeReminderMonthlyWithFormControls()
+        {
+            mainForm.cbMonthlyDays.Items.Clear();
+
+            mainForm.tbReminderName.Text = "some reminder";
+            mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
+            mainForm.rbMonthly.Checked = true;
+
+            mainForm.cbEvery.SelectedItem = mainForm.cbEvery.Items[0]; //"1"
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 0);
+            mainForm.btnAddMonthlyDay_Click(null, null);
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 1);
+            Assert.IsNotNull(mainForm.cbMonthlyDays.Items[0]); //the combobox item should not be null
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items[0].ToString(), "1"); //we added "1" to the combobox, so lets test this
+                        
+            mainForm.cbEvery.SelectedItem = mainForm.cbEvery.Items[4]; //"5"
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 1);
+            mainForm.btnAddMonthlyDay_Click(null, null);
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 2);
+            Assert.IsNotNull(mainForm.cbMonthlyDays.Items[1]); //the combobox item should not be null
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items[1].ToString(), "5"); //we added "1" to the combobox, so lets test this
+
+            mainForm.cbEvery.SelectedItem = mainForm.cbEvery.Items[14]; //"15"
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 2);
+            mainForm.btnAddMonthlyDay_Click(null, null);
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 3);
+            Assert.IsNotNull(mainForm.cbMonthlyDays.Items[2]); //the combobox item should not be null
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items[2].ToString(), "15"); //we added "1" to the combobox, so lets test this
+
+            //actually, lets remove 15. 
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 3);
+            mainForm.cbMonthlyDays.SelectedItem = mainForm.cbMonthlyDays.Items[2];
+            mainForm.btnRemoveMonthlyDay_Click(null, null);
+            Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 2);
+
+
+            
+
+            mainForm.tbNote.Text = "some note";
+            int currentReminderCount = DLReminders.GetReminders().Count;
+
+            //Okay, everything is done!
+            mainForm.btnConfirm_Click(null, null);
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+
+
+            //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
+            foreach (Reminder item in DLReminders.GetReminders())
+            {
+                if (item.Name == "some reminder" && item.Note == "some note")
+                {
+                    
+                    Assert.AreEqual(item.Note, "some note");
+                    Assert.AreEqual(item.RepeatDays, null);
+                    Assert.AreEqual(item.SoundFilePath, "");
+                    Assert.AreEqual(item.PostponeDate, null);
+                    Assert.AreEqual(item.Enabled, 1);
+                    Assert.AreEqual(item.EveryXCustom, null);
+
+                    DLReminders.DeleteReminder(item);
+                }
+            }
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+
+        }
+
+        [TestMethod]
+        public void TestMakeReminderCustomWithFormControls()
+        {
+            mainForm.cbMonthlyDays.Items.Clear();
+
+            mainForm.tbReminderName.Text = "some reminder";
+            mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
+            mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
+            mainForm.rbEveryXCustom.Checked = true;
+            
+            mainForm.cbEveryXCustom.SelectedItem = mainForm.cbEveryXCustom.Items[2]; //"Days"
+            mainForm.numEveryXDays.Value = 10;
+            //Every 10 days            
+
+
+
+
+            mainForm.tbNote.Text = "some note";
+            int currentReminderCount = DLReminders.GetReminders().Count;
+
+            //Okay, everything is done!
+            mainForm.btnConfirm_Click(null, null);
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+
+
+            //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
+            foreach (Reminder item in DLReminders.GetReminders())
+            {
+                if (item.Name == "some reminder" && item.Note == "some note")
+                {
+                    Assert.AreEqual(item.Date, DateTime.Now.AddDays(1).ToShortDateString() + " 12:00:00");
+                    Assert.AreEqual(item.Note, "some note");
+                    Assert.AreEqual(item.RepeatType, "Days");
+                    Assert.AreEqual(item.RepeatDays, null);
+                    Assert.AreEqual(item.SoundFilePath, "");
+                    Assert.AreEqual(item.PostponeDate, null);
+                    Assert.AreEqual(item.Enabled, 1);
+                    Assert.AreEqual(item.EveryXCustom, 10);
+
+                    DLReminders.DeleteReminder(item);
+                }
+            }
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+
+        }
+
+        [TestMethod]
+        public void TestMakeReminderOnceWithFormControls()
+        {
+            mainForm.cbMonthlyDays.Items.Clear();
+
+            mainForm.tbReminderName.Text = "some reminder";
+            mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
+            mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
+            mainForm.rbNoRepeat.Checked = true;
+
+          
+
+            mainForm.tbNote.Text = "some note";
+            int currentReminderCount = DLReminders.GetReminders().Count;
+
+            //Okay, everything is done!
+            mainForm.btnConfirm_Click(null, null);
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+
+
+            //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
+            foreach (Reminder item in DLReminders.GetReminders())
+            {
+                if (item.Name == "some reminder" && item.Note == "some note")
+                {
+                    Assert.AreEqual(item.RepeatType, ReminderRepeatType.NONE.ToString());
+                    Assert.AreEqual(item.Date, DateTime.Now.AddDays(1).ToShortDateString() + " 12:00:00");
+                    Assert.AreEqual(item.Note, "some note");
+                    Assert.AreEqual(item.RepeatDays, null);
+                    Assert.AreEqual(item.SoundFilePath, "");
+                    Assert.AreEqual(item.PostponeDate, null);
+                    Assert.AreEqual(item.Enabled, 1);
+                    Assert.AreEqual(item.EveryXCustom, null);
+
+                    DLReminders.DeleteReminder(item);
+                }
+            }
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+
+        }
+
+        [TestMethod]
+        public void TestMakeReminderWeekdaysWithFormControls()
+        {
+            mainForm.cbMonthlyDays.Items.Clear();
+
+            mainForm.tbReminderName.Text = "some reminder";
+            mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
+            mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
+            mainForm.rbMultipleDays.Checked = true;
+            mainForm.cbMonday.Checked = true;
+            mainForm.cbWednesday.Checked = true;
+            mainForm.cbFriday.Checked = true;
+            mainForm.cbSunday.Checked = true;
+
+
+
+
+            mainForm.tbNote.Text = "some note";
+            int currentReminderCount = DLReminders.GetReminders().Count;
+
+            //Okay, everything is done!
+            mainForm.btnConfirm_Click(null, null);
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+
+
+            //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
+            foreach (Reminder item in DLReminders.GetReminders())
+            {
+                if (item.Name == "some reminder" && item.Note == "some note")
+                {
+                    Assert.AreEqual(item.RepeatDays, "sunday,friday,wednesday,monday");
+                    Assert.AreEqual(item.RepeatType, ReminderRepeatType.MULTIPLE_DAYS.ToString());
+
+                    Assert.AreEqual(item.Note, "some note");                    
+                    Assert.AreEqual(item.SoundFilePath, "");
+                    Assert.AreEqual(item.PostponeDate, null);
+                    Assert.AreEqual(item.Enabled, 1);
+                    Assert.AreEqual(item.EveryXCustom, null);
+
+                    DLReminders.DeleteReminder(item);
+                }
+            }
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+
+        }
+
+        [TestMethod]
+        public void TestMakeReminderWorkdaysWithFormControls()
+        {
+            mainForm.cbMonthlyDays.Items.Clear();
+
+            mainForm.tbReminderName.Text = "some reminder";
+            mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
+            mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
+            mainForm.rbWorkDays.Checked = true;
+
+
+
+
+
+            mainForm.tbNote.Text = "some note";
+            int currentReminderCount = DLReminders.GetReminders().Count;
+
+            //Okay, everything is done!
+            mainForm.btnConfirm_Click(null, null);
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+
+
+            //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
+            foreach (Reminder item in DLReminders.GetReminders())
+            {
+                if (item.Name == "some reminder" && item.Note == "some note")
+                {
+                    Assert.AreEqual(item.RepeatType, ReminderRepeatType.WORKDAYS.ToString());
+                    Assert.AreEqual(item.Date, DateTime.Now.AddDays(1).ToShortDateString() + " 12:00:00");
+                    Assert.AreEqual(item.Note, "some note");
+                    Assert.AreEqual(item.RepeatDays, null);
+                    Assert.AreEqual(item.SoundFilePath, "");
+                    Assert.AreEqual(item.PostponeDate, null);
+                    Assert.AreEqual(item.Enabled, 1);
+                    Assert.AreEqual(item.EveryXCustom, null);
+
+                    DLReminders.DeleteReminder(item);
+                }
+            }
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+
+        }
+
+
+        [TestMethod]
+        public void TestMakeReminderDailyWithFormControls()
+        {
+            mainForm.cbMonthlyDays.Items.Clear();
+
+            mainForm.tbReminderName.Text = "some reminder";
+            mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
+            mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
+            mainForm.rbDaily.Checked = true;
+
+
+
+
+
+            mainForm.tbNote.Text = "some note";
+            int currentReminderCount = DLReminders.GetReminders().Count;
+
+            //Okay, everything is done!
+            mainForm.btnConfirm_Click(null, null);
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+
+
+            //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
+            foreach (Reminder item in DLReminders.GetReminders())
+            {
+                if (item.Name == "some reminder" && item.Note == "some note")
+                {
+                    Assert.AreEqual(item.RepeatType, ReminderRepeatType.DAILY.ToString());
+                    Assert.AreEqual(item.Date, DateTime.Now.AddDays(1).ToShortDateString() + " 12:00:00");
+                    Assert.AreEqual(item.Note, "some note");
+                    Assert.AreEqual(item.RepeatDays, null);
+                    Assert.AreEqual(item.SoundFilePath, "");
+                    Assert.AreEqual(item.PostponeDate, null);
+                    Assert.AreEqual(item.Enabled, 1);
+                    Assert.AreEqual(item.EveryXCustom, null);
+
+                    DLReminders.DeleteReminder(item);
+                }
+                    
+            }
+            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+
+        }
+
         [TestMethod]
         public void RemoveTests()
         {            
@@ -424,3 +718,4 @@ namespace RemindMeUnitTests
         }        
     }
 }
+
