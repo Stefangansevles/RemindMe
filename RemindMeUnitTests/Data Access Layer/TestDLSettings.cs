@@ -2,14 +2,16 @@
 using System;
 using System.Collections.Generic;
 using RemindMe;
+using Database;
+using Business_Logic_Layer;
 
 namespace RemindMeUnitTests
 {
     [TestClass]
-    public class TestDLSettings
+    public class TestBLSettings
     {
       
-        public TestDLSettings()
+        public TestBLSettings()
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", RemindMe.Variables.IOVariables.databaseFile);
             BLIO.CreateDatabaseIfNotExist();
@@ -17,7 +19,7 @@ namespace RemindMeUnitTests
         [TestMethod]
         public void TestGetSettings()
         {
-            Assert.IsNotNull(DLSettings.GetSettings());            
+            Assert.IsNotNull(BLSettings.GetSettings());            
         }
         [TestMethod]
         public void TestUpdateSettings()
@@ -25,17 +27,17 @@ namespace RemindMeUnitTests
             Settings set = new Settings();
             set.AlwaysOnTop = 0;
             set.StickyForm = 0;
-            DLSettings.UpdateSettings(set);
+            BLSettings.UpdateSettings(set);
 
-            Assert.IsFalse(DLSettings.IsAlwaysOnTop());
-            Assert.IsFalse(DLSettings.IsStickyForm());
+            Assert.IsFalse(BLSettings.IsAlwaysOnTop());
+            Assert.IsFalse(BLSettings.IsStickyForm());
 
             set.AlwaysOnTop = 1;
             set.StickyForm = 1;
-            DLSettings.UpdateSettings(set);
+            BLSettings.UpdateSettings(set);
 
-            Assert.IsTrue(DLSettings.IsAlwaysOnTop());
-            Assert.IsTrue(DLSettings.IsStickyForm());
+            Assert.IsTrue(BLSettings.IsAlwaysOnTop());
+            Assert.IsTrue(BLSettings.IsStickyForm());
         }
     }
 }

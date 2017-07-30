@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Runtime.ExceptionServices;
 using System.Data.SQLite;
 using System.IO;
+using Business_Logic_Layer;
 
 namespace RemindMe
 {

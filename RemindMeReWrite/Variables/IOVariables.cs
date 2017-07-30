@@ -26,11 +26,7 @@ namespace RemindMe.Variables
         /// </summary>
         public static readonly string startupFolderPath = userProfile + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\";
 
-        /// <summary>
-        /// Contains the path to the root folder of RemindMe
-        /// </summary>
-        public static readonly string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\RemindMe\";              
-
+        
         /// <summary>
         /// Contains the path to the error log file of RemindMe. This contains exceptions and when they occured.
         /// </summary>

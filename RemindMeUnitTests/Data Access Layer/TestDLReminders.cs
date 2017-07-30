@@ -1,13 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using RemindMe;
+using Database;
+using Business_Logic_Layer;
 
 namespace RemindMeUnitTests
 {
     [TestClass]
-    public class TestDLReminders
+    public class TestBLReminder
     {
-        public TestDLReminders()
+        public TestBLReminder()
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", RemindMe.Variables.IOVariables.databaseFile);            
             BLIO.CreateDatabaseIfNotExist();
@@ -16,15 +18,15 @@ namespace RemindMeUnitTests
         [TestMethod]
         public void TestGetReminderById()
         {            
-            if (DLReminders.GetReminders().Count > 0)
-                Assert.IsNotNull(DLReminders.GetReminderById(DLReminders.GetReminders()[0].Id));
+            if (BLReminder.GetReminders().Count > 0)
+                Assert.IsNotNull(BLReminder.GetReminderById(BLReminder.GetReminders()[0].Id));
 
-            Assert.IsNull(DLReminders.GetReminderById(-1));
+            Assert.IsNull(BLReminder.GetReminderById(-1));
         }
         [TestMethod]
         public void TestGetReminders()
         {
-            Assert.IsNotNull(DLReminders.GetReminders());                        
+            Assert.IsNotNull(BLReminder.GetReminders());                        
         }
         [TestMethod]
         public void TestReminderEveryXMinutes()
@@ -40,7 +42,7 @@ namespace RemindMeUnitTests
             rem.RepeatDays = "";
             rem.Note = "A reminder for every 35 minutes";
             rem.PostponeDate = "";
-            rem.Id = DLReminders.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            rem.Id = BLReminder.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
 
 
             DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
@@ -49,12 +51,12 @@ namespace RemindMeUnitTests
             while (expectedDate < DateTime.Now)
                 expectedDate = expectedDate.AddMinutes((double)rem.EveryXCustom);
 
-            DLReminders.UpdateReminder(rem);
+            BLReminder.UpdateReminder(rem);
 
             Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
 
             //finally remove the testing-purpose reminder
-            DLReminders.DeleteReminder(rem);
+            BLReminder.DeleteReminder(rem);
         }
         [TestMethod]
         public void TestReminderEveryXHours()
@@ -70,7 +72,7 @@ namespace RemindMeUnitTests
             rem.RepeatDays = "";
             rem.Note = "A reminder for every 10 hours";
             rem.PostponeDate = "";
-            rem.Id = DLReminders.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            rem.Id = BLReminder.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
 
 
             DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
@@ -79,12 +81,12 @@ namespace RemindMeUnitTests
             while (expectedDate < DateTime.Now)
                 expectedDate = expectedDate.AddHours((double)rem.EveryXCustom);
 
-            DLReminders.UpdateReminder(rem);
+            BLReminder.UpdateReminder(rem);
 
             Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
 
             //finally remove the testing-purpose reminder
-            DLReminders.DeleteReminder(rem);
+            BLReminder.DeleteReminder(rem);
         }
         [TestMethod]
         public void TestReminderEveryXDays()
@@ -100,7 +102,7 @@ namespace RemindMeUnitTests
             rem.RepeatDays = "";            
             rem.Note = "A reminder for every 5 d ays";
             rem.PostponeDate = "";
-            rem.Id = DLReminders.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString().ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            rem.Id = BLReminder.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString().ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
             
 
             DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
@@ -109,12 +111,12 @@ namespace RemindMeUnitTests
             while (expectedDate < DateTime.Now)
                 expectedDate = expectedDate.AddDays(5);
 
-            DLReminders.UpdateReminder(rem);
+            BLReminder.UpdateReminder(rem);
             
             Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));            
 
             //finally remove the testing-purpose reminder
-            DLReminders.DeleteReminder(rem);
+            BLReminder.DeleteReminder(rem);
         }
         [TestMethod]
         public void TestReminderEveryXWeeks()
@@ -130,7 +132,7 @@ namespace RemindMeUnitTests
             rem.RepeatDays = "";
             rem.Note = "A reminder for every 5 weeks";
             rem.PostponeDate = "";
-            rem.Id = DLReminders.InsertReminder(rem.Name,  rem.Date, rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            rem.Id = BLReminder.InsertReminder(rem.Name,  rem.Date, rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
 
 
             DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
@@ -139,12 +141,12 @@ namespace RemindMeUnitTests
             while (expectedDate < DateTime.Now)
                 expectedDate = expectedDate.AddDays((double)rem.EveryXCustom * 7);
 
-            DLReminders.UpdateReminder(rem);
+            BLReminder.UpdateReminder(rem);
 
             Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
 
             //finally remove the testing-purpose reminder
-            DLReminders.DeleteReminder(rem);
+            BLReminder.DeleteReminder(rem);
         }
         [TestMethod]
         public void TestReminderEveryXMonths()
@@ -160,7 +162,7 @@ namespace RemindMeUnitTests
             rem.RepeatDays = "";
             rem.Note = "A reminder for every 2 months";
             rem.PostponeDate = "";
-            rem.Id = DLReminders.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            rem.Id = BLReminder.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
 
 
             DateTime oldReminderDateBeforeUpdate = Convert.ToDateTime(rem.Date);
@@ -169,12 +171,12 @@ namespace RemindMeUnitTests
             while (expectedDate < DateTime.Now)
                 expectedDate = expectedDate.AddMonths((int)rem.EveryXCustom);
 
-            DLReminders.UpdateReminder(rem);
+            BLReminder.UpdateReminder(rem);
 
             Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
 
             //finally remove the testing-purpose reminder
-            DLReminders.DeleteReminder(rem);
+            BLReminder.DeleteReminder(rem);
         }
         [TestMethod]
         public void TestReminderDaily()
@@ -190,18 +192,18 @@ namespace RemindMeUnitTests
             rem.RepeatDays = "";
             rem.Note = "A reminder for every day";
             rem.PostponeDate = "";
-            rem.Id = DLReminders.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            rem.Id = BLReminder.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
 
 
             
             DateTime expectedDate = Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1); 
                                         
-            DLReminders.UpdateReminder(rem);
+            BLReminder.UpdateReminder(rem);
 
             Assert.AreEqual(expectedDate, Convert.ToDateTime(rem.Date));
 
             //finally remove the testing-purpose reminder
-            DLReminders.DeleteReminder(rem);
+            BLReminder.DeleteReminder(rem);
         }
         [TestMethod]
         public void TestReminderWeekdays()
@@ -217,33 +219,33 @@ namespace RemindMeUnitTests
             rem.RepeatDays = "friday";
             rem.Note = "A reminder for every friday";
             rem.PostponeDate = "";
-            rem.Id = DLReminders.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
+            rem.Id = BLReminder.InsertReminder(rem.Name,  Convert.ToDateTime(rem.Date).ToString(), rem.RepeatType,  rem.EveryXCustom, "", rem.Note, true, rem.SoundFilePath);
 
                                    
-            DLReminders.UpdateReminder(rem);
+            BLReminder.UpdateReminder(rem);
 
             Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Friday).ToShortDateString(), Convert.ToDateTime(rem.Date).ToShortDateString());
 
             //finally remove the testing-purpose reminder
-            DLReminders.DeleteReminder(rem);
+            BLReminder.DeleteReminder(rem);
         }
         [TestMethod]
         public void TestInsertUpdateDeleteReminder()
         {
-            int databaseReminderCount = DLReminders.GetReminders().Count;
+            int databaseReminderCount = BLReminder.GetReminders().Count;
 
-            long idReminderOnce = DLReminders.InsertReminder("Some Reminder",  Convert.ToDateTime("2011-11-11 00:00:00").ToString(), ReminderRepeatType.NONE.ToString(),   null, "", "Some Note", true, "invalidPath");            
-            long idReminderEvery5Days = DLReminders.InsertReminder("Some Reminder",  Convert.ToDateTime("2011-11-11 00:00:00").ToString(), ReminderRepeatType.CUSTOM.ToString(),  5, "", "Some Note", true, "invalidPath");
-            long idReminderMonthly = DLReminders.InsertReminder("Some Reminder",  Convert.ToDateTime("2011-11-11 00:00:00").ToString(), ReminderRepeatType.MONTHLY.ToString(), 15,  "", "Some Note", true, "invalidPath");
+            long idReminderOnce = BLReminder.InsertReminder("Some Reminder",  Convert.ToDateTime("2011-11-11 00:00:00").ToString(), ReminderRepeatType.NONE.ToString(),   null, "", "Some Note", true, "invalidPath");            
+            long idReminderEvery5Days = BLReminder.InsertReminder("Some Reminder",  Convert.ToDateTime("2011-11-11 00:00:00").ToString(), ReminderRepeatType.CUSTOM.ToString(),  5, "", "Some Note", true, "invalidPath");
+            long idReminderMonthly = BLReminder.InsertReminder("Some Reminder",  Convert.ToDateTime("2011-11-11 00:00:00").ToString(), ReminderRepeatType.MONTHLY.ToString(), 15,  "", "Some Note", true, "invalidPath");
 
             //The count of the database should be equal to the count before the insert + amount of inserted remindesr
-            Assert.AreEqual(databaseReminderCount + 3, DLReminders.GetReminders().Count);
+            Assert.AreEqual(databaseReminderCount + 3, BLReminder.GetReminders().Count);
 
 
             //Get the inserted reminder as object. Then, we will check if all values are as they should be
-            Reminder reminderOnce = DLReminders.GetReminderById(idReminderOnce);
-            Reminder reminder5Days = DLReminders.GetReminderById(idReminderEvery5Days);
-            Reminder reminderMonthly = DLReminders.GetReminderById(idReminderMonthly);
+            Reminder reminderOnce = BLReminder.GetReminderById(idReminderOnce);
+            Reminder reminder5Days = BLReminder.GetReminderById(idReminderEvery5Days);
+            Reminder reminderMonthly = BLReminder.GetReminderById(idReminderMonthly);
             
             //reminderOnce
             Assert.AreEqual(reminderOnce.Name, "Some Reminder");
@@ -290,7 +292,7 @@ namespace RemindMeUnitTests
             reminderOnce.Enabled = 0;            
             reminderOnce.EveryXCustom = 37;
             reminderOnce.RepeatDays = "monday,friday,sunday";            
-            DLReminders.EditReminder(reminderOnce);
+            BLReminder.EditReminder(reminderOnce);
 
             //Now, let's check on those updates. did they really happen the way they should have?
             Assert.AreEqual(reminderOnce.Name, "testUpdate");
@@ -305,14 +307,14 @@ namespace RemindMeUnitTests
 
             
             //Now, lets delete them again
-            DLReminders.DeleteReminder(reminderOnce);
-            DLReminders.DeleteReminder(reminder5Days);
-            DLReminders.DeleteReminder(reminderMonthly);            
-            Assert.AreEqual(databaseReminderCount, DLReminders.GetReminders().Count);
+            BLReminder.DeleteReminder(reminderOnce);
+            BLReminder.DeleteReminder(reminder5Days);
+            BLReminder.DeleteReminder(reminderMonthly);            
+            Assert.AreEqual(databaseReminderCount, BLReminder.GetReminders().Count);
 
-            Assert.IsNull(DLReminders.GetReminderById(reminderOnce.Id));
-            Assert.IsNull(DLReminders.GetReminderById(reminder5Days.Id));
-            Assert.IsNull(DLReminders.GetReminderById(reminderMonthly.Id));
+            Assert.IsNull(BLReminder.GetReminderById(reminderOnce.Id));
+            Assert.IsNull(BLReminder.GetReminderById(reminder5Days.Id));
+            Assert.IsNull(BLReminder.GetReminderById(reminderMonthly.Id));
         }
     }
 }

@@ -171,7 +171,7 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  1)RemindMe now has a custom "scroll" message that contains a custom message and uses an animation to scroll up from the bottom right corner of RemindMe.
  2)Monthly reminders can now contain multiple days each month. Example: you can create a reminder for each 1st, 10th and 20th of the month.
 
- Because monthly reminders can now contain multiple days, a LOT of code had to be rewritten.
+ Because monthly reminders can now contain multiple days, a LOT of code had to be refactored.
  The date datetimepicker shows the earliest date from the selected monthly days. example: monthly days:1,5,10. If it's the 3th of the month, it picks the 5th.
 
  The version label of RemindMe now gets the version from the assembly, so the label doesnt have to get updated manually
@@ -183,3 +183,20 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  Fixed an issue with creating a custom reminder
  Added more unit tests
 
+ (26-7-2017)V1.6.0 Big update!
+ Removed the settings icon from RemindMe's contextmenustrip.
+ (30-7-2017)
+ Fixed an issue where when you caused the scrolling popup to come up for 2 different reasons before the scrolling popup has fully gone down, you would still
+ see the old text of the first reason it came up. The size was adjusted for the text of the new reason, but you would still see the old reason's text because
+ it added 2 controls into the panel instead of clearing it first. It clears the controls when it fully goes down, this is why this issue happened.
+
+ Also made it so that if the scrolling popup is visible for a reason, it won't start scrolling from the bottom again if you did something wrong that triggers 
+ the popup again with the same reason. 
+
+ Note: in order for other classes to use the Reminder class for methods like
+ -MakePopup(Reminder rem)
+ -FillControlsForEdit(Reminder rem)
+ The project RemindMeReWrite has to add the reference Database. Which, could make use of RemindMeDbEntities and edit the database like that.
+ I've decided to do it like this since i think it's necessary for this project(which contains all the UI classes aswell) 
+ to make use of the database classes Reminder,Settings and Songs.
+ 

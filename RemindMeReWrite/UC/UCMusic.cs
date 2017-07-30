@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using FSManager;
+using Database;
+using Business_Logic_Layer;
 
 namespace RemindMe
 {
     public partial class UCMusic : UserControl
-    {
+    {        
+
         public UCMusic()
         {
             InitializeComponent();
@@ -24,7 +28,7 @@ namespace RemindMe
 
         private void LoadSongsIntoListview()
         {
-            List<Songs> songs = DLSongs.GetSongs();
+            List<Songs> songs = BLSongs.GetSongs();
             if (songs != null && songs.Count > 0)
             {
 
@@ -39,8 +43,8 @@ namespace RemindMe
 
         private void pbAddSounds_Click(object sender, EventArgs e)
         {
-            List<string> songPaths = FSManager.Files.getSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
-
+            List<string> songPaths = FSManager.Files.GetSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+            
             if(songPaths.Count == 1 && songPaths[0] == "")//The user canceled out
                 return;            
 
@@ -53,7 +57,7 @@ namespace RemindMe
                 song.SongFilePath = songPath;
                 songs.Add(song);                
             }
-            DLSongs.InsertSongs(songs);
+            BLSongs.InsertSongs(songs);
 
             foreach (Songs song in songs)
             {
@@ -82,13 +86,13 @@ namespace RemindMe
 
             foreach (ListViewItem selectedItem in lvSoundFiles.SelectedItems)
             {
-                if (DLSongs.SongExistsInDatabase(selectedItem.Text))
-                    toRemoveSongs.Add(DLSongs.GetSongById(Convert.ToInt32(selectedItem.Tag)));
+                if (BLSongs.SongExistsInDatabase(selectedItem.Text))
+                    toRemoveSongs.Add(BLSongs.GetSongById(Convert.ToInt32(selectedItem.Tag)));
 
                 lvSoundFiles.Items.Remove(selectedItem);
             }
 
-            DLSongs.RemoveSongs(toRemoveSongs);                                     
+            BLSongs.RemoveSongs(toRemoveSongs);                                     
         }
     }
 }

@@ -5,6 +5,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using Database;
+using Business_Logic_Layer;
 
 namespace RemindMeUnitTests
 {
@@ -17,19 +20,19 @@ namespace RemindMeUnitTests
         public TestFormLogic()
         {
             mainForm = new Form1();
-            DLSongs.GetSongs();            
+            BLSongs.GetSongs();            
 
             //Create a sound
             testSong = new Songs();
             testSong.SongFilePath = "c:\\testSong.mp3";
             testSong.SongFileName = "testSong.mp3";
-            DLSongs.InsertSong(testSong);                                  
+            BLSongs.InsertSong(testSong);                                  
         }
         [TestMethod]
         public void TestAddSongToCombobox()
         {
             Assert.AreEqual(mainForm.cbSound.Items.Count, 1); //there's always 1 item, the item "Add files..."
-            ComboBoxItem item = new ComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath));
+            ComboBoxItem item = new ComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), BLSongs.GetSongByFullPath(testSong.SongFilePath));
             mainForm.cbSound.Items.Add(item);
             Assert.AreEqual(mainForm.cbSound.Items.Count, 2);
         }
@@ -47,7 +50,7 @@ namespace RemindMeUnitTests
             testReminder.SoundFilePath = testSong.SongFilePath;
             testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testReminder.Enabled = 1;
-            testReminder.Id = DLReminders.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
+            testReminder.Id = BLReminder.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
 
             Assert.AreEqual(mainForm.lvReminders.Items.Count, 0);
             //Add it to the listview
@@ -63,7 +66,7 @@ namespace RemindMeUnitTests
             Assert.AreEqual(mainForm.lvReminders.Items.Count, 0);
 
             //delete it so it wont stay in the database
-            DLReminders.DeleteReminder(testReminder);
+            BLReminder.DeleteReminder(testReminder);
         }
         [TestMethod]
         public void TestFillReminderFormForEditWorkdays()
@@ -77,7 +80,7 @@ namespace RemindMeUnitTests
             testReminder.SoundFilePath = testSong.SongFilePath;
             testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testReminder.Enabled = 1;
-            testReminder.Id = DLReminders.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
+            testReminder.Id = BLReminder.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
             
             //Add it to the listview
             BLFormLogic.AddReminderToListview(mainForm.lvReminders, testReminder);
@@ -86,13 +89,13 @@ namespace RemindMeUnitTests
             mainForm.FillControlsForEdit(testReminder);
             Assert.AreEqual(mainForm.tbNote.Text, testReminder.Note.Replace("\\n", Environment.NewLine));
             Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
-            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath)));           
+            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), BLSongs.GetSongByFullPath(testSong.SongFilePath)));           
             Assert.AreEqual(mainForm.dtpDate.Value, Convert.ToDateTime(testReminder.Date));
             Assert.AreEqual(mainForm.dtpTime.Value, Convert.ToDateTime(Convert.ToDateTime(testReminder.Date).ToShortTimeString()));
             Assert.IsTrue(mainForm.rbWorkDays.Checked);
 
             //delete it so it wont stay in the database
-            DLReminders.DeleteReminder(testReminder);
+            BLReminder.DeleteReminder(testReminder);
         }
 
         [TestMethod]
@@ -107,7 +110,7 @@ namespace RemindMeUnitTests
             testReminder.SoundFilePath = testSong.SongFilePath;
             testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testReminder.Enabled = 1;
-            testReminder.Id = DLReminders.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
+            testReminder.Id = BLReminder.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
 
             //Add it to the listview
             BLFormLogic.AddReminderToListview(mainForm.lvReminders, testReminder);
@@ -116,13 +119,13 @@ namespace RemindMeUnitTests
             mainForm.FillControlsForEdit(testReminder);
             Assert.AreEqual(mainForm.tbNote.Text, testReminder.Note.Replace("\\n", Environment.NewLine));
             Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
-            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath)));
+            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), BLSongs.GetSongByFullPath(testSong.SongFilePath)));
             Assert.AreEqual(mainForm.dtpDate.Value, Convert.ToDateTime(testReminder.Date));
             Assert.AreEqual(mainForm.dtpTime.Value, Convert.ToDateTime(Convert.ToDateTime(testReminder.Date).ToShortTimeString()));
             Assert.IsTrue(mainForm.rbNoRepeat.Checked);
 
             //delete it so it wont stay in the database
-            DLReminders.DeleteReminder(testReminder);
+            BLReminder.DeleteReminder(testReminder);
         }
         [TestMethod]
         public void TestFillReminderFormForEditDaily()
@@ -136,7 +139,7 @@ namespace RemindMeUnitTests
             testReminder.SoundFilePath = testSong.SongFilePath;
             testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testReminder.Enabled = 1;
-            testReminder.Id = DLReminders.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
+            testReminder.Id = BLReminder.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
 
             //Add it to the listview
             BLFormLogic.AddReminderToListview(mainForm.lvReminders, testReminder);
@@ -145,13 +148,13 @@ namespace RemindMeUnitTests
             mainForm.FillControlsForEdit(testReminder);
             Assert.AreEqual(mainForm.tbNote.Text, testReminder.Note.Replace("\\n", Environment.NewLine));
             Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
-            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath)));
+            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), BLSongs.GetSongByFullPath(testSong.SongFilePath)));
             Assert.AreEqual(mainForm.dtpDate.Value, Convert.ToDateTime(testReminder.Date));
             Assert.AreEqual(mainForm.dtpTime.Value, Convert.ToDateTime(Convert.ToDateTime(testReminder.Date).ToShortTimeString()));
             Assert.IsTrue(mainForm.rbDaily.Checked);
 
             //delete it so it wont stay in the database
-            DLReminders.DeleteReminder(testReminder);
+            BLReminder.DeleteReminder(testReminder);
         }
         [TestMethod]
         public void TestCheckBoxChangesDateTimePickerDate()
@@ -305,7 +308,7 @@ namespace RemindMeUnitTests
             testReminder.SoundFilePath = testSong.SongFilePath;
             testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testReminder.Enabled = 1;
-            testReminder.Id = DLReminders.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
+            testReminder.Id = BLReminder.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
 
             //Add it to the listview
             BLFormLogic.AddReminderToListview(mainForm.lvReminders, testReminder);
@@ -314,14 +317,14 @@ namespace RemindMeUnitTests
             mainForm.FillControlsForEdit(testReminder);
             Assert.AreEqual(mainForm.tbNote.Text, testReminder.Note.Replace("\\n", Environment.NewLine));
             Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
-            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath)));
+            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), BLSongs.GetSongByFullPath(testSong.SongFilePath)));
             Assert.AreEqual(mainForm.dtpDate.Value, Convert.ToDateTime(testReminder.Date));
             Assert.AreEqual(mainForm.dtpTime.Value, Convert.ToDateTime(Convert.ToDateTime(testReminder.Date).ToShortTimeString()));
             Assert.IsTrue(mainForm.rbMonthly.Checked);
             Assert.AreEqual(mainForm.lblEvery.Text, "Day(s):");
             
             //delete it so it wont stay in the database
-            DLReminders.DeleteReminder(testReminder);
+            BLReminder.DeleteReminder(testReminder);
         }
         [TestMethod]
         public void TestFillReminderFormForEditCustom()
@@ -336,7 +339,7 @@ namespace RemindMeUnitTests
             testReminder.SoundFilePath = testSong.SongFilePath;
             testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testReminder.Enabled = 1;
-            testReminder.Id = DLReminders.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
+            testReminder.Id = BLReminder.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
 
             //Add it to the listview
             BLFormLogic.AddReminderToListview(mainForm.lvReminders, testReminder);
@@ -345,7 +348,7 @@ namespace RemindMeUnitTests
             mainForm.FillControlsForEdit(testReminder);
             Assert.AreEqual(mainForm.tbNote.Text, testReminder.Note.Replace("\\n", Environment.NewLine));
             Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
-            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath)));
+            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), BLSongs.GetSongByFullPath(testSong.SongFilePath)));
             Assert.AreEqual(mainForm.dtpDate.Value, Convert.ToDateTime(testReminder.Date));
             Assert.AreEqual(mainForm.dtpTime.Value, Convert.ToDateTime(Convert.ToDateTime(testReminder.Date).ToShortTimeString()));
             Assert.IsTrue(mainForm.rbEveryXCustom.Checked);
@@ -357,7 +360,7 @@ namespace RemindMeUnitTests
            
             
             //delete it so it wont stay in the database
-            DLReminders.DeleteReminder(testReminder);
+            BLReminder.DeleteReminder(testReminder);
         }
         [TestMethod]
         public void TestFillReminderFormForEditMultipleDays()
@@ -371,7 +374,7 @@ namespace RemindMeUnitTests
             testReminder.SoundFilePath = testSong.SongFilePath;
             testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testReminder.Enabled = 1;
-            testReminder.Id = DLReminders.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
+            testReminder.Id = BLReminder.InsertReminder(testReminder.Name,  testReminder.Date, testReminder.RepeatType,  null, testReminder.RepeatDays, testReminder.Note, true, testReminder.SoundFilePath);
 
             //Add it to the listview
             BLFormLogic.AddReminderToListview(mainForm.lvReminders, testReminder);
@@ -380,10 +383,11 @@ namespace RemindMeUnitTests
             mainForm.FillControlsForEdit(testReminder);
             Assert.AreEqual(mainForm.tbNote.Text, testReminder.Note.Replace("\\n", Environment.NewLine));
             Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
-            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), DLSongs.GetSongByFullPath(testSong.SongFilePath)));
+            Assert.AreEqual(mainForm.cbSound.SelectedItem, ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(testSong.SongFileName), BLSongs.GetSongByFullPath(testSong.SongFilePath)));
             Assert.AreEqual(mainForm.dtpDate.Value, Convert.ToDateTime(testReminder.Date));
             Assert.AreEqual(mainForm.dtpTime.Value, Convert.ToDateTime(Convert.ToDateTime(testReminder.Date).ToShortTimeString()));
             Assert.IsTrue(mainForm.rbMultipleDays.Checked);
+            
 
             //Day checkboxes
             Assert.IsTrue(mainForm.cbMonday.Checked);
@@ -401,7 +405,7 @@ namespace RemindMeUnitTests
 
             
             //delete it so it wont stay in the database
-            DLReminders.DeleteReminder(testReminder);
+            BLReminder.DeleteReminder(testReminder);
         }
 
         [TestMethod]
@@ -432,6 +436,7 @@ namespace RemindMeUnitTests
             Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 1);
             Assert.IsNotNull(mainForm.cbMonthlyDays.Items[0]); //the combobox item should not be null
             Assert.AreEqual(mainForm.cbMonthlyDays.Items[0].ToString(), "1"); //we added "1" to the combobox, so lets test this
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateForNextDayOfMonth(1).ToShortDateString());
                         
             mainForm.cbEvery.SelectedItem = mainForm.cbEvery.Items[4]; //"5"
             Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 1);
@@ -439,6 +444,11 @@ namespace RemindMeUnitTests
             Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 2);
             Assert.IsNotNull(mainForm.cbMonthlyDays.Items[1]); //the combobox item should not be null
             Assert.AreEqual(mainForm.cbMonthlyDays.Items[1].ToString(), "5"); //we added "1" to the combobox, so lets test this
+
+            if(BLDateTime.GetDateForNextDayOfMonth(1) < BLDateTime.GetDateForNextDayOfMonth(5))
+                Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateForNextDayOfMonth(1).ToShortDateString());
+            else
+                Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateForNextDayOfMonth(5).ToShortDateString());
 
             mainForm.cbEvery.SelectedItem = mainForm.cbEvery.Items[14]; //"15"
             Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 2);
@@ -453,20 +463,21 @@ namespace RemindMeUnitTests
             mainForm.btnRemoveMonthlyDay_Click(null, null);
             Assert.AreEqual(mainForm.cbMonthlyDays.Items.Count, 2);
 
-
             
 
+
+
             mainForm.tbNote.Text = "some note";
-            int currentReminderCount = DLReminders.GetReminders().Count;
+            int currentReminderCount = BLReminder.GetReminders().Count;
 
             //Okay, everything is done!
             mainForm.btnConfirm_Click(null, null);
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
-            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, BLReminder.GetReminders().Count);
 
 
             //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
-            foreach (Reminder item in DLReminders.GetReminders())
+            foreach (Reminder item in BLReminder.GetReminders())
             {
                 if (item.Name == "some reminder" && item.Note == "some note")
                 {
@@ -478,10 +489,10 @@ namespace RemindMeUnitTests
                     Assert.AreEqual(item.Enabled, 1);
                     Assert.AreEqual(item.EveryXCustom, null);
 
-                    DLReminders.DeleteReminder(item);
+                    BLReminder.DeleteReminder(item);
                 }
             }
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount);
 
         }
 
@@ -497,22 +508,22 @@ namespace RemindMeUnitTests
             
             mainForm.cbEveryXCustom.SelectedItem = mainForm.cbEveryXCustom.Items[2]; //"Days"
             mainForm.numEveryXDays.Value = 10;
-            //Every 10 days            
+            //Every 10 days
 
 
 
 
             mainForm.tbNote.Text = "some note";
-            int currentReminderCount = DLReminders.GetReminders().Count;
+            int currentReminderCount = BLReminder.GetReminders().Count;
 
             //Okay, everything is done!
             mainForm.btnConfirm_Click(null, null);
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
-            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, BLReminder.GetReminders().Count);
 
 
             //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
-            foreach (Reminder item in DLReminders.GetReminders())
+            foreach (Reminder item in BLReminder.GetReminders())
             {
                 if (item.Name == "some reminder" && item.Note == "some note")
                 {
@@ -525,11 +536,10 @@ namespace RemindMeUnitTests
                     Assert.AreEqual(item.Enabled, 1);
                     Assert.AreEqual(item.EveryXCustom, 10);
 
-                    DLReminders.DeleteReminder(item);
+                    BLReminder.DeleteReminder(item);
                 }
             }
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
-
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount);
         }
 
         [TestMethod]
@@ -545,16 +555,16 @@ namespace RemindMeUnitTests
           
 
             mainForm.tbNote.Text = "some note";
-            int currentReminderCount = DLReminders.GetReminders().Count;
+            int currentReminderCount = BLReminder.GetReminders().Count;
 
             //Okay, everything is done!
             mainForm.btnConfirm_Click(null, null);
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
-            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, BLReminder.GetReminders().Count);
 
 
             //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
-            foreach (Reminder item in DLReminders.GetReminders())
+            foreach (Reminder item in BLReminder.GetReminders())
             {
                 if (item.Name == "some reminder" && item.Note == "some note")
                 {
@@ -567,10 +577,10 @@ namespace RemindMeUnitTests
                     Assert.AreEqual(item.Enabled, 1);
                     Assert.AreEqual(item.EveryXCustom, null);
 
-                    DLReminders.DeleteReminder(item);
+                    BLReminder.DeleteReminder(item);
                 }
             }
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount);
 
         }
 
@@ -583,25 +593,157 @@ namespace RemindMeUnitTests
             mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
             mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
             mainForm.rbMultipleDays.Checked = true;
+
             mainForm.cbMonday.Checked = true;
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Monday).ToShortDateString());
+            mainForm.cbMonday.Checked = false;
+            mainForm.cbTuesday.Checked = true;
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Tuesday).ToShortDateString());
+            mainForm.cbTuesday.Checked = false;            
             mainForm.cbWednesday.Checked = true;
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+            mainForm.cbWednesday.Checked = false;
+            mainForm.cbThursday.Checked = true;
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+            mainForm.cbThursday.Checked = false;
             mainForm.cbFriday.Checked = true;
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Friday).ToShortDateString());
+            mainForm.cbFriday.Checked = false;
+            mainForm.cbSaturday.Checked = true;
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+            mainForm.cbSaturday.Checked = false;
+            mainForm.cbSunday.Checked = true;
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString());
+            mainForm.cbSunday.Checked = false;
+
+            switch(DateTime.Now.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    mainForm.cbSaturday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+                    mainForm.cbThursday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    //saturday and thursday are checked, date should be Thursday
+                    mainForm.cbSunday.Checked = true;
+                    //first date is still Thursday
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    mainForm.cbThursday.Checked = false;
+                    //now, saturday should be the next first one
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+                    break;
+
+
+                case DayOfWeek.Tuesday:
+                    mainForm.cbWednesday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    mainForm.cbThursday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    //saturday and thursday are checked, date should be Thursday
+                    mainForm.cbSunday.Checked = true;
+                    //first date is still Wednesday
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    mainForm.cbWednesday.Checked = false;
+                    //now, saturday should be the next first one
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    break;
+
+                case DayOfWeek.Wednesday:
+                    mainForm.cbWednesday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    mainForm.cbThursday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    //saturday and thursday are checked, date should be Thursday
+                    mainForm.cbSunday.Checked = true;
+                    //first date is still Wednesday
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    mainForm.cbWednesday.Checked = false;
+                    //now, saturday should be the next first one
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    break;
+
+                case DayOfWeek.Thursday:
+                    mainForm.cbWednesday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    mainForm.cbThursday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    //saturday and thursday are checked, date should be Thursday
+                    mainForm.cbSunday.Checked = true;
+                    //first date is still Wednesday
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    mainForm.cbThursday.Checked = false;
+                    //now, saturday should be the next first one
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString());
+                    break;
+
+
+                case DayOfWeek.Friday:                    
+                    mainForm.cbSaturday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+                    mainForm.cbThursday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+                    //saturday and thursday are checked, date should still be saturday
+                    mainForm.cbSunday.Checked = true;
+                    //first date is still saturday
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+                    mainForm.cbSaturday.Checked = false;
+                    //now, sunday should be the next first one
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString());
+                    break;
+
+                case DayOfWeek.Saturday:
+                    mainForm.cbSaturday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+                    mainForm.cbThursday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    //saturday and thursday are checked, date should still be saturday
+                    mainForm.cbSunday.Checked = true;
+                    //first date is now sunday
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString());
+                    mainForm.cbSunday.Checked = false;
+                    //now, sunday should be the next first one
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    break;
+
+                case DayOfWeek.Sunday:
+                    mainForm.cbSaturday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString());
+                    mainForm.cbThursday.Checked = true;
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    //saturday and thursday are checked, date should still be saturday
+                    mainForm.cbSunday.Checked = true;
+                    //first date is now sunday
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    mainForm.cbSunday.Checked = false;
+                    mainForm.cbWednesday.Checked = true;
+                    //now, sunday should be the next first one
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
+                    break;
+
+
+            }
+
+            mainForm.cbMonday.Checked = true;
+            mainForm.cbTuesday.Checked = false;
+            mainForm.cbWednesday.Checked = true;
+            mainForm.cbThursday.Checked = false;
+            mainForm.cbFriday.Checked = true;
+            mainForm.cbSaturday.Checked = false;
             mainForm.cbSunday.Checked = true;
 
 
 
 
             mainForm.tbNote.Text = "some note";
-            int currentReminderCount = DLReminders.GetReminders().Count;
+            int currentReminderCount = BLReminder.GetReminders().Count;
 
             //Okay, everything is done!
             mainForm.btnConfirm_Click(null, null);
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
-            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, BLReminder.GetReminders().Count);
 
 
             //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
-            foreach (Reminder item in DLReminders.GetReminders())
+            foreach (Reminder item in BLReminder.GetReminders())
             {
                 if (item.Name == "some reminder" && item.Note == "some note")
                 {
@@ -614,10 +756,10 @@ namespace RemindMeUnitTests
                     Assert.AreEqual(item.Enabled, 1);
                     Assert.AreEqual(item.EveryXCustom, null);
 
-                    DLReminders.DeleteReminder(item);
+                    BLReminder.DeleteReminder(item);
                 }
             }
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount);
 
         }
 
@@ -636,16 +778,16 @@ namespace RemindMeUnitTests
 
 
             mainForm.tbNote.Text = "some note";
-            int currentReminderCount = DLReminders.GetReminders().Count;
+            int currentReminderCount = BLReminder.GetReminders().Count;
 
             //Okay, everything is done!
             mainForm.btnConfirm_Click(null, null);
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
-            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, BLReminder.GetReminders().Count);
 
 
             //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
-            foreach (Reminder item in DLReminders.GetReminders())
+            foreach (Reminder item in BLReminder.GetReminders())
             {
                 if (item.Name == "some reminder" && item.Note == "some note")
                 {
@@ -658,10 +800,10 @@ namespace RemindMeUnitTests
                     Assert.AreEqual(item.Enabled, 1);
                     Assert.AreEqual(item.EveryXCustom, null);
 
-                    DLReminders.DeleteReminder(item);
+                    BLReminder.DeleteReminder(item);
                 }
             }
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount);
 
         }
 
@@ -681,16 +823,16 @@ namespace RemindMeUnitTests
 
 
             mainForm.tbNote.Text = "some note";
-            int currentReminderCount = DLReminders.GetReminders().Count;
+            int currentReminderCount = BLReminder.GetReminders().Count;
 
             //Okay, everything is done!
             mainForm.btnConfirm_Click(null, null);
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount + 1);
-            Assert.AreEqual(mainForm.lvReminders.Items.Count, DLReminders.GetReminders().Count);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount + 1);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, BLReminder.GetReminders().Count);
 
 
             //now let's remove it from the database so it doesnt get added each time the test runs. because of the way we inserted the reminder, we don't have its id.
-            foreach (Reminder item in DLReminders.GetReminders())
+            foreach (Reminder item in BLReminder.GetReminders())
             {
                 if (item.Name == "some reminder" && item.Note == "some note")
                 {
@@ -703,18 +845,18 @@ namespace RemindMeUnitTests
                     Assert.AreEqual(item.Enabled, 1);
                     Assert.AreEqual(item.EveryXCustom, null);
 
-                    DLReminders.DeleteReminder(item);
+                    BLReminder.DeleteReminder(item);
                 }
                     
             }
-            Assert.AreEqual(DLReminders.GetReminders().Count, currentReminderCount);
+            Assert.AreEqual(BLReminder.GetReminders().Count, currentReminderCount);
 
         }
 
         [TestMethod]
         public void RemoveTests()
         {            
-            DLSongs.RemoveSong(DLSongs.GetSongByFullPath(testSong.SongFilePath));
+            BLSongs.RemoveSong(BLSongs.GetSongByFullPath(testSong.SongFilePath));
         }        
     }
 }

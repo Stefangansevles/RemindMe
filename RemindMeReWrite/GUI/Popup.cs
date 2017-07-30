@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business_Logic_Layer;
+using Database;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,7 +41,7 @@ namespace RemindMe
 
         private void Popup_Load(object sender, EventArgs e)
         {
-            if (DLSettings.IsAlwaysOnTop())
+            if (BLSettings.IsAlwaysOnTop())
                 this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
             else
             {
@@ -88,12 +90,12 @@ namespace RemindMe
 
                     rem.PostponeDate = newReminderTime.ToString();
                     rem.Enabled = 1;
-                    DLReminders.EditReminder(rem);
+                    BLReminder.EditReminder(rem);
                 }
                 else
                 {
                     rem.PostponeDate = null;
-                    DLReminders.UpdateReminder(rem);
+                    BLReminder.UpdateReminder(rem);
                 }
 
 
@@ -108,7 +110,7 @@ namespace RemindMe
             if (rem.Id != -1)
             {
                 rem.PostponeDate = null;
-                DLReminders.UpdateReminder(rem);
+                BLReminder.UpdateReminder(rem);
                 RefreshMainFormListView();
             }
             this.Close();
@@ -135,7 +137,7 @@ namespace RemindMe
             if (rem.Id != -1)
             {
                 rem.PostponeDate = null;
-                DLReminders.UpdateReminder(rem);
+                BLReminder.UpdateReminder(rem);
                 RefreshMainFormListView();
             }
         }

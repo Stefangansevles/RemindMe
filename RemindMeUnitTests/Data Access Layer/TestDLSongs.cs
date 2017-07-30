@@ -3,13 +3,15 @@ using System;
 using RemindMe;
 using System.IO;
 using System.Collections.Generic;
+using Database;
+using Business_Logic_Layer;
 
 namespace RemindMeUnitTests
 {
     [TestClass]
-    public class TestDLSongs
+    public class TestBLSongs
     {
-        public TestDLSongs()
+        public TestBLSongs()
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", RemindMe.Variables.IOVariables.databaseFile);
             BLIO.CreateDatabaseIfNotExist();
@@ -17,15 +19,15 @@ namespace RemindMeUnitTests
         [TestMethod]
         public void TestGetSongs()
         {
-            Assert.IsNotNull(DLSongs.GetSongs());
+            Assert.IsNotNull(BLSongs.GetSongs());
         }
         [TestMethod]
         public void TestGetSongById()
         {
-            if (DLSongs.GetSongs().Count > 0)
-                Assert.IsNotNull(DLSongs.GetSongById(DLSongs.GetSongs()[0].Id));
+            if (BLSongs.GetSongs().Count > 0)
+                Assert.IsNotNull(BLSongs.GetSongById(BLSongs.GetSongs()[0].Id));
 
-            Assert.IsNull(DLSongs.GetSongById(-1));
+            Assert.IsNull(BLSongs.GetSongById(-1));
         }
         [TestMethod]
         public void TestInsertDeleteSong()
@@ -42,36 +44,36 @@ namespace RemindMeUnitTests
             songs.Add(song);
             songs.Add(song2);
 
-            int songsCountBeforeInsert = DLSongs.GetSongs().Count;
-            DLSongs.InsertSongs(songs);
-            Assert.AreEqual(songsCountBeforeInsert + songs.Count, DLSongs.GetSongs().Count);
+            int songsCountBeforeInsert = BLSongs.GetSongs().Count;
+            BLSongs.InsertSongs(songs);
+            Assert.AreEqual(songsCountBeforeInsert + songs.Count, BLSongs.GetSongs().Count);
 
-            Assert.IsTrue(DLSongs.SongExistsInDatabase(song.SongFilePath));
-            Assert.IsTrue(DLSongs.SongExistsInDatabase(song2.SongFilePath));
+            Assert.IsTrue(BLSongs.SongExistsInDatabase(song.SongFilePath));
+            Assert.IsTrue(BLSongs.SongExistsInDatabase(song2.SongFilePath));
 
-            Assert.IsNotNull(DLSongs.GetSongByFullPath(song.SongFilePath));
-            Assert.IsNotNull(DLSongs.GetSongByFullPath(song2.SongFilePath));
+            Assert.IsNotNull(BLSongs.GetSongByFullPath(song.SongFilePath));
+            Assert.IsNotNull(BLSongs.GetSongByFullPath(song2.SongFilePath));
 
             
 
-            DLSongs.RemoveSongs(songs);
-            Assert.AreEqual(songsCountBeforeInsert, DLSongs.GetSongs().Count);
-            Assert.IsNull(DLSongs.GetSongByFullPath(song.SongFilePath));
-            Assert.IsNull(DLSongs.GetSongByFullPath(song2.SongFilePath));
+            BLSongs.RemoveSongs(songs);
+            Assert.AreEqual(songsCountBeforeInsert, BLSongs.GetSongs().Count);
+            Assert.IsNull(BLSongs.GetSongByFullPath(song.SongFilePath));
+            Assert.IsNull(BLSongs.GetSongByFullPath(song2.SongFilePath));
 
             //now to test the single methods removesong and insertsong instead of removesongS and insertsongS
-            DLSongs.InsertSong(song);
+            BLSongs.InsertSong(song);
 
-            Assert.AreEqual(songsCountBeforeInsert + 1, DLSongs.GetSongs().Count);
-            Assert.IsTrue(DLSongs.SongExistsInDatabase(song.SongFilePath));
+            Assert.AreEqual(songsCountBeforeInsert + 1, BLSongs.GetSongs().Count);
+            Assert.IsTrue(BLSongs.SongExistsInDatabase(song.SongFilePath));
 
-            Assert.IsNotNull(DLSongs.GetSongByFullPath(song.SongFilePath));
-            Assert.IsNotNull(DLSongs.GetSongById(DLSongs.GetSongByFullPath(song.SongFilePath).Id));
+            Assert.IsNotNull(BLSongs.GetSongByFullPath(song.SongFilePath));
+            Assert.IsNotNull(BLSongs.GetSongById(BLSongs.GetSongByFullPath(song.SongFilePath).Id));
 
-            DLSongs.RemoveSong(song);
+            BLSongs.RemoveSong(song);
 
-            Assert.IsNull(DLSongs.GetSongByFullPath(song.SongFilePath));
-            Assert.AreEqual(songsCountBeforeInsert, DLSongs.GetSongs().Count);
+            Assert.IsNull(BLSongs.GetSongByFullPath(song.SongFilePath));
+            Assert.AreEqual(songsCountBeforeInsert, BLSongs.GetSongs().Count);
         }
     }
 }

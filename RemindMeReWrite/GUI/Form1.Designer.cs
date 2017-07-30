@@ -94,7 +94,6 @@
             this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tmrUpdateListview = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -387,7 +386,7 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.White;
-            this.lblVersion.Location = new System.Drawing.Point(295, 435);
+            this.lblVersion.Location = new System.Drawing.Point(283, 435);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(135, 16);
             this.lblVersion.TabIndex = 67;
@@ -955,10 +954,9 @@
             // 
             this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsExit,
-            this.showRemindMeToolStripMenuItem,
-            this.tsSettings});
+            this.showRemindMeToolStripMenuItem});
             this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(165, 70);
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(165, 48);
             this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
             // 
             // tsExit
@@ -976,15 +974,6 @@
             this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
             this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
-            // 
-            // tsSettings
-            // 
-            this.tsSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tsSettings.Image = ((System.Drawing.Image)(resources.GetObject("tsSettings.Image")));
-            this.tsSettings.Name = "tsSettings";
-            this.tsSettings.Size = new System.Drawing.Size(164, 22);
-            this.tsSettings.Text = "Settings";
-            this.tsSettings.Click += new System.EventHandler(this.tsSettings_Click);
             // 
             // textBox1
             // 
@@ -1294,7 +1283,6 @@
         private System.Windows.Forms.PictureBox pbMinimizeApplication;
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ToolStripMenuItem tsSettings;
         private System.Windows.Forms.Timer tmrUpdateListview;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolTip toolTip1;

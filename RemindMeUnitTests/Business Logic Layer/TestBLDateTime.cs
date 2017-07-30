@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using RemindMe;
+using Database;
+using Business_Logic_Layer;
 
 namespace RemindMeUnitTests
 {

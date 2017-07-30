@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
+using Database;
+using Business_Logic_Layer;
 
 namespace RemindMe
 {
@@ -106,7 +108,7 @@ namespace RemindMe
             
 
             //Add all reminders to the listview
-            BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
+            AddRemindersToListview(lvReminders, BLReminder.GetReminders());
 
             this.BackgroundImage = Properties.Resources.gray;
             pictureBox4.BringToFront();
@@ -140,16 +142,188 @@ namespace RemindMe
             btnPlaySound.BackgroundImage = imgPlayResume;
 
             //Create an shortcut in the windows startup folder if it doesn't already exist
-            if(!File.Exists(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk"))            
-                BLIO.CreateShortcut();
+            if (!File.Exists(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk"))
+                FSManager.Shortcuts.CreateShortcut(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk", "RemindMe.lnk", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
 
-            BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
+            FillSoundComboboxFromDatabase(cbSound);
 
 
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             string version = fvi.FileVersion;
             lblVersion.Text = "RemindMe - Version " + version;
+        }
+
+        /// <summary>
+        /// Resets all the controls to their original state.
+        /// </summary>
+        private void ResetControlValues(Panel pnl)
+        {
+            RadioButton rb;
+            foreach (Control c in pnl.Controls)
+            {
+                if (c is TextBox)
+                {
+                    c.Text = "";
+                    c.BackColor = Color.DimGray;
+                }
+
+                if (c is RadioButton)
+                {
+                    rb = (RadioButton)c;
+
+
+                    if (rb.Name == "rbNoRepeat")
+                        rb.Checked = true; //The default radio button should be rbNoRepeat
+                    else
+                        rb.Checked = false;
+                }
+                if (c is CheckBox)
+                {
+                    if (c.Name != "cbStickyForm")//we dont want to reset the sticky form checkbox
+                    {
+                        CheckBox check = (CheckBox)c;
+                        check.Checked = false;
+                    }
+                }
+                if (c is DateTimePicker)
+                {
+                    DateTimePicker pick = (DateTimePicker)c;
+                    pick.Enabled = true;
+                    pick.Value = DateTime.Today.AddMinutes(1);
+                }
+                if (c is ComboBox)
+                {
+                    if (c.Name != "cbEveryXCustom")
+                    {
+                        ComboBox cb = (ComboBox)c;
+                        cb.Items.Clear();
+                    }
+                }
+                if (c is PictureBox && c.Name != "pbEdit")
+                    c.Visible = false;
+            }
+        }
+        /// <summary>
+        /// Adds an reminder to the listview, showing the details of that reminder.
+        /// </summary>
+        /// <param name="lv">The listview</param>
+        /// <param name="rem">The reminder</param>
+        private void AddReminderToListview(ListView lv, Reminder rem)
+        {
+
+            ListViewItem itm = new ListViewItem(rem.Name);
+            itm.Tag = rem.Id; //Add the id as a tag(invisible)
+
+            if (rem.PostponeDate == null)
+            {
+                if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortDateString()))
+                    itm.SubItems.Add(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
+                else
+                    itm.SubItems.Add(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortDateString());
+            }
+            else
+            {
+                if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.PostponeDate).ToShortDateString()))
+                    itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortTimeString() + " (p)");
+                else
+                    itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " (p)");
+            }
+
+            if (rem.EveryXCustom == null)
+            {
+
+                if (rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
+                {
+                    string cutOffString = "";
+                    foreach (string day in rem.RepeatDays.Split(','))
+                        cutOffString += day.Substring(0, 3) + ",";
+
+                    cutOffString = cutOffString.Remove(cutOffString.Length - 1, 1); //remove the final ','
+                    itm.SubItems.Add(cutOffString); //Add all the repeating days to the listview column. example: mon,tue,sat
+                }
+                else if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
+                {
+                    string multipleDays = "";
+                    foreach (string date in rem.Date.Split(','))
+                        multipleDays += Convert.ToDateTime(date).Day.ToString() + ",";
+
+                    multipleDays = multipleDays.Remove(multipleDays.Length - 1, 1);
+                    itm.SubItems.Add(multipleDays);
+                }
+                else
+                    itm.SubItems.Add(rem.RepeatType.ToString().ToLower());
+            }
+            else
+                itm.SubItems.Add("every " + rem.EveryXCustom + " " + rem.RepeatType);
+
+            if (rem.Enabled == 1)
+                itm.SubItems.Add("True");
+            else
+                itm.SubItems.Add("False");
+
+            lv.Items.Add(itm);
+        }
+        /// <summary>
+        /// Adds multiple reminders to the listview
+        /// </summary>
+        /// <param name="lv">The listview</param>
+        /// <param name="rem">The list of reminders</param>
+        private void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
+        {
+            List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
+            foreach (Reminder rem in list)
+                AddReminderToListview(lv, rem);
+        }
+
+        private void RefreshListview(ListView lv)
+        {
+            lv.Items.Clear();
+            AddRemindersToListview(lv, BLReminder.GetReminders());
+        }
+
+        /// <summary>
+        /// Gets all the sounds from the database and fills the combobox with them.
+        /// </summary>
+        /// <param name="cbSound"></param>
+        private void FillSoundComboboxFromDatabase(ComboBox cbSound)
+        {
+            //Fill the list with all the sounds from the settings.ini file
+            List<Songs> sounds = BLSongs.GetSongs();
+
+            cbSound.Items.Clear();
+            ComboBoxItemManager.ClearComboboxItems();
+
+            if (sounds != null)
+                foreach (Songs item in sounds)
+                    if (item.SongFileName != "")
+                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
+
+
+            cbSound.Items.Remove(" Add files...");
+            cbSound.Items.Add(" Add files...");
+            cbSound.Sorted = true;
+        }
+
+        /// <summary>
+        /// Creates a new instance of popup
+        /// </summary>
+        private void MakePopup(Reminder rem)
+        {
+            Popup p = new Popup(rem);
+            p.Show();
+
+            //BLIO.readSettings();
+            if (rem.SoundFilePath != null && rem.SoundFilePath != "")
+            {
+                if (System.IO.File.Exists(rem.SoundFilePath))
+                {
+                    myPlayer.URL = rem.SoundFilePath;
+                    myPlayer.controls.play();
+                }
+                else
+                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION);
+            }
         }
 
         /// <summary>
@@ -213,8 +387,8 @@ namespace RemindMe
             List<Reminder> selectedReminders = new List<Reminder>();
 
             foreach(ListViewItem item in lvReminders.SelectedItems)            
-                selectedReminders.Add(DLReminders.GetReminderById((long)item.Tag));
-
+                selectedReminders.Add(BLReminder.GetReminderById((long)item.Tag));
+            
             return selectedReminders;
             
         }
@@ -226,19 +400,20 @@ namespace RemindMe
         {//public for unit testing
             if (lvReminders.SelectedItems.Count < 2)
             {
+                
                 pnlDayCheckBoxes.Visible = false;
                 ShowPanel(pnlNewReminder);
                 pbEdit.BackgroundImage = Properties.Resources.Edit;
                 if (rem != null)
                 {                    
-                    BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
+                    FillSoundComboboxFromDatabase(cbSound);
                     tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
                     tbReminderName.Text = rem.Name;
 
                     if (rem.SoundFilePath != null)
                     {
                         string song = Path.GetFileNameWithoutExtension(rem.SoundFilePath);
-                        ComboBoxItem reminderItem = ComboBoxItemManager.GetComboBoxItem(song, DLSongs.GetSongByFullPath(rem.SoundFilePath));
+                        ComboBoxItem reminderItem = ComboBoxItemManager.GetComboBoxItem(song, BLSongs.GetSongByFullPath(rem.SoundFilePath));
 
                         if (reminderItem != null)
                             cbSound.SelectedItem = reminderItem;
@@ -393,8 +568,8 @@ namespace RemindMe
             cbSound.SelectedItem = null;
             pnlDayCheckBoxes.Visible = false;
             //Reset the controls to their default values, empty text boxes etc
-            BLFormLogic.ResetControlValues(pnlNewReminder);
-            BLFormLogic.ResetControlValues(pnlDayCheckBoxes);
+            ResetControlValues(pnlNewReminder);
+            ResetControlValues(pnlDayCheckBoxes);
 
             rbNoRepeat.Checked = true;
             cbEvery_VisibleChanged(null,null);
@@ -406,7 +581,7 @@ namespace RemindMe
             dtpTime.Value = Convert.ToDateTime(DateTime.Now.ToString("HH:mm")).AddMinutes(1); //Add 1 minute so the exclamination won't show
             
 
-            BLFormLogic.FillSoundComboboxFromDatabase(cbSound);
+            FillSoundComboboxFromDatabase(cbSound);
         }
 
         private void cbDaysCheckedChangeEvent(object sender, EventArgs e)
@@ -417,7 +592,7 @@ namespace RemindMe
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
             editableReminder = null;            
-            if (!DLSettings.IsStickyForm())
+            if (!BLSettings.IsStickyForm())
             {
                 ResetReminderForm();
                 cbStickyForm.Checked = false;
@@ -464,12 +639,12 @@ namespace RemindMe
                 List<Reminder> toRemoveReminders = new List<Reminder>();
                 foreach (ListViewItem item in lvReminders.SelectedItems)
                 {
-                    toRemoveReminders.Add(DLReminders.GetReminderById(Convert.ToInt32(item.Tag)));
+                    toRemoveReminders.Add(BLReminder.GetReminderById(Convert.ToInt32(item.Tag)));
                     lvReminders.Items.Remove(item);//Remove it from the listview                    
                 }
-                
+
                 //If the user selected multiple reminders, you don't open the database, remove the reminder, and close the database for every selected reminder this way
-                DLReminders.DeleteReminders(toRemoveReminders);                
+                BLReminder.DeleteReminders(toRemoveReminders);                
             }                        
         }
 
@@ -485,7 +660,7 @@ namespace RemindMe
                 
 
             //We will check for reminders here every 30 seconds.
-            foreach (Reminder rem in DLReminders.GetReminders())
+            foreach (Reminder rem in BLReminder.GetReminders())
             {
                 //Create the popup. Do the other stuff afterwards.
                 if(rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1)
@@ -494,9 +669,9 @@ namespace RemindMe
 
                     //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
                     rem.Enabled = 0;
-                    DLReminders.EditReminder(rem);
+                    BLReminder.EditReminder(rem);
 
-                    BLFormLogic.MakePopup(rem);
+                    MakePopup(rem);
                 }
                 else if(Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1)
                 {
@@ -504,16 +679,16 @@ namespace RemindMe
 
                     //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
                     rem.Enabled = 0;
-                    DLReminders.EditReminder(rem);
+                    BLReminder.EditReminder(rem);
 
-                    BLFormLogic.MakePopup(rem);
+                    MakePopup(rem);
                 }
                                                                     
             }             
             //Refresh the listview. Using the boolean refreshListview, we dont refresh the listview every tick of the timer, that would be very unnecessary
             if (allowRefreshListview)
             {                
-                BLFormLogic.RefreshListview(lvReminders);
+                RefreshListview(lvReminders);
                 
                 //set it to false again, otherwise it will continue to refresh every tick
                 allowRefreshListview = false;                
@@ -533,7 +708,7 @@ namespace RemindMe
                     //Fill selectedFiles with the selected files AND the current files, 
                     //and check if it is not already in the list
 
-                    List<string> selectedFiles = FSManager.Files.getSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
 
                     if (selectedFiles.Count == 1 && selectedFiles[0] == "")
                         return;                  
@@ -549,17 +724,17 @@ namespace RemindMe
                             toInsertSongs.Add(song);
                         }
                     }
-                    DLSongs.InsertSongs(toInsertSongs);
+                    BLSongs.InsertSongs(toInsertSongs);
 
                     foreach (Songs item in toInsertSongs) //already inserted, but iterating through them to add to the combobox
                         if (item.SongFileName != "")
-                            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), DLSongs.GetSongByFullPath(item.SongFilePath)));
+                            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), BLSongs.GetSongByFullPath(item.SongFilePath)));
 
 
 
-                    /*foreach (Songs item in DLSongs.GetSongs())
+                    /*foreach (Songs item in BLSongs.GetSongs())
                         if (item.SongFileName != "")
-                            cbSound.Items.Add(new ComboBoxItem(item.SongFileName, DLSongs.GetSongByFullPath(item.SongFilePath)));*/
+                            cbSound.Items.Add(new ComboBoxItem(item.SongFileName, BLSongs.GetSongByFullPath(item.SongFilePath)));*/
 
                     //Make sure that Add files... is in the combobox
                     cbSound.Items.Remove(" Add files...");
@@ -671,7 +846,7 @@ namespace RemindMe
                     if (repeat == ReminderRepeatType.MONTHLY)
                     {
                         if (cbMonthlyDays.Items.Count > 0)                        
-                            DLReminders.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);                        
+                            BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);                        
                         else
                         {
                             MakeScrollingPopupMessage("Can not create an reminder with monthly day(s) if there are no days selected!");
@@ -682,11 +857,11 @@ namespace RemindMe
                     }
 
                     else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
-                        DLReminders.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(),  null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        BLReminder.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(),  null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.CUSTOM)
-                        DLReminders.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        BLReminder.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else
-                        DLReminders.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(),  null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        BLReminder.InsertReminder(tbReminderName.Text,  Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(),  null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                                         
                     
                 }
@@ -711,14 +886,13 @@ namespace RemindMe
                         editableReminder.EveryXCustom = Convert.ToInt32(numEveryXDays.Value);
 
 
-                    DLReminders.EditReminder(editableReminder);                    
+                    BLReminder.EditReminder(editableReminder);                    
                 }
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again
                 lvReminders.Items.Clear();                
-                BLFormLogic.AddRemindersToListview(lvReminders, DLReminders.GetReminders());
-                ShowPanel(pnlMain);
-
+                AddRemindersToListview(lvReminders, BLReminder.GetReminders());
+                ShowPanel(pnlMain);                
             }
             else
             {
@@ -794,7 +968,7 @@ namespace RemindMe
             {
                 ListViewItem item = lvReminders.SelectedItems[0];                
                 int id = Convert.ToInt32(item.Tag);
-                editableReminder = DLReminders.GetReminderById(id);                            
+                editableReminder = BLReminder.GetReminderById(id);                            
                 cbSound.Text = "";                
                 FillControlsForEdit(editableReminder);
             }
@@ -811,27 +985,19 @@ namespace RemindMe
                     else
                         itm.SubItems[3].Text = "True";
 
-                    Reminder rem = DLReminders.GetReminderById(Convert.ToInt32(itm.Tag));
+                    Reminder rem = BLReminder.GetReminderById(Convert.ToInt32(itm.Tag));
                     
                     if (bool.Parse(itm.SubItems[3].Text))
                         rem.Enabled = 1;
                     else
                         rem.Enabled = 0;
 
-                    DLReminders.EditReminder(rem);
+                    BLReminder.EditReminder(rem);
 
                 }                
             }
         }
-
-        
-
-
-        private void tsSettings_Click(object sender, EventArgs e)
-        {
-            pbSettings_Click(sender, e);
-        }
-
+                   
         private void tsExit_Click(object sender, EventArgs e)
         {
             this.Close();            
@@ -897,7 +1063,7 @@ namespace RemindMe
                             if (song != null)
                             {
                                 //Remove the song from the SQLite Database
-                                DLSongs.RemoveSong(DLSongs.GetSongByFullPath(song.SongFilePath));
+                                BLSongs.RemoveSong(BLSongs.GetSongByFullPath(song.SongFilePath));
 
                                 //Remove the song from the combobox
                                 cbSound.Items.Remove(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
@@ -1012,7 +1178,7 @@ namespace RemindMe
         private void cbStickyForm_CheckedChanged(object sender, EventArgs e)
         {
             //Get the settings from the database and put it in an object
-            Settings set = DLSettings.GetSettings();
+            Settings set = BLSettings.GetSettings();
 
 
             //Give a new value to the Stickyform property
@@ -1022,7 +1188,7 @@ namespace RemindMe
                 set.StickyForm = 0;
 
             //Push it to the database
-            DLSettings.UpdateSettings(set);
+            BLSettings.UpdateSettings(set);
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -1143,13 +1309,16 @@ namespace RemindMe
             foreach (DateTime date in selectedMonthlyDaysDateTime)
                 multipleDatesString += date.ToString() + ",";
 
-            return multipleDatesString.Remove(multipleDatesString.Length - 1, 1); //remove the last ","
+            if (multipleDatesString.Length > 0)
+                return multipleDatesString.Remove(multipleDatesString.Length - 1, 1); //remove the last ","
+            else
+                return "";
         }
         private void PreviewReminder(Reminder rem)
         {
             Reminder previewRem = rem;
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered
-            BLFormLogic.MakePopup(previewRem);
+            MakePopup(previewRem);
         }
 
         private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1239,6 +1408,12 @@ namespace RemindMe
         private void MakeScrollingPopupMessage(string message)
         {
             UCPopupMessage mes = new UCPopupMessage(message);
+            if(pnlPopup.Size == mes.Size && pnlPopup.Location.X == (this.Width - pnlPopup.Width) && pnlPopup.Location.Y < this.Height)
+            {//The popup is already visible / onscreen
+                mes.Dispose();
+                return;
+            }
+            pnlPopup.Controls.Clear();
             pnlPopup.Controls.Add(mes);
             pnlPopup.Size = mes.Size;
 
@@ -1256,6 +1431,8 @@ namespace RemindMe
             tmrAnimationScrollUp.Start();
         }
 
+        
+
         private async void tmrAnimationScrollUp_Tick(object sender, EventArgs e)
         {
             if (tmrAnimationScrollDown.Enabled)
@@ -1264,7 +1441,7 @@ namespace RemindMe
             pnlPopup.Location = new Point(pnlPopup.Location.X, pnlPopup.Location.Y - 1);
             pnlPopup.Visible = true;
 
-            if (pnlPopup.Location.Y == this.Height - pnlPopup.Height)
+            if (pnlPopup.Location.Y <= this.Height - pnlPopup.Height)
             {
                 tmrAnimationScrollUp.Stop();
 
@@ -1289,7 +1466,7 @@ namespace RemindMe
 
             pnlPopup.Location = new Point(pnlPopup.Location.X, pnlPopup.Location.Y + 1);            
 
-            if (pnlPopup.Location.Y == this.Height)
+            if (pnlPopup.Location.Y >= this.Height)
             {
                 tmrAnimationScrollDown.Stop();
                 pnlPopup.Visible = false;
@@ -1299,7 +1476,7 @@ namespace RemindMe
         }
 
         private void cbEvery_KeyUp(object sender, KeyEventArgs e)
-        {
+        {            
             if(e.KeyCode == Keys.Enter)
                 btnAddMonthlyDay_Click(sender, e);            
         }
