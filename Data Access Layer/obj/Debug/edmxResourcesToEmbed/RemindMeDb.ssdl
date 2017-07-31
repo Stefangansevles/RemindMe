@@ -10,7 +10,6 @@
     <Property Name="RepeatType" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="Note" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="Enabled" Type="integer" Nullable="false" />
-    <Property Name="DayOfMonth" Type="integer" />
     <Property Name="EveryXCustom" Type="integer" />
     <Property Name="RepeatDays" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />

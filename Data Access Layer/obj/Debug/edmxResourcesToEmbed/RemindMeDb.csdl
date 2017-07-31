@@ -10,7 +10,6 @@
     <Property Name="RepeatType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Enabled" Type="Int64" Nullable="false" />
-    <Property Name="DayOfMonth" Type="Int64" />
     <Property Name="EveryXCustom" Type="Int64" />
     <Property Name="RepeatDays" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
