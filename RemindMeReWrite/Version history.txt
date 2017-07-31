@@ -199,4 +199,9 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  The project RemindMeReWrite has to add the reference Database. Which, could make use of RemindMeDbEntities and edit the database like that.
  I've decided to do it like this since i think it's necessary for this project(which contains all the UI classes aswell) 
  to make use of the database classes Reminder,Settings and Songs.
+
+ V1.6.1
+ Fixed the issue where the User interface classes could access the database. Apparently you can split the entity framework model! 
+ I put the data classes (Reminder,Songs,Settings) from the model into Database.Entity.
+ When you add a reference to Database.Entity, you can use those classes, but not the database. I really like this solution :)
  

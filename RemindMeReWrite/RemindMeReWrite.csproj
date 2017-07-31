@@ -283,9 +283,9 @@
       <Name>Business Logic Layer</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{d5b91627-2d18-4977-8f71-3063df42bbf1}</Project>
-      <Name>Database</Name>
+    <ProjectReference Include="..\Database.Entity\Database.Entity.csproj">
+      <Project>{3dea148e-231d-4047-838e-c891af212a00}</Project>
+      <Name>Database.Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

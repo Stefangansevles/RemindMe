@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.SQLite;
 using System.Data.Entity;
 using System.IO;
-using Database;
+using Database.Entity;
 using RemindMe;
 
 namespace Data_Access_Layer
@@ -187,6 +187,7 @@ namespace Data_Access_Layer
         /// <param name="rem">The reminder you want added into the database</param>
         public static long PushReminderToDatabase(Reminder rem)
         {
+            
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 if (db.Reminder.Count() > 0)
@@ -199,6 +200,8 @@ namespace Data_Access_Layer
             }
             return rem.Id;
         }
+
+       
 
         /// <summary>
         /// Gets an reminder with the matching unique id.

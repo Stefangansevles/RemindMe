@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Database;
+using Database.Entity;
 
 namespace Data_Access_Layer
 {

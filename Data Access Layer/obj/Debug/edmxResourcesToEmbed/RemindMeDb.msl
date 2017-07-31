@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RemindMeDatabaseModelStoreContainer" CdmEntityContainer="RemindMeDbEntities">
+    <EntitySetMapping Name="Reminder">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
+        <MappingFragment StoreEntitySet="Reminder">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="RepeatType" ColumnName="RepeatType" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
+          <ScalarProperty Name="EveryXCustom" ColumnName="EveryXCustom" />
+          <ScalarProperty Name="RepeatDays" ColumnName="RepeatDays" />
+          <ScalarProperty Name="SoundFilePath" ColumnName="SoundFilePath" />
+          <ScalarProperty Name="PostponeDate" ColumnName="PostponeDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AlwaysOnTop" ColumnName="AlwaysOnTop" />
+          <ScalarProperty Name="StickyForm" ColumnName="StickyForm" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Songs">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.Songs">
+        <MappingFragment StoreEntitySet="Songs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SongFileName" ColumnName="SongFileName" />
+          <ScalarProperty Name="SongFilePath" ColumnName="SongFilePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

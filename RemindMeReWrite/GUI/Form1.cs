@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
-using Database;
+using Database.Entity;
 using Business_Logic_Layer;
 
 namespace RemindMe
@@ -48,7 +48,7 @@ namespace RemindMe
         Reminder editableReminder;
 
         public Form1()
-        {                        
+        {                                    
             InitializeComponent();
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
             BLIO.CreateSettings();
@@ -312,7 +312,7 @@ namespace RemindMe
         {
             Popup p = new Popup(rem);
             p.Show();
-
+           
             //BLIO.readSettings();
             if (rem.SoundFilePath != null && rem.SoundFilePath != "")
             {

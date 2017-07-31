@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data_Access_Layer;
-using Database;
+using Database.Entity;
 
 namespace Business_Logic_Layer
 {

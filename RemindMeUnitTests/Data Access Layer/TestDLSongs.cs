@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using Database;
 using Business_Logic_Layer;
+using Database.Entity;
 
 namespace RemindMeUnitTests
 {

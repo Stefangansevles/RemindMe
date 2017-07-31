@@ -98,9 +98,9 @@
       <Project>{84c1de31-81cb-43c5-9717-2d20f7c6b43e}</Project>
       <Name>Business Logic Layer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{d5b91627-2d18-4977-8f71-3063df42bbf1}</Project>
-      <Name>Database</Name>
+    <ProjectReference Include="..\Database.Entity\Database.Entity.csproj">
+      <Project>{3dea148e-231d-4047-838e-c891af212a00}</Project>
+      <Name>Database.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemindMeReWrite\RemindMeReWrite.csproj">
       <Project>{92a8e96f-7ed8-4657-bea8-9a5485bc3553}</Project>

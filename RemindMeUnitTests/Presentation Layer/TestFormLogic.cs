@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using Database;
 using Business_Logic_Layer;
+using Database.Entity;
 
 namespace RemindMeUnitTests
 {

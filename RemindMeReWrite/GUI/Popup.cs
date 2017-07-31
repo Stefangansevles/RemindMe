@@ -1,5 +1,5 @@
 ﻿using Business_Logic_Layer;
-using Database;
+using Database.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

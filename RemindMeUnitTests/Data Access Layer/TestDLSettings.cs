@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using RemindMe;
-using Database;
+using Database.Entity;
 using Business_Logic_Layer;
 
 namespace RemindMeUnitTests

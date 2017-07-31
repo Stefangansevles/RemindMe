@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using RemindMe;
-using Database;
+using Database.Entity;
 using Business_Logic_Layer;
 
 namespace RemindMeUnitTests

@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using FSManager;
-using Database;
+using Database.Entity;
 using Business_Logic_Layer;
 
 namespace RemindMe

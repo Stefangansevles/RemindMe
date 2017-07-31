@@ -38,7 +38,7 @@ namespace Business_Logic_Layer
         /// <param name="message">A short message i.e "Error while loading reminders"</param>
         /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
         public static void WriteError(Exception ex, string message, bool showErrorPopup)
-        {
+        {            
             using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {

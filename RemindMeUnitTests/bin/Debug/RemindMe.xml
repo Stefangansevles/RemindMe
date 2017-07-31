@@ -85,14 +85,14 @@
             Resets all the controls to their original state.
             </summary>
         </member>
-        <member name="M:RemindMe.Form1.AddReminderToListview(System.Windows.Forms.ListView,Database.Reminder)">
+        <member name="M:RemindMe.Form1.AddReminderToListview(System.Windows.Forms.ListView,Database.Entity.Reminder)">
             <summary>
             Adds an reminder to the listview, showing the details of that reminder.
             </summary>
             <param name="lv">The listview</param>
             <param name="rem">The reminder</param>
         </member>
-        <member name="M:RemindMe.Form1.AddRemindersToListview(System.Windows.Forms.ListView,System.Collections.Generic.List{Database.Reminder})">
+        <member name="M:RemindMe.Form1.AddRemindersToListview(System.Windows.Forms.ListView,System.Collections.Generic.List{Database.Entity.Reminder})">
             <summary>
             Adds multiple reminders to the listview
             </summary>
@@ -105,7 +105,7 @@
             </summary>
             <param name="cbSound"></param>
         </member>
-        <member name="M:RemindMe.Form1.MakePopup(Database.Reminder)">
+        <member name="M:RemindMe.Form1.MakePopup(Database.Entity.Reminder)">
             <summary>
             Creates a new instance of popup
             </summary>
@@ -125,7 +125,7 @@
             Hides the week/monthly combobox between the layout and resets the location of the textbox and the buttons below it
             </summary>
         </member>
-        <member name="M:RemindMe.Form1.FillControlsForEdit(Database.Reminder)">
+        <member name="M:RemindMe.Form1.FillControlsForEdit(Database.Entity.Reminder)">
             <summary>
             Fills the controls of creating a new reminder with the data from the reminder
             </summary>
