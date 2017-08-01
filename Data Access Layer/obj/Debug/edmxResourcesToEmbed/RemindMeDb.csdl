@@ -4,16 +4,16 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int64" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Date" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="RepeatType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Enabled" Type="Int64" Nullable="false" />
-    <Property Name="EveryXCustom" Type="Int64" />
-    <Property Name="RepeatDays" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-    <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="Int64" Nullable="false" ConcurrencyMode="None" />
+    <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" ConcurrencyMode="None" />
+    <Property Name="Date" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" ConcurrencyMode="None" />
+    <Property Name="RepeatType" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" ConcurrencyMode="None" />
+    <Property Name="Note" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" ConcurrencyMode="None" />
+    <Property Name="Enabled" Type="Int64" Nullable="false" ConcurrencyMode="None" />
+    <Property Name="EveryXCustom" Type="Int64" ConcurrencyMode="None" />
+    <Property Name="RepeatDays" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
+    <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
+    <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>

@@ -204,4 +204,11 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  Fixed the issue where the User interface classes could access the database. Apparently you can split the entity framework model! 
  I put the data classes (Reminder,Songs,Settings) from the model into Database.Entity.
  When you add a reference to Database.Entity, you can use those classes, but not the database. I really like this solution :)
+
+ V1.6.2
+ New feature! Normal reminders with only a date, that doesn't repeat(repeattype: None) can now contain multiple dates.
+ so, you can now make a reminder for for example: dentist appointment: 28-5-2017 AND 30-5-2017, if you for some reason have to go there twice.
+ If you wanted to do this before, you had to make 2 reminders with repeattype: None
+
+ Fixed an issue where editing an reminder resulted in empty date if the reminder was not of the weekly dates type.
  

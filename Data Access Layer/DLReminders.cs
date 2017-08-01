@@ -301,7 +301,7 @@ namespace Data_Access_Layer
         /// <param name="db"></param>
         private static void SaveAndCloseDataBase(RemindMeDbEntities db)
         {            
-            db.SaveChanges();
+            db.SaveChanges();            
             RefreshCacheList();
             db.Dispose();
         }

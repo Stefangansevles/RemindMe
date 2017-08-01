@@ -153,9 +153,14 @@
             Sets the value to the DateTimePicker "dtpDate" after the user adds days to the monthly reminder
             </summary>
         </member>
+        <member name="M:RemindMe.Form1.GetDatesStringFromMultipleDatesComboBox">
+            <summary>
+            Goes through all dates in the ComboBox cbMultipleDates and seperates them by a comma. Used for reminders with the repeat type None
+            </summary>
+        </member>
         <member name="M:RemindMe.Form1.GetDatesStringFromMonthlyDaysComboBox">
             <summary>
-            Goes through all the integer days in the combobox(1,3,25),makes dates from them and puts them into a string.
+            Goes through all the integer days in the combobox(1,3,25),makes dates from them and puts them into a string. Used for reminders with the repeat type monthly
             </summary>
             <returns></returns>
         </member>
@@ -164,6 +169,11 @@
             Creates an popup message from the bottom right corner that slowly moves up.
             </summary>
             <param name="message">The message the popup should contain</param>
+        </member>
+        <member name="M:RemindMe.Form1.HideScrollingPopupMessage">
+            <summary>
+            Removes the scrolling popup message from view and reset's its location
+            </summary>
         </member>
         <member name="F:RemindMe.Form1.components">
             <summary>

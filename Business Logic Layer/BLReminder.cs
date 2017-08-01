@@ -41,10 +41,7 @@ namespace Business_Logic_Layer
             {
                 //Enable the reminder again
                 rem.Enabled = 1;
-
-                if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
-                    DLReminders.DeleteReminder(rem);
-
+                
                 if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString()) //Add days to the reminder so that the next date will be a new workday      
                     rem.Date = BLDateTime.GetNextReminderWorkDay(rem).ToString();
 
@@ -114,10 +111,37 @@ namespace Business_Logic_Layer
                     }
 
                 }
+                if(rem.RepeatType == ReminderRepeatType.NONE.ToString())
+                {
+                    if (rem.Date.Split(',').Length > 1) //multiple dates seperated by comma's
+                    {
+                        string newDateString = "";//The new date1,date2,date3 string that we will assign to the reminder
 
-                //finally, Write the changes to the database  
-                if (rem.RepeatType != ReminderRepeatType.NONE.ToString())
-                    DLReminders.EditReminder(rem);
+                        string[] dateArray = rem.Date.Split(',');
+
+                        dateArray = dateArray.Where(s => Convert.ToDateTime(s) > DateTime.Now).ToArray(); //remove all elements from the array that already happened
+
+                        if (dateArray.Length == 0)
+                        {
+                            DLReminders.DeleteReminder(rem);
+                            return;
+                        }
+
+                        foreach (string date in dateArray)
+                            newDateString += date + ",";
+
+                        newDateString = newDateString.Remove(newDateString.Length - 1, 1); //remove the last ','
+
+                        rem.Date = newDateString;
+                    }
+                    else//it had one date, and that date caused this popup. Let's delete the reminder.
+                    {
+                        DLReminders.DeleteReminder(rem);
+                        return;
+                    }
+                }
+                //finally, Write the changes to the database                  
+                DLReminders.EditReminder(rem);
             }
             else
                 throw new ArgumentNullException("parameter rem in UpdateReminder is null.");

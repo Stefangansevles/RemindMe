@@ -118,6 +118,10 @@
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.tmrAnimationScrollUp = new System.Windows.Forms.Timer(this.components);
             this.tmrAnimationScrollDown = new System.Windows.Forms.Timer(this.components);
+            this.btnRemoveDate = new System.Windows.Forms.Button();
+            this.cbMultipleDates = new System.Windows.Forms.ComboBox();
+            this.btnAddDate = new System.Windows.Forms.Button();
+            this.lblAddedDates = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -280,6 +284,10 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNewReminder.Controls.Add(this.lblAddedDates);
+            this.pnlNewReminder.Controls.Add(this.btnAddDate);
+            this.pnlNewReminder.Controls.Add(this.btnRemoveDate);
+            this.pnlNewReminder.Controls.Add(this.cbMultipleDates);
             this.pnlNewReminder.Controls.Add(this.pnlPopup);
             this.pnlNewReminder.Controls.Add(this.cbMonthlyDays);
             this.pnlNewReminder.Controls.Add(this.btnRemoveMonthlyDay);
@@ -341,7 +349,7 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.cbMonthlyDays.Location = new System.Drawing.Point(266, 270);
+            this.cbMonthlyDays.Location = new System.Drawing.Point(267, 276);
             this.cbMonthlyDays.Name = "cbMonthlyDays";
             this.cbMonthlyDays.Size = new System.Drawing.Size(76, 21);
             this.cbMonthlyDays.TabIndex = 80;
@@ -354,7 +362,7 @@
             this.btnRemoveMonthlyDay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRemoveMonthlyDay.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnRemoveMonthlyDay.ForeColor = System.Drawing.Color.Transparent;
-            this.btnRemoveMonthlyDay.Location = new System.Drawing.Point(227, 270);
+            this.btnRemoveMonthlyDay.Location = new System.Drawing.Point(228, 276);
             this.btnRemoveMonthlyDay.Name = "btnRemoveMonthlyDay";
             this.btnRemoveMonthlyDay.Size = new System.Drawing.Size(37, 20);
             this.btnRemoveMonthlyDay.TabIndex = 79;
@@ -370,7 +378,7 @@
             this.btnAddMonthlyDay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddMonthlyDay.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnAddMonthlyDay.ForeColor = System.Drawing.Color.Transparent;
-            this.btnAddMonthlyDay.Location = new System.Drawing.Point(188, 270);
+            this.btnAddMonthlyDay.Location = new System.Drawing.Point(189, 276);
             this.btnAddMonthlyDay.Name = "btnAddMonthlyDay";
             this.btnAddMonthlyDay.Size = new System.Drawing.Size(37, 20);
             this.btnAddMonthlyDay.TabIndex = 78;
@@ -402,7 +410,7 @@
             this.pnlDayCheckBoxes.Controls.Add(this.cbWednesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbTuesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
-            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(107, 270);
+            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(108, 276);
             this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
             this.pnlDayCheckBoxes.Size = new System.Drawing.Size(234, 65);
             this.pnlDayCheckBoxes.TabIndex = 77;
@@ -515,7 +523,7 @@
             this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnClear.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnClear.ForeColor = System.Drawing.Color.Transparent;
-            this.btnClear.Location = new System.Drawing.Point(263, 341);
+            this.btnClear.Location = new System.Drawing.Point(264, 347);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(77, 23);
             this.btnClear.TabIndex = 75;
@@ -535,7 +543,7 @@
             "Days",
             "Weeks",
             "Months"});
-            this.cbEveryXCustom.Location = new System.Drawing.Point(185, 270);
+            this.cbEveryXCustom.Location = new System.Drawing.Point(186, 276);
             this.cbEveryXCustom.Name = "cbEveryXCustom";
             this.cbEveryXCustom.Size = new System.Drawing.Size(156, 21);
             this.cbEveryXCustom.TabIndex = 74;
@@ -547,7 +555,7 @@
             this.numEveryXDays.BackColor = System.Drawing.Color.DimGray;
             this.numEveryXDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.numEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.numEveryXDays.Location = new System.Drawing.Point(109, 270);
+            this.numEveryXDays.Location = new System.Drawing.Point(110, 276);
             this.numEveryXDays.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -685,7 +693,7 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.cbEvery.Location = new System.Drawing.Point(109, 270);
+            this.cbEvery.Location = new System.Drawing.Point(110, 276);
             this.cbEvery.Name = "cbEvery";
             this.cbEvery.Size = new System.Drawing.Size(76, 21);
             this.cbEvery.TabIndex = 58;
@@ -700,7 +708,7 @@
             this.lblEvery.BackColor = System.Drawing.Color.Transparent;
             this.lblEvery.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblEvery.ForeColor = System.Drawing.Color.White;
-            this.lblEvery.Location = new System.Drawing.Point(42, 284);
+            this.lblEvery.Location = new System.Drawing.Point(43, 290);
             this.lblEvery.Name = "lblEvery";
             this.lblEvery.Size = new System.Drawing.Size(42, 15);
             this.lblEvery.TabIndex = 57;
@@ -714,7 +722,7 @@
             this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnConfirm.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnConfirm.ForeColor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Location = new System.Drawing.Point(107, 341);
+            this.btnConfirm.Location = new System.Drawing.Point(108, 347);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(89, 23);
             this.btnConfirm.TabIndex = 30;
@@ -731,18 +739,19 @@
             this.groupRepeatRadiobuttons.Controls.Add(this.rbMonthly);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbDaily);
             this.groupRepeatRadiobuttons.Controls.Add(this.radioButton2);
-            this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(107, 207);
+            this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(106, 211);
             this.groupRepeatRadiobuttons.Name = "groupRepeatRadiobuttons";
             this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(234, 59);
             this.groupRepeatRadiobuttons.TabIndex = 56;
             this.groupRepeatRadiobuttons.TabStop = false;
+            this.groupRepeatRadiobuttons.LocationChanged += new System.EventHandler(this.groupRepeatRadiobuttons_LocationChanged);
             // 
             // rbMultipleDays
             // 
             this.rbMultipleDays.AutoSize = true;
             this.rbMultipleDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbMultipleDays.ForeColor = System.Drawing.Color.White;
-            this.rbMultipleDays.Location = new System.Drawing.Point(159, 11);
+            this.rbMultipleDays.Location = new System.Drawing.Point(154, 11);
             this.rbMultipleDays.Name = "rbMultipleDays";
             this.rbMultipleDays.Size = new System.Drawing.Size(76, 18);
             this.rbMultipleDays.TabIndex = 64;
@@ -755,7 +764,7 @@
             this.rbEveryXCustom.AutoSize = true;
             this.rbEveryXCustom.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbEveryXCustom.ForeColor = System.Drawing.Color.White;
-            this.rbEveryXCustom.Location = new System.Drawing.Point(74, 30);
+            this.rbEveryXCustom.Location = new System.Drawing.Point(73, 30);
             this.rbEveryXCustom.Name = "rbEveryXCustom";
             this.rbEveryXCustom.Size = new System.Drawing.Size(63, 18);
             this.rbEveryXCustom.TabIndex = 63;
@@ -768,7 +777,7 @@
             this.rbWorkDays.AutoSize = true;
             this.rbWorkDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbWorkDays.ForeColor = System.Drawing.Color.White;
-            this.rbWorkDays.Location = new System.Drawing.Point(74, 11);
+            this.rbWorkDays.Location = new System.Drawing.Point(73, 11);
             this.rbWorkDays.Name = "rbWorkDays";
             this.rbWorkDays.Size = new System.Drawing.Size(78, 18);
             this.rbWorkDays.TabIndex = 62;
@@ -782,12 +791,12 @@
             this.rbNoRepeat.Checked = true;
             this.rbNoRepeat.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
             this.rbNoRepeat.ForeColor = System.Drawing.Color.White;
-            this.rbNoRepeat.Location = new System.Drawing.Point(159, 30);
+            this.rbNoRepeat.Location = new System.Drawing.Point(154, 30);
             this.rbNoRepeat.Name = "rbNoRepeat";
-            this.rbNoRepeat.Size = new System.Drawing.Size(50, 18);
+            this.rbNoRepeat.Size = new System.Drawing.Size(82, 18);
             this.rbNoRepeat.TabIndex = 61;
             this.rbNoRepeat.TabStop = true;
-            this.rbNoRepeat.Text = "Once";
+            this.rbNoRepeat.Text = "Set date(s)";
             this.rbNoRepeat.UseVisualStyleBackColor = true;
             this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);
             // 
@@ -833,7 +842,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(42, 218);
+            this.label3.Location = new System.Drawing.Point(42, 255);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 15);
             this.label3.TabIndex = 35;
@@ -889,7 +898,7 @@
             this.lblNote.BackColor = System.Drawing.Color.Transparent;
             this.lblNote.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblNote.ForeColor = System.Drawing.Color.White;
-            this.lblNote.Location = new System.Drawing.Point(41, 269);
+            this.lblNote.Location = new System.Drawing.Point(42, 275);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(38, 15);
             this.lblNote.TabIndex = 30;
@@ -900,7 +909,7 @@
             this.tbNote.BackColor = System.Drawing.Color.DimGray;
             this.tbNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tbNote.ForeColor = System.Drawing.Color.White;
-            this.tbNote.Location = new System.Drawing.Point(109, 269);
+            this.tbNote.Location = new System.Drawing.Point(110, 275);
             this.tbNote.Multiline = true;
             this.tbNote.Name = "tbNote";
             this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -915,7 +924,7 @@
             this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnBack.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnBack.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBack.Location = new System.Drawing.Point(196, 341);
+            this.btnBack.Location = new System.Drawing.Point(197, 347);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(67, 23);
             this.btnBack.TabIndex = 28;
@@ -1202,6 +1211,74 @@
             this.tmrAnimationScrollDown.Interval = 10;
             this.tmrAnimationScrollDown.Tick += new System.EventHandler(this.tmrAnimationScrollDown_Tick);
             // 
+            // btnRemoveDate
+            // 
+            this.btnRemoveDate.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemoveDate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRemoveDate.BackgroundImage")));
+            this.btnRemoveDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRemoveDate.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnRemoveDate.ForeColor = System.Drawing.Color.Transparent;
+            this.btnRemoveDate.Location = new System.Drawing.Point(303, 219);
+            this.btnRemoveDate.Name = "btnRemoveDate";
+            this.btnRemoveDate.Size = new System.Drawing.Size(37, 20);
+            this.btnRemoveDate.TabIndex = 83;
+            this.btnRemoveDate.Text = "-";
+            this.btnRemoveDate.UseVisualStyleBackColor = false;
+            this.btnRemoveDate.Visible = false;
+            this.btnRemoveDate.Click += new System.EventHandler(this.btnRemoveDate_Click);
+            // 
+            // cbMultipleDates
+            // 
+            this.cbMultipleDates.BackColor = System.Drawing.Color.DimGray;
+            this.cbMultipleDates.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.cbMultipleDates.ForeColor = System.Drawing.Color.White;
+            this.cbMultipleDates.FormattingEnabled = true;
+            this.cbMultipleDates.Items.AddRange(new object[] {
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Tuesday",
+            "Friday",
+            "Saturday",
+            "Sunday"});
+            this.cbMultipleDates.Location = new System.Drawing.Point(106, 219);
+            this.cbMultipleDates.Name = "cbMultipleDates";
+            this.cbMultipleDates.Size = new System.Drawing.Size(191, 21);
+            this.cbMultipleDates.TabIndex = 82;
+            this.cbMultipleDates.Visible = false;
+            this.cbMultipleDates.VisibleChanged += new System.EventHandler(this.cbMultipleDates_VisibleChanged);
+            // 
+            // btnAddDate
+            // 
+            this.btnAddDate.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddDate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddDate.BackgroundImage")));
+            this.btnAddDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddDate.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnAddDate.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddDate.Location = new System.Drawing.Point(303, 190);
+            this.btnAddDate.Name = "btnAddDate";
+            this.btnAddDate.Size = new System.Drawing.Size(37, 20);
+            this.btnAddDate.TabIndex = 84;
+            this.btnAddDate.Text = "+";
+            this.toolTip1.SetToolTip(this.btnAddDate, "Adds the selected date into a list of dates. \r\nThis reminder will then pop up at " +
+        "the selected dates.");
+            this.btnAddDate.UseVisualStyleBackColor = false;
+            this.btnAddDate.Visible = false;
+            this.btnAddDate.Click += new System.EventHandler(this.btnAddDate_Click);
+            // 
+            // lblAddedDates
+            // 
+            this.lblAddedDates.AutoSize = true;
+            this.lblAddedDates.BackColor = System.Drawing.Color.Transparent;
+            this.lblAddedDates.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblAddedDates.ForeColor = System.Drawing.Color.White;
+            this.lblAddedDates.Location = new System.Drawing.Point(42, 219);
+            this.lblAddedDates.Name = "lblAddedDates";
+            this.lblAddedDates.Size = new System.Drawing.Size(44, 15);
+            this.lblAddedDates.TabIndex = 85;
+            this.lblAddedDates.Text = "Dates:";
+            this.lblAddedDates.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1341,6 +1418,10 @@
         private System.Windows.Forms.Panel pnlPopup;
         private System.Windows.Forms.Timer tmrAnimationScrollUp;
         private System.Windows.Forms.Timer tmrAnimationScrollDown;
+        public System.Windows.Forms.Button btnRemoveDate;
+        public System.Windows.Forms.ComboBox cbMultipleDates;
+        public System.Windows.Forms.Button btnAddDate;
+        private System.Windows.Forms.Label lblAddedDates;
     }
 }
 
