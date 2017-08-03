@@ -113,6 +113,16 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap backup_black_192x192 {
+            get {
+                object obj = ResourceManager.GetObject("backup_black_192x192", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bbuttonEDIT2 {
             get {
                 object obj = ResourceManager.GetObject("bbuttonEDIT2", resourceCulture);
@@ -126,6 +136,16 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap bin {
             get {
                 object obj = ResourceManager.GetObject("bin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Black_Drive_Backup_icon {
+            get {
+                object obj = ResourceManager.GetObject("Black-Drive-Backup-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +176,16 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap Create_new {
             get {
                 object obj = ResourceManager.GetObject("Create_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dark_green_check_mark_hi {
+            get {
+                object obj = ResourceManager.GetObject("dark-green-check-mark-hi", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -256,6 +286,26 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap icon_pause_128 {
             get {
                 object obj = ResourceManager.GetObject("icon_pause_128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import {
+            get {
+                object obj = ResourceManager.GetObject("import", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_good {
+            get {
+                object obj = ResourceManager.GetObject("import_good", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -406,6 +456,36 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap stopBlack {
             get {
                 object obj = ResourceManager.GetObject("stopBlack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UAC_No {
+            get {
+                object obj = ResourceManager.GetObject("UAC_No", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UAC_Yes {
+            get {
+                object obj = ResourceManager.GetObject("UAC_Yes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UAC_Yes2 {
+            get {
+                object obj = ResourceManager.GetObject("UAC_Yes2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

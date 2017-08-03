@@ -44,6 +44,14 @@ namespace Data_Access_Layer
         }
 
         /// <summary>
+        /// Forces the local lish to be refreshed
+        /// </summary>
+        public static void NotifyChange()
+        {
+            RefreshCacheList();
+        }
+
+        /// <summary>
         /// Gives the localReminders list a new value after the database has changed.
         /// </summary>
         private static void RefreshCacheList()
@@ -51,7 +59,8 @@ namespace Data_Access_Layer
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {                
                 localReminders = (from g in db.Reminder select g).ToList();
-                db.Dispose();                
+                db.Dispose();      
+                          
             }
         }
 
@@ -79,6 +88,7 @@ namespace Data_Access_Layer
             tableSettings.ExecuteNonQuery();
             tableSongs.ExecuteNonQuery();
             conn.Close();
+            conn.Dispose();
 
         }    
         /// <summary>
@@ -98,7 +108,7 @@ namespace Data_Access_Layer
                 }
                 catch (SQLiteException ex)
                 {
-                    db.Dispose();
+                    db.Dispose();                    
                     //if (ex.Message.ToLower().Contains("no such column"))
                     //{
                         return false;
@@ -169,17 +179,6 @@ namespace Data_Access_Layer
             }
         }
 
-
-
-
-        
-
-
-        
-
-        
-
-        
 
         /// <summary>
         /// Inserts the reminder into the database.

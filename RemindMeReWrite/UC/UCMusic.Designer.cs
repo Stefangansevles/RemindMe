@@ -103,7 +103,7 @@
             this.Controls.Add(this.pbAddSounds);
             this.Controls.Add(this.lvSoundFiles);
             this.Name = "UCMusic";
-            this.Size = new System.Drawing.Size(484, 315);
+            this.Size = new System.Drawing.Size(462, 302);
             this.Load += new System.EventHandler(this.UCMusic_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbRemoveSounds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddSounds)).EndInit();

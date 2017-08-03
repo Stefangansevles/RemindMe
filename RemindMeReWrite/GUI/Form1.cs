@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WMPLib;
 using Database.Entity;
 using Business_Logic_Layer;
+using System.Runtime.InteropServices;
 
 namespace RemindMe
 {
@@ -20,6 +21,12 @@ namespace RemindMe
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CLIENT = 0x1;
         private const int HT_CAPTION = 0x2;
+        
+
+        [DllImport("user32")]
+        private static extern int RegisterWindowMessage(string message);
+
+        private static readonly int WM_RELOAD_REMINDERS = RegisterWindowMessage("WM_RELOAD_REMINDERS");
 
         //The stop playing preview sound icon
         Image imgStop;
@@ -43,21 +50,25 @@ namespace RemindMe
 
         UCWindows ucWindows;
         UCMusic ucMusic;
+        UCImportExport ucImportExport;
 
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;
 
+
+      
+       
         public Form1()
         {                                    
-            InitializeComponent();
+            InitializeComponent();                        
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
-
-            
+          
 
             ucWindows = new UCWindows();
-            ucMusic = new UCMusic();            
+            ucMusic = new UCMusic();
+            ucImportExport = new UCImportExport();
 
             dayOfStartRemindMe = DateTime.Now.Day;
 
@@ -73,17 +84,29 @@ namespace RemindMe
             cbThursday.CheckedChanged += cbDaysCheckedChangeEvent;
             cbFriday.CheckedChanged += cbDaysCheckedChangeEvent;
             cbSaturday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbSunday.CheckedChanged += cbDaysCheckedChangeEvent;
+            cbSunday.CheckedChanged += cbDaysCheckedChangeEvent;            
         }
 
+        
 
+        
+        
+        
         
         protected override void WndProc(ref Message m)
         {
             //Make RemindMe draggable from the top
              base.WndProc(ref m);
+            
             if (m.Msg == WM_NCHITTEST)
-                m.Result = (IntPtr)(HT_CAPTION);        
+                m.Result = (IntPtr)(HT_CAPTION);
+
+            //This message will be sent when the RemindMeImporter imports reminders.
+            if (m.Msg == WM_RELOAD_REMINDERS)
+            {                
+                BLReminder.NotifyChange();
+                RefreshListview(lvReminders);
+            }
         }
 
        
@@ -94,10 +117,10 @@ namespace RemindMe
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
             pnlSettings.Location = new Point(0, 22);
-            ShowPanel(pnlMain);
+            ShowPanel(pnlMain);            
+            ResetReminderForm();
 
             
-            ResetReminderForm();                     
 
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
@@ -143,9 +166,10 @@ namespace RemindMe
 
             btnPlaySound.BackgroundImage = imgPlayResume;
 
+            string path = Variables.IOVariables.startupFolderPath + "\\RemindMe" + ".lnk";
             //Create an shortcut in the windows startup folder if it doesn't already exist
-            if (!File.Exists(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk"))
-                FSManager.Shortcuts.CreateShortcut(Variables.IOVariables.startupFolderPath + "RemindMe" + ".lnk", "RemindMe.lnk", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
+            if (!File.Exists(Variables.IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
+                FSManager.Shortcuts.CreateShortcut(Variables.IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
 
             FillSoundComboboxFromDatabase(cbSound);
 
@@ -281,7 +305,7 @@ namespace RemindMe
 
         private void RefreshListview(ListView lv)
         {
-            lv.Items.Clear();
+            lv.Items.Clear();            
             AddRemindersToListview(lv, BLReminder.GetReminders());
         }
 
@@ -325,7 +349,11 @@ namespace RemindMe
                     myPlayer.controls.play();
                 }
                 else
-                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION);
+                {
+                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxIcon.INFORMATION);
+                    //make sure its removed from the reminder
+                    rem.SoundFilePath = "";
+                }
             }
         }
 
@@ -408,7 +436,7 @@ namespace RemindMe
                 ShowPanel(pnlNewReminder);
                 pbEdit.BackgroundImage = Properties.Resources.Edit;
                 if (rem != null)
-                {                    
+                {
                     FillSoundComboboxFromDatabase(cbSound);
                     tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
                     tbReminderName.Text = rem.Name;
@@ -421,16 +449,16 @@ namespace RemindMe
                         if (reminderItem != null)
                             cbSound.SelectedItem = reminderItem;
                     }
-                    
 
-                                 
+
+
 
                     switch (rem.RepeatType)
                     {
                         case "NONE":
                             rbNoRepeat.Checked = true;
                             cbMultipleDates.Items.Clear();
-                            foreach (string date in rem.Date.Split(','))                            
+                            foreach (string date in rem.Date.Split(','))
                                 cbMultipleDates.Items.Add(Convert.ToDateTime(date));
 
                             if (cbMultipleDates.Items.Count > 0)
@@ -447,25 +475,26 @@ namespace RemindMe
 
                             //Remove the items, then go through the date string, and get all the dates from each date. 25-7-2017 00:00:00,31-7-2017 00:00:00 will return 25,31
                             cbMonthlyDays.Items.Clear();
-                            foreach(string date in rem.Date.Split(','))                            
+                            foreach (string date in rem.Date.Split(','))
                                 cbMonthlyDays.Items.Add(Convert.ToDateTime(date).Day);
 
                             if (cbMonthlyDays.Items.Count > 0)
                                 cbMonthlyDays.SelectedItem = cbMonthlyDays.Items[0];
-                            
+
                             break;
                         case "WORKDAYS":
                             rbWorkDays.Checked = true;
                             break;
-                        case "MULTIPLE_DAYS": PlaceDayCheckBoxesPanel();
+                        case "MULTIPLE_DAYS":
+                            PlaceDayCheckBoxesPanel();
                             rbMultipleDays.Checked = true;
                             //get the RepeatDays string (monday,friday,saturday) and split them.
                             List<string> repeatDays = rem.RepeatDays.Split(',').ToList();
                             //check all the checkboxes from the split string. did it contain monday? check the checkbox "cbMonday", etc
                             CheckDayCheckBoxes(repeatDays);
-                            break;                   
+                            break;
                     }
-                    if(rem.EveryXCustom != null)
+                    if (rem.EveryXCustom != null)
                     {
                         rbEveryXCustom.Checked = true;
                         numEveryXDays.Value = (decimal)rem.EveryXCustom;
@@ -473,15 +502,20 @@ namespace RemindMe
                         //The repeating type will now be different, because the user selected a custom reminder. repeating types will now be minutes,hours,days,weeks or months
                         switch (rem.RepeatType.ToLower())
                         {
-                            case "minutes": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[0];
+                            case "minutes":
+                                cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[0];
                                 break;
-                            case "hours": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[1];
-                                break; 
-                            case "days": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2];
+                            case "hours":
+                                cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[1];
                                 break;
-                            case "weeks": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[3];
+                            case "days":
+                                cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2];
                                 break;
-                            case "months": cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[4];
+                            case "weeks":
+                                cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[3];
+                                break;
+                            case "months":
+                                cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[4];
                                 break;
                         }
                     }                    
@@ -489,9 +523,15 @@ namespace RemindMe
                     dtpDate.Value = Convert.ToDateTime(rem.Date.Split(',')[0]);
                     //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
                     pnlDayCheckBoxes_VisibleChanged(null, null);
+
+                    
                 }
                 else
-                    BLIO.WriteError(new ArgumentNullException(), "Error loading reminder", true);
+                {
+                    BLIO.WriteError(new ArgumentNullException(), "Error loading reminder");
+                    ErrorPopup pop = new ErrorPopup("Error loading reminder. Reminder is null", new ArgumentNullException());
+                    pop.Show();
+                }
             }
             else                                
                 RemindMeBox.Show("Please select one reminder to edit at a time", RemindMeBoxIcon.INFORMATION);
@@ -1120,7 +1160,7 @@ namespace RemindMe
                                 ComboBoxItemManager.RemoveComboboxItem(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
                                 
                                 
-                                RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION);                                
+                                RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION);
                             }
                         }
                     }
@@ -1411,18 +1451,26 @@ namespace RemindMe
 
         private void pbWindows_Click(object sender, EventArgs e)
         {
-            pnlUserControls.Controls.Clear();
-            pnlUserControls.Controls.Add(ucWindows);
+            AddUserControl(pnlUserControls, ucWindows);            
         }
 
         private void pbMusic_Click(object sender, EventArgs e)
         {
-            pnlUserControls.Controls.Clear();
-            pnlUserControls.Controls.Add(ucMusic);
+            AddUserControl(pnlUserControls,ucMusic);            
+        }
+        private void pbImportExport_Click(object sender, EventArgs e)
+        {
+            AddUserControl(pnlUserControls, ucImportExport);
+        }
+        private void AddUserControl(Panel pnl,UserControl uc)
+        {
+            pnl.Controls.Clear();
+            pnl.Controls.Add(uc);
         }
 
         private void btnBackFromSettings_Click(object sender, EventArgs e)
         {
+            RefreshListview(lvReminders);
             ShowPanel(pnlMain);
         }             
 
@@ -1640,5 +1688,7 @@ namespace RemindMe
                 cbMultipleDates.Text = "";
             }
         }
+        
+        
     }
 }

@@ -27,10 +27,14 @@ namespace Business_Logic_Layer
             b.FlatAppearance.BorderSize = 0;
         }
 
-       
         
 
-        
+
+
+
+
+
+
         /// <summary>
         /// Adds an reminder to the listview, showing the details of that reminder.
         /// </summary>

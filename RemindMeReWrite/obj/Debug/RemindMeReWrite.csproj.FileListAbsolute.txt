@@ -130,18 +130,23 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Business Lo
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Database.Entity.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FileAssociation.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Interop.IWshRuntimeLibrary.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\NamedPipeWrapper.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.EF6.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.Linq.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Data Access Layer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Microsoft.WindowsAPICodePack.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Business Logic Layer.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Database.Entity.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.xml
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.xml
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\NamedPipeWrapper.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
@@ -150,9 +155,12 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReW
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.CustomMessageForm.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.ErrorPopup.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Form1.resources
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.RemindMeImporter.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Popup.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Properties.Resources.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.SettingsForm.resources
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCImportedReminders.resources
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCImportExport.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCPopupMessage.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCMusic.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCWindows.resources

@@ -35,6 +35,8 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Da
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.Linq.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Data Access Layer.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\FSManager.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Business Logic Layer.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Database.Entity.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMe.pdb

@@ -92,7 +92,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbPopupType);
             this.Name = "UCWindows";
-            this.Size = new System.Drawing.Size(484, 315);
+            this.Size = new System.Drawing.Size(462, 302);
             this.Load += new System.EventHandler(this.UCWindows_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

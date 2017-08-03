@@ -20,13 +20,13 @@ namespace RemindMe.Variables
         /// Contains the path to the SQLite Database of RemindMe
         /// </summary>
         public static readonly string databaseFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
-        
+
         /// <summary>
         /// Contains the startup folder path. 
         /// </summary>
-        public static readonly string startupFolderPath = userProfile + @"\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\";
+        public static readonly string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
 
-        
+
         /// <summary>
         /// Contains the path to the error log file of RemindMe. This contains exceptions and when they occured.
         /// </summary>

@@ -192,6 +192,29 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:RemindMe.RemindMeImporter.#ctor(System.String)">
+            <summary>
+            The form that allows 
+            </summary>
+            <param name="reminderFile"></param>
+        </member>
+        <member name="F:RemindMe.RemindMeImporter.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RemindMe.RemindMeImporter.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RemindMe.RemindMeImporter.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
         <member name="F:RemindMe.Popup.components">
             <summary>
             Required designer variable.
@@ -250,7 +273,7 @@
             <param name="value">value of the comboboxitem</param>
             <returns>A comboboxitem with the given text and value. null if it doesnt exist</returns>
         </member>
-        <member name="M:RemindMe.Program.Main">
+        <member name="M:RemindMe.Program.Main(System.String[])">
             <summary>
             The main entry point for the application.
             </summary>
@@ -301,6 +324,40 @@
         <member name="F:RemindMe.RemindMeBoxIcon.NONE">
             <summary>
             The message box contain no symbols.
+            </summary>
+        </member>
+        <member name="F:RemindMe.UCImportedReminders.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RemindMe.UCImportedReminders.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RemindMe.UCImportedReminders.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:RemindMe.UCImportExport.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RemindMe.UCImportExport.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RemindMe.UCImportExport.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
             </summary>
         </member>
         <member name="T:RemindMe.UCPopupMessage">
@@ -425,12 +482,22 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.backup_black_192x192">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.bbuttonEDIT2">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.bin">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.Black_Drive_Backup_icon">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
@@ -446,6 +513,11 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.Create_new">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.dark_green_check_mark_hi">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
@@ -496,6 +568,16 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.icon_pause_128">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.import">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.import_good">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
@@ -571,6 +653,21 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.stopBlack">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.UAC_No">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.UAC_Yes">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.UAC_Yes2">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

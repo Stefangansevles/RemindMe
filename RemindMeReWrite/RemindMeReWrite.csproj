@@ -76,6 +76,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FileAssociation">
+      <HintPath>..\..\..\..\Downloads\custom file\FileAssociation.dll</HintPath>
+    </Reference>
     <Reference Include="FSManager">
       <HintPath>..\..\..\..\Documents\Visual Studio 2015\Projects\FSManager\FSManager\bin\Debug\FSManager.dll</HintPath>
     </Reference>
@@ -83,6 +86,10 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>libs\Interop.IWshRuntimeLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NamedPipeWrapper, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NamedPipeWrapper.1.5.0\lib\net40\NamedPipeWrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -131,6 +138,12 @@
     <Compile Include="GUI\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\RemindMeImporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\RemindMeImporter.Designer.cs">
+      <DependentUpon>RemindMeImporter.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Popup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +161,18 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RemindMeBoxIcon.cs" />
+    <Compile Include="UC\UCImportedReminders.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCImportedReminders.Designer.cs">
+      <DependentUpon>UCImportedReminders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UCImportExport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCImportExport.Designer.cs">
+      <DependentUpon>UCImportExport.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC\UCPopupMessage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -168,7 +193,9 @@
     </Compile>
     <Compile Include="Variables\IOVariables.cs" />
     <Content Include="libs\Interop.IWshRuntimeLibrary.dll" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\app.manifest" />
     <None Include="Resources\back-button.png" />
     <None Include="Resources\app-1646213_1920.png" />
@@ -179,6 +206,14 @@
     <None Include="Resources\sound.png" />
     <None Include="Resources\sound2.png" />
     <Content Include="RemindMeIcon.ico" />
+    <None Include="Resources\import.ico" />
+    <None Include="Resources\UAC_No.png" />
+    <None Include="Resources\UAC_Yes.png" />
+    <None Include="Resources\UAC_Yes2.png" />
+    <None Include="Resources\dark-green-check-mark-hi.png" />
+    <None Include="Resources\Black-Drive-Backup-icon.png" />
+    <None Include="Resources\backup_black_192x192.png" />
+    <None Include="Resources\import_good.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config">
@@ -200,6 +235,9 @@
     <EmbeddedResource Include="GUI\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\RemindMeImporter.resx">
+      <DependentUpon>RemindMeImporter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Popup.resx">
       <DependentUpon>Popup.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,6 +253,12 @@
     </Compile>
     <EmbeddedResource Include="GUI\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCImportedReminders.resx">
+      <DependentUpon>UCImportedReminders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCImportExport.resx">
+      <DependentUpon>UCImportExport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC\UCPopupMessage.resx">
       <DependentUpon>UCPopupMessage.cs</DependentUpon>

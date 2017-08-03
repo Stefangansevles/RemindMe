@@ -211,4 +211,20 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  If you wanted to do this before, you had to make 2 reminders with repeattype: None
 
  Fixed an issue where editing an reminder resulted in empty date if the reminder was not of the weekly dates type.
+
+
+ V1.6.3 .remindme update(3-8-2017)
+
+ Associated the file type .remindme to RemindMe
+ Reminders can now be exported & imported from settings. When pressing the export button, it creates an .remindme file in the selected folder. 
+ This .remindme file can be imported again by going to the settings and pressing the import button
+
+ Also: When you double-click a .remindme file, it will launch the RemindMeImporter form. 
+ If RemindMe wasn't running yet, it launches RemindMe and you'd have to double-click the .remindme again
+ From this form, you can import reminders
+
+ Fixed an issue with creating a shortcut of RemindMe
+
+ When a reminder pops up with a sound that cannot be played(the file is not at the saved destination anymore) it is removed from the reminder, so that the user
+ won't get the same popup multiple times whenever that reminder pops up again
  

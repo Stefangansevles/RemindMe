@@ -18,6 +18,10 @@ namespace Business_Logic_Layer
             return DLReminders.GetReminders();
         }
 
+        public static void NotifyChange()
+        {
+            DLReminders.NotifyChange();
+        }
         /// <summary>
         /// Gets an reminder with the matching unique id.
         /// </summary>
@@ -187,6 +191,51 @@ namespace Business_Logic_Layer
             return DLReminders.PushReminderToDatabase(rem);            
         }
 
+        /// <summary>
+        /// Exports all current reminders to a string list. each record of the list contains a comma seperated reminder.
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> ExportReminders()
+        {
+            List<string> commaSeperatedReminders = new List<string>();
+            string reminder = "";
+            foreach (Reminder rem in DLReminders.GetReminders())
+            {                
+                reminder += rem.Name + "," + rem.Date + "," + rem.RepeatType + ",";
+
+                if (rem.Note == null || rem.Note == "")
+                    reminder += "null,"; 
+                else
+                    reminder += rem.Note + ",";
+
+                reminder += rem.Enabled + ",";
+
+                if (rem.EveryXCustom == null)
+                    reminder += "null,";
+                else
+                    reminder += rem.EveryXCustom + ",";
+
+                if (rem.RepeatDays == null)
+                    reminder += "null,";
+                else
+                    reminder += rem.RepeatDays + ",";
+
+                if (rem.SoundFilePath == null)
+                    reminder += "null,";
+                else
+                    reminder += rem.SoundFilePath + ",";
+
+                if (rem.PostponeDate == null)
+                    reminder += "null";
+                else
+                    reminder += rem.PostponeDate;
+
+                commaSeperatedReminders.Add(reminder);
+                reminder = "";
+            }
+
+            return commaSeperatedReminders;
+        }
 
 
 
@@ -194,9 +243,20 @@ namespace Business_Logic_Layer
 
 
 
-       
 
-       
+
+        /// <summary>
+        /// Inserts the reminder into the database.
+        /// </summary>
+        /// <param name="rem">The reminder you want added into the database</param>
+        public static long PushReminderToDatabase(Reminder rem)
+        {
+            if (rem != null)
+                return DLReminders.PushReminderToDatabase(rem);
+            else
+                return -1;
+        }
+
 
 
 
