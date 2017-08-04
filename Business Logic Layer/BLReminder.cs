@@ -2,8 +2,12 @@
 using Database.Entity;
 using RemindMe;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +22,9 @@ namespace Business_Logic_Layer
             return DLReminders.GetReminders();
         }
 
+        /// <summary>
+        /// forces the database to refresh the list
+        /// </summary>
         public static void NotifyChange()
         {
             DLReminders.NotifyChange();
@@ -190,52 +197,72 @@ namespace Business_Logic_Layer
 
             return DLReminders.PushReminderToDatabase(rem);            
         }
-
-        /// <summary>
-        /// Exports all current reminders to a string list. each record of the list contains a comma seperated reminder.
-        /// </summary>
-        /// <returns></returns>
-        public static List<string> ExportReminders()
+        public static bool SerializeRemindersToFile(List<Reminder> reminders,string pathToRemindMeFile)
         {
-            List<string> commaSeperatedReminders = new List<string>();
-            string reminder = "";
-            foreach (Reminder rem in DLReminders.GetReminders())
-            {                
-                reminder += rem.Name + "," + rem.Date + "," + rem.RepeatType + ",";
+            
+            // Create a hashtable of values that will eventually be serialized.
+            Hashtable hashReminders = new Hashtable();
+            foreach(Reminder rem in reminders)            
+                hashReminders.Add(rem.Id, rem);            
 
-                if (rem.Note == null || rem.Note == "")
-                    reminder += "null,"; 
-                else
-                    reminder += rem.Note + ",";
+            
 
-                reminder += rem.Enabled + ",";
+            // To serialize the hashtable and its key/value pairs,  
+            // you must first open a stream for writing. 
+            // In this case, use a file stream.
+            FileStream fs = new FileStream(pathToRemindMeFile, FileMode.Create);
 
-                if (rem.EveryXCustom == null)
-                    reminder += "null,";
-                else
-                    reminder += rem.EveryXCustom + ",";
+            // Construct a BinaryFormatter and use it to serialize the data to the stream.
+            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                formatter.Serialize(fs, hashReminders);
+            }
+            catch (SerializationException)
+            {
+                return false;
+            }
+            finally
+            {
+                fs.Close();                
+            }
+            return true;
+        }
 
-                if (rem.RepeatDays == null)
-                    reminder += "null,";
-                else
-                    reminder += rem.RepeatDays + ",";
+        public static List<Reminder> DeserializeRemindersFromFile(string pathToRemindMeFile)
+        {
+            List<Reminder> toReturnList = new List<Reminder>();
 
-                if (rem.SoundFilePath == null)
-                    reminder += "null,";
-                else
-                    reminder += rem.SoundFilePath + ",";
+            // Declare the hashtable reference.
+            Hashtable hashReminders = null;
 
-                if (rem.PostponeDate == null)
-                    reminder += "null";
-                else
-                    reminder += rem.PostponeDate;
+            // Open the file containing the data that you want to deserialize.
+            FileStream fs = new FileStream(pathToRemindMeFile, FileMode.Open);
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
 
-                commaSeperatedReminders.Add(reminder);
-                reminder = "";
+                // Deserialize the hashtable from the file and 
+                // assign the reference to the local variable.
+                hashReminders = (Hashtable)formatter.Deserialize(fs);
+            }
+            catch (SerializationException e)
+            {
+                return null;
+            }
+            finally
+            {
+                fs.Close();
             }
 
-            return commaSeperatedReminders;
+            foreach (DictionaryEntry de in hashReminders)            
+                toReturnList.Add((Reminder)de.Value); 
+                                       
+            return toReturnList;
         }
+      
+
+       
 
 
 

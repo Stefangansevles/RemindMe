@@ -10,6 +10,7 @@ using WMPLib;
 using Database.Entity;
 using Business_Logic_Layer;
 using System.Runtime.InteropServices;
+using Microsoft.VisualBasic.FileIO;
 
 namespace RemindMe
 {
@@ -109,18 +110,36 @@ namespace RemindMe
             }
         }
 
-       
-        
+
+        private string[] SplitFields(string csvValue)
+        {
+            //if there aren't quotes, use the faster function
+            if (!csvValue.Contains('\"') && !csvValue.Contains('\''))
+            {
+                return csvValue.Trim(',').Split(',');
+            }
+            else
+            {
+                //there are quotes, use this built in text parser
+                using (var csvParser = new Microsoft.VisualBasic.FileIO.TextFieldParser(new StringReader(csvValue.Trim(','))))
+                {
+                    csvParser.Delimiters = new string[] { "," };
+                    csvParser.HasFieldsEnclosedInQuotes = true;
+                    return csvParser.ReadFields();
+                }
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {            
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
             pnlSettings.Location = new Point(0, 22);
-            ShowPanel(pnlMain);            
+            ShowPanel(pnlMain);
             ResetReminderForm();
 
-            
+
 
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
@@ -128,14 +147,14 @@ namespace RemindMe
                     Hide();
                 }));
 
-            
+
 
             //Add all reminders to the listview
             AddRemindersToListview(lvReminders, BLReminder.GetReminders());
 
             this.BackgroundImage = Properties.Resources.gray;
             pictureBox4.BringToFront();
-            
+
             //Start checking for reminders
             tmrCheckReminder.Start();
 
@@ -1692,3 +1711,5 @@ namespace RemindMe
         
     }
 }
+
+

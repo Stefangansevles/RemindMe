@@ -666,11 +666,11 @@ namespace RemindMeUnitTests
                     mainForm.cbWednesday.Checked = true;
                     Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
                     mainForm.cbThursday.Checked = true;
-                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString());
                     //saturday and thursday are checked, date should be Thursday
                     mainForm.cbSunday.Checked = true;
-                    //first date is still Wednesday
-                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString());
+                    
+                    Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString());
                     mainForm.cbThursday.Checked = false;
                     //now, saturday should be the next first one
                     Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString());

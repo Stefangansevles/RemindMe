@@ -3,6 +3,8 @@ using Database.Entity;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -29,8 +31,9 @@ namespace RemindMe
         private const int HT_CAPTION = 0x2;
 
 
-        private string reminderFile;
-
+        private string remindmeFile;
+        private List<Reminder> remindersFromRemindMeFile;
+        private List<Reminder> toImportReminders;
         /// <summary>
         /// The form that allows 
         /// </summary>
@@ -38,9 +41,11 @@ namespace RemindMe
         public RemindMeImporter(string reminderFile)
         {
             InitializeComponent();
-            this.reminderFile = reminderFile;
+            this.remindmeFile = reminderFile;
+            toImportReminders = new List<Reminder>();
             BLFormLogic.RemovebuttonBorders(btnYes);
             BLFormLogic.RemovebuttonBorders(btnNo);
+            BLFormLogic.RemovebuttonBorders(btnSelectAll);
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
         }
 
@@ -57,13 +62,26 @@ namespace RemindMe
         {
             try
             {
-                foreach (Reminder rem in BLIO.ReadRemindersFromFile(reminderFile))
-                    BLReminder.PushReminderToDatabase(rem);
+                if (lvImportedReminders.SelectedItems.Count > 0)
+                {
+                    foreach (Reminder rem in GetSelectedRemindersFromListview())
+                    {
+                        if (!File.Exists(rem.SoundFilePath)) //when you import reminders on another device, the path to the file might not exist. remove it.
+                            rem.SoundFilePath = "";
 
-                //Let remindme know that the listview should be refreshed
-                PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));
-                
-                this.Close();
+                        BLReminder.PushReminderToDatabase(rem);
+                    }
+
+                    //Let remindme know that the listview should be refreshed
+                    PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));
+
+                    this.Close();
+                }
+                else
+                {
+                    lblStatus.Text = "Please select at least one reminder.";
+                    pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);                    
+                }
                 
             }
             catch(Exception ex)
@@ -74,6 +92,15 @@ namespace RemindMe
             }
         }
 
+        private List<Reminder> GetSelectedRemindersFromListview()
+        {            
+            List<long> selectedIds = new List<long>(); //get all selected id's from the listview reminders
+            foreach(ListViewItem item in lvImportedReminders.SelectedItems)            
+                selectedIds.Add((long)item.Tag);
+
+            return remindersFromRemindMeFile.Where(r => selectedIds.Contains(r.Id)).ToList();
+            
+        }
         private void btnNo_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -83,10 +110,10 @@ namespace RemindMe
         {
             this.MaximumSize = this.Size;
 
-            List<Reminder> reminders = BLIO.ReadRemindersFromFile(reminderFile);
-            if (reminders != null)
+            remindersFromRemindMeFile = BLReminder.DeserializeRemindersFromFile(remindmeFile);
+            if (remindersFromRemindMeFile != null)
             {
-                BLFormLogic.AddRemindersToListview(lvImportedReminders, reminders);
+                BLFormLogic.AddRemindersToListview(lvImportedReminders, remindersFromRemindMeFile);
                 lblStatus.Text = "Succesfully loaded reminders.";
                 pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
             }
@@ -96,7 +123,15 @@ namespace RemindMe
                 pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
                 btnYes.Enabled = false;
             }
-        }      
+        }
+
+        private void btnSelectAll_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in lvImportedReminders.Items)
+                item.Selected = true;
+
+            lvImportedReminders.Select();
+        }
     }
 }
 

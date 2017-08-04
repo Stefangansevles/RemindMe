@@ -16,13 +16,13 @@ namespace RemindMe
 {
     public partial class UCImportExport : UserControl
     {
-        List<Reminder> reminders;
+        List<Reminder> toImportReminders;
         public UCImportExport()
         {
             InitializeComponent();
             BLFormLogic.RemovebuttonBorders(btnExport);
             BLFormLogic.RemovebuttonBorders(btnImport);            
-            reminders = null;
+            toImportReminders = null;
         }
 
         private void UCImportExport_Load(object sender, EventArgs e)
@@ -32,18 +32,16 @@ namespace RemindMe
 
         private async void btnImport_Click(object sender, EventArgs e)
         {
-            string remindmeFile = FSManager.Files.GetSelectedFileWithPath("RemindMe backup", "*.remindme");
+            string remindmeFile = FSManager.Files.GetSelectedFileWithPath("RemindMe backup file", "*.remindme");
 
             if (remindmeFile == null || remindmeFile == "")
                 return;
 
-            reminders = BLIO.ReadRemindersFromFile(remindmeFile);
-            if (reminders != null)
-            {
-                
-
+            toImportReminders = BLReminder.DeserializeRemindersFromFile(remindmeFile);
+            if (toImportReminders != null)
+            {                
                 pnlImportedReminders.Controls.Clear();
-                pnlImportedReminders.Controls.Add(new UCImportedReminders(reminders));
+                pnlImportedReminders.Controls.Add(new UCImportedReminders(toImportReminders, true));
 
                 pbClearPanel.Visible = true;
 
@@ -55,40 +53,16 @@ namespace RemindMe
                 lblStatus.Text = "Loading reminders failed.";
                 pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
 
-
                 pnlImportedReminders.Controls.Clear();
             }
 
         }
 
         private void btnExport_Click(object sender, EventArgs e)
-        {            
-            lblStatus.Text = "";
-            Exception ex = null;
-
-            string selectedPath = FSManager.Folders.GetSelectedFolderPath();
-            if (selectedPath != null)
-                ex = BLIO.ExportRemindersToFile(selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");
-            else
-            {
-                lblStatus.Text = "Backup failed. Backup cancelled";
-                pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
-                return;
-            }
-
-            if (ex == null)
-            {
-                lblStatus.Text = "Backup completed.";
-                pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
-            }
-            else
-            {
-                lblStatus.Text = "Backup failed. " + ex.Message;
-                pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
-            }
-
-            lblStatus.Focus();
-
+        {
+            pnlImportedReminders.Controls.Clear();
+            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders(), false));
+            pbClearPanel.Visible = true;
         }
 
         private void pbClearPanel_Click(object sender, EventArgs e)

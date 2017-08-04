@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemindMeImporter));
             this.lvImportedReminders = new System.Windows.Forms.ListView();
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -41,6 +42,7 @@
             this.btnNo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.btnSelectAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
@@ -132,11 +134,11 @@
             this.btnYes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnYes.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnYes.ForeColor = System.Drawing.Color.Transparent;
-            this.btnYes.Location = new System.Drawing.Point(462, 271);
+            this.btnYes.Location = new System.Drawing.Point(420, 271);
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(53, 23);
+            this.btnYes.Size = new System.Drawing.Size(77, 23);
             this.btnYes.TabIndex = 102;
-            this.btnYes.Text = "Yes";
+            this.btnYes.Text = "Import";
             this.btnYes.UseVisualStyleBackColor = false;
             this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
@@ -147,11 +149,11 @@
             this.btnNo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNo.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnNo.ForeColor = System.Drawing.Color.Transparent;
-            this.btnNo.Location = new System.Drawing.Point(517, 271);
+            this.btnNo.Location = new System.Drawing.Point(497, 271);
             this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(53, 23);
+            this.btnNo.Size = new System.Drawing.Size(73, 23);
             this.btnNo.TabIndex = 101;
-            this.btnNo.Text = "No";
+            this.btnNo.Text = "Cancel";
             this.btnNo.UseVisualStyleBackColor = false;
             this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
@@ -162,9 +164,9 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(10, 71);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(301, 16);
+            this.label1.Size = new System.Drawing.Size(293, 16);
             this.label1.TabIndex = 100;
-            this.label1.Text = "Do you want to import these reminders?";
+            this.label1.Text = "Select the reminder you want to import";
             // 
             // pictureBox4
             // 
@@ -177,12 +179,28 @@
             this.pictureBox4.TabIndex = 97;
             this.pictureBox4.TabStop = false;
             // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.BackColor = System.Drawing.Color.Transparent;
+            this.btnSelectAll.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnSelectAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSelectAll.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnSelectAll.ForeColor = System.Drawing.Color.Transparent;
+            this.btnSelectAll.Location = new System.Drawing.Point(497, 68);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(72, 23);
+            this.btnSelectAll.TabIndex = 105;
+            this.btnSelectAll.Text = "Select all";
+            this.btnSelectAll.UseVisualStyleBackColor = false;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            // 
             // RemindMeImporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(581, 302);
+            this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.lvImportedReminders);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
@@ -193,6 +211,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemindMeImporter";
             this.Text = "Import";
             this.Load += new System.EventHandler(this.RemindMeImporter_Load);
@@ -218,5 +237,6 @@
         public System.Windows.Forms.Button btnNo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox4;
+        public System.Windows.Forms.Button btnSelectAll;
     }
 }

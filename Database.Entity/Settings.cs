@@ -12,7 +12,8 @@ namespace Database.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Settings
+    [Serializable] 
+     public partial class Settings
     {
         public long Id { get; set; }
         public long AlwaysOnTop { get; set; }

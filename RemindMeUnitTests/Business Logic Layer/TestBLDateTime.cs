@@ -37,21 +37,21 @@ namespace RemindMeUnitTests
         public void TestGetNextDay()
         {                        
             //BLDateTime.GetDateOfNextDay() works with DateTime.Now, so it's not easily tested.          
-            switch (DateTime.Now.Day)
+            switch (DateTime.Now.DayOfWeek)
             {
-                case 0: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Monday).ToShortDateString(),DateTime.Now.AddDays(1).ToShortDateString());
+                case DayOfWeek.Sunday: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Monday).ToShortDateString(),DateTime.Now.AddDays(1).ToShortDateString());
                     break; //sunday
-                case 1: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Tuesday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
+                case DayOfWeek.Monday: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Tuesday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
                     break; //monday
-                case 2: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
+                case DayOfWeek.Tuesday: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Wednesday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
                     break;
-                case 3: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
+                case DayOfWeek.Wednesday: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Thursday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
                     break;
-                case 4: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Friday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
+                case DayOfWeek.Thursday: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Friday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
                     break;
-                case 5: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
+                case DayOfWeek.Friday: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Saturday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
                     break;
-                case 6: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
+                case DayOfWeek.Saturday: Assert.AreEqual(BLDateTime.GetDateOfNextDay(DayOfWeek.Sunday).ToShortDateString(), DateTime.Now.AddDays(1).ToShortDateString());
                     break;                
             }
         }

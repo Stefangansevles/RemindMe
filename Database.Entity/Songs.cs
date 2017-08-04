@@ -12,7 +12,8 @@ namespace Database.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Songs
+    [Serializable] 
+     public partial class Songs
     {
         public long Id { get; set; }
         public string SongFileName { get; set; }

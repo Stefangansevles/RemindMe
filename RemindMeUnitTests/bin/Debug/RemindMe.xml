@@ -326,6 +326,18 @@
             The message box contain no symbols.
             </summary>
         </member>
+        <member name="M:RemindMe.UCImportedReminders.#ctor(System.Collections.Generic.List{Database.Entity.Reminder},System.Boolean)">
+            <summary>
+            Shows reminders and gives the option to import/export them 
+            </summary>
+            <param name="reminders">The list of reminders you want to add to the listview. The user can then make a slection of these reminders to import/export</param>
+            <param name="import">True if you want to import reminders. False if you want to export them.</param>
+        </member>
+        <member name="M:RemindMe.UCImportedReminders.FixText">
+            <summary>
+            Sets the button/label text to import-related text if the user chose import, and export if the user chose export.
+            </summary>
+        </member>
         <member name="F:RemindMe.UCImportedReminders.components">
             <summary> 
             Required designer variable.

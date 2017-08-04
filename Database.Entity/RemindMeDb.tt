@@ -308,8 +308,7 @@ public class CodeStringGenerator
     {
         return string.Format(
             CultureInfo.InvariantCulture,
-            "{0} {1}partial class {2}{3}",
-            Accessibility.ForType(entity),
+            "{0} " + Environment.NewLine + " {1} {2}partial class {3}{4}", "[Serializable]",Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
             _code.Escape(entity),
             _code.StringBefore(" : ", _typeMapper.GetTypeName(entity.BaseType)));

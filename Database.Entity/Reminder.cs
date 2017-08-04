@@ -12,7 +12,8 @@ namespace Database.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Reminder
+    [Serializable] 
+     public partial class Reminder
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -20,7 +21,6 @@ namespace Database.Entity
         public string RepeatType { get; set; }
         public string Note { get; set; }
         public long Enabled { get; set; }
-        public Nullable<long> DayOfMonth { get; set; }
         public Nullable<long> EveryXCustom { get; set; }
         public string RepeatDays { get; set; }
         public string SoundFilePath { get; set; }

@@ -227,4 +227,15 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  When a reminder pops up with a sound that cannot be played(the file is not at the saved destination anymore) it is removed from the reminder, so that the user
  won't get the same popup multiple times whenever that reminder pops up again
+
+ (4-8-2017)V1.6.31 Improved .remindme functionality
+
+ .remindme files are now written to a serialized file. this is an solution where you don't need a lot of code, so a lot of existing code could be removed.
+ This way, you can just easily call SerializeRemindersToFile(list of reminders, path to the file) and that will write all the reminders in the list, serialized to a .remindme file.
+ Then, to read the file, you just simply call DeserializeRemindersFromFile(path to the file) and that method returns a List<Reminder>. 
+
+ 2 methods with not a lot of code in them and easy to use!
+ Another plus, if you right click the .remindme file and open it with notepad, you will mostly see weird null's and icons
+
+ When importing reminders, the soundfilepath property of the reminder will now be removed if the file does not exist on the target computer.
  

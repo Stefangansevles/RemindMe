@@ -73,7 +73,7 @@
             // 
             this.pbClearPanel.BackgroundImage = global::RemindMe.Properties.Resources.red_x4;
             this.pbClearPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbClearPanel.Location = new System.Drawing.Point(433, 88);
+            this.pbClearPanel.Location = new System.Drawing.Point(432, 88);
             this.pbClearPanel.Name = "pbClearPanel";
             this.pbClearPanel.Size = new System.Drawing.Size(18, 18);
             this.pbClearPanel.TabIndex = 82;

@@ -38,6 +38,7 @@
             this.btnNo = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.pbStatus = new System.Windows.Forms.PictureBox();
+            this.btnSelectAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,7 +89,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(301, 16);
             this.label1.TabIndex = 81;
-            this.label1.Text = "Do you want to import these reminders?";
+            this.label1.Text = "Select the reminders you want to import";
             // 
             // btnYes
             // 
@@ -97,11 +98,11 @@
             this.btnYes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnYes.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnYes.ForeColor = System.Drawing.Color.Transparent;
-            this.btnYes.Location = new System.Drawing.Point(331, 185);
+            this.btnYes.Location = new System.Drawing.Point(327, 185);
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(53, 23);
+            this.btnYes.Size = new System.Drawing.Size(57, 23);
             this.btnYes.TabIndex = 85;
-            this.btnYes.Text = "Yes";
+            this.btnYes.Text = "Import";
             this.btnYes.UseVisualStyleBackColor = false;
             this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
@@ -116,7 +117,7 @@
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(53, 23);
             this.btnNo.TabIndex = 84;
-            this.btnNo.Text = "No";
+            this.btnNo.Text = "Cancel";
             this.btnNo.UseVisualStyleBackColor = false;
             this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
@@ -125,7 +126,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.lblStatus.ForeColor = System.Drawing.Color.White;
-            this.lblStatus.Location = new System.Drawing.Point(46, 188);
+            this.lblStatus.Location = new System.Drawing.Point(35, 188);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 16);
             this.lblStatus.TabIndex = 86;
@@ -139,11 +140,27 @@
             this.pbStatus.TabIndex = 87;
             this.pbStatus.TabStop = false;
             // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.BackColor = System.Drawing.Color.Transparent;
+            this.btnSelectAll.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnSelectAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSelectAll.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnSelectAll.ForeColor = System.Drawing.Color.Transparent;
+            this.btnSelectAll.Location = new System.Drawing.Point(338, 0);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(72, 23);
+            this.btnSelectAll.TabIndex = 88;
+            this.btnSelectAll.Text = "Select all";
+            this.btnSelectAll.UseVisualStyleBackColor = false;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            // 
             // UCImportedReminders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.pbStatus);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnYes);
@@ -170,5 +187,6 @@
         public System.Windows.Forms.Button btnNo;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.PictureBox pbStatus;
+        public System.Windows.Forms.Button btnSelectAll;
     }
 }
