@@ -5,12 +5,13 @@ using System.Windows.Forms;
 using Database.Entity;
 using Business_Logic_Layer;
 using System.IO;
+using System.Linq;
 
 namespace RemindMe
 {
     public partial class UCImportedReminders : UserControl
     {
-        private List<Reminder> reminders;
+        private List<Reminder> remindersFromRemindMeFile;
         private bool import;
         /// <summary>
         /// Shows reminders and gives the option to import/export them 
@@ -20,7 +21,7 @@ namespace RemindMe
         public UCImportedReminders(List<Reminder> reminders,bool import)
         {
             InitializeComponent();
-            this.reminders = reminders;
+            this.remindersFromRemindMeFile = reminders;
             this.import = import;
             BLFormLogic.AddRemindersToListview(lvImportedReminders, reminders);
             BLFormLogic.RemovebuttonBorders(btnYes);
@@ -92,18 +93,12 @@ namespace RemindMe
             }
         }
         private List<Reminder> GetSelectedRemindersFromListview()
-        {
-            //Imported reminders are just values. They don't have ID's. Exported reminders however, are reminders that are currently inside RemindMe.
-            //These reminders do have an id in the listview's tag. 
+        {                       
+            List<long> selectedIds = new List<long>(); //get all selected id's from the listview reminders
+            foreach (ListViewItem item in lvImportedReminders.SelectedItems)
+                selectedIds.Add((long)item.Tag);
 
-            List<Reminder> toReturnList = new List<Reminder>();
-            foreach(ListViewItem item in lvImportedReminders.SelectedItems)
-            {
-                Reminder rem = BLReminder.GetReminderById((long)item.Tag);
-                if (rem != null)
-                    toReturnList.Add(rem);
-            }
-            return toReturnList;
+            return remindersFromRemindMeFile.Where(r => selectedIds.Contains(r.Id)).ToList();
         }
         private void Exportreminders()
         {
@@ -142,25 +137,29 @@ namespace RemindMe
         private void ImportReminders()
         {
             int remindersInserted = 0;
-            if (reminders != null)
+            List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
+            if (remindersFromRemindMeFile != null)
             {
-                foreach (Reminder rem in reminders)
+                foreach (Reminder rem in selectedReminders)
                 {
                     if (!File.Exists(rem.SoundFilePath)) //when you import reminders on another device, the path to the file might not exist. remove it.
                         rem.SoundFilePath = "";
 
                     BLReminder.PushReminderToDatabase(rem);
                     remindersInserted++;
-                    lblStatus.Text = remindersInserted + " / " + reminders.Count + " Reminders added.";
+                    lblStatus.Text = remindersInserted + " / " + selectedReminders.Count + " Reminders added.";
                 }
             }
 
-            if (remindersInserted == reminders.Count)
+            if (remindersInserted == selectedReminders.Count)
                 pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
             else
+            {
+                lblStatus.Text = "Import failed.";
                 pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
+            }
 
-            reminders = null;
+            remindersFromRemindMeFile = null;
             btnYes.Enabled = false;
             btnNo.Enabled = false;
             lvImportedReminders.Items.Clear();

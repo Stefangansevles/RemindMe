@@ -238,4 +238,7 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  Another plus, if you right click the .remindme file and open it with notepad, you will mostly see weird null's and icons
 
  When importing reminders, the soundfilepath property of the reminder will now be removed if the file does not exist on the target computer.
+
+ V1.6.32
+ Fixed an small issue with importing reminders from the settings of RemindMe. it was working from the RemindMeImporter form
  
