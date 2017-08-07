@@ -197,6 +197,14 @@ namespace Business_Logic_Layer
 
             return DLReminders.PushReminderToDatabase(rem);            
         }
+
+
+        /// <summary>
+        /// Serializes the provided list of reminder objects to a file located at the given path
+        /// </summary>
+        /// <param name="reminders">The list of reminders you want serialized</param>
+        /// <param name="pathToRemindMeFile">The path to the file that will contain the serialized reminder objects</param>
+        /// <returns>True if succesfull, false if not</returns>
         public static bool SerializeRemindersToFile(List<Reminder> reminders,string pathToRemindMeFile)
         {
             
@@ -229,6 +237,11 @@ namespace Business_Logic_Layer
             return true;
         }
 
+        /// <summary>
+        /// De-Serializes the provided .remindme file located at the given path into a List of Reminder objects
+        /// </summary>
+        /// <param name="pathToRemindMeFile">The path to the file that contains the serialized reminder objects</param>
+        /// <returns>A list of reminder objects from the given .remindme file</returns>
         public static List<Reminder> DeserializeRemindersFromFile(string pathToRemindMeFile)
         {
             List<Reminder> toReturnList = new List<Reminder>();
@@ -248,7 +261,7 @@ namespace Business_Logic_Layer
             }
             catch (SerializationException e)
             {
-                return null;
+                return null;               
             }
             finally
             {
@@ -260,17 +273,7 @@ namespace Business_Logic_Layer
                                        
             return toReturnList;
         }
-      
-
-       
-
-
-
-
-
-
-
-
+             
 
         /// <summary>
         /// Inserts the reminder into the database.

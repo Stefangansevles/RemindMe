@@ -547,13 +547,32 @@ namespace RemindMeUnitTests
         public void TestMakeReminderOnceWithFormControls()
         {
             mainForm.cbMonthlyDays.Items.Clear();
+            mainForm.cbMultipleDates.Items.Clear();
 
+            mainForm.rbNoRepeat.Checked = true;
             mainForm.tbReminderName.Text = "some reminder";
             mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
             mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
-            mainForm.rbNoRepeat.Checked = true;
 
-          
+            mainForm.btnAddDate_Click(null, null);
+            //We've now added one date.
+            Assert.AreEqual(mainForm.cbMultipleDates.Items.Count, 1);
+
+            //Let's click the button again,with the same date. It should not be added
+            mainForm.btnAddDate_Click(null, null);
+            Assert.AreEqual(mainForm.cbMultipleDates.Items.Count, 1);
+
+            mainForm.dtpDate.Value = DateTime.Now.AddDays(1);
+            mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:12:12"); //we just want the time
+            mainForm.btnAddDate_Click(null, null);
+
+            //We've now added two dates
+            Assert.AreEqual(mainForm.cbMultipleDates.Items.Count, 2);
+
+            mainForm.cbMultipleDates.SelectedItem = mainForm.cbMultipleDates.Items[0];
+            mainForm.btnRemoveDate_Click(null, null);
+            Assert.AreEqual(mainForm.cbMultipleDates.Items.Count, 1);
+
 
             mainForm.tbNote.Text = "some note";
             int currentReminderCount = BLReminder.GetReminders().Count;
@@ -569,8 +588,7 @@ namespace RemindMeUnitTests
             {
                 if (item.Name == "some reminder" && item.Note == "some note")
                 {
-                    Assert.AreEqual(item.RepeatType, ReminderRepeatType.NONE.ToString());
-                    Assert.AreEqual(item.Date, DateTime.Now.AddDays(1).ToShortDateString() + " 12:00:00");
+                    Assert.AreEqual(item.RepeatType, ReminderRepeatType.NONE.ToString());                    
                     Assert.AreEqual(item.Note, "some note");
                     Assert.AreEqual(item.RepeatDays, null);
                     Assert.AreEqual(item.SoundFilePath, "");

@@ -44,7 +44,7 @@ namespace Data_Access_Layer
         }
 
         /// <summary>
-        /// Forces the local lish to be refreshed
+        /// Forces the local list to be refreshed
         /// </summary>
         public static void NotifyChange()
         {

@@ -38,8 +38,7 @@ namespace RemindMe
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         IWMPMedia mediaInfo;
-
-        SettingsForm set;
+        
         //This list will contain reminders that need removing    
         List<Reminder> toRemoveReminders;
 
@@ -883,7 +882,7 @@ namespace RemindMe
             string commaSeperatedDays = "";
 
             //Will be different based on what repeating method the user has selected
-            if (tbReminderName.Text != "" && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now || rbNoRepeat.Checked)) //for the radiobuton rbnorepeat it doesn't matter if the datetime pickers have dates from the past, because it checks the added dates in the cbMultipleDates ComboBox
+            if (!string.IsNullOrWhiteSpace(tbReminderName.Text) && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now || rbNoRepeat.Checked)) //for the radiobuton rbnorepeat it doesn't matter if the datetime pickers have dates from the past, because it checks the added dates in the cbMultipleDates ComboBox
             {
                 ReminderRepeatType repeat = new ReminderRepeatType();
                 if (rbMonthly.Checked)                                    
@@ -972,7 +971,8 @@ namespace RemindMe
                             break;
                         case "WORKDAYS": editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
                             break;
-                        default: throw new ReminderException("Editing reminder does not have a valid repeat type!");              
+                        default: editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
+                            break;
                     }
                     
 
@@ -1003,7 +1003,7 @@ namespace RemindMe
             }
             else
             {
-                if (tbReminderName.Text == "")
+                if (string.IsNullOrWhiteSpace(tbReminderName.Text))
                 {//User didnt fill in a title
                     tbReminderName.BackColor = Color.Red;
                    pbExclamationTitle.Visible = true;
@@ -1040,13 +1040,6 @@ namespace RemindMe
                     pnlUserControls.Controls.Add(ucMusic);
                 }
             }
-            
-            //The old settings form that isn't being used anymore
-            /*if (Application.OpenForms.OfType<SettingsForm>().Count() == 0)
-            {
-                set = new SettingsForm();
-                set.Show();
-            }*/
         }
 
         /// <summary>
@@ -1639,7 +1632,7 @@ namespace RemindMe
             }
         }
 
-        private void btnAddDate_Click(object sender, EventArgs e)
+        public void btnAddDate_Click(object sender, EventArgs e)
         {
             if(pnlPopup.Visible)
             {//For this way of adding reminders, we DO want the scrolling popup to dissapear and re-appear again even if it is already visible
@@ -1695,7 +1688,7 @@ namespace RemindMe
                 tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);            
         }
 
-        private void btnRemoveDate_Click(object sender, EventArgs e)
+        public void btnRemoveDate_Click(object sender, EventArgs e)
         {
             if (cbMultipleDates.SelectedItem != null)
             {
@@ -1707,8 +1700,26 @@ namespace RemindMe
                 cbMultipleDates.Text = "";
             }
         }
-        
-        
+
+        private void exportSelectedRemindersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedPath = FSManager.Folders.GetSelectedFolderPath();
+
+            if (!string.IsNullOrEmpty(selectedPath))            
+                BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");            
+        }
+
+        private void pnlPopup_VisibleChanged(object sender, EventArgs e)
+        {
+            if(!pnlPopup.Visible)
+            {
+                //Stop the timer(s)
+                tmrAnimationScrollDown.Stop();
+                tmrAnimationScrollUp.Stop();
+                //reset location
+                pnlPopup.Location = new Point(this.Width - pnlPopup.Width, this.Height);
+            }
+        }
     }
 }
 

@@ -289,23 +289,6 @@
             </summary>
             <param name="message">The message</param>
         </member>
-        <member name="F:RemindMe.SettingsForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:RemindMe.SettingsForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:RemindMe.SettingsForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="F:RemindMe.RemindMeBoxIcon.EXCLAMATION">
             <summary>
             The message box contains a symbol consisting of an exclamation point in a triangle with a yellow background.
