@@ -84,7 +84,7 @@
             this.rbMonthly = new System.Windows.Forms.RadioButton();
             this.rbDaily = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblRepeat = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbReminderName = new System.Windows.Forms.TextBox();
@@ -92,7 +92,6 @@
             this.lblNote = new System.Windows.Forms.Label();
             this.tbNote = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
-            this.cbDayBefore = new System.Windows.Forms.CheckBox();
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -314,7 +313,7 @@
             this.pnlNewReminder.Controls.Add(this.lblEvery);
             this.pnlNewReminder.Controls.Add(this.btnConfirm);
             this.pnlNewReminder.Controls.Add(this.groupRepeatRadiobuttons);
-            this.pnlNewReminder.Controls.Add(this.label3);
+            this.pnlNewReminder.Controls.Add(this.lblRepeat);
             this.pnlNewReminder.Controls.Add(this.label2);
             this.pnlNewReminder.Controls.Add(this.label1);
             this.pnlNewReminder.Controls.Add(this.tbReminderName);
@@ -828,6 +827,7 @@
             this.rbMultipleDays.Size = new System.Drawing.Size(76, 18);
             this.rbMultipleDays.TabIndex = 64;
             this.rbMultipleDays.Text = "Weekdays";
+            this.toolTip1.SetToolTip(this.rbMultipleDays, "Reminder repeats on the selected weekdays");
             this.rbMultipleDays.UseVisualStyleBackColor = true;
             this.rbMultipleDays.CheckedChanged += new System.EventHandler(this.rbMultipleDays_CheckedChanged);
             // 
@@ -841,6 +841,7 @@
             this.rbEveryXCustom.Size = new System.Drawing.Size(63, 18);
             this.rbEveryXCustom.TabIndex = 63;
             this.rbEveryXCustom.Text = "Custom";
+            this.toolTip1.SetToolTip(this.rbEveryXCustom, "Set a custom repeat schedule\r\nExample: Every 5 hours, Every 3 days, etc");
             this.rbEveryXCustom.UseVisualStyleBackColor = true;
             this.rbEveryXCustom.CheckedChanged += new System.EventHandler(this.rbEveryXDays_CheckedChanged);
             // 
@@ -854,6 +855,7 @@
             this.rbWorkDays.Size = new System.Drawing.Size(78, 18);
             this.rbWorkDays.TabIndex = 62;
             this.rbWorkDays.Text = "Work days";
+            this.toolTip1.SetToolTip(this.rbWorkDays, "Reminder repeats every day, except during the weekends");
             this.rbWorkDays.UseVisualStyleBackColor = true;
             this.rbWorkDays.CheckedChanged += new System.EventHandler(this.rbWorkDays_CheckedChanged);
             // 
@@ -869,6 +871,7 @@
             this.rbNoRepeat.TabIndex = 61;
             this.rbNoRepeat.TabStop = true;
             this.rbNoRepeat.Text = "Set date(s)";
+            this.toolTip1.SetToolTip(this.rbNoRepeat, "Reminder does NOT repeat, but has 1 or more dates");
             this.rbNoRepeat.UseVisualStyleBackColor = true;
             this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);
             // 
@@ -882,6 +885,7 @@
             this.rbMonthly.Size = new System.Drawing.Size(64, 18);
             this.rbMonthly.TabIndex = 59;
             this.rbMonthly.Text = "Monthly";
+            this.toolTip1.SetToolTip(this.rbMonthly, "Reminder repeats on every selected monthly day");
             this.rbMonthly.UseVisualStyleBackColor = true;
             this.rbMonthly.CheckedChanged += new System.EventHandler(this.rbMonthly_CheckedChanged);
             // 
@@ -895,6 +899,7 @@
             this.rbDaily.Size = new System.Drawing.Size(50, 18);
             this.rbDaily.TabIndex = 58;
             this.rbDaily.Text = "Daily";
+            this.toolTip1.SetToolTip(this.rbDaily, "Reminder repeats every day.");
             this.rbDaily.UseVisualStyleBackColor = true;
             this.rbDaily.CheckedChanged += new System.EventHandler(this.rbDaily_CheckedChanged);
             // 
@@ -908,17 +913,17 @@
             this.radioButton2.Text = "radioButton2";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // lblRepeat
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(42, 255);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
-            this.label3.TabIndex = 35;
-            this.label3.Text = "Repeat:";
+            this.lblRepeat.AutoSize = true;
+            this.lblRepeat.BackColor = System.Drawing.Color.Transparent;
+            this.lblRepeat.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblRepeat.ForeColor = System.Drawing.Color.White;
+            this.lblRepeat.Location = new System.Drawing.Point(42, 255);
+            this.lblRepeat.Name = "lblRepeat";
+            this.lblRepeat.Size = new System.Drawing.Size(52, 15);
+            this.lblRepeat.TabIndex = 35;
+            this.lblRepeat.Text = "Repeat:";
             // 
             // label2
             // 
@@ -1003,19 +1008,6 @@
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // cbDayBefore
-            // 
-            this.cbDayBefore.AutoSize = true;
-            this.cbDayBefore.Font = new System.Drawing.Font("Franklin Gothic Medium", 8F, System.Drawing.FontStyle.Bold);
-            this.cbDayBefore.ForeColor = System.Drawing.Color.White;
-            this.cbDayBefore.Location = new System.Drawing.Point(859, 501);
-            this.cbDayBefore.Name = "cbDayBefore";
-            this.cbDayBefore.Size = new System.Drawing.Size(157, 19);
-            this.cbDayBefore.TabIndex = 61;
-            this.cbDayBefore.Text = "Remind the day before";
-            this.cbDayBefore.UseVisualStyleBackColor = true;
-            this.cbDayBefore.Visible = false;
             // 
             // tmrCheckReminder
             // 
@@ -1320,7 +1312,6 @@
             this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.pbCloseApplication);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.cbDayBefore);
             this.Controls.Add(this.pnlNewReminder);
             this.Controls.Add(this.pnlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1364,7 +1355,7 @@
         private System.Windows.Forms.ColumnHeader chName;
         private System.Windows.Forms.ColumnHeader chDate;
         public System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblRepeat;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox tbReminderName;
@@ -1383,7 +1374,6 @@
         public System.Windows.Forms.NotifyIcon RemindMeIcon;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pbEdit;
-        private System.Windows.Forms.CheckBox cbDayBefore;
         private System.Windows.Forms.ContextMenuStrip RemindMeTrayIconMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsExit;
         private System.Windows.Forms.ToolStripMenuItem showRemindMeToolStripMenuItem;

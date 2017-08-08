@@ -242,8 +242,12 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  V1.6.32
  Fixed an small issue with importing reminders from the settings of RemindMe. it was working from the RemindMeImporter form
  
- V1.6.33
+ V1.6.33(7-8-2017)
  Added export selected reminders to the context menu of RemindMe's main listview of reminders when right-clicking on reminder(s)
  Removed the ability to create an reminder with white spacing without any letters
  Fixed an issue with editing custom reminders
+
+ V1.6.34(8-8-2017)
+ Fixed some more editing issues 
+ Added some tooltips to repeat radiobuttons
  

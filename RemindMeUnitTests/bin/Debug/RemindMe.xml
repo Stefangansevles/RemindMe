@@ -142,6 +142,13 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:RemindMe.Form1.RemoveUnusedPropertiesFromReminders(Database.Entity.Reminder)">
+            <summary>
+            Removes properties from a reminder that the reminder shouldn't have. 
+            Example: The reminder is a monthly reminder, but before editing it was a weekdays reminder. If that reminder is now monthly and it still has weekdays, it will be removed here
+            </summary>
+            <param name="rem"></param>
+        </member>
         <member name="M:RemindMe.Form1.GetCommaSeperatedDayCheckboxesString">
             <summary>
             gets all the checked day comboboxes and puts them into a string. example: monday,tuesday,friday

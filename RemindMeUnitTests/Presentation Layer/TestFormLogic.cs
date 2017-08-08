@@ -837,10 +837,6 @@ namespace RemindMeUnitTests
             mainForm.dtpTime.Value = Convert.ToDateTime("10-10-2010 12:00:00"); //we just want the time
             mainForm.rbDaily.Checked = true;
 
-
-
-
-
             mainForm.tbNote.Text = "some note";
             int currentReminderCount = BLReminder.GetReminders().Count;
 
@@ -872,6 +868,40 @@ namespace RemindMeUnitTests
 
         }
 
+
+        //Those tests were MAKING reminders. Now we're going to EDIT them.
+        [TestMethod]
+        public void TestEditReminderDaily()
+        {
+            testReminder = new Reminder();
+            testReminder.Name = "Some reminder";
+            testReminder.Note = "some note";            
+            testReminder.SoundFilePath = "";
+            testReminder.RepeatType = ReminderRepeatType.DAILY.ToString();
+            testReminder.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
+            long id = BLReminder.PushReminderToDatabase(testReminder);
+
+            //Clear all items so that the newly inserted reminder is [0]
+            mainForm.lvReminders.Items.Clear();
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, 0);
+            //add it to the listview so we can press the edit button
+            BLFormLogic.AddReminderToListview(mainForm.lvReminders, testReminder);
+            Assert.AreEqual(mainForm.lvReminders.Items.Count, 1);
+            //select the reminder
+            mainForm.lvReminders.Items[0].Selected = true;
+            //press the edit button
+            mainForm.btnEditReminder_Click(null, null);
+
+            //Check all the fields -------------------------
+            Assert.AreEqual(mainForm.tbReminderName.Text, testReminder.Name);
+            Assert.AreEqual(mainForm.tbNote.Text, testReminder.Note);
+            Assert.AreEqual(mainForm.dtpDate.Value.ToShortDateString(), Convert.ToDateTime(testReminder.Date).ToShortDateString());
+            Assert.AreEqual(mainForm.dtpTime.Value.ToShortTimeString(), Convert.ToDateTime(testReminder.Date).ToShortTimeString());
+
+
+            //delete the testreminder from the database again
+            BLReminder.DeleteReminder(testReminder);
+        }
         [TestMethod]
         public void RemoveTests()
         {            
