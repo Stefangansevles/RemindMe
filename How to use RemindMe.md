@@ -52,3 +52,54 @@ You can add, or remove sound effects to the list of RemindMe by pressing the sou
 If you want to see what the reminder would look like when it pops up, you can preview it by right clicking it like shown here
 
 ![](http://i.imgur.com/TW3d3xh.png)
+
+
+# Exporting/Importing Reminders
+Do you want to move the reminders you have to another device, or do you want to import someone else's reminders? Well, that's possible!
+
+**Exporting reminders**
+
+There are 2 ways of doing this
+
+**1. From RemindMe's main menu**
+1. Select the reminders you want to export
+2. Right click and press export
+3. Select a destination for the .remindme file
+
+![](http://i.imgur.com/XCTr14I.png)
+
+**2. From the settings**
+
+1. Click the cog button from RemindMe's main menu's bottom
+2. Click on the downward arrow image near the bottom
+3. Click on "Export Reminders"
+4. Select the reminders you want to export
+5. Press export
+6. Select a destination for the .remindme file
+
+![](http://i.imgur.com/OO2VgtO.png)y
+
+
+**Importing Reminders**
+
+Now that reminders are exported, we can import them. For this there are also 2 ways
+
+**1. From the settings**
+
+1. Click the cog button from RemindMe's main menu's bottom
+2. Click on the downward arrow image near the bottom
+3. Click on "Import Reminders"
+4. Select your .remindme file
+5. Select the reminders you want to export
+6. Click "Import"
+
+![](http://i.imgur.com/okEDoJH.png)
+
+**2. From the .remindme file**
+
+1. Double-click your .remindme file. a new screen will pop up
+2. Select the reminders you want to export
+3. Click "Import"
+
+![](http://i.imgur.com/i23YHzB.png)
+
