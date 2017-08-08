@@ -209,6 +209,11 @@
     <None Include="Resources\Black-Drive-Backup-icon.png" />
     <None Include="Resources\backup_black_192x192.png" />
     <None Include="Resources\import_good.png" />
+    <None Include="Resources\ImportIcon.png" />
+    <None Include="Resources\ExportIcon.png" />
+    <None Include="Resources\backup remindme image.png" />
+    <None Include="Resources\remindme backup image.png" />
+    <None Include="Resources\RemindMeImport.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config">

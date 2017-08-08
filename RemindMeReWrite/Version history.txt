@@ -250,4 +250,9 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  V1.6.34(8-8-2017)
  Fixed some more editing issues 
  Added some tooltips to repeat radiobuttons
+
+ V1.6.35 small graphical update
+ The export/import reminder user control now has 2 clickable images to import/export reminders instead of 2 buttons.
+ The export/import reminder user control now has an into panel, explaining importing/exporting. 
+ It looks very empty with just an import/export button. So this panel has the functionality of filling up empty space, and informing users.
  

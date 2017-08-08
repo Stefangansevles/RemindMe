@@ -19,27 +19,63 @@ namespace RemindMe
         List<Reminder> toImportReminders;
         public UCImportExport()
         {
-            InitializeComponent();
-            BLFormLogic.RemovebuttonBorders(btnExport);
-            BLFormLogic.RemovebuttonBorders(btnImport);            
+            InitializeComponent();            
             toImportReminders = null;
         }
 
         private void UCImportExport_Load(object sender, EventArgs e)
         {
-
+            pnlIntro.Visible = true;
         }
 
-        private async void btnImport_Click(object sender, EventArgs e)
+        
+
+        private void pbClearPanel_Click(object sender, EventArgs e)
         {
+            pnlImportedReminders.Controls.Clear();            
+        }
+
+        private void pnlImportedReminders_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            if (pnlImportedReminders.Controls.Count == 0)//controls cleared
+            {
+                pbClearPanel.Visible = false;
+                pnlIntro.Visible = true;
+            }
+        }
+
+        private void pbExport_Click(object sender, EventArgs e)
+        {            
+            pnlImportedReminders.Controls.Clear();
+            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders(), false));
+            pbClearPanel.Visible = true;
+            pnlIntro.Visible = false;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            pbExport_Click(sender, e);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            pbImport_Click(sender, e);
+        }
+
+        private void pbImport_Click(object sender, EventArgs e)
+        {
+            
             string remindmeFile = FSManager.Files.GetSelectedFileWithPath("RemindMe backup file", "*.remindme");
 
             if (remindmeFile == null || remindmeFile == "")
+            {//user pressed cancel
+                pnlIntro.Visible = true;
                 return;
+            }
 
             toImportReminders = BLReminder.DeserializeRemindersFromFile(remindmeFile);
             if (toImportReminders != null)
-            {                
+            {
                 pnlImportedReminders.Controls.Clear();
                 pnlImportedReminders.Controls.Add(new UCImportedReminders(toImportReminders, true));
 
@@ -55,25 +91,7 @@ namespace RemindMe
 
                 pnlImportedReminders.Controls.Clear();
             }
-
-        }
-
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-            pnlImportedReminders.Controls.Clear();
-            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders(), false));
-            pbClearPanel.Visible = true;
-        }
-
-        private void pbClearPanel_Click(object sender, EventArgs e)
-        {
-            pnlImportedReminders.Controls.Clear();            
-        }
-
-        private void pnlImportedReminders_ControlRemoved(object sender, ControlEventArgs e)
-        {
-            if (pnlImportedReminders.Controls.Count == 0)//controls cleared
-                pbClearPanel.Visible = false;
+            pnlIntro.Visible = false;
         }
     }
 }

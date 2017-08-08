@@ -489,6 +489,11 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.backup_remindme_image">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.bbuttonEDIT2">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
@@ -539,6 +544,11 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.ExportIcon">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.folder">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
@@ -580,6 +590,11 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.import_good">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.ImportIcon">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
@@ -629,7 +644,17 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.remindme_backup_image">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.RemindMe1">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.RemindMeImport">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
