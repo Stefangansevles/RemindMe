@@ -23,6 +23,7 @@ namespace RemindMe
             tbMessage.Text = messageToShow;
             EnlargeTextbox();
             this.popDelay = popDelay;
+            this.TopMost = true;
 
             this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width, Screen.GetWorkingArea(this).Height);
         }

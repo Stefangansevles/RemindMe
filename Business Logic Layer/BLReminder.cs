@@ -27,7 +27,7 @@ namespace Business_Logic_Layer
         /// <returns></returns>
         public static List<Reminder> GetTodaysReminders()
         {
-            return DLReminders.GetReminders().Where(t => Convert.ToDateTime(t.Date).Day == DateTime.Now.Day && t.Enabled == 1).ToList();
+            return DLReminders.GetReminders().Where(t => Convert.ToDateTime(t.Date.Split(',')[0]).Day == DateTime.Now.Day && t.Enabled == 1).ToList();
         }
 
         /// <summary>

@@ -1043,6 +1043,10 @@ namespace RemindMe
                 MakeScrollingPopupMessage("Some fields are not valid. Please see the exclaminations");
 
             }
+
+
+            //If there is an scrolling popup, hide it.
+            HideScrollingPopupMessage();
         }
 
         /// <summary>

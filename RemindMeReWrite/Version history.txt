@@ -267,4 +267,8 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  The RemindMe tray icon, and the right-click toolstrip on reminders use this class.
 
  ...And some small control improvements(i.e resetting the days combobox when editing an reminder that doesn't have days)
+
+ V1.7.01
+ Fixed an small issue with the popup message form checking for today's reminders
+ The popup message form is now TopMost.(always on top)
  
