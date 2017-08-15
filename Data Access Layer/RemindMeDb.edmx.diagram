@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="e2214a95483c4afe9814d15efbdef754" Name="Diagram1">
         <EntityTypeShape EntityType="RemindMeDatabaseModel.Reminder" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RemindMeDatabaseModel.Settings" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RemindMeDatabaseModel.Settings" Width="2.625" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.Songs" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>

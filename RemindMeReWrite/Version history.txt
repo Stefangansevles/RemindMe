@@ -255,4 +255,16 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  The export/import reminder user control now has 2 clickable images to import/export reminders instead of 2 buttons.
  The export/import reminder user control now has an into panel, explaining importing/exporting. 
  It looks very empty with just an import/export button. So this panel has the functionality of filling up empty space, and informing users.
+
+ V1.7.0(15-8-2017)
+ RemindMe now has it's own scrolling popup form that will appear on the right bottom corner of your monitor. It currently shows the amount of reminders
+ that are set to pop up today(This popup can be disabled in the settings)
+ It also shows when you import reminders through the .remindme file. This form can show messages for future content later.
+
+ Reminder popup sounds now get played through the Popup form,instead of the main RemindMe form. When you close the reminder popup, the sound also stops playing(if it was still playing)
+
+ The RemindMe tray icon is now in the same style as RemindMe, dark with white text. The new class "MyToolStripMenuRenderer" gives the appearance to toolstrips.
+ The RemindMe tray icon, and the right-click toolstrip on reminders use this class.
+
+ ...And some small control improvements(i.e resetting the days combobox when editing an reminder that doesn't have days)
  

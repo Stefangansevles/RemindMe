@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WMPLib;
 
 namespace RemindMe
 {
@@ -23,6 +25,10 @@ namespace RemindMe
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CLIENT = 0x1;
         private const int HT_CAPTION = 0x2;
+
+        //Used to play a sound
+        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
+        IWMPMedia mediaInfo;
 
         protected override void WndProc(ref Message m)
         {
@@ -67,7 +73,24 @@ namespace RemindMe
 
             cbPostponeType.SelectedItem = cbPostponeType.Items[0];
 
-            lblDate.Focus();            
+            lblDate.Focus();
+
+
+            //Play the sound
+            if (rem.SoundFilePath != null && rem.SoundFilePath != "")
+            {
+                if (System.IO.File.Exists(rem.SoundFilePath))
+                {
+                    myPlayer.URL = rem.SoundFilePath;
+                    myPlayer.controls.play();                    
+                }
+                else
+                {
+                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxIcon.INFORMATION);
+                    //make sure its removed from the reminder
+                    rem.SoundFilePath = "";
+                }
+            }
         }
 
         private void pbMinimizePopup_Click(object sender, EventArgs e)
@@ -101,8 +124,9 @@ namespace RemindMe
 
                 RefreshMainFormListView();
             }
-            this.Dispose();
+                        
             this.Close();
+            this.Dispose();
         }
 
         private void pbCloseApplication_Click(object sender, EventArgs e)
@@ -140,6 +164,9 @@ namespace RemindMe
                 BLReminder.UpdateReminder(rem);
                 RefreshMainFormListView();
             }
+
+            //Stop the sound from playing when the popup closes. You don't want it to keep playing, especially if it is a soundtrack that is quite long
+            myPlayer.controls.stop();
         }
 
         private void RefreshMainFormListView()

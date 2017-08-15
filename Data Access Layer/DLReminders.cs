@@ -77,7 +77,7 @@ namespace Data_Access_Layer
             SQLiteCommand tableSettings = new SQLiteCommand();
             SQLiteCommand tableSongs = new SQLiteCommand();
             tableReminder.CommandText = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
-            tableSettings.CommandText = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
+            tableSettings.CommandText = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1 NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
             tableSongs.CommandText = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
 
             tableReminder.Connection = conn;
@@ -96,13 +96,13 @@ namespace Data_Access_Layer
         /// </summary>
         /// <param name="columnName">The column you want to check on</param>
         /// <returns></returns>
-        public static bool HasColumn(string columnName)
+        public static bool HasColumn(string columnName,string table)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 try
                 {
-                    var t = db.Database.SqlQuery<object>("SELECT " + columnName + " FROM Reminder").ToList();
+                    var t = db.Database.SqlQuery<object>("SELECT " + columnName + " FROM " + table).ToList();
                     db.Dispose();
                     return true;
                 }
@@ -123,13 +123,30 @@ namespace Data_Access_Layer
         /// <returns></returns>
         public static bool HasAllColumns()
         {
-            var names = typeof(Reminder).GetProperties().Select(property => property.Name).ToList();
+            var reminderNames = typeof(Reminder).GetProperties().Select(property => property.Name).ToList();
 
-            foreach (string columnName in names)
+            foreach (string columnName in reminderNames)
             {
-                if (!HasColumn(columnName))                                   
+                if (!HasColumn(columnName,"reminder"))                                   
                     return false; //aww damn! the user has an outdated .db file!                
             }
+
+            var settingNames = typeof(Settings).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in settingNames)
+            {
+                if (!HasColumn(columnName,"settings"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
+            var songNames = typeof(Songs).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in songNames)
+            {
+                if (!HasColumn(columnName,"songs"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
             return true;
         }
 
@@ -141,23 +158,37 @@ namespace Data_Access_Layer
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 //every column that SHOULD exist
-                var names = typeof(Reminder).GetProperties().Select(property => property.Name).ToArray();
+                var reminderNames = typeof(Reminder).GetProperties().Select(property => property.Name).ToArray();
+                var settingNames = typeof(Settings).GetProperties().Select(property => property.Name).ToArray();
+                var songNames = typeof(Songs).GetProperties().Select(property => property.Name).ToArray();
 
-                foreach(string column in names)
+                foreach (string column in reminderNames)
                 {
-                    if (!HasColumn(column))                    
-                        db.Database.ExecuteSqlCommand("ALTER TABLE REMINDER ADD COLUMN " + column + " " + GetColumnSqlType(column));                    
+                    if (!HasColumn(column,"reminder"))                    
+                        db.Database.ExecuteSqlCommand("ALTER TABLE REMINDER ADD COLUMN " + column + " " + GetReminderColumnSqlType(column));                    
+                }
+
+                foreach (string column in settingNames)
+                {
+                    if (!HasColumn(column,"settings"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE SETTINGS ADD COLUMN " + column + " " + GetSettingColumnSqlType(column));
+                }
+
+                foreach (string column in songNames)
+                {
+                    if (!HasColumn(column,"songs"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE SONGS ADD COLUMN " + column + " " + GetSongColumnSqlType(column));
                 }
                 SaveAndCloseDataBase(db);
             }
         }
 
         /// <summary>
-        /// Gets the SQLite data types of the columns, "text not null", "bigint null", etc
+        /// Gets the SQLite data types of the reminder columns, "text not null", "bigint null", etc
         /// </summary>
         /// <param name="columnName">The column you want to know the data type of</param>
         /// <returns>Data type of the column</returns>
-        private static string GetColumnSqlType(string columnName)
+        private static string GetReminderColumnSqlType(string columnName)
         {
             //Yes, this is not really the "correct" way of dealing with a problem, but after a lot of searching it's quite a struggle
             //to get the data types of the sqlite columns, especially when they're nullable.
@@ -169,12 +200,47 @@ namespace Data_Access_Layer
                 case "RepeatType": return "text NOT NULL DEFAULT 'none'";
                 case "Note": return "text NULL ";
                 case "Enabled": return "bigint NOT NULL DEFAULT '1'";
-                case "DayOfWeek": return "bigint NULL";
-                case "DayOfMonth": return "bigint NULL";
+                case "DayOfWeek": return "bigint NULL";                
                 case "EveryXCustom": return "bigint NULL";
                 case "RepeatDays": return "text NULL";
                 case "SoundFilePath": return "text NULL";
                 case "PostponeDate": return "text NULL";
+                default: return "text NULL";
+            }
+        }
+
+        /// <summary>
+        /// Gets the SQLite data types of the settings columns, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
+        private static string GetSettingColumnSqlType(string columnName)
+        {
+            //Yes, this is not really the "correct" way of dealing with a problem, but after a lot of searching it's quite a struggle
+            //to get the data types of the sqlite columns, especially when they're nullable.
+            switch (columnName)
+            {
+                case "AlwaysOnTop": return "INTEGER NOT NULL";
+                case "StickyForm": return "INTEGER NOT NULL";
+                case "EnablePopupMessage": return "INTEGER NOT NULL";
+                default: return "text NULL";
+            }
+        }
+
+        /// <summary>
+        /// Gets the SQLite data types of the songs columns, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
+        private static string GetSongColumnSqlType(string columnName)
+        {
+            //Yes, this is not really the "correct" way of dealing with a problem, but after a lot of searching it's quite a struggle
+            //to get the data types of the sqlite columns, especially when they're nullable.
+            switch (columnName)
+            {
+                case "Id": return "INTEGER NOT NULL";
+                case "SongFileName": return "text NOT NULL";
+                case "SongFilePath": return "text NOT NULL";
                 default: return "text NULL";
             }
         }
@@ -185,8 +251,7 @@ namespace Data_Access_Layer
         /// </summary>
         /// <param name="rem">The reminder you want added into the database</param>
         public static long PushReminderToDatabase(Reminder rem)
-        {
-            
+        {            
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 if (db.Reminder.Count() > 0)

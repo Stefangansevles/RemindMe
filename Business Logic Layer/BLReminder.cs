@@ -21,6 +21,14 @@ namespace Business_Logic_Layer
             //currently no business logic
             return DLReminders.GetReminders();
         }
+        /// <summary>
+        /// Gets all (enabled) reminders which are happening today.
+        /// </summary>
+        /// <returns></returns>
+        public static List<Reminder> GetTodaysReminders()
+        {
+            return DLReminders.GetReminders().Where(t => Convert.ToDateTime(t.Date).Day == DateTime.Now.Day && t.Enabled == 1).ToList();
+        }
 
         /// <summary>
         /// forces the database to refresh the list

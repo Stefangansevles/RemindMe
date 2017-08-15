@@ -22,6 +22,7 @@
     <Property Name="Id" Type="Int64" Nullable="false" />
     <Property Name="AlwaysOnTop" Type="Int64" Nullable="false" />
     <Property Name="StickyForm" Type="Int64" Nullable="false" />
+    <Property Name="EnableReminderCountPopup" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

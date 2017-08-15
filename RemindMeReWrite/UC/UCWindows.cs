@@ -39,6 +39,7 @@ namespace RemindMe
             {
                 Settings set = new Settings();
                 set.AlwaysOnTop = alwaysOnTop;
+                set.StickyForm = 0;                
                 BLSettings.UpdateSettings(set);
             }
             //Since we're not going to change the contents of this combobox anyway, we're just going to do it like this
@@ -46,6 +47,23 @@ namespace RemindMe
                 cbPopupType.SelectedItem = cbPopupType.Items[0]; 
             else
                 cbPopupType.SelectedItem = cbPopupType.Items[1];
+
+            if (BLSettings.IsReminderCountPopupEnabled())            
+                cbEnableRemindMeMessages.Checked = true;            
+            else
+                cbEnableRemindMeMessages.Checked = false;
+        }
+
+        private void cbEnableRemindMeMessages_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings set = BLSettings.GetSettings();
+
+            if (cbEnableRemindMeMessages.Checked)
+                set.EnableReminderCountPopup = 1;
+            else
+                set.EnableReminderCountPopup = 0;
+
+            BLSettings.UpdateSettings(set);
         }
     }
 }

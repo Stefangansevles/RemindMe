@@ -45,11 +45,15 @@ namespace RemindMe
         }
 
         private void pbExport_Click(object sender, EventArgs e)
-        {            
+        {
+            lblStatus.Visible = false;
+            pbStatus.Visible = false;
+
             pnlImportedReminders.Controls.Clear();
             pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders(), false));
             pbClearPanel.Visible = true;
             pnlIntro.Visible = false;
+            
         }
 
         private void label3_Click(object sender, EventArgs e)

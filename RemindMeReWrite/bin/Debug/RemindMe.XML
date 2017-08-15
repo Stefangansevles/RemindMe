@@ -105,7 +105,12 @@
             </summary>
             <param name="cbSound"></param>
         </member>
-        <member name="M:RemindMe.Form1.MakePopup(Database.Entity.Reminder)">
+        <member name="M:RemindMe.Form1.MakeReminderPopup(Database.Entity.Reminder)">
+            <summary>
+            Creates a new instance of popup
+            </summary>
+        </member>
+        <member name="M:RemindMe.Form1.MakeMessagePopup(System.String,System.Int32)">
             <summary>
             Creates a new instance of popup
             </summary>
@@ -239,6 +244,38 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:RemindMe.RemindMeMessageForm.#ctor(System.String,System.Int32)">
+            <summary>
+            This class is a custom message form that will appear at the right bottom corner of the user's main monitor.
+            </summary>
+        </member>
+        <member name="P:RemindMe.RemindMeMessageForm.PopDelay">
+            <summary>
+            The amount of seconds before this form should go down.
+            </summary>
+        </member>
+        <member name="M:RemindMe.RemindMeMessageForm.EnlargeTextbox">
+            <summary>
+            Enlarges the textbox and form if there's a lot of text in it
+            </summary>
+        </member>
+        <member name="F:RemindMe.RemindMeMessageForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RemindMe.RemindMeMessageForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RemindMe.RemindMeMessageForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
         <member name="T:RemindMe.ComboBoxItemManager">
             <summary>
             This class manages ComboBoxItems and only ComboBoxItems.
@@ -279,6 +316,13 @@
             <param name="text">text of the comboboxitem</param>
             <param name="value">value of the comboboxitem</param>
             <returns>A comboboxitem with the given text and value. null if it doesnt exist</returns>
+        </member>
+        <member name="T:RemindMe.MyToolStripMenuRenderer">
+            <summary>
+            This class is a custom renderer for RemindMe toolstripmenu items. 
+            It removes the highlight color and border color by setting the color to DimGray(same color as the toolstrips that use this renderer)
+            The selection text color will be white for each menu item.
+            </summary>
         </member>
         <member name="M:RemindMe.Program.Main(System.String[])">
             <summary>
@@ -645,6 +689,11 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.remindme_backup_image">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.RemindMe_message_popup">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

@@ -29,22 +29,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCPopupMessage));
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.tbError = new System.Windows.Forms.RichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox5
+            // tbError
             // 
-            this.pictureBox5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox5.BackgroundImage")));
-            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox5.Location = new System.Drawing.Point(-1, 2);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(35, 32);
-            this.pictureBox5.TabIndex = 26;
-            this.pictureBox5.TabStop = false;
+            this.tbError.BackColor = System.Drawing.Color.DimGray;
+            this.tbError.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbError.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tbError.Font = new System.Drawing.Font("MS Reference Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbError.ForeColor = System.Drawing.Color.White;
+            this.tbError.Location = new System.Drawing.Point(39, 7);
+            this.tbError.Name = "tbError";
+            this.tbError.ReadOnly = true;
+            this.tbError.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.tbError.Size = new System.Drawing.Size(142, 27);
+            this.tbError.TabIndex = 108;
+            this.tbError.Text = "";
+            this.tbError.Enter += new System.EventHandler(this.tbError_Enter);
             // 
             // pbCloseApplication
             // 
@@ -58,19 +64,15 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
-            // tbError
+            // pictureBox5
             // 
-            this.tbError.BackColor = System.Drawing.Color.DimGray;
-            this.tbError.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbError.Font = new System.Drawing.Font("MS Reference Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbError.ForeColor = System.Drawing.Color.White;
-            this.tbError.Location = new System.Drawing.Point(39, 7);
-            this.tbError.Name = "tbError";
-            this.tbError.ReadOnly = true;
-            this.tbError.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.tbError.Size = new System.Drawing.Size(142, 27);
-            this.tbError.TabIndex = 108;
-            this.tbError.Text = "";
+            this.pictureBox5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox5.BackgroundImage")));
+            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox5.Location = new System.Drawing.Point(-1, 2);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(35, 32);
+            this.pictureBox5.TabIndex = 26;
+            this.pictureBox5.TabStop = false;
             // 
             // UCPopupMessage
             // 
@@ -82,8 +84,8 @@
             this.Controls.Add(this.pictureBox5);
             this.Name = "UCPopupMessage";
             this.Size = new System.Drawing.Size(221, 54);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
 
         }

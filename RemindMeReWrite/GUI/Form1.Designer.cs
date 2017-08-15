@@ -123,6 +123,8 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.tmrMessageFormScrollUp = new System.Windows.Forms.Timer(this.components);
+            this.tmrMessageFormScrollDown = new System.Windows.Forms.Timer(this.components);
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -1025,26 +1027,34 @@
             // 
             // RemindMeTrayIconMenuStrip
             // 
+            this.RemindMeTrayIconMenuStrip.BackColor = System.Drawing.Color.DimGray;
             this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsExit,
             this.showRemindMeToolStripMenuItem});
             this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(165, 48);
+            this.RemindMeTrayIconMenuStrip.ShowImageMargin = false;
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(133, 48);
             this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
             // 
             // tsExit
             // 
+            this.tsExit.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.tsExit.ForeColor = System.Drawing.Color.Silver;
             this.tsExit.Image = ((System.Drawing.Image)(resources.GetObject("tsExit.Image")));
+            this.tsExit.ImageTransparentColor = System.Drawing.Color.Red;
             this.tsExit.Name = "tsExit";
-            this.tsExit.Size = new System.Drawing.Size(164, 22);
+            this.tsExit.Size = new System.Drawing.Size(132, 22);
             this.tsExit.Text = "Exit RemindMe";
             this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
             // 
             // showRemindMeToolStripMenuItem
             // 
+            this.showRemindMeToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.showRemindMeToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
             this.showRemindMeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showRemindMeToolStripMenuItem.Image")));
+            this.showRemindMeToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.showRemindMeToolStripMenuItem.Name = "showRemindMeToolStripMenuItem";
-            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
             this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
             // 
@@ -1094,7 +1104,7 @@
             this.pbWindows.Size = new System.Drawing.Size(49, 42);
             this.pbWindows.TabIndex = 77;
             this.pbWindows.TabStop = false;
-            this.toolTip1.SetToolTip(this.pbWindows, "Manage");
+            this.toolTip1.SetToolTip(this.pbWindows, "Manage window overlay & forms");
             this.pbWindows.Click += new System.EventHandler(this.pbWindows_Click);
             // 
             // pbMusic
@@ -1130,11 +1140,12 @@
             // 
             // previewToolStripMenuItem
             // 
+            this.previewToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
             this.previewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.previewThisReminderNowToolStripMenuItem,
             this.previewThisReminderIn5SecondsToolStripMenuItem,
             this.previewThisReminderIn10SecondsToolStripMenuItem});
-            this.previewToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.previewToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
             this.previewToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.previewToolStripMenuItem.Text = "Preview reminder";
@@ -1142,7 +1153,7 @@
             // previewThisReminderNowToolStripMenuItem
             // 
             this.previewThisReminderNowToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.previewThisReminderNowToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.previewThisReminderNowToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.previewThisReminderNowToolStripMenuItem.Name = "previewThisReminderNowToolStripMenuItem";
             this.previewThisReminderNowToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
             this.previewThisReminderNowToolStripMenuItem.Text = "Preview this reminder now";
@@ -1151,7 +1162,7 @@
             // previewThisReminderIn5SecondsToolStripMenuItem
             // 
             this.previewThisReminderIn5SecondsToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.previewThisReminderIn5SecondsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.previewThisReminderIn5SecondsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.previewThisReminderIn5SecondsToolStripMenuItem.Name = "previewThisReminderIn5SecondsToolStripMenuItem";
             this.previewThisReminderIn5SecondsToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
             this.previewThisReminderIn5SecondsToolStripMenuItem.Text = "Preview this reminder in 5 seconds";
@@ -1160,7 +1171,7 @@
             // previewThisReminderIn10SecondsToolStripMenuItem
             // 
             this.previewThisReminderIn10SecondsToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.previewThisReminderIn10SecondsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.previewThisReminderIn10SecondsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.previewThisReminderIn10SecondsToolStripMenuItem.Name = "previewThisReminderIn10SecondsToolStripMenuItem";
             this.previewThisReminderIn10SecondsToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
             this.previewThisReminderIn10SecondsToolStripMenuItem.Text = "Preview this reminder in 10 seconds";
@@ -1168,7 +1179,7 @@
             // 
             // removeReminderToolStripMenuItem
             // 
-            this.removeReminderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.removeReminderToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.removeReminderToolStripMenuItem.Name = "removeReminderToolStripMenuItem";
             this.removeReminderToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.removeReminderToolStripMenuItem.Text = "Remove reminder";
@@ -1176,7 +1187,7 @@
             // 
             // editReminderToolStripMenuItem
             // 
-            this.editReminderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.editReminderToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.editReminderToolStripMenuItem.Name = "editReminderToolStripMenuItem";
             this.editReminderToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.editReminderToolStripMenuItem.Text = "Edit reminder";
@@ -1184,7 +1195,7 @@
             // 
             // enableDisableReminderToolStripMenuItem
             // 
-            this.enableDisableReminderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.enableDisableReminderToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.enableDisableReminderToolStripMenuItem.Name = "enableDisableReminderToolStripMenuItem";
             this.enableDisableReminderToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.enableDisableReminderToolStripMenuItem.Text = "Enable/Disable reminder";
@@ -1192,7 +1203,7 @@
             // 
             // exportSelectedRemindersToolStripMenuItem
             // 
-            this.exportSelectedRemindersToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.exportSelectedRemindersToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.exportSelectedRemindersToolStripMenuItem.Name = "exportSelectedRemindersToolStripMenuItem";
             this.exportSelectedRemindersToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.exportSelectedRemindersToolStripMenuItem.Text = "Export selected reminders";
@@ -1299,6 +1310,16 @@
             this.pbCloseApplication.TabIndex = 64;
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
+            // 
+            // tmrMessageFormScrollUp
+            // 
+            this.tmrMessageFormScrollUp.Interval = 10;
+            this.tmrMessageFormScrollUp.Tick += new System.EventHandler(this.tmrMessageFormScrollUp_Tick);
+            // 
+            // tmrMessageFormScrollDown
+            // 
+            this.tmrMessageFormScrollDown.Interval = 10;
+            this.tmrMessageFormScrollDown.Tick += new System.EventHandler(this.tmrMessageFormScrollDown_Tick);
             // 
             // Form1
             // 
@@ -1444,6 +1465,8 @@
         private System.Windows.Forms.Label lblAddedDates;
         public System.Windows.Forms.PictureBox pbImportExport;
         private System.Windows.Forms.ToolStripMenuItem exportSelectedRemindersToolStripMenuItem;
+        private System.Windows.Forms.Timer tmrMessageFormScrollUp;
+        private System.Windows.Forms.Timer tmrMessageFormScrollDown;
     }
 }
 

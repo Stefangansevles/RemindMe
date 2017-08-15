@@ -38,5 +38,10 @@ namespace RemindMe
             if (tbError.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
                 this.Height = tbError.Height + 32;
         }
+
+        private void tbError_Enter(object sender, EventArgs e)
+        {
+            pictureBox5.Focus();
+        }
     }
 }

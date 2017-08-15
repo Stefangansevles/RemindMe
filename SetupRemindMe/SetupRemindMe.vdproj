@@ -75,6 +75,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3D11446C7746DCC9B49618AACAD07A9A"
+        "OwnerKey" = "8:_6E172A3C698B4443A6D107BC9D36173F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3EC5CD98ECDD7B02CCAE8A1462A1DC40"
         "OwnerKey" = "8:_53B05AD024D63A5F2AE9205EBD99BAC6"
         "MsmSig" = "8:_UNDEFINED"
@@ -289,6 +295,12 @@
         "OwnerKey" = "8:_3EC5CD98ECDD7B02CCAE8A1462A1DC40"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3D11446C7746DCC9B49618AACAD07A9A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -469,6 +481,37 @@
                     }
                 }
             "SourcePath" = "8:EntityFramework.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9D241E04FF7E4204804613D55AF13695"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3D11446C7746DCC9B49618AACAD07A9A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Windows, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_3D11446C7746DCC9B49618AACAD07A9A"
+                    {
+                    "Name" = "8:System.Windows.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Windows.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9D241E04FF7E4204804613D55AF13695"
@@ -1019,15 +1062,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{CED9F54D-A36D-4462-812A-5AF7EC7B906F}"
-        "PackageCode" = "8:{B557D156-7D0C-43C6-B782-CAFA15D6F0A1}"
+        "ProductCode" = "8:{E2BD18DA-1D61-45AE-BB94-7FED306CF492}"
+        "PackageCode" = "8:{37C0F3CB-7BC3-46DF-A000-E99B6C9995FD}"
         "UpgradeCode" = "8:{AD8F3D12-D27D-4910-A7A4-222CAA0A511D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.6.35"
+        "ProductVersion" = "8:1.7.0"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

@@ -10,7 +10,6 @@ using WMPLib;
 using Database.Entity;
 using Business_Logic_Layer;
 using System.Runtime.InteropServices;
-using Microsoft.VisualBasic.FileIO;
 
 namespace RemindMe
 {
@@ -35,9 +34,7 @@ namespace RemindMe
         //The start playing preview sound icon
         Image imgPlayResume;
 
-        //Used to play a sound
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        IWMPMedia mediaInfo;
+        
         
         //This list will contain reminders that need removing    
         List<Reminder> toRemoveReminders;
@@ -55,16 +52,18 @@ namespace RemindMe
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;
 
+        //Used to play a sound
+        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
+        IWMPMedia mediaInfo;
 
-      
-       
+        RemindMeMessageForm popupForm;
         public Form1()
-        {                                    
+        {
+            
             InitializeComponent();                        
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
             BLIO.CreateSettings();
-            BLIO.CreateDatabaseIfNotExist();
-          
+            BLIO.CreateDatabaseIfNotExist();            
 
             ucWindows = new UCWindows();
             ucMusic = new UCMusic();
@@ -84,7 +83,13 @@ namespace RemindMe
             cbThursday.CheckedChanged += cbDaysCheckedChangeEvent;
             cbFriday.CheckedChanged += cbDaysCheckedChangeEvent;
             cbSaturday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbSunday.CheckedChanged += cbDaysCheckedChangeEvent;            
+            cbSunday.CheckedChanged += cbDaysCheckedChangeEvent;    
+            
+            //Set the Renderer of the menustrip to our custom renderer, which sets the highlight and border collor to DimGray, which is the same
+            //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
+            //toolstrip items white.
+            RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();       
+            ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
         }
 
         
@@ -103,34 +108,22 @@ namespace RemindMe
 
             //This message will be sent when the RemindMeImporter imports reminders.
             if (m.Msg == WM_RELOAD_REMINDERS)
-            {                
+            {
+                int currentReminderCount = BLReminder.GetReminders().Count;
                 BLReminder.NotifyChange();
                 RefreshListview(lvReminders);
+
+                if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
+                    MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!",3);
+
             }
         }
 
 
-        private string[] SplitFields(string csvValue)
-        {
-            //if there aren't quotes, use the faster function
-            if (!csvValue.Contains('\"') && !csvValue.Contains('\''))
-            {
-                return csvValue.Trim(',').Split(',');
-            }
-            else
-            {
-                //there are quotes, use this built in text parser
-                using (var csvParser = new Microsoft.VisualBasic.FileIO.TextFieldParser(new StringReader(csvValue.Trim(','))))
-                {
-                    csvParser.Delimiters = new string[] { "," };
-                    csvParser.HasFieldsEnclosedInQuotes = true;
-                    return csvParser.ReadFields();
-                }
-            }
-        }
+       
 
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {                                    
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -138,6 +131,9 @@ namespace RemindMe
             ShowPanel(pnlMain);
             ResetReminderForm();
 
+            int reminderCount = BLReminder.GetTodaysReminders().Count;
+            if(reminderCount > 0 && BLSettings.IsReminderCountPopupEnabled())
+                MakeMessagePopup("You have " + reminderCount + " Reminder(s) set for today.",3);
 
 
             //hide the form on startup
@@ -234,7 +230,7 @@ namespace RemindMe
                 {
                     DateTimePicker pick = (DateTimePicker)c;
                     pick.Enabled = true;
-                    pick.Value = DateTime.Today.AddMinutes(1);
+                    pick.Value = DateTime.Now.AddMinutes(1);
                 }
                 if (c is ComboBox)
                 {
@@ -353,26 +349,20 @@ namespace RemindMe
         /// <summary>
         /// Creates a new instance of popup
         /// </summary>
-        private void MakePopup(Reminder rem)
+        private void MakeReminderPopup(Reminder rem)
         {
             Popup p = new Popup(rem);
-            p.Show();
-           
-            //BLIO.readSettings();
-            if (rem.SoundFilePath != null && rem.SoundFilePath != "")
-            {
-                if (System.IO.File.Exists(rem.SoundFilePath))
-                {
-                    myPlayer.URL = rem.SoundFilePath;
-                    myPlayer.controls.play();
-                }
-                else
-                {
-                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxIcon.INFORMATION);
-                    //make sure its removed from the reminder
-                    rem.SoundFilePath = "";
-                }
-            }
+            p.Show();                                   
+        }
+
+        /// <summary>
+        /// Creates a new instance of popup
+        /// </summary>
+        private void MakeMessagePopup(string message, int popDelay)
+        {
+            popupForm = new RemindMeMessageForm(message, popDelay);
+            popupForm.Show();
+            tmrMessageFormScrollUp.Start();
         }
 
         /// <summary>
@@ -741,7 +731,7 @@ namespace RemindMe
                     rem.Enabled = 0;
                     BLReminder.EditReminder(rem);
 
-                    MakePopup(rem);
+                    MakeReminderPopup(rem);
                 }
                 else if(Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1)
                 {
@@ -751,7 +741,7 @@ namespace RemindMe
                     rem.Enabled = 0;
                     BLReminder.EditReminder(rem);
 
-                    MakePopup(rem);
+                    MakeReminderPopup(rem);
                 }
                                                                     
             }             
@@ -1123,6 +1113,8 @@ namespace RemindMe
             //Fill the form with the data from the single reminder selected from the listview.
             if (lvReminders.SelectedItems.Count > 0)
             {
+                //clear the form, then fill it with the selected reminder
+                ResetReminderForm();
                 ListViewItem item = lvReminders.SelectedItems[0];                
                 int id = Convert.ToInt32(item.Tag);
                 editableReminder = BLReminder.GetReminderById(id);                            
@@ -1287,7 +1279,10 @@ namespace RemindMe
         private void dtpTime_ValueChanged(object sender, EventArgs e)
         {
             ShowOrHideExclamation();
-            cbEvery_SelectedIndexChanged(sender, e);            
+            cbEvery_SelectedIndexChanged(sender, e);
+                  
+            if(rbDaily.Checked && Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) < DateTime.Now)            
+                dtpDate.Value = DateTime.Now.AddDays(1);            
         }
         
         private void dtpDate_ValueChanged(object sender, EventArgs e)
@@ -1492,7 +1487,7 @@ namespace RemindMe
         {
             Reminder previewRem = rem;
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered
-            MakePopup(previewRem);
+            MakeReminderPopup(previewRem);
         }
 
         private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1778,6 +1773,32 @@ namespace RemindMe
                 //reset location
                 pnlPopup.Location = new Point(this.Width - pnlPopup.Width, this.Height);
             }
+        }
+
+        private async void tmrMessageFormScrollUp_Tick(object sender, EventArgs e)
+        {
+            popupForm.Location = new Point(popupForm.Location.X, popupForm.Location.Y - 2);
+
+            if (popupForm.Location.Y <= Screen.GetWorkingArea(this).Height - popupForm.Height)
+            {
+                tmrMessageFormScrollUp.Stop();
+
+                //stop scrolling up, wait 3 seconds, scroll down
+                await Task.Delay(popupForm.PopDelay * 1000);
+                tmrMessageFormScrollDown.Start();               
+            }
+        }
+
+        private void tmrMessageFormScrollDown_Tick(object sender, EventArgs e)
+        {
+            popupForm.Location = new Point(popupForm.Location.X, popupForm.Location.Y + 2);
+
+            if (popupForm.Location.Y >= Screen.GetWorkingArea(this).Height)
+            {
+                tmrMessageFormScrollDown.Stop();
+                popupForm.Dispose();                
+            }
+                  
         }
     }
 }

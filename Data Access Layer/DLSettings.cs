@@ -38,6 +38,30 @@ namespace Data_Access_Layer
             return alwaysOnTop == 1;                                            
         }
 
+        /// <summary>
+        /// Reads the settings from the database and checks if reminders should be set to always on top.
+        /// </summary>
+        /// <returns>True if reminders are set to be always on top, false if not</returns>
+        public static bool IsReminderCountPopupEnabled()
+        {
+            int enablePopupMessage = 1;
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                var count = db.Settings.Where(o => o.Id >= 0).Count();
+                if (count > 0)
+                {
+                    enablePopupMessage = Convert.ToInt32((from g in db.Settings select g.EnableReminderCountPopup).SingleOrDefault());
+                    db.Dispose();
+                }
+                else
+                {
+                    Settings set = new Settings();                    
+                    set.EnableReminderCountPopup = enablePopupMessage;
+                    UpdateSettings(set);
+                }
+            }
+            return enablePopupMessage == 1;
+        }
 
         /// <summary>
         /// Reads the settings from the database and checks if the controls should be cleared after making a new reminder.
@@ -82,6 +106,7 @@ namespace Data_Access_Layer
                     settings = new Settings();
                     settings.AlwaysOnTop = 1;
                     settings.StickyForm = 0;
+                    settings.EnableReminderCountPopup = 1;
                     UpdateSettings(settings);                   
                 }
                 else
