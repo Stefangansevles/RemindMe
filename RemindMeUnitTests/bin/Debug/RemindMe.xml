@@ -80,6 +80,11 @@
             This is the main form. Control events will be handled here
             </summary>
         </member>
+        <member name="M:RemindMe.Form1.MakeTodaysRemindersPopup">
+            <summary>
+            makes the popup that shows howmany reminders are set for today
+            </summary>
+        </member>
         <member name="M:RemindMe.Form1.ResetControlValues(System.Windows.Forms.Panel)">
             <summary>
             Resets all the controls to their original state.

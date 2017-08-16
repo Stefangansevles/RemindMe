@@ -24,6 +24,7 @@ namespace RemindMe
             EnlargeTextbox();
             this.popDelay = popDelay;
             this.TopMost = true;
+            this.TopLevel = true;
 
             this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width, Screen.GetWorkingArea(this).Height);
         }
@@ -64,6 +65,16 @@ namespace RemindMe
         private void tbMessage_Enter(object sender, EventArgs e)
         {
             pictureBox5.Focus();
+        }
+
+        private void RemindMeMessageForm_VisibleChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void RemindMeMessageForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
 }

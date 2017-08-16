@@ -7,3 +7,4 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\bin\Debug\EntityFrame
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\bin\Debug\EntityFramework.SqlServer.xml
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\obj\Debug\Database.Entity.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\obj\Debug\Database.Entity.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\obj\Debug\Database.Entity.csprojResolveAssemblyReference.cache

@@ -130,7 +130,15 @@ namespace RemindMe
         }
 
 
-       
+        /// <summary>
+        /// makes the popup that shows howmany reminders are set for today
+        /// </summary>
+        private void MakeTodaysRemindersPopup()
+        {
+            int reminderCount = BLReminder.GetTodaysReminders().Count;
+            if (reminderCount > 0 && BLSettings.IsReminderCountPopupEnabled())
+                MakeMessagePopup("You have " + reminderCount + " Reminder(s) set for today.", 3);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {                                    
@@ -141,10 +149,8 @@ namespace RemindMe
             ShowPanel(pnlMain);
             ResetReminderForm();
 
-            int reminderCount = BLReminder.GetTodaysReminders().Count;
-            if(reminderCount > 0 && BLSettings.IsReminderCountPopupEnabled())
-                MakeMessagePopup("You have " + reminderCount + " Reminder(s) set for today.",3);
 
+            MakeTodaysRemindersPopup();
 
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
@@ -726,6 +732,7 @@ namespace RemindMe
             {
                 allowRefreshListview = true;
                 dayOfStartRemindMe = DateTime.Now.Day;
+                MakeTodaysRemindersPopup();
             }
                 
 
@@ -1810,6 +1817,8 @@ namespace RemindMe
             if (popupForm.Location.Y >= Screen.GetWorkingArea(this).Height)
             {
                 tmrMessageFormScrollDown.Stop();
+                popupForm.TopMost = false;                
+                popupForm.TopLevel = false;                
                 popupForm.Dispose();                
             }
                   

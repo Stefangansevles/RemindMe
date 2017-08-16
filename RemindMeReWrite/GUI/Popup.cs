@@ -48,11 +48,14 @@ namespace RemindMe
         private void Popup_Load(object sender, EventArgs e)
         {
             if (BLSettings.IsAlwaysOnTop())
+            {
                 this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
+                this.TopLevel = true;
+            }
             else
             {
                 this.TopMost = false;
-                this.WindowState = FormWindowState.Minimized;             
+                this.WindowState = FormWindowState.Minimized;
             }
 
             //Show the reminder note            

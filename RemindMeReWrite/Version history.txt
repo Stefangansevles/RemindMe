@@ -274,4 +274,8 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  V1.7.02
  Prevented a lot of flickering.
+
+ V1.7.0.3
+ Fixed an issue where the scrolling popup form on your main monitor has topmost, but did not lose it. After the popup is gone it has to lose topmost/toplevel, 
+ so that reminders can be topmost again.
  

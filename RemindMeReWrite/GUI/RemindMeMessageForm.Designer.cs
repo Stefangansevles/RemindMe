@@ -118,7 +118,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemindMeMessageForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RemindMeMessageForm_FormClosing);
             this.SizeChanged += new System.EventHandler(this.RemindMeMessageForm_SizeChanged);
+            this.VisibleChanged += new System.EventHandler(this.RemindMeMessageForm_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
