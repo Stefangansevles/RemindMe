@@ -60,7 +60,9 @@ namespace RemindMe
         public Form1()
         {
             
-            InitializeComponent();                        
+            InitializeComponent();  
+            
+                                  
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();            
@@ -92,12 +94,20 @@ namespace RemindMe
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
         }
 
-        
 
-        
-        
-        
-        
+        //prevent flickering
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
+        }
+
+
+
         protected override void WndProc(ref Message m)
         {
             //Make RemindMe draggable from the top

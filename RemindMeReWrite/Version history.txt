@@ -271,4 +271,7 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  V1.7.01
  Fixed an small issue with the popup message form checking for today's reminders
  The popup message form is now TopMost.(always on top)
+
+ V1.7.02
+ Prevented a lot of flickering.
  
