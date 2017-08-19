@@ -23,12 +23,21 @@ namespace Business_Logic_Layer
         public static void CreateDatabaseIfNotExist()
         {
             if (!System.IO.File.Exists(IOVariables.databaseFile))            
-                DLReminders.CreateDatabase();            
+                DLDatabase.CreateDatabase();            
             else
             {
                 //great! the .db file exists. Now lets check if the user's .db file is up-to-date. let's see if the reminder table has all the required columns.
-                if(!DLReminders.HasAllColumns())
-                    DLReminders.InsertNewColumns(); //not up to date. insert !
+                if (DLDatabase.HasAllTables())
+                {
+                    if (!DLDatabase.HasAllColumns())
+                        DLDatabase.InsertNewColumns(); //not up to date. insert !
+                }
+                else
+                {
+                    DLDatabase.InsertMissingTables();
+                    //re-run the method, since the .db file **should** now have all the tables.
+                    CreateDatabaseIfNotExist();
+                }
                                 
             }            
         }

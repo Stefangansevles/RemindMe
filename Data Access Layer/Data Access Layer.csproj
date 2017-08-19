@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SQLite, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.105.2\lib\net45\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
@@ -69,6 +70,8 @@
     <Compile Include="..\RemindMeReWrite\ReminderException.cs">
       <Link>ReminderException.cs</Link>
     </Compile>
+    <Compile Include="DLDatabase.cs" />
+    <Compile Include="DLPopupDimensions.cs" />
     <Compile Include="DLReminders.cs" />
     <Compile Include="DLSettings.cs" />
     <Compile Include="DLSongs.cs" />

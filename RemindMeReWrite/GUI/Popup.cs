@@ -19,7 +19,11 @@ namespace RemindMe
         public Popup(Reminder rem)
         {
             InitializeComponent();
-            this.rem = rem;            
+            this.rem = rem;
+
+            this.Size = new Size((int)BLPopupDimensions.GetPopupDimensions().FormWidth, (int)BLPopupDimensions.GetPopupDimensions().FormHeight);
+            tbTitle.Font = new Font(tbTitle.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontTitleSize, FontStyle.Bold);
+            tbText.Font = new Font(tbText.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontNoteSize, FontStyle.Bold);            
         }
 
         private const int WM_NCHITTEST = 0x84;
@@ -205,12 +209,42 @@ namespace RemindMe
 
         private void tbTitle_Enter(object sender, EventArgs e)
         {
-            label1.Focus();
+            lblNewReminder.Focus();
         }
 
         private void tbText_Enter(object sender, EventArgs e)
         {
-            label1.Focus();
+            lblNewReminder.Focus();
+        }
+
+        private void ResizeControls()
+        {
+            //give new locations to the controls if the size changes.
+            tbBlackTopBar.Width = this.Width;
+
+            tbTitle.Width = (this.Width - tbTitle.Location.X) - 3;
+            tbText.Width = (this.Width - tbText.Location.X) - 3;
+
+            lblDate.Location = new Point(lblDate.Location.X, (lblNewReminder.Location.Y + lblNewReminder.Height) + 3);
+
+            
+
+            cbPostpone.Location = new Point(3, this.Height - cbPostpone.Height - 3);
+            pbCloseApplication.Location = new Point((this.Width - pbCloseApplication.Width), pbCloseApplication.Location.Y);
+            pbMinimizeApplication.Location = new Point(this.Width - (pbCloseApplication.Width + pbMinimizeApplication.Width), pbMinimizeApplication.Location.Y);
+            btnOk.Location = new Point(this.Width - btnOk.Width - 3, this.Height - btnOk.Height - 3);
+            cbPostponeTime.Location = new Point(cbPostpone.Location.X + cbPostponeTime.Width + 5, cbPostpone.Location.Y + 1);
+            cbPostponeType.Location = new Point(cbPostponeTime.Location.X + cbPostponeTime.Width + 5, cbPostponeTime.Location.Y);
+
+            
+
+            tbTitle.Height = Convert.ToInt32(this.Height * 0.20); //20% of the form
+            tbText.Height = (cbPostpone.Location.Y - 5) - (tbTitle.Location.Y + tbTitle.Height) - 3;//height should be y start point through a bit above the postpone combobox
+            tbText.Location = new Point(tbText.Location.X, tbTitle.Location.Y + tbTitle.Height + 3);//place the text textbox under the title textbox
+        }
+        private void Popup_SizeChanged(object sender, EventArgs e)
+        {
+            ResizeControls();
         }
     }
 }

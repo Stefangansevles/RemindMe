@@ -36,5 +36,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PopupDimensions">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.PopupDimensions">
+        <MappingFragment StoreEntitySet="PopupDimensions">
+          <ScalarProperty Name="FontNoteSize" ColumnName="FontNoteSize" />
+          <ScalarProperty Name="FontTitleSize" ColumnName="FontTitleSize" />
+          <ScalarProperty Name="FormHeight" ColumnName="FormHeight" />
+          <ScalarProperty Name="FormWidth" ColumnName="FormWidth" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

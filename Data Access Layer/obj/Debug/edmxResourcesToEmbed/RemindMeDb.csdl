@@ -36,5 +36,16 @@
     <EntitySet Name="Reminder" EntityType="Self.Reminder" />
     <EntitySet Name="Settings" EntityType="Self.Settings" />
     <EntitySet Name="Songs" EntityType="Self.Songs" />
+    <EntitySet Name="PopupDimensions" EntityType="RemindMeDatabaseModel.PopupDimensions" />
   </EntityContainer>
+  <EntityType Name="PopupDimensions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="FormWidth" Type="Int64" Nullable="false" />
+    <Property Name="FormHeight" Type="Int64" Nullable="false" />
+    <Property Name="FontTitleSize" Type="Int64" Nullable="false" />
+    <Property Name="FontNoteSize" Type="Int64" Nullable="false" />
+  </EntityType>
 </Schema>

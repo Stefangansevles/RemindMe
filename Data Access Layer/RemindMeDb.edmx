@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PopupDimensions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="FormWidth" Type="integer" Nullable="false" />
+          <Property Name="FormHeight" Type="integer" Nullable="false" />
+          <Property Name="FontTitleSize" Type="integer" Nullable="false" />
+          <Property Name="FontNoteSize" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="Reminder">
           <Key>
             <PropertyRef Name="Id" />
@@ -38,6 +48,7 @@
           <Property Name="SongFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityContainer Name="RemindMeDatabaseModelStoreContainer">
+          <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />
           <EntitySet Name="Reminder" EntityType="Self.Reminder" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" store:Type="Tables" />
           <EntitySet Name="Songs" EntityType="Self.Songs" store:Type="Tables" />
@@ -59,7 +70,7 @@
           <Property Name="EveryXCustom" Type="Int64" ConcurrencyMode="None" />
           <Property Name="RepeatDays" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
           <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
-          <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
+          <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />          
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -82,7 +93,18 @@
           <EntitySet Name="Reminder" EntityType="Self.Reminder" />
           <EntitySet Name="Settings" EntityType="Self.Settings" />
           <EntitySet Name="Songs" EntityType="Self.Songs" />
+          <EntitySet Name="PopupDimensions" EntityType="RemindMeDatabaseModel.PopupDimensions" />
         </EntityContainer>
+        <EntityType Name="PopupDimensions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="FormWidth" Type="Int64" Nullable="false" />
+          <Property Name="FormHeight" Type="Int64" Nullable="false" />
+          <Property Name="FontTitleSize" Type="Int64" Nullable="false" />
+          <Property Name="FontNoteSize" Type="Int64" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -91,7 +113,7 @@
         <EntityContainerMapping StorageEntityContainer="RemindMeDatabaseModelStoreContainer" CdmEntityContainer="RemindMeDbEntities">
           <EntitySetMapping Name="Reminder">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
-              <MappingFragment StoreEntitySet="Reminder">
+              <MappingFragment StoreEntitySet="Reminder">                                                
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -124,6 +146,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PopupDimensions">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.PopupDimensions">
+              <MappingFragment StoreEntitySet="PopupDimensions">
+                <ScalarProperty Name="FontNoteSize" ColumnName="FontNoteSize" />
+                <ScalarProperty Name="FontTitleSize" ColumnName="FontTitleSize" />
+                <ScalarProperty Name="FormHeight" ColumnName="FormHeight" />
+                <ScalarProperty Name="FormWidth" ColumnName="FormWidth" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -139,7 +172,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

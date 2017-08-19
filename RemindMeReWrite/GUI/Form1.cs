@@ -48,6 +48,7 @@ namespace RemindMe
         UCWindows ucWindows;
         UCMusic ucMusic;
         UCImportExport ucImportExport;
+        UCCustomizePopup ucCustomizePopup;
 
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;
@@ -70,6 +71,7 @@ namespace RemindMe
             ucWindows = new UCWindows();
             ucMusic = new UCMusic();
             ucImportExport = new UCImportExport();
+            ucCustomizePopup = new UCCustomizePopup();
 
             dayOfStartRemindMe = DateTime.Now.Day;
 
@@ -1200,7 +1202,7 @@ namespace RemindMe
         {
 
             ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
-            if (selectedItem != null)
+            if (selectedItem != null && selectedItem.Text != "Add files...")
             {
                 Songs selectedSong = (Songs)selectedItem.Value;
 
@@ -1241,7 +1243,7 @@ namespace RemindMe
                                 //Remove the song from the combobox list in the manager
                                 ComboBoxItemManager.RemoveComboboxItem(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
                                 
-                                
+                                //Show the user the message that the file is no longer at the specified path.
                                 RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION);
                             }
                         }
@@ -1822,6 +1824,11 @@ namespace RemindMe
                 popupForm.Dispose();                
             }
                   
+        }
+
+        private void pbCustomizePopup_Click(object sender, EventArgs e)
+        {
+            AddUserControl(pnlUserControls, ucCustomizePopup);
         }
     }
 }

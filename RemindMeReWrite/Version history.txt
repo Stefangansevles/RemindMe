@@ -281,4 +281,13 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  V1.7.04
  RemindMe Popups now don't have the IBeam cursor when hovering over the text, giving the illusion of being able to edit it
+
+ V1.7.10
+ You can now resize the RemindMe popup box to a custom size! you can also alter the font size to match your liking. You can do this from the settings.
+
+ The RemindMeMessageForm(the popup at the bottom right of your screen) no longer shows in your taskbar. It shouldn't, because it's just a message popup
+
+ You can now install this version without manually removing previous versions. 
+ RemindMe wouldn't work if you installed a new version with new classes/methods when you already had a previous version installed. 
+ This was due to the setup project not properly replacing the .dll's. in order for the setup project to replace the dll's, the dll's have to have a new version number
  

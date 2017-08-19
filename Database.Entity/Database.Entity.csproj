@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PopupDimensions.cs">
+      <DependentUpon>RemindMeDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reminder.cs">
       <DependentUpon>RemindMeDb.tt</DependentUpon>

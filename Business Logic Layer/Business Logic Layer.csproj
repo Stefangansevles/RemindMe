@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLDatabase.cs" />
     <Compile Include="BLDateTime.cs" />
     <Compile Include="BLFormLogic.cs" />
     <Compile Include="BLIO.cs" />
+    <Compile Include="BLPopupDimensions.cs" />
     <Compile Include="BLReminder.cs" />
     <Compile Include="BLSettings.cs" />
     <Compile Include="BLSongs.cs" />
