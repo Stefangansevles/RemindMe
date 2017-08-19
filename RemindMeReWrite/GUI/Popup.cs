@@ -96,6 +96,16 @@ namespace RemindMe
             }
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
+        }
+
         private void pbMinimizePopup_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -191,6 +201,16 @@ namespace RemindMe
                 cbPostponeTime.Maximum = 23;
             else
                 cbPostponeTime.Maximum = 1400;
+        }
+
+        private void tbTitle_Enter(object sender, EventArgs e)
+        {
+            label1.Focus();
+        }
+
+        private void tbText_Enter(object sender, EventArgs e)
+        {
+            label1.Focus();
         }
     }
 }

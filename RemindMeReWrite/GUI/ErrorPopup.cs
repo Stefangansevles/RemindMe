@@ -23,6 +23,18 @@ namespace RemindMe
             this.message = message;
             this.ex = ex;
         }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
+        }
+
+
         public ErrorPopup(string message,Exception ex,string description) 
         {
             InitializeComponent();

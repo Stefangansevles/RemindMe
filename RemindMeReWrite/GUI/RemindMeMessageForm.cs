@@ -55,6 +55,16 @@ namespace RemindMe
         {            
             this.Dispose();
         }
+        
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
+                return handleParam;
+            }
+        }
 
         private void RemindMeMessageForm_SizeChanged(object sender, EventArgs e)
         {

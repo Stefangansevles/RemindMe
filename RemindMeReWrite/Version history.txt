@@ -275,7 +275,10 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  V1.7.02
  Prevented a lot of flickering.
 
- V1.7.0.3
+ V1.7.03
  Fixed an issue where the scrolling popup form on your main monitor has topmost, but did not lose it. After the popup is gone it has to lose topmost/toplevel, 
  so that reminders can be topmost again.
+
+ V1.7.04
+ RemindMe Popups now don't have the IBeam cursor when hovering over the text, giving the illusion of being able to edit it
  

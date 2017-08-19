@@ -58,6 +58,16 @@ namespace RemindMe
             EnlargeTextbox();  
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
+        }
+
         /// <summary>
         /// Enlarges the textbox if the text exceeds the textbox.
         /// </summary>

@@ -72,6 +72,7 @@
             // 
             this.tbText.BackColor = System.Drawing.Color.DimGray;
             this.tbText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbText.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.tbText.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.tbText.ForeColor = System.Drawing.Color.White;
             this.tbText.Location = new System.Drawing.Point(9, 156);
@@ -80,6 +81,7 @@
             this.tbText.Size = new System.Drawing.Size(324, 112);
             this.tbText.TabIndex = 24;
             this.tbText.Text = "";
+            this.tbText.Enter += new System.EventHandler(this.tbText_Enter);
             // 
             // lblDate
             // 
@@ -260,6 +262,7 @@
             // 
             this.tbTitle.BackColor = System.Drawing.Color.DimGray;
             this.tbTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.tbTitle.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Bold);
             this.tbTitle.ForeColor = System.Drawing.Color.White;
             this.tbTitle.Location = new System.Drawing.Point(9, 97);
@@ -269,6 +272,7 @@
             this.tbTitle.Size = new System.Drawing.Size(324, 60);
             this.tbTitle.TabIndex = 74;
             this.tbTitle.Text = "";
+            this.tbTitle.Enter += new System.EventHandler(this.tbTitle_Enter);
             // 
             // Popup
             // 

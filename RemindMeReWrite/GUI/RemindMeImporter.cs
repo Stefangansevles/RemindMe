@@ -106,6 +106,15 @@ namespace RemindMe
             this.Close();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
+        }
         private void RemindMeImporter_Load(object sender, EventArgs e)
         {
             this.MaximumSize = this.Size;
