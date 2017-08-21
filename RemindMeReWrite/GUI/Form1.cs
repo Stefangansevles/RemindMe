@@ -378,6 +378,14 @@ namespace RemindMe
         /// </summary>
         private void MakeMessagePopup(string message, int popDelay)
         {
+            if (popupForm != null && popupForm.Visible)//We are about to create a new popup, but there's already one visible! Let's dispose it
+            {
+                popupForm.Dispose();
+
+                tmrMessageFormScrollDown.Stop(); //stop the timers
+                tmrMessageFormScrollUp.Stop();
+            }
+
             popupForm = new RemindMeMessageForm(message, popDelay);
             popupForm.Show();
             tmrMessageFormScrollUp.Start();
