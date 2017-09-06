@@ -19,8 +19,7 @@ namespace RemindMe
         PopupDimensions dimensions;
         public UCCustomizePopup()
         {
-            InitializeComponent();
-            dimensions = BLPopupDimensions.GetPopupDimensions();
+            InitializeComponent();            
 
             testrem = new Reminder();
             testrem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
@@ -34,6 +33,8 @@ namespace RemindMe
 
         private void FillValues()
         {
+            dimensions = BLPopupDimensions.GetPopupDimensions();
+
             numWidth.Value = dimensions.FormWidth;
             numheight.Value = dimensions.FormHeight;
             numNoteFontSize.Value = dimensions.FontNoteSize;

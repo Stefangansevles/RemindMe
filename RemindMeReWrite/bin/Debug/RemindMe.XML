@@ -58,6 +58,11 @@
             <param name="title">The text you want the user to see</param>
             <param name="icon">The Icon that the RemindMeBox should show</param>
         </member>
+        <member name="M:RemindMe.ErrorPopup.EnlargeTextbox">
+            <summary>
+            Enlarges the textbox if the text exceeds the textbox.
+            </summary>
+        </member>
         <member name="F:RemindMe.ErrorPopup.components">
             <summary>
             Required designer variable.

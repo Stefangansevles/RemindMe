@@ -54,12 +54,11 @@ namespace RemindMe
             if (m.Msg == WM_NCHITTEST)
                 m.Result = (IntPtr)(HT_CAPTION);
 
-            label3.Focus(); //Like this the textbox won't be focused, else the textbox has the ugly blue selected text
+            lblDetails.Focus(); //Like this the textbox won't be focused, else the textbox has the ugly blue selected text
         }
 
         private void btnClose_Click(object sender, EventArgs e)
-        {
-            string t = tbError.Text;
+        {            
             this.Dispose();
             this.Close();
         }
@@ -67,7 +66,7 @@ namespace RemindMe
         private void ErrorPopup_Load(object sender, EventArgs e)
         {
             tbError.Text = message + "\r\n\r\nException type: " + ex.GetType() + "\r\n" + description;
-
+            EnlargeTextbox();
             pbErrorIcon.BringToFront();
 
             //Make the button look better
@@ -75,7 +74,26 @@ namespace RemindMe
             BLFormLogic.RemovebuttonBorders(btnOpenErrorLog);
         }
 
-        
+
+        /// <summary>
+        /// Enlarges the textbox if the text exceeds the textbox.
+        /// </summary>
+        private void EnlargeTextbox()
+        {
+            Font tempFont = tbError.Font;
+            int textLength = tbError.Text.Length;
+            int textLines = tbError.GetLineFromCharIndex(textLength) + 1;
+            int Margin = tbError.Bounds.Height - tbError.ClientSize.Height;
+            tbError.Height = (TextRenderer.MeasureText(" ", tempFont).Height * textLines) + Margin + 2;
+
+            while((tbError.Location.Y + tbError.Height) > (this.Height - btnClose.Height - 10))
+            {
+                this.Height = this.Height + 10;
+            }
+            //if (tbError.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
+                           
+        }
+
 
         private void pbCloseApplication_Click(object sender, EventArgs e)
         {
@@ -90,6 +108,13 @@ namespace RemindMe
         private void pbMinimizeApplication_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void ErrorPopup_SizeChanged(object sender, EventArgs e)
+        {
+            btnClose.Location = new Point(this.Width - btnClose.Width - 2, this.Height - btnClose.Height - 2);
+            btnOpenErrorLog.Location = new Point(btnClose.Location.X - 2 - btnOpenErrorLog.Width,btnClose.Location.Y);
+            lblDetails.Location = new Point(2, btnOpenErrorLog.Location.Y + 3);
         }
     }
 }

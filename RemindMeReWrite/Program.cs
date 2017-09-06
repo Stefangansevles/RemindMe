@@ -61,6 +61,13 @@ namespace RemindMe
                 ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
             }
 
+            if (e.Exception is UnauthorizedAccessException)
+            {
+                UnauthorizedAccessException theException = (UnauthorizedAccessException)e.Exception;                
+                BLIO.WriteError(e.Exception, "Unauthorized!");
+                ShowError(e.Exception, "Unauthorized!", "RemindMe is not authorized for this action.\r\nThis can be resolved by running RemindMe in administrator-mode.");
+            }
+
             //Here we just filter out some type of exceptions and give different messages, at the bottom is the super Exception, which can be anything.              
             else if (e.Exception is FileNotFoundException)
             {

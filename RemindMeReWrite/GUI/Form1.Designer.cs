@@ -1094,7 +1094,7 @@
             this.pbCustomizePopup.Size = new System.Drawing.Size(49, 40);
             this.pbCustomizePopup.TabIndex = 82;
             this.pbCustomizePopup.TabStop = false;
-            this.toolTip1.SetToolTip(this.pbCustomizePopup, "Backup & Import Reminders");
+            this.toolTip1.SetToolTip(this.pbCustomizePopup, "Resize RemindMe\'s Popup");
             this.pbCustomizePopup.Click += new System.EventHandler(this.pbCustomizePopup_Click);
             // 
             // pbImportExport

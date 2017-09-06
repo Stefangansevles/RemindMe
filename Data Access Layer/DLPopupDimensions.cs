@@ -62,10 +62,10 @@ namespace Data_Access_Layer
             {
 
                 dimensions = new PopupDimensions();
-                dimensions.FormWidth = 343;
-                dimensions.FormHeight = 307;
-                dimensions.FontTitleSize = 14;
-                dimensions.FontNoteSize = 9;
+                dimensions.FormWidth = DEFAULT_FORM_WIDTH;
+                dimensions.FormHeight = DEFAULT_FORM_HEIGHT;
+                dimensions.FontTitleSize = DEFAULT_FONT_TITLE_SIZE;
+                dimensions.FontNoteSize = DEFAULT_FONT_NOTE_SIZE;
 
                 UpdatePopupDimensions(dimensions);
                 db.Dispose();              

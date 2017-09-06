@@ -107,16 +107,23 @@ namespace RemindMe
                 string selectedPath = FSManager.Folders.GetSelectedFolderPath();
                 if (selectedPath != null)
                 {
-                    if (BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme"))
+                    try
                     {
-                        lblStatus.Text = "Backup completed.";
-                        pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
+                        if (BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme"))
+                        {
+                            lblStatus.Text = "Backup completed.";
+                            pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
+                        }
+                        else
+                        {
+                            lblStatus.Text = "Backup failed";
+                            pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
+                            return;
+                        }
                     }
-                    else
+                    catch (UnauthorizedAccessException ex)
                     {
-                        lblStatus.Text = "Backup failed";
-                        pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
-                        return;
+                        RemindMeBox.Show("Can not export reminders to\r\n\"" + selectedPath + "\"!\r\nAccess is denied.\r\n\r\nIf you wish to save to that path, run RemindMe in administrator mode.", RemindMeBoxIcon.EXCLAMATION);
                     }
                 }
                 else

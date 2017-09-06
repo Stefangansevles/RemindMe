@@ -290,4 +290,15 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  You can now install this version without manually removing previous versions. 
  RemindMe wouldn't work if you installed a new version with new classes/methods when you already had a previous version installed. 
  This was due to the setup project not properly replacing the .dll's. in order for the setup project to replace the dll's, the dll's have to have a new version number
+
+ V1.7.11
+ Fixed an issue where the popup message on the right-bottom of your monitor would get stuck if you caused it to popup while there was already one up
+
+ V1.7.12
+ Fixed a small issue where resetting the Popup size/font by pressing the reset button would result in the numeric control having the value of the previous value
+ So, if the title font size was 18, then you save it to 17, then you press reset to defaults, the numeric control would show 18. It was correctly saved as 14 in the database though.
+
+ RemindMe's custom error form now looks a little bit nicer and automatically enlarges on larger errors.
+
+ Fixed an issue when you try to export reminders to a folder that you do not have rights to save to. It now shows a message that says RemindMe is not authorized to save to that path without administrator mode
  

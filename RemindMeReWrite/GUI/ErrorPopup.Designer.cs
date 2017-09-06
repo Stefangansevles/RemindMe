@@ -31,9 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorPopup));
             this.pbErrorIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblDetails = new System.Windows.Forms.Label();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnOpenErrorLog = new System.Windows.Forms.Button();
@@ -50,33 +49,22 @@
             // 
             this.pbErrorIcon.BackgroundImage = global::RemindMe.Properties.Resources.err;
             this.pbErrorIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbErrorIcon.Location = new System.Drawing.Point(342, 23);
+            this.pbErrorIcon.Location = new System.Drawing.Point(5, 28);
             this.pbErrorIcon.Name = "pbErrorIcon";
-            this.pbErrorIcon.Size = new System.Drawing.Size(101, 86);
+            this.pbErrorIcon.Size = new System.Drawing.Size(44, 38);
             this.pbErrorIcon.TabIndex = 0;
             this.pbErrorIcon.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 15F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, 21);
+            this.label1.Location = new System.Drawing.Point(57, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(219, 40);
+            this.label1.Size = new System.Drawing.Size(244, 52);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Aww Damn!";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("MS Reference Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(3, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(239, 24);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "An error has occured.";
+            this.label1.Text = "Aww Damn! \r\nAn error has occured";
             // 
             // btnClose
             // 
@@ -85,7 +73,7 @@
             this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnClose.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(368, 316);
+            this.btnClose.Location = new System.Drawing.Point(371, 203);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(76, 25);
             this.btnClose.TabIndex = 22;
@@ -93,16 +81,16 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // label3
+            // lblDetails
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(6, 298);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(441, 15);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "Click \"Open error log\" to see advanced information of this error.";
+            this.lblDetails.AutoSize = true;
+            this.lblDetails.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetails.ForeColor = System.Drawing.Color.White;
+            this.lblDetails.Location = new System.Drawing.Point(8, 211);
+            this.lblDetails.Name = "lblDetails";
+            this.lblDetails.Size = new System.Drawing.Size(257, 15);
+            this.lblDetails.TabIndex = 24;
+            this.lblDetails.Text = "Click \"Error log\" for advanced details";
             // 
             // pbCloseApplication
             // 
@@ -135,11 +123,11 @@
             this.btnOpenErrorLog.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnOpenErrorLog.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
             this.btnOpenErrorLog.ForeColor = System.Drawing.Color.White;
-            this.btnOpenErrorLog.Location = new System.Drawing.Point(267, 316);
+            this.btnOpenErrorLog.Location = new System.Drawing.Point(270, 203);
             this.btnOpenErrorLog.Name = "btnOpenErrorLog";
             this.btnOpenErrorLog.Size = new System.Drawing.Size(100, 25);
             this.btnOpenErrorLog.TabIndex = 67;
-            this.btnOpenErrorLog.Text = "Open error log";
+            this.btnOpenErrorLog.Text = "Error log";
             this.btnOpenErrorLog.UseVisualStyleBackColor = false;
             this.btnOpenErrorLog.Click += new System.EventHandler(this.btnOpenErrorLog_Click);
             // 
@@ -172,11 +160,11 @@
             this.tbError.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbError.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tbError.ForeColor = System.Drawing.Color.White;
-            this.tbError.Location = new System.Drawing.Point(7, 115);
+            this.tbError.Location = new System.Drawing.Point(7, 89);
             this.tbError.Multiline = true;
             this.tbError.Name = "tbError";
             this.tbError.ReadOnly = true;
-            this.tbError.Size = new System.Drawing.Size(428, 165);
+            this.tbError.Size = new System.Drawing.Size(428, 95);
             this.tbError.TabIndex = 100;
             // 
             // ErrorPopup
@@ -184,16 +172,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(447, 344);
+            this.ClientSize = new System.Drawing.Size(447, 231);
             this.Controls.Add(this.tbError);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.btnOpenErrorLog);
             this.Controls.Add(this.pbCloseApplication);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblDetails);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbErrorIcon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -202,6 +189,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ErrorPopup";
             this.Load += new System.EventHandler(this.ErrorPopup_Load);
+            this.SizeChanged += new System.EventHandler(this.ErrorPopup_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
@@ -215,9 +203,8 @@
 
         private System.Windows.Forms.PictureBox pbErrorIcon;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblDetails;
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnOpenErrorLog;

@@ -143,7 +143,8 @@ namespace RemindMe
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {                                    
+        {
+            //throw new UnauthorizedAccessException("biiiitch");
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -1790,8 +1791,15 @@ namespace RemindMe
         {
             string selectedPath = FSManager.Folders.GetSelectedFolderPath();
 
-            if (!string.IsNullOrEmpty(selectedPath))            
-                BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");            
+            try
+            {
+                if (!string.IsNullOrEmpty(selectedPath))
+                    BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");
+            }
+            catch(UnauthorizedAccessException ex)
+            {
+                RemindMeBox.Show("Can not export reminders to\r\n\"" + selectedPath + "\"!\r\nAccess is denied.\r\n\r\nIf you wish to save to that path, run RemindMe in administrator mode.", RemindMeBoxIcon.EXCLAMATION);
+            }
         }
 
         private void pnlPopup_VisibleChanged(object sender, EventArgs e)
