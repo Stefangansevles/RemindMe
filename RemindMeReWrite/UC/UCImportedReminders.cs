@@ -25,8 +25,7 @@ namespace RemindMe
             this.import = import;
             BLFormLogic.AddRemindersToListview(lvImportedReminders, reminders);
             BLFormLogic.RemovebuttonBorders(btnYes);
-            BLFormLogic.RemovebuttonBorders(btnNo);
-            BLFormLogic.RemovebuttonBorders(btnSelectAll);
+            BLFormLogic.RemovebuttonBorders(btnNo);            
 
             if (lvImportedReminders.Items.Count == reminders.Count)
             {
@@ -45,7 +44,7 @@ namespace RemindMe
 
         private void btnYes_Click(object sender, EventArgs e)
         {
-            if(lvImportedReminders.SelectedItems.Count > 0)
+            if(lvImportedReminders.CheckedItems.Count > 0)
             {
                 if (import)
                     ImportReminders();
@@ -68,13 +67,7 @@ namespace RemindMe
             this.Parent.Controls.Clear();
         }
 
-        private void btnSelectAll_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item in lvImportedReminders.Items)           
-                item.Selected = true;                            
-
-            lvImportedReminders.Select();
-        }
+     
 
         /// <summary>
         /// Sets the button/label text to import-related text if the user chose import, and export if the user chose export.
@@ -94,11 +87,11 @@ namespace RemindMe
         }
         private List<Reminder> GetSelectedRemindersFromListview()
         {                       
-            List<long> selectedIds = new List<long>(); //get all selected id's from the listview reminders
-            foreach (ListViewItem item in lvImportedReminders.SelectedItems)
-                selectedIds.Add((long)item.Tag);
+            List<long> checkedIds = new List<long>(); //get all selected id's from the listview reminders
+            foreach (ListViewItem item in lvImportedReminders.CheckedItems)
+                checkedIds.Add((long)item.Tag);
 
-            return remindersFromRemindMeFile.Where(r => selectedIds.Contains(r.Id)).ToList();
+            return remindersFromRemindMeFile.Where(r => checkedIds.Contains(r.Id)).ToList();
         }
         private void Exportreminders()
         {
@@ -171,5 +164,21 @@ namespace RemindMe
             btnNo.Enabled = false;
             lvImportedReminders.Items.Clear();
         }
+
+        private void lvImportedReminders_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Control && e.KeyCode == Keys.A)
+            {
+                //Ctrl+a = select all items
+                foreach (ListViewItem item in lvImportedReminders.Items)
+                    item.Selected = true;
+            }
+        }
+
+       
+
+       
+
+        
     }
 }

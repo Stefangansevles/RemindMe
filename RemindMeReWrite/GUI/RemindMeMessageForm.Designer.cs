@@ -35,6 +35,7 @@
             this.tbBottomBorder = new System.Windows.Forms.TextBox();
             this.tbSideBorder = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbRightBorder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
@@ -79,7 +80,7 @@
             // 
             // tbBottomBorder
             // 
-            this.tbBottomBorder.Location = new System.Drawing.Point(1, 62);
+            this.tbBottomBorder.Location = new System.Drawing.Point(2, 62);
             this.tbBottomBorder.Multiline = true;
             this.tbBottomBorder.Name = "tbBottomBorder";
             this.tbBottomBorder.ReadOnly = true;
@@ -103,12 +104,21 @@
             this.textBox3.Size = new System.Drawing.Size(240, 1);
             this.textBox3.TabIndex = 114;
             // 
+            // tbRightBorder
+            // 
+            this.tbRightBorder.Location = new System.Drawing.Point(259, 21);
+            this.tbRightBorder.Multiline = true;
+            this.tbRightBorder.Name = "tbRightBorder";
+            this.tbRightBorder.Size = new System.Drawing.Size(1, 41);
+            this.tbRightBorder.TabIndex = 115;
+            // 
             // RemindMeMessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(260, 63);
+            this.Controls.Add(this.tbRightBorder);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.tbSideBorder);
             this.Controls.Add(this.tbBottomBorder);
@@ -120,6 +130,7 @@
             this.Name = "RemindMeMessageForm";
             this.ShowInTaskbar = false;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RemindMeMessageForm_FormClosing);
+            this.Load += new System.EventHandler(this.RemindMeMessageForm_Load);
             this.SizeChanged += new System.EventHandler(this.RemindMeMessageForm_SizeChanged);
             this.VisibleChanged += new System.EventHandler(this.RemindMeMessageForm_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
@@ -137,5 +148,6 @@
         private System.Windows.Forms.TextBox tbBottomBorder;
         private System.Windows.Forms.TextBox tbSideBorder;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbRightBorder;
     }
 }

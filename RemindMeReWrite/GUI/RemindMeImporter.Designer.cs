@@ -42,14 +42,19 @@
             this.btnNo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.btnSelectAll = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tbBottomBorder = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lvImportedReminders
             // 
             this.lvImportedReminders.BackColor = System.Drawing.Color.DimGray;
+            this.lvImportedReminders.CheckBoxes = true;
             this.lvImportedReminders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chTitle,
             this.chDate,
@@ -64,6 +69,7 @@
             this.lvImportedReminders.TabIndex = 99;
             this.lvImportedReminders.UseCompatibleStateImageBehavior = false;
             this.lvImportedReminders.View = System.Windows.Forms.View.Details;
+            this.lvImportedReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvImportedReminders_KeyDown);
             // 
             // chTitle
             // 
@@ -179,20 +185,42 @@
             this.pictureBox4.TabIndex = 97;
             this.pictureBox4.TabStop = false;
             // 
-            // btnSelectAll
+            // pictureBox1
             // 
-            this.btnSelectAll.BackColor = System.Drawing.Color.Transparent;
-            this.btnSelectAll.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnSelectAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSelectAll.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnSelectAll.ForeColor = System.Drawing.Color.Transparent;
-            this.btnSelectAll.Location = new System.Drawing.Point(497, 68);
-            this.btnSelectAll.Name = "btnSelectAll";
-            this.btnSelectAll.Size = new System.Drawing.Size(72, 23);
-            this.btnSelectAll.TabIndex = 105;
-            this.btnSelectAll.Text = "Select all";
-            this.btnSelectAll.UseVisualStyleBackColor = false;
-            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.ImportIcon;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(498, 23);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(70, 57);
+            this.pictureBox1.TabIndex = 105;
+            this.pictureBox1.TabStop = false;
+            // 
+            // tbBottomBorder
+            // 
+            this.tbBottomBorder.Location = new System.Drawing.Point(0, 301);
+            this.tbBottomBorder.Multiline = true;
+            this.tbBottomBorder.Name = "tbBottomBorder";
+            this.tbBottomBorder.ReadOnly = true;
+            this.tbBottomBorder.Size = new System.Drawing.Size(585, 1);
+            this.tbBottomBorder.TabIndex = 113;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(0, 22);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(1, 280);
+            this.textBox2.TabIndex = 114;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(580, 22);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(1, 280);
+            this.textBox3.TabIndex = 115;
             // 
             // RemindMeImporter
             // 
@@ -200,7 +228,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(581, 302);
-            this.Controls.Add(this.btnSelectAll);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbBottomBorder);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lvImportedReminders);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
@@ -217,6 +248,7 @@
             this.Load += new System.EventHandler(this.RemindMeImporter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,6 +269,9 @@
         public System.Windows.Forms.Button btnNo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox4;
-        public System.Windows.Forms.Button btnSelectAll;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox tbBottomBorder;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

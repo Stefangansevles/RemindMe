@@ -38,13 +38,13 @@
             this.btnNo = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.pbStatus = new System.Windows.Forms.PictureBox();
-            this.btnSelectAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // lvImportedReminders
             // 
             this.lvImportedReminders.BackColor = System.Drawing.Color.DimGray;
+            this.lvImportedReminders.CheckBoxes = true;
             this.lvImportedReminders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chTitle,
             this.chDate,
@@ -59,6 +59,7 @@
             this.lvImportedReminders.TabIndex = 14;
             this.lvImportedReminders.UseCompatibleStateImageBehavior = false;
             this.lvImportedReminders.View = System.Windows.Forms.View.Details;
+            this.lvImportedReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvImportedReminders_KeyDown);
             // 
             // chTitle
             // 
@@ -140,27 +141,11 @@
             this.pbStatus.TabIndex = 87;
             this.pbStatus.TabStop = false;
             // 
-            // btnSelectAll
-            // 
-            this.btnSelectAll.BackColor = System.Drawing.Color.Transparent;
-            this.btnSelectAll.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
-            this.btnSelectAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSelectAll.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnSelectAll.ForeColor = System.Drawing.Color.Transparent;
-            this.btnSelectAll.Location = new System.Drawing.Point(338, 0);
-            this.btnSelectAll.Name = "btnSelectAll";
-            this.btnSelectAll.Size = new System.Drawing.Size(72, 23);
-            this.btnSelectAll.TabIndex = 88;
-            this.btnSelectAll.Text = "Select all";
-            this.btnSelectAll.UseVisualStyleBackColor = false;
-            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
-            // 
             // UCImportedReminders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.pbStatus);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnYes);
@@ -187,6 +172,5 @@
         public System.Windows.Forms.Button btnNo;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.PictureBox pbStatus;
-        public System.Windows.Forms.Button btnSelectAll;
     }
 }

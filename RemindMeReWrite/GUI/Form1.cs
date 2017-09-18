@@ -143,8 +143,8 @@ namespace RemindMe
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            //throw new UnauthorizedAccessException("biiiitch");
+         {           
+            
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -152,7 +152,7 @@ namespace RemindMe
             ShowPanel(pnlMain);
             ResetReminderForm();
 
-
+            //throw new UnauthorizedAccessException("biiiitch");
             MakeTodaysRemindersPopup();
 
             //hide the form on startup

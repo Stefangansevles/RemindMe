@@ -70,6 +70,7 @@ namespace RemindMe
         {
             tbBottomBorder.Location = new Point(tbBottomBorder.Location.X, this.Height - 1);
             tbSideBorder.Size = new Size(tbSideBorder.Width, this.Height);
+            tbRightBorder.Size = new Size(tbSideBorder.Width, this.Height);
         }
 
         private void tbMessage_Enter(object sender, EventArgs e)
@@ -85,6 +86,11 @@ namespace RemindMe
         private void RemindMeMessageForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             
+        }
+
+        private void RemindMeMessageForm_Load(object sender, EventArgs e)
+        {
+            this.ActiveControl = null;
         }
     }
 }

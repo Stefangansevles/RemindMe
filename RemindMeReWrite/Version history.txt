@@ -301,4 +301,15 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  RemindMe's custom error form now looks a little bit nicer and automatically enlarges on larger errors.
 
  Fixed an issue when you try to export reminders to a folder that you do not have rights to save to. It now shows a message that says RemindMe is not authorized to save to that path without administrator mode
+
+ V1.7.13
+
+ Gave thin white borders to:
+ 1)RemindMeImporter
+ 2)RemindMeMessageForm
+ 3)ErrorPopup
+ 4)CustomMessageForm
+
+ The export reminder listviews now have checkboxes. You have to check the ones you want to import/exort 
+ You can press the key combination ctrl + a to select all of them. You can then press spacebar to check all of them
  

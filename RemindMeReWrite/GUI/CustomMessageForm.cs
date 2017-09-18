@@ -81,6 +81,10 @@ namespace RemindMe
 
             if (tbError.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
                 this.Height = tbError.Height + 62;
+
+            tbBottomBorder.Location = new Point(tbBottomBorder.Location.X, this.Height - tbBottomBorder.Height);
+            tbSideBorder.Size = new Size(tbSideBorder.Width, this.Height);
+            tbRightBorder.Size = new Size(tbSideBorder.Width, this.Height);
         }
 
 

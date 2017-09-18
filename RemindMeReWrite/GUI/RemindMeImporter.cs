@@ -44,8 +44,7 @@ namespace RemindMe
             this.remindmeFile = reminderFile;
             toImportReminders = new List<Reminder>();
             BLFormLogic.RemovebuttonBorders(btnYes);
-            BLFormLogic.RemovebuttonBorders(btnNo);
-            BLFormLogic.RemovebuttonBorders(btnSelectAll);
+            BLFormLogic.RemovebuttonBorders(btnNo);            
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
         }
 
@@ -62,7 +61,7 @@ namespace RemindMe
         {
             try
             {
-                if (lvImportedReminders.SelectedItems.Count > 0)
+                if (lvImportedReminders.CheckedItems.Count > 0)
                 {
                     foreach (Reminder rem in GetSelectedRemindersFromListview())
                     {
@@ -95,7 +94,7 @@ namespace RemindMe
         private List<Reminder> GetSelectedRemindersFromListview()
         {            
             List<long> selectedIds = new List<long>(); //get all selected id's from the listview reminders
-            foreach(ListViewItem item in lvImportedReminders.SelectedItems)            
+            foreach(ListViewItem item in lvImportedReminders.CheckedItems)            
                 selectedIds.Add((long)item.Tag);
 
             return remindersFromRemindMeFile.Where(r => selectedIds.Contains(r.Id)).ToList();
@@ -134,12 +133,16 @@ namespace RemindMe
             }
         }
 
-        private void btnSelectAll_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item in lvImportedReminders.Items)
-                item.Selected = true;
+        
 
-            lvImportedReminders.Select();
+        private void lvImportedReminders_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                //Ctrl+a = select all items
+                foreach (ListViewItem item in lvImportedReminders.Items)
+                    item.Selected = true;
+            }
         }
     }
 }

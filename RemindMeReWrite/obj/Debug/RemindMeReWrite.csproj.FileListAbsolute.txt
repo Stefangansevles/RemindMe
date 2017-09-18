@@ -133,7 +133,6 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFrame
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FileAssociation.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Interop.IWshRuntimeLibrary.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\NamedPipeWrapper.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.EF6.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.Linq.dll
@@ -146,7 +145,6 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFrame
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.xml
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\FSManager.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\NamedPipeWrapper.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache

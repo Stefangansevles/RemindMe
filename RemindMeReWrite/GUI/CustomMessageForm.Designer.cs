@@ -37,6 +37,9 @@
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbError = new System.Windows.Forms.RichTextBox();
+            this.tbRightBorder = new System.Windows.Forms.TextBox();
+            this.tbSideBorder = new System.Windows.Forms.TextBox();
+            this.tbBottomBorder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -139,12 +142,39 @@
             this.tbError.Text = "";
             this.tbError.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
+            // tbRightBorder
+            // 
+            this.tbRightBorder.Location = new System.Drawing.Point(433, 22);
+            this.tbRightBorder.Multiline = true;
+            this.tbRightBorder.Name = "tbRightBorder";
+            this.tbRightBorder.Size = new System.Drawing.Size(1, 120);
+            this.tbRightBorder.TabIndex = 117;
+            // 
+            // tbSideBorder
+            // 
+            this.tbSideBorder.Location = new System.Drawing.Point(0, 22);
+            this.tbSideBorder.Multiline = true;
+            this.tbSideBorder.Name = "tbSideBorder";
+            this.tbSideBorder.Size = new System.Drawing.Size(1, 120);
+            this.tbSideBorder.TabIndex = 116;
+            // 
+            // tbBottomBorder
+            // 
+            this.tbBottomBorder.Location = new System.Drawing.Point(1, 139);
+            this.tbBottomBorder.Multiline = true;
+            this.tbBottomBorder.Name = "tbBottomBorder";
+            this.tbBottomBorder.Size = new System.Drawing.Size(435, 1);
+            this.tbBottomBorder.TabIndex = 118;
+            // 
             // CustomMessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(434, 140);
+            this.Controls.Add(this.tbBottomBorder);
+            this.Controls.Add(this.tbRightBorder);
+            this.Controls.Add(this.tbSideBorder);
             this.Controls.Add(this.tbError);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pbMinimizeApplication);
@@ -179,5 +209,8 @@
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RichTextBox tbError;
+        private System.Windows.Forms.TextBox tbRightBorder;
+        private System.Windows.Forms.TextBox tbSideBorder;
+        private System.Windows.Forms.TextBox tbBottomBorder;
     }
 }

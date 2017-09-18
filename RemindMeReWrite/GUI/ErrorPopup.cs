@@ -91,7 +91,10 @@ namespace RemindMe
                 this.Height = this.Height + 10;
             }
             //if (tbError.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
-                           
+
+            tbBottomBorder.Location = new Point(tbBottomBorder.Location.X, this.Height - tbBottomBorder.Height);
+            tbLeft.Height = this.Height;
+            tbRight.Height = this.Height;
         }
 
 
