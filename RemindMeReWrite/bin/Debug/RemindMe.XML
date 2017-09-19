@@ -157,6 +157,13 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:RemindMe.Form1.IsDayCheckboxChecked(System.DayOfWeek)">
+            <summary>
+            Checks if a day checkbox for the given day is checked
+            </summary>
+            <param name="day">The day you want to check for selection</param>
+            <returns>True if the given day is selected, false if not</returns>
+        </member>
         <member name="M:RemindMe.Form1.RemoveUnusedPropertiesFromReminders(Database.Entity.Reminder)">
             <summary>
             Removes properties from a reminder that the reminder shouldn't have. 

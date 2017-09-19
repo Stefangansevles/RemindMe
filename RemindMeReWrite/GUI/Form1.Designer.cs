@@ -1344,7 +1344,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1491, 519);
+            this.ClientSize = new System.Drawing.Size(1370, 519);
             this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pbMinimizeApplication);

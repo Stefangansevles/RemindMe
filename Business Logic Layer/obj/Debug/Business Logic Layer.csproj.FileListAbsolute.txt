@@ -28,3 +28,18 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\obj\Debug\Intero
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Business Logic Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Data Access Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Database.Entity.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\EntityFramework.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Data Access Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Database.Entity.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\EntityFramework.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\System.Data.SQLite.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.csprojResolveAssemblyReference.cache
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Interop.WMPLib.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb

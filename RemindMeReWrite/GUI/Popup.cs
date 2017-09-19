@@ -16,6 +16,8 @@ namespace RemindMe
     public partial class Popup : Form
     {
         private Reminder rem;
+        //Will be true if the user pressed the OK button to close the reminder
+        private bool formClosedCorrectly = false;
         public Popup(Reminder rem)
         {
             InitializeComponent();
@@ -119,6 +121,7 @@ namespace RemindMe
         {
             if (rem.Id != -1) //Don't do stuff if the id is -1, invalid. the id is set to -1 when the user previews an reminder
             {
+                formClosedCorrectly = true;
                 if (cbPostpone.Checked)
                 {
                     DateTime newReminderTime = new DateTime();
@@ -175,7 +178,7 @@ namespace RemindMe
         private void Popup_FormClosing(object sender, FormClosingEventArgs e)
         {
             //Try to update the reminder before the form unexpectedly closes
-            if (rem.Id != -1)
+            if (rem.Id != -1 && !formClosedCorrectly)
             {
                 rem.PostponeDate = null;
                 BLReminder.UpdateReminder(rem);

@@ -673,9 +673,76 @@ namespace RemindMe
 
         private void cbDaysCheckedChangeEvent(object sender, EventArgs e)
         {
-            dtpDate.Value = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString()) ?? DateTime.Now;            
-        }
+            DateTime? selectedDateFromCheckboxes = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString()) ?? DateTime.Now;
 
+            dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
+
+            
+            if (IsDayCheckboxChecked(DateTime.Now.DayOfWeek))
+            {//Check if the checkbox of today's dayofweek is checked
+                //Then, if the selected time is in the FUTURE, we don't want to add 7 days, so subtract 7 days.
+                if (Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now)
+                {
+                    dtpDate.Value = DateTime.Now;
+                }
+            }                        
+            
+        }
+        /// <summary>
+        /// Checks if a day checkbox for the given day is checked
+        /// </summary>
+        /// <param name="day">The day you want to check for selection</param>
+        /// <returns>True if the given day is selected, false if not</returns>
+        private bool IsDayCheckboxChecked(DayOfWeek day)
+        {
+            switch(day)
+            {
+                case DayOfWeek.Sunday:
+                    if (cbSunday.Checked)
+                        return true;
+                    else
+                        return false;
+
+                case DayOfWeek.Monday:
+                    if (cbMonday.Checked)
+                        return true;
+                    else
+                        return false;
+
+                case DayOfWeek.Tuesday:
+                    if (cbTuesday.Checked)
+                        return true;
+                    else
+                        return false;
+
+                case DayOfWeek.Wednesday:
+                    if (cbWednesday.Checked)
+                        return true;
+                    else
+                        return false;
+
+                case DayOfWeek.Thursday:
+                    if (cbThursday.Checked)
+                        return true;
+                    else
+                        return false;
+
+                case DayOfWeek.Friday:
+                    if (cbFriday.Checked)
+                        return true;
+                    else
+                        return false;
+
+                case DayOfWeek.Saturday:
+                    if (cbSaturday.Checked)
+                        return true;
+                    else
+                        return false;
+                    
+                default: return false;
+            }
+            
+        }
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
             editableReminder = null;

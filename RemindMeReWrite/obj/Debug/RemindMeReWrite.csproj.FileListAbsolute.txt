@@ -166,3 +166,41 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UC
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\RemindMe.exe.config
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\RemindMe.XML
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.exe
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\RemindMe.exe
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\RemindMe.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\Business Logic Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\Database.Entity.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\EntityFramework.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\Data Access Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\Business Logic Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\Database.Entity.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\EntityFramework.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\Data Access Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.CustomMessageForm.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.ErrorPopup.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.Form1.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.RemindMeImporter.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.Popup.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.RemindMeMessageForm.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.Properties.Resources.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCCustomizePopup.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCImportedReminders.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCImportExport.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCPopupMessage.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCMusic.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCWindows.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache

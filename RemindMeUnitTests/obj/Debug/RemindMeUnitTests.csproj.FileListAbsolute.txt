@@ -50,3 +50,29 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\FSManager
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.csprojResolveAssemblyReference.cache
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll.config
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Business Logic Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Database.Entity.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\EntityFramework.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMe.exe
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\System.Data.SQLite.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Data Access Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\FSManager.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Business Logic Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Database.Entity.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMe.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMe.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\EntityFramework.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\System.Data.SQLite.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Data Access Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.csprojResolveAssemblyReference.cache
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.pdb

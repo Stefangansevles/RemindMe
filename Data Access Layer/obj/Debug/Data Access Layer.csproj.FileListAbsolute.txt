@@ -30,3 +30,19 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Da
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Data Access Layer.dll.config
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Data Access Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Data Access Layer.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Database.Entity.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\EntityFramework.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\System.Data.SQLite.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Database.Entity.pdb
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\EntityFramework.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\System.Data.SQLite.xml
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.pdb
