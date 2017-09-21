@@ -14,22 +14,6 @@ D:\Users\rs\Google Drive\RemindMe\backup\try\Data Access Layer\bin\Debug\System.
 D:\Users\rs\Google Drive\RemindMe\backup\try\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
 D:\Users\rs\Google Drive\RemindMe\backup\try\Data Access Layer\obj\Debug\Data Access Layer.dll
 D:\Users\rs\Google Drive\RemindMe\backup\try\Data Access Layer\obj\Debug\Data Access Layer.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.dll.config
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Database.Entity.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.SqlServer.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.EF6.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.Linq.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Database.Entity.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.SqlServer.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.pdb
 C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Data Access Layer.dll.config
 C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Data Access Layer.dll
 C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\Data Access Layer.pdb
@@ -46,3 +30,19 @@ C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\bin\Debug\System.D
 C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
 C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.dll
 C:\Users\kebab\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.dll.config
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Database.Entity.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\Database.Entity.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.pdb

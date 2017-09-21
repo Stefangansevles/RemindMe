@@ -72,7 +72,8 @@ namespace RemindMe
             else if (e.Exception is FileNotFoundException)
             {
                 FileNotFoundException theException = (FileNotFoundException)e.Exception; //needs in instance to call .FileName
-                BLIO.WriteError(theException, "File not found.", "Could not find the file located at \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted the file?");
+                BLIO.WriteError(theException, "File not found.", "Could not find the file located at \"" + theException.FileName);
+                ShowError(e.Exception, "File not found.", "Could not find the file located at \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted the file?");
             }
 
             else if (e.Exception is System.Data.Entity.Core.EntityException)

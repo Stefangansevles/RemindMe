@@ -1,14 +1,11 @@
 ﻿using Database.Entity;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Data_Access_Layer;
 using WMPLib;
+using System.Drawing;
 
 
 namespace Business_Logic_Layer
@@ -27,8 +24,32 @@ namespace Business_Logic_Layer
             b.FlatAppearance.BorderSize = 0;
         }
 
-        
 
+        /// <summary>
+        /// Draws a border on your form
+        /// </summary>
+        /// <param name="e">PaintEventArgs</param>
+        /// <param name="theForm">The form you want a border on</param>
+        /// <param name="linethickness">Border thickness</param>
+        /// <param name="linecolor">Border color</param>
+        /// <param name="offsetborder">How far the border should be away from the edges of your form.</param>
+        public static void customBackgroundPainter(PaintEventArgs e, Form theForm, int linethickness = 2, Color linecolor = new Color(), int offsetborder = 6)
+        {
+            Rectangle rect = new Rectangle(offsetborder, offsetborder, theForm.ClientSize.Width - (offsetborder * 2), theForm.ClientSize.Height - (offsetborder * 2));
+
+            Pen pen = new Pen(new Color());
+            pen.Width = linethickness;
+            if (linecolor != new Color())
+            {
+                pen.Color = linecolor;
+            }
+            else
+            {
+                pen.Color = Color.Black;
+            }
+
+            e.Graphics.DrawRectangle(pen, rect);
+        }
 
 
 
@@ -104,7 +125,10 @@ namespace Business_Logic_Layer
         {
             List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
             foreach (Reminder rem in list)            
-                AddReminderToListview(lv, rem);            
+                AddReminderToListview(lv, rem);
+
+            
+            
         }
 
         public static void RefreshListview(ListView lv)

@@ -32,10 +32,6 @@
             this.tbMessage = new System.Windows.Forms.RichTextBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.tbBottomBorder = new System.Windows.Forms.TextBox();
-            this.tbSideBorder = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.tbRightBorder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +57,7 @@
             this.pbCloseApplication.BackColor = System.Drawing.Color.Transparent;
             this.pbCloseApplication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbCloseApplication.BackgroundImage")));
             this.pbCloseApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbCloseApplication.Location = new System.Drawing.Point(239, -1);
+            this.pbCloseApplication.Location = new System.Drawing.Point(236, 2);
             this.pbCloseApplication.Name = "pbCloseApplication";
             this.pbCloseApplication.Size = new System.Drawing.Size(22, 22);
             this.pbCloseApplication.TabIndex = 110;
@@ -78,50 +74,12 @@
             this.pictureBox5.TabIndex = 109;
             this.pictureBox5.TabStop = false;
             // 
-            // tbBottomBorder
-            // 
-            this.tbBottomBorder.Location = new System.Drawing.Point(2, 62);
-            this.tbBottomBorder.Multiline = true;
-            this.tbBottomBorder.Name = "tbBottomBorder";
-            this.tbBottomBorder.ReadOnly = true;
-            this.tbBottomBorder.Size = new System.Drawing.Size(262, 1);
-            this.tbBottomBorder.TabIndex = 112;
-            // 
-            // tbSideBorder
-            // 
-            this.tbSideBorder.Location = new System.Drawing.Point(1, -2);
-            this.tbSideBorder.Multiline = true;
-            this.tbSideBorder.Name = "tbSideBorder";
-            this.tbSideBorder.Size = new System.Drawing.Size(1, 64);
-            this.tbSideBorder.TabIndex = 113;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(1, 1);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(240, 1);
-            this.textBox3.TabIndex = 114;
-            // 
-            // tbRightBorder
-            // 
-            this.tbRightBorder.Location = new System.Drawing.Point(259, 21);
-            this.tbRightBorder.Multiline = true;
-            this.tbRightBorder.Name = "tbRightBorder";
-            this.tbRightBorder.Size = new System.Drawing.Size(1, 41);
-            this.tbRightBorder.TabIndex = 115;
-            // 
             // RemindMeMessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(260, 63);
-            this.Controls.Add(this.tbRightBorder);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.tbSideBorder);
-            this.Controls.Add(this.tbBottomBorder);
             this.Controls.Add(this.tbMessage);
             this.Controls.Add(this.pbCloseApplication);
             this.Controls.Add(this.pictureBox5);
@@ -130,13 +88,11 @@
             this.Name = "RemindMeMessageForm";
             this.ShowInTaskbar = false;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RemindMeMessageForm_FormClosing);
-            this.Load += new System.EventHandler(this.RemindMeMessageForm_Load);
-            this.SizeChanged += new System.EventHandler(this.RemindMeMessageForm_SizeChanged);
+            this.Load += new System.EventHandler(this.RemindMeMessageForm_Load);            
             this.VisibleChanged += new System.EventHandler(this.RemindMeMessageForm_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -145,9 +101,5 @@
         private System.Windows.Forms.RichTextBox tbMessage;
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.TextBox tbBottomBorder;
-        private System.Windows.Forms.TextBox tbSideBorder;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox tbRightBorder;
     }
 }

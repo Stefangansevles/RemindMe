@@ -11,12 +11,14 @@ using BrendanGrant.Helpers.FileAssociation;
 using System.Security.Permissions;
 using Business_Logic_Layer;
 using Database.Entity;
+using System.Threading;
+using System.Globalization;
 
 namespace RemindMe
 {
     public partial class UCImportExport : UserControl
     {
-        List<Reminder> toImportReminders;
+        List<object> toImportReminders;
         public UCImportExport()
         {
             InitializeComponent();            
@@ -50,7 +52,7 @@ namespace RemindMe
             pbStatus.Visible = false;
 
             pnlImportedReminders.Controls.Clear();
-            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders(), false));
+            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders().Cast<object>().ToList(), false));
             pbClearPanel.Visible = true;
             pnlIntro.Visible = false;
             
@@ -67,8 +69,7 @@ namespace RemindMe
         }
 
         private void pbImport_Click(object sender, EventArgs e)
-        {
-            
+        {            
             string remindmeFile = FSManager.Files.GetSelectedFileWithPath("RemindMe backup file", "*.remindme");
 
             if (remindmeFile == null || remindmeFile == "")
@@ -76,6 +77,8 @@ namespace RemindMe
                 pnlIntro.Visible = true;
                 return;
             }
+
+            List<object> test = BLReminder.DeserializeRemindersFromFile(remindmeFile).Cast<object>().ToList();
 
             toImportReminders = BLReminder.DeserializeRemindersFromFile(remindmeFile);
             if (toImportReminders != null)

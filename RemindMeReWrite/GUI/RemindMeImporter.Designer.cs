@@ -43,9 +43,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tbBottomBorder = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -195,42 +192,12 @@
             this.pictureBox1.TabIndex = 105;
             this.pictureBox1.TabStop = false;
             // 
-            // tbBottomBorder
-            // 
-            this.tbBottomBorder.Location = new System.Drawing.Point(0, 301);
-            this.tbBottomBorder.Multiline = true;
-            this.tbBottomBorder.Name = "tbBottomBorder";
-            this.tbBottomBorder.ReadOnly = true;
-            this.tbBottomBorder.Size = new System.Drawing.Size(585, 1);
-            this.tbBottomBorder.TabIndex = 113;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(0, 22);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(1, 280);
-            this.textBox2.TabIndex = 114;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(580, 22);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(1, 280);
-            this.textBox3.TabIndex = 115;
-            // 
             // RemindMeImporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(581, 302);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.tbBottomBorder);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lvImportedReminders);
             this.Controls.Add(this.label2);
@@ -270,8 +237,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox tbBottomBorder;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
     }
 }

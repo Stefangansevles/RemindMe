@@ -39,9 +39,6 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.tbError = new System.Windows.Forms.TextBox();
-            this.tbBottomBorder = new System.Windows.Forms.TextBox();
-            this.tbLeft = new System.Windows.Forms.TextBox();
-            this.tbRight = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -54,7 +51,7 @@
             this.pbErrorIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbErrorIcon.Location = new System.Drawing.Point(5, 28);
             this.pbErrorIcon.Name = "pbErrorIcon";
-            this.pbErrorIcon.Size = new System.Drawing.Size(44, 38);
+            this.pbErrorIcon.Size = new System.Drawing.Size(50, 50);
             this.pbErrorIcon.TabIndex = 0;
             this.pbErrorIcon.TabStop = false;
             // 
@@ -170,42 +167,12 @@
             this.tbError.Size = new System.Drawing.Size(428, 95);
             this.tbError.TabIndex = 100;
             // 
-            // tbBottomBorder
-            // 
-            this.tbBottomBorder.Location = new System.Drawing.Point(2, 230);
-            this.tbBottomBorder.Multiline = true;
-            this.tbBottomBorder.Name = "tbBottomBorder";
-            this.tbBottomBorder.ReadOnly = true;
-            this.tbBottomBorder.Size = new System.Drawing.Size(450, 1);
-            this.tbBottomBorder.TabIndex = 113;
-            // 
-            // tbLeft
-            // 
-            this.tbLeft.Location = new System.Drawing.Point(1, 22);
-            this.tbLeft.Multiline = true;
-            this.tbLeft.Name = "tbLeft";
-            this.tbLeft.ReadOnly = true;
-            this.tbLeft.Size = new System.Drawing.Size(1, 210);
-            this.tbLeft.TabIndex = 114;
-            // 
-            // tbRight
-            // 
-            this.tbRight.Location = new System.Drawing.Point(445, 23);
-            this.tbRight.Multiline = true;
-            this.tbRight.Name = "tbRight";
-            this.tbRight.ReadOnly = true;
-            this.tbRight.Size = new System.Drawing.Size(1, 210);
-            this.tbRight.TabIndex = 115;
-            // 
             // ErrorPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(447, 231);
-            this.Controls.Add(this.tbRight);
-            this.Controls.Add(this.tbLeft);
-            this.Controls.Add(this.tbBottomBorder);
             this.Controls.Add(this.tbError);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pbMinimizeApplication);
@@ -244,8 +211,5 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pbMinimizeApplication;
         private System.Windows.Forms.TextBox tbError;
-        private System.Windows.Forms.TextBox tbBottomBorder;
-        private System.Windows.Forms.TextBox tbLeft;
-        private System.Windows.Forms.TextBox tbRight;
     }
 }

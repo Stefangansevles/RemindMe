@@ -22,34 +22,6 @@ D:\Users\rs\Google Drive\RemindMe\backup\try\RemindMeUnitTests\bin\Debug\Data Ac
 D:\Users\rs\Google Drive\RemindMe\backup\try\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.csprojResolveAssemblyReference.cache
 D:\Users\rs\Google Drive\RemindMe\backup\try\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.dll
 D:\Users\rs\Google Drive\RemindMe\backup\try\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll.config
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Business Logic Layer.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Database.Entity.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.SqlServer.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMe.exe
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.EF6.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.Linq.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Data Access Layer.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\FSManager.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Business Logic Layer.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Database.Entity.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMe.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMe.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.SqlServer.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Data Access Layer.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\FSManager.pdb
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\FSManager.xml
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.csprojResolveAssemblyReference.cache
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.dll
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.pdb
 C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll.config
 C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll
 C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.pdb
@@ -76,3 +48,29 @@ C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\bin\Debug\Data Acc
 C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.csprojResolveAssemblyReference.cache
 C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.dll
 C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll.config
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMeUnitTests.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Business Logic Layer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Database.Entity.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMe.exe
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Data Access Layer.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\FSManager.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Business Logic Layer.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Database.Entity.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMe.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\RemindMe.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\System.Data.SQLite.xml
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\bin\Debug\Data Access Layer.pdb
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.csprojResolveAssemblyReference.cache
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.dll
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeUnitTests\obj\Debug\RemindMeUnitTests.pdb

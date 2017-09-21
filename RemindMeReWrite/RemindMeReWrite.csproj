@@ -80,8 +80,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Downloads\custom file\FileAssociation.dll</HintPath>
     </Reference>
-    <Reference Include="FSManager">
-      <HintPath>..\..\..\..\Documents\Visual Studio 2015\Projects\FSManager\FSManager\bin\Debug\FSManager.dll</HintPath>
+    <Reference Include="FSManager, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\FSManager.dll</HintPath>
     </Reference>
     <Reference Include="Interop.IWshRuntimeLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -198,6 +199,7 @@
       <DependentUpon>UCWindows.cs</DependentUpon>
     </Compile>
     <Compile Include="Variables\IOVariables.cs" />
+    <Content Include="libs\FSManager.dll" />
     <Content Include="libs\Interop.IWshRuntimeLibrary.dll" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -211,6 +213,11 @@
     <None Include="Resources\2windows2.png" />
     <None Include="Resources\sound.png" />
     <None Include="Resources\sound2.png" />
+    <Content Include="libs\Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="libs\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll" />
+    <Content Include="libs\Microsoft.WindowsAPICodePack.Sensors.dll" />
+    <Content Include="libs\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <Content Include="libs\Microsoft.WindowsAPICodePack.ShellExtensions.dll" />
     <Content Include="RemindMeIcon.ico" />
     <None Include="Resources\import.ico" />
     <None Include="Resources\UAC_No.png" />

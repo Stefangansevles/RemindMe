@@ -4,6 +4,7 @@ using RemindMe;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -27,9 +28,24 @@ namespace Business_Logic_Layer
         /// <returns></returns>
         public static List<Reminder> GetTodaysReminders()
         {
-            return DLReminders.GetReminders().Where(t => Convert.ToDateTime(t.Date.Split(',')[0]).Day == DateTime.Now.Day && t.Enabled == 1).ToList();
+            return DLReminders.GetReminders().Where(t => Convert.ToDateTime(t.Date.Split(',')[0]) <= DateTime.Now && t.Enabled == 1).ToList();
         }
 
+        public static bool ExportReminders(List<Reminder> reminders,string path)
+        {            
+            try
+            {
+                if (!string.IsNullOrEmpty(path))
+                    SerializeRemindersToFile(reminders, path + "\\Backup reminders "  + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");
+
+                return true;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return false;
+                throw ex;                
+            }            
+        }
         /// <summary>
         /// forces the database to refresh the list
         /// </summary>
@@ -219,9 +235,12 @@ namespace Business_Logic_Layer
             // Create a hashtable of values that will eventually be serialized.
             Hashtable hashReminders = new Hashtable();
             foreach(Reminder rem in reminders)            
-                hashReminders.Add(rem.Id, rem);            
+                hashReminders.Add(rem.Id, rem);
 
+            //Add the current machine's language code("en-us" for example) to the .remindme file
             
+
+
 
             // To serialize the hashtable and its key/value pairs,  
             // you must first open a stream for writing. 
@@ -230,6 +249,9 @@ namespace Business_Logic_Layer
 
             // Construct a BinaryFormatter and use it to serialize the data to the stream.
             BinaryFormatter formatter = new BinaryFormatter();
+
+            //Finally, add the language tag of the current machine running RemindMe to it
+            hashReminders.Add("LANGUAGE_CODE", CultureInfo.CurrentCulture.IetfLanguageTag);
             try
             {
                 formatter.Serialize(fs, hashReminders);
@@ -242,6 +264,8 @@ namespace Business_Logic_Layer
             {
                 fs.Close();                
             }
+
+            
             return true;
         }
 
@@ -250,9 +274,9 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="pathToRemindMeFile">The path to the file that contains the serialized reminder objects</param>
         /// <returns>A list of reminder objects from the given .remindme file</returns>
-        public static List<Reminder> DeserializeRemindersFromFile(string pathToRemindMeFile)
+        public static List<object> DeserializeRemindersFromFile(string pathToRemindMeFile)
         {
-            List<Reminder> toReturnList = new List<Reminder>();
+            List<object> toReturnList = new List<object>();
 
             // Declare the hashtable reference.
             Hashtable hashReminders = null;
@@ -276,8 +300,9 @@ namespace Business_Logic_Layer
                 fs.Close();
             }
 
-            foreach (DictionaryEntry de in hashReminders)            
-                toReturnList.Add((Reminder)de.Value); 
+            foreach (DictionaryEntry de in hashReminders)                            
+                toReturnList.Add(de.Value);
+            
                                        
             return toReturnList;
         }

@@ -10,6 +10,7 @@ using WMPLib;
 using Database.Entity;
 using Business_Logic_Layer;
 using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace RemindMe
 {
@@ -143,8 +144,7 @@ namespace RemindMe
         }
 
         private void Form1_Load(object sender, EventArgs e)
-         {           
-            
+         {                        
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -152,7 +152,7 @@ namespace RemindMe
             ShowPanel(pnlMain);
             ResetReminderForm();
 
-            //throw new UnauthorizedAccessException("biiiitch");
+            //throw new FileNotFoundException("test","test");
             MakeTodaysRemindersPopup();
 
             //hide the form on startup
@@ -680,7 +680,7 @@ namespace RemindMe
             
             if (IsDayCheckboxChecked(DateTime.Now.DayOfWeek))
             {//Check if the checkbox of today's dayofweek is checked
-                //Then, if the selected time is in the FUTURE, we don't want to add 7 days, so subtract 7 days.
+                //Then, if the selected time is in the FUTURE, we want to set the date to today.
                 if (Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now)
                 {
                     dtpDate.Value = DateTime.Now;
@@ -1403,6 +1403,13 @@ namespace RemindMe
         {
             if (e.KeyCode == Keys.Delete)
                 btnRemoveReminder_Click(sender, e);
+
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                //Ctrl+a = select all items
+                foreach (ListViewItem item in lvReminders.Items)
+                    item.Selected = true;
+            }
         }
 
         private void lvReminders_DoubleClick(object sender, EventArgs e)
@@ -1855,18 +1862,9 @@ namespace RemindMe
         }
 
         private void exportSelectedRemindersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        {            
             string selectedPath = FSManager.Folders.GetSelectedFolderPath();
-
-            try
-            {
-                if (!string.IsNullOrEmpty(selectedPath))
-                    BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");
-            }
-            catch(UnauthorizedAccessException ex)
-            {
-                RemindMeBox.Show("Can not export reminders to\r\n\"" + selectedPath + "\"!\r\nAccess is denied.\r\n\r\nIf you wish to save to that path, run RemindMe in administrator mode.", RemindMeBoxIcon.EXCLAMATION);
-            }
+            BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);            
         }
 
         private void pnlPopup_VisibleChanged(object sender, EventArgs e)

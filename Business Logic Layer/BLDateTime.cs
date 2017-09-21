@@ -1,8 +1,9 @@
 ﻿using Database.Entity;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-
+using System.Threading;
 
 namespace Business_Logic_Layer
 {
@@ -10,7 +11,49 @@ namespace Business_Logic_Layer
     /// This class has usefull methods regarding datetime.
     /// </summary>
     public abstract class BLDateTime
-    {  
+    {
+        //the list containing ALL the datetime formats
+        private static List<string> listOfAllFormats = new List<string>();
+        private static Dictionary<string, string[]> formatsByCountry;
+
+        //The list containing ALL the datetime formats FOR THE TARGET MACHINE'S CULTURE
+        private static List<string> listOfFormatsForCulture = new List<string>();
+        private static Dictionary<string, string[]> formatsForCulture;
+        
+
+        /// <summary>
+        /// Puts every datetime-format into the list listOfAllFormats
+        /// </summary>
+        private static void FillDateTimeFormatList()
+        {
+            //Get the CultureInfo that matches our culturetype, example "en-us"            
+            var currentCulture = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Where(c => c.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName).Where(c => c.Name == CultureInfo.CurrentCulture.Name);
+            
+            formatsByCountry = CultureInfo.GetCultures(CultureTypes.SpecificCultures).GroupBy(x => new RegionInfo(x.Name).DisplayName).ToDictionary(x => x.Key, x => x.SelectMany(y => y.DateTimeFormat.GetAllDateTimePatterns()).Distinct().ToArray());
+
+            formatsForCulture = currentCulture.GroupBy(x => new RegionInfo(x.Name).DisplayName).ToDictionary(x => x.Key, x => x.SelectMany(y => y.DateTimeFormat.GetAllDateTimePatterns()).Distinct().ToArray());
+
+
+            //the list containing ALL the datetime formats            
+            foreach (string[] format in formatsByCountry.Values)
+            {
+                for (int i = 0; i < format.Length; i++)
+                {
+                    if (!listOfAllFormats.Contains(format[i]))
+                        listOfAllFormats.Add(format[i]);
+                }
+            }
+
+            foreach (string[] format in formatsForCulture.Values)
+            {
+                for (int i = 0; i < format.Length; i++)
+                {
+                    if (!listOfFormatsForCulture.Contains(format[i]))
+                        listOfFormatsForCulture.Add(format[i]);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Gets the date of the next day of the week. The time will be 00:00:00
@@ -24,8 +67,33 @@ namespace Business_Logic_Layer
             if (day != DateTime.Now.DayOfWeek)
                 return Convert.ToDateTime(DateTime.Now.AddDays(daysToAdd).ToShortDateString() + " 00:00:00");
             else                            
-                return Convert.ToDateTime(DateTime.Now.AddDays(7).ToShortDateString() + " 00:00:00");            
+                return Convert.ToDateTime(DateTime.Now.AddDays(7).ToShortDateString() + " 00:00:00");   
+                                 
         }
+
+        /// <summary>
+        /// Converts a string of date of any date-time-format into a string of time of the current machine's date-time-format        
+        /// </summary>
+        /// <param name="Date">The string containing a date in a valid format</param>
+        /// <returns></returns>
+        public static string ConvertDateTimeStringToCurrentCulture(string date,string languageCode)
+        {           
+            //fill the list if it is empty
+            if (listOfAllFormats.Count == 0)
+                FillDateTimeFormatList();
+            
+           
+            //The date format of the exported reminders in the .remindme file(for example, "nl-NL")
+            DateTimeFormatInfo remindMeFileFormat = new CultureInfo(languageCode, false).DateTimeFormat;
+            //the date format of the system running RemindMe(for example, "en-US")
+            DateTimeFormatInfo currentSystemFormat = new CultureInfo(CultureInfo.CurrentCulture.IetfLanguageTag, false).DateTimeFormat;
+
+
+            //Parse it into the correct format,
+            //Convert.ToDateTime(The date, the date format of that date).ToString(the date format of the system running RemindMe)
+            return Convert.ToDateTime(date, remindMeFileFormat).ToString(currentSystemFormat.ShortDatePattern + " " + currentSystemFormat.ShortTimePattern);                      
+        }
+
 
         /// <summary>
         /// Gets the day of the week in DayOfWeek

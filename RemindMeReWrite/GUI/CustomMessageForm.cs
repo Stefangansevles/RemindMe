@@ -28,7 +28,12 @@ namespace RemindMe
                 m.Result = (IntPtr)(HT_CAPTION);
 
             pictureBox1.Focus();
-        }              
+        }
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            BLFormLogic.customBackgroundPainter(e, this, linethickness: 3, linecolor: Color.White, offsetborder: 0);
+        }
 
         public CustomMessageForm(string description, RemindMeBoxIcon icon)
         {
@@ -82,9 +87,7 @@ namespace RemindMe
             if (tbError.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
                 this.Height = tbError.Height + 62;
 
-            tbBottomBorder.Location = new Point(tbBottomBorder.Location.X, this.Height - tbBottomBorder.Height);
-            tbSideBorder.Size = new Size(tbSideBorder.Width, this.Height);
-            tbRightBorder.Size = new Size(tbSideBorder.Width, this.Height);
+            
         }
 
 
@@ -108,7 +111,7 @@ namespace RemindMe
 
         private void CustomMessageForm_SizeChanged(object sender, EventArgs e)
         {
-            btnOk.Location = new Point(btnOk.Location.X, this.Size.Height - btnOk.Height);
+            btnOk.Location = new Point(btnOk.Location.X, this.Size.Height - btnOk.Height - 5);
             tbError.Height = this.Height - 62;
         }
 

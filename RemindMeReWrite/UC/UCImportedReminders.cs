@@ -6,28 +6,55 @@ using Database.Entity;
 using Business_Logic_Layer;
 using System.IO;
 using System.Linq;
+using System.Globalization;
+using System.Threading;
 
 namespace RemindMe
 {
     public partial class UCImportedReminders : UserControl
-    {
+    {        
         private List<Reminder> remindersFromRemindMeFile;
         private bool import;
+        private string reminderFileLanguagecode = "";
+       
         /// <summary>
         /// Shows reminders and gives the option to import/export them 
         /// </summary>
         /// <param name="reminders">The list of reminders you want to add to the listview. The user can then make a slection of these reminders to import/export</param>
         /// <param name="import">True if you want to import reminders. False if you want to export them.</param>
-        public UCImportedReminders(List<Reminder> reminders,bool import)
-        {
+        public UCImportedReminders(List<object> reminders,bool import)
+        {            
             InitializeComponent();
-            this.remindersFromRemindMeFile = reminders;
+            remindersFromRemindMeFile = new List<Reminder>();
+            foreach (object rem in reminders)
+            {
+                if (rem.GetType() == typeof(Reminder))                
+                    remindersFromRemindMeFile.Add((Reminder)rem);                
+                else
+                    reminderFileLanguagecode = rem.ToString(); //The language code stored in the .remindme file                                
+            }
+
+            if (reminderFileLanguagecode != "") //Don't need to do this when exporting.
+            {
+                foreach (object rem in reminders) 
+                {
+                    if (rem.GetType() == typeof(Reminder))
+                    {
+                        Reminder remm = (Reminder)rem;
+                        //Fix the date if the .remindme file has a different time format than the current system
+                        remm.Date = BLDateTime.ConvertDateTimeStringToCurrentCulture(remm.Date, reminderFileLanguagecode);
+                    }
+                }
+            }
+            
+
+
             this.import = import;
-            BLFormLogic.AddRemindersToListview(lvImportedReminders, reminders);
+            BLFormLogic.AddRemindersToListview(lvImportedReminders, remindersFromRemindMeFile);
             BLFormLogic.RemovebuttonBorders(btnYes);
             BLFormLogic.RemovebuttonBorders(btnNo);            
 
-            if (lvImportedReminders.Items.Count == reminders.Count)
+            if (lvImportedReminders.Items.Count  == reminders.Count) // -1 because the list contains one item which is the language tag, for example"en-US"
             {
                 lblStatus.Text = "Succesfully loaded reminders.";
                 pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
@@ -45,7 +72,7 @@ namespace RemindMe
         private void btnYes_Click(object sender, EventArgs e)
         {
             if(lvImportedReminders.CheckedItems.Count > 0)
-            {
+            {                
                 if (import)
                     ImportReminders();
                 else
@@ -98,11 +125,12 @@ namespace RemindMe
             if (GetSelectedRemindersFromListview().Count > 0)
             {
                 string selectedPath = FSManager.Folders.GetSelectedFolderPath();
+                
                 if (selectedPath != null)
                 {
                     try
-                    {
-                        if (BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), selectedPath + "\\Backup reminders " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme"))
+                    {                        
+                        if (BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath))
                         {
                             lblStatus.Text = "Backup completed.";
                             pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
@@ -136,6 +164,8 @@ namespace RemindMe
         }
         private void ImportReminders()
         {
+            
+
             int remindersInserted = 0;
             List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
             if (remindersFromRemindMeFile != null)

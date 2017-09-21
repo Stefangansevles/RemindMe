@@ -32,8 +32,10 @@ namespace RemindMe
 
 
         private string remindmeFile;
-        private List<Reminder> remindersFromRemindMeFile;
-        private List<Reminder> toImportReminders;
+        private List<Reminder> remindersFromRemindMeFile = new List<Reminder>();      
+
+        private static TimeZone time = TimeZone.CurrentTimeZone;
+        private static string languageCode = "";
         /// <summary>
         /// The form that allows 
         /// </summary>
@@ -41,11 +43,16 @@ namespace RemindMe
         public RemindMeImporter(string reminderFile)
         {
             InitializeComponent();
-            this.remindmeFile = reminderFile;
-            toImportReminders = new List<Reminder>();
+            this.remindmeFile = reminderFile;            
             BLFormLogic.RemovebuttonBorders(btnYes);
             BLFormLogic.RemovebuttonBorders(btnNo);            
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            BLFormLogic.customBackgroundPainter(e, this, linethickness: 3, linecolor: Color.White, offsetborder: 0);
         }
 
         protected override void WndProc(ref Message m)
@@ -97,6 +104,7 @@ namespace RemindMe
             foreach(ListViewItem item in lvImportedReminders.CheckedItems)            
                 selectedIds.Add((long)item.Tag);
 
+
             return remindersFromRemindMeFile.Where(r => selectedIds.Contains(r.Id)).ToList();
             
         }
@@ -118,7 +126,32 @@ namespace RemindMe
         {
             this.MaximumSize = this.Size;
 
-            remindersFromRemindMeFile = BLReminder.DeserializeRemindersFromFile(remindmeFile);
+
+          
+
+           
+
+            foreach (object rem in BLReminder.DeserializeRemindersFromFile(remindmeFile))
+            {
+                if (rem.GetType() == typeof(Reminder))
+                    remindersFromRemindMeFile.Add((Reminder)rem);
+                else
+                    languageCode = rem.ToString(); //The language code stored in the .remindme file, "en-Us" for example
+            }
+
+            if (languageCode != "") //Don't need to do this when exporting.
+            {
+                foreach (object rem in remindersFromRemindMeFile)
+                {
+                    if (rem.GetType() == typeof(Reminder))
+                    {
+                        Reminder remm = (Reminder)rem;
+                        //Fix the date if the .remindme file has a different time format than the current system
+                        remm.Date = BLDateTime.ConvertDateTimeStringToCurrentCulture(remm.Date, languageCode);
+                    }
+                }
+            }
+                       
             if (remindersFromRemindMeFile != null)
             {
                 BLFormLogic.AddRemindersToListview(lvImportedReminders, remindersFromRemindMeFile);

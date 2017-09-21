@@ -321,3 +321,29 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  Fixed an issue with postponing reminders where it wouldn't postpone, because the postpone date got set to null in the form_closing event.
  The form_closing event tries to save the reminder if the reminder closed unexpectidly. It now checks if the reminder clossed correctly(using the OK button), if it did, it won't do anything
+
+ V1.7.15
+
+ RemindMe now has multi DateTime format support. American users of RemindMe can now export their reminders to a .remindme file, 
+ and any other person with a different(or the same, of course) DateTime format can import them.
+
+ Example: American user exports an reminder with the date 12/30/2017
+ European user imports the reminder made by american user. European's reminder will have the date 30-12-2017
+ Previously this would throw exceptions.
+
+ Gave the borderless forms new borders, painted with graphics.
+ Affected forms:
+ 1)RemindMeImporter
+ 2)RemindMeMessageForm
+ 3)ErrorPopup
+ 4)CustomMessageForm
+
+ When a FileNotFoundException occurs it now also shows the ErrorPopup.
+
+ Fixed an issue where RemindMe couldn't find the dll Microsoft.WindowsAPICodePack.Shell.dll. This dll was used by another dll(FSManager) that is referenced in RemindMe
+ This issue would throw an exception and remove the possibility to export reminders, because that used a method from FSManager.
+
+ Fixed an issue with exporting reminders to file. The .remindme file had the current date in it's name. If the target machine is american, that date would contain the "\" character.
+ This character can not be present in a filename.
+
+ pressing the key combination ctrl + a in RemindMe's main listview will now select all reminders, just like in the export/import reminders listview.

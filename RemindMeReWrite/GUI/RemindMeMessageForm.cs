@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business_Logic_Layer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +28,12 @@ namespace RemindMe
             this.TopLevel = true;
 
             this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width, Screen.GetWorkingArea(this).Height);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            BLFormLogic.customBackgroundPainter(e, this, linethickness: 3, linecolor: Color.White, offsetborder: 0);
         }
 
         /// <summary>
@@ -66,12 +73,7 @@ namespace RemindMe
             }
         }
 
-        private void RemindMeMessageForm_SizeChanged(object sender, EventArgs e)
-        {
-            tbBottomBorder.Location = new Point(tbBottomBorder.Location.X, this.Height - 1);
-            tbSideBorder.Size = new Size(tbSideBorder.Width, this.Height);
-            tbRightBorder.Size = new Size(tbSideBorder.Width, this.Height);
-        }
+       
 
         private void tbMessage_Enter(object sender, EventArgs e)
         {

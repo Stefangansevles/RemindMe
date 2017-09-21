@@ -394,7 +394,7 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:RemindMe.UCImportedReminders.#ctor(System.Collections.Generic.List{Database.Entity.Reminder},System.Boolean)">
+        <member name="M:RemindMe.UCImportedReminders.#ctor(System.Collections.Generic.List{System.Object},System.Boolean)">
             <summary>
             Shows reminders and gives the option to import/export them 
             </summary>
