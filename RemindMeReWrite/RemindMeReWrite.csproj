@@ -192,6 +192,18 @@
     <Compile Include="UC\UCMusic.Designer.cs">
       <DependentUpon>UCMusic.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC\UCSendMail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCSendMail.Designer.cs">
+      <DependentUpon>UCSendMail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UCSendMailInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCSendMailInfo.Designer.cs">
+      <DependentUpon>UCSendMailInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC\UCWindows.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -239,6 +251,10 @@
     <None Include="Resources\SaveIconBlack.png" />
     <None Include="Resources\TestIconBlack.png" />
     <None Include="Resources\reset.png" />
+    <None Include="Resources\e-mail.png" />
+    <None Include="Resources\help-desk-icon-13735.png" />
+    <None Include="Resources\HelpIcon.png" />
+    <None Include="Resources\HelpIconSmall.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config">
@@ -293,6 +309,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UC\UCMusic.resx">
       <DependentUpon>UCMusic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCSendMail.resx">
+      <DependentUpon>UCSendMail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCSendMailInfo.resx">
+      <DependentUpon>UCSendMailInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC\UCWindows.resx">
       <DependentUpon>UCWindows.cs</DependentUpon>

@@ -23,12 +23,30 @@ namespace RemindMe
 
         private void UCMusic_Load(object sender, EventArgs e)
         {
-            LoadSongsIntoListview();
+            LoadSongsWithFileNameIntoListview();
         }
 
-        private void LoadSongsIntoListview()
+        private void LoadSongsWithFileNameIntoListview()
         {
+            lvSoundFiles.Items.Clear();
             List<Songs> songs = BLSongs.GetSongs();
+            songs = songs.OrderBy(s => s.SongFileName).ToList();
+            if (songs != null && songs.Count > 0)
+            {
+
+                foreach (Songs sng in songs)
+                {
+                    ListViewItem item = new ListViewItem(sng.SongFileName);
+                    item.Tag = sng.Id;
+                    lvSoundFiles.Items.Add(item);
+                }
+            }
+        }
+        private void LoadSongsWithFilePathIntoListview()
+        {
+            lvSoundFiles.Items.Clear();
+            List<Songs> songs = BLSongs.GetSongs();
+            songs = songs.OrderBy(s => s.SongFilePath).ToList();
             if (songs != null && songs.Count > 0)
             {
 
@@ -93,6 +111,14 @@ namespace RemindMe
             }
 
             BLSongs.RemoveSongs(toRemoveSongs);                                     
+        }
+
+        private void cbShowFilePath_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShowFilePath.Checked)
+                LoadSongsWithFilePathIntoListview();
+            else
+                LoadSongsWithFileNameIntoListview();
         }
     }
 }

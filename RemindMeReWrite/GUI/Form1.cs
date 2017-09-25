@@ -50,6 +50,7 @@ namespace RemindMe
         UCMusic ucMusic;
         UCImportExport ucImportExport;
         UCCustomizePopup ucCustomizePopup;
+        UCSendMailInfo ucSendMail;
 
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;
@@ -73,6 +74,7 @@ namespace RemindMe
             ucMusic = new UCMusic();
             ucImportExport = new UCImportExport();
             ucCustomizePopup = new UCCustomizePopup();
+            ucSendMail = new UCSendMailInfo();
 
             dayOfStartRemindMe = DateTime.Now.Day;
 
@@ -144,7 +146,7 @@ namespace RemindMe
         }
 
         private void Form1_Load(object sender, EventArgs e)
-         {                        
+         {            
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -755,7 +757,8 @@ namespace RemindMe
                 cbStickyForm.Checked = true;
 
             pbExclamationDate.Visible = false;
-            
+
+            FillSoundComboboxFromDatabase(cbSound);
             pbEdit.BackgroundImage = Properties.Resources.Create_new;
             ShowPanel(pnlNewReminder);
         }
@@ -1910,6 +1913,29 @@ namespace RemindMe
         private void pbCustomizePopup_Click(object sender, EventArgs e)
         {
             AddUserControl(pnlUserControls, ucCustomizePopup);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            AddUserControl(pnlUserControls,ucSendMail);
+        }
+
+
+        /// <summary>
+        /// Starts the mail timer. whenever the mail timer is ticking, the user is not allowed to send a new e-mail. 
+        /// He can of course bypass this by closing remindme and restarting it for each e-mail, but that's fine.
+        /// </summary>
+        public void StartMailTimer()
+        {
+            tmrAllowMail.Start();            
+        }
+        public bool IsMailTimerTicking()
+        {
+            return tmrAllowMail.Enabled;
+        }
+        private void tmrAllowMail_Tick(object sender, EventArgs e)
+        {
+            tmrAllowMail.Stop();
         }
     }
 }

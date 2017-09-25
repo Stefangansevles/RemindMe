@@ -204,6 +204,12 @@
             Removes the scrolling popup message from view and reset's its location
             </summary>
         </member>
+        <member name="M:RemindMe.Form1.StartMailTimer">
+            <summary>
+            Starts the mail timer. whenever the mail timer is ticking, the user is not allowed to send a new e-mail. 
+            He can of course bypass this by closing remindme and restarting it for each e-mail, but that's fine.
+            </summary>
+        </member>
         <member name="F:RemindMe.Form1.components">
             <summary>
             Required designer variable.
@@ -479,6 +485,45 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="F:RemindMe.UCSendMail.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RemindMe.UCSendMail.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RemindMe.UCSendMail.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:RemindMe.UCSendMailInfo">
+            <summary>
+            This is the user control the user sees before the user has the option to send a mail.
+            </summary>
+        </member>
+        <member name="F:RemindMe.UCSendMailInfo.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RemindMe.UCSendMailInfo.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RemindMe.UCSendMailInfo.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
         <member name="F:RemindMe.UCWindows.components">
             <summary> 
             Required designer variable.
@@ -607,6 +652,11 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.e_mail">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.Edit">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
@@ -653,6 +703,21 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.green_plus_add">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.help_desk_icon_13735">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.HelpIcon">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.HelpIconSmall">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

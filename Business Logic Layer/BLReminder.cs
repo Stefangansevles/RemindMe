@@ -80,8 +80,14 @@ namespace Business_Logic_Layer
                 if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString()) //Add days to the reminder so that the next date will be a new workday      
                     rem.Date = BLDateTime.GetNextReminderWorkDay(rem).ToString();
 
-                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder                                   
-                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();
+                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder 
+                {
+                    //If the reminder pops up a few days late, but the time of the reminder is still in the future, do not add one day to the current day, but set it to the current day instead
+                    if(Convert.ToDateTime("2010-10-10 " + Convert.ToDateTime(rem.Date).ToShortTimeString()) > Convert.ToDateTime("2010-10-10 " + DateTime.Now.ToShortTimeString()))
+                        rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();
+                    else
+                        rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();
+                }
 
 
                 if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())

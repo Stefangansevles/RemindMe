@@ -33,12 +33,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pbRemoveSounds = new System.Windows.Forms.PictureBox();
             this.pbAddSounds = new System.Windows.Forms.PictureBox();
+            this.cbShowFilePath = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbRemoveSounds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddSounds)).BeginInit();
             this.SuspendLayout();
             // 
             // lvSoundFiles
             // 
+            this.lvSoundFiles.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.lvSoundFiles.BackColor = System.Drawing.Color.DimGray;
             this.lvSoundFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chSound});
@@ -93,11 +95,26 @@
             this.pbAddSounds.TabStop = false;
             this.pbAddSounds.Click += new System.EventHandler(this.pbAddSounds_Click);
             // 
+            // cbShowFilePath
+            // 
+            this.cbShowFilePath.AutoSize = true;
+            this.cbShowFilePath.BackColor = System.Drawing.Color.White;
+            this.cbShowFilePath.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.cbShowFilePath.ForeColor = System.Drawing.Color.Black;
+            this.cbShowFilePath.Location = new System.Drawing.Point(279, 62);
+            this.cbShowFilePath.Name = "cbShowFilePath";
+            this.cbShowFilePath.Size = new System.Drawing.Size(99, 18);
+            this.cbShowFilePath.TabIndex = 17;
+            this.cbShowFilePath.Text = "Show file path";
+            this.cbShowFilePath.UseVisualStyleBackColor = false;
+            this.cbShowFilePath.CheckedChanged += new System.EventHandler(this.cbShowFilePath_CheckedChanged);
+            // 
             // UCMusic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.cbShowFilePath);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pbRemoveSounds);
             this.Controls.Add(this.pbAddSounds);
@@ -119,5 +136,6 @@
         private System.Windows.Forms.ListView lvSoundFiles;
         private System.Windows.Forms.ColumnHeader chSound;
         private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.CheckBox cbShowFilePath;
     }
 }

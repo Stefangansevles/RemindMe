@@ -347,3 +347,11 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  This character can not be present in a filename.
 
  pressing the key combination ctrl + a in RemindMe's main listview will now select all reminders, just like in the export/import reminders listview.
+
+ V1.7.16
+
+ RemindMe users can now send suggestions/improvements/bug reports to a registered e-mail adress where i can read it.
+
+ If a daily reminder pops up a few days late, but the time of the reminder is still in the future, the new date will not be one day to the current day, but the current day instead
+
+ The music usercontrol now has an option to show the complete path to the song file, and it now only shows the song file name by default
