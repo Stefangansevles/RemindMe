@@ -54,14 +54,14 @@ namespace RemindMe
             BLFormLogic.RemovebuttonBorders(btnYes);
             BLFormLogic.RemovebuttonBorders(btnNo);            
 
-            if (lvImportedReminders.Items.Count  == reminders.Count) // -1 because the list contains one item which is the language tag, for example"en-US"
+            if (lvImportedReminders.Items.Count  == remindersFromRemindMeFile.Count) // -1 because the list contains one item which is the language tag, for example"en-US"
             {
                 lblStatus.Text = "Succesfully loaded reminders.";
                 pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
             }
             else
             {
-                lblStatus.Text = "Not all reminders loaded. (" + lvImportedReminders.Items.Count + "/" + reminders.Count + ")"; 
+                lblStatus.Text = "Not all reminders loaded. (" + lvImportedReminders.Items.Count + "/" + remindersFromRemindMeFile.Count + ")"; 
                 pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
             }
             

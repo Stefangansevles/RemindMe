@@ -21,6 +21,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1C241F13C81ED57BFF7E0DCC5AC21ACD"
+        "OwnerKey" = "8:_5EC51A7BFBE5493311B725FBC0F9A0DF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1C241F13C81ED57BFF7E0DCC5AC21ACD"
+        "OwnerKey" = "8:_6E172A3C698B4443A6D107BC9D36173F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_230AAE04722C6C3B3A4FAA00DF129BD7"
         "OwnerKey" = "8:_F7270555986DB92C55E9834F3754F250"
         "MsmSig" = "8:_UNDEFINED"
@@ -262,6 +274,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1C241F13C81ED57BFF7E0DCC5AC21ACD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F7270555986DB92C55E9834F3754F250"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -404,6 +422,37 @@
                     }
                 }
             "SourcePath" = "8:FSManager.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9D241E04FF7E4204804613D55AF13695"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C241F13C81ED57BFF7E0DCC5AC21ACD"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:EASendMail45, Version=7.3.1.2, Culture=neutral, PublicKeyToken=88adb80ecd66540b, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1C241F13C81ED57BFF7E0DCC5AC21ACD"
+                    {
+                    "Name" = "8:EASendMail45.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:EASendMail45.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9D241E04FF7E4204804613D55AF13695"
@@ -651,7 +700,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Business Logic Layer, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Business Logic Layer, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5EC51A7BFBE5493311B725FBC0F9A0DF"
@@ -1056,15 +1105,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{2CAFEB11-6500-4761-9987-74440104FF1F}"
-        "PackageCode" = "8:{F875F416-BB26-44FC-AB25-9AE6D47681EE}"
+        "ProductCode" = "8:{5A502777-174F-40D3-B56D-B2D6526D71C0}"
+        "PackageCode" = "8:{EF10B04E-09A9-4841-A780-D2C1AF15D267}"
         "UpgradeCode" = "8:{AD8F3D12-D27D-4910-A7A4-222CAA0A511D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.7.16"
+        "ProductVersion" = "8:1.7.161"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

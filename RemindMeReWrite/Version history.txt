@@ -355,3 +355,7 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  If a daily reminder pops up a few days late, but the time of the reminder is still in the future, the new date will not be one day to the current day, but the current day instead
 
  The music usercontrol now has an option to show the complete path to the song file, and it now only shows the song file name by default
+
+  V1.7.161
+
+  Fixed a small graphical issue with exporting reminders, where the label would say that 11/10 reminders were loaded(1 more than the list size)
