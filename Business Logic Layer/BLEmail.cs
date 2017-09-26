@@ -22,7 +22,7 @@ namespace Business_Logic_Layer
         {
             SmtpMail oMail = new SmtpMail("TryIt");
             EASendMail.SmtpClient oSmtp = new EASendMail.SmtpClient();
-
+            oSmtp.Timeout = 3000; //3 sec timeout
             //The "e-mail address" will contain the user's windows username, so that i can distinguish between people
             oMail.From = "RemindMeUser_" + Environment.UserName + "@gmail.com";
 
@@ -43,7 +43,7 @@ namespace Business_Logic_Layer
                 oSmtp.SendMail(oServer, oMail);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

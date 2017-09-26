@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCSendMail));
             this.tbSubject = new System.Windows.Forms.TextBox();
             this.tbMessage = new System.Windows.Forms.TextBox();
@@ -38,6 +39,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.lblCouldNotSendMail = new System.Windows.Forms.Label();
+            this.tmrSendMail = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,6 +149,11 @@
             this.lblCouldNotSendMail.Text = "Could not send e-mail. Something went wrong";
             this.lblCouldNotSendMail.Visible = false;
             // 
+            // tmrSendMail
+            // 
+            this.tmrSendMail.Interval = 1000;
+            this.tmrSendMail.Tick += new System.EventHandler(this.tmrSendMail_Tick);
+            // 
             // UCSendMail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,5 +187,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblCouldNotSendMail;
+        private System.Windows.Forms.Timer tmrSendMail;
     }
 }

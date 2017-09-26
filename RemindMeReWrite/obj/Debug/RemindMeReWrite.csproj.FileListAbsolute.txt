@@ -205,3 +205,6 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pd
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\EASendMail45.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCSendMail.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.UCSendMailInfo.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\bin\Debug\EASendMail45.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCSendMail.resources
+C:\Users\kebab\Documents\[C#] RemindMe(git)\RemindMeReWrite\obj\Debug\RemindMe.UCSendMailInfo.resources

@@ -44,3 +44,4 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\obj\Debug\Busine
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Business Logic Layer\bin\Debug\EASendMail45.dll
+C:\Users\kebab\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\EASendMail45.dll
