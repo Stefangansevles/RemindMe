@@ -359,3 +359,13 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
   V1.7.161
 
   Fixed a small graphical issue with exporting reminders, where the label would say that 11/10 reminders were loaded(1 more than the list size)
+
+  V1.7.17
+  
+  The send e-mail feature now has a timeout, preventing deadlock. It is also threaded, so that the main thread won't freeze.
+
+  V1.7.18
+
+  Fixed an issue when you would create a monthly reminder with the same dayofmonth as today's dayofmonth(example: monthly reminder with the 25th, if it's the 25th today)
+  it would add one month to the date, making 25 september 25 october, regardless of time.
+  Now, if you create a monthly reminder with the same dayofmonth, and the selected time is still in the future, the date would be today

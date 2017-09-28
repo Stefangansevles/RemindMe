@@ -1575,7 +1575,7 @@ namespace RemindMe
             //Now we need to create datetime's of those integer values
             foreach (int day in selectedMonthlyDays)
             {
-                DateTime date = BLDateTime.GetDateForNextDayOfMonth(day);
+                DateTime date = BLDateTime.GetDateForNextDayOfMonth(day,dtpTime.Value);
                 selectedMonthlyDaysDateTime.Add(date);
 
             }

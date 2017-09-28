@@ -222,6 +222,45 @@ namespace Business_Logic_Layer
                 return new DateTime();
         }
 
+        public static DateTime GetDateForNextDayOfMonth(int day, DateTime givenTime)
+        {
+            if (day > 0 && day <= 31)
+            {
+                int month = DateTime.Now.Month;
+
+                int amountOfDaysThisMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
+                if (day > amountOfDaysThisMonth)
+                {
+                    while (day > amountOfDaysThisMonth) //continue until we have found a month that has the appropriate amount of days
+                    {
+                        month++;
+                        amountOfDaysThisMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
+                    }
+
+                    if (month >= 1 && month <= 12)
+                        return new DateTime(DateTime.Now.Year, month, day);
+                    else
+                        return new DateTime();
+
+                }
+                else
+                {
+                    
+                    if (day > DateTime.Now.Day)
+                        return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, givenTime.Hour, givenTime.Minute, givenTime.Second);
+
+                    //If the day is the same, check for the time. If the time is in the future, do not add one month to the date!
+                    else if (day == DateTime.Now.Day && Convert.ToDateTime("10-10-2010 " + givenTime.ToShortTimeString()) > Convert.ToDateTime("10-10-2010 " + DateTime.Now.ToShortTimeString()))
+                        return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, givenTime.Hour, givenTime.Minute, givenTime.Second);
+                    else
+                        return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, givenTime.Hour, givenTime.Minute, givenTime.Second).AddMonths(1);
+                }
+
+            }
+            else
+                return new DateTime();
+        }
+
 
     }
 }

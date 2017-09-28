@@ -124,6 +124,12 @@ namespace Data_Access_Layer
             return true;
         }
 
+        /// <summary>
+        /// Checks if the database has the given table
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
         private static bool HasTable(string table,RemindMeDbEntities db)
         {
             try
@@ -196,7 +202,7 @@ namespace Data_Access_Layer
         }
 
         /// <summary>
-        /// This method will insert missing columns into the table reminder. Will only be called if HasallColumns() returns false. This means the user has an outdated .db file
+        /// This method will insert every missing column for each table into the database. Will only be called if HasallColumns() returns false. This means the user has an outdated .db file
         /// </summary>
         public static void InsertNewColumns()
         {
