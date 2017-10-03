@@ -80,7 +80,7 @@ namespace RemindMe
             btnOk.FlatStyle = FlatStyle.Flat;
             btnOk.FlatAppearance.BorderSize = 0;
 
-            cbPostponeType.SelectedItem = cbPostponeType.Items[0];
+            //cbPostponeType.SelectedItem = cbPostponeType.Items[0];
 
             lblDate.Focus();
 
@@ -126,7 +126,7 @@ namespace RemindMe
                 {
                     DateTime newReminderTime = new DateTime();
 
-                    if (cbPostponeType.SelectedItem == cbPostponeType.Items[0]) //postpone option is x minutes                
+                    if (rbMinutes.Checked) //postpone option is x minutes                
                         newReminderTime = DateTime.Now.AddMinutes((double)cbPostponeTime.Value);
                     else //postpone option is x hours                
                         newReminderTime = DateTime.Now.AddHours((double)cbPostponeTime.Value);
@@ -204,7 +204,7 @@ namespace RemindMe
 
         private void cbPostponeType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbPostponeType.SelectedItem.ToString() == "Hours")
+            if (rbHours.Checked)
                 cbPostponeTime.Maximum = 23;
             else
                 cbPostponeTime.Maximum = 1400;
@@ -235,11 +235,11 @@ namespace RemindMe
             cbPostpone.Location = new Point(3, this.Height - cbPostpone.Height - 3);
             pbCloseApplication.Location = new Point((this.Width - pbCloseApplication.Width), pbCloseApplication.Location.Y);
             pbMinimizeApplication.Location = new Point(this.Width - (pbCloseApplication.Width + pbMinimizeApplication.Width), pbMinimizeApplication.Location.Y);
-            btnOk.Location = new Point(this.Width - btnOk.Width - 3, this.Height - btnOk.Height - 3);
-            cbPostponeTime.Location = new Point(cbPostpone.Location.X + cbPostponeTime.Width + 5, cbPostpone.Location.Y + 1);
-            cbPostponeType.Location = new Point(cbPostponeTime.Location.X + cbPostponeTime.Width + 5, cbPostponeTime.Location.Y);
-
+            btnOk.Location = new Point(this.Width - btnOk.Width - 3, this.Height - btnOk.Height - 1);
             
+            cbPostponeTime.Location = new Point(cbPostpone.Location.X + cbPostponeTime.Width + 5, cbPostpone.Location.Y + 1);
+            gbRadioButtons.Location = new Point(cbPostponeTime.Location.X + cbPostponeTime.Width + 3, cbPostponeTime.Location.Y - 7);
+
 
             tbTitle.Height = Convert.ToInt32(this.Height * 0.20); //20% of the form
             tbText.Height = (cbPostpone.Location.Y - 5) - (tbTitle.Location.Y + tbTitle.Height) - 3;//height should be y start point through a bit above the postpone combobox
@@ -248,6 +248,17 @@ namespace RemindMe
         private void Popup_SizeChanged(object sender, EventArgs e)
         {
             ResizeControls();
+        }
+
+        
+
+        private void btnOk_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
+            {                
+                //remove the focus from the button so you can't spacebar-close the reminder
+                lblDate.Focus();
+            }
         }
     }
 }

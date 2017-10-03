@@ -33,7 +33,6 @@
             this.tbText = new System.Windows.Forms.RichTextBox();
             this.lblDate = new System.Windows.Forms.Label();
             this.tbBlackTopBar = new System.Windows.Forms.TextBox();
-            this.cbPostponeType = new System.Windows.Forms.ComboBox();
             this.cbPostponeTime = new System.Windows.Forms.NumericUpDown();
             this.cbPostpone = new System.Windows.Forms.CheckBox();
             this.tbTitle = new System.Windows.Forms.RichTextBox();
@@ -46,6 +45,9 @@
             this.pbMinimizePopup = new System.Windows.Forms.PictureBox();
             this.pbClosePopup = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.rbMinutes = new System.Windows.Forms.RadioButton();
+            this.rbHours = new System.Windows.Forms.RadioButton();
+            this.gbRadioButtons = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.cbPostponeTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizeApplication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -55,6 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizePopup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClosePopup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.gbRadioButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNewReminder
@@ -106,27 +109,12 @@
             this.tbBlackTopBar.Size = new System.Drawing.Size(342, 22);
             this.tbBlackTopBar.TabIndex = 18;
             // 
-            // cbPostponeType
-            // 
-            this.cbPostponeType.BackColor = System.Drawing.Color.DimGray;
-            this.cbPostponeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.cbPostponeType.ForeColor = System.Drawing.Color.White;
-            this.cbPostponeType.FormattingEnabled = true;
-            this.cbPostponeType.Items.AddRange(new object[] {
-            "Minutes",
-            "Hours"});
-            this.cbPostponeType.Location = new System.Drawing.Point(174, 281);
-            this.cbPostponeType.Name = "cbPostponeType";
-            this.cbPostponeType.Size = new System.Drawing.Size(85, 21);
-            this.cbPostponeType.TabIndex = 69;
-            this.cbPostponeType.SelectedIndexChanged += new System.EventHandler(this.cbPostponeType_SelectedIndexChanged);
-            // 
             // cbPostponeTime
             // 
             this.cbPostponeTime.BackColor = System.Drawing.Color.DimGray;
             this.cbPostponeTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.cbPostponeTime.ForeColor = System.Drawing.Color.White;
-            this.cbPostponeTime.Location = new System.Drawing.Point(95, 281);
+            this.cbPostponeTime.Location = new System.Drawing.Point(85, 281);
             this.cbPostponeTime.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -238,7 +226,8 @@
             this.btnOk.TabIndex = 21;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = false;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);            
+            this.btnOk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnOk_KeyDown);
             // 
             // pbMinimizePopup
             // 
@@ -274,16 +263,53 @@
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
             // 
+            // rbMinutes
+            // 
+            this.rbMinutes.AutoSize = true;
+            this.rbMinutes.Checked = true;
+            this.rbMinutes.Font = new System.Drawing.Font("Franklin Gothic Medium", 7.5F, System.Drawing.FontStyle.Bold);
+            this.rbMinutes.ForeColor = System.Drawing.Color.White;
+            this.rbMinutes.Location = new System.Drawing.Point(6, 7);
+            this.rbMinutes.Name = "rbMinutes";
+            this.rbMinutes.Size = new System.Drawing.Size(43, 18);
+            this.rbMinutes.TabIndex = 64;
+            this.rbMinutes.TabStop = true;
+            this.rbMinutes.Text = "Min";
+            this.rbMinutes.UseVisualStyleBackColor = true;
+            // 
+            // rbHours
+            // 
+            this.rbHours.AutoSize = true;
+            this.rbHours.Font = new System.Drawing.Font("Franklin Gothic Medium", 7.5F, System.Drawing.FontStyle.Bold);
+            this.rbHours.ForeColor = System.Drawing.Color.White;
+            this.rbHours.Location = new System.Drawing.Point(55, 7);
+            this.rbHours.Name = "rbHours";
+            this.rbHours.Size = new System.Drawing.Size(42, 18);
+            this.rbHours.TabIndex = 65;
+            this.rbHours.Text = "Hrs";
+            this.rbHours.UseVisualStyleBackColor = true;
+            // 
+            // gbRadioButtons
+            // 
+            this.gbRadioButtons.Controls.Add(this.rbHours);
+            this.gbRadioButtons.Controls.Add(this.rbMinutes);
+            this.gbRadioButtons.ForeColor = System.Drawing.Color.White;
+            this.gbRadioButtons.Location = new System.Drawing.Point(160, 275);
+            this.gbRadioButtons.Name = "gbRadioButtons";
+            this.gbRadioButtons.Size = new System.Drawing.Size(105, 26);
+            this.gbRadioButtons.TabIndex = 76;
+            this.gbRadioButtons.TabStop = false;
+            // 
             // Popup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(343, 307);
+            this.Controls.Add(this.gbRadioButtons);
             this.Controls.Add(this.tbTitle);
             this.Controls.Add(this.cbPostpone);
             this.Controls.Add(this.cbPostponeTime);
-            this.Controls.Add(this.cbPostponeType);
             this.Controls.Add(this.pbMinimizeApplication);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pbCloseApplication);
@@ -314,6 +340,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbMinimizePopup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbClosePopup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.gbRadioButtons.ResumeLayout(false);
+            this.gbRadioButtons.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,11 +362,13 @@
         private System.Windows.Forms.PictureBox pbCloseApplication;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pbMinimizeApplication;
-        public System.Windows.Forms.ComboBox cbPostponeType;
         private System.Windows.Forms.NumericUpDown cbPostponeTime;
         private System.Windows.Forms.CheckBox cbPostpone;
         public System.Windows.Forms.RichTextBox tbText;
         private System.Windows.Forms.Label lblNewReminder;
         public System.Windows.Forms.RichTextBox tbTitle;
+        public System.Windows.Forms.RadioButton rbMinutes;
+        public System.Windows.Forms.RadioButton rbHours;
+        private System.Windows.Forms.GroupBox gbRadioButtons;
     }
 }

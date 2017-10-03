@@ -369,3 +369,9 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
   Fixed an issue when you would create a monthly reminder with the same dayofmonth as today's dayofmonth(example: monthly reminder with the 25th, if it's the 25th today)
   it would add one month to the date, making 25 september 25 october, regardless of time.
   Now, if you create a monthly reminder with the same dayofmonth, and the selected time is still in the future, the date would be today
+
+  V1.7.19
+
+  Reminders should now not be able to be closed by pressing the spacebar/enter key, this could accidentally happen if you are typing at the moment the reminder pops up
+
+  The Reminder(popup) now has 2 radio buttons for postponing reminders, instead of a combobox with "Hours" and "Minutes"
