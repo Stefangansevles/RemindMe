@@ -200,8 +200,7 @@ namespace RemindMe
             dtpTime.Format = DateTimePickerFormat.Custom;
 
             btnPlaySound.BackgroundImage = imgPlayResume;
-
-            string path = Variables.IOVariables.startupFolderPath + "\\RemindMe" + ".lnk";
+            
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if (!File.Exists(Variables.IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(Variables.IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
@@ -210,9 +209,8 @@ namespace RemindMe
 
 
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fvi.FileVersion;
-            lblVersion.Text = "RemindMe - Version " + version;
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);            
+            lblVersion.Text = "RemindMe - Version " + fvi.FileVersion;
         }
 
         /// <summary>

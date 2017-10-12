@@ -21,6 +21,6 @@ Want to know how to use this?
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
-Written in: C#
+Written in: C# - Windows Forms
 
 Uses: SQLite, Entity Framework

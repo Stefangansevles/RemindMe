@@ -226,7 +226,7 @@
             this.btnOk.TabIndex = 21;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = false;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);            
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             this.btnOk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnOk_KeyDown);
             // 
             // pbMinimizePopup
@@ -288,6 +288,7 @@
             this.rbHours.TabIndex = 65;
             this.rbHours.Text = "Hrs";
             this.rbHours.UseVisualStyleBackColor = true;
+            this.rbHours.CheckedChanged += new System.EventHandler(this.rbHours_CheckedChanged);
             // 
             // gbRadioButtons
             // 

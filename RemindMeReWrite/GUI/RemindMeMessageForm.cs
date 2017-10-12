@@ -13,6 +13,20 @@ namespace RemindMe
 {
     public partial class RemindMeMessageForm : Form
     {
+       
+        private const int WS_EX_NOACTIVATE = 0x08000000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+
+                handleParam.ExStyle |= WS_EX_NOACTIVATE; //This starts the form without activating it, meaning if you're playing a full-screen game, and you're holding down the w key, this form will not interrupt it. 
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
+                return handleParam;
+            }
+        }
+
         //the amount of seconds to wait before this form should go down.
         private int popDelay;
         /// <summary>
@@ -63,15 +77,7 @@ namespace RemindMe
             this.Dispose();
         }
         
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams handleParam = base.CreateParams;
-                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                return handleParam;
-            }
-        }
+       
 
        
 

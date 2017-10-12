@@ -375,3 +375,14 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
   Reminders should now not be able to be closed by pressing the spacebar/enter key, this could accidentally happen if you are typing at the moment the reminder pops up
 
   The Reminder(popup) now has 2 radio buttons for postponing reminders, instead of a combobox with "Hours" and "Minutes"
+
+  V1.7.20
+
+  The today's reminders popup will not show up anymore if there are postponed reminders that are further than a day away.
+  Previously regardless of the postponedate, the today's remindesr popup would show up if there were one or more reminders with their normal date smaller or equal to today.
+  If you postpone a reminder, it should check for the postponedate instead.
+
+  When selecting one of the two radio buttons on a popup, the postpone checkbox will automatically be checked
+
+  The RemindMeMessageForm is no longer an "activated" Form. Previously when you were doing something, like holding down a key to walk in a full-screen game, the RemindMeMessageForm
+  would interrupt that. It now does not do that anymore!

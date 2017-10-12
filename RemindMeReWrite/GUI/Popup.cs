@@ -260,5 +260,10 @@ namespace RemindMe
                 lblDate.Focus();
             }
         }
+
+        private void rbHours_CheckedChanged(object sender, EventArgs e)
+        {
+            cbPostpone.Checked = true;
+        }
     }
 }

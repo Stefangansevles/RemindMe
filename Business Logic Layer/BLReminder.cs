@@ -28,7 +28,19 @@ namespace Business_Logic_Layer
         /// <returns></returns>
         public static List<Reminder> GetTodaysReminders()
         {
-            return DLReminders.GetReminders().Where(t => Convert.ToDateTime(t.Date.Split(',')[0]) <= DateTime.Now && t.Enabled == 1).ToList();
+            List<Reminder> returnList = new List<Reminder>();
+
+            foreach(Reminder rem in DLReminders.GetReminders())
+            {
+                //No postpone date? Is at least the first date's day <= today?
+                if (rem.PostponeDate == null && Convert.ToDateTime(rem.Date.Split(',')[0]).Day <= DateTime.Now.Day && rem.Enabled == 1)
+                    returnList.Add(rem);
+                //Postpone date, is at least the first postpone date's day <= today?
+                else if (rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate.Split(',')[0]).Day <= DateTime.Now.Day && rem.Enabled == 1)
+                    returnList.Add(rem);                          
+            }
+
+            return returnList;
         }
 
         public static bool ExportReminders(List<Reminder> reminders,string path)
