@@ -69,7 +69,7 @@ namespace RemindMe
             tbMessage.Height = (TextRenderer.MeasureText(" ", tempFont).Height * textLines) + Margin + 2;
 
             if (tbMessage.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
-                this.Height = tbMessage.Height + 32;
+                this.Height = tbMessage.Height + 20;
         }
 
         private void pbCloseApplication_Click(object sender, EventArgs e)

@@ -38,6 +38,7 @@
           <Property Name="AlwaysOnTop" Type="integer" Nullable="false" />
           <Property Name="StickyForm" Type="integer" Nullable="false" />
           <Property Name="EnableReminderCountPopup" Type="integer" Nullable="false" />
+          <Property Name="EnableHourBeforeReminder" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -80,6 +81,7 @@
           <Property Name="AlwaysOnTop" Type="Int64" Nullable="false" />
           <Property Name="StickyForm" Type="Int64" Nullable="false" />
           <Property Name="EnableReminderCountPopup" Type="Int64" Nullable="false" />
+          <Property Name="EnableHourBeforeReminder" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -113,7 +115,7 @@
         <EntityContainerMapping StorageEntityContainer="RemindMeDatabaseModelStoreContainer" CdmEntityContainer="RemindMeDbEntities">
           <EntitySetMapping Name="Reminder">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
-              <MappingFragment StoreEntitySet="Reminder">                                                
+              <MappingFragment StoreEntitySet="Reminder">                                                                
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -130,6 +132,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="EnableHourBeforeReminder" ColumnName="EnableHourBeforeReminder" />
                 <ScalarProperty Name="EnableReminderCountPopup" ColumnName="EnableReminderCountPopup" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AlwaysOnTop" ColumnName="AlwaysOnTop" />
@@ -172,7 +175,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

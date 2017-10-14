@@ -13,6 +13,7 @@ namespace Data_Access_Layer
     {
         private static Settings settings;
 
+       
         /// <summary>
         /// Reads the settings from the database and checks if reminders should be set to always on top.
         /// </summary>
@@ -25,14 +26,13 @@ namespace Data_Access_Layer
                 var count = db.Settings.Where(o => o.Id >= 0).Count();
                 if (count > 0)
                 {
+                    
                     alwaysOnTop = Convert.ToInt32((from g in db.Settings select g.AlwaysOnTop).SingleOrDefault());
                     db.Dispose();
                 }
                 else
                 {
-                    Settings set = new Settings();
-                    set.AlwaysOnTop = alwaysOnTop;
-                    UpdateSettings(set);
+                    RefreshSettings();
                 }
             }
             return alwaysOnTop == 1;                                            
@@ -55,12 +55,34 @@ namespace Data_Access_Layer
                 }
                 else
                 {
-                    Settings set = new Settings();                    
-                    set.EnableReminderCountPopup = enablePopupMessage;
-                    UpdateSettings(set);
+                    RefreshSettings();
                 }
             }
             return enablePopupMessage == 1;
+        }
+
+        /// <summary>
+        /// Reads the settings from the database and checks if there should be a notification 1 hour before the reminder that there is a reminder
+        /// </summary>
+        /// <returns>True if the notification is enabled, false if not</returns>
+        public static bool IsHourBeforeNotificationEnabled()
+        {
+            int notificationEnabled = 1;
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                var count = db.Settings.Where(o => o.Id >= 0).Count();
+                if (count > 0)
+                {
+
+                    notificationEnabled = Convert.ToInt32((from g in db.Settings select g.EnableHourBeforeReminder).SingleOrDefault());
+                    db.Dispose();
+                }
+                else
+                {
+                    RefreshSettings();
+                }
+            }
+            return notificationEnabled == 1;
         }
 
         /// <summary>
@@ -80,9 +102,7 @@ namespace Data_Access_Layer
                 }
                 else
                 {
-                    Settings set = new Settings();
-                    set.StickyForm = stickyForm;
-                    UpdateSettings(set);
+                    RefreshSettings();
                 }
             }
             return stickyForm == 1;
@@ -107,6 +127,7 @@ namespace Data_Access_Layer
                     settings.AlwaysOnTop = 1;
                     settings.StickyForm = 0;
                     settings.EnableReminderCountPopup = 1;
+                    settings.EnableHourBeforeReminder = 1;
                     UpdateSettings(settings);                   
                 }
                 else
@@ -130,7 +151,7 @@ namespace Data_Access_Layer
                 }
                 else
                 {//The settings table is still empty
-                    db.Settings.Add(set);                    
+                    db.Settings.Add(set);
                     db.SaveChanges();
                     db.Dispose();
                 }

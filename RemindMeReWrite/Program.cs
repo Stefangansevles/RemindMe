@@ -117,13 +117,18 @@ namespace RemindMe
                 BLIO.WriteError(e.Exception, "Out of Memory", "RemindMe is out of memory!");
                 ShowError(e.Exception, "Out of Memory", "RemindMe is out of memory!");
             }
+           
+            else if (e.Exception is ReminderException)
+            {
+                BLIO.WriteError(e.Exception, "Reminder exception", e.Exception.Message);
+                ShowError(e.Exception, "Reminder exception", e.Exception.Message);
+            }
 
             else if (e.Exception is Exception)
             {
                 BLIO.WriteError(e.Exception, "Unknown", "Unknown exception in main.");
                 ShowError(e.Exception, "Unknown", "Unknown exception in main.");
             }
-            
         }
     }
 }

@@ -57,11 +57,7 @@ namespace RemindMe
             lblDetails.Focus(); //Like this the textbox won't be focused, else the textbox has the ugly blue selected text
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            BLFormLogic.customBackgroundPainter(e, this, linethickness: 3, linecolor: Color.White, offsetborder: 0);
-        }
+       
 
         private void btnClose_Click(object sender, EventArgs e)
         {            

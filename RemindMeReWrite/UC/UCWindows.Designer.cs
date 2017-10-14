@@ -33,6 +33,8 @@
             this.cbPopupType = new System.Windows.Forms.ComboBox();
             this.cbEnableRemindMeMessages = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbEnableOneHourBeforeNotification = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,30 +81,56 @@
             this.cbEnableRemindMeMessages.AutoSize = true;
             this.cbEnableRemindMeMessages.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.cbEnableRemindMeMessages.ForeColor = System.Drawing.Color.White;
-            this.cbEnableRemindMeMessages.Location = new System.Drawing.Point(13, 175);
+            this.cbEnableRemindMeMessages.Location = new System.Drawing.Point(6, 189);
             this.cbEnableRemindMeMessages.Name = "cbEnableRemindMeMessages";
-            this.cbEnableRemindMeMessages.Size = new System.Drawing.Size(240, 19);
+            this.cbEnableRemindMeMessages.Size = new System.Drawing.Size(194, 19);
             this.cbEnableRemindMeMessages.TabIndex = 8;
-            this.cbEnableRemindMeMessages.Text = "Enable today\'s reminders popup\r\n";
+            this.cbEnableRemindMeMessages.Text = "Today\'s reminders popup\r\n";
             this.cbEnableRemindMeMessages.UseVisualStyleBackColor = true;
             this.cbEnableRemindMeMessages.CheckedChanged += new System.EventHandler(this.cbEnableRemindMeMessages_CheckedChanged);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe_message_popup;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(8, 193);
+            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.todaysremindeszr;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 229);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(262, 50);
+            this.pictureBox1.Size = new System.Drawing.Size(260, 63);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(3, 171);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(151, 15);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Enable messages for:";
+            // 
+            // cbEnableOneHourBeforeNotification
+            // 
+            this.cbEnableOneHourBeforeNotification.AutoSize = true;
+            this.cbEnableOneHourBeforeNotification.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.cbEnableOneHourBeforeNotification.ForeColor = System.Drawing.Color.White;
+            this.cbEnableOneHourBeforeNotification.Location = new System.Drawing.Point(6, 208);
+            this.cbEnableOneHourBeforeNotification.Name = "cbEnableOneHourBeforeNotification";
+            this.cbEnableOneHourBeforeNotification.Size = new System.Drawing.Size(319, 19);
+            this.cbEnableOneHourBeforeNotification.TabIndex = 11;
+            this.cbEnableOneHourBeforeNotification.Text = "Remind 1 hour before the reminder pops up";
+            this.cbEnableOneHourBeforeNotification.UseVisualStyleBackColor = true;
+            this.cbEnableOneHourBeforeNotification.CheckedChanged += new System.EventHandler(this.cbEnableOneHourBeforeNotification_CheckedChanged);
             // 
             // UCWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.cbEnableOneHourBeforeNotification);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cbEnableRemindMeMessages);
             this.Controls.Add(this.label2);
@@ -123,5 +151,7 @@
         private System.Windows.Forms.ComboBox cbPopupType;
         private System.Windows.Forms.CheckBox cbEnableRemindMeMessages;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox cbEnableOneHourBeforeNotification;
     }
 }

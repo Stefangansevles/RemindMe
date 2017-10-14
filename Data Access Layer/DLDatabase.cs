@@ -16,13 +16,13 @@ namespace Data_Access_Layer
         private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Settings
-        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1 NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
+        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint DEFAULT 1 NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1 NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1 NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Songs
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table PopupDimensions
-        private const string TABLE_POPUP_DIMENSIONS = "CREATE TABLE [PopupDimensions] ([Id] INTEGER NOT NULL, [FormWidth]bigint NOT NULL, [FormHeight]bigint NOT NULL, [FontTitleSize]bigint NOT NULL, [FontNoteSize]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_PopupDimensions] PRIMARY KEY([Id]));";
+        private const string TABLE_POPUP_DIMENSIONS = "CREATE TABLE [PopupDimensions] ([Id] INTEGER NOT NULL, [FormWidth]bigint NOT NULL, [FormHeight]bigint NOT NULL, [FontTitleSize]bigint NOT NULL, [FontNoteSize]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_PopupDimensions] PRIMARY KEY([Id]));";       
 
 
         /// <summary>
@@ -280,9 +280,10 @@ namespace Data_Access_Layer
             //to get the data types of the sqlite columns, especially when they're nullable.
             switch (columnName)
             {
-                case "AlwaysOnTop": return "INTEGER NOT NULL";
-                case "StickyForm": return "INTEGER NOT NULL";
-                case "EnablePopupMessage": return "INTEGER NOT NULL";
+                case "AlwaysOnTop": return "INTEGER DEFAULT 1 NOT NULL";
+                case "StickyForm": return "INTEGER DEFAULT 0 NOT NULL";
+                case "EnablePopupMessage": return "INTEGER DEFAULT 1 NOT NULL";
+                case "EnableHourBeforeReminder": return "INTEGER DEFAULT 1 NOT NULL";
                 default: return "text NULL";
             }
         }

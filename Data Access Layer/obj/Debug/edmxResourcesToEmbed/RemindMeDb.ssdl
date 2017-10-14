@@ -33,6 +33,7 @@
     <Property Name="AlwaysOnTop" Type="integer" Nullable="false" />
     <Property Name="StickyForm" Type="integer" Nullable="false" />
     <Property Name="EnableReminderCountPopup" Type="integer" Nullable="false" />
+    <Property Name="EnableHourBeforeReminder" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

@@ -20,6 +20,7 @@ namespace Business_Logic_Layer
             return DLSettings.IsAlwaysOnTop();
         }
 
+       
         /// <summary>
         /// Reads the settings from the database and checks if reminders should be set to always on top.
         /// </summary>
@@ -28,6 +29,16 @@ namespace Business_Logic_Layer
         {
             //no business logic (yet)
             return DLSettings.IsReminderCountPopupEnabled();
+        }
+
+        /// <summary>
+        /// Reads the settings from the database and checks if there should be a notification 1 hour before the reminder that there is a reminder
+        /// </summary>
+        /// <returns>True if the notification is enabled, false if not</returns>
+        public static bool IsHourBeforeNotificationEnabled()
+        {
+            //no business logic (yet)
+            return DLSettings.IsHourBeforeNotificationEnabled();
         }
 
         /// <summary>

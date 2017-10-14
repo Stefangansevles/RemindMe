@@ -852,6 +852,11 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.todaysremindeszr">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.UAC_No">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.

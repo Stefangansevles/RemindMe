@@ -255,6 +255,7 @@
     <None Include="Resources\help-desk-icon-13735.png" />
     <None Include="Resources\HelpIcon.png" />
     <None Include="Resources\HelpIconSmall.png" />
+    <None Include="Resources\todaysremindeszr.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config">

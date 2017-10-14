@@ -386,3 +386,9 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
   The RemindMeMessageForm is no longer an "activated" Form. Previously when you were doing something, like holding down a key to walk in a full-screen game, the RemindMeMessageForm
   would interrupt that. It now does not do that anymore!
+
+  V1.7.21
+
+ You will now be notified of reminders that will happen in the next hour. If RemindMe is running, and while checking reminders it detects that one or multiple
+ reminders will happen within 60 minutes(not less, 50,40, etc) it will show the RemindMe scrolling form that appears on the right bottom part of your screen
+ with the name(s) of the reminder(s). This option is toggleable in the settings.

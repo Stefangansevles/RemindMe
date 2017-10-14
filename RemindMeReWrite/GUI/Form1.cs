@@ -55,6 +55,9 @@ namespace RemindMe
         //Determines if the user is editing an reminder. If this reminder is null, the user is not currently editing one.
         Reminder editableReminder;
 
+        //Reminders that will pop up the next hour.
+        List<Reminder> remindersToHappenInAnHour;        
+
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         IWMPMedia mediaInfo;
@@ -63,9 +66,10 @@ namespace RemindMe
         public Form1()
         {
             
-            InitializeComponent();  
+            InitializeComponent();
+
             
-                                  
+
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();            
@@ -82,6 +86,7 @@ namespace RemindMe
             imgPlayResume = Properties.Resources.resume;
 
             toRemoveReminders = new List<Reminder>();
+            remindersToHappenInAnHour = new List<Reminder>();
 
             //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will fire
             cbMonday.CheckedChanged += cbDaysCheckedChangeEvent;
@@ -231,7 +236,7 @@ namespace RemindMe
                 {
                     rb = (RadioButton)c;
 
-
+                    
                     if (rb.Name == "rbNoRepeat")
                         rb.Checked = true; //The default radio button should be rbNoRepeat
                     else
@@ -819,7 +824,7 @@ namespace RemindMe
             foreach (Reminder rem in BLReminder.GetReminders())
             {
                 //Create the popup. Do the other stuff afterwards.
-                if(rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1)
+                if ((rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1) || (Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1))
                 {
                     allowRefreshListview = true;
 
@@ -828,18 +833,30 @@ namespace RemindMe
                     BLReminder.EditReminder(rem);
 
                     MakeReminderPopup(rem);
+
                 }
-                else if(Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1)
+                else
                 {
-                    allowRefreshListview = true;
+                    // -- In this part we will create popups at the users right bottom corner of the screen saying x reminder is happening in 1 hour or x minutes -- \\
+                    if (BLSettings.IsHourBeforeNotificationEnabled())
+                    {
+                        DateTime theDateToCheckOn; //Like this we dont need an if ánd an else with the same code
+                        if (rem.PostponeDate != null)
+                            theDateToCheckOn = Convert.ToDateTime(rem.PostponeDate);
+                        else
+                            theDateToCheckOn = Convert.ToDateTime(rem.Date);
 
-                    //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
-                    rem.Enabled = 0;
-                    BLReminder.EditReminder(rem);
 
-                    MakeReminderPopup(rem);
+                        //The timespan between the date and now.
+                        TimeSpan timeSpan = Convert.ToDateTime(theDateToCheckOn) - DateTime.Now;
+                        if (timeSpan.TotalMinutes >= 59.50 && timeSpan.TotalMinutes <= 60)
+                            remindersToHappenInAnHour.Add(rem);
+                    }
                 }
-                                                                    
+
+
+
+
             }             
             //Refresh the listview. Using the boolean refreshListview, we dont refresh the listview every tick of the timer, that would be very unnecessary
             if (allowRefreshListview)
@@ -849,6 +866,27 @@ namespace RemindMe
                 //set it to false again, otherwise it will continue to refresh every tick
                 allowRefreshListview = false;                
             }
+
+            
+            string message = "You have " + remindersToHappenInAnHour.Count + " reminders set in 60 minutes:\r\n";
+            int count = 1;
+            foreach (Reminder rem in remindersToHappenInAnHour)
+            {
+
+                if (remindersToHappenInAnHour.Count > 1)
+                    message += count + ") " + rem.Name + Environment.NewLine;
+                else
+                    message = rem.Name + " in 60 minutes!";
+
+                count++;   
+            }
+
+            if (remindersToHappenInAnHour.Count > 1) //cut off the last \n
+                message = message.Remove(message.Length-2, 2);            
+            if (remindersToHappenInAnHour.Count > 0)
+                MakeMessagePopup(message, 5);
+
+            remindersToHappenInAnHour.Clear();
         }
 
         

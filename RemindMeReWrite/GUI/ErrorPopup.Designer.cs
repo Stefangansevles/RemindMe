@@ -51,7 +51,7 @@
             this.pbErrorIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbErrorIcon.Location = new System.Drawing.Point(5, 28);
             this.pbErrorIcon.Name = "pbErrorIcon";
-            this.pbErrorIcon.Size = new System.Drawing.Size(50, 50);
+            this.pbErrorIcon.Size = new System.Drawing.Size(35, 35);
             this.pbErrorIcon.TabIndex = 0;
             this.pbErrorIcon.TabStop = false;
             // 
@@ -60,11 +60,11 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 15F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(57, 26);
+            this.label1.Location = new System.Drawing.Point(46, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(244, 52);
+            this.label1.Size = new System.Drawing.Size(381, 26);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Aww Damn! \r\nAn error has occured";
+            this.label1.Text = "Aww Damn! An error has occured";
             // 
             // btnClose
             // 

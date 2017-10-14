@@ -39,19 +39,21 @@ namespace RemindMe
             {
                 Settings set = new Settings();
                 set.AlwaysOnTop = alwaysOnTop;
-                set.StickyForm = 0;                
+                set.StickyForm = 0;
+                set.EnableHourBeforeReminder = 1;
+                set.EnableReminderCountPopup = 1;
                 BLSettings.UpdateSettings(set);
             }
+
             //Since we're not going to change the contents of this combobox anyway, we're just going to do it like this
             if (BLSettings.IsAlwaysOnTop())
                 cbPopupType.SelectedItem = cbPopupType.Items[0]; 
             else
                 cbPopupType.SelectedItem = cbPopupType.Items[1];
 
-            if (BLSettings.IsReminderCountPopupEnabled())            
-                cbEnableRemindMeMessages.Checked = true;            
-            else
-                cbEnableRemindMeMessages.Checked = false;
+            cbEnableRemindMeMessages.Checked = BLSettings.IsReminderCountPopupEnabled();
+            cbEnableOneHourBeforeNotification.Checked = BLSettings.IsHourBeforeNotificationEnabled();
+            
         }
 
         private void cbEnableRemindMeMessages_CheckedChanged(object sender, EventArgs e)
@@ -62,6 +64,18 @@ namespace RemindMe
                 set.EnableReminderCountPopup = 1;
             else
                 set.EnableReminderCountPopup = 0;
+
+            BLSettings.UpdateSettings(set);
+        }
+
+        private void cbEnableOneHourBeforeNotification_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings set = BLSettings.GetSettings();
+
+            if (cbEnableOneHourBeforeNotification.Checked)
+                set.EnableHourBeforeReminder = 1;
+            else
+                set.EnableHourBeforeReminder = 0;
 
             BLSettings.UpdateSettings(set);
         }
