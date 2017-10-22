@@ -57,7 +57,7 @@ namespace RemindMe
             if(e.Exception is DirectoryNotFoundException)
             {                
                 DirectoryNotFoundException theException = (DirectoryNotFoundException)e.Exception; 
-                BLIO.WriteError(theException, "Folder not found.", theException.Message);
+                BLIO.WriteError(theException, "Folder not found.");
                 ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
             }
 
@@ -72,13 +72,13 @@ namespace RemindMe
             else if (e.Exception is FileNotFoundException)
             {
                 FileNotFoundException theException = (FileNotFoundException)e.Exception; //needs in instance to call .FileName
-                BLIO.WriteError(theException, "File not found.", "Could not find the file located at \"" + theException.FileName);
+                BLIO.WriteError(theException, "Could not find the file located at \"" + theException.FileName);
                 ShowError(e.Exception, "File not found.", "Could not find the file located at \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted the file?");
             }
 
             else if (e.Exception is System.Data.Entity.Core.EntityException)
             {
-                BLIO.WriteError(e.Exception, "System.Data.Entity.Core.EntityException", "There was a problem executing SQL!");
+                BLIO.WriteError(e.Exception, "System.Data.Entity.Core.EntityException");
                 ShowError(e.Exception, "System.Data.Entity.Core.EntityException", "There was a problem executing SQL!");
             }
 
@@ -102,7 +102,7 @@ namespace RemindMe
 
             else if (e.Exception is PathTooLongException)
             {
-                BLIO.WriteError(e.Exception, "File Path too long.", "The path to the file is too long!.");
+                BLIO.WriteError(e.Exception, "The path to the file is too long.");
                 ShowError(e.Exception, "File Path too long.", "The path to the file is too long!.");
             }
 
@@ -114,19 +114,19 @@ namespace RemindMe
 
             else if (e.Exception is OutOfMemoryException)
             {
-                BLIO.WriteError(e.Exception, "Out of Memory", "RemindMe is out of memory!");
+                BLIO.WriteError(e.Exception, "Out of Memory");
                 ShowError(e.Exception, "Out of Memory", "RemindMe is out of memory!");
             }
            
             else if (e.Exception is ReminderException)
             {
-                BLIO.WriteError(e.Exception, "Reminder exception", e.Exception.Message);
+                BLIO.WriteError(e.Exception, "Reminder exception");
                 ShowError(e.Exception, "Reminder exception", e.Exception.Message);
             }
 
             else if (e.Exception is Exception)
             {
-                BLIO.WriteError(e.Exception, "Unknown", "Unknown exception in main.");
+                BLIO.WriteError(e.Exception, "Unknown exception in main.");
                 ShowError(e.Exception, "Unknown", "Unknown exception in main.");
             }
         }

@@ -29,11 +29,7 @@ namespace RemindMe
 
             pictureBox1.Focus();
         }
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            BLFormLogic.customBackgroundPainter(e, this, linethickness: 3, linecolor: Color.White, offsetborder: 0);
-        }
+       
 
         public CustomMessageForm(string description, RemindMeBoxIcon icon)
         {

@@ -392,3 +392,18 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  You will now be notified of reminders that will happen in the next hour. If RemindMe is running, and while checking reminders it detects that one or multiple
  reminders will happen within 60 minutes(not less, 50,40, etc) it will show the RemindMe scrolling form that appears on the right bottom part of your screen
  with the name(s) of the reminder(s). This option is toggleable in the settings.
+
+
+ V1.7.22
+
+ Whenever you try to open a .remindme file, and something goes wrong, like the file is corrupt, RemindMe will now show a RemindMeBox with a message, instead of
+ the default windows error box.
+
+ RemindMe will now also show a message when you start remindme saying you have no reminders for today, if there are no reminders for today. Previously it would only
+ tell you if you have 1 or more reminders for that day.
+
+ The keycombination ctrl + a will now select all text in the note textbox of creating a reminder
+
+ Removed an unused overload method of BLIO.WriteError
+
+ Removed the white border on RemindMe's CustomMessageForm

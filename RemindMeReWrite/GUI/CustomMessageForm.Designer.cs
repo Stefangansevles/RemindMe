@@ -94,7 +94,7 @@
             this.pbMinimizeApplication.BackColor = System.Drawing.Color.Black;
             this.pbMinimizeApplication.BackgroundImage = global::RemindMe.Properties.Resources.min;
             this.pbMinimizeApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbMinimizeApplication.Location = new System.Drawing.Point(385, 0);
+            this.pbMinimizeApplication.Location = new System.Drawing.Point(389, 0);
             this.pbMinimizeApplication.Name = "pbMinimizeApplication";
             this.pbMinimizeApplication.Size = new System.Drawing.Size(22, 22);
             this.pbMinimizeApplication.TabIndex = 105;
@@ -106,7 +106,7 @@
             this.pbCloseApplication.BackColor = System.Drawing.Color.Black;
             this.pbCloseApplication.BackgroundImage = global::RemindMe.Properties.Resources.redx;
             this.pbCloseApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbCloseApplication.Location = new System.Drawing.Point(408, 0);
+            this.pbCloseApplication.Location = new System.Drawing.Point(412, 0);
             this.pbCloseApplication.Name = "pbCloseApplication";
             this.pbCloseApplication.Size = new System.Drawing.Size(22, 22);
             this.pbCloseApplication.TabIndex = 104;

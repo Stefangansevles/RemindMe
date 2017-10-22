@@ -43,10 +43,31 @@ namespace RemindMe
         public RemindMeImporter(string reminderFile)
         {
             InitializeComponent();
-            this.remindmeFile = reminderFile;            
+            this.remindmeFile = reminderFile;
             BLFormLogic.RemovebuttonBorders(btnYes);
-            BLFormLogic.RemovebuttonBorders(btnNo);            
+            BLFormLogic.RemovebuttonBorders(btnNo);
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
+        }
+
+      
+
+        private static bool HasFileAccess(string filePath)
+        {
+            try
+            {
+                // Attempt to get a list of security permissions from the folder. 
+                // This will raise an exception if the path is read only or do not have access to view the permissions. 
+                FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                {
+                    return true;
+                }
+                
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return false;
+            }
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -127,42 +148,56 @@ namespace RemindMe
             this.MaximumSize = this.Size;
 
 
-          
-
-           
-
-            foreach (object rem in BLReminder.DeserializeRemindersFromFile(remindmeFile))
+            if (!HasFileAccess(this.remindmeFile)) //Do not attempt to launch the importer form if we can't open the file
             {
-                if (rem.GetType() == typeof(Reminder))
-                    remindersFromRemindMeFile.Add((Reminder)rem);
-                else
-                    languageCode = rem.ToString(); //The language code stored in the .remindme file, "en-Us" for example
-            }
-
-            if (languageCode != "") //Don't need to do this when exporting.
-            {
-                foreach (object rem in remindersFromRemindMeFile)
-                {
-                    if (rem.GetType() == typeof(Reminder))
-                    {
-                        Reminder remm = (Reminder)rem;
-                        //Fix the date if the .remindme file has a different time format than the current system
-                        remm.Date = BLDateTime.ConvertDateTimeStringToCurrentCulture(remm.Date, languageCode);
-                    }
-                }
-            }
-                       
-            if (remindersFromRemindMeFile != null)
-            {
-                BLFormLogic.AddRemindersToListview(lvImportedReminders, remindersFromRemindMeFile);
-                lblStatus.Text = "Succesfully loaded reminders.";
-                pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
+                RemindMeBox.Show("Can not open this .remindme file from " + Path.GetDirectoryName(this.remindmeFile) + ". Insufficient rights.", RemindMeBoxIcon.EXCLAMATION);
+                this.Close();
             }
             else
             {
-                lblStatus.Text = "Failed to load reminders.";
-                pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
-                btnYes.Enabled = false;
+
+                try
+                {
+                    foreach (object rem in BLReminder.DeserializeRemindersFromFile(remindmeFile))
+                    {
+                        if (rem.GetType() == typeof(Reminder))
+                            remindersFromRemindMeFile.Add((Reminder)rem);
+                        else
+                            languageCode = rem.ToString(); //The language code stored in the .remindme file, "en-Us" for example
+                    }
+
+                    if (languageCode != "") //Don't need to do this when exporting.
+                    {
+                        foreach (object rem in remindersFromRemindMeFile)
+                        {
+                            if (rem.GetType() == typeof(Reminder))
+                            {
+                                Reminder remm = (Reminder)rem;
+                                //Fix the date if the .remindme file has a different time format than the current system
+                                remm.Date = BLDateTime.ConvertDateTimeStringToCurrentCulture(remm.Date, languageCode);
+                            }
+                        }
+                    }
+
+                    if (remindersFromRemindMeFile != null)
+                    {
+                        BLFormLogic.AddRemindersToListview(lvImportedReminders, remindersFromRemindMeFile);
+                        lblStatus.Text = "Succesfully loaded reminders.";
+                        pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
+                    }
+                    else
+                    {
+                        lblStatus.Text = "Failed to load reminders.";
+                        pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
+                        btnYes.Enabled = false;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    RemindMeBox.Show("Something has gone wrong loading reminders from this .remindme file.\r\nThe file might be corrupt",RemindMeBoxIcon.EXCLAMATION);
+                    BLIO.WriteError(ex, "Error loading reminders from .remindme file");
+                    Application.Exit();
+                }
             }
         }
 

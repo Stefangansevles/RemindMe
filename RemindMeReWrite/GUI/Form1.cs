@@ -146,12 +146,18 @@ namespace RemindMe
         private void MakeTodaysRemindersPopup()
         {
             int reminderCount = BLReminder.GetTodaysReminders().Count;
-            if (reminderCount > 0 && BLSettings.IsReminderCountPopupEnabled())
-                MakeMessagePopup("You have " + reminderCount + " Reminder(s) set for today.", 3);
+            if(BLSettings.IsReminderCountPopupEnabled())
+            {
+                if (reminderCount > 0)
+                    MakeMessagePopup("You have " + reminderCount + " Reminder(s) set for today.", 3);
+                else
+                    MakeMessagePopup("You have no reminders set for today.", 3);
+            }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
-         {            
+        {
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -838,7 +844,7 @@ namespace RemindMe
                 else
                 {
                     // -- In this part we will create popups at the users right bottom corner of the screen saying x reminder is happening in 1 hour or x minutes -- \\
-                    if (BLSettings.IsHourBeforeNotificationEnabled())
+                    if (BLSettings.IsHourBeforeNotificationEnabled() && rem.Enabled == 1)
                     {
                         DateTime theDateToCheckOn; //Like this we dont need an if ánd an else with the same code
                         if (rem.PostponeDate != null)
@@ -1430,12 +1436,13 @@ namespace RemindMe
 
         private void RemindMeIcon_DoubleClick(object sender, EventArgs e)
         {
-            this.Show();
+            this.Show();    
         }
 
         private void showRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Show();
+            
+            this.Show();            
         }
 
         private void lvReminders_KeyDown(object sender, KeyEventArgs e)
@@ -1972,6 +1979,15 @@ namespace RemindMe
         private void tmrAllowMail_Tick(object sender, EventArgs e)
         {
             tmrAllowMail.Stop();
+        }
+
+        private void tbNote_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                tbNote.SelectAll(); //Select all text in the textbox when you ctrl + a5
+                tbNote.Focus();
+            }
         }
     }
 }

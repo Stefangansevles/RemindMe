@@ -489,7 +489,7 @@
             this.pnlDayCheckBoxes.Controls.Add(this.cbWednesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbTuesday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
-            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(108, 276);
+            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(112, 276);
             this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
             this.pnlDayCheckBoxes.Size = new System.Drawing.Size(234, 65);
             this.pnlDayCheckBoxes.TabIndex = 77;
@@ -1001,6 +1001,7 @@
             this.tbNote.Size = new System.Drawing.Size(234, 68);
             this.tbNote.TabIndex = 29;
             this.tbNote.LocationChanged += new System.EventHandler(this.tbNote_LocationChanged);
+            this.tbNote.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbNote_KeyDown);
             // 
             // btnBack
             // 
@@ -1097,7 +1098,7 @@
             this.pictureBox3.Size = new System.Drawing.Size(49, 40);
             this.pictureBox3.TabIndex = 83;
             this.pictureBox3.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox3, "Resize RemindMe\'s Popup");
+            this.toolTip1.SetToolTip(this.pictureBox3, "Support");
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // pbCustomizePopup

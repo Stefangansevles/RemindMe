@@ -300,7 +300,7 @@ namespace Business_Logic_Layer
             Hashtable hashReminders = null;
 
             // Open the file containing the data that you want to deserialize.
-            FileStream fs = new FileStream(pathToRemindMeFile, FileMode.Open);
+            FileStream fs = new FileStream(pathToRemindMeFile, FileMode.Open, FileAccess.Read);
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();

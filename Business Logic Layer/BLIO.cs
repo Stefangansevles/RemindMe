@@ -72,25 +72,7 @@ namespace Business_Logic_Layer
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
-            }
-            
-        }
-
-        /// <summary>
-        /// Writes an error to the errorlog.txt
-        /// </summary>
-        /// <param name="ex">The occured exception</param>
-        /// <param name="message">A short message i.e "Error while loading reminders"</param>
-        /// <param name="description">A custom description of the error</param>
-        /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
-        public static void WriteError(Exception ex, string message, string description)
-        {
-            using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
-            }
-            
-        }
+            }            
+        }              
     }
 }
