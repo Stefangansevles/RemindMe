@@ -10,8 +10,9 @@ namespace Business_Logic_Layer
     /// <summary>
     /// This class will for now, only contain one method to send the e-mail.
     /// </summary>
-    public abstract class BLEmail
+    public class BLEmail
     {
+        private BLEmail() { }
         /// <summary>
         /// Sends an e-mail to the RemindMe support e-mail adress
         /// </summary>

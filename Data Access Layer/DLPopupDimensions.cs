@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Data_Access_Layer
 {
-    public abstract class DLPopupDimensions
+    public class DLPopupDimensions
     {
+        private DLPopupDimensions() { }
+
         private static PopupDimensions dimensions;
 
         private const int DEFAULT_FORM_WIDTH = 343;

@@ -120,11 +120,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComboBoxItem.cs" />
-    <Compile Include="GUI\CustomMessageForm.cs">
+    <Compile Include="GUI\RemindMeBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\CustomMessageForm.Designer.cs">
-      <DependentUpon>CustomMessageForm.cs</DependentUpon>
+    <Compile Include="GUI\RemindMeBox.Designer.cs">
+      <DependentUpon>RemindMeBox.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\ErrorPopup.cs">
       <SubType>Form</SubType>
@@ -256,6 +256,11 @@
     <None Include="Resources\HelpIcon.png" />
     <None Include="Resources\HelpIconSmall.png" />
     <None Include="Resources\todaysremindeszr.png" />
+    <None Include="Resources\RevertIcon.png" />
+    <None Include="Resources\RevertIcon1.png" />
+    <None Include="Resources\RemindMeSettingsNew1.png" />
+    <None Include="Resources\ImportExportIcon.png" />
+    <None Include="Resources\ImportExportIcon1.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config">
@@ -268,8 +273,8 @@
     <None Include="Resources\RemindMeSettingsNew.png" />
     <None Include="Resources\blue sound icon.png" />
     <Content Include="Version history.txt" />
-    <EmbeddedResource Include="GUI\CustomMessageForm.resx">
-      <DependentUpon>CustomMessageForm.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\RemindMeBox.resx">
+      <DependentUpon>RemindMeBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ErrorPopup.resx">
       <DependentUpon>ErrorPopup.cs</DependentUpon>

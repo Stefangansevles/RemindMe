@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lvImportedReminders = new System.Windows.Forms.ListView();
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -38,7 +39,10 @@
             this.btnNo = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.pbStatus = new System.Windows.Forms.PictureBox();
+            this.ReminderMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.permanentelyRemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
+            this.ReminderMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvImportedReminders
@@ -60,6 +64,7 @@
             this.lvImportedReminders.UseCompatibleStateImageBehavior = false;
             this.lvImportedReminders.View = System.Windows.Forms.View.Details;
             this.lvImportedReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvImportedReminders_KeyDown);
+            this.lvImportedReminders.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvImportedReminders_MouseClick);
             // 
             // chTitle
             // 
@@ -99,9 +104,9 @@
             this.btnYes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnYes.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnYes.ForeColor = System.Drawing.Color.Transparent;
-            this.btnYes.Location = new System.Drawing.Point(327, 185);
+            this.btnYes.Location = new System.Drawing.Point(324, 185);
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(57, 23);
+            this.btnYes.Size = new System.Drawing.Size(61, 23);
             this.btnYes.TabIndex = 85;
             this.btnYes.Text = "Import";
             this.btnYes.UseVisualStyleBackColor = false;
@@ -141,6 +146,24 @@
             this.pbStatus.TabIndex = 87;
             this.pbStatus.TabStop = false;
             // 
+            // ReminderMenuStrip
+            // 
+            this.ReminderMenuStrip.BackColor = System.Drawing.Color.DimGray;
+            this.ReminderMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReminderMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.permanentelyRemoveToolStripMenuItem});
+            this.ReminderMenuStrip.Name = "ReminderMenuStrip";
+            this.ReminderMenuStrip.ShowImageMargin = false;
+            this.ReminderMenuStrip.Size = new System.Drawing.Size(235, 48);
+            // 
+            // permanentelyRemoveToolStripMenuItem
+            // 
+            this.permanentelyRemoveToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.permanentelyRemoveToolStripMenuItem.Name = "permanentelyRemoveToolStripMenuItem";
+            this.permanentelyRemoveToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.permanentelyRemoveToolStripMenuItem.Text = "Permanentely remove reminders";
+            this.permanentelyRemoveToolStripMenuItem.Click += new System.EventHandler(this.permanentelyRemoveToolStripMenuItem_Click);
+            // 
             // UCImportedReminders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,6 +178,7 @@
             this.Name = "UCImportedReminders";
             this.Size = new System.Drawing.Size(442, 209);
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).EndInit();
+            this.ReminderMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,5 +196,7 @@
         public System.Windows.Forms.Button btnNo;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.PictureBox pbStatus;
+        private System.Windows.Forms.ContextMenuStrip ReminderMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem permanentelyRemoveToolStripMenuItem;
     }
 }

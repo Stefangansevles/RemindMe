@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Business_Logic_Layer
 {
-    public abstract class BLDatabase
+    public class BLDatabase
     {
-        public static readonly string DB_FILE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
+        private BLDatabase() { }
+        private static readonly string DB_FILE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
 
         /// <summary>
         /// Creates the database with associated tables
@@ -18,10 +19,12 @@ namespace Business_Logic_Layer
         {
             DLDatabase.CreateDatabase();
         }
+
         /// <summary>
-        /// Checks wether the table Reminder has column x
+        /// Checks wether the table x has column x
         /// </summary>
         /// <param name="columnName">The column you want to check on</param>
+        /// <param name="table">The table you want to check on</param>
         /// <returns></returns>
         public static bool HasColumn(string columnName, string table)
         {
@@ -43,14 +46,6 @@ namespace Business_Logic_Layer
         public static void InsertNewColumns()
         {
             DLDatabase.InsertNewColumns();
-        }
-
-
-       
-       
-
-
-    
-     
+        }  
     }
 }

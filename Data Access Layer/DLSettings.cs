@@ -9,8 +9,12 @@ namespace Data_Access_Layer
     /// <summary>
     /// This class handles(creates/updates) settings in the database
     /// </summary>
-    public abstract class DLSettings
+    public class DLSettings
     {
+
+        private DLSettings() { }
+
+
         private static Settings settings;
 
        

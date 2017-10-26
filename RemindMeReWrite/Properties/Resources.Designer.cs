@@ -373,6 +373,26 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImportExportIcon {
+            get {
+                object obj = ResourceManager.GetObject("ImportExportIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImportExportIcon1 {
+            get {
+                object obj = ResourceManager.GetObject("ImportExportIcon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImportIcon {
             get {
                 object obj = ResourceManager.GetObject("ImportIcon", resourceCulture);
@@ -523,6 +543,16 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RemindMeSettingsNew1 {
+            get {
+                object obj = ResourceManager.GetObject("RemindMeSettingsNew1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap reset {
             get {
                 object obj = ResourceManager.GetObject("reset", resourceCulture);
@@ -546,6 +576,26 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap resume {
             get {
                 object obj = ResourceManager.GetObject("resume", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RevertIcon {
+            get {
+                object obj = ResourceManager.GetObject("RevertIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RevertIcon1 {
+            get {
+                object obj = ResourceManager.GetObject("RevertIcon1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

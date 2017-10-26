@@ -10,8 +10,9 @@ using System.Drawing;
 
 namespace Business_Logic_Layer
 {
-    public abstract class BLFormLogic
+    public class BLFormLogic
     {
+        private BLFormLogic() { }
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         /// <summary>
         /// Removes borders from buttons to make them look better with a background

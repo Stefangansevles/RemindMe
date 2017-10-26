@@ -68,8 +68,8 @@ namespace RemindMe
             
             InitializeComponent();
 
-            
 
+            
             AppDomain.CurrentDomain.SetData("DataDirectory", Variables.IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();            
@@ -580,7 +580,7 @@ namespace RemindMe
                 }
             }
             else                                
-                RemindMeBox.Show("Please select one reminder to edit at a time", RemindMeBoxIcon.INFORMATION);
+                RemindMeBox.Show("Please select one reminder to edit at a time", RemindMeBoxIcon.INFORMATION ,MessageBoxButtons.OK);
         }
 
         private void CheckDayCheckBoxes(List<string> days)
@@ -850,7 +850,7 @@ namespace RemindMe
                         if (rem.PostponeDate != null)
                             theDateToCheckOn = Convert.ToDateTime(rem.PostponeDate);
                         else
-                            theDateToCheckOn = Convert.ToDateTime(rem.Date);
+                            theDateToCheckOn = Convert.ToDateTime(rem.Date.Split(',')[0]);
 
 
                         //The timespan between the date and now.
@@ -1076,6 +1076,10 @@ namespace RemindMe
                         BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.NONE)
                     {
+                        DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
+                        if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)                        
+                            cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him.                                              
+
                         if (cbMultipleDates.Items.Count > 0)
                             BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMultipleDatesComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                         else
@@ -1365,7 +1369,7 @@ namespace RemindMe
                                 ComboBoxItemManager.RemoveComboboxItem(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
                                 
                                 //Show the user the message that the file is no longer at the specified path.
-                                RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION);
+                                RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxIcon.INFORMATION, MessageBoxButtons.OK);
                             }
                         }
                     }
@@ -1447,7 +1451,9 @@ namespace RemindMe
 
         private void lvReminders_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            if (e.Shift && e.KeyCode == Keys.Delete)
+                permanentelyRemoveToolStripMenuItem_Click_1(sender, e);
+            else if (e.KeyCode == Keys.Delete)
                 btnRemoveReminder_Click(sender, e);
 
             if (e.Control && e.KeyCode == Keys.A)
@@ -1987,6 +1993,21 @@ namespace RemindMe
             {
                 tbNote.SelectAll(); //Select all text in the textbox when you ctrl + a5
                 tbNote.Focus();
+            }
+        }
+
+       
+
+        private void permanentelyRemoveToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
+            if (RemindMeBox.Show("Are you really sure you wish to permanentely delete " + selectedReminders.Count + " reminders?", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                BLReminder.PermanentelyDeleteReminders(selectedReminders);
+
+
+                foreach (ListViewItem item in lvReminders.SelectedItems)
+                    lvReminders.Items.Remove(item);                
             }
         }
     }

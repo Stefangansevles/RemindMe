@@ -19,44 +19,27 @@
             The value of the ComboBoxItem. 
             </summary>
         </member>
-        <member name="T:RemindMe.CustomMessageForm">
-            <summary>
-            The form internally used by <see cref="!:CustomMessageBox"/> class.
-            </summary>
-        </member>
-        <member name="M:RemindMe.CustomMessageForm.EnlargeTextbox">
+        <member name="M:RemindMe.RemindMeBox.EnlargeTextbox">
             <summary>
             Enlarges the textbox if the text exceeds the textbox.
             </summary>
         </member>
-        <member name="F:RemindMe.CustomMessageForm.components">
+        <member name="F:RemindMe.RemindMeBox.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:RemindMe.CustomMessageForm.Dispose(System.Boolean)">
+        <member name="M:RemindMe.RemindMeBox.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:RemindMe.CustomMessageForm.InitializeComponent">
+        <member name="M:RemindMe.RemindMeBox.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
-        </member>
-        <member name="T:RemindMe.RemindMeBox">
-            <summary>
-            Custom RemindMe message box helper.
-            </summary>
-        </member>
-        <member name="M:RemindMe.RemindMeBox.Show(System.String,RemindMe.RemindMeBoxIcon)">
-            <summary>
-            Pops up the RemindMeBox.
-            </summary>
-            <param name="title">The text you want the user to see</param>
-            <param name="icon">The Icon that the RemindMeBox should show</param>
         </member>
         <member name="M:RemindMe.ErrorPopup.EnlargeTextbox">
             <summary>
@@ -400,7 +383,7 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:RemindMe.UCImportedReminders.#ctor(System.Collections.Generic.List{System.Object},System.Boolean)">
+        <member name="M:RemindMe.UCImportedReminders.#ctor(System.Collections.Generic.List{System.Object},RemindMe.ReminderTransferType)">
             <summary>
             Shows reminders and gives the option to import/export them 
             </summary>
@@ -427,6 +410,26 @@
             <summary> 
             Required method for Designer support - do not modify 
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:RemindMe.ReminderTransferType">
+            <summary>
+            Determines what the user wants to do with reminders. import,export or recover
+            </summary>
+        </member>
+        <member name="F:RemindMe.ReminderTransferType.IMPORT">
+            <summary>
+            The user wants to import new reminders
+            </summary>
+        </member>
+        <member name="F:RemindMe.ReminderTransferType.EXPORT">
+            <summary>
+            The user wants to export his reminders
+            </summary>
+        </member>
+        <member name="F:RemindMe.ReminderTransferType.RECOVER">
+            <summary>
+            The user wants to recover his previously deleted reminders
             </summary>
         </member>
         <member name="F:RemindMe.UCImportExport.components">
@@ -737,6 +740,16 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.ImportExportIcon">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.ImportExportIcon1">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.ImportIcon">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
@@ -812,6 +825,11 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.RemindMeSettingsNew1">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.reset">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
@@ -823,6 +841,16 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.resume">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.RevertIcon">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.RevertIcon1">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

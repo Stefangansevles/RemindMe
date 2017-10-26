@@ -407,3 +407,18 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  Removed an unused overload method of BLIO.WriteError
 
  Removed the white border on RemindMe's CustomMessageForm
+
+
+ V1.7.23
+
+ RemindMe now keeps deleted reminders. When you delete a reminder, the reminder will be "marked" as deleted, but it won't actually get deleted.
+ When using methods like GetReminders(), it will only get the "not-deleted" reminders. 
+ If the user really wants to delete the reminder, he can right-click the reminder in the listview and select Permanentely delete reminder. 
+ The user will then get a confirmation with yes/no.
+
+ Because reminders are now only soft-deleted, there is a new option within RemindMe. You can now recover the soft-deleted reminders in the settings and import
+ them again.
+
+ RemindMe now has improved RemindMeBox funcionality. The RemindMeBox can now have yes/no buttons. they each return DialogResult based on what is clicked.
+
+ All Business Logic Layer and Data Access Layer classes are no longer abstract. Instead, they have private constructors to not allow instances of themselves.

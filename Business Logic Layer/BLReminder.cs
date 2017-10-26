@@ -15,8 +15,9 @@ using System.Threading.Tasks;
 
 namespace Business_Logic_Layer
 {
-    public abstract class BLReminder
+    public class BLReminder
     {
+        private BLReminder() { }
         public static List<Reminder> GetReminders()
         {
             //currently no business logic
@@ -43,6 +44,12 @@ namespace Business_Logic_Layer
             return returnList;
         }
 
+        /// <summary>
+        /// Export a list of reminders to a .remindme file
+        /// </summary>
+        /// <param name="reminders"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static bool ExportReminders(List<Reminder> reminders,string path)
         {            
             try
@@ -58,6 +65,46 @@ namespace Business_Logic_Layer
                 throw ex;                
             }            
         }
+        /// <summary>
+        /// Get all reminders that are marked as deleted
+        /// </summary>
+        /// <returns></returns>
+        public static List<Reminder> GetDeletedReminders()
+        {
+            return DLReminders.GetDeletedReminders();
+        }
+
+
+        /// <summary>
+        /// Permanentely deletes a single reminder from the database
+        /// </summary>
+        /// <param name="rem">The reminder you wish to remove</param>
+        public static void PermanentelyDeleteReminder(Reminder rem)
+        {
+            if(rem != null && GetReminderById(rem.Id) != null) //Check if the reminder exists and isnt null
+                DLReminders.PermanentelyDeleteReminder(rem);
+        }
+
+        /// <summary>
+        /// Permanentely deletes a single reminder from the database
+        /// </summary>
+        /// <param name="rem">The reminder you wish to remove</param>
+        public static void PermanentelyDeleteReminder(int reminderId)
+        {
+            if(GetReminderById(reminderId) != null)
+                DLReminders.PermanentelyDeleteReminder(reminderId);
+        }
+
+
+        /// <summary>
+        /// Deletes multiple reminders from the database. 
+        /// </summary>
+        /// <param name="rems"></param>
+        public static void PermanentelyDeleteReminders(List<Reminder> rems)
+        {
+            DLReminders.PermanentelyDeleteReminders(rems);
+        }
+
         /// <summary>
         /// forces the database to refresh the list
         /// </summary>
@@ -176,7 +223,7 @@ namespace Business_Logic_Layer
 
                         if (dateArray.Length == 0)
                         {
-                            DLReminders.DeleteReminder(rem);
+                            DLReminders.PermanentelyDeleteReminder(rem);
                             return;
                         }
 
@@ -189,7 +236,7 @@ namespace Business_Logic_Layer
                     }
                     else//it had one date, and that date caused this popup. Let's delete the reminder.
                     {
-                        DLReminders.DeleteReminder(rem);
+                        DLReminders.PermanentelyDeleteReminder(rem);
                         return;
                     }
                 }

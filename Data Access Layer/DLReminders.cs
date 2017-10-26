@@ -20,8 +20,10 @@ namespace Data_Access_Layer
     /// <summary>
     /// This class handles reminders in the database.
     /// </summary>
-    public abstract class DLReminders
-    {        
+    public class DLReminders
+    {
+        private DLReminders() { }
+
         //Instead of connecting with the database everytime, we fill this list and return it when the user calls GetReminders(). 
         private static List<Reminder> localReminders;
 
@@ -40,7 +42,7 @@ namespace Data_Access_Layer
 
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
-            return localReminders;
+            return localReminders.Where(r => r.Deleted == 0).ToList(); //only return "existing" reminders
         }
 
         /// <summary>
@@ -80,11 +82,14 @@ namespace Data_Access_Layer
                 else
                     rem.Id = 0;
 
+                rem.Deleted = 0;
                 db.Reminder.Add(rem);
                 SaveAndCloseDataBase(db);
             }
             return rem.Id;
         }
+
+
 
        
 
@@ -104,6 +109,21 @@ namespace Data_Access_Layer
             return rem;
         }
 
+        /// <summary>
+        /// Gets all "deleted" reminders. Deleted reminders are reminders that are marked as deleted, but still exist.
+        /// </summary>
+        /// <returns>A list of reminders that are marked as deleted</returns>
+        public static List<Reminder> GetDeletedReminders()
+        {
+            List<Reminder> toReturnList = new List<Reminder>();
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                toReturnList = localReminders.Where(r => r.Deleted == 1).ToList();
+                db.Dispose();
+            }
+            return toReturnList;
+        }
+
 
 
         /// <summary>
@@ -114,7 +134,6 @@ namespace Data_Access_Layer
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
-
                 db.Reminder.Attach(rem);
                 var entry = db.Entry(rem);
                 entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                
@@ -123,24 +142,71 @@ namespace Data_Access_Layer
         }
 
         /// <summary>
-        /// Deletes a single reminder from the database
+        /// Marks a single reminder as deleted
         /// </summary>
         /// <param name="rem">The reminder you wish to remove</param>
         public static void DeleteReminder(Reminder rem)
         {
             if (GetReminderById(rem.Id) != null) //Check if the reminder exists
             {
-                using (RemindMeDbEntities db = new RemindMeDbEntities())
-                {
-                    db.Reminder.Attach(rem);
-                    db.Reminder.Remove(rem);
-                    SaveAndCloseDataBase(db);
-                }
+                rem.Deleted = 1;
+                EditReminder(rem);
+            }
+        }
+        /// <summary>
+        /// Permanentely deletes a single reminder from the database
+        /// </summary>
+        /// <param name="rem">The reminder you wish to remove</param>
+        public static void PermanentelyDeleteReminder(Reminder rem)
+        {        
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                db.Reminder.Attach(rem);
+                db.Reminder.Remove(rem);
+                SaveAndCloseDataBase(db);
             }
         }
 
         /// <summary>
-        /// Deletes a single reminder from the database
+        /// Permanentely deletes a single reminder from the database
+        /// </summary>
+        /// <param name="rem">The reminder you wish to remove</param>
+        public static void PermanentelyDeleteReminder(int reminderId)
+        {
+            Reminder toRemoveReminder = GetReminderById(reminderId);
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                db.Reminder.Attach(toRemoveReminder);
+                db.Reminder.Remove(toRemoveReminder);
+                SaveAndCloseDataBase(db);
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes multiple reminders from the database. 
+        /// </summary>
+        /// <param name="rems"></param>
+        public static void PermanentelyDeleteReminders(List<Reminder> rems)
+        {
+            //We use this method so we can attach and remove the reminders in a foreach loop, and save changes to the database after the loop.
+            //If you use the DeleteReminder method in a foreach loop, it will open and close the database each time
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                foreach (Reminder rem in rems)
+                {
+                    if (GetReminderById(rem.Id) != null) //Check if the reminder exists
+                    {
+                        db.Reminder.Attach(rem);
+                        db.Reminder.Remove(rem);
+                    }
+                }
+                SaveAndCloseDataBase(db);
+            }
+        }
+
+        /// <summary>
+        /// Marks a single reminder as deleted
         /// </summary>
         /// <param name="reminderId">The id of the reminder you wish to remove</param>
         public static void DeleteReminder(int reminderId)
@@ -148,14 +214,12 @@ namespace Data_Access_Layer
             if (GetReminderById(reminderId) != null) //Check if the reminder exists
             {
                 Reminder toRemoveReminder = GetReminderById(reminderId);
-                using (RemindMeDbEntities db = new RemindMeDbEntities())
-                {
-                    db.Reminder.Attach(toRemoveReminder);
-                    db.Reminder.Remove(toRemoveReminder);
-                    SaveAndCloseDataBase(db);
-                }
+                toRemoveReminder.Deleted = 1;
+                EditReminder(toRemoveReminder);
             }
         }
+
+        
 
         /// <summary>
         /// Deletes multiple reminders from the database. 
@@ -167,19 +231,20 @@ namespace Data_Access_Layer
             //If you use the DeleteReminder method in a foreach loop, it will open and close the database each time
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
+
                 foreach (Reminder rem in rems)
                 {
-                    if (GetReminderById(rem.Id) != null) //Check if the reminder exists
-                    {
-                        db.Reminder.Attach(rem);                        
-                        db.Reminder.Remove(rem);                        
-                    }
+                    rem.Deleted = 1;
+                    db.Reminder.Attach(rem);
+                    var entry = db.Entry(rem);
+                    entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                                                        
                 }
                 SaveAndCloseDataBase(db);
             }
                 
             
         }
+
         /// <summary>
         /// Saves pending changes to the database, disposes it, and refreshes the local cache list
         /// </summary>

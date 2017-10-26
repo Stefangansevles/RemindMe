@@ -9,8 +9,9 @@ using Database.Entity;
 
 namespace Business_Logic_Layer
 {
-    public abstract class BLSongs
+    public class BLSongs
     {
+        private BLSongs() { }
         /// <summary>
         /// Gets the song object from the database with the given id
         /// </summary>

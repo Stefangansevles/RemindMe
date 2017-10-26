@@ -190,7 +190,7 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\bin\Debug\Data Access
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
-D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.CustomMessageForm.resources
+D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.RemindMeBox.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.ErrorPopup.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.Form1.resources
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.RemindMeImporter.resources

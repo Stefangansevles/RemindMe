@@ -9,10 +9,12 @@ namespace Data_Access_Layer
     /// <summary>
     /// This class handles all database-sided logic for sound effects
     /// </summary>
-    public abstract class DLSongs
+    public class DLSongs
     {
+        private DLSongs() { }
+
         //Instead of connecting with the database everytime, we fill this list and return it when the user calls GetSongs(). 
-        static List<Songs> localSongs;
+        private static List<Songs> localSongs;
 
 
         /// <summary>

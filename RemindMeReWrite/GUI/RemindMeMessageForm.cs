@@ -98,6 +98,8 @@ namespace RemindMe
 
         private void RemindMeMessageForm_Load(object sender, EventArgs e)
         {
+            this.MaximumSize = this.Size;
+
             this.ActiveControl = null;
         }
     }

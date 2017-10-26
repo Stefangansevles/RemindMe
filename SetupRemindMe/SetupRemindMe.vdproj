@@ -415,6 +415,11 @@
             "AssemblyAsmDisplayName" = "8:FSManager, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_0820551E4D0B69F6BA55B8EC2D3A89E5"
+                    {
+                    "Name" = "8:FSManager.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:FSManager.dll"
             "TargetName" = "8:"
@@ -441,6 +446,11 @@
             "AssemblyAsmDisplayName" = "8:EASendMail45, Version=7.3.1.2, Culture=neutral, PublicKeyToken=88adb80ecd66540b, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_1C241F13C81ED57BFF7E0DCC5AC21ACD"
+                    {
+                    "Name" = "8:EASendMail45.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EASendMail45.dll"
             "TargetName" = "8:"
@@ -467,6 +477,11 @@
             "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_230AAE04722C6C3B3A4FAA00DF129BD7"
+                    {
+                    "Name" = "8:System.Data.SQLite.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Data.SQLite.dll"
             "TargetName" = "8:"
@@ -533,6 +548,11 @@
             "AssemblyAsmDisplayName" = "8:EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_38E4273D57B09692D63D97D1BEDD142A"
+                    {
+                    "Name" = "8:EntityFramework.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EntityFramework.dll"
             "TargetName" = "8:"
@@ -559,6 +579,11 @@
             "AssemblyAsmDisplayName" = "8:System.Windows, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
+                    "_3D11446C7746DCC9B49618AACAD07A9A"
+                    {
+                    "Name" = "8:System.Windows.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Windows.dll"
             "TargetName" = "8:"
@@ -585,6 +610,11 @@
             "AssemblyAsmDisplayName" = "8:FileAssociation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_400BC5C5B8C8B82E1926CF29BFE4322E"
+                    {
+                    "Name" = "8:FileAssociation.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:FileAssociation.dll"
             "TargetName" = "8:"
@@ -611,6 +641,11 @@
             "AssemblyAsmDisplayName" = "8:EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_40F70358C0CCACD2D0198FC11C0A5ED4"
+                    {
+                    "Name" = "8:EntityFramework.SqlServer.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EntityFramework.SqlServer.dll"
             "TargetName" = "8:"
@@ -634,9 +669,14 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Database.Entity, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Database.Entity, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_4C000ED71FCC90BE3736D0E29BEA655A"
+                    {
+                    "Name" = "8:Database.Entity.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Database.Entity.dll"
             "TargetName" = "8:"
@@ -660,9 +700,14 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Business Logic Layer, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Business Logic Layer, Version=1.1.9.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_5EC51A7BFBE5493311B725FBC0F9A0DF"
+                    {
+                    "Name" = "8:Business Logic Layer.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Business Logic Layer.dll"
             "TargetName" = "8:"
@@ -689,6 +734,11 @@
             "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_6FC1D282254AABA063647F7D6CACC24E"
+                    {
+                    "Name" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
             "TargetName" = "8:"
@@ -775,6 +825,11 @@
             "AssemblyAsmDisplayName" = "8:System.Data.SQLite.EF6, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_C5AE0DB999665B216404037F19A5E807"
+                    {
+                    "Name" = "8:System.Data.SQLite.EF6.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Data.SQLite.EF6.dll"
             "TargetName" = "8:"
@@ -821,6 +876,11 @@
             "AssemblyAsmDisplayName" = "8:System.Data.SQLite.Linq, Version=1.0.105.2, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_E3F4E49F85C8520BA9BAB3E4E0BC9497"
+                    {
+                    "Name" = "8:System.Data.SQLite.Linq.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Data.SQLite.Linq.dll"
             "TargetName" = "8:"
@@ -847,6 +907,11 @@
             "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F6BC536812AC80FE799D2FF4078B3962"
+                    {
+                    "Name" = "8:Microsoft.WindowsAPICodePack.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Microsoft.WindowsAPICodePack.dll"
             "TargetName" = "8:"
@@ -870,9 +935,14 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Data Access Layer, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Data Access Layer, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F7270555986DB92C55E9834F3754F250"
+                    {
+                    "Name" = "8:Data Access Layer.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Data Access Layer.dll"
             "TargetName" = "8:"
@@ -899,6 +969,11 @@
             "AssemblyAsmDisplayName" = "8:Interop.IWshRuntimeLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_FDEAC8A6E0B4E319D72D3825D9E4BCCD"
+                    {
+                    "Name" = "8:Interop.IWshRuntimeLibrary.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Interop.IWshRuntimeLibrary.dll"
             "TargetName" = "8:"
@@ -1030,15 +1105,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{D99F0555-64E6-48F3-AD0B-436EB525B1A2}"
-        "PackageCode" = "8:{5B5A20E0-1532-46A3-A176-128343AB25F0}"
+        "ProductCode" = "8:{6C2C0AE0-3DAA-4288-B8C9-866CDB15B962}"
+        "PackageCode" = "8:{E8F1BA1C-591E-4618-B0FC-374A082C3467}"
         "UpgradeCode" = "8:{AD8F3D12-D27D-4910-A7A4-222CAA0A511D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.7.22"
+        "ProductVersion" = "8:1.7.23"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

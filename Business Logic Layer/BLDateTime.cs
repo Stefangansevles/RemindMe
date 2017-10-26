@@ -10,8 +10,9 @@ namespace Business_Logic_Layer
     /// <summary>
     /// This class has usefull methods regarding dates and times.
     /// </summary>
-    public abstract class BLDateTime
-    {                
+    public class BLDateTime
+    {
+        private BLDateTime() { }
         /// <summary>
         /// Gets the date of the next day of the week. The time will be 00:00:00
         /// </summary>

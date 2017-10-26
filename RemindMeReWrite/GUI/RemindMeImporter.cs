@@ -59,7 +59,7 @@ namespace RemindMe
                 // This will raise an exception if the path is read only or do not have access to view the permissions. 
                 FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
                 {
-                    return true;
+                    return true;                    
                 }
                 
             }
@@ -150,7 +150,7 @@ namespace RemindMe
 
             if (!HasFileAccess(this.remindmeFile)) //Do not attempt to launch the importer form if we can't open the file
             {
-                RemindMeBox.Show("Can not open this .remindme file from " + Path.GetDirectoryName(this.remindmeFile) + ". Insufficient rights.", RemindMeBoxIcon.EXCLAMATION);
+                RemindMeBox.Show("Can not open this .remindme file from " + Path.GetDirectoryName(this.remindmeFile) + ". Insufficient rights.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
                 this.Close();
             }
             else
@@ -194,7 +194,7 @@ namespace RemindMe
                 }
                 catch(Exception ex)
                 {
-                    RemindMeBox.Show("Something has gone wrong loading reminders from this .remindme file.\r\nThe file might be corrupt",RemindMeBoxIcon.EXCLAMATION);
+                    RemindMeBox.Show("Something has gone wrong loading reminders from this .remindme file.\r\nThe file might be corrupt",RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
                     BLIO.WriteError(ex, "Error loading reminders from .remindme file");
                     Application.Exit();
                 }

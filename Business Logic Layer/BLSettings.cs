@@ -8,8 +8,9 @@ using Database.Entity;
 
 namespace Business_Logic_Layer
 {
-    public abstract class BLSettings
+    public class BLSettings
     {
+        private BLSettings() { }
         /// <summary>
         /// Reads the settings from the database and checks if reminders should be set to always on top.
         /// </summary>

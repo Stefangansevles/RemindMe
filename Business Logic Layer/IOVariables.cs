@@ -9,9 +9,10 @@ namespace Business_Logic_Layer
     /// <summary>
     /// This class contains IO related variables, that you don't want to declare in each class.
     /// </summary>
-    public abstract class IOVariables
+    public class IOVariables
     {
-       
+        private IOVariables() { }
+
         /// <summary>
         /// Contains the path to the SQLite Database of RemindMe
         /// </summary>

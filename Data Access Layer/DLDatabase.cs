@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace Data_Access_Layer
 {
-    public abstract class DLDatabase
+    public class DLDatabase
     {
+        private DLDatabase() { }
+
         private static readonly string DB_FILE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
 
         //The neccesary query to execute to create the table Reminder
-        private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
+        private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Deleted]INTEGER NOT NULL , [Name]text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Settings
         private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint DEFAULT 1 NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1 NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1 NOT NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
@@ -58,9 +60,10 @@ namespace Data_Access_Layer
 
         }
         /// <summary>
-        /// Checks wether the table Reminder has column x
+        /// Checks wether the table x has column x
         /// </summary>
         /// <param name="columnName">The column you want to check on</param>
+        /// <param name="table">The table you want to check on</param>
         /// <returns></returns>
         public static bool HasColumn(string columnName, string table)
         {
@@ -255,6 +258,7 @@ namespace Data_Access_Layer
             switch (columnName)
             {
                 case "Id": return "INTEGER NOT NULL";
+                case "Deleted": return "bigint DEFAULT 0 NOT NULL";
                 case "Name": return "text NOT NULL DEFAULT ''";
                 case "Date": return "text NOT NULL DEFAULT '1-1-1990'";
                 case "RepeatType": return "text NOT NULL DEFAULT 'none'";

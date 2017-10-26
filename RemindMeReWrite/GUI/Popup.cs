@@ -53,6 +53,8 @@ namespace RemindMe
 
         private void Popup_Load(object sender, EventArgs e)
         {
+            this.MaximumSize = this.Size;
+
             if (BLSettings.IsAlwaysOnTop())
             {
                 this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
@@ -95,7 +97,7 @@ namespace RemindMe
                 }
                 else
                 {
-                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxIcon.INFORMATION);
+                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxIcon.INFORMATION, MessageBoxButtons.OK);
                     //make sure its removed from the reminder
                     rem.SoundFilePath = "";
                 }

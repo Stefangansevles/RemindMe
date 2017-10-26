@@ -8,8 +8,9 @@ using System.Linq;
 
 namespace Business_Logic_Layer
 {
-    public abstract class BLIO
+    public class BLIO
     {
+        private BLIO() { }
         /// <summary>
         /// Creates the folders and files needed by RemindMe. This should only occur once, during first use.
         /// </summary>

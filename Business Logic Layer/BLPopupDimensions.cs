@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Business_Logic_Layer
 {
-    public abstract class BLPopupDimensions
-    {        
+    public class BLPopupDimensions
+    {
+        private BLPopupDimensions() { }
         public static PopupDimensions GetPopupDimensions()
         {
             return DLPopupDimensions.GetPopupDimensions();            

@@ -28,22 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.pnlImportedReminders = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pnlIntro = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.pbRecover = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pbExport = new System.Windows.Forms.PictureBox();
             this.pbImport = new System.Windows.Forms.PictureBox();
             this.pbClearPanel = new System.Windows.Forms.PictureBox();
             this.pbStatus = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.pnlIntro.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRecover)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExport)).BeginInit();
@@ -51,18 +53,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbClearPanel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("MS Reference Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(164, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(298, 24);
-            this.label2.TabIndex = 76;
-            this.label2.Text = "Backup / import Reminders";
-            this.label2.Visible = false;
             // 
             // lblStatus
             // 
@@ -89,7 +79,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(56, 43);
+            this.label1.Location = new System.Drawing.Point(57, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 15);
             this.label1.TabIndex = 85;
@@ -102,7 +92,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(6, 43);
+            this.label3.Location = new System.Drawing.Point(7, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 15);
             this.label3.TabIndex = 86;
@@ -122,46 +112,57 @@
             this.pnlIntro.Size = new System.Drawing.Size(442, 208);
             this.pnlIntro.TabIndex = 82;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(4, 134);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(397, 30);
+            this.label6.TabIndex = 90;
+            this.label6.Text = "The .remindme files can be imported by pressing \"Import\"\r\nor by simply double-cli" +
+    "cking them.";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(5, 47);
+            this.label5.Location = new System.Drawing.Point(4, 47);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(322, 30);
+            this.label5.Size = new System.Drawing.Size(368, 30);
             this.label5.TabIndex = 88;
-            this.label5.Text = "Reminders can be imported and exported here\r\nExporting reminders will give a .rem" +
-    "indme file.";
+            this.label5.Text = "Reminders can be imported/exported/recovered here.\r\nExporting reminders will give" +
+    " a .remindme file.";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS Reference Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(5, 14);
+            this.label4.Location = new System.Drawing.Point(4, 14);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(298, 24);
             this.label4.TabIndex = 87;
             this.label4.Text = "Backup / import Reminders";
             // 
-            // label6
+            // pbRecover
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(5, 134);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(397, 30);
-            this.label6.TabIndex = 90;
-            this.label6.Text = "The .remindme files can be imported by pressing \"Import\"\r\nor by simply double-cli" +
-    "cking them";
+            this.pbRecover.BackgroundImage = global::RemindMe.Properties.Resources.RevertIcon1;
+            this.pbRecover.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbRecover.Location = new System.Drawing.Point(113, 3);
+            this.pbRecover.Name = "pbRecover";
+            this.pbRecover.Size = new System.Drawing.Size(40, 40);
+            this.pbRecover.TabIndex = 87;
+            this.pbRecover.TabStop = false;
+            this.pbRecover.Click += new System.EventHandler(this.pbRecover_Click);
             // 
             // pictureBox2
             // 
             this.pictureBox2.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeImport;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(370, 3);
+            this.pictureBox2.Location = new System.Drawing.Point(371, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(63, 58);
             this.pictureBox2.TabIndex = 91;
@@ -171,7 +172,7 @@
             // 
             this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.remindme_backup_image;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Location = new System.Drawing.Point(8, 95);
+            this.pictureBox1.Location = new System.Drawing.Point(7, 95);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(191, 26);
             this.pictureBox1.TabIndex = 89;
@@ -220,11 +221,26 @@
             this.pbStatus.TabIndex = 80;
             this.pbStatus.TabStop = false;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(110, 43);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 15);
+            this.label7.TabIndex = 88;
+            this.label7.Text = "Recover";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
             // UCImportExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.pbRecover);
             this.Controls.Add(this.pnlIntro);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -234,12 +250,12 @@
             this.Controls.Add(this.pnlImportedReminders);
             this.Controls.Add(this.pbStatus);
             this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.label2);
             this.Name = "UCImportExport";
             this.Size = new System.Drawing.Size(462, 302);
             this.Load += new System.EventHandler(this.UCImportExport_Load);
             this.pnlIntro.ResumeLayout(false);
             this.pnlIntro.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRecover)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExport)).EndInit();
@@ -252,8 +268,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.PictureBox pbStatus;
         private System.Windows.Forms.Panel pnlImportedReminders;
@@ -268,5 +282,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pbRecover;
+        private System.Windows.Forms.Label label7;
     }
 }

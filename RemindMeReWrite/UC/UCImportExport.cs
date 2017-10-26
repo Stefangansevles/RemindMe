@@ -52,7 +52,7 @@ namespace RemindMe
             pbStatus.Visible = false;
 
             pnlImportedReminders.Controls.Clear();
-            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders().Cast<object>().ToList(), false));
+            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetReminders().Cast<object>().ToList(), ReminderTransferType.EXPORT));
             pbClearPanel.Visible = true;
             pnlIntro.Visible = false;
             
@@ -84,7 +84,7 @@ namespace RemindMe
             if (toImportReminders != null)
             {
                 pnlImportedReminders.Controls.Clear();
-                pnlImportedReminders.Controls.Add(new UCImportedReminders(toImportReminders, true));
+                pnlImportedReminders.Controls.Add(new UCImportedReminders(toImportReminders, ReminderTransferType.IMPORT));
 
                 pbClearPanel.Visible = true;
 
@@ -99,6 +99,22 @@ namespace RemindMe
                 pnlImportedReminders.Controls.Clear();
             }
             pnlIntro.Visible = false;
+        }
+
+        private void pbRecover_Click(object sender, EventArgs e)
+        {
+            lblStatus.Visible = false;
+            pbStatus.Visible = false;
+
+            pnlImportedReminders.Controls.Clear();            
+            pnlImportedReminders.Controls.Add(new UCImportedReminders(BLReminder.GetDeletedReminders().Cast<object>().ToList(), ReminderTransferType.RECOVER));
+            pbClearPanel.Visible = true;
+            pnlIntro.Visible = false;
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            pbRecover_Click(sender, e);
         }
     }
 }
