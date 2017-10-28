@@ -102,6 +102,7 @@ namespace RemindMe
             //toolstrip items white.
             RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();       
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
+            AddDaysMenuStrip.Renderer = new MyToolStripMenuRenderer();
         }
 
 
@@ -158,6 +159,8 @@ namespace RemindMe
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+                    
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -201,6 +204,7 @@ namespace RemindMe
             BLFormLogic.RemovebuttonBorders(btnAddMonthlyDay);
             BLFormLogic.RemovebuttonBorders(btnRemoveMonthlyDay);
             BLFormLogic.RemovebuttonBorders(btnAddDate);
+            BLFormLogic.RemovebuttonBorders(btnAddDays);
             BLFormLogic.RemovebuttonBorders(btnRemoveDate);
             //----------------------------------------------   
 
@@ -1827,7 +1831,7 @@ namespace RemindMe
             if (cbMultipleDates.Visible)
             {
                 groupRepeatRadiobuttons.Location = new Point(cbMultipleDates.Location.X, cbMultipleDates.Location.Y + cbMultipleDates.Height + 5);
-                dtpTime.Size = new Size(190, 20);
+                dtpTime.Size = new Size(205, 20);
                 btnAddDate.Visible = true;
                 btnRemoveDate.Visible = true;
                 lblAddedDates.Visible = true;                
@@ -2009,6 +2013,24 @@ namespace RemindMe
                 foreach (ListViewItem item in lvReminders.SelectedItems)
                     lvReminders.Items.Remove(item);                
             }
+        }
+
+        private void addDaysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int toAddDays = RemindMePrompt.Show("Add days to the selected date",0);
+            dtpDate.Value = dtpDate.Value.AddDays(toAddDays);
+        }
+
+        private void btnAddDays_Click(object sender, EventArgs e)
+        {
+            if(dtpDate.Enabled)
+                AddDaysMenuStrip.Show(Cursor.Position);
+        }
+
+        private void subtractDaysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int toAddDays = RemindMePrompt.Show("Subtract days to the selected date", 0);
+            dtpDate.Value = dtpDate.Value.AddDays(-toAddDays);
         }
     }
 }

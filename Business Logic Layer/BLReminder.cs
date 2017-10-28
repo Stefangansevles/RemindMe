@@ -106,6 +106,33 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
+        /// Marks a single reminder as archived
+        /// </summary>
+        /// <param name="rem">The reminder you wish to archive</param>
+        public static void ArchiveReminder(Reminder rem)
+        {
+            ArchiveReminder(rem);
+        }
+        /// <summary>
+        /// Marks a single reminder as deleted
+        /// </summary>
+        /// <param name="reminderId">The id of the reminder you wish to remove</param>
+        public static void ArchiveReminder(int reminderId)
+        {
+            DLReminders.ArchiveReminder(reminderId);
+        }
+
+        /// <summary>
+        /// Deletes multiple reminders from the database. 
+        /// </summary>
+        /// <param name="rems"></param>
+        public static void ArchiveReminders(List<Reminder> rems)
+        {
+            if(rems != null)
+                DLReminders.ArchiveReminders(rems);
+        }
+
+        /// <summary>
         /// forces the database to refresh the list
         /// </summary>
         public static void NotifyChange()
@@ -223,7 +250,7 @@ namespace Business_Logic_Layer
 
                         if (dateArray.Length == 0)
                         {
-                            DLReminders.PermanentelyDeleteReminder(rem);
+                            DLReminders.ArchiveReminder(rem);
                             return;
                         }
 
@@ -236,7 +263,7 @@ namespace Business_Logic_Layer
                     }
                     else//it had one date, and that date caused this popup. Let's delete the reminder.
                     {
-                        DLReminders.PermanentelyDeleteReminder(rem);
+                        DLReminders.ArchiveReminder(rem);
                         return;
                     }
                 }

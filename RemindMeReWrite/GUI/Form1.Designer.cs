@@ -87,6 +87,7 @@
             this.previewThisReminderIn5SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewThisReminderIn10SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.permanentelyRemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableDisableReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportSelectedRemindersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,7 +99,9 @@
             this.tmrMessageFormScrollUp = new System.Windows.Forms.Timer(this.components);
             this.tmrMessageFormScrollDown = new System.Windows.Forms.Timer(this.components);
             this.tmrAllowMail = new System.Windows.Forms.Timer(this.components);
-            this.permanentelyRemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddDaysMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subtractDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pbCustomizePopup = new System.Windows.Forms.PictureBox();
             this.pbImportExport = new System.Windows.Forms.PictureBox();
@@ -109,6 +112,7 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
+            this.btnAddDays = new System.Windows.Forms.Button();
             this.btnAddDate = new System.Windows.Forms.Button();
             this.btnRemoveDate = new System.Windows.Forms.Button();
             this.btnRemoveMonthlyDay = new System.Windows.Forms.Button();
@@ -137,6 +141,7 @@
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.ReminderMenuStrip.SuspendLayout();
             this.pnlSettings.SuspendLayout();
+            this.AddDaysMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCustomizePopup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImportExport)).BeginInit();
@@ -213,6 +218,7 @@
             // pnlNewReminder
             // 
             this.pnlNewReminder.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNewReminder.Controls.Add(this.btnAddDays);
             this.pnlNewReminder.Controls.Add(this.lblAddedDates);
             this.pnlNewReminder.Controls.Add(this.btnAddDate);
             this.pnlNewReminder.Controls.Add(this.btnRemoveDate);
@@ -281,9 +287,9 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.cbMultipleDates.Location = new System.Drawing.Point(106, 219);
+            this.cbMultipleDates.Location = new System.Drawing.Point(107, 219);
             this.cbMultipleDates.Name = "cbMultipleDates";
-            this.cbMultipleDates.Size = new System.Drawing.Size(191, 21);
+            this.cbMultipleDates.Size = new System.Drawing.Size(205, 21);
             this.cbMultipleDates.TabIndex = 82;
             this.cbMultipleDates.Visible = false;
             this.cbMultipleDates.VisibleChanged += new System.EventHandler(this.cbMultipleDates_VisibleChanged);
@@ -523,7 +529,7 @@
             this.dtpTime.Location = new System.Drawing.Point(107, 191);
             this.dtpTime.Name = "dtpTime";
             this.dtpTime.ShowUpDown = true;
-            this.dtpTime.Size = new System.Drawing.Size(234, 20);
+            this.dtpTime.Size = new System.Drawing.Size(205, 20);
             this.dtpTime.TabIndex = 58;
             this.dtpTime.Value = new System.DateTime(2016, 9, 4, 12, 0, 0, 0);
             this.dtpTime.ValueChanged += new System.EventHandler(this.dtpTime_ValueChanged);
@@ -739,7 +745,7 @@
             this.dtpDate.Checked = false;
             this.dtpDate.Location = new System.Drawing.Point(107, 164);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(234, 20);
+            this.dtpDate.Size = new System.Drawing.Size(205, 20);
             this.dtpDate.TabIndex = 31;
             this.dtpDate.Value = new System.DateTime(2016, 9, 2, 0, 0, 0, 0);
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
@@ -835,7 +841,7 @@
             this.exportSelectedRemindersToolStripMenuItem});
             this.ReminderMenuStrip.Name = "ReminderMenuStrip";
             this.ReminderMenuStrip.ShowImageMargin = false;
-            this.ReminderMenuStrip.Size = new System.Drawing.Size(230, 158);
+            this.ReminderMenuStrip.Size = new System.Drawing.Size(230, 136);
             // 
             // previewToolStripMenuItem
             // 
@@ -883,6 +889,14 @@
             this.removeReminderToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.removeReminderToolStripMenuItem.Text = "Remove reminder";
             this.removeReminderToolStripMenuItem.Click += new System.EventHandler(this.removeReminderToolStripMenuItem_Click);
+            // 
+            // permanentelyRemoveToolStripMenuItem
+            // 
+            this.permanentelyRemoveToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.permanentelyRemoveToolStripMenuItem.Name = "permanentelyRemoveToolStripMenuItem";
+            this.permanentelyRemoveToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.permanentelyRemoveToolStripMenuItem.Text = "Permanentely remove reminder";
+            this.permanentelyRemoveToolStripMenuItem.Click += new System.EventHandler(this.permanentelyRemoveToolStripMenuItem_Click_1);
             // 
             // editReminderToolStripMenuItem
             // 
@@ -969,13 +983,32 @@
             this.tmrAllowMail.Interval = 300000;
             this.tmrAllowMail.Tick += new System.EventHandler(this.tmrAllowMail_Tick);
             // 
-            // permanentelyRemoveToolStripMenuItem
+            // AddDaysMenuStrip
             // 
-            this.permanentelyRemoveToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.permanentelyRemoveToolStripMenuItem.Name = "permanentelyRemoveToolStripMenuItem";
-            this.permanentelyRemoveToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.permanentelyRemoveToolStripMenuItem.Text = "Permanentely remove reminder";
-            this.permanentelyRemoveToolStripMenuItem.Click += new System.EventHandler(this.permanentelyRemoveToolStripMenuItem_Click_1);
+            this.AddDaysMenuStrip.BackColor = System.Drawing.Color.DimGray;
+            this.AddDaysMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddDaysMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addDaysToolStripMenuItem,
+            this.subtractDaysToolStripMenuItem});
+            this.AddDaysMenuStrip.Name = "ReminderMenuStrip";
+            this.AddDaysMenuStrip.ShowImageMargin = false;
+            this.AddDaysMenuStrip.Size = new System.Drawing.Size(128, 70);
+            // 
+            // addDaysToolStripMenuItem
+            // 
+            this.addDaysToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.addDaysToolStripMenuItem.Name = "addDaysToolStripMenuItem";
+            this.addDaysToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.addDaysToolStripMenuItem.Text = "Add Days";
+            this.addDaysToolStripMenuItem.Click += new System.EventHandler(this.addDaysToolStripMenuItem_Click);
+            // 
+            // subtractDaysToolStripMenuItem
+            // 
+            this.subtractDaysToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.subtractDaysToolStripMenuItem.Name = "subtractDaysToolStripMenuItem";
+            this.subtractDaysToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.subtractDaysToolStripMenuItem.Text = "Subtract Days";
+            this.subtractDaysToolStripMenuItem.Click += new System.EventHandler(this.subtractDaysToolStripMenuItem_Click);
             // 
             // pictureBox3
             // 
@@ -1100,6 +1133,22 @@
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
             // 
+            // btnAddDays
+            // 
+            this.btnAddDays.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddDays.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddDays.BackgroundImage")));
+            this.btnAddDays.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddDays.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.btnAddDays.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddDays.Location = new System.Drawing.Point(317, 164);
+            this.btnAddDays.Name = "btnAddDays";
+            this.btnAddDays.Size = new System.Drawing.Size(25, 20);
+            this.btnAddDays.TabIndex = 86;
+            this.btnAddDays.Text = "...";
+            this.toolTip1.SetToolTip(this.btnAddDays, " Add/Subtract days");
+            this.btnAddDays.UseVisualStyleBackColor = false;
+            this.btnAddDays.Click += new System.EventHandler(this.btnAddDays_Click);
+            // 
             // btnAddDate
             // 
             this.btnAddDate.BackColor = System.Drawing.Color.Transparent;
@@ -1107,9 +1156,9 @@
             this.btnAddDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddDate.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnAddDate.ForeColor = System.Drawing.Color.Transparent;
-            this.btnAddDate.Location = new System.Drawing.Point(303, 190);
+            this.btnAddDate.Location = new System.Drawing.Point(317, 191);
             this.btnAddDate.Name = "btnAddDate";
-            this.btnAddDate.Size = new System.Drawing.Size(37, 20);
+            this.btnAddDate.Size = new System.Drawing.Size(25, 20);
             this.btnAddDate.TabIndex = 84;
             this.btnAddDate.Text = "+";
             this.toolTip1.SetToolTip(this.btnAddDate, "Adds the selected date into a list of dates. \r\nThis reminder will then pop up at " +
@@ -1125,9 +1174,9 @@
             this.btnRemoveDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRemoveDate.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnRemoveDate.ForeColor = System.Drawing.Color.Transparent;
-            this.btnRemoveDate.Location = new System.Drawing.Point(303, 219);
+            this.btnRemoveDate.Location = new System.Drawing.Point(317, 219);
             this.btnRemoveDate.Name = "btnRemoveDate";
-            this.btnRemoveDate.Size = new System.Drawing.Size(37, 20);
+            this.btnRemoveDate.Size = new System.Drawing.Size(25, 20);
             this.btnRemoveDate.TabIndex = 83;
             this.btnRemoveDate.Text = "-";
             this.btnRemoveDate.UseVisualStyleBackColor = false;
@@ -1402,6 +1451,7 @@
             this.ReminderMenuStrip.ResumeLayout(false);
             this.pnlSettings.ResumeLayout(false);
             this.pnlSettings.PerformLayout();
+            this.AddDaysMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCustomizePopup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImportExport)).EndInit();
@@ -1523,6 +1573,10 @@
         public System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Timer tmrAllowMail;
         private System.Windows.Forms.ToolStripMenuItem permanentelyRemoveToolStripMenuItem;
+        public System.Windows.Forms.Button btnAddDays;
+        private System.Windows.Forms.ContextMenuStrip AddDaysMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem addDaysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem subtractDaysToolStripMenuItem;
     }
 }
 

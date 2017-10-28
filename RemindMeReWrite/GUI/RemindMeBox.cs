@@ -39,7 +39,7 @@ namespace RemindMe
         }
 
        
-        public RemindMeBox(string description, RemindMeBoxIcon icon, MessageBoxButtons buttons)
+        private RemindMeBox(string description, RemindMeBoxIcon icon, MessageBoxButtons buttons)
         {
             InitializeComponent();
             this.MaximumSize = this.Size;
@@ -87,7 +87,7 @@ namespace RemindMe
             }
         }
 
-        //Allow dragging
+        
         protected override CreateParams CreateParams
         {
             get

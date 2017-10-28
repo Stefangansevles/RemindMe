@@ -154,6 +154,55 @@ namespace Data_Access_Layer
             }
         }
         /// <summary>
+        /// Marks a single reminder as archived
+        /// </summary>
+        /// <param name="rem">The reminder you wish to archive</param>
+        public static void ArchiveReminder(Reminder rem)
+        {
+            if (GetReminderById(rem.Id) != null) //Check if the reminder exists
+            {
+                rem.Deleted = 2;
+                EditReminder(rem);
+            }
+        }
+        /// <summary>
+        /// Marks a single reminder as archived
+        /// </summary>
+        /// <param name="reminderId">The id of the reminder you wish to remove</param>
+        public static void ArchiveReminder(int reminderId)
+        {
+            if (GetReminderById(reminderId) != null) //Check if the reminder exists
+            {
+                Reminder toRemoveReminder = GetReminderById(reminderId);
+                toRemoveReminder.Deleted = 2;
+                EditReminder(toRemoveReminder);
+            }
+        }
+
+        /// <summary>
+        /// Archives multiple reminders. 
+        /// </summary>
+        /// <param name="rems"></param>
+        public static void ArchiveReminders(List<Reminder> rems)
+        {
+            //We use this method so we can attach and remove the reminders in a foreach loop, and save changes to the database after the loop.
+            //If you use the ArchiveReminders method in a foreach loop, it will open and close the database each time
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                foreach (Reminder rem in rems)
+                {
+                    rem.Deleted = 2;
+                    db.Reminder.Attach(rem);
+                    var entry = db.Entry(rem);
+                    entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                                                        
+                }
+                SaveAndCloseDataBase(db);
+            }
+
+
+        }
+
+        /// <summary>
         /// Permanentely deletes a single reminder from the database
         /// </summary>
         /// <param name="rem">The reminder you wish to remove</param>

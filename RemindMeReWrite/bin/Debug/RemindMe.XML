@@ -282,6 +282,38 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:RemindMe.RemindMePrompt.Show(System.String)">
+            <summary>
+            Shows a prompt where the user can enter a string
+            </summary>
+            <param name="title">The title the user should see when this prompt shows up</param>
+            <returns></returns>
+        </member>
+        <member name="M:RemindMe.RemindMePrompt.Show(System.String,System.Int32)">
+            <summary>
+            Shows a prompt where the user can enter a number
+            </summary>
+            <param name="title">The title the user should see when this prompt shows up</param>
+            <param name="maxValue">The maximum number the user can enter. 0 = unlimited (int.MaxValue)</param>
+            <returns></returns>
+        </member>
+        <member name="F:RemindMe.RemindMePrompt.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RemindMe.RemindMePrompt.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RemindMe.RemindMePrompt.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
         <member name="T:RemindMe.ComboBoxItemManager">
             <summary>
             This class manages ComboBoxItems and only ComboBoxItems.

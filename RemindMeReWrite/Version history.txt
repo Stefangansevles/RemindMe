@@ -413,8 +413,8 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  RemindMe now keeps deleted reminders. When you delete a reminder, the reminder will be "marked" as deleted, but it won't actually get deleted.
  When using methods like GetReminders(), it will only get the "not-deleted" reminders. 
- If the user really wants to delete the reminder, he can right-click the reminder in the listview and select Permanentely delete reminder. 
- The user will then get a confirmation with yes/no.
+ If the user really wants to delete the reminder, he can right-click the reminder in the listview and select Permanentely delete reminder, or
+ use the key combination shift + delete. The user will then get a confirmation with yes/no.
 
  Because reminders are now only soft-deleted, there is a new option within RemindMe. You can now recover the soft-deleted reminders in the settings and import
  them again.
@@ -422,3 +422,11 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  RemindMe now has improved RemindMeBox funcionality. The RemindMeBox can now have yes/no buttons. they each return DialogResult based on what is clicked.
 
  All Business Logic Layer and Data Access Layer classes are no longer abstract. Instead, they have private constructors to not allow instances of themselves.
+
+ V1.7.24
+ You can now add/subtract days from a date by pressing the ... button next to the datetime picker. It then launches the prompt described below.
+
+ RemindMe now has a custom prompt where users can fill in a number or a string. The prompt will then return those values (RemindMePrompt.cs) 
+
+ Reminders that would be deleted if they wouldn't be repeated are now being archived. For example if there is a reminder set for a certain date, and the reminder
+ pops up, the reminder would have been deleted afterwards. It now gets archived instead.
