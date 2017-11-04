@@ -31,14 +31,14 @@ namespace Business_Logic_Layer
         {
             List<Reminder> returnList = new List<Reminder>();
 
-            foreach(Reminder rem in DLReminders.GetReminders())
+            foreach (Reminder rem in DLReminders.GetReminders())
             {
                 //No postpone date? Is at least the first date's day <= today?
-                if (rem.PostponeDate == null && Convert.ToDateTime(rem.Date.Split(',')[0]).Day <= DateTime.Now.Day && rem.Enabled == 1)
+                if (rem.PostponeDate == null && Convert.ToDateTime(rem.Date.Split(',')[0]).DayOfYear <= DateTime.Now.DayOfYear && Convert.ToDateTime(rem.Date.Split(',')[0]).Year <= DateTime.Now.Year && rem.Enabled == 1)
                     returnList.Add(rem);
                 //Postpone date, is at least the first postpone date's day <= today?
-                else if (rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate.Split(',')[0]).Day <= DateTime.Now.Day && rem.Enabled == 1)
-                    returnList.Add(rem);                          
+                else if (rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate.Split(',')[0]).DayOfYear <= DateTime.Now.DayOfYear && Convert.ToDateTime(rem.Date.Split(',')[0]).Year <= DateTime.Now.Year && rem.Enabled == 1)
+                    returnList.Add(rem);
             }
 
             return returnList;

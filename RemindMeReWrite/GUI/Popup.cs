@@ -126,6 +126,9 @@ namespace RemindMe
                 formClosedCorrectly = true;
                 if (cbPostpone.Checked)
                 {
+                    if (cbPostponeTime.Value == 0)
+                        return;
+
                     DateTime newReminderTime = new DateTime();
 
                     if (rbMinutes.Checked) //postpone option is x minutes                

@@ -19,7 +19,7 @@ namespace RemindMe
 
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CLIENT = 0x1;
-        private const int HT_CAPTION = 0x2;           
+        private const int HT_CAPTION = 0x2;
         protected override void WndProc(ref Message m)
         {
             //Makes the popup draggable
@@ -29,9 +29,9 @@ namespace RemindMe
         }
 
 
-      
-       
-       
+
+
+
         /// <summary>
         /// Shows a prompt where the user can enter a string
         /// </summary>
@@ -51,7 +51,7 @@ namespace RemindMe
         /// <param name="maxValue">The maximum number the user can enter. 0 = unlimited (int.MaxValue)</param>
         /// <returns></returns>
         public static int Show(string title, int maxValue)
-        {            
+        {
             newPrompt = new RemindMePrompt(title, maxValue);
             newPrompt.ShowDialog();
             return intResult;
@@ -62,7 +62,8 @@ namespace RemindMe
             InitializeComponent();
             pbCloseApplication.BringToFront();
             BLFormLogic.RemovebuttonBorders(btnOk);
-            label1.Text = title;                                    
+            label1.Text = title;
+            this.MaximumSize = this.Size;
 
             tbInput.Visible = true;
             pnlNumericPrompt.Visible = false;
@@ -70,26 +71,28 @@ namespace RemindMe
             //Set the location within the remindme window. 
             //This prompt can be moved, but inititally will be set to the middle of the location of RemindMe
             Form1 remindme = (Form1)Application.OpenForms["Form1"];
-            if(remindme != null)
+            if (remindme != null)
             {
                 this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width  / 2), remindme.Location.Y + ( (remindme.Height / 2) - (this.Height / 2) ));                
+                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
             }
         }
 
-        private RemindMePrompt(string title,int maxValue) : this(title)
+        private RemindMePrompt(string title, int maxValue) : this(title)
         {
             numNumber.Maximum = maxValue;
 
-            if(maxValue == 0)
+            if (maxValue == 0)
                 numNumber.Maximum = int.MaxValue;
 
             pnlNumericPrompt.Visible = true;
-            tbInput.Visible = false;            
+            tbInput.Visible = false;
         }
 
         private void pbCloseApplication_Click(object sender, EventArgs e)
         {
+            intResult = 0;
+            stringResult = "";
             this.Dispose();
         }
 
@@ -101,7 +104,7 @@ namespace RemindMe
 
         private void tbInput_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && tbInput.Text.Length > 0)
             {
                 stringResult = tbInput.Text;
                 this.Dispose();

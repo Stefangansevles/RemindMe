@@ -430,3 +430,17 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  Reminders that would be deleted if they wouldn't be repeated are now being archived. For example if there is a reminder set for a certain date, and the reminder
  pops up, the reminder would have been deleted afterwards. It now gets archived instead.
+
+
+ V1.7.25
+ Fixed an issue where you could not restore RemindMe after you minimized it, and then closed it out by pressing the x button
+
+ Fixed an small issue where the today's reminders popup would include reminders that weren't happening today
+
+ RemindMePrompt can not be resized anymore by double-clicking the top bar
+
+ Closing out of the RemindMePrompt no longer returns the previous value  
+
+ You can no longer postpone an reminder by 0 minutes/hours
+
+ Added the option to add/subtract months(instead of just days) from a date by pressing the ... button next to the datetime picker

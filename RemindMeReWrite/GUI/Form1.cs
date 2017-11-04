@@ -1444,7 +1444,10 @@ namespace RemindMe
 
         private void RemindMeIcon_DoubleClick(object sender, EventArgs e)
         {
-            this.Show();    
+            this.ShowInTaskbar = true;
+            this.WindowState = FormWindowState.Minimized;
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
 
         private void showRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2029,8 +2032,20 @@ namespace RemindMe
 
         private void subtractDaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toAddDays = RemindMePrompt.Show("Subtract days to the selected date", 0);
-            dtpDate.Value = dtpDate.Value.AddDays(-toAddDays);
+            int toSubtractDays = RemindMePrompt.Show("Subtract days to the selected date", 0);
+            dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays);
+        }
+
+        private void addMonthsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int toAddMonths = RemindMePrompt.Show("Add months to the selected date", 0);
+            dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
+        }
+
+        private void subtractMonthsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int toSubtractMonths = RemindMePrompt.Show("Subtract months to the selected date", 0);
+            dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
         }
     }
 }
