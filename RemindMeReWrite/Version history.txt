@@ -444,3 +444,7 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  You can no longer postpone an reminder by 0 minutes/hours
 
  Added the option to add/subtract months(instead of just days) from a date by pressing the ... button next to the datetime picker
+
+ V1.7.26
+
+ Fixed an issue where there were dll's missing, resulting in not being able to export reminders because it threw an exception.

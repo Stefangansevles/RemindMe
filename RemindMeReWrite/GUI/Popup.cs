@@ -32,6 +32,8 @@ namespace RemindMe
         private const int HT_CLIENT = 0x1;
         private const int HT_CAPTION = 0x2;
 
+        private const int WS_EX_NOACTIVATE = 0x08000000;
+
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         IWMPMedia mediaInfo;
@@ -109,7 +111,9 @@ namespace RemindMe
             get
             {
                 CreateParams handleParam = base.CreateParams;
-                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+
+                handleParam.ExStyle |= WS_EX_NOACTIVATE; 
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
                 return handleParam;
             }
         }

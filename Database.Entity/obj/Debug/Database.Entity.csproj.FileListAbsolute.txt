@@ -17,3 +17,12 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\bin\Debug\EntityFrame
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\obj\Debug\Database.Entity.dll
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\obj\Debug\Database.Entity.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\Database.Entity\obj\Debug\Database.Entity.csprojResolveAssemblyReference.cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\Database.Entity.dll.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\Database.Entity.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\Database.Entity.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\EntityFramework.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\EntityFramework.xml
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\obj\Debug\Database.Entity.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\obj\Debug\Database.Entity.pdb
