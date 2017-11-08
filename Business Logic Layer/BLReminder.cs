@@ -50,20 +50,23 @@ namespace Business_Logic_Layer
         /// <param name="reminders"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool ExportReminders(List<Reminder> reminders,string path)
+        public static Exception ExportReminders(List<Reminder> reminders,string path)
         {            
             try
             {
                 if (!string.IsNullOrEmpty(path))
                     SerializeRemindersToFile(reminders, path + "\\Backup reminders "  + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");
 
-                return true;
+                return null;
             }
             catch (UnauthorizedAccessException ex)
+            {                
+                return ex;                
+            }    
+            catch(Exception ex)
             {
-                return false;
-                throw ex;                
-            }            
+                return ex;
+            }
         }
         /// <summary>
         /// Get all reminders that are marked as deleted

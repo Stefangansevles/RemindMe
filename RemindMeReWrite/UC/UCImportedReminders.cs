@@ -136,26 +136,36 @@ namespace RemindMe
             if (GetSelectedRemindersFromListview().Count > 0)
             {
                 string selectedPath = FSManager.Folders.GetSelectedFolderPath();
-                
                 if (selectedPath != null)
                 {
-                    try
-                    {                        
-                        if (BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath))
+
+                    Exception possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);
+                    if (possibleException == null)
+                    {
+                        lblStatus.Text = "Backup completed.";
+                        pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
+                    }
+                    else if (possibleException is UnauthorizedAccessException)
+                    {
+                        if (RemindMeBox.Show("Could not save reminders to \"" + selectedPath + "\"\r\nDo you wish to place them on your desktop instead?", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            lblStatus.Text = "Backup completed.";
-                            pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
-                        }
-                        else
-                        {
-                            lblStatus.Text = "Backup failed";
-                            pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
-                            return;
+                            possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                            if (possibleException != null)
+                            {//Did saving to desktop go wrong, too?? just show a message
+                                RemindMeBox.Show("Something went wrong. Could not save the reminders to your desktop.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
+                            }
+                            else
+                            {//Saving to desktop did not throw an exception                        
+                                lblStatus.Text = "Backup completed.";
+                                pbStatus.BackgroundImage = Properties.Resources.dark_green_check_mark_hi;
+                            }
                         }
                     }
-                    catch (UnauthorizedAccessException ex)
+                    else
                     {
-                        RemindMeBox.Show("Can not export reminders to\r\n\"" + selectedPath + "\"!\r\nAccess is denied.\r\n\r\nIf you wish to save to that path, run RemindMe in administrator mode.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
+                        lblStatus.Text = "Backup failed";
+                        pbStatus.BackgroundImage = Bitmap.FromHicon(SystemIcons.Error.Handle);
+                        return;
                     }
                 }
                 else
@@ -211,6 +221,8 @@ namespace RemindMe
                 SetStatusTexts(remindersRecovered, selectedReminders.Count);
             }            
         }
+
+
 
         private void SetStatusTexts(int completedReminders,int totalReminders)
         {

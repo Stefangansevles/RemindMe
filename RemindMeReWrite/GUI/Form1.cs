@@ -390,8 +390,10 @@ namespace RemindMe
         }
 
         /// <summary>
-        /// Creates a new instance of popup
+        /// 
         /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="popDelay">The amount of seconds to wait before the popup goes down again</param>
         private void MakeMessagePopup(string message, int popDelay)
         {
             if (popupForm != null && popupForm.Visible)//We are about to create a new popup, but there's already one visible! Let's dispose it
@@ -484,7 +486,7 @@ namespace RemindMe
                 
                 pnlDayCheckBoxes.Visible = false;
                 ShowPanel(pnlNewReminder);
-                pbEdit.BackgroundImage = Properties.Resources.Edit;
+                pbEdit.BackgroundImage = Properties.Resources.Edit;                
                 if (rem != null)
                 {
                     FillSoundComboboxFromDatabase(cbSound);
@@ -1003,6 +1005,11 @@ namespace RemindMe
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            btnPlaySound.BackgroundImage = imgPlayResume;
+            myPlayer.controls.stop();
+            tmrMusic.Stop();
+
+
             ShowPanel(pnlMain);
 
             //If there is an scrolling popup, hide it.
@@ -1224,7 +1231,7 @@ namespace RemindMe
             return false;
         }
         private void pbSettings_Click(object sender, EventArgs e)
-        {
+        {            
             ShowPanel(pnlSettings);  
              
             //no controls in this panel yet. this means that the settings button has been pressed for the first time, so we load ucWindows in by default.         
@@ -1921,10 +1928,35 @@ namespace RemindMe
         }
 
         private void exportSelectedRemindersToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
             string selectedPath = FSManager.Folders.GetSelectedFolderPath();
-            BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);            
+            Exception possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);
+            if (possibleException is UnauthorizedAccessException)
+            {//Did ExportReminders return an UnauthorizedException? Give the user the option to save to the desktop instead.
+                if (RemindMeBox.Show("Could not save reminders to \"" + selectedPath + "\"\r\nDo you wish to place them on your desktop instead?", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                    if (possibleException != null)
+                    {//Did saving to desktop go wrong, too?? just show a message
+                        RemindMeBox.Show("Something went wrong. Could not save the reminders to your desktop.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
+                    }
+                    else
+                    {//Saving to desktop did not throw an exception                        
+                        MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to: Desktop", 3);
+                    }
+                }
+            }
+            else if (possibleException is Exception)
+            {//ExportReminders returned the global Exception. We don't know what went wrong
+                RemindMeBox.Show("Something went wrong. Could not save the reminders.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
+            }
+            else if (possibleException == null) //Success
+            {
+                MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to \\" + new DirectoryInfo(selectedPath).Name, 3);
+            }
         }
+
+        
 
         private void pnlPopup_VisibleChanged(object sender, EventArgs e)
         {

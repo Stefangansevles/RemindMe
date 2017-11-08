@@ -64,8 +64,7 @@ namespace RemindMe
                 
             }
             catch (UnauthorizedAccessException ex)
-            {
-                MessageBox.Show(ex.ToString());
+            {                
                 return false;
             }
         }

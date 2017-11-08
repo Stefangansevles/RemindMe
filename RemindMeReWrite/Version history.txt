@@ -448,3 +448,14 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  V1.7.26
 
  Fixed an issue where there were dll's missing, resulting in not being able to export reminders because it threw an exception.
+
+ V1.7.27
+
+ When exporting reminders to a path that RemindMe is not authorized to write to, it now shows a message saying so, and giving the user the option to save the
+ .remindme file to the desktop instead. When exporting reminders from the right-click context menu, it now also shows a scrolling popup message saying the
+ reminders have been succesfully exported
+
+ When an error occurs, RemindMe attempts to send an e-mail containing the exception information to easily fix bugs 
+ (with an 30-second timer, so that if the user keeps trying, it wont keep sending e-mails, only 1 every 30 seconds)
+
+ Made the RemindMeBoxIcon enum into an innerclass(enum) inside RemindMeBox.cs

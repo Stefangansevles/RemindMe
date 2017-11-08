@@ -167,7 +167,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReminderException.cs" />
-    <Compile Include="RemindMeBoxIcon.cs" />
     <Compile Include="UC\UCCustomizePopup.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -27,19 +27,26 @@ namespace RemindMe
 
         private async void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (cbConfirm.Checked && tbSubject.Text != "" && tbMessage.Text != "")
+            try
             {
-                lblCouldNotSendMail.Text = "Sending mail...";
-                lblCouldNotSendMail.Visible = true;
-                btnConfirm.Enabled = false;
+                if (cbConfirm.Checked && tbSubject.Text != "" && tbMessage.Text != "")
+                {
+                    lblCouldNotSendMail.Text = "Sending mail...";
+                    lblCouldNotSendMail.Visible = true;
+                    btnConfirm.Enabled = false;
 
-               
 
 
-                // TimeSpan timeout = TimeSpan.FromSeconds(5);
-                sendMailThread = new Thread(() => BLEmail.SendEmail(tbSubject.Text, tbMessage.Text));
-                sendMailThread.Start();
-                tmrSendMail.Start();
+
+                    // TimeSpan timeout = TimeSpan.FromSeconds(5);
+                    sendMailThread = new Thread(() => BLEmail.SendEmail(tbSubject.Text, tbMessage.Text));
+                    sendMailThread.Start();
+                    tmrSendMail.Start();
+                }
+            }
+            catch(Exception ex)
+            {
+                lblCouldNotSendMail.Text = "Something went wrong";
             }
         }
 
