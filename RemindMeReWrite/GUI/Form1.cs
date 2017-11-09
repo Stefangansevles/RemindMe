@@ -1019,7 +1019,7 @@ namespace RemindMe
 
         public void btnConfirm_Click(object sender, EventArgs e)
         {
-            //set it to null at first, the user may not have this option selected            
+            //set it to empty at first, the user may not have this option selected            
             string commaSeperatedDays = "";
 
             //Will be different based on what repeating method the user has selected
@@ -1930,29 +1930,32 @@ namespace RemindMe
         private void exportSelectedRemindersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string selectedPath = FSManager.Folders.GetSelectedFolderPath();
-            Exception possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);
-            if (possibleException is UnauthorizedAccessException)
-            {//Did ExportReminders return an UnauthorizedException? Give the user the option to save to the desktop instead.
-                if (RemindMeBox.Show("Could not save reminders to \"" + selectedPath + "\"\r\nDo you wish to place them on your desktop instead?", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-                    if (possibleException != null)
-                    {//Did saving to desktop go wrong, too?? just show a message
-                        RemindMeBox.Show("Something went wrong. Could not save the reminders to your desktop.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
-                    }
-                    else
-                    {//Saving to desktop did not throw an exception                        
-                        MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to: Desktop", 3);
+            if (!string.IsNullOrEmpty(selectedPath))
+            {
+                Exception possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);
+                if (possibleException is UnauthorizedAccessException)
+                {//Did ExportReminders return an UnauthorizedException? Give the user the option to save to the desktop instead.
+                    if (RemindMeBox.Show("Could not save reminders to \"" + selectedPath + "\"\r\nDo you wish to place them on your desktop instead?", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                        if (possibleException != null)
+                        {//Did saving to desktop go wrong, too?? just show a message
+                            RemindMeBox.Show("Something went wrong. Could not save the reminders to your desktop.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
+                        }
+                        else
+                        {//Saving to desktop did not throw an exception                        
+                            MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to: Desktop", 3);
+                        }
                     }
                 }
-            }
-            else if (possibleException is Exception)
-            {//ExportReminders returned the global Exception. We don't know what went wrong
-                RemindMeBox.Show("Something went wrong. Could not save the reminders.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
-            }
-            else if (possibleException == null) //Success
-            {
-                MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to \\" + new DirectoryInfo(selectedPath).Name, 3);
+                else if (possibleException is Exception)
+                {//ExportReminders returned the global Exception. We don't know what went wrong
+                    RemindMeBox.Show("Something went wrong. Could not save the reminders.", RemindMeBoxIcon.EXCLAMATION, MessageBoxButtons.OK);
+                }
+                else if (possibleException == null) //Success
+                {
+                    MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to \\" + new DirectoryInfo(selectedPath).Name, 3);
+                }
             }
         }
 
@@ -2030,7 +2033,7 @@ namespace RemindMe
         {
             if (e.Control && e.KeyCode == Keys.A)
             {
-                tbNote.SelectAll(); //Select all text in the textbox when you ctrl + a5
+                tbNote.SelectAll(); //Select all text in the textbox when you ctrl + a
                 tbNote.Focus();
             }
         }
