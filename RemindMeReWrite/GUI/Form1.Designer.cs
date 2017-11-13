@@ -128,13 +128,14 @@
             this.tmrMessageFormScrollDown = new System.Windows.Forms.Timer(this.components);
             this.tmrAllowMail = new System.Windows.Forms.Timer(this.components);
             this.AddDaysMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addMinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addMonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subtractDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pbMinimizeApplication = new System.Windows.Forms.PictureBox();
             this.pbCloseApplication = new System.Windows.Forms.PictureBox();
-            this.addMonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.subtractMonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -1365,29 +1366,54 @@
             this.AddDaysMenuStrip.BackColor = System.Drawing.Color.DimGray;
             this.AddDaysMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddDaysMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addMinutesToolStripMenuItem,
             this.addDaysToolStripMenuItem,
             this.addMonthsToolStripMenuItem,
             this.subtractDaysToolStripMenuItem,
-            this.subtractMonthsToolStripMenuItem});
+            this.toolStripMenuItem1});
             this.AddDaysMenuStrip.Name = "ReminderMenuStrip";
             this.AddDaysMenuStrip.ShowImageMargin = false;
-            this.AddDaysMenuStrip.Size = new System.Drawing.Size(143, 114);
+            this.AddDaysMenuStrip.Size = new System.Drawing.Size(217, 114);
+            // 
+            // addMinutesToolStripMenuItem
+            // 
+            this.addMinutesToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.addMinutesToolStripMenuItem.Name = "addMinutesToolStripMenuItem";
+            this.addMinutesToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.addMinutesToolStripMenuItem.Text = "Add Minutes (to current time)";
+            this.addMinutesToolStripMenuItem.Click += new System.EventHandler(this.addMinutesToolStripMenuItem_Click);
             // 
             // addDaysToolStripMenuItem
             // 
             this.addDaysToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.addDaysToolStripMenuItem.Name = "addDaysToolStripMenuItem";
-            this.addDaysToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.addDaysToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.addDaysToolStripMenuItem.Text = "Add Days";
             this.addDaysToolStripMenuItem.Click += new System.EventHandler(this.addDaysToolStripMenuItem_Click);
+            // 
+            // addMonthsToolStripMenuItem
+            // 
+            this.addMonthsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.addMonthsToolStripMenuItem.Name = "addMonthsToolStripMenuItem";
+            this.addMonthsToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.addMonthsToolStripMenuItem.Text = "Add Months";
+            this.addMonthsToolStripMenuItem.Click += new System.EventHandler(this.addMonthsToolStripMenuItem_Click);
             // 
             // subtractDaysToolStripMenuItem
             // 
             this.subtractDaysToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.subtractDaysToolStripMenuItem.Name = "subtractDaysToolStripMenuItem";
-            this.subtractDaysToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.subtractDaysToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.subtractDaysToolStripMenuItem.Text = "Subtract Days";
             this.subtractDaysToolStripMenuItem.Click += new System.EventHandler(this.subtractDaysToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(216, 22);
+            this.toolStripMenuItem1.Text = "Subtract Months";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // pictureBox4
             // 
@@ -1423,22 +1449,6 @@
             this.pbCloseApplication.TabIndex = 64;
             this.pbCloseApplication.TabStop = false;
             this.pbCloseApplication.Click += new System.EventHandler(this.pbCloseApplication_Click);
-            // 
-            // addMonthsToolStripMenuItem
-            // 
-            this.addMonthsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.addMonthsToolStripMenuItem.Name = "addMonthsToolStripMenuItem";
-            this.addMonthsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.addMonthsToolStripMenuItem.Text = "Add Months";
-            this.addMonthsToolStripMenuItem.Click += new System.EventHandler(this.addMonthsToolStripMenuItem_Click);
-            // 
-            // subtractMonthsToolStripMenuItem
-            // 
-            this.subtractMonthsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.subtractMonthsToolStripMenuItem.Name = "subtractMonthsToolStripMenuItem";
-            this.subtractMonthsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.subtractMonthsToolStripMenuItem.Text = "Subtract Months";
-            this.subtractMonthsToolStripMenuItem.Click += new System.EventHandler(this.subtractMonthsToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1598,7 +1608,8 @@
         private System.Windows.Forms.ToolStripMenuItem addDaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subtractDaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addMonthsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem subtractMonthsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addMinutesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 

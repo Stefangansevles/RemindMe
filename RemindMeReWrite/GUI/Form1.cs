@@ -2076,11 +2076,19 @@ namespace RemindMe
             int toAddMonths = RemindMePrompt.Show("Add months to the selected date", 0);
             dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
         }
+      
 
-        private void subtractMonthsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             int toSubtractMonths = RemindMePrompt.Show("Subtract months to the selected date", 0);
             dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
+        }
+
+        private void addMinutesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int toAddMinutes = RemindMePrompt.Show("Add minutes to the current time", 0);
+            dtpDate.Value = DateTime.Now.AddMinutes(toAddMinutes);
+            dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes);
         }
     }
 }

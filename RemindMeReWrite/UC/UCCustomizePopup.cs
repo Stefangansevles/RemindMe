@@ -26,8 +26,7 @@ namespace RemindMe
             testrem.Name = "Test reminder";
             testrem.Note = "Test Note\r\nWith spaces\r\n\r\nAnd more spaces";
             testrem.Id = -1;//mark it to be invalid
-
-            testPop = new Popup(testrem);            
+                                   
             FillValues();
         }
 
@@ -51,6 +50,8 @@ namespace RemindMe
             }
             else
                 pbExclamationWidth.Visible = false;
+
+            ApplyPreviewChanges();
         }
 
         private void numHeigth_ValueChanged(object sender, EventArgs e)
@@ -63,6 +64,8 @@ namespace RemindMe
             }
             else
                 pbExclamationHeight.Visible = false;
+
+            ApplyPreviewChanges();
         }
 
         private void btnTestPopup_Click(object sender, EventArgs e)
@@ -94,23 +97,41 @@ namespace RemindMe
         }
 
         private void pbTest_Click(object sender, EventArgs e)
-        {
-            if (testPop != null && testPop.Visible)
-            {
-                testPop.Width = (int)numWidth.Value;
-                testPop.Height = (int)numheight.Value;
-                testPop.tbText.Font = new Font(testPop.tbText.Font.FontFamily, (float)numNoteFontSize.Value, FontStyle.Bold);
-                testPop.tbTitle.Font = new Font(testPop.tbTitle.Font.FontFamily, (float)numTitleFontSize.Value, FontStyle.Bold);                
-            }
-            else
+        {            
+            if (testPop == null || testPop.IsDisposed)
             {
                 testPop = new Popup(testrem); //create a new instance
+                testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
                 testPop.Width = (int)numWidth.Value;
                 testPop.Height = (int)numheight.Value;
                 testPop.tbText.Font = new Font(testPop.tbText.Font.FontFamily, (float)numNoteFontSize.Value, FontStyle.Bold);
                 testPop.tbTitle.Font = new Font(testPop.tbTitle.Font.FontFamily, (float)numTitleFontSize.Value, FontStyle.Bold);
-                testPop.Show();              //show the new instance.
+                
+                testPop.Show();              //show the new instance.            
             }
+            else
+                testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
+
+            if (!testPop.Visible)
+            {
+                testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
+                testPop.Show();
+                testPop.Visible = true;
+            }
+            else
+                ApplyPreviewChanges();
+            
+        }
+        private void ApplyPreviewChanges()
+        {
+            if (testPop != null && testPop.Visible)
+            {
+                testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
+                testPop.Width = (int)numWidth.Value;
+                testPop.Height = (int)numheight.Value;
+                testPop.tbText.Font = new Font(testPop.tbText.Font.FontFamily, (float)numNoteFontSize.Value, FontStyle.Bold);
+                testPop.tbTitle.Font = new Font(testPop.tbTitle.Font.FontFamily, (float)numTitleFontSize.Value, FontStyle.Bold);
+            }          
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -125,6 +146,16 @@ namespace RemindMe
             lblStatus.Text = "Succesfully reset settings.";
 
             FillValues();
+        }
+
+        private void numTitleFontSize_ValueChanged(object sender, EventArgs e)
+        {
+            ApplyPreviewChanges();
+        }
+
+        private void numNoteFontSize_ValueChanged(object sender, EventArgs e)
+        {
+            ApplyPreviewChanges();
         }
     }
 }

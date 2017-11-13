@@ -37,8 +37,8 @@
             this.numheight = new System.Windows.Forms.NumericUpDown();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pbReset = new System.Windows.Forms.PictureBox();
-            this.pbTest = new System.Windows.Forms.PictureBox();
             this.pbSave = new System.Windows.Forms.PictureBox();
+            this.pbTest = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numNoteFontSize = new System.Windows.Forms.NumericUpDown();
@@ -51,8 +51,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numheight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbReset)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNoteFontSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTitleFontSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).BeginInit();
@@ -164,17 +164,6 @@
             this.toolTip1.SetToolTip(this.pbReset, "Reset to defaults");
             this.pbReset.Click += new System.EventHandler(this.pbReset_Click);
             // 
-            // pbTest
-            // 
-            this.pbTest.BackgroundImage = global::RemindMe.Properties.Resources.TestIconBlack;
-            this.pbTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbTest.Location = new System.Drawing.Point(-5, 163);
-            this.pbTest.Name = "pbTest";
-            this.pbTest.Size = new System.Drawing.Size(50, 50);
-            this.pbTest.TabIndex = 106;
-            this.pbTest.TabStop = false;
-            this.pbTest.Click += new System.EventHandler(this.pbTest_Click);
-            // 
             // pbSave
             // 
             this.pbSave.BackgroundImage = global::RemindMe.Properties.Resources.SaveIconBlack;
@@ -186,6 +175,17 @@
             this.pbSave.TabStop = false;
             this.toolTip1.SetToolTip(this.pbSave, "Save changes");
             this.pbSave.Click += new System.EventHandler(this.pbSave_Click);
+            // 
+            // pbTest
+            // 
+            this.pbTest.BackgroundImage = global::RemindMe.Properties.Resources.TestIconBlack;
+            this.pbTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbTest.Location = new System.Drawing.Point(-5, 163);
+            this.pbTest.Name = "pbTest";
+            this.pbTest.Size = new System.Drawing.Size(50, 50);
+            this.pbTest.TabIndex = 106;
+            this.pbTest.TabStop = false;
+            this.pbTest.Click += new System.EventHandler(this.pbTest_Click);
             // 
             // label3
             // 
@@ -233,6 +233,7 @@
             0,
             0,
             0});
+            this.numNoteFontSize.ValueChanged += new System.EventHandler(this.numNoteFontSize_ValueChanged);
             // 
             // numTitleFontSize
             // 
@@ -258,6 +259,7 @@
             0,
             0,
             0});
+            this.numTitleFontSize.ValueChanged += new System.EventHandler(this.numTitleFontSize_ValueChanged);
             // 
             // lblStatus
             // 
@@ -339,8 +341,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numheight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbReset)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNoteFontSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTitleFontSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbStatus)).EndInit();

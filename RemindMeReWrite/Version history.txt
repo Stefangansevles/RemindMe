@@ -459,3 +459,14 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  (with an 30-second timer, so that if the user keeps trying, it wont keep sending e-mails, only 1 every 30 seconds)
 
  Made the RemindMeBoxIcon enum into an innerclass(enum) inside RemindMeBox.cs
+
+ V1.7.28
+
+ Fixed an very small issue where cancelling out on exporting reminders would throw an exception
+
+ V1.7.29
+ 
+ You can now add minutes to the current time when you are creating an reminder(from the ... button)
+ This can be used whenever you want to create a new reminder in for example 40 minutes
+
+ Fixed an issue with settings custom sizes for RemindMe's Popup in the settings. The preview feature didn't work as intended. It now works again
