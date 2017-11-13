@@ -100,7 +100,7 @@ namespace RemindMe
         {            
             if (testPop == null || testPop.IsDisposed)
             {
-                testPop = new Popup(testrem); //create a new instance
+                testPop = new Popup(testrem); //create a new instance                
                 testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
                 testPop.Width = (int)numWidth.Value;
                 testPop.Height = (int)numheight.Value;
@@ -109,12 +109,9 @@ namespace RemindMe
                 
                 testPop.Show();              //show the new instance.            
             }
-            else
-                testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
-
+                            
             if (!testPop.Visible)
-            {
-                testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
+            {                
                 testPop.Show();
                 testPop.Visible = true;
             }

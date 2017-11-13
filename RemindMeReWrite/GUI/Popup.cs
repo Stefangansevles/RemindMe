@@ -274,5 +274,10 @@ namespace RemindMe
         {
             cbPostpone.Checked = true;
         }
+
+        private void cbPostponeTime_Enter(object sender, EventArgs e)
+        {
+            this.Activate();
+        }
     }
 }

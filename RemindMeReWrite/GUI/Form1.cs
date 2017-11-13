@@ -1459,8 +1459,10 @@ namespace RemindMe
 
         private void showRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            this.Show();            
+            this.ShowInTaskbar = true;
+            this.WindowState = FormWindowState.Minimized;
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
 
         private void lvReminders_KeyDown(object sender, KeyEventArgs e)

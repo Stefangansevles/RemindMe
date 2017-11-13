@@ -129,6 +129,7 @@
             0,
             0});
             this.cbPostponeTime.ValueChanged += new System.EventHandler(this.cbPostponeTime_ValueChanged);
+            this.cbPostponeTime.Enter += new System.EventHandler(this.cbPostponeTime_Enter);
             // 
             // cbPostpone
             // 

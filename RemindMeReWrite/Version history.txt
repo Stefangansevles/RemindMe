@@ -470,3 +470,13 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  This can be used whenever you want to create a new reminder in for example 40 minutes
 
  Fixed an issue with settings custom sizes for RemindMe's Popup in the settings. The preview feature didn't work as intended. It now works again
+
+ V1.7.30
+ 
+ RemindMe's popup form will now regain focus and become an "active" form when you change the value of the postpone numericupdown. RemindMe's popup is no longer an "active" form when it pops up,
+ so it cant gain focus while for example playing a game, but it will still show up in an obvious way and make the optional sound. 
+ In the previous update where RemindMe's popup would not be an "active" form anymore, it caused the numericupdown to only be clickable. you could not
+ type the number 5 in it. This issue is now fixed
+
+ Fixed an issue with RemindMe's tray icon's "show remindme" option. 
+ double clicking to show remindme had an issue that was fixed in Version 1.7.25, that issue is not fixed on the right click menu too.
