@@ -17,7 +17,7 @@ namespace RemindMe
     {
         public MyToolStripMenuRenderer() : base(new MyToolStripColors()) { }        
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
-        {
+        {            
             if (e.Item.Bounds.Contains(e.ToolStrip.PointToClient(Cursor.Position)))            
                 e.TextColor = Color.White; //Set the selected item text color to white.            
 

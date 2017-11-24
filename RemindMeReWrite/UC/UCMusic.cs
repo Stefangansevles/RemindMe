@@ -86,6 +86,8 @@ namespace RemindMe
                     lvSoundFiles.Items.Add(item);
                 }
             }
+
+            LoadSongsWithFileNameIntoListview();
         }
 
        
@@ -103,10 +105,8 @@ namespace RemindMe
             List<Songs> toRemoveSongs = new List<Songs>();
 
             foreach (ListViewItem selectedItem in lvSoundFiles.SelectedItems)
-            {
-                if (BLSongs.SongExistsInDatabase(selectedItem.Text))
-                    toRemoveSongs.Add(BLSongs.GetSongById(Convert.ToInt32(selectedItem.Tag)));
-
+            {                
+                toRemoveSongs.Add(BLSongs.GetSongById(Convert.ToInt32(selectedItem.Tag)));
                 lvSoundFiles.Items.Remove(selectedItem);
             }
 
@@ -119,6 +119,16 @@ namespace RemindMe
                 LoadSongsWithFilePathIntoListview();
             else
                 LoadSongsWithFileNameIntoListview();
+        }
+
+        private void lvSoundFiles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                //Ctrl+a = select all items
+                foreach (ListViewItem item in lvSoundFiles.Items)
+                    item.Selected = true;
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace RemindMe
@@ -16,7 +17,9 @@ namespace RemindMe
     {
         private string message;
         private string description;
-        private Exception ex;        
+        private Exception ex;
+        private bool sentCustomEmail;
+        private int allowEmail = -1;
         public ErrorPopup(string message, Exception ex)
         {
             InitializeComponent();
@@ -42,6 +45,14 @@ namespace RemindMe
             this.ex = ex;
             this.description = description;
         }
+        public ErrorPopup(string message, Exception ex, string description,int allowEmail)
+        {
+            InitializeComponent();
+            this.message = message;
+            this.ex = ex;
+            this.description = description;
+            this.allowEmail = allowEmail;
+        }
 
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CLIENT = 0x1;
@@ -53,27 +64,25 @@ namespace RemindMe
             base.WndProc(ref m);
             if (m.Msg == WM_NCHITTEST)
                 m.Result = (IntPtr)(HT_CAPTION);
-
-            lblDetails.Focus(); //Like this the textbox won't be focused, else the textbox has the ugly blue selected text
         }
 
        
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {            
-            this.Dispose();
-            this.Close();
-        }
+      
 
         private void ErrorPopup_Load(object sender, EventArgs e)
         {
             tbError.Text = message + "\r\n\r\nException type: " + ex.GetType() + "\r\n" + description;
-            EnlargeTextbox();
+            tbError.Location = lblCouldYouShare.Location;
+            tbError.Visible = false;
+
             pbErrorIcon.BringToFront();
 
             //Make the button look better
+            BLFormLogic.RemovebuttonBorders(btnYes);
+            BLFormLogic.RemovebuttonBorders(btnNo);
             BLFormLogic.RemovebuttonBorders(btnClose);
-            BLFormLogic.RemovebuttonBorders(btnOpenErrorLog);
+            BLFormLogic.RemovebuttonBorders(btnSubmit);
         }
 
 
@@ -88,25 +97,22 @@ namespace RemindMe
             int Margin = tbError.Bounds.Height - tbError.ClientSize.Height;
             tbError.Height = (TextRenderer.MeasureText(" ", tempFont).Height * textLines) + Margin + 2;
 
-            while((tbError.Location.Y + tbError.Height) > (this.Height - btnClose.Height - 10))
+            while ((tbError.Location.Y + tbError.Height) > (this.Height - btnClose.Height - 10))
             {
                 this.Height = this.Height + 10;
             }
             //if (tbError.Height + 62 > this.Height) //let's only enlarge the form, not shrink it.
 
-            
+
         }
 
 
         private void pbCloseApplication_Click(object sender, EventArgs e)
         {
-            btnClose_Click(sender, e);
+            btnClose_Click_1(sender, e);            
         }
 
-        private void btnOpenErrorLog_Click(object sender, EventArgs e)
-        {
-            Process.Start(Variables.IOVariables.errorLog);
-        }
+       
 
         private void pbMinimizeApplication_Click(object sender, EventArgs e)
         {
@@ -115,9 +121,131 @@ namespace RemindMe
 
         private void ErrorPopup_SizeChanged(object sender, EventArgs e)
         {
-            btnClose.Location = new Point(this.Width - btnClose.Width - 2, this.Height - btnClose.Height - 2);
-            btnOpenErrorLog.Location = new Point(btnClose.Location.X - 2 - btnOpenErrorLog.Width,btnClose.Location.Y);
-            lblDetails.Location = new Point(2, btnOpenErrorLog.Location.Y + 3);
+            btnNo.Location = new Point(this.Width - btnNo.Width - 2, this.Height - btnNo.Height - 2);
+            btnYes.Location = new Point((btnNo.Location.X - btnYes.Width) - 2, this.Height - btnYes.Height - 2);
+
+            pbShowDetails.Location = new Point(6,this.Height - pbShowDetails.Height - 2);
+            lblShowDetails.Location = new Point((pbShowDetails.Location.X + pbShowDetails.Width) + 6, this.Height - lblShowDetails.Height - 2);
+        }
+
+        private void btnNo_Click(object sender, EventArgs e)
+        {            
+            this.Close();
+        }
+
+        private void btnClose_Click_1(object sender, EventArgs e)
+        {
+            btnNo_Click(sender, e);
+        }
+
+        private void btnYes_Click(object sender, EventArgs e)
+        {
+            
+
+            pnlSendErrorMessage.Location = lblCouldYouShare.Location;
+            pnlSendErrorMessage.Visible = true;
+
+            lblCouldYouShare.Visible = false;
+
+            this.Height = pnlSendErrorMessage.Location.Y + pnlSendErrorMessage.Height + 5;
+
+            btnYes.Visible = false;
+            btnNo.Visible = false;
+        }
+
+        private void pnlSendErrorMessage_SizeChanged(object sender, EventArgs e)
+        {
+            /*The panel resized. Lets resize the textbox and re-align the buttons
+            btnSubmit.Location = new Point(btnSubmit.Location.X,pnlSendErrorMessage.Height - 37);
+            btnClose.Location = new Point( (btnSubmit.Location.X - btnClose.Width) - 1,btnSubmit.Location.Y);
+
+            tbNote.Size = new Size(tbNote.Width,btnClose.Location.Y - tbNote.Location.Y);*/
+        }
+
+        private void pbShowDetails_Click(object sender, EventArgs e)
+        {
+            if (lblShowDetails.Text == "Hide Details")
+            {
+                lblShowDetails.Text = "Show Details";
+                tbError.Visible = false;
+
+                if (!pnlSendErrorMessage.Visible)
+                {
+                    btnYes.Visible = true;
+                    btnNo.Visible = true;
+                    lblCouldYouShare.Visible = true;
+
+                    this.Height = 180;                    
+                }
+                else
+                {
+                    btnYes.Visible = false;
+                    btnNo.Visible = false;
+                    lblCouldYouShare.Visible = false;
+                    this.Height = pnlSendErrorMessage.Location.Y + pnlSendErrorMessage.Height + 5;
+                }
+                pbShowDetails.BackgroundImage = Properties.Resources._2arrows;
+            }
+            else
+            {
+                
+                tbError.Visible = true;
+                btnYes.Visible = false;
+                btnNo.Visible = false;
+
+                if (pnlSendErrorMessage.Visible)
+                {//Place the textbox under the panel if the panel to leave a message is  visible
+                    tbError.Location = new Point(tbError.Location.X, (pnlSendErrorMessage.Location.Y + pnlSendErrorMessage.Height) + 5);                                        
+                }
+                else
+                {                    
+                    tbError.Location = lblCouldYouShare.Location;
+                }
+
+                lblCouldYouShare.Visible = false;
+                EnlargeTextbox();
+                
+                lblShowDetails.Text = "Hide Details";
+                pbShowDetails.BackgroundImage = Properties.Resources._2ArrowsUp;
+            }
+
+                                             
+        }
+
+        private void tbError_Enter(object sender, EventArgs e)
+        {
+            pbShowDetails.Focus();
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string textBoxText = tbNote.Text; //Cant access tbNote in a thread. save the text in a variable instead
+                Thread sendMailThread = new Thread(() => BLEmail.SendEmail("[CUSTOM] | Error Report: " + ex.GetType().ToString(), "[CUSTOM USER INPUT]\r\n" + textBoxText + "\r\n\r\n---------------Default below--------------------\r\nOops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString()));
+                sendMailThread.Start();
+            }
+            catch { }
+
+
+            //Set this boolean to true so that when this popup closes, we won't try to send another e-mail
+            sentCustomEmail = true;
+            btnClose_Click_1(sender, e);
+        }
+
+        private void ErrorPopup_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //!sendCustomEmail = If the user has not given a description of the exception and sent it.
+            //allowEmail determines if we are allowed to send an e-mail(it's only allowed once every 30 seconds to prevent spam)
+            if (!sentCustomEmail && allowEmail == 1)
+            {
+                try
+                {
+                    Thread sendMailThread = new Thread(() => BLEmail.SendEmail("Error Report: " + ex.GetType().ToString(), "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString()));
+                    sendMailThread.Start();
+                }
+                catch{ }
+            }
         }
     }
 }

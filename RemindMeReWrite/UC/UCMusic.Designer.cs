@@ -53,6 +53,7 @@
             this.lvSoundFiles.TabIndex = 13;
             this.lvSoundFiles.UseCompatibleStateImageBehavior = false;
             this.lvSoundFiles.View = System.Windows.Forms.View.Details;
+            this.lvSoundFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvSoundFiles_KeyDown);
             // 
             // chSound
             // 

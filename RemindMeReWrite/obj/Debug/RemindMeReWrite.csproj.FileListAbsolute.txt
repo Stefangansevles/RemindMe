@@ -206,24 +206,23 @@ D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMeReW
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.exe
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.pdb
 D:\Users\rs\Google Drive\RemindMe\RemindMe\RemindMeReWrite\obj\Debug\RemindMe.RemindMePrompt.resources
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\RemindMe.exe.config
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\RemindMe.XML
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.exe
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\RemindMe.exe.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\RemindMe.XML
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\RemindMe.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Database.Entity.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\EntityFramework.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\FSManager.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Interop.IWshRuntimeLibrary.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.EF6.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.Linq.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\EASendMail45.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Data Access Layer.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Microsoft.WindowsAPICodePack.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Business Logic Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Database.Entity.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\EntityFramework.xml
@@ -231,6 +230,8 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\EntityFramew
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csprojResolveAssemblyReference.cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.RemindMeBox.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.ErrorPopup.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.Form1.resources
@@ -248,6 +249,5 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.UCS
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.UCSendMailInfo.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.UCWindows.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.GenerateResource.Cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\FSManager.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.exe
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.pdb

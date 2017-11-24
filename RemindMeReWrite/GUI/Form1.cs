@@ -225,7 +225,7 @@ namespace RemindMe
 
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);            
-            lblVersion.Text = "RemindMe - Version " + fvi.FileVersion;
+            lblVersion.Text = "RemindMe - Version " + fvi.FileVersion;            
         }
 
         /// <summary>
@@ -346,8 +346,16 @@ namespace RemindMe
         /// <param name="rem">The list of reminders</param>
         private void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
         {
+            List<Reminder> disabledReminders = new List<Reminder>(); //We're going to add the disabled reminders after all the enabled ones.
             List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
             foreach (Reminder rem in list)
+                if (rem.Enabled == 1) //not disabled? add to listview
+                    AddReminderToListview(lv, rem);
+                else
+                    disabledReminders.Add(rem);
+
+            //Add disabled reminders to the bottom of the list
+            foreach(Reminder rem in disabledReminders)
                 AddReminderToListview(lv, rem);
         }
 
@@ -1293,6 +1301,7 @@ namespace RemindMe
                     else
                         itm.SubItems[3].Text = "True";
 
+                    //The reminder selected from the listview
                     Reminder rem = BLReminder.GetReminderById(Convert.ToInt32(itm.Tag));
                     
                     if (bool.Parse(itm.SubItems[3].Text))
@@ -1304,6 +1313,8 @@ namespace RemindMe
 
                 }                
             }
+
+            RefreshListview(lvReminders);
         }
                    
         private void tsExit_Click(object sender, EventArgs e)
@@ -2091,6 +2102,15 @@ namespace RemindMe
             int toAddMinutes = RemindMePrompt.Show("Add minutes to the current time", 0);
             dtpDate.Value = DateTime.Now.AddMinutes(toAddMinutes);
             dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes);
+        }
+
+        private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(Reminder rem in GetSelectedRemindersFromListview())
+            {
+                BLReminder.PushReminderToDatabase(rem);
+                RefreshListview(lvReminders);
+            }
         }
     }
 }

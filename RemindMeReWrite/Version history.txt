@@ -479,4 +479,15 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  type the number 5 in it. This issue is now fixed
 
  Fixed an issue with RemindMe's tray icon's "show remindme" option. 
- double clicking to show remindme had an issue that was fixed in Version 1.7.25, that issue is not fixed on the right click menu too.
+ double clicking to show remindme had an issue that was fixed in Version 1.7.25, that issue is now fixed on the right click menu too.
+
+ V1.7.31
+ Reworked RemindMe's custom error popup. This is the form that pops up whenever anything goes wrong. The user can now type a custom message to describe
+ how this happened, and submit it to send the message to the RemindMe support e-mail address. It also has a "Show details" and "Hide details" option. 
+ Showing the details will show the exception details.
+
+ Reminder(s) can be duplicated by right-clicking the reminder(s) and selecting duplicate.
+ Additionaly, When right-clicking reminder(s), the menu items will now have icons.
+
+ Disabled reminders will now be on the bottom of the reminder list. 
+ When you enable a reminder, it will be moved up(above all disabled reminders). When you disable a reminder it will be moved down(under all enabled reminders).

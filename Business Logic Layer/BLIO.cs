@@ -100,24 +100,7 @@ namespace Business_Logic_Layer
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
-            }   
-            try
-            {
-                //Try to send an e-mail containing the error. This will help fix bugs in the future. Let's make sure we do it on a new thread.
-                if (allowEmail)
-                {
-                    Thread sendMailThread = new Thread(() => BLEmail.SendEmail("Error Report: " + ex.GetType().ToString(), "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString()));
-                    sendMailThread.Start();
-                    allowEmail = false;
-                }
-
-                //Start the timer that allows sending of an e-mail 30 seconds later
-                startTimer();
-            }   
-            catch(Exception)
-            {
-                //dont do anything if something goes wrong
-            }
+            }               
         }              
     }
 }

@@ -61,11 +61,14 @@ namespace RemindMe
         public static ComboBoxItem GetComboBoxItem(string text, object value)
         {
             Songs paramSong = (Songs)value;
-            foreach (ComboBoxItem cbItem in items)
+            if (paramSong != null)
             {
-                Songs cbItemSong = (Songs)cbItem.Value;
-                if (cbItem.Text == text && cbItemSong.SongFilePath == paramSong.SongFilePath)                
-                    return cbItem;                
+                foreach (ComboBoxItem cbItem in items)
+                {
+                    Songs cbItemSong = (Songs)cbItem.Value;
+                    if (cbItem.Text == text && cbItemSong.SongFilePath == paramSong.SongFilePath)
+                        return cbItem;
+                }
             }
             
             return null;
