@@ -491,3 +491,11 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  Disabled reminders will now be on the bottom of the reminder list. 
  When you enable a reminder, it will be moved up(above all disabled reminders). When you disable a reminder it will be moved down(under all enabled reminders).
+
+ V1.7.32
+ New Function: "Skip to next date"
+ You can now right click an reminder(That has a repeat type, or more than 1 date), and select "Skip to next date". It will then set the reminder's date to the
+ next date in line. This can be usefull if you have already done something you wanted to be reminded of every day. You then select skip to next date, and RemindMe
+ won't notify you today, because you don't want to be reminded anymore.
+
+ .remindme files can now be dragged and dropped into the list of reminders to instantly insert them into RemindMe. 

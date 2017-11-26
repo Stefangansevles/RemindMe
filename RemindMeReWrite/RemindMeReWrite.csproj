@@ -279,6 +279,8 @@
     <None Include="Resources\edit_pen.png" />
     <None Include="Resources\enable switch.png" />
     <None Include="Resources\prev.png" />
+    <None Include="Resources\skip.png" />
+    <None Include="Resources\skip forward.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config">

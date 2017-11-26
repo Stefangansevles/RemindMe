@@ -105,13 +105,6 @@
             <param name="lv">The listview</param>
             <param name="rem">The reminder</param>
         </member>
-        <member name="M:RemindMe.Form1.AddRemindersToListview(System.Windows.Forms.ListView,System.Collections.Generic.List{Database.Entity.Reminder})">
-            <summary>
-            Adds multiple reminders to the listview
-            </summary>
-            <param name="lv">The listview</param>
-            <param name="rem">The list of reminders</param>
-        </member>
         <member name="M:RemindMe.Form1.FillSoundComboboxFromDatabase(System.Windows.Forms.ComboBox)">
             <summary>
             Gets all the sounds from the database and fills the combobox with them.
@@ -185,6 +178,11 @@
         <member name="M:RemindMe.Form1.SetDateTimePickerMonthlyValue">
             <summary>
             Sets the value to the DateTimePicker "dtpDate" after the user adds days to the monthly reminder
+            </summary>
+        </member>
+        <member name="M:RemindMe.Form1.HideOrShowSkipForwardMenuItem">
+            <summary>
+            When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
             </summary>
         </member>
         <member name="M:RemindMe.Form1.GetDatesStringFromMultipleDatesComboBox">
@@ -955,6 +953,16 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.ShowDetails">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.skip">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.skip_forward">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

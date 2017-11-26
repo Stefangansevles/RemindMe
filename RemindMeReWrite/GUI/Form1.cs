@@ -132,7 +132,7 @@ namespace RemindMe
             {
                 int currentReminderCount = BLReminder.GetReminders().Count;
                 BLReminder.NotifyChange();
-                RefreshListview(lvReminders);
+                BLFormLogic.RefreshListview(lvReminders);
 
                 if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
                     MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!",3);
@@ -158,9 +158,7 @@ namespace RemindMe
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
-                    
+        {            
             //place all panels on top of eachother, they won't all be visible, though
             pnlMain.Location = new Point(0, 22);
             pnlNewReminder.Location = new Point(0, 22);
@@ -168,7 +166,6 @@ namespace RemindMe
             ShowPanel(pnlMain);
             ResetReminderForm();
 
-            //throw new FileNotFoundException("test","test");
             MakeTodaysRemindersPopup();
 
             //hide the form on startup
@@ -180,7 +177,7 @@ namespace RemindMe
 
 
             //Add all reminders to the listview
-            AddRemindersToListview(lvReminders, BLReminder.GetReminders());
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders());
 
             this.BackgroundImage = Properties.Resources.gray;
             pictureBox4.BringToFront();
@@ -339,31 +336,8 @@ namespace RemindMe
 
             lv.Items.Add(itm);
         }
-        /// <summary>
-        /// Adds multiple reminders to the listview
-        /// </summary>
-        /// <param name="lv">The listview</param>
-        /// <param name="rem">The list of reminders</param>
-        private void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
-        {
-            List<Reminder> disabledReminders = new List<Reminder>(); //We're going to add the disabled reminders after all the enabled ones.
-            List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
-            foreach (Reminder rem in list)
-                if (rem.Enabled == 1) //not disabled? add to listview
-                    AddReminderToListview(lv, rem);
-                else
-                    disabledReminders.Add(rem);
+        
 
-            //Add disabled reminders to the bottom of the list
-            foreach(Reminder rem in disabledReminders)
-                AddReminderToListview(lv, rem);
-        }
-
-        private void RefreshListview(ListView lv)
-        {
-            lv.Items.Clear();            
-            AddRemindersToListview(lv, BLReminder.GetReminders());
-        }
 
         /// <summary>
         /// Gets all the sounds from the database and fills the combobox with them.
@@ -880,8 +854,8 @@ namespace RemindMe
             }             
             //Refresh the listview. Using the boolean refreshListview, we dont refresh the listview every tick of the timer, that would be very unnecessary
             if (allowRefreshListview)
-            {                
-                RefreshListview(lvReminders);
+            {
+                BLFormLogic.RefreshListview(lvReminders);
                 
                 //set it to false again, otherwise it will continue to refresh every tick
                 allowRefreshListview = false;                
@@ -1183,7 +1157,7 @@ namespace RemindMe
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again
                 lvReminders.Items.Clear();
-                AddRemindersToListview(lvReminders, BLReminder.GetReminders());
+                BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders());
                 ShowPanel(pnlMain);
             }
             else
@@ -1314,7 +1288,7 @@ namespace RemindMe
                 }                
             }
 
-            RefreshListview(lvReminders);
+            BLFormLogic.RefreshListview(lvReminders);
         }
                    
         private void tsExit_Click(object sender, EventArgs e)
@@ -1615,8 +1589,37 @@ namespace RemindMe
         {
             if(e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count > 0)
             {
+                HideOrShowSkipForwardMenuItem();
                 ReminderMenuStrip.Show(Cursor.Position);
             }
+        }
+        /// <summary>
+        /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
+        /// </summary>
+        private void HideOrShowSkipForwardMenuItem()
+        {
+            bool hideMenuItem = false;            
+            foreach(Reminder rem in GetSelectedRemindersFromListview())
+            {
+                if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
+                {
+                    //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
+                    if (rem.Date.Split(',').Length > 1)
+                        hideMenuItem = false;//Dont hide the option. The item has 2 or more dates!
+                    else
+                        hideMenuItem = true;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
+                }
+            }
+
+           
+            //The option
+            ToolStripItem skipToNextDateItem = ReminderMenuStrip.Items.Find("skipToNextDateToolStripMenuItem", false)[0];
+
+            //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
+            if (hideMenuItem)
+                skipToNextDateItem.Visible = false;
+            else
+                skipToNextDateItem.Visible = true;            
         }
 
         /// <summary>
@@ -1719,7 +1722,7 @@ namespace RemindMe
 
         private void btnBackFromSettings_Click(object sender, EventArgs e)
         {
-            RefreshListview(lvReminders);
+            BLFormLogic.RefreshListview(lvReminders);
             ShowPanel(pnlMain);
         }             
 
@@ -2109,9 +2112,159 @@ namespace RemindMe
             foreach(Reminder rem in GetSelectedRemindersFromListview())
             {
                 BLReminder.PushReminderToDatabase(rem);
-                RefreshListview(lvReminders);
-            }
+                BLFormLogic.RefreshListview(lvReminders);
+            }                                              
         }
+
+        private void lvReminders_DragDrop(object sender, DragEventArgs e)
+        {            
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            foreach (string file in files) //Loop through each file that is dragged into RemindMe
+            {
+                if (Path.GetExtension(file) == ".remindme") //Check if it is a .remindme file
+                {
+                    List<object> remindersFromFile = BLReminder.DeserializeRemindersFromFile(file); //Objects from the .remindme file
+
+                    foreach (object rem in remindersFromFile)
+                        if (rem.GetType() == typeof(Reminder))
+                            BLReminder.PushReminderToDatabase((Reminder)rem);
+
+                }
+            }
+            //finally, refresh the listview
+            BLFormLogic.RefreshListview(lvReminders);
+        }
+
+        private void lvReminders_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void skipToNextDateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //TODO: move this to blreminder.updatereminder() with a date overload
+            foreach(Reminder rem in GetSelectedRemindersFromListview())
+            {//All of these reminders have a next date. This has already been checked on.
+                BLReminder.PermanentelyDeleteReminder(rem);
+                switch (rem.RepeatType)
+                {
+                    case "NONE": //Remove the first element [0] from the string, and assign the new value to the reminder                        
+                        List<string> dates = rem.Date.Split(',').ToList();
+                        string newDateString = "";
+                        dates.RemoveAt(0);
+
+                        foreach (string dat in dates)
+                            newDateString += dat + ",";
+
+                        newDateString = newDateString.Remove(newDateString.Length - 1, 1);
+                        rem.Date = newDateString;
+                        
+                        break;                                        
+                    case "DAILY":
+                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(1).ToString();
+                        break;
+                    case "MONTHLY":
+                        //Add 1 month to the first date of the month string, [0] and add it to the end
+                        List<string> monthDates = rem.Date.Split(',').ToList();                        
+                        string newMonthString = "";
+                        int monthDay = Convert.ToDateTime(monthDates[0]).Day;
+                        int monthsInAdvance = 1;
+                        string updatedDate = "";
+
+                        //If you add 1 month, and the day is not equal, then that means the next month doesnt have enough days. Keep adding months until we find the good month
+                        //Example: Day of month: 31. Add 1 month to january, thats february. It doesnt have 31 days, so it should go to the next month, etc etc
+                        if (Convert.ToDateTime(monthDates[0]).AddMonths(1).Day != monthDay) 
+                        {
+                            while (Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).Day != monthDay)
+                            {
+                                monthsInAdvance++;
+                            }
+                            updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).ToString();
+                        }
+                        else
+                            updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(1).ToString(); //Just add 1 month
+
+
+                        //Remove the old date at index 0, and add the new date at the end.
+                        monthDates.RemoveAt(0);
+                        monthDates.Add(updatedDate);
+
+                        foreach (string monthDate in monthDates)
+                            newMonthString += monthDate + ",";
+
+                        newDateString = newMonthString.Remove(newMonthString.Length - 1, 1);
+                        rem.Date = newDateString;
+                        break;
+                    case "WORKDAYS":
+                        if (Convert.ToDateTime(rem.Date).DayOfWeek == DayOfWeek.Friday)
+                            rem.Date = Convert.ToDateTime(rem.Date).AddDays(3).ToString(); //Add 3 days, friday -> saturday -> sunday -> monday
+                        else if (Convert.ToDateTime(rem.Date).DayOfWeek == DayOfWeek.Saturday)
+                            rem.Date = Convert.ToDateTime(rem.Date).AddDays(2).ToString(); //Add 2 days,  saturday -> sunday -> monday                        
+                        else
+                            rem.Date = Convert.ToDateTime(rem.Date).AddDays(1).ToString(); 
+                        break;
+                    case "MULTIPLE_DAYS":
+                        DayOfWeek dayOfWeekOfThisReminder = Convert.ToDateTime(rem.Date).DayOfWeek;
+                        List<string> days = BLDateTime.SortDayOfWeekStringList(rem.RepeatDays.Split(',').ToList()); //These are the days this reminder has. Example: monday,thursday,sunday
+
+                        int indexOfDay = 0;
+                        foreach(string day in days)
+                        {
+                            if (day.ToLower() != dayOfWeekOfThisReminder.ToString().ToLower())
+                                indexOfDay++;
+                            else
+                                break;
+                        }
+                        DayOfWeek nextDay;
+
+                        if (indexOfDay + 1 >= days.Count)
+                        {
+                            indexOfDay = 0;
+                            nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay]);
+                        }
+                        else
+                            nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay + 1]);
+
+
+                        int toAddDays = BLDateTime.GetAmountOfDaysBetween(dayOfWeekOfThisReminder, nextDay);
+                        if (toAddDays == 0)
+                            toAddDays = 7;
+                        //Days between monday and monday is 0, but in our case that means 1 week, so 7 days.
+                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(toAddDays).ToString();
+                        break;
+                    default:
+                        if(rem.EveryXCustom != null)
+                        {
+                            switch(rem.RepeatType.ToLower())
+                            {
+                                case "minutes":
+                                    rem.Date = Convert.ToDateTime(rem.Date).AddMinutes((double)rem.EveryXCustom).ToString();
+                                    break;
+                                case "hours":
+                                    rem.Date = Convert.ToDateTime(rem.Date).AddHours((double)rem.EveryXCustom).ToString();
+                                    break;
+                                case "days":
+                                    rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom).ToString();
+                                    break;
+                                case "weeks":
+                                    rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom * 7).ToString();
+                                    break;
+                                case "months":
+                                    rem.Date = Convert.ToDateTime(rem.Date).AddMonths((int)rem.EveryXCustom).ToString();
+                                    break;
+                            }
+                        }
+                        break;                                        
+                }
+                BLReminder.PushReminderToDatabase(rem);
+            }
+
+            //Refresh to show changes
+            BLFormLogic.RefreshListview(lvReminders);
+        }
+
+        
     }
 }
 

@@ -137,6 +137,7 @@
             this.removeReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableDisableReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skipToNextDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain.SuspendLayout();
             this.pnlNewReminder.SuspendLayout();
             this.pnlDayCheckBoxes.SuspendLayout();
@@ -180,6 +181,7 @@
             // 
             // lvReminders
             // 
+            this.lvReminders.AllowDrop = true;
             this.lvReminders.BackColor = System.Drawing.Color.DimGray;
             this.lvReminders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chName,
@@ -195,6 +197,8 @@
             this.lvReminders.TabIndex = 0;
             this.lvReminders.UseCompatibleStateImageBehavior = false;
             this.lvReminders.View = System.Windows.Forms.View.Details;
+            this.lvReminders.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragDrop);
+            this.lvReminders.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragEnter);
             this.lvReminders.DoubleClick += new System.EventHandler(this.lvReminders_DoubleClick);
             this.lvReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvReminders_KeyDown);
             this.lvReminders.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvReminders_MouseClick);
@@ -841,11 +845,12 @@
             this.exportSelectedRemindersToolStripMenuItem,
             this.duplicateToolStripMenuItem,
             this.permanentelyRemoveToolStripMenuItem,
+            this.skipToNextDateToolStripMenuItem,
             this.removeReminderToolStripMenuItem,
             this.editReminderToolStripMenuItem,
             this.enableDisableReminderToolStripMenuItem});
             this.ReminderMenuStrip.Name = "ReminderMenuStrip";
-            this.ReminderMenuStrip.Size = new System.Drawing.Size(255, 158);
+            this.ReminderMenuStrip.Size = new System.Drawing.Size(255, 202);
             // 
             // pnlSettings
             // 
@@ -1475,6 +1480,16 @@
             this.enableDisableReminderToolStripMenuItem.Text = "Enable/Disable reminder";
             this.enableDisableReminderToolStripMenuItem.Click += new System.EventHandler(this.enableDisableReminderToolStripMenuItem_Click);
             // 
+            // skipToNextDateToolStripMenuItem
+            // 
+            this.skipToNextDateToolStripMenuItem.BackgroundImage = global::RemindMe.Properties.Resources.DimGray;
+            this.skipToNextDateToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.skipToNextDateToolStripMenuItem.Image = global::RemindMe.Properties.Resources.skip_forward;
+            this.skipToNextDateToolStripMenuItem.Name = "skipToNextDateToolStripMenuItem";
+            this.skipToNextDateToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.skipToNextDateToolStripMenuItem.Text = "Skip to next date";
+            this.skipToNextDateToolStripMenuItem.Click += new System.EventHandler(this.skipToNextDateToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1636,6 +1651,7 @@
         private System.Windows.Forms.ToolStripMenuItem addMinutesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem skipToNextDateToolStripMenuItem;
     }
 }
 

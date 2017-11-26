@@ -117,6 +117,7 @@ namespace Business_Logic_Layer
 
             lv.Items.Add(itm);
         }
+       
         /// <summary>
         /// Adds multiple reminders to the listview
         /// </summary>
@@ -124,12 +125,17 @@ namespace Business_Logic_Layer
         /// <param name="rem">The list of reminders</param>
         public static void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
         {
+            List<Reminder> disabledReminders = new List<Reminder>(); //We're going to add the disabled reminders after all the enabled ones.
             List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
-            foreach (Reminder rem in list)            
-                AddReminderToListview(lv, rem);
+            foreach (Reminder rem in list)
+                if (rem.Enabled == 1) //not disabled? add to listview
+                    AddReminderToListview(lv, rem);
+                else
+                    disabledReminders.Add(rem);
 
-            
-            
+            //Add disabled reminders to the bottom of the list
+            foreach (Reminder rem in disabledReminders)
+                AddReminderToListview(lv, rem);
         }
 
         public static void RefreshListview(ListView lv)

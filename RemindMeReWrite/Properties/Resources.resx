@@ -130,17 +130,20 @@
   <data name="SaveIconBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveIconBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="skip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="blue sound icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue sound icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RemindMeSettingsNew" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemindMeSettingsNew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="2ArrowsUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2ArrowsUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="back-button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\back-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UAC_No" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UAC_No.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,9 +153,6 @@
   </data>
   <data name="backup_black_192x192" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\backup_black_192x192.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HelpIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HelpIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="backup remindme image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\backup remindme image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,8 +169,8 @@
   <data name="import_good" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\import_good.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sound.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="prev" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\prev.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="stopBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stopBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,8 +196,8 @@
   <data name="redx" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redx.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="folder1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="HelpIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HelpIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="music" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\music.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,8 +208,8 @@
   <data name="preview_eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\preview_eye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="minus-xxl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\minus-xxl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UAC_Yes2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UAC_Yes2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -310,14 +310,17 @@
   <data name="import" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\import.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="back-button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\back-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ShowDetails" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ShowDetails.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RemindMe message popup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemindMe message popup2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ShowDetails" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ShowDetails.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="minus-xxl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\minus-xxl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="win8" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\win8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -331,6 +334,9 @@
   <data name="Eye pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Eye pic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="dark-green-check-mark-hi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dark-green-check-mark-hi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="exl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -343,10 +349,10 @@
   <data name="green_button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\green button1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dark-green-check-mark-hi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dark-green-check-mark-hi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="prev" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\prev.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="skip forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skip forward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

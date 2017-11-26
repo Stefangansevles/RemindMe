@@ -76,6 +76,24 @@ namespace Business_Logic_Layer
             return DateTime.Now.DayOfWeek;
         }
 
+        public static DayOfWeek GetDayOfWeekFromString(string day)
+        {
+
+            switch (day.ToLower())
+            {
+                case "sunday": return DayOfWeek.Sunday;
+                case "monday": return DayOfWeek.Monday;
+                case "tuesday": return DayOfWeek.Tuesday;
+                case "wednesday": return DayOfWeek.Wednesday;
+                case "thursday": return DayOfWeek.Thursday;
+                case "friday": return DayOfWeek.Friday;
+                case "saturday": return DayOfWeek.Saturday;
+            }
+            
+
+            return DateTime.Now.DayOfWeek;
+        }
+
         /// <summary>
         /// Gets the day of the week in DayOfWeek in integer format
         /// </summary>
@@ -221,6 +239,46 @@ namespace Business_Logic_Layer
             }
             else
                 return new DateTime();
+        }
+
+        public static int GetAmountOfDaysBetween(DayOfWeek day1, DayOfWeek day2)
+        {
+           return (7 + (day2 - day1)) % 7;
+        }
+
+        /// <summary>
+        /// Sorts a list containing unique week days, for example wednesday,monday,sunday into monday,wednesday,sunday.
+        /// </summary>
+        /// <param name="List"></param>
+        /// <returns></returns>
+        public static List<string> SortDayOfWeekStringList(List<string> List)
+        {
+            List<string> returnList = new List<string>();
+            List = List.ConvertAll(d => d.ToLower());
+
+            if (List.Contains("monday"))
+                returnList.Add("monday");
+
+            if (List.Contains("tuesday"))
+                returnList.Add("tuesday");
+
+            if (List.Contains("wednesday"))
+                returnList.Add("wednesday");
+
+            if (List.Contains("thursday"))
+                returnList.Add("thursday");
+
+            if (List.Contains("friday"))
+                returnList.Add("friday");
+
+            if (List.Contains("saturday"))
+                returnList.Add("saturday");
+
+            if (List.Contains("sunday"))
+                returnList.Add("sunday");
+
+            
+            return returnList;
         }
 
         public static DateTime GetDateForNextDayOfMonth(int day, DateTime givenTime)
