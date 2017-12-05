@@ -41,11 +41,20 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.numNumber = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.pnlNumericPromptTwoValues = new System.Windows.Forms.Panel();
+            this.labelTextTwo = new System.Windows.Forms.Label();
+            this.numericUpDownValueTwo = new System.Windows.Forms.NumericUpDown();
+            this.btnOkTwoValues = new System.Windows.Forms.Button();
+            this.numericUpDownValueOne = new System.Windows.Forms.NumericUpDown();
+            this.labelTextOne = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCloseApplication)).BeginInit();
             this.pnlNumericPrompt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNumber)).BeginInit();
+            this.pnlNumericPromptTwoValues.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValueTwo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValueOne)).BeginInit();
             this.SuspendLayout();
             // 
             // tbInput
@@ -155,7 +164,7 @@
             this.numNumber.ForeColor = System.Drawing.Color.White;
             this.numNumber.Location = new System.Drawing.Point(149, 4);
             this.numNumber.Maximum = new decimal(new int[] {
-            0,
+            100000,
             0,
             0,
             0});
@@ -176,12 +185,94 @@
             this.label2.TabIndex = 34;
             this.label2.Text = "Please enter a number";
             // 
+            // pnlNumericPromptTwoValues
+            // 
+            this.pnlNumericPromptTwoValues.Controls.Add(this.labelTextTwo);
+            this.pnlNumericPromptTwoValues.Controls.Add(this.numericUpDownValueTwo);
+            this.pnlNumericPromptTwoValues.Controls.Add(this.btnOkTwoValues);
+            this.pnlNumericPromptTwoValues.Controls.Add(this.numericUpDownValueOne);
+            this.pnlNumericPromptTwoValues.Controls.Add(this.labelTextOne);
+            this.pnlNumericPromptTwoValues.Location = new System.Drawing.Point(3, 86);
+            this.pnlNumericPromptTwoValues.Name = "pnlNumericPromptTwoValues";
+            this.pnlNumericPromptTwoValues.Size = new System.Drawing.Size(334, 26);
+            this.pnlNumericPromptTwoValues.TabIndex = 74;
+            // 
+            // labelTextTwo
+            // 
+            this.labelTextTwo.AutoSize = true;
+            this.labelTextTwo.BackColor = System.Drawing.Color.Transparent;
+            this.labelTextTwo.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.labelTextTwo.ForeColor = System.Drawing.Color.White;
+            this.labelTextTwo.Location = new System.Drawing.Point(151, 6);
+            this.labelTextTwo.Name = "labelTextTwo";
+            this.labelTextTwo.Size = new System.Drawing.Size(13, 15);
+            this.labelTextTwo.TabIndex = 75;
+            this.labelTextTwo.Text = "x";
+            // 
+            // numericUpDownValueTwo
+            // 
+            this.numericUpDownValueTwo.BackColor = System.Drawing.Color.DimGray;
+            this.numericUpDownValueTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.numericUpDownValueTwo.ForeColor = System.Drawing.Color.White;
+            this.numericUpDownValueTwo.Location = new System.Drawing.Point(199, 3);
+            this.numericUpDownValueTwo.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownValueTwo.Name = "numericUpDownValueTwo";
+            this.numericUpDownValueTwo.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDownValueTwo.TabIndex = 74;
+            // 
+            // btnOkTwoValues
+            // 
+            this.btnOkTwoValues.BackColor = System.Drawing.Color.Transparent;
+            this.btnOkTwoValues.BackgroundImage = global::RemindMe.Properties.Resources.bbuttonEDIT2;
+            this.btnOkTwoValues.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnOkTwoValues.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnOkTwoValues.ForeColor = System.Drawing.Color.Transparent;
+            this.btnOkTwoValues.Location = new System.Drawing.Point(293, 3);
+            this.btnOkTwoValues.Name = "btnOkTwoValues";
+            this.btnOkTwoValues.Size = new System.Drawing.Size(38, 20);
+            this.btnOkTwoValues.TabIndex = 73;
+            this.btnOkTwoValues.Text = "OK";
+            this.btnOkTwoValues.UseVisualStyleBackColor = false;
+            this.btnOkTwoValues.Click += new System.EventHandler(this.btnOkTwoValues_Click);
+            // 
+            // numericUpDownValueOne
+            // 
+            this.numericUpDownValueOne.BackColor = System.Drawing.Color.DimGray;
+            this.numericUpDownValueOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.numericUpDownValueOne.ForeColor = System.Drawing.Color.White;
+            this.numericUpDownValueOne.Location = new System.Drawing.Point(56, 3);
+            this.numericUpDownValueOne.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownValueOne.Name = "numericUpDownValueOne";
+            this.numericUpDownValueOne.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDownValueOne.TabIndex = 72;
+            // 
+            // labelTextOne
+            // 
+            this.labelTextOne.AutoSize = true;
+            this.labelTextOne.BackColor = System.Drawing.Color.Transparent;
+            this.labelTextOne.Font = new System.Drawing.Font("Franklin Gothic Medium", 8.25F, System.Drawing.FontStyle.Bold);
+            this.labelTextOne.ForeColor = System.Drawing.Color.White;
+            this.labelTextOne.Location = new System.Drawing.Point(2, 5);
+            this.labelTextOne.Name = "labelTextOne";
+            this.labelTextOne.Size = new System.Drawing.Size(13, 15);
+            this.labelTextOne.TabIndex = 34;
+            this.labelTextOne.Text = "x";
+            // 
             // RemindMePrompt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(380, 113);
+            this.Controls.Add(this.pnlNumericPromptTwoValues);
             this.Controls.Add(this.pnlNumericPrompt);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox6);
@@ -198,6 +289,10 @@
             this.pnlNumericPrompt.ResumeLayout(false);
             this.pnlNumericPrompt.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numNumber)).EndInit();
+            this.pnlNumericPromptTwoValues.ResumeLayout(false);
+            this.pnlNumericPromptTwoValues.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValueTwo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownValueOne)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,5 +311,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numNumber;
         private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Panel pnlNumericPromptTwoValues;
+        private System.Windows.Forms.Label labelTextTwo;
+        private System.Windows.Forms.NumericUpDown numericUpDownValueTwo;
+        private System.Windows.Forms.Button btnOkTwoValues;
+        private System.Windows.Forms.NumericUpDown numericUpDownValueOne;
+        private System.Windows.Forms.Label labelTextOne;
     }
 }

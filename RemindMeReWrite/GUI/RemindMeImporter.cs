@@ -72,7 +72,7 @@ namespace RemindMe
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            BLFormLogic.customBackgroundPainter(e, this, linethickness: 3, linecolor: Color.White, offsetborder: 0);
+            BLFormLogic.PaintFormBorder(e, this, linethickness: 3, linecolor: Color.White, offsetborder: 0);
         }
 
         protected override void WndProc(ref Message m)

@@ -563,6 +563,56 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Postpone {
+            get {
+                object obj = ResourceManager.GetObject("Postpone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap postponeclock {
+            get {
+                object obj = ResourceManager.GetObject("postponeclock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap postponeclock2 {
+            get {
+                object obj = ResourceManager.GetObject("postponeclock2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PostponeZzZ {
+            get {
+                object obj = ResourceManager.GetObject("PostponeZzZ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap power {
+            get {
+                object obj = ResourceManager.GetObject("power", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap prev {
             get {
                 object obj = ResourceManager.GetObject("prev", resourceCulture);
@@ -846,6 +896,16 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap win8 {
             get {
                 object obj = ResourceManager.GetObject("win8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap zzz {
+            get {
+                object obj = ResourceManager.GetObject("zzz", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -281,6 +281,12 @@
     <None Include="Resources\prev.png" />
     <None Include="Resources\skip.png" />
     <None Include="Resources\skip forward.png" />
+    <None Include="Resources\Postpone.png" />
+    <None Include="Resources\power.png" />
+    <None Include="Resources\PostponeZzZ.png" />
+    <None Include="Resources\postponeclock.png" />
+    <None Include="Resources\postponeclock2.png" />
+    <None Include="Resources\zzz.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="App.config">

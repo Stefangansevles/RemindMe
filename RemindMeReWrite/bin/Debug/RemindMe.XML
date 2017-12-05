@@ -302,20 +302,20 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:RemindMe.RemindMePrompt.Show(System.String)">
+        <member name="M:RemindMe.RemindMePrompt.ShowText(System.String)">
             <summary>
             Shows a prompt where the user can enter a string
             </summary>
             <param name="title">The title the user should see when this prompt shows up</param>
             <returns></returns>
         </member>
-        <member name="M:RemindMe.RemindMePrompt.Show(System.String,System.Int32)">
+        <member name="M:RemindMe.RemindMePrompt.ShowNumeric(System.String,System.Boolean)">
             <summary>
             Shows a prompt where the user can enter a number
             </summary>
             <param name="title">The title the user should see when this prompt shows up</param>
-            <param name="maxValue">The maximum number the user can enter. 0 = unlimited (int.MaxValue)</param>
-            <returns></returns>
+            <param name="useTwoInputFields">Determines if there should be 2 numeric fields that an user can put a number in</param>
+            <returns>Returns an array with one number if useTwoInputFields is set to false. Returns two numbers if it is set to true</returns>
         </member>
         <member name="F:RemindMe.RemindMePrompt.components">
             <summary>
@@ -867,6 +867,31 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:RemindMe.Properties.Resources.Postpone">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.postponeclock">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.postponeclock2">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.PostponeZzZ">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.power">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:RemindMe.Properties.Resources.prev">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
@@ -1008,6 +1033,11 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.win8">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.zzz">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

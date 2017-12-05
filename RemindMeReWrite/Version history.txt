@@ -499,3 +499,10 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  won't notify you today, because you don't want to be reminded anymore.
 
  .remindme files can now be dragged and dropped into the list of reminders to instantly insert them into RemindMe. 
+
+ V1.7.33
+ You can now postpone reminders before they have popped up by right-clicking the reminder(s) and clicking postpone.
+ 
+ Reminders can now also be enabled/disabled by pressing spacebar after selecting reminder(s). 
+
+ 

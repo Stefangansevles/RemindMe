@@ -34,7 +34,7 @@ namespace Business_Logic_Layer
         /// <param name="linethickness">Border thickness</param>
         /// <param name="linecolor">Border color</param>
         /// <param name="offsetborder">How far the border should be away from the edges of your form.</param>
-        public static void customBackgroundPainter(PaintEventArgs e, Form theForm, int linethickness = 2, Color linecolor = new Color(), int offsetborder = 6)
+        public static void PaintFormBorder(PaintEventArgs e, Form theForm, int linethickness = 2, Color linecolor = new Color(), int offsetborder = 6)
         {
             Rectangle rect = new Rectangle(offsetborder, offsetborder, theForm.ClientSize.Width - (offsetborder * 2), theForm.ClientSize.Height - (offsetborder * 2));
 

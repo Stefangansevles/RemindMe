@@ -454,8 +454,7 @@ namespace RemindMe
             foreach(ListViewItem item in lvReminders.SelectedItems)            
                 selectedReminders.Add(BLReminder.GetReminderById((long)item.Tag));
             
-            return selectedReminders;
-            
+            return selectedReminders;           
         }
 
         /// <summary>
@@ -1456,8 +1455,10 @@ namespace RemindMe
                 permanentelyRemoveToolStripMenuItem_Click_1(sender, e);
             else if (e.KeyCode == Keys.Delete)
                 btnRemoveReminder_Click(sender, e);
+            else if (e.KeyCode == Keys.Space)
+                btnDisableEnable_Click(sender, e);
 
-            if (e.Control && e.KeyCode == Keys.A)
+                if (e.Control && e.KeyCode == Keys.A)
             {
                 //Ctrl+a = select all items
                 foreach (ListViewItem item in lvReminders.Items)
@@ -1590,7 +1591,7 @@ namespace RemindMe
             if(e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count > 0)
             {
                 HideOrShowSkipForwardMenuItem();
-                ReminderMenuStrip.Show(Cursor.Position);
+                ReminderMenuStrip.Show(Cursor.Position);                                                
             }
         }
         /// <summary>
@@ -2071,8 +2072,8 @@ namespace RemindMe
 
         private void addDaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toAddDays = RemindMePrompt.Show("Add days to the selected date",0);
-            dtpDate.Value = dtpDate.Value.AddDays(toAddDays);
+            int[] toAddDays = RemindMePrompt.ShowNumeric("Add days to the selected date", false);
+            dtpDate.Value = dtpDate.Value.AddDays(toAddDays[0]);
         }
 
         private void btnAddDays_Click(object sender, EventArgs e)
@@ -2083,28 +2084,28 @@ namespace RemindMe
 
         private void subtractDaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toSubtractDays = RemindMePrompt.Show("Subtract days to the selected date", 0);
-            dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays);
+            int[] toSubtractDays = RemindMePrompt.ShowNumeric("Subtract days to the selected date", false);
+            dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays[0]);
         }
 
         private void addMonthsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int toAddMonths = RemindMePrompt.Show("Add months to the selected date", 0);
-            dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
+        {            
+            int[] toAddMonths = RemindMePrompt.ShowNumeric("Add months to the selected date", false);
+            dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths[0]);
         }
       
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            int toSubtractMonths = RemindMePrompt.Show("Subtract months to the selected date", 0);
-            dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
+            int[] toSubtractMonths = RemindMePrompt.ShowNumeric("Subtract months to the selected date", false);
+            dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths[0]);
         }
 
         private void addMinutesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toAddMinutes = RemindMePrompt.Show("Add minutes to the current time", 0);
-            dtpDate.Value = DateTime.Now.AddMinutes(toAddMinutes);
-            dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes);
+            int[] toAddMinutes = RemindMePrompt.ShowNumeric("Add minutes to the current time", false);
+            dtpDate.Value = DateTime.Now.AddMinutes(toAddMinutes[0]);
+            dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes[0]);
         }
 
         private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2146,7 +2147,7 @@ namespace RemindMe
             //TODO: move this to blreminder.updatereminder() with a date overload
             foreach(Reminder rem in GetSelectedRemindersFromListview())
             {//All of these reminders have a next date. This has already been checked on.
-                BLReminder.PermanentelyDeleteReminder(rem);
+                Reminder tempRem = rem;                
                 switch (rem.RepeatType)
                 {
                     case "NONE": //Remove the first element [0] from the string, and assign the new value to the reminder                        
@@ -2257,7 +2258,8 @@ namespace RemindMe
                         }
                         break;                                        
                 }
-                BLReminder.PushReminderToDatabase(rem);
+                BLReminder.PermanentelyDeleteReminder(tempRem); //Delete the "old" one
+                BLReminder.PushReminderToDatabase(rem);         //Insert the "new" one
             }
 
             //Refresh to show changes
@@ -2265,6 +2267,30 @@ namespace RemindMe
         }
 
         
+
+        private void postponeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int[] returnValues = RemindMePrompt.ShowNumeric("Select your postpone time",true);
+            int amountOfMinutes = (returnValues[0] * 60) + returnValues[1]; //[0] = hours, [1] = minutes
+
+            if (amountOfMinutes <= 0)
+                return;
+
+            foreach(Reminder rem in GetSelectedRemindersFromListview())
+            {
+                
+                Reminder remTemp = rem; //Temporarily store the reminder
+                                
+                if (rem.PostponeDate == null)//No postpone yet, create it
+                    rem.PostponeDate = Convert.ToDateTime(rem.Date).AddMinutes(amountOfMinutes).ToString();
+                else//Already a postponedate, add the time to that date                
+                    rem.PostponeDate = Convert.ToDateTime(rem.PostponeDate).AddMinutes(amountOfMinutes).ToString();        
+                
+                BLReminder.PermanentelyDeleteReminder(remTemp); //Delete the "old" one. In case an exception happens, this avoids a scenario where you delete a reminder, give it a new postpone date, but an exception happens and the reminder is gone
+                BLReminder.PushReminderToDatabase(rem);         //Insert changes
+            }
+            BLFormLogic.RefreshListview(lvReminders);
+        }
     }
 }
 
