@@ -505,4 +505,13 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  
  Reminders can now also be enabled/disabled by pressing spacebar after selecting reminder(s). 
 
- 
+
+
+ V1.7.34
+ New feature: Remove postpone from an reminder. You can right-click a reminder, and if that reminder has been postponed, it will show an option to remove
+ the postponing for if you changed your mind.
+
+ Fixed an issue where editing an monthly/weekly reminder without editing the date would pick the earliest date matching the day of month
+ example: monthly reminder that repeats every 7th of the month. You skipped the reminder's date to the next date (1 month in the future)
+ You then edit the reminder, don't change the date, and press confirm. It then re-calculates the closest 7th of the month
+ This bug was also present with weekdays (for example reminders that are set weekly on monday wednesday and friday)

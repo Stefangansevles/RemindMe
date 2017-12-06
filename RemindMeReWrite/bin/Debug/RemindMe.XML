@@ -185,6 +185,11 @@
             When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
             </summary>
         </member>
+        <member name="M:RemindMe.Form1.HideOrShowRemovePostponeMenuItem">
+            <summary>
+            When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
+            </summary>
+        </member>
         <member name="M:RemindMe.Form1.GetDatesStringFromMultipleDatesComboBox">
             <summary>
             Goes through all dates in the ComboBox cbMultipleDates and seperates them by a comma. Used for reminders with the repeat type None
@@ -1038,6 +1043,11 @@
             </summary>
         </member>
         <member name="P:RemindMe.Properties.Resources.zzz">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:RemindMe.Properties.Resources.zzzCancel">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

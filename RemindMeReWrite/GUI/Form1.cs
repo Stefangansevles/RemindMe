@@ -1087,7 +1087,7 @@ namespace RemindMe
                 }
                 else
                 {//The user is editing an existing reminder                                        
-                    editableReminder.Name = tbReminderName.Text;
+                    editableReminder.Name = tbReminderName.Text;                    
 
                     if (rbEveryXCustom.Checked)
                     {
@@ -1104,7 +1104,7 @@ namespace RemindMe
                             break;
                         case "MULTIPLE_DAYS":
                             if (IsAtLeastOneWeeklyCheckboxSelected())
-                                editableReminder.Date = Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString();
+                                editableReminder.Date = editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();//Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString();
                             else
                             {
                                 MakeScrollingPopupMessage("You do not have any day(s) selected!");
@@ -1122,7 +1122,7 @@ namespace RemindMe
                             break;
                         case "MONTHLY":
                             if (cbMonthlyDays.Items.Count > 0)
-                                editableReminder.Date = GetDatesStringFromMonthlyDaysComboBox();
+                                editableReminder.Date = editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
                             else
                             {
                                 MakeScrollingPopupMessage("Can not create an reminder with monthly day(s) if there are no days selected!");
@@ -1571,26 +1571,14 @@ namespace RemindMe
                 tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
         }
 
-        private void enableDisableReminderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnDisableEnable_Click(sender, e);
-        }
-
-        private void editReminderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnEditReminder_Click(sender, e);
-        }
-
-        private void removeReminderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnRemoveReminder_Click(sender, e);
-        }
+       
 
         private void lvReminders_MouseClick(object sender, MouseEventArgs e)
         {
             if(e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count > 0)
             {
                 HideOrShowSkipForwardMenuItem();
+                HideOrShowRemovePostponeMenuItem();
                 ReminderMenuStrip.Show(Cursor.Position);                                                
             }
         }
@@ -1621,6 +1609,39 @@ namespace RemindMe
                 skipToNextDateItem.Visible = false;
             else
                 skipToNextDateItem.Visible = true;            
+        }
+        /// <summary>
+        /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
+        /// </summary>
+        private void HideOrShowRemovePostponeMenuItem()
+        {
+            bool hideMenuItem = false;
+            foreach (Reminder rem in GetSelectedRemindersFromListview())
+            {
+                if (rem.PostponeDate != null && rem.PostponeDate != "")
+                {
+                    try
+                    {
+                        DateTime tryConv = Convert.ToDateTime(rem.PostponeDate);
+                    }
+                    catch(Exception ex)
+                    {
+                        hideMenuItem = true;
+                    }
+                }
+                else //no postpone date? don't show.
+                    hideMenuItem = true;
+            }
+
+
+            //The option
+            ToolStripItem removePostponeItem = ReminderMenuStrip.Items.Find("removePostponeToolStripMenuItem", false)[0];
+
+            //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
+            if (hideMenuItem)
+                removePostponeItem.Visible = false;
+            else
+                removePostponeItem.Visible = true;
         }
 
         /// <summary>
@@ -2288,6 +2309,17 @@ namespace RemindMe
                 
                 BLReminder.PermanentelyDeleteReminder(remTemp); //Delete the "old" one. In case an exception happens, this avoids a scenario where you delete a reminder, give it a new postpone date, but an exception happens and the reminder is gone
                 BLReminder.PushReminderToDatabase(rem);         //Insert changes
+            }
+            BLFormLogic.RefreshListview(lvReminders);
+        }
+
+        private void removePostponeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(Reminder rem in GetSelectedRemindersFromListview())
+            {
+                rem.PostponeDate = null;
+                BLReminder.PermanentelyDeleteReminder(rem);
+                BLReminder.PushReminderToDatabase(rem);
             }
             BLFormLogic.RefreshListview(lvReminders);
         }
