@@ -515,3 +515,6 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  example: monthly reminder that repeats every 7th of the month. You skipped the reminder's date to the next date (1 month in the future)
  You then edit the reminder, don't change the date, and press confirm. It then re-calculates the closest 7th of the month
  This bug was also present with weekdays (for example reminders that are set weekly on monday wednesday and friday)
+
+ V1.7.35
+ Fixed an issue with right-click postponing reminders on reminders with multiple dates. It threw an error because it tried converting the entire list of dates into a date 

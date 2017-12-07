@@ -2303,7 +2303,7 @@ namespace RemindMe
                 Reminder remTemp = rem; //Temporarily store the reminder
                                 
                 if (rem.PostponeDate == null)//No postpone yet, create it
-                    rem.PostponeDate = Convert.ToDateTime(rem.Date).AddMinutes(amountOfMinutes).ToString();
+                    rem.PostponeDate = Convert.ToDateTime(rem.Date.Split(',')[0]).AddMinutes(amountOfMinutes).ToString();
                 else//Already a postponedate, add the time to that date                
                     rem.PostponeDate = Convert.ToDateTime(rem.PostponeDate).AddMinutes(amountOfMinutes).ToString();        
                 
