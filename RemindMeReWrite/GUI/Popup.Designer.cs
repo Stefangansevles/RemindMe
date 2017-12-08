@@ -101,13 +101,15 @@
             // 
             this.tbBlackTopBar.BackColor = System.Drawing.Color.Black;
             this.tbBlackTopBar.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbBlackTopBar.Enabled = false;
+            this.tbBlackTopBar.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.tbBlackTopBar.ForeColor = System.Drawing.SystemColors.WindowText;
             this.tbBlackTopBar.Location = new System.Drawing.Point(0, 0);
             this.tbBlackTopBar.Multiline = true;
             this.tbBlackTopBar.Name = "tbBlackTopBar";
+            this.tbBlackTopBar.ReadOnly = true;
             this.tbBlackTopBar.Size = new System.Drawing.Size(342, 22);
             this.tbBlackTopBar.TabIndex = 18;
+            this.tbBlackTopBar.MouseEnter += new System.EventHandler(this.tbBlackTopBar_MouseEnter);
             // 
             // cbPostponeTime
             // 
@@ -129,7 +131,6 @@
             0,
             0});
             this.cbPostponeTime.ValueChanged += new System.EventHandler(this.cbPostponeTime_ValueChanged);
-            this.cbPostponeTime.Enter += new System.EventHandler(this.cbPostponeTime_Enter);
             // 
             // cbPostpone
             // 

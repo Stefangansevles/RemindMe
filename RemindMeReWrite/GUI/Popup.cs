@@ -25,7 +25,15 @@ namespace RemindMe
 
             this.Size = new Size((int)BLPopupDimensions.GetPopupDimensions().FormWidth, (int)BLPopupDimensions.GetPopupDimensions().FormHeight);
             tbTitle.Font = new Font(tbTitle.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontTitleSize, FontStyle.Bold);
-            tbText.Font = new Font(tbText.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontNoteSize, FontStyle.Bold);            
+            tbText.Font = new Font(tbText.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
+
+            //Assign the events that the user can raise while doing something on the popup. The stopflash event stops the taskbar icon from flashing
+            tbBlackTopBar.MouseEnter += stopFlash_Event;
+            tbTitle.MouseEnter += stopFlash_Event;
+            tbText.MouseEnter += stopFlash_Event;
+            this.MouseEnter += stopFlash_Event;
+
+
         }
 
         private const int WM_NCHITTEST = 0x84;
@@ -55,6 +63,7 @@ namespace RemindMe
 
         private void Popup_Load(object sender, EventArgs e)
         {
+            FlashWindowHelper.Start(this);
             this.MaximumSize = this.Size;
 
             if (BLSettings.IsAlwaysOnTop())
@@ -275,9 +284,21 @@ namespace RemindMe
             cbPostpone.Checked = true;
         }
 
-        private void cbPostponeTime_Enter(object sender, EventArgs e)
-        {
+        
+        /// <summary>
+        /// Stops the flashing of the taskbar icon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void stopFlash_Event(object sender, EventArgs e)
+        {            
             this.Activate();
+            FlashWindowHelper.Stop(this);
+        }
+
+        private void tbBlackTopBar_MouseEnter(object sender, EventArgs e)
+        {
+            tbBlackTopBar.Enabled = false; //The top bar(really a textbox) should not be enabled, so that it can be used to be dragged(with WndProc)
         }
     }
 }

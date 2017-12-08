@@ -19,34 +19,33 @@ namespace Business_Logic_Layer
         /// <param name="subject"></param>
         /// <param name="body"></param>
         /// <returns></returns>
-        public static bool SendEmail(string subject,string body)
+        public static Exception SendEmail(string subject,string body)
         {
-            SmtpMail oMail = new SmtpMail("TryIt");
-            EASendMail.SmtpClient oSmtp = new EASendMail.SmtpClient();
-            oSmtp.Timeout = 3000; //3 sec timeout
-            //The "e-mail address" will contain the user's windows username, so that i can distinguish between people
-            oMail.From = "RemindMeUser_" + Environment.UserName + "@gmail.com";
-
-            oMail.To = "remindmehelp@gmail.com";
-
-            // Set email subject
-            oMail.Subject = subject;
-
-            // Set email body
-            oMail.TextBody = body;
-
-            // Set SMTP server address to "".
-            SmtpServer oServer = new SmtpServer("");
-            
-
             try
-            {                
+            {
+                SmtpMail oMail = new SmtpMail("TryIt");
+                EASendMail.SmtpClient oSmtp = new EASendMail.SmtpClient();
+                oSmtp.Timeout = 3000; //3 sec timeout
+                                      //The "e-mail address" will contain the user's windows username, so that i can distinguish between people
+                oMail.From = "RemindMeUser_" + Environment.UserName + "@gmail.com";
+
+                oMail.To = "remindmehelp@gmail.com";
+
+                // Set email subject
+                oMail.Subject = subject;
+
+                // Set email body
+                oMail.TextBody = body;
+
+                // Set SMTP server address to "".
+                SmtpServer oServer = new SmtpServer("");
+
                 oSmtp.SendMail(oServer, oMail);
-                return true;
+                return null;
             }
             catch (Exception ex)
-            {
-                return false;
+            {                
+                return ex;
             }
         }
     }

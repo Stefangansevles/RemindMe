@@ -17,9 +17,9 @@ namespace RemindMe
     {
         private string message;
         private string description;
-        private Exception ex;
+        private Exception ex;        
         private bool sentCustomEmail;
-        private int allowEmail = -1;
+        private int allowEmail = -1;        
         public ErrorPopup(string message, Exception ex)
         {
             InitializeComponent();
@@ -241,6 +241,7 @@ namespace RemindMe
             {
                 try
                 {
+                    
                     Thread sendMailThread = new Thread(() => BLEmail.SendEmail("Error Report: " + ex.GetType().ToString(), "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString()));
                     sendMailThread.Start();
                 }

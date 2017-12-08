@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="FlashWindowHelper.cs" />
     <Compile Include="GUI\RemindMeBox.cs">
       <SubType>Form</SubType>
     </Compile>

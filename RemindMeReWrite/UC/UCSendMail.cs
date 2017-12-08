@@ -14,10 +14,11 @@ namespace RemindMe
 {
     public partial class UCSendMail : UserControl
     {
-        UCSendMailInfo ucSendMailInfo;
-        Thread sendMailThread = null;
-        int timeout = 5;
-        int secondsPassed = 0;
+        private UCSendMailInfo ucSendMailInfo;
+        private Thread sendMailThread = null;
+        private Exception sendMailException; //Will be null if the mail was succesfull
+        private int timeout = 5;
+        private int secondsPassed = 0;
         public UCSendMail()
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace RemindMe
 
 
                     // TimeSpan timeout = TimeSpan.FromSeconds(5);
-                    sendMailThread = new Thread(() => BLEmail.SendEmail(tbSubject.Text, tbMessage.Text));
+                    sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(tbSubject.Text, tbMessage.Text));
                     sendMailThread.Start();
                     tmrSendMail.Start();
                 }
@@ -58,7 +59,7 @@ namespace RemindMe
                 {
                     sendMailThread.Abort();
                     btnConfirm.Enabled = true;
-                    lblCouldNotSendMail.Text = "Could not send e-mail from your connection.";
+                    lblCouldNotSendMail.Text = "Could not send the e-mail from your connection.";
                     tmrSendMail.Stop();
                     secondsPassed = 0;
                 }
@@ -66,16 +67,28 @@ namespace RemindMe
             else
             {
                 tmrSendMail.Stop();
+                if (sendMailException == null)
+                {
+                    lblCouldNotSendMail.Visible = false;
+                    //Take the user back to the info panel
+                    ucSendMailInfo = new UCSendMailInfo();
+                    Panel parentPanel = (Panel)this.Parent;
+                    parentPanel.Controls.Clear();
+                    parentPanel.Controls.Add(ucSendMailInfo);
 
-                lblCouldNotSendMail.Visible = false;
-                //Take the user back to the info panel
-                ucSendMailInfo = new UCSendMailInfo();
-                Panel parentPanel = (Panel)this.Parent;
-                parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(ucSendMailInfo);
+                    Form1 mainForm = (Form1)Application.OpenForms["Form1"];
+                    mainForm.StartMailTimer();
+                }
+                else
+                {
+                    if (sendMailException.Message.ToLower().Contains("trial version")) //expired                    
+                        lblCouldNotSendMail.Text = "This feature is not functioning right now.";                    
+                    else                                          
+                        lblCouldNotSendMail.Text = "Could not send the e-mail :(";     //No clue what happened                                
 
-                Form1 mainForm = (Form1)Application.OpenForms["Form1"];
-                mainForm.StartMailTimer();
+                    secondsPassed = 0;
+                    btnConfirm.Enabled = true;
+                }
 
             }
             

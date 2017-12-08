@@ -19,6 +19,31 @@
             The value of the ComboBoxItem. 
             </summary>
         </member>
+        <member name="T:RemindMe.FlashWindowHelper">
+            <summary>
+            Usefull class that can make the taskbar icon flash orange.  
+            source: https://stackoverflow.com/questions/11309827/window-application-flash-like-orange-on-taskbar-when-minimize
+            </summary>
+        </member>
+        <member name="P:RemindMe.FlashWindowHelper.Win2000OrLater">
+            <summary>
+            A boolean value indicating whether the application is running on Windows 2000 or later.
+            </summary>
+        </member>
+        <member name="M:RemindMe.FlashWindowHelper.Start(System.Windows.Forms.Form)">
+            <summary>
+            Flash the spacified Window (Form) until it recieves focus.
+            </summary>
+            <param name="form">The Form (Window) to Flash.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RemindMe.FlashWindowHelper.Stop(System.Windows.Forms.Form)">
+            <summary>
+            Stop Flashing the specified Window (form)
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
         <member name="M:RemindMe.RemindMeBox.EnlargeTextbox">
             <summary>
             Enlarges the textbox if the text exceeds the textbox.
@@ -257,6 +282,13 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="M:RemindMe.Popup.stopFlash_Event(System.Object,System.EventArgs)">
+            <summary>
+            Stops the flashing of the taskbar icon
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="F:RemindMe.Popup.components">
             <summary>
