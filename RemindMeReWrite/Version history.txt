@@ -523,3 +523,7 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  The taskbar icon now flashes when a popup appears. The flashing goes away when the user hovers over the popup
 
  When sending an e-mail goes wrong, RemindMe no longer crashes
+
+ V1.7.37
+
+ The e-mail function now works again. RemindMe no longer users EASendMail to send e-mails.

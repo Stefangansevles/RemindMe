@@ -1,7 +1,9 @@
-﻿using EASendMail;
+﻿using QiHe.CodeLib.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,40 +15,76 @@ namespace Business_Logic_Layer
     public class BLEmail
     {
         private BLEmail() { }
+
         /// <summary>
-        /// Sends an e-mail to the RemindMe support e-mail adress
+        /// Default SMTP Port.
         /// </summary>
-        /// <param name="subject"></param>
-        /// <param name="body"></param>
-        /// <returns></returns>
-        public static Exception SendEmail(string subject,string body)
+        public static int SmtpPort = 25;
+
+      
+
+        public static Exception SendEmail(string subject, string message)
         {
-            try
+            MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject,message);
+            Exception returnException = null;
+
+            string domainName = GetDomainName(mes.To[0].Address);
+            IPAddress[] servers = GetMailExchangeServer(domainName);
+            foreach (IPAddress server in servers)
             {
-                SmtpMail oMail = new SmtpMail("TryIt");
-                EASendMail.SmtpClient oSmtp = new EASendMail.SmtpClient();
-                oSmtp.Timeout = 3000; //3 sec timeout
-                                      //The "e-mail address" will contain the user's windows username, so that i can distinguish between people
-                oMail.From = "RemindMeUser_" + Environment.UserName + "@gmail.com";
-
-                oMail.To = "remindmehelp@gmail.com";
-
-                // Set email subject
-                oMail.Subject = subject;
-
-                // Set email body
-                oMail.TextBody = body;
-
-                // Set SMTP server address to "".
-                SmtpServer oServer = new SmtpServer("");
-
-                oSmtp.SendMail(oServer, oMail);
-                return null;
+                try
+                {
+                    SmtpClient client = new SmtpClient(server.ToString(), SmtpPort);
+                    client.Send(mes);
+                    return null;
+                }
+                catch(Exception ex)
+                {
+                    returnException = ex;
+                    continue;
+                }
             }
-            catch (Exception ex)
-            {                
-                return ex;
+            return returnException;
+        }
+
+       
+        private static string GetDomainName(string emailAddress)
+        {
+            int atIndex = emailAddress.IndexOf('@');
+            if (atIndex == -1)
+            {
+                throw new ArgumentException("Not a valid email address",
+                                            "emailAddress");
+            }
+            if (emailAddress.IndexOf('<') > -1 &&
+                emailAddress.IndexOf('>') > -1)
+            {
+                return emailAddress.Substring(atIndex + 1,
+                       emailAddress.IndexOf('>') - atIndex);
+            }
+            else
+            {
+                return emailAddress.Substring(atIndex + 1);
             }
         }
+
+        private static IPAddress[] GetMailExchangeServer(string domainName)
+        {
+            IPHostEntry hostEntry = DomainNameUtil.GetIPHostEntryForMailExchange(domainName);
+            if (hostEntry.AddressList.Length > 0)
+            {
+                return hostEntry.AddressList;
+            }
+            else if (hostEntry.Aliases.Length > 0)
+            {
+                return System.Net.Dns.GetHostAddresses(hostEntry.Aliases[0]);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+       
     }
 }

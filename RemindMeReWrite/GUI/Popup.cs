@@ -28,10 +28,11 @@ namespace RemindMe
             tbText.Font = new Font(tbText.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
 
             //Assign the events that the user can raise while doing something on the popup. The stopflash event stops the taskbar icon from flashing
-            tbBlackTopBar.MouseEnter += stopFlash_Event;
-            tbTitle.MouseEnter += stopFlash_Event;
-            tbText.MouseEnter += stopFlash_Event;
-            this.MouseEnter += stopFlash_Event;
+            tbBlackTopBar.MouseClick += stopFlash_Event;
+            tbTitle.MouseClick += stopFlash_Event;
+            tbText.MouseClick += stopFlash_Event;
+            this.MouseClick += stopFlash_Event;
+            this.ResizeEnd += stopFlash_Event;
 
 
         }
