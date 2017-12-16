@@ -43,9 +43,6 @@ However, if you don't want it to interrupt whatever it is you're doing, you can 
 
 There you can select it to be minimized. It will make a sound if you added it to the reminder, but it will only show up in the taskbar. You won't see it until you click it
 
-You can add, or remove sound effects to the list of RemindMe by pressing the sound icon in the yellow square like shown on this image
-
-![](http://i.imgur.com/BztcLSh.png)
 
 
 If you want to see what the reminder would look like when it pops up, you can preview it by right clicking it like shown here
