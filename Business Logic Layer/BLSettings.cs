@@ -17,7 +17,7 @@ namespace Business_Logic_Layer
         /// <returns>True if reminders are set to be always on top, false if not</returns>
         public static bool IsAlwaysOnTop()
         {
-            //no business logic (yet)
+            //no business logic (yet)            
             return DLSettings.IsAlwaysOnTop();
         }
 
@@ -53,7 +53,7 @@ namespace Business_Logic_Layer
 
         public static Settings GetSettings()
         {
-            return DLSettings.GetSettings();
+            return DLSettings.GetSettings();            
         }
         
         public static void UpdateSettings(Settings set)

@@ -1,6 +1,6 @@
 ﻿using Data_Access_Layer;
 using Database.Entity;
-using RemindMe;
+//using RemindMe;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,10 +18,25 @@ namespace Business_Logic_Layer
     public class BLReminder
     {
         private BLReminder() { }
+
+        /// <summary>
+        /// Gets all non-deleted/archived reminders from the database
+        /// </summary>
+        /// <returns></returns>
         public static List<Reminder> GetReminders()
         {
             //currently no business logic
             return DLReminders.GetReminders();
+        }
+
+        /// <summary>
+        /// Gets every reminder from the database
+        /// </summary>
+        /// <returns></returns>
+        public static List<Reminder> GetAllReminders()
+        {
+            //currently no business logic
+            return DLReminders.GetAllReminders();
         }
         /// <summary>
         /// Gets all (enabled) reminders which are happening today.
@@ -82,7 +97,7 @@ namespace Business_Logic_Layer
         /// Permanentely deletes a single reminder from the database
         /// </summary>
         /// <param name="rem">The reminder you wish to remove</param>
-        public static void PermanentelyDeleteReminder(Reminder rem)
+        public static void PermanentelsyDeleteReminder(Reminder rem)
         {
             if(rem != null && GetReminderById(rem.Id) != null) //Check if the reminder exists and isnt null
                 DLReminders.PermanentelyDeleteReminder(rem);
@@ -426,8 +441,8 @@ namespace Business_Logic_Layer
         {
             if (rem != null && DLReminders.GetReminderById(rem.Id) != null) //Check if the reminder exists            
                 DLReminders.EditReminder(rem);            
-            else
-                throw new ReminderException("Could not edit that reminder, it doesn't exist.");
+           // else
+                ///throw new ReminderException("Could not edit that reminder, it doesn't exist.");
         }
 
         /// <summary>

@@ -1,0 +1,534 @@
+﻿//RemindMe has been rewritten from the ground up because the code wasn't neccesarely messy, but i really wasn't happy with the way it was coded.
+
+(14-4-2017) V1.0.0 -  First release of the completely rewritten RemindMe.
+(14-4-2017) V1.0.1 -  Reminders will now be sorted in the listview. Earliest date will be the first in the list
+(15-4-2017) V1.0.2 -  Newly made reminders are placed correctly in the listview depending on their date, rather than always at the end.
+(15-4-2017) V.1.0.3 - Fixed some first use issues when trying to read files that don't exist
+(21-5-2017)V.1.1.0 -  New feature: You can now make reminders repeat every x days. i.e. every 3 days
+(21-5-2017)V1.1.01 -  Increased the limit on repeating reminders every x days from 100 to 1000
+(23-5-2017)V1.1.2  -  Fixed an issue where duplicate objects were made and shown in the listview / The create form will now be filled when you press edit on an reminder with an repeat type of every x days
+(24-5-2017)V1.1.21 -  Unhandled exceptions will now not show the default windows popup, but our custom ErrorPopup instead. It will also write the error to the errorlog.
+(24-5-2017)V1.1.22 -  Polished up the custom error form. It wil now use an untargetable-readonly textbox to display the text. The error form now has its own icon
+(24-5-2017)V1.1.23 -  RemindMe now has a new icon
+(25-5-2017)V1.1.24 -  Sound icon in the settings has been changed. When the user loads the settings, the music tab will load by default
+(26-5-2017)V1.1.3 -   RemindMe now has a custom version of the default MessageBox. used by calling RemindMeBox.Show()
+				      You can now change the name of an existing reminder. Previously it would create a new reminder
+(27-5-2017)V1.2  -    RemindMe has been rewritten to now use SQLite to store reminders and settings. 
+(5-6-2017)V1.3.0 - 
+-previously, when a reminder is set to less than today, it will show the date of the reminder(in the past), but when it's today, it will show the time.
+It now shows time when it is less than today aswell.
+
+-Reminders can now be postponed.
+
+-The reminder listview will now be updated after you close the reminder popup form. This is because reminders will now be updated after you close to popup
+
+-Fixed a bug where the date of an newly made (weekly)reminder would be an week in the future even if the selected time is larger than the current time
+i.e. an user creates a reminder every thursday at 11:00am(selected), and at the time of creation it is thursday, 10:50 pm(current).
+The first reminder should then be in 10 minutes, not in a week and 10 minutes
+
+(6-6-2017)V1.3.1 - Fixed a small bug where non-repeating reminders were deleted instantly,
+so they couldn't be postponed. They are now temporarily set to disabled like the other reminders
+
+(7-6-2017)V1.3.2 
+-If you postponed a reminder, it will now show the date of the postponedate in the listview, and will show its date with an (p) which means postponed
+-Updated the create if not exists SQLite table query
+
+(10-6-2017)V1.4.0
+-Reminders can now be repeated at custom. 
+custom: every x minutes,hours,days,weeks, or months. i.e. every 4 hours, or every 2 weeks
+
+(10-6-2017)V1.4.1
+Fixed a small problem where the date timepicker would not update when you change the time. 
+If it's 2:00 am, and you select the reminder time to be 1:00am and on the same weekly/monthly date as today, it should not set it to today, but to the next week/month instead
+
+(11-6-2017)V1.4.11
+Reminders will now be read from the database once on start, and everytime the database changes.
+Every tick of the timer a local cached reminder list will be read, instead of connecting with the database every tick of the timer, which is now the case because the database is local(SQLite), because of this it doesn't matter that much, but it's good practise.
+
+(13-6-2017)V1.4.2
+-New feature: Sticky form. Sticky form will save the values in the reminder form, so that when you create a new reminder, the fields will still have the data
+from the previous edited/created reminder. Toggleable
+
+(15-6-2017) - Fixed a small issue where RemindMe was trying to check something from the database, even if you do not have a sqlite database file yet
+
+(20-6-2017) - -Fixed an issue when postponing a reminder. 
+The list that was checked in the timer_tick wasn't being updated,but that list isnt being used anymore with this update
+
+-Created a new list of reminders that is only being refreshed when the database changes to minimize the amount of database calls. 
+Even though this doesn't really matter since SQLite a local database, it's good practise
+
+-Fixed an issue where the default value of the first datetimepicker was set to somewhere in 2016, if the sticky form setting was set to true. 
+it now defaults to today.
+
+(4-7-2017)V1.5.0 - Big update.
+-Reminders can now be repeated at multiple days. Example: every monday,friday and sunday.
+Reminders that have this repeating type will show their repeating type in RemindMe's main listview as the first 3 letters of the day. Example: mon,fri,sun
+The interface has been altered to work with this new feature. When selecting "Multiple days" a new panel will show with checkboxes for monday-sunday
+The SQlite database has been altered to work with this new feature. there is a new column called RepeatDays wich will contain the comma seperated string of days. Example "monday,friday,sunday"
+Updated the CreateDatabaseIfNotExist() queries for creating tables, so that the tables contain all the columns it should have.
+
+-RemindMe now checks if the user's .db file has all the columns with the DLReminders.HasColumn() method. if the user has an outdated .db file, new columns will be inserted with DLReminders.InsertNewcolumns();
+
+-Changed the way RemindMe inserts new reminders. Previously, there were multiple(too much) overload methods for different reminders(different method for weekly,monhtly,custom, etc).
+There is now óne InsertReminder() method that inserts the reminder into the database, with nullable parameters. Inside this method there will be checked if the parameters are null with .HasValue()
+
+-RemindMe now catches more exceptions in Program.cs.
+Whenever there is an uncaught exception, the Application_ThreadException in program.cs will check the exception type (FileNotFoundException,SQLiteException,PathTooLongException etc) and will pop up RemindMe's custom ErrorPopup form with an message.
+
+-Changed the way RemindMe places controls when selecting different repeating types(note textbox will be below the monthly combobox if it is visible, below the repeating radiogroup if not)
+Instead of changing the locations on the checked_changed events, the controls now use their own visible_changed and location_changed event.
+example: tbNote_LocationChanged. Whenever, however, the location of tbNote changes, the 3 buttons below it will be given a new location aswell(always below the textbox)
+
+(5-7-2017)
+V 1.5.01 - Small update  
+-When selecting one or multiple checkboxes when te multiple days radiobutton is selected, RemindMe will now automatically give the date for the next earliest day from the selected days
+
+-The day checkboxes now all share one custom event, cbDaysCheckedChangeEvent. They still have the original checked_changed event, of course.
+The earliest selected day will be calculated here, and then BLDateTime will calculate the date for that day.
+
+-The checkboxes will now clear too when the reminder form clears
+
+(7-7-2017)V1.5.02
+-Refactored some code that didn't belong in BLIO and moved it to an method in DLReminder instead
+
+-Refactored the weekly type of reminder. removed it since there's now the weekdays option where the user can select multiple week days, so only one, too. 
+This has the same functionality as the previous "weekly" reminder
+
+(10-7-2017)V1.5.03
+
+-Reminders can now be previewed by right clicking the reminder and selecting:
+*Preview this reminder now
+*Preview this reminder in 5 seconds
+*Preview this reminder in 10 seconds
+
+-Removed the ReminderManager class, as it has been stripped down to only 1 method in the past. Changed the only remaining method SetNextReminderWorkDay to
+BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of the given reminder
+
+ -Changed the DLSongs class to work with a local list like the DLReminder class
+
+ -Fixed an issue where the textbox wasn't placed below the radio button groupbox when the day checkboxes panel was invisible. 
+ This happened when you pressed the back button while having the radio button weekdays selected, and then pressing the Add reminder button again.
+
+ (15-7-2017)V1.5.04
+ Gave the context menu strip a gray-white theme, to match the theme of RemindMe
+
+ Added a new method SaveAndCloseDataBase() to DLReminder. This simply saves and disposes the database, but also refreshes the local list. 
+ Everytime when the database needs saving, instead of calling RemindMeDbEntities.SaveChanges, we call this method. Then, the local cache list also gets updated.
+
+ fixed a small bug where if you pressed the "x" button on a reminder preview popup, it would say that the reminder doesn't exist(because the id is -1, and that doesn't exist in the database)
+
+ (18-7-2017)V1.5.05
+ Added unit tests to RemindMe for the following classes:
+ (Business Logic Layer)
+ -BLDateTime
+ -BLIO
+ (Data Access Layer)
+ -DLReminders
+ -DLSettings
+ -DLSongs
+
+ Made changes to ComboBoxItemManager to be more OOP-Friendly. The comboboxitem list method GetComboboxItems() now returns a ReadOnly version of the list.
+ this way it can't be changed. If the list needs changing however, the new methods AddComboboxItem(), RemoveComboboxItem() and ClearComboboxItems() can be used
+
+ Changed the DLSettings class to work with a local variable with database information, like the DLSongs and DLReminder classes.
+
+ Removed the remaining DayOfWeek parameter from InsertReminder() as this is no longer needed, because weekly reminders are no longer a thing.
+
+ Prevented multiple instances of the settings form by checking if it is already open
+
+ Changed the BLDateTime.GetNextReminderWorkDay() method to give the next work day of that reminder. 
+ Previously it would get the first friday if the next workday of that reminder would be friday. It now returns the next friday based of the date of the reminder.
+ If the reminder's date is in Thursday April 6th, 2017 the next workday will be Friday April 7th, 2017, in stead of the next friday based on the current time.
+ Because of this change the GetNextReminderWorkDay() now uses a while loop to keep adding days until the next work day is larger than DateTime.Now
+
+ (19-7-2017)V1.5.06
+ Added a few more unit tests to DLReminders
+
+ The settings form is now no longer being used. The cog(settings) button on the "home screen" of RemindMe will now load the new settings panel.
+ This way there will be now new windows created, but everything will be in the same RemindMe window. Any setting logic has not been altered, as the logic is contained
+ in user controls. these user controls simply get loaded into the panels in the settings panel
+
+ (19-7-2017)V1.5.07 - Minor change
+ Made the settings panel more visually appealing
+
+ (20-7-2017)V1.5.08
+ The heigth of the RemindMeBox form will now enlarge if the error text exceeds the size of the textbox :) 
+ Errors with a lot of text will now result in a larger RemindMeBox
+
+ Fixed an issue with the Add files... from the combobox, it now works as it should again.
+
+ Fixed an issue where if an error occurs when playing a sound(file is renamed,removed or moved) the item didn't get removed from the combobox so it could be played again.
+
+ Fixed an issue where the weekdays(multipledays) radiobutton didn't check when editing an weekdays reminder. Because of this the tbNote was not placed correctly
+ below the GroupBox groupRepeatRadiobuttons creating a gap.
+
+ Fixed an issue where if you pressed the button(from UCMusic) to add a new sound effect to RemindMe's list in the settings, and pressed cancel at the openfiledialog
+ the empty string would be inserted into the database. When pressing cancel, the openfiledialog returns 1 result with an empty string.
+ It now checks on that and does nothing when this happens
+
+ V1.5.1 - Big update
+ 2 New features!
+ 1)RemindMe now has a custom "scroll" message that contains a custom message and uses an animation to scroll up from the bottom right corner of RemindMe.
+ 2)Monthly reminders can now contain multiple days each month. Example: you can create a reminder for each 1st, 10th and 20th of the month.
+
+ Because monthly reminders can now contain multiple days, a LOT of code had to be refactored.
+ The date datetimepicker shows the earliest date from the selected monthly days. example: monthly days:1,5,10. If it's the 3th of the month, it picks the 5th.
+
+ The version label of RemindMe now gets the version from the assembly, so the label doesnt have to get updated manually
+
+ More unit tests
+
+ (26-7-2017)V1.5.101 - small fixes
+ Fixed a small graphical issue with controls overlapping
+ Fixed an issue with creating a custom reminder
+ Added more unit tests
+
+ (26-7-2017)V1.6.0 Big update!
+ Removed the settings icon from RemindMe's contextmenustrip.
+ (30-7-2017)
+ Fixed an issue where when you caused the scrolling popup to come up for 2 different reasons before the scrolling popup has fully gone down, you would still
+ see the old text of the first reason it came up. The size was adjusted for the text of the new reason, but you would still see the old reason's text because
+ it added 2 controls into the panel instead of clearing it first. It clears the controls when it fully goes down, this is why this issue happened.
+
+ Also made it so that if the scrolling popup is visible for a reason, it won't start scrolling from the bottom again if you did something wrong that triggers 
+ the popup again with the same reason. 
+
+ Note: in order for other classes to use the Reminder class for methods like
+ -MakePopup(Reminder rem)
+ -FillControlsForEdit(Reminder rem)
+ The project RemindMeReWrite has to add the reference Database. Which, could make use of RemindMeDbEntities and edit the database like that.
+ I've decided to do it like this since i think it's necessary for this project(which contains all the UI classes aswell) 
+ to make use of the database classes Reminder,Settings and Songs.
+
+ V1.6.1
+ Fixed the issue where the User interface classes could access the database. Apparently you can split the entity framework model! 
+ I put the data classes (Reminder,Songs,Settings) from the model into Database.Entity.
+ When you add a reference to Database.Entity, you can use those classes, but not the database. I really like this solution :)
+
+ V1.6.2
+ New feature! Normal reminders with only a date, that doesn't repeat(repeattype: None) can now contain multiple dates.
+ so, you can now make a reminder for for example: dentist appointment: 28-5-2017 AND 30-5-2017, if you for some reason have to go there twice.
+ If you wanted to do this before, you had to make 2 reminders with repeattype: None
+
+ Fixed an issue where editing an reminder resulted in empty date if the reminder was not of the weekly dates type.
+
+
+ V1.6.3 .remindme update(3-8-2017)
+
+ Associated the file type .remindme to RemindMe
+ Reminders can now be exported & imported from settings. When pressing the export button, it creates an .remindme file in the selected folder. 
+ This .remindme file can be imported again by going to the settings and pressing the import button
+
+ Also: When you double-click a .remindme file, it will launch the RemindMeImporter form. 
+ If RemindMe wasn't running yet, it launches RemindMe and you'd have to double-click the .remindme again
+ From this form, you can import reminders
+
+ Fixed an issue with creating a shortcut of RemindMe
+
+ When a reminder pops up with a sound that cannot be played(the file is not at the saved destination anymore) it is removed from the reminder, so that the user
+ won't get the same popup multiple times whenever that reminder pops up again
+
+ (4-8-2017)V1.6.31 Improved .remindme functionality
+
+ .remindme files are now written to a serialized file. this is an solution where you don't need a lot of code, so a lot of existing code could be removed.
+ This way, you can just easily call SerializeRemindersToFile(list of reminders, path to the file) and that will write all the reminders in the list, serialized to a .remindme file.
+ Then, to read the file, you just simply call DeserializeRemindersFromFile(path to the file) and that method returns a List<Reminder>. 
+
+ 2 methods with not a lot of code in them and easy to use!
+ Another plus, if you right click the .remindme file and open it with notepad, you will mostly see weird null's and icons
+
+ When importing reminders, the soundfilepath property of the reminder will now be removed if the file does not exist on the target computer.
+
+ V1.6.32
+ Fixed an small issue with importing reminders from the settings of RemindMe. it was working from the RemindMeImporter form
+ 
+ V1.6.33(7-8-2017)
+ Added export selected reminders to the context menu of RemindMe's main listview of reminders when right-clicking on reminder(s)
+ Removed the ability to create an reminder with white spacing without any letters
+ Fixed an issue with editing custom reminders
+
+ V1.6.34(8-8-2017)
+ Fixed some more editing issues 
+ Added some tooltips to repeat radiobuttons
+
+ V1.6.35 small graphical update
+ The export/import reminder user control now has 2 clickable images to import/export reminders instead of 2 buttons.
+ The export/import reminder user control now has an into panel, explaining importing/exporting. 
+ It looks very empty with just an import/export button. So this panel has the functionality of filling up empty space, and informing users.
+
+ V1.7.0(15-8-2017)
+ RemindMe now has it's own scrolling popup form that will appear on the right bottom corner of your monitor. It currently shows the amount of reminders
+ that are set to pop up today(This popup can be disabled in the settings)
+ It also shows when you import reminders through the .remindme file. This form can show messages for future content later.
+
+ Reminder popup sounds now get played through the Popup form,instead of the main RemindMe form. When you close the reminder popup, the sound also stops playing(if it was still playing)
+
+ The RemindMe tray icon is now in the same style as RemindMe, dark with white text. The new class "MyToolStripMenuRenderer" gives the appearance to toolstrips.
+ The RemindMe tray icon, and the right-click toolstrip on reminders use this class.
+
+ ...And some small control improvements(i.e resetting the days combobox when editing an reminder that doesn't have days)
+
+ V1.7.01
+ Fixed an small issue with the popup message form checking for today's reminders
+ The popup message form is now TopMost.(always on top)
+
+ V1.7.02
+ Prevented a lot of flickering.
+
+ V1.7.03
+ Fixed an issue where the scrolling popup form on your main monitor has topmost, but did not lose it. After the popup is gone it has to lose topmost/toplevel, 
+ so that reminders can be topmost again.
+
+ V1.7.04
+ RemindMe Popups now don't have the IBeam cursor when hovering over the text, giving the illusion of being able to edit it
+
+ V1.7.10
+ You can now resize the RemindMe popup box to a custom size! you can also alter the font size to match your liking. You can do this from the settings.
+
+ The RemindMeMessageForm(the popup at the bottom right of your screen) no longer shows in your taskbar. It shouldn't, because it's just a message popup
+
+ You can now install this version without manually removing previous versions. 
+ RemindMe wouldn't work if you installed a new version with new classes/methods when you already had a previous version installed. 
+ This was due to the setup project not properly replacing the .dll's. in order for the setup project to replace the dll's, the dll's have to have a new version number
+
+ V1.7.11
+ Fixed an issue where the popup message on the right-bottom of your monitor would get stuck if you caused it to popup while there was already one up
+
+ V1.7.12
+ Fixed a small issue where resetting the Popup size/font by pressing the reset button would result in the numeric control having the value of the previous value
+ So, if the title font size was 18, then you save it to 17, then you press reset to defaults, the numeric control would show 18. It was correctly saved as 14 in the database though.
+
+ RemindMe's custom error form now looks a little bit nicer and automatically enlarges on larger errors.
+
+ Fixed an issue when you try to export reminders to a folder that you do not have rights to save to. It now shows a message that says RemindMe is not authorized to save to that path without administrator mode
+
+ V1.7.13
+
+ Gave thin white borders to:
+ 1)RemindMeImporter
+ 2)RemindMeMessageForm
+ 3)ErrorPopup
+ 4)CustomMessageForm
+
+ The export reminder listviews now have checkboxes. You have to check the ones you want to import/exort 
+ You can press the key combination ctrl + a to select all of them. You can then press spacebar to check all of them
+ 
+
+ V1.7.14
+
+ Fixed an issue with weekly reminders where it would set the date to one week in the future when selecting the checkbox of the current day, regardless of the selected time.
+ Now, if it's currently 5:00 am, and you create a weekly reminder with multiple days and one of those days is today AND the selected time is AFTER 5:00 am, it will set the date to today, as it should be.
+
+ Fixed an issue with postponing reminders where it wouldn't postpone, because the postpone date got set to null in the form_closing event.
+ The form_closing event tries to save the reminder if the reminder closed unexpectidly. It now checks if the reminder clossed correctly(using the OK button), if it did, it won't do anything
+
+ V1.7.15
+
+ RemindMe now has multi DateTime format support. American users of RemindMe can now export their reminders to a .remindme file, 
+ and any other person with a different(or the same, of course) DateTime format can import them.
+
+ Example: American user exports an reminder with the date 12/30/2017
+ European user imports the reminder made by american user. European's reminder will have the date 30-12-2017
+ Previously this would throw exceptions.
+
+ Gave the borderless forms new borders, painted with graphics.
+ Affected forms:
+ 1)RemindMeImporter
+ 2)RemindMeMessageForm
+ 3)ErrorPopup
+ 4)CustomMessageForm
+
+ When a FileNotFoundException occurs it now also shows the ErrorPopup.
+
+ Fixed an issue where RemindMe couldn't find the dll Microsoft.WindowsAPICodePack.Shell.dll. This dll was used by another dll(FSManager) that is referenced in RemindMe
+ This issue would throw an exception and remove the possibility to export reminders, because that used a method from FSManager.
+
+ Fixed an issue with exporting reminders to file. The .remindme file had the current date in it's name. If the target machine is american, that date would contain the "\" character.
+ This character can not be present in a filename.
+
+ pressing the key combination ctrl + a in RemindMe's main listview will now select all reminders, just like in the export/import reminders listview.
+
+ V1.7.16
+
+ RemindMe users can now send suggestions/improvements/bug reports to a registered e-mail adress where i can read it.
+
+ If a daily reminder pops up a few days late, but the time of the reminder is still in the future, the new date will not be one day to the current day, but the current day instead
+
+ The music usercontrol now has an option to show the complete path to the song file, and it now only shows the song file name by default
+
+  V1.7.161
+
+  Fixed a small graphical issue with exporting reminders, where the label would say that 11/10 reminders were loaded(1 more than the list size)
+
+  V1.7.17
+  
+  The send e-mail feature now has a timeout, preventing deadlock. It is also threaded, so that the main thread won't freeze.
+
+  V1.7.18
+
+  Fixed an issue when you would create a monthly reminder with the same dayofmonth as today's dayofmonth(example: monthly reminder with the 25th, if it's the 25th today)
+  it would add one month to the date, making 25 september 25 october, regardless of time.
+  Now, if you create a monthly reminder with the same dayofmonth, and the selected time is still in the future, the date would be today
+
+  V1.7.19
+
+  Reminders should now not be able to be closed by pressing the spacebar/enter key, this could accidentally happen if you are typing at the moment the reminder pops up
+
+  The Reminder(popup) now has 2 radio buttons for postponing reminders, instead of a combobox with "Hours" and "Minutes"
+
+  V1.7.20
+
+  The today's reminders popup will not show up anymore if there are postponed reminders that are further than a day away.
+  Previously regardless of the postponedate, the today's remindesr popup would show up if there were one or more reminders with their normal date smaller or equal to today.
+  If you postpone a reminder, it should check for the postponedate instead.
+
+  When selecting one of the two radio buttons on a popup, the postpone checkbox will automatically be checked
+
+  The RemindMeMessageForm is no longer an "activated" Form. Previously when you were doing something, like holding down a key to walk in a full-screen game, the RemindMeMessageForm
+  would interrupt that. It now does not do that anymore!
+
+  V1.7.21
+
+ You will now be notified of reminders that will happen in the next hour. If RemindMe is running, and while checking reminders it detects that one or multiple
+ reminders will happen within 60 minutes(not less, 50,40, etc) it will show the RemindMe scrolling form that appears on the right bottom part of your screen
+ with the name(s) of the reminder(s). This option is toggleable in the settings.
+
+
+ V1.7.22
+
+ Whenever you try to open a .remindme file, and something goes wrong, like the file is corrupt, RemindMe will now show a RemindMeBox with a message, instead of
+ the default windows error box.
+
+ RemindMe will now also show a message when you start remindme saying you have no reminders for today, if there are no reminders for today. Previously it would only
+ tell you if you have 1 or more reminders for that day.
+
+ The keycombination ctrl + a will now select all text in the note textbox of creating a reminder
+
+ Removed an unused overload method of BLIO.WriteError
+
+ Removed the white border on RemindMe's CustomMessageForm
+
+
+ V1.7.23
+
+ RemindMe now keeps deleted reminders. When you delete a reminder, the reminder will be "marked" as deleted, but it won't actually get deleted.
+ When using methods like GetReminders(), it will only get the "not-deleted" reminders. 
+ If the user really wants to delete the reminder, he can right-click the reminder in the listview and select Permanentely delete reminder, or
+ use the key combination shift + delete. The user will then get a confirmation with yes/no.
+
+ Because reminders are now only soft-deleted, there is a new option within RemindMe. You can now recover the soft-deleted reminders in the settings and import
+ them again.
+
+ RemindMe now has improved RemindMeBox funcionality. The RemindMeBox can now have yes/no buttons. they each return DialogResult based on what is clicked.
+
+ All Business Logic Layer and Data Access Layer classes are no longer abstract. Instead, they have private constructors to not allow instances of themselves.
+
+ V1.7.24
+ You can now add/subtract days from a date by pressing the ... button next to the datetime picker. It then launches the prompt described below.
+
+ RemindMe now has a custom prompt where users can fill in a number or a string. The prompt will then return those values (RemindMePrompt.cs) 
+
+ Reminders that would be deleted if they wouldn't be repeated are now being archived. For example if there is a reminder set for a certain date, and the reminder
+ pops up, the reminder would have been deleted afterwards. It now gets archived instead.
+
+
+ V1.7.25
+ Fixed an issue where you could not restore RemindMe after you minimized it, and then closed it out by pressing the x button
+
+ Fixed an small issue where the today's reminders popup would include reminders that weren't happening today
+
+ RemindMePrompt can not be resized anymore by double-clicking the top bar
+
+ Closing out of the RemindMePrompt no longer returns the previous value  
+
+ You can no longer postpone an reminder by 0 minutes/hours
+
+ Added the option to add/subtract months(instead of just days) from a date by pressing the ... button next to the datetime picker
+
+ V1.7.26
+
+ Fixed an issue where there were dll's missing, resulting in not being able to export reminders because it threw an exception.
+
+ V1.7.27
+
+ When exporting reminders to a path that RemindMe is not authorized to write to, it now shows a message saying so, and giving the user the option to save the
+ .remindme file to the desktop instead. When exporting reminders from the right-click context menu, it now also shows a scrolling popup message saying the
+ reminders have been succesfully exported
+
+ When an error occurs, RemindMe attempts to send an e-mail containing the exception information to easily fix bugs 
+ (with an 30-second timer, so that if the user keeps trying, it wont keep sending e-mails, only 1 every 30 seconds)
+
+ Made the RemindMeBoxIcon enum into an innerclass(enum) inside RemindMeBox.cs
+
+ V1.7.28
+
+ Fixed an very small issue where cancelling out on exporting reminders would throw an exception
+
+ V1.7.29
+ 
+ You can now add minutes to the current time when you are creating an reminder(from the ... button)
+ This can be used whenever you want to create a new reminder in for example 40 minutes
+
+ Fixed an issue with settings custom sizes for RemindMe's Popup in the settings. The preview feature didn't work as intended. It now works again
+
+ V1.7.30
+ 
+ RemindMe's popup form will now regain focus and become an "active" form when you change the value of the postpone numericupdown. RemindMe's popup is no longer an "active" form when it pops up,
+ so it cant gain focus while for example playing a game, but it will still show up in an obvious way and make the optional sound. 
+ In the previous update where RemindMe's popup would not be an "active" form anymore, it caused the numericupdown to only be clickable. you could not
+ type the number 5 in it. This issue is now fixed
+
+ Fixed an issue with RemindMe's tray icon's "show remindme" option. 
+ double clicking to show remindme had an issue that was fixed in Version 1.7.25, that issue is now fixed on the right click menu too.
+
+ V1.7.31
+ Reworked RemindMe's custom error popup. This is the form that pops up whenever anything goes wrong. The user can now type a custom message to describe
+ how this happened, and submit it to send the message to the RemindMe support e-mail address. It also has a "Show details" and "Hide details" option. 
+ Showing the details will show the exception details.
+
+ Reminder(s) can be duplicated by right-clicking the reminder(s) and selecting duplicate.
+ Additionaly, When right-clicking reminder(s), the menu items will now have icons.
+
+ Disabled reminders will now be on the bottom of the reminder list. 
+ When you enable a reminder, it will be moved up(above all disabled reminders). When you disable a reminder it will be moved down(under all enabled reminders).
+
+ V1.7.32
+ New Function: "Skip to next date"
+ You can now right click an reminder(That has a repeat type, or more than 1 date), and select "Skip to next date". It will then set the reminder's date to the
+ next date in line. This can be usefull if you have already done something you wanted to be reminded of every day. You then select skip to next date, and RemindMe
+ won't notify you today, because you don't want to be reminded anymore.
+
+ .remindme files can now be dragged and dropped into the list of reminders to instantly insert them into RemindMe. 
+
+ V1.7.33
+ You can now postpone reminders before they have popped up by right-clicking the reminder(s) and clicking postpone.
+ 
+ Reminders can now also be enabled/disabled by pressing spacebar after selecting reminder(s). 
+
+
+
+ V1.7.34
+ New feature: Remove postpone from an reminder. You can right-click a reminder, and if that reminder has been postponed, it will show an option to remove
+ the postponing for if you changed your mind.
+
+ Fixed an issue where editing an monthly/weekly reminder without editing the date would pick the earliest date matching the day of month
+ example: monthly reminder that repeats every 7th of the month. You skipped the reminder's date to the next date (1 month in the future)
+ You then edit the reminder, don't change the date, and press confirm. It then re-calculates the closest 7th of the month
+ This bug was also present with weekdays (for example reminders that are set weekly on monday wednesday and friday)
+
+ V1.7.35
+ Fixed an issue with right-click postponing reminders on reminders with multiple dates. It threw an error because it tried converting the entire list of dates into a date 
+
+ V1.7.36
+ The taskbar icon now flashes when a popup appears. The flashing goes away when the user hovers over the popup
+
+ When sending an e-mail goes wrong, RemindMe no longer crashes
+
+ V1.7.37
+
+ The e-mail function now works again. RemindMe no longer users EASendMail to send e-mails.
+
+ V1.7.38
+
+
+ Changed some code where reminders were deleted and afterwards re-inserted with changes, instead of just updating them.

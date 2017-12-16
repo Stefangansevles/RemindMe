@@ -46,8 +46,31 @@ namespace Business_Logic_Layer
             }
             return returnException;
         }
+        public static Exception SendEmail(string subject, string message,string email)
+        {
+            MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, message);
+            Exception returnException = null;
 
-       
+            string domainName = GetDomainName(mes.To[0].Address);
+            IPAddress[] servers = GetMailExchangeServer(domainName);
+            foreach (IPAddress server in servers)
+            {
+                try
+                {
+                    SmtpClient client = new SmtpClient(server.ToString(), SmtpPort);
+                    client.Send(mes);
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    returnException = ex;
+                    continue;
+                }
+            }
+            return returnException;
+        }
+
+
         private static string GetDomainName(string emailAddress)
         {
             int atIndex = emailAddress.IndexOf('@');

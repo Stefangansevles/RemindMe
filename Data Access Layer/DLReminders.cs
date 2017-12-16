@@ -6,7 +6,7 @@ using System.Data.SQLite;
 using System.Data.Entity;
 using System.IO;
 using Database.Entity;
-using RemindMe;
+//using RemindMe;
 
 namespace Data_Access_Layer
 {
@@ -43,6 +43,21 @@ namespace Data_Access_Layer
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
             return localReminders.Where(r => r.Deleted == 0).ToList(); //only return "existing" reminders
+        }
+        /// <summary>
+        /// Gets all reminders from the database
+        /// </summary>
+        /// <returns></returns>
+        public static List<Reminder> GetAllReminders()
+        {
+            //If the list  is still null, it means GetReminders() hasn't been called yet. So, we give it a value once. Then, the list will only
+            //be altered when the database changes. This way we minimize wthe amount of database calls
+            if (localReminders == null)
+                RefreshCacheList();
+
+            //If the list was null, it now returns the list of reminders from the database.
+            //If it wasn't null, it will return the list as it was last known, which should be how the database is.
+            return localReminders; //only return "existing" reminders
         }
 
         /// <summary>

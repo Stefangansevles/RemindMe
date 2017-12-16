@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3DEA148E-231D-4047-838E-C891AF212A00}</ProjectGuid>
+    <ProjectGuid>{B15CF13C-05DB-4346-ADB0-704B0756C1E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Database.Entity</RootNamespace>
@@ -31,12 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -51,29 +47,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListviewColumnSizes.cs">
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="PopupDimensions.cs">
-      <DependentUpon>RemindMeDb.tt</DependentUpon>
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reminder.cs">
-      <DependentUpon>RemindMeDb.tt</DependentUpon>
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="RemindMeDb.Context.cs">
+    <Compile Include="RemindmeDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RemindMeDb.Context.tt</DependentUpon>
+      <DependentUpon>RemindmeDb.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="RemindMeDb.cs">
+    <Compile Include="RemindmeDb.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RemindMeDb.tt</DependentUpon>
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs">
-      <DependentUpon>RemindMeDb.tt</DependentUpon>
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Songs.cs">
-      <DependentUpon>RemindMeDb.tt</DependentUpon>
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RemindmeDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RemindmeDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="RemindmeDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RemindmeDb.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -81,16 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="RemindMeDb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RemindMeDb.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="RemindMeDb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RemindMeDb.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

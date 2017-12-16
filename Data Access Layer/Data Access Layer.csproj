@@ -67,10 +67,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\RemindMeReWrite\ReminderException.cs">
-      <Link>ReminderException.cs</Link>
-    </Compile>
     <Compile Include="DLDatabase.cs" />
+    <Compile Include="DLListviewColumnSizes.cs" />
     <Compile Include="DLPopupDimensions.cs" />
     <Compile Include="DLReminders.cs" />
     <Compile Include="DLSettings.cs" />
@@ -105,18 +103,18 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database.Entity\Database.Entity.csproj">
-      <Project>{3dea148e-231d-4047-838e-c891af212a00}</Project>
-      <Name>Database.Entity</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="RemindMeDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RemindMeDb.Context.cs</LastGenOutput>
       <DependentUpon>RemindMeDb.edmx</DependentUpon>
       <CustomToolNamespace>Database.Entity</CustomToolNamespace>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Database.Entity\Database.Entity.csproj">
+      <Project>{b15cf13c-05db-4346-adb0-704b0756c1e9}</Project>
+      <Name>Database.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.2\build\net45\System.Data.SQLite.Core.targets')" />

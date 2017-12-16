@@ -24,8 +24,9 @@ namespace Data_Access_Layer
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table PopupDimensions
-        private const string TABLE_POPUP_DIMENSIONS = "CREATE TABLE [PopupDimensions] ([Id] INTEGER NOT NULL, [FormWidth]bigint NOT NULL, [FormHeight]bigint NOT NULL, [FontTitleSize]bigint NOT NULL, [FontNoteSize]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_PopupDimensions] PRIMARY KEY([Id]));";       
+        private const string TABLE_POPUP_DIMENSIONS = "CREATE TABLE [PopupDimensions] ([Id] INTEGER NOT NULL, [FormWidth]bigint NOT NULL, [FormHeight]bigint NOT NULL, [FontTitleSize]bigint NOT NULL, [FontNoteSize]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_PopupDimensions] PRIMARY KEY([Id]));";
 
+        private const string TABLE_LISTVIEW_COLUMN_SIZES = "CREATE TABLE[ListviewColumnSizes] ([Id]INTEGER NOT NULL, [Title]bigint NOT NULL, [Date]bigint NOT NULL, [Repeating]bigint NOT NULL, [Enabled]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_ListviewColumnSizes] PRIMARY KEY([Id]));";
 
         /// <summary>
         /// Creates the database with associated tables
@@ -40,20 +41,25 @@ namespace Data_Access_Layer
             SQLiteCommand tableSettings = new SQLiteCommand();
             SQLiteCommand tableSongs = new SQLiteCommand();
             SQLiteCommand tablePopupDimensions = new SQLiteCommand();
+            SQLiteCommand tableListviewColumnSizes = new SQLiteCommand();
+
             tableReminder.CommandText = TABLE_REMINDER;
             tableSettings.CommandText = TABLE_SETTINGS;
             tableSongs.CommandText = TABLE_SONGS;
             tablePopupDimensions.CommandText = TABLE_POPUP_DIMENSIONS;
+            tableListviewColumnSizes.CommandText = TABLE_LISTVIEW_COLUMN_SIZES;
 
             tableReminder.Connection = conn;
             tableSettings.Connection = conn;
             tableSongs.Connection = conn;
             tablePopupDimensions.Connection = conn;
+            tableListviewColumnSizes.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
             tableSettings.ExecuteNonQuery();
             tableSongs.ExecuteNonQuery();
             tablePopupDimensions.ExecuteNonQuery();
+            tableListviewColumnSizes.ExecuteNonQuery();
 
             conn.Close();
             conn.Dispose();
@@ -124,6 +130,14 @@ namespace Data_Access_Layer
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
+            var lvColumnNames = typeof(ListviewColumnSizes).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in lvColumnNames)
+            {
+                if (!HasColumn(columnName, "ListviewColumnSizes"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
             return true;
         }
 
@@ -153,7 +167,7 @@ namespace Data_Access_Layer
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
-                if (HasTable("reminder", db) && HasTable("settings", db) && HasTable("songs", db) && HasTable("popupdimensions", db))
+                if (HasTable("reminder", db) && HasTable("settings", db) && HasTable("songs", db) && HasTable("popupdimensions", db) && HasTable("listviewcolumnsizes", db))
                     return true;
                 else
                     return false;                
@@ -176,15 +190,19 @@ namespace Data_Access_Layer
                 SQLiteCommand tableSettings = new SQLiteCommand();
                 SQLiteCommand tableSongs = new SQLiteCommand();
                 SQLiteCommand tablePopupDimensions = new SQLiteCommand();
+                SQLiteCommand tableListviewColumnSizes = new SQLiteCommand();
+
                 tableReminder.CommandText = TABLE_REMINDER;
                 tableSettings.CommandText = TABLE_SETTINGS;
                 tableSongs.CommandText = TABLE_SONGS;
                 tablePopupDimensions.CommandText = TABLE_POPUP_DIMENSIONS;
+                tableListviewColumnSizes.CommandText = TABLE_LISTVIEW_COLUMN_SIZES;
 
                 tableReminder.Connection = conn;
                 tableSettings.Connection = conn;
                 tableSongs.Connection = conn;
                 tablePopupDimensions.Connection = conn;
+                tableListviewColumnSizes.Connection = conn;
 
                 if (!HasTable("Reminder", db))
                     tableReminder.ExecuteNonQuery();
@@ -197,6 +215,9 @@ namespace Data_Access_Layer
 
                 if (!HasTable("Popupdimensions", db))
                     tablePopupDimensions.ExecuteNonQuery();
+
+                if (!HasTable("ListviewColumnSizes", db))
+                    tableListviewColumnSizes.ExecuteNonQuery();
 
                 conn.Close();
                 conn.Dispose();
@@ -216,6 +237,7 @@ namespace Data_Access_Layer
                 var settingNames = typeof(Settings).GetProperties().Select(property => property.Name).ToArray();
                 var songNames = typeof(Songs).GetProperties().Select(property => property.Name).ToArray();
                 var popupDimensionsNames = typeof(PopupDimensions).GetProperties().Select(property => property.Name).ToArray();
+                var lvColumnSizes = typeof(ListviewColumnSizes).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
                 {
@@ -240,6 +262,13 @@ namespace Data_Access_Layer
                     if (!HasColumn(column, "PopupDimensions"))
                         db.Database.ExecuteSqlCommand("ALTER TABLE POPUPDIMENSIONS ADD COLUMN " + column + " " + GetPopupDimensionsColumnSqlType(column));
                 }
+
+                foreach (string column in lvColumnSizes)
+                {
+                    if (!HasColumn(column, "ListviewColumnSizes"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE ListviewColumnSizes ADD COLUMN " + column + " " + GetLvColumnSizesColumnSqlType(column));
+                }
+                
 
                 db.SaveChanges();                
                 db.Dispose();
@@ -332,6 +361,21 @@ namespace Data_Access_Layer
             }
         }
 
-       
+        private static string GetLvColumnSizesColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {                
+                case "Id": return "INTEGER NOT NULL";
+                case "Title": return "bigint NOT NULL";
+                case "Date": return "bigint NOT NULL";
+                case "Repeating": return "bigint NOT NULL";
+                case "Enabled ": return "bigint NOT NULL";
+
+                default: return "bigint NOT NULL";
+            }
+        }
+
+
+
     }
 }

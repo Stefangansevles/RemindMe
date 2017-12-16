@@ -13,7 +13,7 @@ namespace Data_Access_Layer
 
         private static PopupDimensions dimensions;
 
-        private const int DEFAULT_FORM_WIDTH = 343;
+        private const int DEFAULT_FORM_WIDTH = 371;
         private const int DEFAULT_FORM_HEIGHT = 307;
         private const int DEFAULT_FONT_TITLE_SIZE = 14;
         private const int DEFAULT_FONT_NOTE_SIZE = 9;

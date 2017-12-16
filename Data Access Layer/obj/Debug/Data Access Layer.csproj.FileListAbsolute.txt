@@ -62,3 +62,19 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Dat
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.pdb
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.dll.config
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\Data Access Layer.pdb
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\Database.Entity.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\EntityFramework.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\EntityFramework.SqlServer.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.EF6.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.Linq.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\Database.Entity.pdb
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\EntityFramework.xml
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\EntityFramework.SqlServer.xml
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\bin\Debug\System.Data.SQLite.xml
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.dll
+D:\users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Data Access Layer\obj\Debug\Data Access Layer.pdb

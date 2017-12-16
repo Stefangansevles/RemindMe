@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FSManager</name>
+    </assembly>
+    <members>
+        <member name="T:FSManager.Files">
+            <summary>
+            This class contains usefull methods that provide info about files
+            </summary>
+        </member>
+        <member name="M:FSManager.Files.GetSelectedFilesWithPath">
+            <summary>
+            Gets all the selected files and their path in the folder with an OpenFileDialog.
+            </summary>
+            <returns>string array of files and their path</returns>
+        </member>
+        <member name="M:FSManager.Files.GetSelectedFilesWithPath(System.String,System.String)">
+            <summary>
+            Gets all the selected files and their path in the folder with an OpenFileDialog.
+            </summary>
+            <param name="filterDescription">Description of the filter. Example: Image files</param>
+            <param name="extensionFilter">File extension filter. Example: "*.jpg; *.jpeg;"</param>
+            <returns>string array of files and their path</returns>
+        </member>
+        <member name="M:FSManager.Files.GetSelectedFileNames">
+            <summary>
+            Gets all names and extensions from the selected files with an OpenFileDialog.
+            </summary>
+            <returns>string array of files and their extensions</returns>
+        </member>
+        <member name="M:FSManager.Files.GetSelectedFileName">
+            <summary>
+            Gets the name and the extension of the selected file
+            </summary>
+            <returns>The name of the selected file and its extension</returns>
+        </member>
+        <member name="M:FSManager.Files.GetSelectedFileWithPath">
+            <summary>
+            Gets the path to the selected file
+            </summary>
+            <returns>Path to the file and its name and extension</returns>
+        </member>
+        <member name="M:FSManager.Files.GetSelectedFileWithPath(System.String,System.String)">
+            <summary>
+            Gets the path to the selected file with an filter. The user will only be able to select files with extensions that match the filter
+            </summary>
+            <param name="filterDescription">The description of the filter. Example: Image files</param>
+            <param name="extensionFilter">The file extension filter. Example: "*.jpg; *.jpeg;"</param>
+            <returns></returns>
+        </member>
+        <member name="M:FSManager.Files.GetFilesWithPathInFolder(System.String)">
+            <summary>
+            Gets all the files and the path to them in the given folder 
+            </summary>
+            <param name="path">Path of the folder</param>
+            <returns>string array of files and their path</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FSManager.Files.GetFilesWithPathInFolder(System.String,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:FSManager.Files.GetFilesWithPathInFolder(System.String,System.Boolean,System.String)" -->
+        <member name="M:FSManager.Files.GetFilesWithPathInFolder(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets all the files and the path to them in the given path 
+            </summary>
+            <param name="path">Path of the folder</param>
+            <param name="fileFilter">File extension filter. Example: "*.jpg; *.jpeg;" </param>
+            <param name="subFolders">look through subfolders of this folder or not</param>
+            <returns>string array of files and their path</returns>
+        </member>
+        <member name="M:FSManager.Files.GetFileNamesInFolder(System.String)">
+            <summary>
+            Gets all the filenames and their extension in the given path 
+            </summary>
+            <param name="path">Path of the folder</param>
+            <returns>string array of filenames and their extensions</returns>
+        </member>
+        <member name="M:FSManager.Files.GetFileNamesInFolder(System.String,System.String)">
+            <summary>
+            Gets all the filenames and their extension in the given path 
+            </summary>
+            <param name="path">Path of the folder</param>
+            <param name="filter">File extension filter. Example: "*.jpg; *.jpeg;"</param>
+            <returns>string array of filenames and their extensions</returns>
+        </member>
+        <member name="M:FSManager.Files.GetFileSize(System.String)">
+            <summary>
+            Gets the size of a file in bytes
+            </summary>
+            <param name="path">Path of the file</param>
+            <returns>Size of the file in bytes. -1 if the file doesn't exist</returns>
+        </member>
+        <member name="M:FSManager.Files.CreateHiddenFile(System.String)">
+            <summary>
+            Creates an file and sets it's property to hidden.
+            </summary>
+            <param name="path">Path to the file</param>
+        </member>
+        <member name="T:FSManager.Files.Properties">
+            <summary>
+            Class for file attributes
+            </summary>
+        </member>
+        <member name="T:FSManager.Folders">
+            <summary>
+            This class contains usefull methods that provide info about folders
+            </summary>
+        </member>
+        <member name="M:FSManager.Folders.GetTotalFileSizeInFolder(System.String,System.Boolean)">
+            <summary>
+            Gets all the files in the folder and calculates the total file size in bytes
+            </summary>
+            <param name="path">Path of the folder</param>
+            <returns>Total file size in bytes</returns>
+        </member>
+        <member name="M:FSManager.Folders.GetSelectedFolderPath">
+            <summary>
+            Gets the selected folder by the user
+            </summary>
+            <returns>Returns the path to the folder the user selected. Returns null if the user pressed cancel.</returns>
+        </member>
+        <member name="M:FSManager.Folders.DeleteFilesInFolder(System.String)">
+            <summary>
+            Deletes all files in the folder
+            </summary>
+            <param name="path">Path to the folder</param>
+        </member>
+        <member name="M:FSManager.Folders.DeleteFilesInFolder(System.String,System.String)">
+            <summary>
+            Deletes every file in a folder that matches the filter
+            </summary>
+            <param name="path">Path to the folder</param>
+            <param name="filter">Extension filter. Example: "*.jpg; *.jpeg;"</param>
+        </member>
+        <member name="M:FSManager.Folders.CreateHiddenFolder(System.String)">
+            <summary>
+            Creates a hidden folder.
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="T:FSManager.Folders.Properties">
+            <summary>
+            Contains attribute methods
+            </summary>
+        </member>
+        <member name="M:FSManager.Folders.Properties.IsFolderReadOnly(System.String)">
+            <summary>
+            Determines if a folder is readonly
+            </summary>
+            <param name="path">path to the folder</param>
+            <returns>true if readonly, false if not</returns>
+        </member>
+        <member name="M:FSManager.Folders.Properties.IsFolderHidden(System.String)">
+            <summary>
+            Determines if a folder is hidden
+            </summary>
+            <param name="path">path to the folder</param>
+            <returns>true if hidden, false if not</returns>
+        </member>
+        <member name="M:FSManager.Folders.Properties.SetFileToReadOnly(System.String,System.Boolean)">
+            <summary>
+            Sets a file's attribute to readonly
+            </summary>
+            <param name="path">Path to the file</param>
+            <param name="readOnly">True to set the file to readonly, false to remove readonly</param>
+        </member>
+        <member name="M:FSManager.Folders.Properties.SetHidden(System.String,System.Boolean)">
+            <summary>
+            Sets a file's property to hidden
+            </summary>
+            <param name="path">Path to the file</param>
+            <param name="hidden">True to set the file to hidden, false to remove hidden</param>
+        </member>
+        <member name="M:FSManager.Folders.Properties.SetEncrypted(System.String,System.Boolean)">
+            <summary>
+            Sets a file's property to encrypted
+            </summary>
+            <param name="path">Path to the file</param>
+            <param name="encrypt">True to set the file to encrypted, false to remove encrypted</param>
+        </member>
+        <member name="M:FSManager.Shortcuts.CreateShortcut(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a shortcut of a file
+            </summary>
+            <param name="shortcutPath">Path of the shortcut. Where do you want to place the shortcut?</param>
+            <param name="shortcutName">The name of the shortcut that will appear in the windows file explorer</param>
+            <param name="targetPath">Path to the target of the shortcut. What does the shortcut target?</param>
+            <param name="description">Description of the shortcut.</param>
+        </member>
+    </members>
+</doc>

@@ -52,6 +52,7 @@
     <Compile Include="BLEmail.cs" />
     <Compile Include="BLFormLogic.cs" />
     <Compile Include="BLIO.cs" />
+    <Compile Include="BLListviewColumnSizes.cs" />
     <Compile Include="BLPopupDimensions.cs" />
     <Compile Include="BLReminder.cs" />
     <Compile Include="BLSettings.cs" />
@@ -59,16 +60,6 @@
     <Compile Include="IOVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReminderRepeatType.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Data Access Layer\Data Access Layer.csproj">
-      <Project>{bdb579df-ef91-4ce3-a7bd-40da7d0b78c6}</Project>
-      <Name>Data Access Layer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Database.Entity\Database.Entity.csproj">
-      <Project>{3dea148e-231d-4047-838e-c891af212a00}</Project>
-      <Name>Database.Entity</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="WMPLib">
@@ -83,6 +74,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data Access Layer\Data Access Layer.csproj">
+      <Project>{bdb579df-ef91-4ce3-a7bd-40da7d0b78c6}</Project>
+      <Name>Data Access Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database.Entity\Database.Entity.csproj">
+      <Project>{b15cf13c-05db-4346-adb0-704b0756c1e9}</Project>
+      <Name>Database.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
