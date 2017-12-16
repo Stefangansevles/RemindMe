@@ -5,3 +5,4 @@ D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Database.Entity\bin\D
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Database.Entity\bin\Debug\EntityFramework.xml
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Database.Entity\obj\Debug\Database.Entity.dll
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Database.Entity\obj\Debug\Database.Entity.pdb
+D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\Database.Entity\obj\Debug\Database.Entity.csprojResolveAssemblyReference.cache

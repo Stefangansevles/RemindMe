@@ -3,7 +3,6 @@ D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\Re
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\RemindMe.pdb
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\Database.Entity.dll
-D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\EmailSender.dll
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\EntityFramework.dll
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\EntityFramework.SqlServer.dll
 D:\Users\rs\Documents\Visual Studio 2015\Projects\RemindMe\RemindMe\bin\Debug\FSManager.dll

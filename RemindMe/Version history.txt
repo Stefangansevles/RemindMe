@@ -537,3 +537,6 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
  V2.0.0
  Huge update! Completely re-designed RemindMe to give it an much more modern UI.
  Every form has been re-designed!
+
+ V2.0.1
+ Re-added the functionality to add sound files to RemindMe when selecting the "Add files..." item from the sound combobox

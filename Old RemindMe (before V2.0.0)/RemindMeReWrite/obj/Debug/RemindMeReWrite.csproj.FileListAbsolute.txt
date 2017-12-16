@@ -251,3 +251,9 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\Data Access 
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\obj\Debug\RemindMe.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMeReWrite\bin\Debug\EmailSender.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\Old RemindMe (before V2.0.0)\RemindMeReWrite\bin\Debug\RemindMe.exe.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\Old RemindMe (before V2.0.0)\RemindMeReWrite\bin\Debug\RemindMe.XML
+D:\Users\rs\Documents\[C#] RemindMe (git)\Old RemindMe (before V2.0.0)\RemindMeReWrite\obj\Debug\Interop.WMPLib.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\Old RemindMe (before V2.0.0)\RemindMeReWrite\obj\Debug\RemindMeReWrite.csproj.ResolveComReference.cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\Old RemindMe (before V2.0.0)\RemindMeReWrite\obj\Debug\RemindMe.exe
+D:\Users\rs\Documents\[C#] RemindMe (git)\Old RemindMe (before V2.0.0)\RemindMeReWrite\obj\Debug\RemindMe.pdb

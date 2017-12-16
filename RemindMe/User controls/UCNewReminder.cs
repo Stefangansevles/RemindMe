@@ -1252,5 +1252,52 @@ namespace RemindMe
             int toSubtractMonths = RemindMePrompt.ShowNumber("Subtract months to the selected date");
             dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
         }
+
+        private void cbSound_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbSound.SelectedItem != null)
+            {
+                if (cbSound.SelectedItem.ToString() == " Add files...")
+                {
+                    //Fill selectedFiles with the selected files AND the current files, 
+                    //and check if it is not already in the list
+
+                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+
+                    if (selectedFiles.Count == 1 && selectedFiles[0] == "")
+                        return;
+
+                    List<Songs> toInsertSongs = new List<Songs>();
+                    foreach (string sound in selectedFiles)
+                    {
+                        if (!BLSongs.SongExistsInDatabase(sound))
+                        {
+                            if (sound != "")
+                            {
+                                Songs song = new Songs();
+                                song.SongFilePath = sound;
+                                song.SongFileName = Path.GetFileName(sound);
+                                toInsertSongs.Add(song);
+                            }
+                        }
+                    }
+                    BLSongs.InsertSongs(toInsertSongs);
+
+                    foreach (Songs item in toInsertSongs) //already inserted, but iterating through them to add to the combobox
+                        if (item.SongFileName != "")
+                            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), BLSongs.GetSongByFullPath(item.SongFilePath)));
+
+
+
+                    /*foreach (Songs item in BLSongs.GetSongs())
+                        if (item.SongFileName != "")
+                            cbSound.Items.Add(new ComboBoxItem(item.SongFileName, BLSongs.GetSongByFullPath(item.SongFilePath)));*/
+
+                    //Make sure that Add files... is in the combobox
+                    cbSound.Items.Remove(" Add files...");
+                    cbSound.Items.Add(" Add files...");
+                }
+            }
+        }
     }
 }

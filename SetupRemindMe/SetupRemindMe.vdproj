@@ -685,11 +685,6 @@
             "AssemblyAsmDisplayName" = "8:EmailSender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_7B70C6412480EBE95179301B6E4074C6"
-                    {
-                    "Name" = "8:EmailSender.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:EmailSender.dll"
             "TargetName" = "8:"
@@ -1036,15 +1031,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{55503DA9-41EB-4062-985E-D8CDFD02C0A6}"
-        "PackageCode" = "8:{131C6AE6-7917-4E09-8105-2D78D9DA4010}"
+        "ProductCode" = "8:{3A3CCC09-DD8A-45C5-96D3-CA162E9732EE}"
+        "PackageCode" = "8:{8A13D1CA-7905-4A5A-B54B-3D3B0ADDE578}"
         "UpgradeCode" = "8:{026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.0"
+        "ProductVersion" = "8:2.0.1"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
