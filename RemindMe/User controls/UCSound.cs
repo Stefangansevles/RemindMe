@@ -173,5 +173,25 @@ namespace RemindMe
             btnPreview.Iconimage = imgPlay;
             tmrMusic.Stop();
         }
+
+        private void lvSoundFiles_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnPreview.Iconimage = imgPlay;
+                myPlayer.controls.stop();
+                tmrMusic.Stop();
+                btnPreview_Click(sender, e);
+            }
+                
+        }
+
+        private void lvSoundFiles_DoubleClick(object sender, EventArgs e)
+        {
+            btnPreview.Iconimage = imgPlay;
+            myPlayer.controls.stop();
+            tmrMusic.Stop();
+            btnPreview_Click(sender, e);
+        }
     }
 }

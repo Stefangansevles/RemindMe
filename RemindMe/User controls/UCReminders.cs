@@ -586,7 +586,7 @@ namespace RemindMe
 
                         //The timespan between the date and now.
                         TimeSpan timeSpan = Convert.ToDateTime(theDateToCheckOn) - DateTime.Now;
-                        if (timeSpan.TotalMinutes >= 59 && timeSpan.TotalMinutes <= 60)
+                        if (timeSpan.TotalMinutes >= 59.50 && timeSpan.TotalMinutes <= 60)
                             remindersToHappenInAnHour.Add(rem);
                     }
                 }

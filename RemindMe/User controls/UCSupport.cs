@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using Business_Logic_Layer;
+using System.Net.Mail;
 
 namespace RemindMe
 {
@@ -39,31 +40,49 @@ namespace RemindMe
 
                 if (!string.IsNullOrWhiteSpace(subject) && !string.IsNullOrWhiteSpace(note))
                 {
+                   
                     lblSending.Visible = true;
                     pbSending.Visible = true;                
                     btnSend.Enabled = false;
-                   
 
 
-                    
+
+
                     // TimeSpan timeout = TimeSpan.FromSeconds(5);
-                    if(string.IsNullOrWhiteSpace(email))
+                    if (string.IsNullOrWhiteSpace(email))
                         sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note));
                     else
-                        sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email));
+                    {
+                        try
+                        {
+                            MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, note);
+                            sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email));
+                            
 
-                    sendMailThread.Start();
-                    tmrSendMail.Start();
+                        }
+                        catch (FormatException ex)
+                        {                            
+                            btnSend.Enabled = true;
+                            lblSending.Visible = false;
+                            pbSending.Visible = false;
+                            RemindMeBox.Show("Please enter a valid e-mail address, or leave it empty");
+                        }
+                        
+                    }
 
-
-                    tbEmail.ResetText();
-                    tbNote.ResetText();
-                    tbSubject.ResetText();
+                    if (sendMailThread != null)
+                    {
+                        sendMailThread.Start();
+                        tmrSendMail.Start();
+                        tbEmail.ResetText();
+                        tbNote.ResetText();
+                        tbSubject.ResetText();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageFormManager.MakeMessagePopup("Something went wrong",3);
+                MessageFormManager.MakeMessagePopup("Something went wrong. Could not send the e-mail",3);
             }
         }
 
@@ -75,6 +94,8 @@ namespace RemindMe
                 {
                     sendMailThread.Abort();
                     btnSend.Enabled = true;
+                    pbSending.Visible = false;
+                    lblSending.Visible = false;
                     MessageFormManager.MakeMessagePopup("Could not send the e-mail from your connection.", 5);                    
                     tmrSendMail.Stop();
                     secondsPassed = 0;
@@ -88,18 +109,20 @@ namespace RemindMe
                 if (sendMailException == null)
                 {                   
                     tmrAllowMail.Start();
+                    sendMailThread = null;
                     MessageFormManager.MakeMessagePopup("E-mail Sent. Thank you!", 5);
                 }
                 else
                 {
-                    MessageFormManager.MakeMessagePopup("Could not send the e-mail :(",3);     //No clue what happened                                
+                    if (sendMailException is FormatException)
+                        RemindMeBox.Show("Please enter a valid e-mail address, or leave it empty");
+                    else
+                        MessageFormManager.MakeMessagePopup("Could not send the e-mail :(", 3);     //No clue what happened                                
 
                     secondsPassed = 0;
                     btnSend.Enabled = true;
                 }
-
             }
-
             secondsPassed++;
         }
 

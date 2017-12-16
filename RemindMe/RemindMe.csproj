@@ -39,9 +39,8 @@
     <ApplicationIcon>RemindMeIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bunifu_UI_v1.5.3, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
+    <Reference Include="Bunifu_UI_v1.5.3">
+      <HintPath>..\..\..\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="EmailSender">

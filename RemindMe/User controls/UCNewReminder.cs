@@ -759,24 +759,20 @@ namespace RemindMe
         }
 
         private void btnAddDate_Click(object sender, EventArgs e)
-        {
-            //if (pnlPopup.Visible)
-            {//For this way of adding reminders, we DO want the scrolling popup to dissapear and re-appear again even if it is already visible
-               // HideScrollingPopupMessage();
-            }
+        {            
             DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
             if (selectedDate > DateTime.Now)
             {
                 if (!cbMultipleDates.Items.Contains(selectedDate))
                 {
                     cbMultipleDates.Items.Add(selectedDate);
-                   // MakeScrollingPopupMessage(selectedDate.ToString() + " Added to this reminder.");
-                }
-                ///else
-                   // HideScrollingPopupMessage();
+                    MessageFormManager.MakeMessagePopup(selectedDate.ToString() + " Added to this reminder.",1);
+                }                
+                else
+                    MessageFormManager.MakeMessagePopup("You have already added that date.", 1);
             }
-           // else
-                //MakeScrollingPopupMessage("The date you selected is in the past! Cannot add this date.");
+            else
+                MessageFormManager.MakeMessagePopup("The date you selected is in the past! Cannot add this date.",3);
         }
 
         private void btnRemoveDate_Click(object sender, EventArgs e)
@@ -939,10 +935,7 @@ namespace RemindMe
                             if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)
                                 cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him.  
                             else
-                            {
-                                if(cbMultipleDates.Items.Contains(selectedDate))                                
-                                    MessageFormManager.MakeMessagePopup("You have already added that date to this reminder!", 4);                                
-
+                            {                                                               
                                 if(selectedDate < DateTime.Now)                                
                                     MessageFormManager.MakeMessagePopup("The selected date is in the past!", 4);                                
                             }
@@ -1218,39 +1211,69 @@ namespace RemindMe
 
         private void btnAddDays_Click(object sender, EventArgs e)
         {
-            if (dtpDate.Enabled)
-                AddDaysMenuStrip.Show(Cursor.Position);
+            try
+            {
+                if (dtpDate.Enabled)
+                    AddDaysMenuStrip.Show(Cursor.Position);
+            }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+          
         }
 
         private void addMinutesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toAddMinutes = RemindMePrompt.ShowNumber("Add minutes to the current time");
-            dtpDate.Value = DateTime.Now.AddMinutes(toAddMinutes);
-            dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes);
+            try
+            {
+                int toAddMinutes = RemindMePrompt.ShowNumber("Add minutes to the current time");
+                dtpDate.Value = DateTime.Now.AddMinutes(toAddMinutes);
+                dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes);
+            }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+           
         }
 
         private void addDaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toAddDays = RemindMePrompt.ShowNumber("Add days to the selected date");
-            dtpDate.Value = dtpDate.Value.AddDays(toAddDays);
+            try
+            {
+                int toAddDays = RemindMePrompt.ShowNumber("Add days to the selected date");
+                dtpDate.Value = dtpDate.Value.AddDays(toAddDays);
+            }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+          
         }
 
         private void addMonthsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toAddMonths = RemindMePrompt.ShowNumber("Add months to the selected date");
-            dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
+            try
+            {
+                int toAddMonths = RemindMePrompt.ShowNumber("Add months to the selected date");
+                dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
+            }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+           
         }
 
         private void subtractDaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int toSubtractDays = RemindMePrompt.ShowNumber("Subtract days to the selected date");
-            dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays);
+            try
+            {
+                int toSubtractDays = RemindMePrompt.ShowNumber("Subtract days to the selected date");
+                dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays);
+            }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+           
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            int toSubtractMonths = RemindMePrompt.ShowNumber("Subtract months to the selected date");
-            dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
+            try
+            {
+                int toSubtractMonths = RemindMePrompt.ShowNumber("Subtract months to the selected date");
+                dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
+            }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+            
         }
 
         private void cbSound_SelectedIndexChanged(object sender, EventArgs e)
