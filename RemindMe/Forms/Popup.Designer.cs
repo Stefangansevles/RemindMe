@@ -175,10 +175,10 @@
             this.pnlMainGradient.Controls.Add(this.pnlTitle);
             this.pnlMainGradient.Controls.Add(this.pnlHeader);
             this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMainGradient.GradientBottomLeft = System.Drawing.Color.Black;
-            this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.Black;
-            this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.Gray;
-            this.pnlMainGradient.GradientTopRight = System.Drawing.Color.DarkGray;
+            this.pnlMainGradient.GradientBottomLeft = System.Drawing.Color.DimGray;
+            this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.DimGray;
+            this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pnlMainGradient.GradientTopRight = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlMainGradient.Location = new System.Drawing.Point(0, 0);
             this.pnlMainGradient.Name = "pnlMainGradient";
             this.pnlMainGradient.Quality = 10;
@@ -354,6 +354,7 @@
             // 
             // pnlHeader
             // 
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlHeader.Controls.Add(this.pnlHeaderText);
             this.pnlHeader.Controls.Add(this.pbIcon);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
