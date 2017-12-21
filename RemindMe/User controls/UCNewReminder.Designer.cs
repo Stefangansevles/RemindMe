@@ -39,7 +39,6 @@
             this.cbSound = new System.Windows.Forms.ComboBox();
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
             this.dtpTime = new System.Windows.Forms.DateTimePicker();
-            this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblAddedDates = new System.Windows.Forms.Label();
@@ -92,6 +91,7 @@
             this.addMonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subtractDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.groupRepeatRadiobuttons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
@@ -284,17 +284,6 @@
             this.dtpTime.TabIndex = 69;
             this.dtpTime.Value = new System.DateTime(2016, 9, 4, 12, 0, 0, 0);
             this.dtpTime.ValueChanged += new System.EventHandler(this.dtpTime_ValueChanged);
-            // 
-            // dtpDate
-            // 
-            this.dtpDate.Checked = false;
-            this.dtpDate.Font = new System.Drawing.Font("Century Gothic", 10.5F);
-            this.dtpDate.Location = new System.Drawing.Point(120, 78);
-            this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(329, 25);
-            this.dtpDate.TabIndex = 68;
-            this.dtpDate.Value = new System.DateTime(2016, 9, 2, 0, 0, 0, 0);
-            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
             // label3
             // 
@@ -1074,11 +1063,21 @@
             this.toolStripMenuItem1.Text = "Subtract Months";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // dtpDate
+            // 
+            this.dtpDate.Font = new System.Drawing.Font("Century Gothic", 10.5F);
+            this.dtpDate.Location = new System.Drawing.Point(120, 78);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.Size = new System.Drawing.Size(329, 25);
+            this.dtpDate.TabIndex = 110;
+            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpTime_ValueChanged);
+            // 
             // UCNewReminder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.pbExclamationDate);
             this.Controls.Add(this.btnRemoveMonthlyDay);
             this.Controls.Add(this.btnAddMonthlyDay);
@@ -1103,7 +1102,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dtpTime);
-            this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.btnPlaySound);
             this.Controls.Add(this.cbSound);
             this.Controls.Add(this.label2);
@@ -1138,7 +1136,6 @@
         private Bunifu.Framework.UI.BunifuTileButton btnPlaySound;
         private System.Windows.Forms.Timer tmrMusic;
         public System.Windows.Forms.DateTimePicker dtpTime;
-        public System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblAddedDates;
@@ -1190,5 +1187,6 @@
         private System.Windows.Forms.ToolStripMenuItem addMonthsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subtractDaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.DateTimePicker dtpDate;
     }
 }

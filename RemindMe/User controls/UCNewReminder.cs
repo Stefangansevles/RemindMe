@@ -71,7 +71,7 @@ namespace RemindMe
         public UCNewReminder(UserControl callback, Reminder editableReminder) : this(callback)
         {
             this.editableReminder = editableReminder;
-            FillControlsForEdit(editableReminder);
+            FillControlsForEdit(editableReminder);            
         }
         
 
@@ -88,6 +88,15 @@ namespace RemindMe
             pnlDayCheckBoxes.Visible = false;                        
             if (rem != null)
             {
+                dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
+                DateTime remDate = Convert.ToDateTime(rem.Date.Split(',')[0]);
+
+                //Due to some really weird bug in winforms, the .checked has to be set to true(even though it already is true) to fix a problem where the
+                //datetimepicker does not show the text matching it's value
+                dtpDate.Checked = true;
+                dtpDate.Value = remDate;
+                
+
                 FillSoundComboboxFromDatabase(cbSound);
                 tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
                 tbReminderName.Text = rem.Name;
@@ -168,8 +177,8 @@ namespace RemindMe
                             break;
                     }
                 }
-                dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
-                dtpDate.Value = Convert.ToDateTime(rem.Date.Split(',')[0]);
+                
+                
                 //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
                 pnlDayCheckBoxes_VisibleChanged(null, null);
 
@@ -319,13 +328,15 @@ namespace RemindMe
             DateTime? selectedDateFromCheckboxes = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString()) ?? DateTime.Now;
 
             dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
-
+            dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
+            
 
             if (IsDayCheckboxChecked(DateTime.Now.DayOfWeek))
             {//Check if the checkbox of today's dayofweek is checked
                 //Then, if the selected time is in the FUTURE, we want to set the date to today.
                 if (Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now)
                 {
+                    dtpDate.Value = DateTime.Now;
                     dtpDate.Value = DateTime.Now;
                 }
             }
@@ -1192,7 +1203,7 @@ namespace RemindMe
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            ResetReminderForm();
+            ResetReminderForm();            
         }
 
         private void UCNewReminder_Load(object sender, EventArgs e)

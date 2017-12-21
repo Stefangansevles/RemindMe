@@ -81,3 +81,11 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCWindowOv
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.Cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.xml

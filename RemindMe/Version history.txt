@@ -540,3 +540,13 @@ BLDateTime.GetNextReminderWorkDay(Reminder) which gives the next workday date of
 
  V2.0.1
  Re-added the functionality to add sound files to RemindMe when selecting the "Add files..." item from the sound combobox
+
+ V2.0.2
+Added a valid e-mail check on the support tab when sending an e-mail
+On the sound tab, you can now also preview the sound by double-clicking the sound or selecting it and pressing enter
+Added some more messages when filling in the new reminder form
+(small update)
+
+V2.0.3
+Fixed a weird winforms bug where the datetime picker did not show the reminders date when editing an reminder(even though it did have the value)
+Fixed a bug with exporting reminders(WindowsAPICodePack was not included)
