@@ -550,3 +550,18 @@ Added some more messages when filling in the new reminder form
 V2.0.3
 Fixed a weird winforms bug where the datetime picker did not show the reminders date when editing an reminder(even though it did have the value)
 Fixed a bug with exporting reminders(WindowsAPICodePack was not included)
+
+V2.0.4
+Changed the appearance of RemindMe's Popup
+
+V2.0.5
+(small update)
+Fixed an issue where switching a existing reminder's repeat type to custom would not fill the minutes/hours/days/weeks/months combobox, and editing this reminder
+without selecting one of those would throw an error.
+
+RemindMePrompt now has a close out button
+
+Fixed an issue with previewing resizing RemindMe's popup. The title and description label's maximum size were not updating alongside with the popup, resulting
+in a preview popup where the label font could increase, but would cut to a nextline if it exceeded the maximum size(which happens very quickly if the font size enlarges)
+(this was just a preview issue)
+

@@ -563,7 +563,15 @@ namespace RemindMe
         private void rbEveryXCustom_CheckedChanged(object sender, EventArgs e)
         {
             if (rbEveryXCustom.Checked)
+            {
                 lblEvery.Text = "Every:";
+                if(editableReminder == null || (editableReminder != null && editableReminder.EveryXCustom == null))
+                    cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2]; //days
+                else if(editableReminder.EveryXCustom != null)
+                {
+
+                }
+            }
 
             PlaceComboboxMonthlyWeekly();
         }

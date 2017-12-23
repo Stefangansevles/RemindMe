@@ -126,6 +126,21 @@ namespace RemindMe
             if (this.Opacity >= 1)
                 tmrFadeIn.Stop();
         }
+
+        private void lblExit_MouseEnter(object sender, EventArgs e)
+        {            
+            lblExit.ForeColor = Color.DarkRed;
+        }
+
+        private void lblExit_MouseLeave(object sender, EventArgs e)
+        {
+            lblExit.ForeColor = Color.Transparent;
+        }
+
+        private void lblExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
     public enum PromptReason
     {

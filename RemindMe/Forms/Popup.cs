@@ -165,7 +165,7 @@ namespace RemindMe
             gbRadioButtons.Location = new Point(numPostponeTime.Location.X + numPostponeTime.Width + 3, numPostponeTime.Location.Y - 7);
             btnOk.Location = new Point(pnlFooter.Width - btnOk.Width - 3, pnlFooter.Height - btnOk.Height - 3);
 
-            lblNewReminder.Location = new Point(pnlHeaderText.Width / 2 - (lblNewReminder.Width / 2), -3);
+            lblNewReminder.Location = new Point(pnlHeaderText.Width / 2 - (lblNewReminder.Width / 2) - (int)(lblNewReminder.Width * 0.20), -3);
             lblDate.Location = new Point(lblNewReminder.Location.X - (lblDate.Width / 2 / 2) + 30, lblDate.Location.Y);            
         }
 
@@ -186,8 +186,10 @@ namespace RemindMe
         }
 
         private void Popup2_SizeChanged(object sender, EventArgs e)
-        {            
+        {
             RepositionControls();
+            lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 10, 0);
+            lblTitle.MaximumSize = new Size((pnlTitle.Width - lblTitle.Location.X) - 10, 0);            
         }
 
         private void btnOk_Click(object sender, EventArgs e)
