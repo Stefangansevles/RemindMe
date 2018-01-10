@@ -223,7 +223,7 @@ namespace Business_Logic_Layer
                     }
                     else
                     {//There's only one date in this string.                        
-                        rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date).Day).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString() + ",";
+                        rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date).Day).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();
                     }
                 }
 

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.dragHeader = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlBanner = new System.Windows.Forms.Panel();
             this.lblMinimize = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
@@ -49,18 +49,19 @@
             this.btnBackupImport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnReminders = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.dragLogo = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.pnlSide.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
-            // bunifuDragControl1
+            // dragHeader
             // 
-            this.bunifuDragControl1.Fixed = true;
-            this.bunifuDragControl1.Horizontal = true;
-            this.bunifuDragControl1.TargetControl = this.pnlBanner;
-            this.bunifuDragControl1.Vertical = true;
+            this.dragHeader.Fixed = true;
+            this.dragHeader.Horizontal = true;
+            this.dragHeader.TargetControl = this.pnlBanner;
+            this.dragHeader.Vertical = true;
             // 
             // pnlBanner
             // 
@@ -433,6 +434,13 @@
             this.pbLogo.TabIndex = 2;
             this.pbLogo.TabStop = false;
             // 
+            // dragLogo
+            // 
+            this.dragLogo.Fixed = true;
+            this.dragLogo.Horizontal = true;
+            this.dragLogo.TargetControl = this.pbLogo;
+            this.dragLogo.Vertical = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -463,7 +471,7 @@
         private System.Windows.Forms.Panel pnlBanner;
         private Bunifu.Framework.UI.BunifuFlatButton btnReminders;
         private System.Windows.Forms.PictureBox pbLogo;
-        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
+        private Bunifu.Framework.UI.BunifuDragControl dragHeader;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuCustomLabel lblMinimize;
         private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
@@ -478,6 +486,7 @@
         private System.Windows.Forms.ToolStripMenuItem showRemindMeToolStripMenuItem;
         private Bunifu.Framework.UI.BunifuGradientPanel pnlMain;
         private System.Windows.Forms.Label lblVersion;
+        private Bunifu.Framework.UI.BunifuDragControl dragLogo;
     }
 }
 

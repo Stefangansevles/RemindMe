@@ -565,3 +565,6 @@ Fixed an issue with previewing resizing RemindMe's popup. The title and descript
 in a preview popup where the label font could increase, but would cut to a nextline if it exceeded the maximum size(which happens very quickly if the font size enlarges)
 (this was just a preview issue)
 
+V2.0.6
+
+Fixed an bug with monthly reminders. 

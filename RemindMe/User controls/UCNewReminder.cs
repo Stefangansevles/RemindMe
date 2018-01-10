@@ -969,7 +969,7 @@ namespace RemindMe
                             break;
                         case "MONTHLY":
                             if (cbMonthlyDays.Items.Count > 0)
-                                editableReminder.Date = editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
+                                editableReminder.Date = GetDatesStringFromMonthlyDaysComboBox();
                             else
                             {
                                 //MakeScrollingPopupMessage("Can not create an reminder with monthly day(s) if there are no days selected!");
