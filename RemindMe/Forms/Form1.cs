@@ -94,6 +94,7 @@ namespace RemindMe
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
             {
+                this.Opacity = 0;
                 Hide();
             }));
                         
@@ -101,14 +102,14 @@ namespace RemindMe
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
 
-           
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            lblVersion.Text = "Version " + fvi.FileVersion;
+
+
+            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
         }
 
         private void lblExit_Click(object sender, EventArgs e)
         {
+            this.Opacity = 0;
             this.Hide();
         }
 
@@ -121,6 +122,7 @@ namespace RemindMe
             this.WindowState = FormWindowState.Minimized;
             this.Show();
             this.WindowState = FormWindowState.Normal;
+            tmrFadeIn.Start();
         }
 
         private void RemindMeIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -129,6 +131,7 @@ namespace RemindMe
             this.WindowState = FormWindowState.Minimized;
             this.Show();
             this.WindowState = FormWindowState.Normal;
+            tmrFadeIn.Start();
         }
 
         private void tsExit_Click(object sender, EventArgs e)
@@ -224,8 +227,13 @@ namespace RemindMe
             lblExit.ForeColor = Color.DarkRed;
         }
 
-      
+        private void tmrOpacity_Tick(object sender, EventArgs e)
+        {
+            this.Opacity += 0.15;
+            if (this.Opacity >= 1)
+                tmrFadeIn.Stop();
+        }
 
-       
+        
     }
 }

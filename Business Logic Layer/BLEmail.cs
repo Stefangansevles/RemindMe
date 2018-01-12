@@ -19,13 +19,13 @@ namespace Business_Logic_Layer
         /// <summary>
         /// Default SMTP Port.
         /// </summary>
-        public static int SmtpPort = 25;
+        private static int SmtpPort = 25;
 
       
 
         public static Exception SendEmail(string subject, string message)
         {
-            MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject,message);
+            MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
             Exception returnException = null;
 
             string domainName = GetDomainName(mes.To[0].Address);
@@ -48,7 +48,7 @@ namespace Business_Logic_Layer
         }
         public static Exception SendEmail(string subject, string message,string email)
         {
-            MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, message);
+            MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
             Exception returnException = null;
 
             string domainName = GetDomainName(mes.To[0].Address);

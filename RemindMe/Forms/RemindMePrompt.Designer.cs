@@ -33,13 +33,13 @@
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlMainGradient = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.pbIcon = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblText = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
             this.btnOk = new Bunifu.Framework.UI.BunifuFlatButton();
             this.tbPrompt = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.pnlMainGradient.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.pnlFooterButtons.SuspendLayout();
@@ -77,6 +77,23 @@
             this.pnlMainGradient.Quality = 10;
             this.pnlMainGradient.Size = new System.Drawing.Size(528, 197);
             this.pnlMainGradient.TabIndex = 2;
+            // 
+            // lblExit
+            // 
+            this.lblExit.AutoSize = true;
+            this.lblExit.BackColor = System.Drawing.Color.Transparent;
+            this.lblExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblExit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExit.ForeColor = System.Drawing.Color.Transparent;
+            this.lblExit.Location = new System.Drawing.Point(506, 0);
+            this.lblExit.Name = "lblExit";
+            this.lblExit.Size = new System.Drawing.Size(22, 22);
+            this.lblExit.TabIndex = 3;
+            this.lblExit.Text = "X";
+            this.lblExit.Click += new System.EventHandler(this.lblExit_Click);
+            this.lblExit.MouseEnter += new System.EventHandler(this.lblExit_MouseEnter);
+            this.lblExit.MouseLeave += new System.EventHandler(this.lblExit_MouseLeave);
             // 
             // pbIcon
             // 
@@ -182,23 +199,6 @@
             this.tbPrompt.TabIndex = 0;
             this.tbPrompt.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tbPrompt.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbPrompt_KeyUp);
-            // 
-            // lblExit
-            // 
-            this.lblExit.AutoSize = true;
-            this.lblExit.BackColor = System.Drawing.Color.Transparent;
-            this.lblExit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblExit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExit.ForeColor = System.Drawing.Color.Transparent;
-            this.lblExit.Location = new System.Drawing.Point(506, 0);
-            this.lblExit.Name = "lblExit";
-            this.lblExit.Size = new System.Drawing.Size(22, 22);
-            this.lblExit.TabIndex = 3;
-            this.lblExit.Text = "X";
-            this.lblExit.Click += new System.EventHandler(this.lblExit_Click);
-            this.lblExit.MouseEnter += new System.EventHandler(this.lblExit_MouseEnter);
-            this.lblExit.MouseLeave += new System.EventHandler(this.lblExit_MouseLeave);
             // 
             // RemindMePrompt
             // 

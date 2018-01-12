@@ -50,6 +50,7 @@
             this.btnReminders = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.dragLogo = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.pnlSide.SuspendLayout();
@@ -441,6 +442,11 @@
             this.dragLogo.TargetControl = this.pbLogo;
             this.dragLogo.Vertical = true;
             // 
+            // tmrFadeIn
+            // 
+            this.tmrFadeIn.Interval = 10;
+            this.tmrFadeIn.Tick += new System.EventHandler(this.tmrOpacity_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -487,6 +493,7 @@
         private Bunifu.Framework.UI.BunifuGradientPanel pnlMain;
         private System.Windows.Forms.Label lblVersion;
         private Bunifu.Framework.UI.BunifuDragControl dragLogo;
+        private System.Windows.Forms.Timer tmrFadeIn;
     }
 }
 
