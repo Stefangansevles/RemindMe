@@ -23,4 +23,10 @@ Want to know how to use this?
 
 Written in: C# - Windows Forms
 
-Uses: SQLite, Entity Framework
+Uses: 
+
+SQLite
+
+Entity Framework
+
+[Bunifu Framework (Used for UI)](https://www.google.nl/search?client=opera&q=bunifu&sourceid=opera&ie=UTF-8&oe=UTF-8)
