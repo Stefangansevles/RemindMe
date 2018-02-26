@@ -572,3 +572,14 @@ Fixed an bug with monthly reminders.
 V2.0.7
 
 There is no more light flickering When double-clicking RemindMe's tray icon to show the application. This was more noticeable on lower end computers 
+
+V2.1.0
+
+Disabled reminders have a different font color now(gray-black, instead of white)
+
+You can now disable a reminder from the message popup that pops up when there will be an reminder in 60 minutes. (https://i.imgur.com/2CYBRVK.png)
+
+The timer to check reminders now does not run anymore if there are no reminders that can pop up(disabled ones for example). This reduces CPU usage.
+The timer didn't cause high cpu usage anyway, but no cpu usage is always better than low cpu usage
+
+Fixed a bug where the layout wasn't correctly aligned(https://i.imgur.com/xUMsvjn.png)

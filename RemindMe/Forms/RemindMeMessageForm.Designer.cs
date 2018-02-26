@@ -33,6 +33,8 @@
             this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlText = new System.Windows.Forms.Panel();
             this.lblText = new System.Windows.Forms.Label();
+            this.pnlDisable = new System.Windows.Forms.Panel();
+            this.lblDisable = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblExit = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,6 +45,7 @@
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bunifuGradientPanel1.SuspendLayout();
             this.pnlText.SuspendLayout();
+            this.pnlDisable.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +55,7 @@
             this.bunifuGradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel1.BackgroundImage")));
             this.bunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bunifuGradientPanel1.Controls.Add(this.pnlText);
+            this.bunifuGradientPanel1.Controls.Add(this.pnlDisable);
             this.bunifuGradientPanel1.Controls.Add(this.panel1);
             this.bunifuGradientPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bunifuGradientPanel1.GradientBottomLeft = System.Drawing.Color.DarkGray;
@@ -66,25 +70,48 @@
             // 
             // pnlText
             // 
-            this.pnlText.AutoSize = true;
             this.pnlText.BackColor = System.Drawing.Color.Transparent;
             this.pnlText.Controls.Add(this.lblText);
             this.pnlText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlText.Location = new System.Drawing.Point(0, 32);
             this.pnlText.Name = "pnlText";
-            this.pnlText.Size = new System.Drawing.Size(330, 68);
-            this.pnlText.TabIndex = 1;
+            this.pnlText.Size = new System.Drawing.Size(330, 48);
+            this.pnlText.TabIndex = 2;
             // 
             // lblText
             // 
             this.lblText.AutoSize = true;
             this.lblText.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblText.ForeColor = System.Drawing.Color.White;
-            this.lblText.Location = new System.Drawing.Point(7, 8);
+            this.lblText.Location = new System.Drawing.Point(8, 8);
             this.lblText.Name = "lblText";
             this.lblText.Size = new System.Drawing.Size(33, 16);
-            this.lblText.TabIndex = 0;
+            this.lblText.TabIndex = 1;
             this.lblText.Text = "Text";
+            // 
+            // pnlDisable
+            // 
+            this.pnlDisable.BackColor = System.Drawing.Color.Transparent;
+            this.pnlDisable.Controls.Add(this.lblDisable);
+            this.pnlDisable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlDisable.Location = new System.Drawing.Point(0, 80);
+            this.pnlDisable.Name = "pnlDisable";
+            this.pnlDisable.Size = new System.Drawing.Size(330, 20);
+            this.pnlDisable.TabIndex = 1;
+            this.pnlDisable.Visible = false;
+            // 
+            // lblDisable
+            // 
+            this.lblDisable.AutoSize = true;
+            this.lblDisable.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblDisable.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisable.ForeColor = System.Drawing.Color.White;
+            this.lblDisable.Location = new System.Drawing.Point(5, 2);
+            this.lblDisable.Name = "lblDisable";
+            this.lblDisable.Size = new System.Drawing.Size(131, 16);
+            this.lblDisable.TabIndex = 2;
+            this.lblDisable.Text = "Disable this reminder";
+            this.lblDisable.Click += new System.EventHandler(this.lblDisable_Click);
             // 
             // panel1
             // 
@@ -166,9 +193,10 @@
             this.Text = "RemindMeMessageForm";
             this.Load += new System.EventHandler(this.RemindMeMessageForm_Load);
             this.bunifuGradientPanel1.ResumeLayout(false);
-            this.bunifuGradientPanel1.PerformLayout();
             this.pnlText.ResumeLayout(false);
             this.pnlText.PerformLayout();
+            this.pnlDisable.ResumeLayout(false);
+            this.pnlDisable.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -179,8 +207,6 @@
         #endregion
 
         private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel1;
-        private System.Windows.Forms.Panel pnlText;
-        private System.Windows.Forms.Label lblText;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -189,5 +215,9 @@
         private System.Windows.Forms.Timer tmrTimeout;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private System.Windows.Forms.Label lblExit;
+        private System.Windows.Forms.Panel pnlText;
+        private System.Windows.Forms.Label lblText;
+        private System.Windows.Forms.Panel pnlDisable;
+        private System.Windows.Forms.Label lblDisable;
     }
 }

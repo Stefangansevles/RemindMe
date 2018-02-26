@@ -49,14 +49,23 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Laye
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.EF6.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.Linq.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EmailSender.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csprojResolveAssemblyReference.cache
@@ -81,11 +90,3 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCWindowOv
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.Cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.xml

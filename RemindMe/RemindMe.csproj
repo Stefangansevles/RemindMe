@@ -43,9 +43,6 @@
       <HintPath>..\..\..\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="EmailSender">
-      <HintPath>..\..\..\..\[C#] RemindMe (git)\RemindMeReWrite\libs\EmailSender.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>

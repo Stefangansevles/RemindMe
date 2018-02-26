@@ -56,9 +56,7 @@ namespace RemindMe
                         try
                         {
                             MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, note);
-                            sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email));
-                            
-
+                            sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email));                            
                         }
                         catch (FormatException ex)
                         {                            

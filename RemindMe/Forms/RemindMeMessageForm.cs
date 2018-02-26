@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business_Logic_Layer;
+using Database.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +16,7 @@ namespace RemindMe
     {
         int timeout = 0;
         int secondsPassed = 0;
+        Reminder theReminder = null;
         public RemindMeMessageForm(string message, int timeout)
         {
             InitializeComponent();
@@ -21,7 +24,7 @@ namespace RemindMe
             //Not visible                   
             this.Opacity = 0.0;
             //Make it so that the text won't go out of bounds horizontally, so the panel has to grow vertically
-            lblText.MaximumSize = new Size(pnlText.Width - 15,0); 
+            lblText.MaximumSize = new Size(pnlText.Width - 15, 0);
             //Set the text
             lblText.Text = message;
             //Enlarge the panel if needed
@@ -30,7 +33,7 @@ namespace RemindMe
 
             //No active popup forms? set it to default position
             if (MessageFormManager.GetPopupforms().Count == 0)
-            {                
+            {
                 //Set the location to the bottom right corner of the user's screen and a little bit above the taskbar    
                 this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - this.Height - 5);
             }
@@ -38,12 +41,17 @@ namespace RemindMe
             {
                 int alreadyActiveFormCount = MessageFormManager.GetPopupforms().Count;
                 //Set the location to the bottom right corner of the user's screen, and above all other active popups
-                this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - (this.Height * (alreadyActiveFormCount+1) ) - ( (alreadyActiveFormCount+1) * 5));
+                this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - (this.Height * (alreadyActiveFormCount + 1)) - ((alreadyActiveFormCount + 1) * 5));
             }
 
             this.timeout = timeout;
             //Start the timer that will "slowly" make the form more transparent
             tmrFadein.Start();
+        }
+        public RemindMeMessageForm(string message, int timeout, Reminder rem) : this(message, timeout)
+        {
+            pnlDisable.Visible = true;
+            theReminder = rem;
         }
 
         private const int WS_EX_NOACTIVATE = 0x08000000;
@@ -79,7 +87,7 @@ namespace RemindMe
                 frm.Height += 10; //Enlarge it just a little bit more to make it look better
             }
 
-            if(frm.Width - deltaright > frm.Width)     //Dont shrink, only enlarge
+            if (frm.Width - deltaright > frm.Width)     //Dont shrink, only enlarge
                 frm.Width = frm.Width - deltaright;
 
             frm.ResumeLayout();
@@ -97,15 +105,15 @@ namespace RemindMe
             {
                 tmrFadein.Stop();
                 tmrTimeout.Start();
-                this.Opacity = 1;                
+                this.Opacity = 1;
                 secondsPassed = 0;
             }
         }
 
         private void tmrFadeout_Tick(object sender, EventArgs e)
-        {            
+        {
             if (this.Bounds.Contains(MousePosition)) //Cursor in the message? reset opacity to 1 and restart timeout timer
-            {               
+            {
                 this.Opacity = 1;
                 secondsPassed = 0;
                 tmrTimeout.Start();
@@ -116,7 +124,7 @@ namespace RemindMe
                 if (this.Opacity <= 0)
                 {
                     tmrFadeout.Stop();
-                    
+
                     tmrFadein.Dispose();
                     tmrFadeout.Dispose();
                     tmrTimeout.Dispose();
@@ -124,8 +132,8 @@ namespace RemindMe
                     MessageFormManager.RepositionActivePopups();
                 }
             }
-            
-            
+
+
         }
 
         private void tmrTimeout_Tick(object sender, EventArgs e)
@@ -148,7 +156,7 @@ namespace RemindMe
         }
 
         private void lblExit_Click(object sender, EventArgs e)
-        {            
+        {
             this.Dispose();
             MessageFormManager.RepositionActivePopups();
         }
@@ -157,6 +165,14 @@ namespace RemindMe
         {
             this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
             this.TopLevel = true;
+        }
+
+        private void lblDisable_Click(object sender, EventArgs e)
+        {
+            theReminder.Enabled = 0;                //Set the enabled flag of this reminder to false
+            BLReminder.EditReminder(theReminder);   //Push the edited reminder to the database
+            UCReminders.NotifyChange();             //Show the change in RemindMe's main listview
+            this.Dispose();
         }
     }
 }

@@ -460,6 +460,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
+            this.Text = "RemindMe Manager";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnlBanner.ResumeLayout(false);
             this.pnlBanner.PerformLayout();

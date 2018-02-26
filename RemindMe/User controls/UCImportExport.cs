@@ -14,7 +14,7 @@ using System.IO;
 namespace RemindMe
 {
     public partial class UCImportExport : UserControl
-    {        
+    {
         private ReminderTransferType transferType;
         private List<Reminder> remindersFromRemindMeFile = new List<Reminder>();
         public UCImportExport()
@@ -42,13 +42,13 @@ namespace RemindMe
 
             if (remindmeFile == null || remindmeFile == "")
             {//user pressed cancel                  
-                btnImport.selected = false;       
+                btnImport.selected = false;
                 return;
             }
 
             try
             {
-                
+
 
 
                 List<object> toImportReminders = BLReminder.DeserializeRemindersFromFile(remindmeFile).Cast<object>().ToList();
@@ -56,7 +56,7 @@ namespace RemindMe
                 if (toImportReminders != null)
                 {
                     transferType = ReminderTransferType.IMPORT;
-                    
+
                     foreach (object rem in toImportReminders)
                     {
                         if (rem.GetType() == typeof(Reminder))
@@ -66,9 +66,9 @@ namespace RemindMe
                         }
                     }
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageFormManager.MakeMessagePopup("Error loading reminder(s)", 6);
             }
@@ -82,7 +82,7 @@ namespace RemindMe
             if (BLReminder.GetReminders().Count > 0)
             {
                 transferType = ReminderTransferType.EXPORT;
-                
+
 
                 foreach (Reminder rem in BLReminder.GetReminders())
                 {
@@ -98,12 +98,12 @@ namespace RemindMe
             btnExport.selected = false;
             btnRecover.selected = false;
 
-            if(sender != null)
+            if (sender != null)
                 ((Bunifu.Framework.UI.BunifuFlatButton)sender).selected = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
-        {                        
+        {
             ToggleButton(null);
             lvReminders.Items.Clear();
 
@@ -111,7 +111,7 @@ namespace RemindMe
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
-            ToggleButton(sender);            
+            ToggleButton(sender);
             lvReminders.Items.Clear();
 
             List<Reminder> toRecoverReminders = BLReminder.GetDeletedReminders();
@@ -122,28 +122,32 @@ namespace RemindMe
                 {
                     BLFormLogic.AddReminderToListview(lvReminders, rem);
                 }
-                
+
             }
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            switch(transferType)
+            switch (transferType)
             {
-                case ReminderTransferType.IMPORT: ImportReminders();
+                case ReminderTransferType.IMPORT:
+                    ImportReminders();
                     break;
-                case ReminderTransferType.EXPORT: Exportreminders();
+                case ReminderTransferType.EXPORT:
+                    Exportreminders();
                     break;
-                case ReminderTransferType.RECOVER: RecoverReminders();
+                case ReminderTransferType.RECOVER:
+                    RecoverReminders();
                     break;
             }
-            
+
             foreach (ListViewItem item in lvReminders.CheckedItems)
                 lvReminders.Items.Remove(item);
 
-            
 
-            ToggleButton(null);            
+
+            ToggleButton(null);
+            UCReminders.NotifyChange();
         }
 
 
@@ -159,7 +163,7 @@ namespace RemindMe
                 {
                     Exception possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);
                     if (possibleException == null)
-                    {                        
+                    {
                         SetStatusTexts(GetSelectedRemindersFromListview().Count, BLReminder.GetReminders().Count);
                     }
                     else if (possibleException is UnauthorizedAccessException)
@@ -184,13 +188,13 @@ namespace RemindMe
                     }
                 }
                 else
-                {                    
+                {
                     return;
                 }
 
             }
             else
-            {                
+            {
                 MessageFormManager.MakeMessagePopup("Please select one or more reminder(s)", 6);
             }
 
@@ -243,18 +247,18 @@ namespace RemindMe
             foreach (ListViewItem item in lvReminders.CheckedItems)
                 checkedIds.Add((long)item.Tag);
 
-            if(transferType == ReminderTransferType.IMPORT) //Look through the reminders from the .remindme file instead of the database if import.
+            if (transferType == ReminderTransferType.IMPORT) //Look through the reminders from the .remindme file instead of the database if import.
                 return remindersFromRemindMeFile.Where(r => checkedIds.Contains(r.Id)).ToList();
             else
                 return BLReminder.GetAllReminders().Where(r => checkedIds.Contains(r.Id)).ToList();
         }
 
         private void SetStatusTexts(int completedReminders, int totalReminders)
-       {                                    
+        {
             foreach (ListViewItem item in lvReminders.CheckedItems)
                 lvReminders.Items.Remove(item);
 
-            if(completedReminders > 0)
+            if (completedReminders > 0)
                 MessageFormManager.MakeMessagePopup("Succesfully " + this.transferType.ToString().ToLower() + "ed " + completedReminders + " reminders.", 4);
         }
 
@@ -288,9 +292,9 @@ namespace RemindMe
             RECOVER
         }
 
-      
+
     }
 
-    
+
 }
 

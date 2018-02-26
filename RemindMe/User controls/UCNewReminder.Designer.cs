@@ -91,6 +91,7 @@
             this.addMonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subtractDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetTimeDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.groupRepeatRadiobuttons.SuspendLayout();
@@ -441,8 +442,7 @@
             this.groupRepeatRadiobuttons.Name = "groupRepeatRadiobuttons";
             this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(366, 60);
             this.groupRepeatRadiobuttons.TabIndex = 79;
-            this.groupRepeatRadiobuttons.TabStop = false;
-            this.groupRepeatRadiobuttons.LocationChanged += new System.EventHandler(this.groupRepeatRadiobuttons_LocationChanged);
+            this.groupRepeatRadiobuttons.TabStop = false;            
             // 
             // rbMultipleDays
             // 
@@ -1018,10 +1018,11 @@
             this.addDaysToolStripMenuItem,
             this.addMonthsToolStripMenuItem,
             this.subtractDaysToolStripMenuItem,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.resetTimeDateToolStripMenuItem});
             this.AddDaysMenuStrip.Name = "ReminderMenuStrip";
             this.AddDaysMenuStrip.ShowImageMargin = false;
-            this.AddDaysMenuStrip.Size = new System.Drawing.Size(217, 114);
+            this.AddDaysMenuStrip.Size = new System.Drawing.Size(217, 136);
             // 
             // addMinutesToolStripMenuItem
             // 
@@ -1062,6 +1063,15 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(216, 22);
             this.toolStripMenuItem1.Text = "Subtract Months";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // resetTimeDateToolStripMenuItem
+            // 
+            this.resetTimeDateToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
+            this.resetTimeDateToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.resetTimeDateToolStripMenuItem.Name = "resetTimeDateToolStripMenuItem";
+            this.resetTimeDateToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.resetTimeDateToolStripMenuItem.Text = "Reset Time/Date";
+            this.resetTimeDateToolStripMenuItem.Click += new System.EventHandler(this.resetTimeDateToolStripMenuItem_Click);
             // 
             // dtpDate
             // 
@@ -1188,5 +1198,6 @@
         private System.Windows.Forms.ToolStripMenuItem subtractDaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.DateTimePicker dtpDate;
+        private System.Windows.Forms.ToolStripMenuItem resetTimeDateToolStripMenuItem;
     }
 }

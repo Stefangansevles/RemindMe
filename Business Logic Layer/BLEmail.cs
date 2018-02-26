@@ -27,7 +27,7 @@ namespace Business_Logic_Layer
         {
             MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
             Exception returnException = null;
-
+                        
             string domainName = GetDomainName(mes.To[0].Address);
             IPAddress[] servers = GetMailExchangeServer(domainName);
             foreach (IPAddress server in servers)

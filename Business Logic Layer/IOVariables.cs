@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -38,8 +39,9 @@ namespace Business_Logic_Layer
         {
             get
             {
-                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                System.Reflection.Assembly assembly = Assembly.GetEntryAssembly();
                 FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                
                 return fvi.FileVersion;
             }
         }

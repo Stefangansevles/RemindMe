@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Database.Entity;
 using Business_Logic_Layer;
 using System.IO;
+using System.Reflection;
 
 namespace RemindMe
 {
@@ -19,6 +20,7 @@ namespace RemindMe
         private ListviewColumnSizes sizes;
         private static ListView lvRems = null;
         private static bool allowRefreshListview = false;
+        private static UCReminders instance;
 
         //Reminders that will pop up the next hour.
         private static List<Reminder> remindersToHappenInAnHour = new List<Reminder>();
@@ -33,10 +35,14 @@ namespace RemindMe
             SetColumnHeaderWidth();
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
             lvRems = lvReminders;
+            instance = this;
         }
 
+        public static UCReminders GetInstance()
+        {
+            return instance;
+        }
 
-        //prevent flickering
         protected override CreateParams CreateParams
         {
             get
@@ -45,7 +51,6 @@ namespace RemindMe
                 handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
                 return handleParam;
             }
-
         }
 
         /// <summary>
@@ -53,11 +58,13 @@ namespace RemindMe
         /// </summary>
         public static void NotifyChange()
         {
-            if(lvRems != null)
+            if (lvRems != null)
                 BLFormLogic.RefreshListview(lvRems);
+
+            GetInstance().tmrCheckReminder.Start();
         }
         private void UCReminders_Load(object sender, EventArgs e)
-        {
+        {            
             BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(rem => rem.Deleted == 0).ToList()); //Get all "active" reminders);                                
             tmrCheckReminder.Start();
         }
@@ -67,36 +74,44 @@ namespace RemindMe
         /// </summary>
         private void SetColumnHeaderWidth()
         {
-            foreach(ColumnHeader ch in lvReminders.Columns)
-            {
-                switch(ch.Text)
-                {
-                    case "Title": ch.Width = (int)sizes.Title;
-                        break;
-                    case "Date": ch.Width = (int)sizes.Date;
-                        break;
-                    case "Repeating": ch.Width = (int)sizes.Repeating;
-                        break;
-                    case "Enabled": ch.Width = (int)sizes.Enabled;
-                        break;
-                }                
-            }
-        }
-
-        
-        private void UpdateColumnHeaderWidth() 
-        {            
             foreach (ColumnHeader ch in lvReminders.Columns)
             {
                 switch (ch.Text)
                 {
-                    case "Title": sizes.Title = ch.Width;                       
+                    case "Title":
+                        ch.Width = (int)sizes.Title;
                         break;
-                    case "Date": sizes.Date = ch.Width;
+                    case "Date":
+                        ch.Width = (int)sizes.Date;
                         break;
-                    case "Repeating": sizes.Repeating = ch.Width;
+                    case "Repeating":
+                        ch.Width = (int)sizes.Repeating;
                         break;
-                    case "Enabled": sizes.Enabled = ch.Width;
+                    case "Enabled":
+                        ch.Width = (int)sizes.Enabled;
+                        break;
+                }
+            }
+        }
+
+
+        private void UpdateColumnHeaderWidth()
+        {
+            foreach (ColumnHeader ch in lvReminders.Columns)
+            {
+                switch (ch.Text)
+                {
+                    case "Title":
+                        sizes.Title = ch.Width;
+                        break;
+                    case "Date":
+                        sizes.Date = ch.Width;
+                        break;
+                    case "Repeating":
+                        sizes.Repeating = ch.Width;
+                        break;
+                    case "Enabled":
+                        sizes.Enabled = ch.Width;
                         break;
                 }
             }
@@ -118,7 +133,7 @@ namespace RemindMe
             else if (e.KeyCode == Keys.Space)
                 btnDisableEnable_Click(sender, e);
 
-            
+
             if (e.Control && e.KeyCode == Keys.A)
             {
                 //Ctrl+a = select all items
@@ -165,9 +180,8 @@ namespace RemindMe
                     BLReminder.EditReminder(rem);
 
                 }
-            }
-
-            BLFormLogic.RefreshListview(lvReminders);
+            }            
+            NotifyChange();
         }
 
         private List<Reminder> GetSelectedRemindersFromListview()
@@ -217,10 +231,8 @@ namespace RemindMe
             ToolStripItem removePostponeItem = ReminderMenuStrip.Items.Find("removePostponeToolStripMenuItem", false)[0];
 
             //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
-            if (hideMenuItem)
-                removePostponeItem.Visible = false;
-            else
-                removePostponeItem.Visible = true;
+            removePostponeItem.Visible = hideMenuItem;
+
         }
         /// <summary>
         /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
@@ -245,10 +257,8 @@ namespace RemindMe
             ToolStripItem skipToNextDateItem = ReminderMenuStrip.Items.Find("skipToNextDateToolStripMenuItem", false)[0];
 
             //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
-            if (hideMenuItem)
-                skipToNextDateItem.Visible = false;
-            else
-                skipToNextDateItem.Visible = true;
+            skipToNextDateItem.Visible = hideMenuItem;
+
         }
 
         private void permanentelyRemoveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -399,8 +409,8 @@ namespace RemindMe
 
         private void postponeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int returnValue = RemindMePrompt.ShowNumber("Select your postpone time","(in minutes)");  
-                      
+            int returnValue = RemindMePrompt.ShowNumber("Select your postpone time", "(in minutes)");
+
             if (returnValue <= 0)
                 return;
 
@@ -518,7 +528,7 @@ namespace RemindMe
                 int id = Convert.ToInt32(item.Tag);
                 //Create a new UCNewReminder and pass the reminder
                 this.Parent.Controls.Add(new UCNewReminder(this, BLReminder.GetReminderById(id)));
-                this.Parent.Controls.Remove(this);                
+                this.Parent.Controls.Remove(this);
             }
         }
 
@@ -539,7 +549,7 @@ namespace RemindMe
                 }
             }
             //finally, refresh the listview
-            BLFormLogic.RefreshListview(lvReminders);
+            NotifyChange();
         }
 
         private void lvReminders_DragEnter(object sender, DragEventArgs e)
@@ -548,7 +558,13 @@ namespace RemindMe
         }
 
         private void tmrCheckReminder_Tick(object sender, EventArgs e)
-        {
+        {            
+            if (BLReminder.GetReminders().Where(r => r.Enabled == 1).ToList().Count <= 0)
+            {
+                tmrCheckReminder.Stop(); //No existing reminders? no enabled reminders? stop timer.
+                return;
+            }            
+
             //If a day has passed since the start of RemindMe, we may want to refresh the listview. 
             //There might be reminders happening on this day, if so, we show the time of the reminder, instead of the day
             if (dayOfStartRemindMe < DateTime.Now.Day)
@@ -620,10 +636,12 @@ namespace RemindMe
 
             if (remindersToHappenInAnHour.Count > 1) //cut off the last \n
                 message = message.Remove(message.Length - 2, 2);
-            if (remindersToHappenInAnHour.Count > 0)
-                MessageFormManager.MakeMessagePopup(message, 5);
+            else if (remindersToHappenInAnHour.Count > 0)
+                MessageFormManager.MakeMessagePopup(message, 5, remindersToHappenInAnHour[0]);
 
             remindersToHappenInAnHour.Clear();
         }
+
+       
     }
 }

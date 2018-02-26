@@ -1,4 +1,5 @@
 ﻿using Business_Logic_Layer;
+using Database.Entity;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,15 +37,29 @@ namespace RemindMe
         }
 
         /// <summary>
-        /// 
+        /// Creates an animated message popup at the bottom-right corner of the screen
         /// </summary>
-        /// <param name="message">The message</param>
-        /// <param name="popDelay">The amount of seconds to wait before the popup goes down again</param>
+        /// <param name="message">The message this form should display</param>
+        /// <param name="popDelay">The time this form will be visible in seconds</param>
         public static void MakeMessagePopup(string message, int popDelay)
         {
             RemindMeMessageForm popupForm = new RemindMeMessageForm(message, popDelay);
             popupForm.Show();
-            
+
+            popupForms.Add(popupForm); //Add the popupform            
+        }
+
+        /// <summary>
+        /// Creates an animated message popup at the bottom-right corner of the screen
+        /// </summary>
+        /// <param name="message">The message this form should display</param>
+        /// <param name="popDelay">The time this form will be visible in seconds</param>
+        /// <param name="rem">The reminder that is in this message popup. Gives the user the option to disable it</param>
+        public static void MakeMessagePopup(string message, int popDelay, Reminder rem)
+        {
+            RemindMeMessageForm popupForm = new RemindMeMessageForm(message, popDelay, rem);
+            popupForm.Show();
+
             popupForms.Add(popupForm); //Add the popupform            
         }
 
@@ -53,7 +68,7 @@ namespace RemindMe
         /// </summary>
         /// <returns></returns>
         public static List<RemindMeMessageForm> GetPopupforms()
-        {            
+        {
             return popupForms.Where(frm => !frm.IsDisposed).ToList();
         }
 
@@ -73,26 +88,26 @@ namespace RemindMe
             }
             else
             {
-                foreach(RemindMeMessageForm form in GetPopupforms())
+                foreach (RemindMeMessageForm form in GetPopupforms())
                 {
                     //Do NOT move the form down if it is the bottom one
                     if (form.Location.Y != Screen.GetWorkingArea(form).Height - form.Height - 5)
                     {
                         //Check if there is one below you
-                        if(!IsFormAt(new Point(form.Location.X,(form.Location.Y + form.Height) + 5)))
+                        if (!IsFormAt(new Point(form.Location.X, (form.Location.Y + form.Height) + 5)))
                         {
                             //Put all messageforms one down.
                             form.Location = new Point(form.Location.X, (form.Location.Y + form.Height) + 5);
                         }
-                        
+
                     }
-                }                                                
+                }
             }
 
 
             //Lets just clear the disposed forms
             List<RemindMeMessageForm> toRemoveForms = new List<RemindMeMessageForm>();
-            foreach(RemindMeMessageForm form in popupForms)
+            foreach (RemindMeMessageForm form in popupForms)
             {
                 if (form.IsDisposed)
                     toRemoveForms.Add(form);
@@ -108,12 +123,12 @@ namespace RemindMe
         /// <returns></returns>
         private static bool IsFormAt(Point p)
         {
-            foreach(RemindMeMessageForm form in GetPopupforms())
+            foreach (RemindMeMessageForm form in GetPopupforms())
             {
-                if(form.Location == p)
+                if (form.Location == p)
                     return true;
             }
-            return false;       
+            return false;
         }
     }
 

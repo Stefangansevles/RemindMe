@@ -12,6 +12,7 @@ using Database.Entity;
 using System.Runtime.InteropServices;
 using WMPLib;
 using System.IO;
+using System.Reflection;
 
 namespace RemindMe
 {
@@ -60,7 +61,47 @@ namespace RemindMe
             cbFriday.OnChange += cbDaysCheckedChangeEvent;
             cbSaturday.OnChange += cbDaysCheckedChangeEvent;
             cbSunday.OnChange += cbDaysCheckedChangeEvent;
+
+            rbDaily.CheckedChanged += rbCheckedChangeEvent;
+            rbMonthly.CheckedChanged += rbCheckedChangeEvent;
+            rbMultipleDays.CheckedChanged += rbCheckedChangeEvent;
+            rbNoRepeat.CheckedChanged += rbCheckedChangeEvent;
+            rbEveryXCustom.CheckedChanged += rbCheckedChangeEvent;
+            rbWorkDays.CheckedChanged += rbCheckedChangeEvent;
+
+
             AddDaysMenuStrip.Renderer = new MyToolStripMenuRenderer();
+        }
+
+        private void rbCheckedChangeEvent(object sender, EventArgs e)
+        {
+            if (rbMultipleDays.Checked) //we should put the panel with monday-sunday under this groupbox            
+                pnlDayCheckBoxes.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
+
+            if (rbDaily.Checked || rbWorkDays.Checked) //same logic for both radiobuttons            
+                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
+
+            if (rbMonthly.Checked)
+            {
+                cbEvery.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
+                tbNote.Location = new Point(cbEvery.Location.X, cbEvery.Location.Y + cbEvery.Height + 3);
+            }
+
+            if (rbNoRepeat.Checked)
+                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
+
+            lblRepeat.Location = new Point(lblRepeat.Location.X, groupRepeatRadiobuttons.Location.Y + 3);
+        }
+
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
         }
 
         /// <summary>
@@ -71,9 +112,9 @@ namespace RemindMe
         public UCNewReminder(UserControl callback, Reminder editableReminder) : this(callback)
         {
             this.editableReminder = editableReminder;
-            FillControlsForEdit(editableReminder);            
+            FillControlsForEdit(editableReminder);
         }
-        
+
 
         private void SetComboBoxHeight(IntPtr comboBoxHandle, Int32 comboBoxDesiredHeight)
         {
@@ -85,7 +126,7 @@ namespace RemindMe
         /// </summary>
         private void FillControlsForEdit(Reminder rem)
         {
-            pnlDayCheckBoxes.Visible = false;                        
+            pnlDayCheckBoxes.Visible = false;
             if (rem != null)
             {
                 dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
@@ -95,7 +136,7 @@ namespace RemindMe
                 //datetimepicker does not show the text matching it's value
                 dtpDate.Checked = true;
                 dtpDate.Value = remDate;
-                
+
 
                 FillSoundComboboxFromDatabase(cbSound);
                 tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
@@ -177,8 +218,8 @@ namespace RemindMe
                             break;
                     }
                 }
-                
-                
+
+
                 //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
                 pnlDayCheckBoxes_VisibleChanged(null, null);
 
@@ -250,13 +291,13 @@ namespace RemindMe
                     if (item.SongFileName != "")
                         cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
 
-            
+
 
             cbSound.Items.Remove(" Add files...");
             cbSound.Items.Add(" Add files...");
             cbSound.Sorted = true;
         }
-       
+
 
         private void bunifuTileButton1_Click(object sender, EventArgs e)
         {
@@ -324,12 +365,12 @@ namespace RemindMe
         }
 
         private void cbDaysCheckedChangeEvent(object sender, EventArgs e)
-        {            
+        {
             DateTime? selectedDateFromCheckboxes = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString()) ?? DateTime.Now;
 
             dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
             dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
-            
+
 
             if (IsDayCheckboxChecked(DateTime.Now.DayOfWeek))
             {//Check if the checkbox of today's dayofweek is checked
@@ -487,11 +528,11 @@ namespace RemindMe
         {
             //The note textbox has to be placed below this control if its visible
             if (numEveryXDays.Visible)
-            {                
+            {
                 numEveryXDays.Location = new Point(numEveryXDays.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height) + 2);
                 lblEvery.Location = new Point(lblEvery.Location.X, numEveryXDays.Location.Y);
                 tbNote.Location = new Point(numEveryXDays.Location.X, (numEveryXDays.Location.Y + numEveryXDays.Size.Height) + 3);
-                cbEveryXCustom.Location = new Point((numEveryXDays.Location.X + numEveryXDays.Width) + 2,numEveryXDays.Location.Y);
+                cbEveryXCustom.Location = new Point((numEveryXDays.Location.X + numEveryXDays.Width) + 2, numEveryXDays.Location.Y);
 
             }
             else if (!pnlDayCheckBoxes.Visible)
@@ -565,9 +606,9 @@ namespace RemindMe
             if (rbEveryXCustom.Checked)
             {
                 lblEvery.Text = "Every:";
-                if(editableReminder == null || (editableReminder != null && editableReminder.EveryXCustom == null))
+                if (editableReminder == null || (editableReminder != null && editableReminder.EveryXCustom == null))
                     cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2]; //days
-                else if(editableReminder.EveryXCustom != null)
+                else if (editableReminder.EveryXCustom != null)
                 {
 
                 }
@@ -685,7 +726,7 @@ namespace RemindMe
             cbDaysCheckedChangeEvent(sender, e);
         }
 
-       
+
 
         private void label7_Click_1(object sender, EventArgs e)
         {
@@ -693,25 +734,7 @@ namespace RemindMe
             cbDaysCheckedChangeEvent(sender, e);
         }
 
-        private void groupRepeatRadiobuttons_LocationChanged(object sender, EventArgs e)
-        {
-            if (rbMultipleDays.Checked) //we should put the panel with monday-sunday under this groupbox            
-                pnlDayCheckBoxes.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
-
-            if (rbDaily.Checked || rbWorkDays.Checked) //same logic for both radiobuttons            
-                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
-
-            if (rbMonthly.Checked)
-            {
-                cbEvery.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
-                tbNote.Location = new Point(cbEvery.Location.X, cbEvery.Location.Y + cbEvery.Height + 3);
-            }
-
-            if (rbNoRepeat.Checked)
-                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Height + 3);
-
-            lblRepeat.Location = new Point(lblRepeat.Location.X, groupRepeatRadiobuttons.Location.Y + 3);
-        }
+        
 
         private void cbEveryXCustom_TextChanged(object sender, EventArgs e)
         {
@@ -751,8 +774,8 @@ namespace RemindMe
 
                     if (!cbMonthlyDays.Items.Contains(cbEvery.SelectedItem.ToString()))
                         cbMonthlyDays.Items.Add(cbEvery.SelectedItem);
-                   // else
-                        //MakeScrollingPopupMessage("The number " + newValue + " is already added.");
+                    // else
+                    //MakeScrollingPopupMessage("The number " + newValue + " is already added.");
 
                     SetDateTimePickerMonthlyValue();
                 }
@@ -778,20 +801,20 @@ namespace RemindMe
         }
 
         private void btnAddDate_Click(object sender, EventArgs e)
-        {            
+        {
             DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
             if (selectedDate > DateTime.Now)
             {
                 if (!cbMultipleDates.Items.Contains(selectedDate))
                 {
                     cbMultipleDates.Items.Add(selectedDate);
-                    MessageFormManager.MakeMessagePopup(selectedDate.ToString() + " Added to this reminder.",1);
-                }                
+                    MessageFormManager.MakeMessagePopup(selectedDate.ToString() + " Added to this reminder.", 1);
+                }
                 else
                     MessageFormManager.MakeMessagePopup("You have already added that date.", 1);
             }
             else
-                MessageFormManager.MakeMessagePopup("The date you selected is in the past! Cannot add this date.",3);
+                MessageFormManager.MakeMessagePopup("The date you selected is in the past! Cannot add this date.", 3);
         }
 
         private void btnRemoveDate_Click(object sender, EventArgs e)
@@ -954,9 +977,9 @@ namespace RemindMe
                             if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)
                                 cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him.  
                             else
-                            {                                                               
-                                if(selectedDate < DateTime.Now)                                
-                                    MessageFormManager.MakeMessagePopup("The selected date is in the past!", 4);                                
+                            {
+                                if (selectedDate < DateTime.Now)
+                                    MessageFormManager.MakeMessagePopup("The selected date is in the past!", 4);
                             }
 
                             if (cbMultipleDates.Items.Count > 0)
@@ -1002,7 +1025,7 @@ namespace RemindMe
                 }
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again                
-                                
+
             }
             else
             {
@@ -1029,7 +1052,7 @@ namespace RemindMe
             //If there is an scrolling popup, hide it.
             //HideScrollingPopupMessage();
             btnBack_Click(sender, e);
-            
+
         }
 
         /// <summary>
@@ -1203,7 +1226,7 @@ namespace RemindMe
 
         private void dtpTime_ValueChanged(object sender, EventArgs e)
         {
-            ShowOrHideExclamation();            
+            ShowOrHideExclamation();
 
             if (rbDaily.Checked && Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) < DateTime.Now)
                 dtpDate.Value = DateTime.Now.AddDays(1);
@@ -1211,7 +1234,7 @@ namespace RemindMe
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            ResetReminderForm();            
+            ResetReminderForm();
         }
 
         private void UCNewReminder_Load(object sender, EventArgs e)
@@ -1236,7 +1259,7 @@ namespace RemindMe
                     AddDaysMenuStrip.Show(Cursor.Position);
             }
             catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
-          
+
         }
 
         private void addMinutesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1248,7 +1271,7 @@ namespace RemindMe
                 dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes);
             }
             catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
-           
+
         }
 
         private void addDaysToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1259,7 +1282,7 @@ namespace RemindMe
                 dtpDate.Value = dtpDate.Value.AddDays(toAddDays);
             }
             catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
-          
+
         }
 
         private void addMonthsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1270,7 +1293,7 @@ namespace RemindMe
                 dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
             }
             catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
-           
+
         }
 
         private void subtractDaysToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1281,7 +1304,7 @@ namespace RemindMe
                 dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays);
             }
             catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
-           
+
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1292,7 +1315,7 @@ namespace RemindMe
                 dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
             }
             catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
-            
+
         }
 
         private void cbSound_SelectedIndexChanged(object sender, EventArgs e)
@@ -1340,6 +1363,13 @@ namespace RemindMe
                     cbSound.Items.Add(" Add files...");
                 }
             }
+        }
+
+        private void resetTimeDateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtpTime.Value = Convert.ToDateTime(DateTime.Now.ToString("HH:mm")).AddMinutes(1); //Add 1 minute so the exclamination won't show
+            dtpDate.Value = DateTime.Now;
+
         }
     }
 }

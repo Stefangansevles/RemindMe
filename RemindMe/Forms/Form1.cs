@@ -12,6 +12,7 @@ using Database.Entity;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace RemindMe
 {
@@ -52,11 +53,10 @@ namespace RemindMe
             //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
             //toolstrip items white.
             RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
-            
-            
+
+
         }
 
-        //prevent flickering
         protected override CreateParams CreateParams
         {
             get
@@ -66,8 +66,10 @@ namespace RemindMe
                 return handleParam;
             }
         }
+
+
         protected override void WndProc(ref Message m)
-        {                        
+        {
             //This message will be sent when the RemindMeImporter imports reminders.
             if (m.Msg == WM_RELOAD_REMINDERS)
             {
@@ -83,21 +85,21 @@ namespace RemindMe
             base.WndProc(ref m);
         }
 
-
+       
         private void Form1_Load(object sender, EventArgs e)
         {
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
 
             MessageFormManager.MakeTodaysRemindersPopup();
-           
+
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
             {
                 this.Opacity = 0;
                 Hide();
             }));
-                        
+
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
@@ -114,12 +116,17 @@ namespace RemindMe
         }
 
 
-      
+
 
         private void showRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.ShowInTaskbar = true;
             this.WindowState = FormWindowState.Minimized;
+
+            //Instead of calling .Show() on a form with 100% opacity making it visible instantly, we call .Show() on the form with 0% opacity.
+            //The form will be drawn invisibly, and then increase the opacity until it reaches 100%. This way RemindMe's form:
+            //1. Has a fade-in like animation when showing
+            //2. No longer shows flickery that occurs when drawing the form(windows-forms issue)
             this.Show();
             this.WindowState = FormWindowState.Normal;
             tmrFadeIn.Start();
@@ -145,7 +152,7 @@ namespace RemindMe
         }
 
         private void btnReminders_Click(object sender, EventArgs e)
-        {            
+        {
             pnlMain.Controls.Clear();
 
             if (ucNewReminder != null)
@@ -153,7 +160,7 @@ namespace RemindMe
             else
             {
                 UCReminders.NotifyChange();
-                pnlMain.Controls.Add(ucReminders);             
+                pnlMain.Controls.Add(ucReminders);
             }
             ToggleButton(sender);
         }
@@ -161,7 +168,7 @@ namespace RemindMe
         /// Toggles a button to become selected.
         /// </summary>
         private void ToggleButton(object sender)
-        {            
+        {
             btnBackupImport.selected = false;
             btnReminders.selected = false;
             btnResizePopup.selected = false;
@@ -234,6 +241,21 @@ namespace RemindMe
                 tmrFadeIn.Stop();
         }
 
-        
+        private void tmrSlide_Tick(object sender, EventArgs e)
+        {
+            ucNewReminder.Location = new Point(ucNewReminder.Location.X + 90, ucNewReminder.Location.Y);
+            if (ucNewReminder.Location.X >= 0)
+                ucNewReminder.Location = new Point(0, 0);
+        }
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_ResizeBegin(object sender, EventArgs e)
+        {
+
+        }
     }
 }

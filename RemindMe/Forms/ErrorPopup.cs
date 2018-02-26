@@ -16,8 +16,7 @@ namespace RemindMe
 {
     public partial class ErrorPopup : Form
     {
-        private string message;
-        private string description;
+        private string message;        
         private Exception ex;
         private bool sentCustomEmail;
         private bool allowEmail = false;
