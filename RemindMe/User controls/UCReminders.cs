@@ -231,7 +231,7 @@ namespace RemindMe
             ToolStripItem removePostponeItem = ReminderMenuStrip.Items.Find("removePostponeToolStripMenuItem", false)[0];
 
             //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
-            removePostponeItem.Visible = hideMenuItem;
+            removePostponeItem.Visible = !hideMenuItem;
 
         }
         /// <summary>
@@ -257,7 +257,7 @@ namespace RemindMe
             ToolStripItem skipToNextDateItem = ReminderMenuStrip.Items.Find("skipToNextDateToolStripMenuItem", false)[0];
 
             //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
-            skipToNextDateItem.Visible = hideMenuItem;
+            skipToNextDateItem.Visible = !hideMenuItem;
 
         }
 
