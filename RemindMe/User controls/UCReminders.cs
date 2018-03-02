@@ -208,29 +208,14 @@ namespace RemindMe
         /// </summary>
         private void HideOrShowRemovePostponeMenuItem()
         {
-            bool hideMenuItem = false;
-            foreach (Reminder rem in GetSelectedRemindersFromListview())
-            {
-                if (rem.PostponeDate != null && rem.PostponeDate != "")
-                {
-                    try
-                    {
-                        DateTime tryConv = Convert.ToDateTime(rem.PostponeDate);
-                    }
-                    catch (Exception ex)
-                    {
-                        hideMenuItem = true;
-                    }
-                }
-                else //no postpone date? don't show.
-                    hideMenuItem = true;
-            }
-
+            //Check if there is even a single reminder that is not postponed from the selected reminders. We only want to show this option if every
+            //selected reminder is postponed
+            bool hideMenuItem = BLReminder.ContainsNotPostponedReminder(GetSelectedRemindersFromListview());
 
             //The option
             ToolStripItem removePostponeItem = ReminderMenuStrip.Items.Find("removePostponeToolStripMenuItem", false)[0];
 
-            //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
+            //determine if we are going to hide the "Remove postpone" option based on the boolean hideMenuItem
             removePostponeItem.Visible = !hideMenuItem;
 
         }
@@ -239,18 +224,9 @@ namespace RemindMe
         /// </summary>
         private void HideOrShowSkipForwardMenuItem()
         {
-            bool hideMenuItem = false;
-            foreach (Reminder rem in GetSelectedRemindersFromListview())
-            {
-                if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
-                {
-                    //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
-                    if (rem.Date.Split(',').Length > 1)
-                        hideMenuItem = false;//Dont hide the option. The item has 2 or more dates!
-                    else
-                        hideMenuItem = true;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
-                }
-            }
+            //Check if there is even a single reminder that can't be repeated from the selected reminders. We only want to show this option if every
+            //selected reminder is repeatable
+            bool hideMenuItem = BLReminder.ContainsNonRepeatableReminder(GetSelectedRemindersFromListview());
 
 
             //The option

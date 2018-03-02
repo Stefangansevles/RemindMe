@@ -583,3 +583,12 @@ The timer to check reminders now does not run anymore if there are no reminders 
 The timer didn't cause high cpu usage anyway, but no cpu usage is always better than low cpu usage
 
 Fixed a bug where the layout wasn't correctly aligned(https://i.imgur.com/xUMsvjn.png)
+
+
+2.1.1
+
+Fixed an small issue where the "skip to next date" option wouldn't appear, because of a small mistake in a boolean check
+
+2.1.2
+
+Fixed an small issue where the "skip to next date" option would appear when selecting multiple reminders with one of those reminders being non-repeatable

@@ -171,6 +171,53 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
+        /// Goes through a list of reminders and checks if there is a reminder that is not repeatable
+        /// </summary>
+        /// <param name="reminders"></param>
+        /// <returns></returns>
+        public static bool ContainsNonRepeatableReminder(List<Reminder> reminders)
+        {            
+            foreach (Reminder rem in reminders)
+            {
+                if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
+                {
+                    int debug = rem.Date.Split(',').Length;
+                    //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
+                    if (rem.Date.Split(',').Length <= 1)
+                        return true;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
+                }
+            }
+            return false; 
+        }
+
+        /// <summary>
+        /// Goes through a list of reminders and checks if there is a reminder that is not postponed
+        /// </summary>
+        /// <param name="reminders"></param>
+        /// <returns></returns>
+        public static bool ContainsNotPostponedReminder(List<Reminder> reminders)
+        {
+            bool contains = true;     
+            foreach (Reminder rem in reminders)
+            {
+                if (rem.PostponeDate != null && rem.PostponeDate != "")
+                {
+                    try
+                    {
+                        DateTime tryConv = Convert.ToDateTime(rem.PostponeDate);
+                        contains = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        return true;
+                    }
+                }
+                else //no postpone date? don't show.
+                    return true;
+            }
+            return contains;
+        }
+        /// <summary>
         /// Gives a new value to a reminder based on it's repeating type, and inserts it into the database
         /// </summary>
         /// <param name="rem"></param>
