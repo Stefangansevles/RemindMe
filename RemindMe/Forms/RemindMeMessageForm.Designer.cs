@@ -43,6 +43,7 @@
             this.tmrFadein = new System.Windows.Forms.Timer(this.components);
             this.tmrTimeout = new System.Windows.Forms.Timer(this.components);
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
+            this.lblSkip = new System.Windows.Forms.Label();
             this.bunifuGradientPanel1.SuspendLayout();
             this.pnlText.SuspendLayout();
             this.pnlDisable.SuspendLayout();
@@ -92,6 +93,7 @@
             // pnlDisable
             // 
             this.pnlDisable.BackColor = System.Drawing.Color.Transparent;
+            this.pnlDisable.Controls.Add(this.lblSkip);
             this.pnlDisable.Controls.Add(this.lblDisable);
             this.pnlDisable.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlDisable.Location = new System.Drawing.Point(0, 80);
@@ -181,6 +183,19 @@
             this.bunifuElipse1.ElipseRadius = 5;
             this.bunifuElipse1.TargetControl = this;
             // 
+            // lblSkip
+            // 
+            this.lblSkip.AutoSize = true;
+            this.lblSkip.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSkip.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSkip.ForeColor = System.Drawing.Color.White;
+            this.lblSkip.Location = new System.Drawing.Point(220, 2);
+            this.lblSkip.Name = "lblSkip";
+            this.lblSkip.Size = new System.Drawing.Size(107, 16);
+            this.lblSkip.TabIndex = 3;
+            this.lblSkip.Text = "Skip to next date";
+            this.lblSkip.Click += new System.EventHandler(this.lblSkip_Click);
+            // 
             // RemindMeMessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,5 +234,6 @@
         private System.Windows.Forms.Label lblText;
         private System.Windows.Forms.Panel pnlDisable;
         private System.Windows.Forms.Label lblDisable;
+        private System.Windows.Forms.Label lblSkip;
     }
 }

@@ -52,6 +52,8 @@ namespace RemindMe
         {
             pnlDisable.Visible = true;
             theReminder = rem;
+
+            lblSkip.Visible = BLReminder.IsRepeatableReminder(rem);
         }
 
         private const int WS_EX_NOACTIVATE = 0x08000000;
@@ -172,6 +174,18 @@ namespace RemindMe
             theReminder.Enabled = 0;                //Set the enabled flag of this reminder to false
             BLReminder.EditReminder(theReminder);   //Push the edited reminder to the database
             UCReminders.NotifyChange();             //Show the change in RemindMe's main listview
+            this.Dispose();
+        }
+
+        private void lblSkip_Click(object sender, EventArgs e)
+        {
+            //The reminder object has now been altered. The first date has been removed and has been "skipped" to it's next date
+            BLReminder.SkipToNextReminderDate(theReminder);
+            //push the altered reminder to the database 
+            BLReminder.EditReminder(theReminder);
+            //Show the change in RemindMe's main listview
+            UCReminders.NotifyChange();             
+            //Finally, close this message
             this.Dispose();
         }
     }

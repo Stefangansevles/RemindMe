@@ -585,10 +585,16 @@ The timer didn't cause high cpu usage anyway, but no cpu usage is always better 
 Fixed a bug where the layout wasn't correctly aligned(https://i.imgur.com/xUMsvjn.png)
 
 
-2.1.1
+V2.1.1
 
 Fixed an small issue where the "skip to next date" option wouldn't appear, because of a small mistake in a boolean check
 
-2.1.2
+V2.1.2
 
 Fixed an small issue where the "skip to next date" option would appear when selecting multiple reminders with one of those reminders being non-repeatable
+
+V2.1.3
+
+You can now skip to a reminder's next date from the message popup that pops up when there will be an reminder in 60 minutes
+
+changed some method names to be easier to understand

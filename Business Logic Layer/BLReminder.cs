@@ -171,11 +171,149 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rem"></param>
+        public static void SkipToNextReminderDate(Reminder rem)
+        {
+            if (!IsRepeatableReminder(rem))
+                return; //If the parameter is a reminder that doesn't have 2 or more dates, we can't continue.
+
+            
+            switch (rem.RepeatType)
+            {
+                case "NONE": //Remove the first element [0] from the string, and assign the new value to the reminder                        
+                    List<string> dates = rem.Date.Split(',').ToList();
+                    string newDateString = "";
+                    dates.RemoveAt(0);
+
+                    foreach (string dat in dates)
+                        newDateString += dat + ",";
+
+                    newDateString = newDateString.Remove(newDateString.Length - 1, 1);
+                    rem.Date = newDateString;
+
+                    break;
+                case "DAILY":
+                    rem.Date = Convert.ToDateTime(rem.Date).AddDays(1).ToString();
+                    break;
+                case "MONTHLY":
+                    //Add 1 month to the first date of the month string, [0] and add it to the end
+                    List<string> monthDates = rem.Date.Split(',').ToList();
+                    string newMonthString = "";
+                    int monthDay = Convert.ToDateTime(monthDates[0]).Day;
+                    int monthsInAdvance = 1;
+                    string updatedDate = "";
+
+                    //If you add 1 month, and the day is not equal, then that means the next month doesnt have enough days. Keep adding months until we find the good month
+                    //Example: Day of month: 31. Add 1 month to january, thats february. It doesnt have 31 days, so it should go to the next month, etc etc
+                    if (Convert.ToDateTime(monthDates[0]).AddMonths(1).Day != monthDay)
+                    {
+                        while (Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).Day != monthDay)
+                        {
+                            monthsInAdvance++;
+                        }
+                        updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).ToString();
+                    }
+                    else
+                        updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(1).ToString(); //Just add 1 month
+
+
+                    //Remove the old date at index 0, and add the new date at the end.
+                    monthDates.RemoveAt(0);
+                    monthDates.Add(updatedDate);
+
+                    foreach (string monthDate in monthDates)
+                        newMonthString += monthDate + ",";
+
+                    newDateString = newMonthString.Remove(newMonthString.Length - 1, 1);
+                    rem.Date = newDateString;
+                    break;
+                case "WORKDAYS":
+                    if (Convert.ToDateTime(rem.Date).DayOfWeek == DayOfWeek.Friday)
+                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(3).ToString(); //Add 3 days, friday -> saturday -> sunday -> monday
+                    else if (Convert.ToDateTime(rem.Date).DayOfWeek == DayOfWeek.Saturday)
+                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(2).ToString(); //Add 2 days,  saturday -> sunday -> monday                        
+                    else
+                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(1).ToString();
+                    break;
+                case "MULTIPLE_DAYS":
+                    DayOfWeek dayOfWeekOfThisReminder = Convert.ToDateTime(rem.Date).DayOfWeek;
+                    List<string> days = BLDateTime.SortDayOfWeekStringList(rem.RepeatDays.Split(',').ToList()); //These are the days this reminder has. Example: monday,thursday,sunday
+
+                    int indexOfDay = 0;
+                    foreach (string day in days)
+                    {
+                        if (day.ToLower() != dayOfWeekOfThisReminder.ToString().ToLower())
+                            indexOfDay++;
+                        else
+                            break;
+                    }
+                    DayOfWeek nextDay;
+
+                    if (indexOfDay + 1 >= days.Count)
+                    {
+                        indexOfDay = 0;
+                        nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay]);
+                    }
+                    else
+                        nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay + 1]);
+
+
+                    int toAddDays = BLDateTime.GetAmountOfDaysBetween(dayOfWeekOfThisReminder, nextDay);
+                    if (toAddDays == 0)
+                        toAddDays = 7;
+                    //Days between monday and monday is 0, but in our case that means 1 week, so 7 days.
+                    rem.Date = Convert.ToDateTime(rem.Date).AddDays(toAddDays).ToString();
+                    break;
+                default:
+                    if (rem.EveryXCustom != null)
+                    {
+                        switch (rem.RepeatType.ToLower())
+                        {
+                            case "minutes":
+                                rem.Date = Convert.ToDateTime(rem.Date).AddMinutes((double)rem.EveryXCustom).ToString();
+                                break;
+                            case "hours":
+                                rem.Date = Convert.ToDateTime(rem.Date).AddHours((double)rem.EveryXCustom).ToString();
+                                break;
+                            case "days":
+                                rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom).ToString();
+                                break;
+                            case "weeks":
+                                rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom * 7).ToString();
+                                break;
+                            case "months":
+                                rem.Date = Convert.ToDateTime(rem.Date).AddMonths((int)rem.EveryXCustom).ToString();
+                                break;
+                        }
+                    }
+                    break;
+            }
+        }
+        /// <summary>
+        /// Checks if a reminder has 2 or more dates
+        /// </summary>
+        /// <param name="rem"></param>
+        /// <returns></returns>
+        public static bool IsRepeatableReminder(Reminder rem)
+        {
+            if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
+            {
+                int debug = rem.Date.Split(',').Length;
+                //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
+                if (rem.Date.Split(',').Length <= 1)
+                    return false;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
+            }
+
+            return true;
+        }
+        /// <summary>
         /// Goes through a list of reminders and checks if there is a reminder that is not repeatable
         /// </summary>
         /// <param name="reminders"></param>
         /// <returns></returns>
-        public static bool ContainsNonRepeatableReminder(List<Reminder> reminders)
+        public static bool ContainsRepeatableReminder(List<Reminder> reminders)
         {            
             foreach (Reminder rem in reminders)
             {
@@ -184,10 +322,10 @@ namespace Business_Logic_Layer
                     int debug = rem.Date.Split(',').Length;
                     //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
                     if (rem.Date.Split(',').Length <= 1)
-                        return true;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
+                        return false;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
                 }
             }
-            return false; 
+            return true; 
         }
 
         /// <summary>
@@ -195,9 +333,9 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="reminders"></param>
         /// <returns></returns>
-        public static bool ContainsNotPostponedReminder(List<Reminder> reminders)
+        public static bool ContainsPostponedReminder(List<Reminder> reminders)
         {
-            bool contains = true;     
+            bool contains = false;     
             foreach (Reminder rem in reminders)
             {
                 if (rem.PostponeDate != null && rem.PostponeDate != "")
@@ -205,15 +343,15 @@ namespace Business_Logic_Layer
                     try
                     {
                         DateTime tryConv = Convert.ToDateTime(rem.PostponeDate);
-                        contains = false;
+                        contains = true;
                     }
                     catch (Exception ex)
                     {
-                        return true;
+                        return false;
                     }
                 }
                 else //no postpone date? don't show.
-                    return true;
+                    return false;
             }
             return contains;
         }
