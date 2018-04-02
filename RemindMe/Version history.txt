@@ -607,3 +607,9 @@ V2.1.4
 Fixed an issue with importing reminders from the double-click .remindme option option. It would import them but the remindme list wouldn't refresh to show the changes.
 
 Fixed an memory issue. When you would edit a lot of reminders, the edit-reminder form wouldn't get disposed, so this would build up. It now disposes it correctly.
+
+V2.1.5
+
+Fixed an issue where the message <reminder_name> in 60 minutes! would appear multiple times
+
+Fixed an issue where the message multiple reminders in 60 minutes would not appear

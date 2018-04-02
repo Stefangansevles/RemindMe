@@ -28,6 +28,8 @@ namespace RemindMe
         //contains the datetime of when remindme started. Used to refresh the listview if one day has passed,
         //to potentionally show a time instead of a date in the listview for reminders that are set for the new day
         private static int dayOfStartRemindMe = DateTime.Now.Day;
+
+        private List<string> popupMessages = new List<string>();
         public UCReminders()
         {
             InitializeComponent();
@@ -505,13 +507,29 @@ namespace RemindMe
             }
 
             if (remindersToHappenInAnHour.Count > 1) //cut off the last \n
+            {
                 message = message.Remove(message.Length - 2, 2);
+
+                if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
+                    MessageFormManager.MakeMessagePopup(message, 5);
+
+                popupMessages.Add(message);
+            }
             else if (remindersToHappenInAnHour.Count > 0)
-                MessageFormManager.MakeMessagePopup(message, 5, remindersToHappenInAnHour[0]);
+            {
+                if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
+                    MessageFormManager.MakeMessagePopup(message, 5, remindersToHappenInAnHour[0]);
+
+                popupMessages.Add(message);
+            }
 
             remindersToHappenInAnHour.Clear();
         }
 
-       
+        private void tmrClearMessageCache_Tick(object sender, EventArgs e)
+        {
+            //Clear the list of messages that have appeared every 2 minutes
+            popupMessages.Clear();
+        }
     }
 }

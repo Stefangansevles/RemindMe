@@ -52,6 +52,7 @@
             this.btnRemoveReminder = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnAddReminder = new Bunifu.Framework.UI.BunifuFlatButton();
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
+            this.tmrClearMessageCache = new System.Windows.Forms.Timer(this.components);
             this.ReminderMenuStrip.SuspendLayout();
             this.pnlReminderButtons.SuspendLayout();
             this.SuspendLayout();
@@ -396,6 +397,11 @@
             this.tmrCheckReminder.Interval = 5000;
             this.tmrCheckReminder.Tick += new System.EventHandler(this.tmrCheckReminder_Tick);
             // 
+            // tmrClearMessageCache
+            // 
+            this.tmrClearMessageCache.Interval = 120000;
+            this.tmrClearMessageCache.Tick += new System.EventHandler(this.tmrClearMessageCache_Tick);
+            // 
             // UCReminders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,5 +442,6 @@
         private System.Windows.Forms.ToolStripMenuItem skipToNextDateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem permanentelyRemoveToolStripMenuItem;
         private System.Windows.Forms.Timer tmrCheckReminder;
+        private System.Windows.Forms.Timer tmrClearMessageCache;
     }
 }
