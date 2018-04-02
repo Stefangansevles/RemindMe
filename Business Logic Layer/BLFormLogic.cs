@@ -116,7 +116,7 @@ namespace Business_Logic_Layer
         }
 
         public static void RefreshListview(ListView lv)
-        {
+        {          
             lv.Items.Clear();
             AddRemindersToListview(lv, DLReminders.GetReminders());
         }

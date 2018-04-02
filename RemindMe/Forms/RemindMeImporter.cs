@@ -16,6 +16,20 @@ namespace RemindMe
 {
     public partial class RemindMeImporter : Form
     {
+
+        #region Dll Imports
+        private const int HWND_BROADCAST = 0xFFFF;
+
+        //tell remindme to reload reminders
+        private static readonly int WM_RELOAD_REMINDERS = RegisterWindowMessage("WM_RELOAD_REMINDERS");
+
+        [DllImport("user32")]
+        private static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
+
+        [DllImport("user32")]
+        private static extern int RegisterWindowMessage(string message);
+        #endregion Dll Imports
+
         private string remindmeFile;
         private List<Reminder> remindersFromRemindMeFile = new List<Reminder>();
 
@@ -76,11 +90,11 @@ namespace RemindMe
         private void btnImport_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 if (lvReminders.CheckedItems.Count > 0)
                 {
                     foreach (Reminder rem in GetSelectedRemindersFromListview())
-                    {
+                    {                        
                         if (!File.Exists(rem.SoundFilePath)) //when you import reminders on another device, the path to the file might not exist. remove it.
                             rem.SoundFilePath = "";
 
@@ -88,8 +102,7 @@ namespace RemindMe
                     }
 
                     //Let remindme know that the listview should be refreshed
-                    // PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));
-                    UCReminders.NotifyChange();
+                    PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));                    
                     this.Close();
                 }
                 else

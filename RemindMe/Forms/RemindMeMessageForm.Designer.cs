@@ -34,6 +34,7 @@
             this.pnlText = new System.Windows.Forms.Panel();
             this.lblText = new System.Windows.Forms.Label();
             this.pnlDisable = new System.Windows.Forms.Panel();
+            this.lblSkip = new System.Windows.Forms.Label();
             this.lblDisable = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblExit = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.tmrFadein = new System.Windows.Forms.Timer(this.components);
             this.tmrTimeout = new System.Windows.Forms.Timer(this.components);
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
-            this.lblSkip = new System.Windows.Forms.Label();
             this.bunifuGradientPanel1.SuspendLayout();
             this.pnlText.SuspendLayout();
             this.pnlDisable.SuspendLayout();
@@ -101,6 +101,19 @@
             this.pnlDisable.Size = new System.Drawing.Size(330, 20);
             this.pnlDisable.TabIndex = 1;
             this.pnlDisable.Visible = false;
+            // 
+            // lblSkip
+            // 
+            this.lblSkip.AutoSize = true;
+            this.lblSkip.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSkip.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSkip.ForeColor = System.Drawing.Color.White;
+            this.lblSkip.Location = new System.Drawing.Point(220, 2);
+            this.lblSkip.Name = "lblSkip";
+            this.lblSkip.Size = new System.Drawing.Size(107, 16);
+            this.lblSkip.TabIndex = 3;
+            this.lblSkip.Text = "Skip to next date";
+            this.lblSkip.Click += new System.EventHandler(this.lblSkip_Click);
             // 
             // lblDisable
             // 
@@ -182,19 +195,6 @@
             // 
             this.bunifuElipse1.ElipseRadius = 5;
             this.bunifuElipse1.TargetControl = this;
-            // 
-            // lblSkip
-            // 
-            this.lblSkip.AutoSize = true;
-            this.lblSkip.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblSkip.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSkip.ForeColor = System.Drawing.Color.White;
-            this.lblSkip.Location = new System.Drawing.Point(220, 2);
-            this.lblSkip.Name = "lblSkip";
-            this.lblSkip.Size = new System.Drawing.Size(107, 16);
-            this.lblSkip.TabIndex = 3;
-            this.lblSkip.Text = "Skip to next date";
-            this.lblSkip.Click += new System.EventHandler(this.lblSkip_Click);
             // 
             // RemindMeMessageForm
             // 

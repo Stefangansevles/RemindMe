@@ -1216,7 +1216,7 @@ namespace RemindMe
             UCReminders.NotifyChange();
 
             this.Parent.Controls.Add(callback);
-            this.Parent.Controls.Remove(this);
+            this.Parent.Controls.Remove(this);                        
         }
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)

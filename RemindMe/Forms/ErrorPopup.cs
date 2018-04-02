@@ -21,8 +21,9 @@ namespace RemindMe
         private bool sentCustomEmail;
         private bool allowEmail = false;
         public ErrorPopup(string message,Exception ex)
-        {
+        {           
             InitializeComponent();
+            
 
             lblText.MaximumSize = new Size((pnlMainGradient.Width - lblText.Location.X) - 10, 0);
             lblTitle.MaximumSize = new Size((pnlMainGradient.Width - lblTitle.Location.X) - 10, 0);
@@ -45,7 +46,7 @@ namespace RemindMe
                 this.Height += 35;
         }
         public ErrorPopup(string message, Exception ex, bool allowEmail) : this(message, ex)
-        {
+        {                            
             InitializeComponent();
             this.allowEmail = allowEmail;
         }

@@ -393,7 +393,7 @@
             // 
             // tmrCheckReminder
             // 
-            this.tmrCheckReminder.Interval = 30000;
+            this.tmrCheckReminder.Interval = 5000;
             this.tmrCheckReminder.Tick += new System.EventHandler(this.tmrCheckReminder_Tick);
             // 
             // UCReminders

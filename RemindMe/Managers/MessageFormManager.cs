@@ -114,6 +114,8 @@ namespace RemindMe
             }
             foreach (RemindMeMessageForm form in toRemoveForms)
                 popupForms.Remove(form);
+
+            toRemoveForms.Clear();
         }
 
         /// <summary>

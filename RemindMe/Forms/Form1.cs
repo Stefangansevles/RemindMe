@@ -53,8 +53,6 @@ namespace RemindMe
             //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
             //toolstrip items white.
             RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
-
-
         }
 
         protected override CreateParams CreateParams
@@ -256,6 +254,16 @@ namespace RemindMe
         private void Form1_ResizeBegin(object sender, EventArgs e)
         {
 
+        }
+
+        private void pnlMain_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            //If the removed control is UCNewReminder, dispose it. Memory usage goes up and doesnt get cleaned
+            //When you edit multiple reminders without disposing them.
+            if (e.Control is UCNewReminder )
+            {
+                e.Control.Dispose();
+            }
         }
     }
 }

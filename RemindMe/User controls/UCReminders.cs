@@ -34,8 +34,9 @@ namespace RemindMe
             sizes = BLListviewColumnSizes.GetcolumnSizes();
             SetColumnHeaderWidth();
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
+                               
             lvRems = lvReminders;
-            instance = this;
+            instance = this;            
         }
 
         public static UCReminders GetInstance()
@@ -57,15 +58,16 @@ namespace RemindMe
         /// Alert UCReminders to refresh the reminder listview from outside sources
         /// </summary>
         public static void NotifyChange()
-        {
+        {            
             if (lvRems != null)
                 BLFormLogic.RefreshListview(lvRems);
 
-            GetInstance().tmrCheckReminder.Start();
+            if (GetInstance() != null)
+                GetInstance().tmrCheckReminder.Start();            
         }
         private void UCReminders_Load(object sender, EventArgs e)
         {            
-            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(rem => rem.Deleted == 0).ToList()); //Get all "active" reminders);                                
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders()); //Get all "active" reminders);                                
             tmrCheckReminder.Start();
         }
 
