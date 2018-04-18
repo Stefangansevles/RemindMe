@@ -132,6 +132,9 @@ namespace RemindMe
 
         private void RemindMeIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            if (this.Visible)
+                return;
+
             this.ShowInTaskbar = true;
             this.WindowState = FormWindowState.Minimized;
             this.Show();

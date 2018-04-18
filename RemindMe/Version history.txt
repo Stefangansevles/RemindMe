@@ -613,3 +613,9 @@ V2.1.5
 Fixed an issue where the message <reminder_name> in 60 minutes! would appear multiple times
 
 Fixed an issue where the message multiple reminders in 60 minutes would not appear
+
+V2.1.6
+
+The message form on the bottom right corner of your screen now has a darker color.
+
+When double-clicking the remindme icon in your system tray when remindme is already visible, it won't try to show it again as it is already shown.

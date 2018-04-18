@@ -97,7 +97,7 @@ namespace Business_Logic_Layer
         /// Permanentely deletes a single reminder from the database
         /// </summary>
         /// <param name="rem">The reminder you wish to remove</param>
-        public static void PermanentelsyDeleteReminder(Reminder rem)
+        public static void PermanentelyDeleteReminder(Reminder rem)
         {
             if(rem != null && GetReminderById(rem.Id) != null) //Check if the reminder exists and isnt null
                 DLReminders.PermanentelyDeleteReminder(rem);
@@ -299,8 +299,7 @@ namespace Business_Logic_Layer
         public static bool IsRepeatableReminder(Reminder rem)
         {
             if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
-            {
-                int debug = rem.Date.Split(',').Length;
+            {                
                 //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
                 if (rem.Date.Split(',').Length <= 1)
                     return false;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
@@ -317,9 +316,9 @@ namespace Business_Logic_Layer
         {            
             foreach (Reminder rem in reminders)
             {
+                //TODO: just call IsRepeatableReminder()
                 if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
-                {
-                    int debug = rem.Date.Split(',').Length;
+                {                    
                     //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
                     if (rem.Date.Split(',').Length <= 1)
                         return false;//If there's a single reminder in the selected reminders that does not have a next date, hide the option

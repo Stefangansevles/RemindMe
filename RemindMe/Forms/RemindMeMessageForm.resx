@@ -121,10 +121,8 @@
   <data name="bunifuGradientPanel1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACHSURBVChThc5hB8UgGMXx53P3IiJKY0SURURsRIx9v3M9
-        73bvrvX+538OXdeF8zwxxkDvHfu+o7WGWitKKcg5I8YIuqPjOB4opYQQAmhWYuS9B81KjNZ1Bf2Wtm37
-        KjFyzoHe5hgtywJjDOhtjpG1Flpr0KzESCkFmpUYSSlB/47fS4yEEPgAJ6UVJBJIpY8AAAAASUVORK5C
-        YII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVChTY3BxcflPDB5ViBdTW6HLfwAwRbNNYcd2DAAA
+        AABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="tmrFadeout.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
