@@ -181,7 +181,7 @@ namespace RemindMe
         }
 
         private void btnBackupImport_Click(object sender, EventArgs e)
-        {
+        {            
             ToggleButton(sender);
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(ucImportExport);
@@ -265,7 +265,11 @@ namespace RemindMe
             //When you edit multiple reminders without disposing them.
             if (e.Control is UCNewReminder )
             {
-                e.Control.Dispose();
+                if (ucNewReminder != null && ucNewReminder.shouldDispose)
+                {
+                    e.Control.Dispose();
+                    ucNewReminder = null;
+                }
             }
         }
     }

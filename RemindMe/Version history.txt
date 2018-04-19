@@ -619,3 +619,8 @@ V2.1.6
 The message form on the bottom right corner of your screen now has a darker color.
 
 When double-clicking the remindme icon in your system tray when remindme is already visible, it won't try to show it again as it is already shown.
+
+V2.1.7
+
+Fixed a bug where the reminder list/edit-reminder view would be invisible when you switched menu items with the panel on the left side of RemindMe, while 
+editing or creating a reminder. The reason for this bug was: The ucnewreminder user control was disposed.

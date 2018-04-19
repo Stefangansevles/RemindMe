@@ -34,6 +34,7 @@ namespace RemindMe
 
         private Reminder editableReminder = null;
 
+        public bool shouldDispose = false;
 
         UserControl callback;
 
@@ -1207,7 +1208,7 @@ namespace RemindMe
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Form1.ucNewReminder = null;
+            shouldDispose = true;
             btnPlaySound.Image = imgPlayResume;
             myPlayer.controls.stop();
             tmrMusic.Stop();

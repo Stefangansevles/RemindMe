@@ -399,7 +399,9 @@ namespace RemindMe
                 //Extract the reminderId from the selected item
                 int id = Convert.ToInt32(item.Tag);
                 //Create a new UCNewReminder and pass the reminder
-                this.Parent.Controls.Add(new UCNewReminder(this, BLReminder.GetReminderById(id)));
+                UCNewReminder newRem = new UCNewReminder(this, BLReminder.GetReminderById(id));
+                Form1.ucNewReminder = newRem;
+                this.Parent.Controls.Add(newRem);
                 this.Parent.Controls.Remove(this);
             }
         }
