@@ -624,3 +624,9 @@ V2.1.7
 
 Fixed a bug where the reminder list/edit-reminder view would be invisible when you switched menu items with the panel on the left side of RemindMe, while 
 editing or creating a reminder. The reason for this bug was: The ucnewreminder user control was disposed.
+
+V1.2.8
+Fixed a small issue where RemindMe's Prompt form would save previously entered values
+Fixed a small issue where a reminder wouldn't get updated in the list view when you pressed the X icon on an popup, instead of the OK button
+Fixed a small issue where RemindMe would throw an error when trying to play a sound when the selected combobox item is " Add files..."
+

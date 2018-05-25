@@ -302,8 +302,11 @@ namespace RemindMe
 
         private void bunifuTileButton1_Click(object sender, EventArgs e)
         {
+            if (cbSound.SelectedItem.ToString() == " Add files...")
+                return;
+
             ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
-            if (selectedItem != null && selectedItem.Text != "Add files...")
+            if (selectedItem != null)
             {
                 Songs selectedSong = (Songs)selectedItem.Value;
 

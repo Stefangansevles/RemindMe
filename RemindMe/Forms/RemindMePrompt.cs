@@ -37,7 +37,10 @@ namespace RemindMe
             }
 
             tmrFadeIn.Start();
-        }
+
+            strReturnValue = "";
+            intReturnValue = 0;
+    }
 
         public RemindMePrompt(string title,string description,PromptReason reason) : this(title, reason)
         {

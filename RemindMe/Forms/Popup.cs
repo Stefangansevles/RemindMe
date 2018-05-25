@@ -135,14 +135,15 @@ namespace RemindMe
 
         private void lblExit_Click(object sender, EventArgs e)
         {
-            if (rem.Id != -1)
+            btnOk_Click(sender, e);
+            /*if (rem.Id != -1)
             {
                 rem.PostponeDate = null;
                 BLReminder.UpdateReminder(rem);
                 //RefreshMainFormListView();
             }
             this.Close();
-            this.Dispose();
+            this.Dispose();*/
         }
 
         private void lblMinimize_Click(object sender, EventArgs e)
