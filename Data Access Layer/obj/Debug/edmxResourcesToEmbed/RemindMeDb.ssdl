@@ -36,6 +36,7 @@
     <Property Name="RepeatDays" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="Hide" Type="integer" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>
@@ -46,6 +47,7 @@
     <Property Name="StickyForm" Type="integer" Nullable="false" />
     <Property Name="EnableReminderCountPopup" Type="integer" Nullable="false" />
     <Property Name="EnableHourBeforeReminder" Type="integer" Nullable="false" />
+    <Property Name="HideReminderConfirmation" Type="integer" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

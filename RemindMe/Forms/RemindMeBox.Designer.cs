@@ -37,12 +37,16 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblText = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
+            this.pnlRemind = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbDontRemind = new Bunifu.Framework.UI.BunifuCheckbox();
+            this.btnYes = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnNo = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnOk = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnYes = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlMainGradient.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.pnlFooterButtons.SuspendLayout();
+            this.pnlRemind.SuspendLayout();
             this.SuspendLayout();
             // 
             // tmrFadeIn
@@ -115,6 +119,7 @@
             // pnlFooterButtons
             // 
             this.pnlFooterButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.pnlFooterButtons.Controls.Add(this.pnlRemind);
             this.pnlFooterButtons.Controls.Add(this.btnYes);
             this.pnlFooterButtons.Controls.Add(this.btnNo);
             this.pnlFooterButtons.Controls.Add(this.btnOk);
@@ -123,6 +128,80 @@
             this.pnlFooterButtons.Name = "pnlFooterButtons";
             this.pnlFooterButtons.Size = new System.Drawing.Size(374, 86);
             this.pnlFooterButtons.TabIndex = 0;
+            // 
+            // pnlRemind
+            // 
+            this.pnlRemind.Controls.Add(this.label13);
+            this.pnlRemind.Controls.Add(this.cbDontRemind);
+            this.pnlRemind.Location = new System.Drawing.Point(8, 23);
+            this.pnlRemind.Name = "pnlRemind";
+            this.pnlRemind.Size = new System.Drawing.Size(151, 30);
+            this.pnlRemind.TabIndex = 7;
+            this.pnlRemind.Visible = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.Font = new System.Drawing.Font("Century Gothic", 9F);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(27, 6);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(120, 17);
+            this.label13.TabIndex = 105;
+            this.label13.Text = "Don\'t remind again";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // cbDontRemind
+            // 
+            this.cbDontRemind.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbDontRemind.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbDontRemind.Checked = false;
+            this.cbDontRemind.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cbDontRemind.ForeColor = System.Drawing.Color.White;
+            this.cbDontRemind.Location = new System.Drawing.Point(5, 6);
+            this.cbDontRemind.Name = "cbDontRemind";
+            this.cbDontRemind.Size = new System.Drawing.Size(20, 20);
+            this.cbDontRemind.TabIndex = 104;
+            // 
+            // btnYes
+            // 
+            this.btnYes.Activecolor = System.Drawing.Color.DimGray;
+            this.btnYes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnYes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnYes.BorderRadius = 5;
+            this.btnYes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnYes.ButtonText = "    Yes";
+            this.btnYes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnYes.DisabledColor = System.Drawing.Color.Gray;
+            this.btnYes.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnYes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.btnYes.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnYes.Iconimage = null;
+            this.btnYes.Iconimage_right = null;
+            this.btnYes.Iconimage_right_Selected = null;
+            this.btnYes.Iconimage_Selected = null;
+            this.btnYes.IconMarginLeft = 0;
+            this.btnYes.IconMarginRight = 0;
+            this.btnYes.IconRightVisible = true;
+            this.btnYes.IconRightZoom = 0D;
+            this.btnYes.IconVisible = true;
+            this.btnYes.IconZoom = 50D;
+            this.btnYes.IsTab = false;
+            this.btnYes.Location = new System.Drawing.Point(256, 23);
+            this.btnYes.Name = "btnYes";
+            this.btnYes.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnYes.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnYes.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnYes.selected = false;
+            this.btnYes.Size = new System.Drawing.Size(79, 30);
+            this.btnYes.TabIndex = 6;
+            this.btnYes.Text = "    Yes";
+            this.btnYes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnYes.Textcolor = System.Drawing.Color.White;
+            this.btnYes.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnYes.Visible = false;
+            this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
             // btnNo
             // 
@@ -202,45 +281,6 @@
             this.btnOk.Visible = false;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // btnYes
-            // 
-            this.btnYes.Activecolor = System.Drawing.Color.DimGray;
-            this.btnYes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.btnYes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnYes.BorderRadius = 5;
-            this.btnYes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnYes.ButtonText = "    Yes";
-            this.btnYes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnYes.DisabledColor = System.Drawing.Color.Gray;
-            this.btnYes.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnYes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.btnYes.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnYes.Iconimage = null;
-            this.btnYes.Iconimage_right = null;
-            this.btnYes.Iconimage_right_Selected = null;
-            this.btnYes.Iconimage_Selected = null;
-            this.btnYes.IconMarginLeft = 0;
-            this.btnYes.IconMarginRight = 0;
-            this.btnYes.IconRightVisible = true;
-            this.btnYes.IconRightZoom = 0D;
-            this.btnYes.IconVisible = true;
-            this.btnYes.IconZoom = 50D;
-            this.btnYes.IsTab = false;
-            this.btnYes.Location = new System.Drawing.Point(256, 23);
-            this.btnYes.Name = "btnYes";
-            this.btnYes.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.btnYes.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnYes.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnYes.selected = false;
-            this.btnYes.Size = new System.Drawing.Size(79, 30);
-            this.btnYes.TabIndex = 6;
-            this.btnYes.Text = "    Yes";
-            this.btnYes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnYes.Textcolor = System.Drawing.Color.White;
-            this.btnYes.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnYes.Visible = false;
-            this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
-            // 
             // RemindMeBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,11 +291,13 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemindMeBox";
-            this.Text = "Attention!";            
+            this.Text = "Attention!";
             this.pnlMainGradient.ResumeLayout(false);
             this.pnlMainGradient.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.pnlFooterButtons.ResumeLayout(false);
+            this.pnlRemind.ResumeLayout(false);
+            this.pnlRemind.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,5 +314,8 @@
         private Bunifu.Framework.UI.BunifuFlatButton btnNo;
         private Bunifu.Framework.UI.BunifuFlatButton btnOk;
         private Bunifu.Framework.UI.BunifuFlatButton btnYes;
+        private System.Windows.Forms.Panel pnlRemind;
+        private System.Windows.Forms.Label label13;
+        private Bunifu.Framework.UI.BunifuCheckbox cbDontRemind;
     }
 }

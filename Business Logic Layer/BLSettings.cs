@@ -33,6 +33,17 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
+        /// Reads the settings from the database and checks if the user wants to see the popup explaining the hide reminder feature.
+        /// </summary>
+        /// <returns>True if the user hasn't pressed the don't remind again option yet, false if not</returns>
+        public static bool HideReminderOptionEnabled
+        {            
+            get { return DLSettings.HideReminderOptionEnabled(); } 
+        }
+
+
+
+        /// <summary>
         /// Reads the settings from the database and checks if there should be a notification 1 hour before the reminder that there is a reminder
         /// </summary>
         /// <returns>True if the notification is enabled, false if not</returns>
@@ -54,6 +65,11 @@ namespace Business_Logic_Layer
         public static Settings GetSettings()
         {
             return DLSettings.GetSettings();            
+        }
+        public static Settings Settings
+        {
+            get { return DLSettings.GetSettings(); }
+            set {  DLSettings.UpdateSettings(value); }
         }
         
         public static void UpdateSettings(Settings set)

@@ -41,6 +41,7 @@
           <Property Name="RepeatDays" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Hide" Type="integer" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -51,6 +52,7 @@
           <Property Name="StickyForm" Type="integer" Nullable="false" />
           <Property Name="EnableReminderCountPopup" Type="integer" Nullable="false" />
           <Property Name="EnableHourBeforeReminder" Type="integer" Nullable="false" />
+          <Property Name="HideReminderConfirmation" Type="integer" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -86,7 +88,8 @@
           <Property Name="SoundFilePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
           <Property Name="PostponeDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" ConcurrencyMode="None" />
           <Property Name="Deleted" Type="Int64" Nullable="false" />
-          <Property Name="DayOfMonth" Type="Int64" />          
+          <Property Name="DayOfMonth" Type="Int64" />
+          <Property Name="Hide" Type="Int64" />          
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -97,6 +100,7 @@
           <Property Name="StickyForm" Type="Int64" Nullable="false" />
           <Property Name="EnableReminderCountPopup" Type="Int64" Nullable="false" />
           <Property Name="EnableHourBeforeReminder" Type="Int64" Nullable="false" />
+          <Property Name="HideReminderConfirmation" Type="Int64" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -142,6 +146,7 @@
           <EntitySetMapping Name="Reminder">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
               <MappingFragment StoreEntitySet="Reminder">                                                                
+                <ScalarProperty Name="Hide" ColumnName="Hide" />
                 <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -160,6 +165,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="HideReminderConfirmation" ColumnName="HideReminderConfirmation" />
                 <ScalarProperty Name="EnableHourBeforeReminder" ColumnName="EnableHourBeforeReminder" />
                 <ScalarProperty Name="EnableReminderCountPopup" ColumnName="EnableReminderCountPopup" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

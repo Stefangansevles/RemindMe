@@ -35,6 +35,7 @@ namespace RemindMe
         }
         private void btnImport_Click(object sender, EventArgs e)
         {
+            remindersFromRemindMeFile.Clear();
             ToggleButton(sender);
             lvReminders.Items.Clear();
 

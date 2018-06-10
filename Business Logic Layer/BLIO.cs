@@ -79,10 +79,7 @@ namespace Business_Logic_Layer
             if (path == null || path == "")
                 return false;
 
-            if (Path.GetExtension(path) == ".remindme")            
-                return true;            
-            else
-                return false;
+            return Path.GetExtension(path) == ".remindme";            
         }
 
 

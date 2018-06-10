@@ -27,5 +27,6 @@ namespace Database.Entity
         public string PostponeDate { get; set; }
         public long Deleted { get; set; }
         public Nullable<long> DayOfMonth { get; set; }
+        public Nullable<long> Hide { get; set; }
     }
 }

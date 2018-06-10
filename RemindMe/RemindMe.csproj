@@ -315,6 +315,8 @@
     <None Include="Resources\loadingGif.gif" />
     <EmbeddedResource Include="Bunifu_UI_v1.5.3.dll" />
     <Content Include="RemindMeIcon.ico" />
+    <None Include="Resources\hide.png" />
+    <None Include="Resources\show.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

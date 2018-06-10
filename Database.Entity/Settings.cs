@@ -20,5 +20,6 @@ namespace Database.Entity
         public long StickyForm { get; set; }
         public long EnableReminderCountPopup { get; set; }
         public long EnableHourBeforeReminder { get; set; }
+        public Nullable<long> HideReminderConfirmation { get; set; }
     }
 }

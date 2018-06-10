@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business_Logic_Layer;
+using Database.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,11 +20,14 @@ namespace RemindMe
     {
         private string description;
         private static DialogResult result;
-        private static RemindMeBox newMessageBox; 
-        private RemindMeBox(string description, RemindMeBoxReason buttons)
+        private static RemindMeBox newMessageBox;
+        private static bool showDontRemind;
+        private RemindMeBox(string description, RemindMeBoxReason buttons, bool showDontRemindOption)
         {
             //We will use the default "Attention" title text
             InitializeComponent();
+
+            showDontRemind = showDontRemindOption;
 
             if (buttons == RemindMeBoxReason.YesNo)
             {
@@ -32,6 +37,8 @@ namespace RemindMe
             else
                 btnOk.Visible = true;
 
+            if (showDontRemind)
+                pnlRemind.Visible = true;
 
             this.description = description;
 
@@ -72,7 +79,7 @@ namespace RemindMe
             }
         }
 
-        private RemindMeBox(string title,string description,  RemindMeBoxReason buttons) : this(description,buttons)
+        private RemindMeBox(string title,string description,  RemindMeBoxReason buttons, bool showDontRemindOption) : this(description,buttons, showDontRemindOption)
         {
             lblTitle.Text = title;
 
@@ -101,6 +108,12 @@ namespace RemindMe
         private void btnYes_Click(object sender, EventArgs e)
         {
             result = DialogResult.Yes;
+            if(cbDontRemind.Checked)
+            {
+                Settings settingsObject = BLSettings.GetSettings();
+                settingsObject.HideReminderConfirmation = 1;
+                BLSettings.UpdateSettings(settingsObject);                
+            }
             newMessageBox.Close();
         }
         private void btnOk_Click(object sender, EventArgs e)
@@ -109,26 +122,29 @@ namespace RemindMe
             newMessageBox.Close();
         }
 
-        public static DialogResult Show(string text)
+        public static DialogResult Show(string text, bool showDontRemindOption = false)
         {
-            newMessageBox = new RemindMeBox(text, RemindMeBoxReason.OK);
+            newMessageBox = new RemindMeBox(text, RemindMeBoxReason.OK,showDontRemindOption);
             newMessageBox.ShowDialog();
             return result;
         }
-        public static DialogResult Show(string text, RemindMeBoxReason buttons)
+        public static DialogResult Show(string text, RemindMeBoxReason buttons, bool showDontRemindOption = false)
         {
-            newMessageBox = new RemindMeBox(text, buttons);
+            newMessageBox = new RemindMeBox(text, buttons,showDontRemindOption);
             newMessageBox.ShowDialog();
             return result;
         }
-        public static DialogResult Show(string text,string title, RemindMeBoxReason buttons)
+        public static DialogResult Show(string text,string title, RemindMeBoxReason buttons, bool showDontRemindOption = false)
         {
-            newMessageBox = new RemindMeBox(text, title,buttons);
+            newMessageBox = new RemindMeBox(text, title,buttons,showDontRemindOption);
             newMessageBox.ShowDialog();
             return result;
         }
 
-      
+        private void label13_Click(object sender, EventArgs e)
+        {
+            cbDontRemind.Checked = !cbDontRemind.Checked;
+        }
     }
 
     public enum RemindMeBoxReason

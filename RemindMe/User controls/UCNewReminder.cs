@@ -348,7 +348,7 @@ namespace RemindMe
                                 ComboBoxItemManager.RemoveComboboxItem(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
 
                                 //Show the user the message that the file is no longer at the specified path.
-                                RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxReason.OK);
+                                RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxReason.OK, false);
                             }
                         }
                     }
@@ -1285,7 +1285,7 @@ namespace RemindMe
                 int toAddDays = RemindMePrompt.ShowNumber("Add days to the selected date");
                 dtpDate.Value = dtpDate.Value.AddDays(toAddDays);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 
@@ -1296,7 +1296,7 @@ namespace RemindMe
                 int toAddMonths = RemindMePrompt.ShowNumber("Add months to the selected date");
                 dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 
@@ -1307,7 +1307,7 @@ namespace RemindMe
                 int toSubtractDays = RemindMePrompt.ShowNumber("Subtract days to the selected date");
                 dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 
@@ -1318,7 +1318,7 @@ namespace RemindMe
                 int toSubtractMonths = RemindMePrompt.ShowNumber("Subtract months to the selected date");
                 dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 

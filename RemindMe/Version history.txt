@@ -630,3 +630,9 @@ Fixed a small issue where RemindMe's Prompt form would save previously entered v
 Fixed a small issue where a reminder wouldn't get updated in the list view when you pressed the X icon on an popup, instead of the OK button
 Fixed a small issue where RemindMe would throw an error when trying to play a sound when the selected combobox item is " Add files..."
 
+V1.2.9
+New feature: Hide reminder. With this feature you can hide an reminder, which will make it not appear in the list of reminders, but it will still show up
+at it's set date. This gives an element of surprise, because you can't be remembered of the reminder by looking through the list of reminders.
+You can un-hide all reminders anytime by right clicking anywhere in the list of reminders
+
+Fixed an issue where sometimes you would import multiple of the same reminders when using the import function from the backup tab.

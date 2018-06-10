@@ -200,11 +200,34 @@ namespace RemindMe
 
         private void lvReminders_MouseClick(object sender, MouseEventArgs e)
         {
+            ReminderMenuStrip.Items.Insert(4,unHideReminderToolStripMenuItem);            
+            
             if (e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count > 0)
-            {
+            {                
                 HideOrShowRemovePostponeMenuItem();
                 HideOrShowSkipForwardMenuItem();
+                HideOrShowUnhideReminders();
                 ReminderMenuStrip.Show(Cursor.Position);
+            }
+           
+        }
+
+        private void lvReminders_MouseUp(object sender, MouseEventArgs e)
+        {            
+            if (lvReminders.SelectedItems.Count > 0)
+                return;
+
+            if (e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count <= 0)
+            {
+                if (BLReminder.GetReminders().Where(r => r.Hide == 1).ToList().Count > 0)
+                {
+                    ContextMenuStrip strip = new ContextMenuStrip();
+                    strip.Renderer = new MyToolStripMenuRenderer();
+                    unHideReminderToolStripMenuItem.Visible = true;
+                    unHideReminderToolStripMenuItem.Font = hideReminderToolStripMenuItem.Font;                     
+                    strip.Items.Add(unHideReminderToolStripMenuItem);
+                    strip.Show(Cursor.Position);
+                }
             }
         }
         /// <summary>
@@ -221,6 +244,25 @@ namespace RemindMe
 
             //determine if we are going to hide the "Remove postpone" option based on the boolean hideMenuItem
             removePostponeItem.Visible = hideMenuItem;
+
+        }
+        /// <summary>
+        /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
+        /// </summary>
+        private void HideOrShowUnhideReminders()
+        {
+            //Check if there is even a single reminder that is hidden            
+            bool showMenuItem = false;
+
+            if(BLReminder.GetReminders().Where(r => r.Hide == 1).ToList().Count > 0)
+                showMenuItem = true; //If there's just 1 reminder that is hidden, show the option to un-hide all reminders
+           
+
+            //The option
+            ToolStripItem unHideToolStripItem = ReminderMenuStrip.Items.Find("unHideReminderToolStripMenuItem", false)[0];
+
+            //determine if we are going to hide the "Remove postpone" option based on the boolean hideMenuItem
+            unHideToolStripItem.Visible = showMenuItem;
 
         }
         /// <summary>
@@ -533,5 +575,47 @@ namespace RemindMe
             //Clear the list of messages that have appeared every 2 minutes
             popupMessages.Clear();
         }
+
+        private void hideReminderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "You can hide reminders with this option. The reminder will not be deleted, you just won't be able to see it"
+                 + " in the list of reminders. This creates a sense of surprise.\r\n\r\nDo you wish to hide this reminder?";
+
+            //Change the message if theres multiple reminders
+            if(GetSelectedRemindersFromListview().Count > 1)
+                message = "You can hide reminders with this option. The reminder will not be deleted, you just won't be able to see it"
+                 + " in the list of reminders. This creates a sense of surprise.\r\n\r\nDo you wish to hide these reminders?";
+
+            
+            if (BLSettings.HideReminderOptionEnabled || RemindMeBox.Show(message, RemindMeBoxReason.YesNo, true) == DialogResult.Yes)
+            {
+                //Enable the hide flag here
+
+                foreach (Reminder rem in GetSelectedRemindersFromListview())
+                {
+                    rem.Hide = 1;
+                    BLReminder.EditReminder(rem);                   
+                }
+                foreach (ListViewItem rem in lvReminders.SelectedItems)
+                    lvReminders.Items.Remove(rem);
+                
+
+            }
+        }
+
+        private void unHideReminderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(Reminder rem in BLReminder.GetReminders())
+            {
+                if (rem.Hide == 1)
+                    rem.Hide = 0;
+
+                BLReminder.EditReminder(rem);
+            }
+            BLFormLogic.RefreshListview(lvReminders);
+            
+        }
+
+        
     }
 }

@@ -97,6 +97,9 @@ namespace Data_Access_Layer
                 else
                     rem.Id = 0;
 
+                if(rem.Hide == null)
+                    rem.Hide = 0;
+
                 rem.Deleted = 0;
                 db.Reminder.Add(rem);
                 SaveAndCloseDataBase(db);
