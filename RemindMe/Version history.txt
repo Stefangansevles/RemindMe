@@ -636,3 +636,6 @@ at it's set date. This gives an element of surprise, because you can't be rememb
 You can un-hide all reminders anytime by right clicking anywhere in the list of reminders
 
 Fixed an issue where sometimes you would import multiple of the same reminders when using the import function from the backup tab.
+
+V2.1.91
+Minor fix to the play sound button. It caused an exception if you tried playing a sound when there was no item selected

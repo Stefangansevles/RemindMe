@@ -30,7 +30,7 @@ namespace Data_Access_Layer
         
 
         /// <summary>
-        /// Gets all reminders from the database
+        /// Gets all "existing" reminders from the database (Not the deleted/archived ones)
         /// </summary>
         /// <returns></returns>
         public static List<Reminder> GetReminders()
@@ -45,7 +45,7 @@ namespace Data_Access_Layer
             return localReminders.Where(r => r.Deleted == 0).ToList(); //only return "existing" reminders
         }
         /// <summary>
-        /// Gets all reminders from the database
+        /// Gets every reminder from the database, including deleted and archived reminders
         /// </summary>
         /// <returns></returns>
         public static List<Reminder> GetAllReminders()
