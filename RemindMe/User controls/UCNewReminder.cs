@@ -1336,31 +1336,22 @@ namespace RemindMe
                     if (selectedFiles.Count == 1 && selectedFiles[0] == "")
                         return;
 
-                    List<Songs> toInsertSongs = new List<Songs>();                    
-                    foreach (string sound in selectedFiles.Where(song => !BLSongs.SongExistsInDatabase(song) && song != ""))
+                    List<Songs> toInsertSongs = new List<Songs>();
+
+                    foreach (string sound in selectedFiles.Where(song => !BLSongs.SongExistsInDatabase(song) && song != "").ToList())
                     {
-                        if (!BLSongs.SongExistsInDatabase(sound))
-                        {
-                            if (sound != "")
-                            {
-                                Songs song = new Songs();
-                                song.SongFilePath = sound;
-                                song.SongFileName = Path.GetFileName(sound);
-                                toInsertSongs.Add(song);
-                            }
-                        }
+                        Songs song = new Songs();
+                        song.SongFilePath = sound;
+                        song.SongFileName = Path.GetFileName(sound);
+                        toInsertSongs.Add(song);
                     }
+
                     BLSongs.InsertSongs(toInsertSongs);
 
-                    foreach (Songs item in toInsertSongs) //already inserted, but iterating through them to add to the combobox
-                        if (item.SongFileName != "")
+                    //already inserted, but iterating through them to add to the combobox
+                    foreach (Songs item in toInsertSongs.Where(itm => itm.SongFileName != "").ToList()) 
                             cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), BLSongs.GetSongByFullPath(item.SongFilePath)));
 
-
-
-                    /*foreach (Songs item in BLSongs.GetSongs())
-                        if (item.SongFileName != "")
-                            cbSound.Items.Add(new ComboBoxItem(item.SongFileName, BLSongs.GetSongByFullPath(item.SongFilePath)));*/
 
                     //Make sure that Add files... is in the combobox
                     cbSound.Items.Remove(" Add files...");

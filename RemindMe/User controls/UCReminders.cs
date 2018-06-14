@@ -452,17 +452,13 @@ namespace RemindMe
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            foreach (string file in files) //Loop through each file that is dragged into RemindMe
+            //Loop through each file that is dragged into RemindMe
+            foreach (string file in files.Where(file => Path.GetExtension(file) == ".remindme").ToList()) 
             {
-                if (Path.GetExtension(file) == ".remindme") //Check if it is a .remindme file
-                {
-                    List<object> remindersFromFile = BLReminder.DeserializeRemindersFromFile(file); //Objects from the .remindme file
+                List<object> remindersFromFile = BLReminder.DeserializeRemindersFromFile(file); //Objects from the .remindme file
 
-                    foreach (object rem in remindersFromFile)
-                        if (rem.GetType() == typeof(Reminder))
-                            BLReminder.PushReminderToDatabase((Reminder)rem);
-
-                }
+                foreach (object rem in remindersFromFile.Where(rem => rem.GetType() == typeof(Reminder)).ToList())
+                    BLReminder.PushReminderToDatabase((Reminder)rem);
             }
             //finally, refresh the listview
             NotifyChange();
