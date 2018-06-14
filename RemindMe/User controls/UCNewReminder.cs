@@ -1336,8 +1336,8 @@ namespace RemindMe
                     if (selectedFiles.Count == 1 && selectedFiles[0] == "")
                         return;
 
-                    List<Songs> toInsertSongs = new List<Songs>();
-                    foreach (string sound in selectedFiles)
+                    List<Songs> toInsertSongs = new List<Songs>();                    
+                    foreach (string sound in selectedFiles.Where(song => !BLSongs.SongExistsInDatabase(song) && song != ""))
                     {
                         if (!BLSongs.SongExistsInDatabase(sound))
                         {

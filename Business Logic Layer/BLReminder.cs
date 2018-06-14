@@ -313,18 +313,11 @@ namespace Business_Logic_Layer
         /// <param name="reminders"></param>
         /// <returns></returns>
         public static bool ContainsRepeatableReminder(List<Reminder> reminders)
-        {            
-            foreach (Reminder rem in reminders)
-            {
-                //TODO: just call IsRepeatableReminder()
-                if (rem.RepeatType == ReminderRepeatType.NONE.ToString())
-                {                    
-                    //Okay! the selected item has a reapeating type of NONE. The item can still contain 2 or more dates though! Let's see if it does.
-                    if (rem.Date.Split(',').Length <= 1)
-                        return false;//If there's a single reminder in the selected reminders that does not have a next date, hide the option
-                }
-            }
-            return true; 
+        {
+            //Check if the repeat type is NONE, and check if the amount of dates after split by comma is smaller or equal than 1.
+            //If this is the case, we have a reminder that doesn't have a next day, and therefore is not repeatable
+            //Then simply return if the count is equal to 0. No reminders that aren't repeatable? return true;
+            return reminders.Where(r => r.RepeatType == ReminderRepeatType.NONE.ToString() && r.Date.Split(',').Length <= 1).ToList().Count == 0;                        
         }
 
         /// <summary>
@@ -529,9 +522,7 @@ namespace Business_Logic_Layer
             // Create a hashtable of values that will eventually be serialized.
             Hashtable hashReminders = new Hashtable();
             foreach(Reminder rem in reminders)            
-                hashReminders.Add(rem.Id, rem);
-
-            //Add the current machine's language code("en-us" for example) to the .remindme file
+                hashReminders.Add(rem.Id, rem);            
             
 
 

@@ -106,12 +106,8 @@ namespace RemindMe
 
 
             //Lets just clear the disposed forms
-            List<RemindMeMessageForm> toRemoveForms = new List<RemindMeMessageForm>();
-            foreach (RemindMeMessageForm form in popupForms)
-            {
-                if (form.IsDisposed)
-                    toRemoveForms.Add(form);
-            }
+            List<RemindMeMessageForm> toRemoveForms = popupForms.Where(form => form.IsDisposed).ToList();
+
             foreach (RemindMeMessageForm form in toRemoveForms)
                 popupForms.Remove(form);
 
@@ -125,12 +121,7 @@ namespace RemindMe
         /// <returns></returns>
         private static bool IsFormAt(Point p)
         {
-            foreach (RemindMeMessageForm form in GetPopupforms())
-            {
-                if (form.Location == p)
-                    return true;
-            }
-            return false;
+            return GetPopupforms().Where(frm => frm.Location == p).ToList().Count > 0;            
         }
     }
 
