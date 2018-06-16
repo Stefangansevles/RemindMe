@@ -69,7 +69,7 @@ namespace RemindMe
         }
         private void UCReminders_Load(object sender, EventArgs e)
         {            
-            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders()); //Get all "active" reminders);                                
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);                                
             tmrCheckReminder.Start();
         }
 

@@ -39,7 +39,7 @@ namespace Data_Access_Layer
             //be altered when the database changes. This way we minimize wthe amount of database calls
             if (localReminders == null)            
                 RefreshCacheList();            
-
+            
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
             return localReminders.Where(r => r.Deleted == 0).ToList(); //only return "existing" reminders

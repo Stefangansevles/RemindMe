@@ -639,3 +639,7 @@ Fixed an issue where sometimes you would import multiple of the same reminders w
 
 V2.1.91
 Minor fix to the play sound button. It caused an exception if you tried playing a sound when there was no item selected
+
+V2.2.0
+Fixed a bug where exporting hidden reminders would cause them to be visible again in RemindMe's list of reminders, until the database changes/refreshes(for example a restart)
+Fixed a bug where hidden reminders would not show up in the list of to-import-reminders when double-clicking a .remindme file

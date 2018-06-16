@@ -103,7 +103,7 @@ namespace Business_Logic_Layer
         public static void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
         {
             List<Reminder> disabledReminders = new List<Reminder>(); //We're going to add the disabled reminders after all the enabled ones.
-            List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).Where(r => r.Hide == 0).ToList();
+            List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
             foreach (Reminder rem in list)
             {
                 if (rem.Enabled == 1) //not disabled? add to listview
@@ -120,7 +120,7 @@ namespace Business_Logic_Layer
         public static void RefreshListview(ListView lv)
         {          
             lv.Items.Clear();
-            AddRemindersToListview(lv, DLReminders.GetReminders());
+            AddRemindersToListview(lv, DLReminders.GetReminders().Where(rem => rem.Hide == 0).ToList());
         }
 
        

@@ -84,12 +84,7 @@ namespace RemindMe
             {
                 transferType = ReminderTransferType.EXPORT;
 
-
-                foreach (Reminder rem in BLReminder.GetReminders())
-                {
-                    BLFormLogic.AddReminderToListview(lvReminders, rem);
-                }
-
+                BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders());
             }
         }
 

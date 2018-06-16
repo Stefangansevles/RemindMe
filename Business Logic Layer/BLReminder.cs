@@ -517,15 +517,15 @@ namespace Business_Logic_Layer
         /// <param name="pathToRemindMeFile">The path to the file that will contain the serialized reminder objects</param>
         /// <returns>True if succesfull, false if not</returns>
         public static bool SerializeRemindersToFile(List<Reminder> reminders,string pathToRemindMeFile)
-        {
-            
+        {            
             // Create a hashtable of values that will eventually be serialized.
             Hashtable hashReminders = new Hashtable();
-            foreach(Reminder rem in reminders)            
-                hashReminders.Add(rem.Id, rem);            
+            foreach (Reminder rem in reminders)
+            {
+                rem.Hide = 0; //Un-hide the reminder when putting it into a .remindme file
+                hashReminders.Add(rem.Id, rem);
+            }
             
-
-
 
             // To serialize the hashtable and its key/value pairs,  
             // you must first open a stream for writing. 
@@ -550,9 +550,13 @@ namespace Business_Logic_Layer
                 fs.Close();                
             }
 
-            
+            //Force the list in DLReminders to sync again. In this method some reminders could have their Hide property set from 1 to 0.
+            //Since the reference is passed, changing the reminder here will also change the reminder in the list of DLReminders, hence the change.
+            NotifyChange();
             return true;
         }
+
+       
 
         /// <summary>
         /// De-Serializes the provided .remindme file located at the given path into a List of Reminder objects
