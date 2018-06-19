@@ -215,6 +215,7 @@ namespace RemindMe
                 {
                     rem.Deleted = 0;
                     rem.Enabled = 0; //Disable it so the user doesnt instantly get the reminder as an popup, as the reminder was in the past
+                    rem.Hide = 0;    //Make sure it isn't hidden, since you cant easily re-enable hidden reminders, you first have to unhide all reminders first
                     BLReminder.EditReminder(rem);
                 }
                 remindersRecovered++;
