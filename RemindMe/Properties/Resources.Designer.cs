@@ -123,6 +123,16 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bug {
+            get {
+                object obj = ResourceManager.GetObject("bug", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ColourPalette2 {
             get {
                 object obj = ResourceManager.GetObject("ColourPalette2", resourceCulture);
@@ -146,6 +156,16 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap dark_green_check_mark_hi {
             get {
                 object obj = ResourceManager.GetObject("dark-green-check-mark-hi", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap debug {
+            get {
+                object obj = ResourceManager.GetObject("debug", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

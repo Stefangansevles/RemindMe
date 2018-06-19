@@ -643,3 +643,11 @@ Minor fix to the play sound button. It caused an exception if you tried playing 
 V2.2.0
 Fixed a bug where exporting hidden reminders would cause them to be visible again in RemindMe's list of reminders, until the database changes/refreshes(for example a restart)
 Fixed a bug where hidden reminders would not show up in the list of to-import-reminders when double-clicking a .remindme file
+
+V2.2.1
+Added an option to recover "Archived" reminders. Reminders that happened naturally and have popped up can now be re-imported if users desire to do so.
+
+Redesigned the import/export user control. There was too much space and the buttons were too far apart.
+
+Added a debug mode screen for myself that shows when you run RemindMe in visual studio, or you press the secret shortcut 3 times in a row
+It currently doesn't have a lot of options, but more to come in the future

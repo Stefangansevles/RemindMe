@@ -165,6 +165,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReminderException.cs" />
+    <Compile Include="User controls\UCDebugMode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\UCDebugMode.Designer.cs">
+      <DependentUpon>UCDebugMode.cs</DependentUpon>
+    </Compile>
     <Compile Include="User controls\UCImportExport.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,6 +241,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User controls\UCDebugMode.resx">
+      <DependentUpon>UCDebugMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\UCImportExport.resx">
       <DependentUpon>UCImportExport.cs</DependentUpon>
@@ -317,6 +326,8 @@
     <Content Include="RemindMeIcon.ico" />
     <None Include="Resources\hide.png" />
     <None Include="Resources\show.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\debug.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

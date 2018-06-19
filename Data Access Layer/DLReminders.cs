@@ -141,6 +141,21 @@ namespace Data_Access_Layer
             }
             return toReturnList;
         }
+        /// <summary>
+        /// Gets all "deleted" reminders. Deleted reminders are reminders that are marked as deleted, but still exist.
+        /// </summary>
+        /// <returns>A list of reminders that are marked as deleted</returns>
+        public static List<Reminder> GetArchivedReminders()
+        {
+            //TODO: GetDeletedReminders() is too similair, somehow clean it up
+            List<Reminder> toReturnList = new List<Reminder>();
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                toReturnList = localReminders.Where(r => r.Deleted == 2).ToList();
+                db.Dispose();
+            }
+            return toReturnList;
+        }
 
 
 

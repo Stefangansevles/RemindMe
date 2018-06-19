@@ -23,19 +23,21 @@ namespace RemindMe
         private static readonly int WM_RELOAD_REMINDERS = RegisterWindowMessage("WM_RELOAD_REMINDERS");
 
         //User controls that will be loaded into the "main" panel
-        UCReminders ucReminders;
-        UCImportExport ucImportExport;
-        UCSound ucSound;
-        UCWindowOverlay ucOverlay;
-        UCResizePopup ucResizePopup;
-        UCSupport ucSupport;
+        private UCReminders ucReminders;
+        private UCImportExport ucImportExport;
+        private UCSound ucSound;
+        private UCWindowOverlay ucOverlay;
+        private UCResizePopup ucResizePopup;
+        private UCSupport ucSupport;
+        private UCDebugMode ucDebug;
         public static UCNewReminder ucNewReminder; //Can be null
+        //If the user presses the end key quickly 3 times, enable debug mode
+        private int endKeyPressed = 0;
 
         public Form1()
         {
-
-            InitializeComponent();
-
+        
+            InitializeComponent();            
 
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
@@ -48,6 +50,7 @@ namespace RemindMe
             ucOverlay = new UCWindowOverlay();
             ucResizePopup = new UCResizePopup();
             ucSupport = new UCSupport();
+            ucDebug = new UCDebugMode();
 
             //Set the Renderer of the menustrip to our custom renderer, which sets the highlight and border collor to DimGray, which is the same
             //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
@@ -105,6 +108,12 @@ namespace RemindMe
 
 
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
+
+
+            if (System.Diagnostics.Debugger.IsAttached)
+            {//Debugging ? show extra option
+                btnDebugMode.Visible = true;
+            }
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -271,6 +280,38 @@ namespace RemindMe
                     ucNewReminder = null;
                 }
             }
+        }
+
+        private void btnDebugMode_Click(object sender, EventArgs e)
+        {
+            ToggleButton(sender);
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(ucDebug);
+
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End && !btnDebugMode.Visible)
+            {
+                tmrDebugMode.Stop();
+                tmrDebugMode.Start();
+                endKeyPressed++;
+                if (endKeyPressed >= 3)
+                {
+                    tmrDebugMode.Stop();
+                    endKeyPressed = 0;
+                    if (RemindMeBox.Show("Enable debug mode?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
+                    {
+                        btnDebugMode.Visible = true;
+                    }
+                }
+            }
+        }
+
+        private void tmrDebugMode_Tick(object sender, EventArgs e)
+        {
+            endKeyPressed = 0;
         }
     }
 }

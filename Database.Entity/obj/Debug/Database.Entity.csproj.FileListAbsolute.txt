@@ -13,3 +13,4 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\EntityFramew
 D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\bin\Debug\EntityFramework.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\obj\Debug\Database.Entity.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\obj\Debug\Database.Entity.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\Database.Entity\obj\Debug\Database.Entity.csprojResolveAssemblyReference.cache

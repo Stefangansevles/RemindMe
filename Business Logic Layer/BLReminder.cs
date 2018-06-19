@@ -92,6 +92,15 @@ namespace Business_Logic_Layer
             return DLReminders.GetDeletedReminders();
         }
 
+        /// <summary>
+        /// Get all reminders that are marked as deleted
+        /// </summary>
+        /// <returns></returns>
+        public static List<Reminder> GetArchivedReminders()
+        {
+            return DLReminders.GetArchivedReminders();
+        }
+
 
         /// <summary>
         /// Permanentely deletes a single reminder from the database

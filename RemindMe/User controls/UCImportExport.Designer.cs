@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.btnCancel = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnConfirm = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -37,36 +36,25 @@
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chRepeat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnRecover = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.pnlTop = new System.Windows.Forms.Panel();
+            this.btnRecoverOld = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnRecoverDeleted = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnImport = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnExport = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pnlFooter.SuspendLayout();
+            this.pnlTop.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(261, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Backup / Import Reminders";
             // 
             // pnlFooter
             // 
             this.pnlFooter.Controls.Add(this.btnCancel);
             this.pnlFooter.Controls.Add(this.btnConfirm);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 389);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 395);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(666, 47);
+            this.pnlFooter.Size = new System.Drawing.Size(666, 41);
             this.pnlFooter.TabIndex = 5;
             // 
             // btnCancel
@@ -99,7 +87,7 @@
             this.btnCancel.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnCancel.OnHoverTextColor = System.Drawing.Color.White;
             this.btnCancel.selected = false;
-            this.btnCancel.Size = new System.Drawing.Size(121, 47);
+            this.btnCancel.Size = new System.Drawing.Size(121, 41);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "    Cancel";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -137,7 +125,7 @@
             this.btnConfirm.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnConfirm.OnHoverTextColor = System.Drawing.Color.White;
             this.btnConfirm.selected = false;
-            this.btnConfirm.Size = new System.Drawing.Size(121, 47);
+            this.btnConfirm.Size = new System.Drawing.Size(121, 41);
             this.btnConfirm.TabIndex = 4;
             this.btnConfirm.Text = "    Confirm";
             this.btnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,13 +143,13 @@
             this.chDate,
             this.chRepeat,
             this.chEnabled});
-            this.lvReminders.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lvReminders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvReminders.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.lvReminders.ForeColor = System.Drawing.Color.White;
             this.lvReminders.FullRowSelect = true;
-            this.lvReminders.Location = new System.Drawing.Point(0, 106);
+            this.lvReminders.Location = new System.Drawing.Point(0, 0);
             this.lvReminders.Name = "lvReminders";
-            this.lvReminders.Size = new System.Drawing.Size(666, 283);
+            this.lvReminders.Size = new System.Drawing.Size(666, 354);
             this.lvReminders.TabIndex = 6;
             this.lvReminders.UseCompatibleStateImageBehavior = false;
             this.lvReminders.View = System.Windows.Forms.View.Details;
@@ -187,56 +175,94 @@
             this.chEnabled.Text = "Enabled";
             this.chEnabled.Width = 110;
             // 
-            // panel1
+            // pnlTop
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.btnRecover);
-            this.panel1.Controls.Add(this.btnImport);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.btnExport);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(666, 100);
-            this.panel1.TabIndex = 7;
+            this.pnlTop.BackColor = System.Drawing.Color.Transparent;
+            this.pnlTop.Controls.Add(this.btnRecoverOld);
+            this.pnlTop.Controls.Add(this.btnRecoverDeleted);
+            this.pnlTop.Controls.Add(this.btnImport);
+            this.pnlTop.Controls.Add(this.btnExport);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(666, 41);
+            this.pnlTop.TabIndex = 7;
             // 
-            // btnRecover
+            // btnRecoverOld
             // 
-            this.btnRecover.Activecolor = System.Drawing.Color.Silver;
-            this.btnRecover.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRecover.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRecover.BorderRadius = 5;
-            this.btnRecover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnRecover.ButtonText = "    Recover";
-            this.btnRecover.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRecover.DisabledColor = System.Drawing.Color.Gray;
-            this.btnRecover.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecover.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnRecover.Iconimage = global::RemindMe.Properties.Resources.RevertIcon;
-            this.btnRecover.Iconimage_right = null;
-            this.btnRecover.Iconimage_right_Selected = null;
-            this.btnRecover.Iconimage_Selected = null;
-            this.btnRecover.IconMarginLeft = 0;
-            this.btnRecover.IconMarginRight = 0;
-            this.btnRecover.IconRightVisible = true;
-            this.btnRecover.IconRightZoom = 0D;
-            this.btnRecover.IconVisible = true;
-            this.btnRecover.IconZoom = 50D;
-            this.btnRecover.IsTab = true;
-            this.btnRecover.Location = new System.Drawing.Point(268, 54);
-            this.btnRecover.Name = "btnRecover";
-            this.btnRecover.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRecover.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnRecover.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnRecover.selected = false;
-            this.btnRecover.Size = new System.Drawing.Size(133, 39);
-            this.btnRecover.TabIndex = 4;
-            this.btnRecover.Text = "    Recover";
-            this.btnRecover.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRecover.Textcolor = System.Drawing.Color.White;
-            this.btnRecover.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecover.Click += new System.EventHandler(this.bunifuFlatButton1_Click);
+            this.btnRecoverOld.Activecolor = System.Drawing.Color.Silver;
+            this.btnRecoverOld.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRecoverOld.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRecoverOld.BorderRadius = 5;
+            this.btnRecoverOld.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnRecoverOld.ButtonText = "    Recover old";
+            this.btnRecoverOld.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRecoverOld.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRecoverOld.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRecoverOld.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecoverOld.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRecoverOld.Iconimage = global::RemindMe.Properties.Resources.RevertIcon;
+            this.btnRecoverOld.Iconimage_right = null;
+            this.btnRecoverOld.Iconimage_right_Selected = null;
+            this.btnRecoverOld.Iconimage_Selected = null;
+            this.btnRecoverOld.IconMarginLeft = 0;
+            this.btnRecoverOld.IconMarginRight = 0;
+            this.btnRecoverOld.IconRightVisible = true;
+            this.btnRecoverOld.IconRightZoom = 0D;
+            this.btnRecoverOld.IconVisible = true;
+            this.btnRecoverOld.IconZoom = 50D;
+            this.btnRecoverOld.IsTab = true;
+            this.btnRecoverOld.Location = new System.Drawing.Point(482, 0);
+            this.btnRecoverOld.Name = "btnRecoverOld";
+            this.btnRecoverOld.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRecoverOld.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnRecoverOld.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRecoverOld.selected = false;
+            this.btnRecoverOld.Size = new System.Drawing.Size(184, 41);
+            this.btnRecoverOld.TabIndex = 5;
+            this.btnRecoverOld.Text = "    Recover old";
+            this.btnRecoverOld.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRecoverOld.Textcolor = System.Drawing.Color.White;
+            this.btnRecoverOld.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecoverOld.Click += new System.EventHandler(this.btnRecoverOld_Click);
+            // 
+            // btnRecoverDeleted
+            // 
+            this.btnRecoverDeleted.Activecolor = System.Drawing.Color.Silver;
+            this.btnRecoverDeleted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRecoverDeleted.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRecoverDeleted.BorderRadius = 5;
+            this.btnRecoverDeleted.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnRecoverDeleted.ButtonText = "    Recover deleted";
+            this.btnRecoverDeleted.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRecoverDeleted.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRecoverDeleted.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnRecoverDeleted.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecoverDeleted.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRecoverDeleted.Iconimage = global::RemindMe.Properties.Resources.RevertIcon;
+            this.btnRecoverDeleted.Iconimage_right = null;
+            this.btnRecoverDeleted.Iconimage_right_Selected = null;
+            this.btnRecoverDeleted.Iconimage_Selected = null;
+            this.btnRecoverDeleted.IconMarginLeft = 0;
+            this.btnRecoverDeleted.IconMarginRight = 0;
+            this.btnRecoverDeleted.IconRightVisible = true;
+            this.btnRecoverDeleted.IconRightZoom = 0D;
+            this.btnRecoverDeleted.IconVisible = true;
+            this.btnRecoverDeleted.IconZoom = 50D;
+            this.btnRecoverDeleted.IsTab = true;
+            this.btnRecoverDeleted.Location = new System.Drawing.Point(290, 0);
+            this.btnRecoverDeleted.Name = "btnRecoverDeleted";
+            this.btnRecoverDeleted.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRecoverDeleted.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnRecoverDeleted.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRecoverDeleted.selected = false;
+            this.btnRecoverDeleted.Size = new System.Drawing.Size(192, 41);
+            this.btnRecoverDeleted.TabIndex = 4;
+            this.btnRecoverDeleted.Text = "    Recover deleted";
+            this.btnRecoverDeleted.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRecoverDeleted.Textcolor = System.Drawing.Color.White;
+            this.btnRecoverDeleted.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecoverDeleted.Click += new System.EventHandler(this.btnRecoverDeleted_Click);
             // 
             // btnImport
             // 
@@ -248,6 +274,7 @@
             this.btnImport.ButtonText = "    Import";
             this.btnImport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImport.DisabledColor = System.Drawing.Color.Gray;
+            this.btnImport.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnImport.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.Iconcolor = System.Drawing.Color.Transparent;
             this.btnImport.Iconimage = global::RemindMe.Properties.Resources.ImportIcon;
@@ -261,30 +288,19 @@
             this.btnImport.IconVisible = true;
             this.btnImport.IconZoom = 50D;
             this.btnImport.IsTab = true;
-            this.btnImport.Location = new System.Drawing.Point(131, 54);
+            this.btnImport.Location = new System.Drawing.Point(145, 0);
             this.btnImport.Name = "btnImport";
             this.btnImport.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnImport.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnImport.OnHoverTextColor = System.Drawing.Color.White;
             this.btnImport.selected = false;
-            this.btnImport.Size = new System.Drawing.Size(133, 39);
+            this.btnImport.Size = new System.Drawing.Size(145, 41);
             this.btnImport.TabIndex = 3;
             this.btnImport.Text = "    Import";
             this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnImport.Textcolor = System.Drawing.Color.White;
             this.btnImport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeImport;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(566, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // btnExport
             // 
@@ -296,6 +312,7 @@
             this.btnExport.ButtonText = "    Export";
             this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExport.DisabledColor = System.Drawing.Color.Gray;
+            this.btnExport.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnExport.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.Iconcolor = System.Drawing.Color.Transparent;
             this.btnExport.Iconimage = global::RemindMe.Properties.Resources.ExportIcon;
@@ -309,13 +326,13 @@
             this.btnExport.IconVisible = true;
             this.btnExport.IconZoom = 50D;
             this.btnExport.IsTab = true;
-            this.btnExport.Location = new System.Drawing.Point(6, 54);
+            this.btnExport.Location = new System.Drawing.Point(0, 0);
             this.btnExport.Name = "btnExport";
             this.btnExport.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnExport.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnExport.OnHoverTextColor = System.Drawing.Color.White;
             this.btnExport.selected = false;
-            this.btnExport.Size = new System.Drawing.Size(121, 39);
+            this.btnExport.Size = new System.Drawing.Size(145, 41);
             this.btnExport.TabIndex = 2;
             this.btnExport.Text = "    Export";
             this.btnExport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -323,28 +340,33 @@
             this.btnExport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lvReminders);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 41);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(666, 354);
+            this.panel1.TabIndex = 8;
+            // 
             // UCImportExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackColor = System.Drawing.Color.DimGray;
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lvReminders);
+            this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.pnlFooter);
             this.Name = "UCImportExport";
             this.Size = new System.Drawing.Size(666, 436);
             this.pnlFooter.ResumeLayout(false);
+            this.pnlTop.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private Bunifu.Framework.UI.BunifuFlatButton btnExport;
         private Bunifu.Framework.UI.BunifuFlatButton btnImport;
         private System.Windows.Forms.Panel pnlFooter;
@@ -355,7 +377,9 @@
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.ColumnHeader chRepeat;
         private System.Windows.Forms.ColumnHeader chEnabled;
+        private System.Windows.Forms.Panel pnlTop;
+        private Bunifu.Framework.UI.BunifuFlatButton btnRecoverDeleted;
+        private Bunifu.Framework.UI.BunifuFlatButton btnRecoverOld;
         private System.Windows.Forms.Panel panel1;
-        private Bunifu.Framework.UI.BunifuFlatButton btnRecover;
     }
 }

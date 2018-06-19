@@ -45,6 +45,7 @@
             this.btnNo = new Bunifu.Framework.UI.BunifuTileButton();
             this.btnShowDetails = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.pnlMainGradient.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.pnlSubmitFeedback.SuspendLayout();
@@ -289,6 +290,11 @@
             this.bunifuDragControl2.TargetControl = this.lblTitle;
             this.bunifuDragControl2.Vertical = true;
             // 
+            // bunifuElipse1
+            // 
+            this.bunifuElipse1.ElipseRadius = 5;
+            this.bunifuElipse1.TargetControl = this;
+            // 
             // ErrorPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,5 +337,6 @@
         private Bunifu.Framework.UI.BunifuTileButton btnSubmit;
         private Bunifu.Framework.UI.BunifuTileButton btnYes;
         private Bunifu.Framework.UI.BunifuTileButton btnNo;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }

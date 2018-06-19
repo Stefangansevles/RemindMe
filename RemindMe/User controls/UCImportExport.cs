@@ -92,7 +92,7 @@ namespace RemindMe
         {
             btnImport.selected = false;
             btnExport.selected = false;
-            btnRecover.selected = false;
+            btnRecoverDeleted.selected = false;
 
             if (sender != null)
                 ((Bunifu.Framework.UI.BunifuFlatButton)sender).selected = true;
@@ -105,22 +105,7 @@ namespace RemindMe
 
         }
 
-        private void bunifuFlatButton1_Click(object sender, EventArgs e)
-        {
-            ToggleButton(sender);
-            lvReminders.Items.Clear();
 
-            List<Reminder> toRecoverReminders = BLReminder.GetDeletedReminders();
-            if (toRecoverReminders.Count > 0)
-            {
-                transferType = ReminderTransferType.RECOVER;
-                foreach (Reminder rem in toRecoverReminders)
-                {
-                    BLFormLogic.AddReminderToListview(lvReminders, rem);
-                }
-
-            }
-        }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
@@ -226,9 +211,10 @@ namespace RemindMe
                 if (!File.Exists(rem.SoundFilePath)) //when you import reminders on another device, the path to the file might not exist. remove it.
                     rem.SoundFilePath = "";
 
-                if (rem.Deleted == 1) //The user wants to recover reminders, instead of importing new ones
+                if (rem.Deleted == 1 || rem.Deleted == 2) //The user wants to recover reminders, instead of importing new ones
                 {
                     rem.Deleted = 0;
+                    rem.Enabled = 0; //Disable it so the user doesnt instantly get the reminder as an popup, as the reminder was in the past
                     BLReminder.EditReminder(rem);
                 }
                 remindersRecovered++;
@@ -288,9 +274,25 @@ namespace RemindMe
             RECOVER
         }
 
+        private void btnRecoverDeleted_Click(object sender, EventArgs e)
+        {
+            lvReminders.Items.Clear();
+            ToggleButton(sender);
+            transferType = ReminderTransferType.RECOVER;
+
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetDeletedReminders().OrderBy(rem => rem.Name).ToList());
+        }
+
+        private void btnRecoverOld_Click(object sender, EventArgs e)
+        {
+            lvReminders.Items.Clear();
+            ToggleButton(sender);
+            transferType = ReminderTransferType.RECOVER;
+
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetArchivedReminders().OrderBy(rem => rem.Name).ToList());
+        }
 
     }
 
 
 }
-
