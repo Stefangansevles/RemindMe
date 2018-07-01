@@ -79,8 +79,9 @@
             this.lvReminders.UseCompatibleStateImageBehavior = false;
             this.lvReminders.View = System.Windows.Forms.View.Details;
             this.lvReminders.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.lvReminders_ColumnWidthChanged);
+            this.lvReminders.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lvReminders_ItemDrag);
             this.lvReminders.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragDrop);
-            this.lvReminders.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragEnter);
+            this.lvReminders.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragEnter);            
             this.lvReminders.DoubleClick += new System.EventHandler(this.lvReminders_DoubleClick);
             this.lvReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvReminders_KeyDown);
             this.lvReminders.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvReminders_MouseClick);

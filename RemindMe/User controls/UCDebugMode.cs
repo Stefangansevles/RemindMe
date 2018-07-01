@@ -9,19 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using Business_Logic_Layer;
 
 namespace RemindMe
 {
     public partial class UCDebugMode : UserControl
-    {        
+    {
+        List<string> localCacheList = new List<string>();
         public UCDebugMode()
         {
             InitializeComponent();
         }
+      
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
-            ErrorPopup pop = new ErrorPopup("This is a test error in debug mode", new ReminderException("Test"));
+            ErrorPopup pop = new ErrorPopup("This is a test error in debug mode", new ReminderException("Test"), false);
             pop.Show();
         }
 
@@ -40,7 +43,10 @@ namespace RemindMe
 
         private void UCDebugMode_Load(object sender, EventArgs e)
         {
-            tmrDetails.Start();            
+            
+            tmrDetails.Start();
+            tmrLog.Start();
+            localCacheList.AddRange(BLIO.systemLog);
         }
 
         private long GetMemory()
@@ -57,6 +63,21 @@ namespace RemindMe
         private void bunifuFlatButton2_Click(object sender, EventArgs e)
         {
             MessageFormManager.MakeMessagePopup("This is a test.", 4);
+        }
+
+        private void tmrLog_Tick(object sender, EventArgs e)
+        {
+            if (this.Parent != null && this.Parent.Controls[0].GetType() == typeof(UCDebugMode))
+            {                                
+                if(localCacheList.Count != BLIO.systemLog.Count)
+                {
+                    tbSystemLog.Clear();                    
+                    tbSystemLog.AppendText(String.Join(Environment.NewLine, BLIO.systemLog));
+
+                    localCacheList.Clear();
+                    localCacheList.AddRange(BLIO.systemLog);
+                }
+            }
         }
     }
 }

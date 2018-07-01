@@ -19,6 +19,7 @@ namespace RemindMe
         Reminder theReminder = null;
         public RemindMeMessageForm(string message, int timeout)
         {
+            BLIO.Log("Constructing RemindMeMessageForm (" + message + ")");
             InitializeComponent();
 
             //Not visible                   
@@ -47,6 +48,7 @@ namespace RemindMe
             this.timeout = timeout;
             //Start the timer that will "slowly" make the form more transparent
             tmrFadein.Start();
+            BLIO.Log("RemindMeMessageForm constructed");
         }
         public RemindMeMessageForm(string message, int timeout, Reminder rem) : this(message, timeout)
         {
@@ -130,7 +132,8 @@ namespace RemindMe
                     tmrFadein.Dispose();
                     tmrFadeout.Dispose();
                     tmrTimeout.Dispose();
-                    this.Dispose();
+                    BLIO.Log("Message form (" + lblText.Text + ") disposed.");
+                    this.Dispose();                    
                     MessageFormManager.RepositionActivePopups();
                 }
             }
@@ -171,9 +174,11 @@ namespace RemindMe
 
         private void lblDisable_Click(object sender, EventArgs e)
         {
+            
             theReminder.Enabled = 0;                //Set the enabled flag of this reminder to false
             BLReminder.EditReminder(theReminder);   //Push the edited reminder to the database
             UCReminders.NotifyChange();             //Show the change in RemindMe's main listview
+            BLIO.Log("Reminder with id" + theReminder.Id + " Disabled from the RemindMe message form");
             this.Dispose();
         }
 
@@ -181,8 +186,10 @@ namespace RemindMe
         {
             //The reminder object has now been altered. The first date has been removed and has been "skipped" to it's next date
             BLReminder.SkipToNextReminderDate(theReminder);
+            BLIO.Log("Skipped reminder with id " + theReminder.Id + " to it's next date from the RemindMe message form");
             //push the altered reminder to the database 
             BLReminder.EditReminder(theReminder);
+            BLIO.Log("Edited reminder with id " + theReminder.Id);
             //Show the change in RemindMe's main listview
             UCReminders.NotifyChange();             
             //Finally, close this message

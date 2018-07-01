@@ -302,13 +302,16 @@ namespace RemindMe
 
         private void bunifuTileButton1_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Attempting to play a sound...");
             if (cbSound.SelectedItem == null || cbSound.SelectedItem.ToString() == " Add files..." ||  String.IsNullOrWhiteSpace(cbSound.SelectedItem.ToString()))
                 return;
 
             ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
             if (selectedItem != null)
             {
+                
                 Songs selectedSong = (Songs)selectedItem.Value;
+                BLIO.Log("selected sound file is valid (UCNewReminder)");
 
                 if (btnPlaySound.Image == imgPlayResume)
                 {
@@ -317,6 +320,7 @@ namespace RemindMe
                     {
                         if (System.IO.File.Exists(selectedSong.SongFilePath))
                         {
+                            BLIO.Log("selected sound file exists on hard drive (UCNewReminder)");
                             btnPlaySound.Image = imgStop;
 
                             myPlayer.URL = selectedSong.SongFilePath;
@@ -329,11 +333,12 @@ namespace RemindMe
                                 tmrMusic.Interval = 1000;
                             tmrMusic.Start();
 
-
+                            BLIO.Log("Playing sound... (UCNewReminder)");
                             myPlayer.controls.play();
                         }
                         else
                         {
+                            BLIO.Log("selected sound file does not exist on hard drive anymore (UCNewReminder)");
                             //Get the song object from the combobox value
                             Songs song = (Songs)selectedItem.Value;
                             if (song != null)
@@ -347,9 +352,12 @@ namespace RemindMe
                                 //Remove the song from the combobox list in the manager
                                 ComboBoxItemManager.RemoveComboboxItem(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
 
+                                BLIO.Log("selected sound file removed from RemindMe as it no longer exists on the hard drive (UCNewReminder)");
+
                                 //Show the user the message that the file is no longer at the specified path.
                                 RemindMeBox.Show("Could not play " + song.SongFileName + " located at \"" + song.SongFilePath + "\" \r\nDid you move,rename or delete the file ?", RemindMeBoxReason.OK, false);
                             }
+                            
                         }
                     }
                 }
@@ -482,6 +490,7 @@ namespace RemindMe
 
         private void rbMultipleDays_CheckedChanged(object sender, EventArgs e)
         {
+            BLIO.Log("Reminder type set to week days");
             if (rbMultipleDays.Checked)
                 PlaceDayCheckBoxesPanel();
             else
@@ -587,6 +596,7 @@ namespace RemindMe
         }
         private void rbNoRepeat_CheckedChanged(object sender, EventArgs e)
         {
+            BLIO.Log("Reminder type set to set date(s)");
             RemoveComboboxMonthlyWeekly();
             if (rbNoRepeat.Checked && editableReminder == null)
             {
@@ -607,6 +617,7 @@ namespace RemindMe
 
         private void rbEveryXCustom_CheckedChanged(object sender, EventArgs e)
         {
+            BLIO.Log("Reminder type set to custom");
             if (rbEveryXCustom.Checked)
             {
                 lblEvery.Text = "Every:";
@@ -623,6 +634,8 @@ namespace RemindMe
 
         private void rbMonthly_CheckedChanged(object sender, EventArgs e)
         {
+
+            BLIO.Log("Reminder type set to monthly");
             if (rbMonthly.Checked)
             {
                 cbEvery.Visible = true;
@@ -655,11 +668,13 @@ namespace RemindMe
 
         private void rbDaily_CheckedChanged(object sender, EventArgs e)
         {
+            BLIO.Log("Reminder type set to daily");
             RemoveComboboxMonthlyWeekly();
         }
 
         private void rbWorkDays_CheckedChanged(object sender, EventArgs e)
         {
+            BLIO.Log("Reminder type set to work days");
             RemoveComboboxMonthlyWeekly();
 
             if (!rbWorkDays.Checked)
@@ -771,13 +786,19 @@ namespace RemindMe
             int newValue = 1;
             try
             {
+                BLIO.Log("attempting to add a monthly day to this reminder");
                 newValue = Convert.ToInt32(cbEvery.Text);
                 if (newValue > 0 && newValue < 32)
                 {
+                    
                     cbEvery.SelectedItem = cbEvery.Items[newValue - 1];
+                    
 
                     if (!cbMonthlyDays.Items.Contains(cbEvery.SelectedItem.ToString()))
+                    {
                         cbMonthlyDays.Items.Add(cbEvery.SelectedItem);
+                        BLIO.Log("value between 1 and 31! setted the selected item (" + cbEvery.SelectedItem.ToString() + ") and added it to cbMonthlyDays");
+                    }
                     // else
                     //MakeScrollingPopupMessage("The number " + newValue + " is already added.");
 
@@ -800,18 +821,23 @@ namespace RemindMe
 
         private void btnRemoveMonthlyDay_Click(object sender, EventArgs e)
         {
+            BLIO.Log("removing monthly day from cbMonthlyDays (" + cbMonthlyDays.SelectedItem.ToString() + ")");
             cbMonthlyDays.Items.Remove(cbMonthlyDays.SelectedItem);
             SetDateTimePickerMonthlyValue();
         }
 
         private void btnAddDate_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Attempting to add date to reminder...");
             DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
             if (selectedDate > DateTime.Now)
             {
+                BLIO.Log("selectedDate > DateTime.now !");
                 if (!cbMultipleDates.Items.Contains(selectedDate))
                 {
+                    BLIO.Log("reminder doesnt have this date yet!");
                     cbMultipleDates.Items.Add(selectedDate);
+                    BLIO.Log("Added date to cbMultipleDates combobox");
                     MessageFormManager.MakeMessagePopup(selectedDate.ToString() + " Added to this reminder.", 1);
                 }
                 else
@@ -825,8 +851,10 @@ namespace RemindMe
         {
             if (cbMultipleDates.SelectedItem != null)
             {
+                BLIO.Log("attempting to remove date from reminder");
                 //MakeScrollingPopupMessage(cbMultipleDates.SelectedItem.ToString() + "\r\nRemoved from this reminder");
                 cbMultipleDates.Items.Remove(cbMultipleDates.SelectedItem);
+                BLIO.Log("date removed");
 
                 //Make it so that it doesn't have a selected item and remove the text.
                 cbMultipleDates.SelectedItem = null;
@@ -864,6 +892,7 @@ namespace RemindMe
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            BLIO.Log("User pressed confirm at reminder user control. Attempting to create/edit a reminder (UCNewReminder)");
             //set it to empty at first, the user may not have this option selected            
             string commaSeperatedDays = "";
 
@@ -947,7 +976,7 @@ namespace RemindMe
                     else
                         BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
 
-
+                    BLIO.Log("New reminder succesfully created! (UCNewReminder)");
                 }
                 else
                 {//The user is editing an existing reminder                                        
@@ -1026,6 +1055,7 @@ namespace RemindMe
 
                     RemoveUnusedPropertiesFromReminders(editableReminder);
                     BLReminder.EditReminder(editableReminder);
+                    BLIO.Log("Reminder with id " + editableReminder.Id + " edited! (UCNewReminder)");
                 }
 
                 //clear the entire listview an re-fill it so that the listview is ordered by date again                
@@ -1049,12 +1079,13 @@ namespace RemindMe
                 ShowOrHideExclamation();
 
                 //MakeScrollingPopupMessage("Some fields are not valid. Please see the exclaminations");
+                BLIO.Log("Could not create a reminder. some fields are not valid (UCNewReminder)");
                 return;
             }
 
 
             //If there is an scrolling popup, hide it.
-            //HideScrollingPopupMessage();
+            //HideScrollingPopupMessage();            
             btnBack_Click(sender, e);
 
         }
@@ -1211,9 +1242,11 @@ namespace RemindMe
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            BLIO.Log("User pressed back (UCNewReminder)");
             shouldDispose = true;
             btnPlaySound.Image = imgPlayResume;
             myPlayer.controls.stop();
+            BLIO.Log("stopping music");
             tmrMusic.Stop();
 
             //Refresh listview with the newly made reminder            
@@ -1238,15 +1271,17 @@ namespace RemindMe
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Clearing reminder form (UCNewReminder)");
             ResetReminderForm();
         }
 
         private void UCNewReminder_Load(object sender, EventArgs e)
         {
+            
             dtpTime.Format = DateTimePickerFormat.Custom;
 
             if (editableReminder == null)
-                ResetReminderForm();
+                ResetReminderForm();            
         }
 
         private void cbEvery_KeyUp(object sender, KeyEventArgs e)
@@ -1260,7 +1295,11 @@ namespace RemindMe
             try
             {
                 if (dtpDate.Enabled)
+                {
                     AddDaysMenuStrip.Show(Cursor.Position);
+                    BLIO.Log("bringing up the menu when the user clicks ... (UCNewReminder)");
+                }
+                    
             }
             catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
 
@@ -1328,6 +1367,7 @@ namespace RemindMe
             {
                 if (cbSound.SelectedItem.ToString() == " Add files...")
                 {
+                    BLIO.Log("combobox sound selected index changed. selecteditem != null && item string == add files...");
                     //Fill selectedFiles with the selected files AND the current files, 
                     //and check if it is not already in the list
 
@@ -1365,6 +1405,16 @@ namespace RemindMe
             dtpTime.Value = Convert.ToDateTime(DateTime.Now.ToString("HH:mm")).AddMinutes(1); //Add 1 minute so the exclamination won't show
             dtpDate.Value = DateTime.Now;
 
+        }
+
+        private void tbNote_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                //Ctrl+a = select all items
+                tbNote.SelectAll();
+                tbNote.Focus();
+            }
         }
     }
 }

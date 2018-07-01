@@ -197,6 +197,7 @@
             this.pnlMain.Quality = 10;
             this.pnlMain.Size = new System.Drawing.Size(666, 436);
             this.pnlMain.TabIndex = 2;
+            this.pnlMain.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlMain_ControlAdded);
             this.pnlMain.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlMain_ControlRemoved);
             // 
             // pnlSide

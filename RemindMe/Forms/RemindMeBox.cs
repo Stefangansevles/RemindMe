@@ -24,6 +24,7 @@ namespace RemindMe
         private static bool showDontRemind;
         private RemindMeBox(string description, RemindMeBoxReason buttons, bool showDontRemindOption)
         {
+            BLIO.Log("Constructing RemindMeBox(" + description + "");
             //We will use the default "Attention" title text
             InitializeComponent();
 
@@ -67,6 +68,8 @@ namespace RemindMe
             }
             else
                 this.StartPosition = FormStartPosition.CenterScreen;
+
+            BLIO.Log("RemindMeBox constructed");
         }
 
         protected override CreateParams CreateParams
@@ -126,18 +129,21 @@ namespace RemindMe
         {
             newMessageBox = new RemindMeBox(text, RemindMeBoxReason.OK,showDontRemindOption);
             newMessageBox.ShowDialog();
+            BLIO.Log("Closing RemindMeBox with result " + result);
             return result;
         }
         public static DialogResult Show(string text, RemindMeBoxReason buttons, bool showDontRemindOption = false)
         {
             newMessageBox = new RemindMeBox(text, buttons,showDontRemindOption);
             newMessageBox.ShowDialog();
+            BLIO.Log("Closing RemindMeBox with result " + result);
             return result;
         }
         public static DialogResult Show(string text,string title, RemindMeBoxReason buttons, bool showDontRemindOption = false)
         {
             newMessageBox = new RemindMeBox(text, title,buttons,showDontRemindOption);
             newMessageBox.ShowDialog();
+            BLIO.Log("Closing RemindMeBox with result " + result);            
             return result;
         }
 

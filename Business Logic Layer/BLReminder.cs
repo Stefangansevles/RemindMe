@@ -164,6 +164,7 @@ namespace Business_Logic_Layer
         /// </summary>
         public static void NotifyChange()
         {
+            BLIO.Log("BLReminder.NotifyChange()");
             DLReminders.NotifyChange();
         }
         /// <summary>
@@ -364,6 +365,7 @@ namespace Business_Logic_Layer
         {
             if (rem != null)
             {
+                BLIO.Log("Updating reminder with id " + rem.Id);
                 //Enable the reminder again
                 rem.Enabled = 1;
                 
@@ -473,6 +475,7 @@ namespace Business_Logic_Layer
                 }
                 //finally, Write the changes to the database                  
                 DLReminders.EditReminder(rem);
+                BLIO.Log("Reminder updated");
             }
             else
                 throw new ArgumentNullException("parameter rem in UpdateReminder is null.");
@@ -526,7 +529,8 @@ namespace Business_Logic_Layer
         /// <param name="pathToRemindMeFile">The path to the file that will contain the serialized reminder objects</param>
         /// <returns>True if succesfull, false if not</returns>
         public static bool SerializeRemindersToFile(List<Reminder> reminders,string pathToRemindMeFile)
-        {            
+        {
+            BLIO.Log("Beginning reminder serialization...");
             // Create a hashtable of values that will eventually be serialized.
             Hashtable hashReminders = new Hashtable();
             foreach (Reminder rem in reminders)
@@ -534,7 +538,8 @@ namespace Business_Logic_Layer
                 rem.Hide = 0; //Un-hide the reminder when putting it into a .remindme file
                 hashReminders.Add(rem.Id, rem);
             }
-            
+            BLIO.Log(reminders.Count + " reminders hashed");
+
 
             // To serialize the hashtable and its key/value pairs,  
             // you must first open a stream for writing. 
@@ -548,10 +553,13 @@ namespace Business_Logic_Layer
             hashReminders.Add("LANGUAGE_CODE", CultureInfo.CurrentCulture.IetfLanguageTag);
             try
             {
+                BLIO.Log("Serializing reminders...");
                 formatter.Serialize(fs, hashReminders);
+                BLIO.Log("Reminders succesfully serialized");
             }
             catch (SerializationException)
             {
+                BLIO.Log("Could not serialize reminder(s)");
                 return false;
             }
             finally

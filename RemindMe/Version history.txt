@@ -652,5 +652,10 @@ Redesigned the import/export user control. There was too much space and the butt
 Added a debug mode screen for myself that shows when you run RemindMe in visual studio, or you press the secret shortcut 3 times in a row
 It currently doesn't have a lot of options, but more to come in the future
 
-V2.2.1
+V2.2.11
 When you recover an hidden reminder it is now un-hidden, as you dont want to unhide all reminders, look for the reminder you just recovered and re-enable that one
+
+V2.2.2
+You can now drag reminders out of remind me into a folder on or your desktop. Because why not?
+
+Added a system log to the debug window. This can be usefull to find out where exactly bugs happen

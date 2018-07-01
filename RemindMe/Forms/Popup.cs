@@ -25,6 +25,7 @@ namespace RemindMe
         private bool formClosedCorrectly = false;
         public Popup(Reminder rem)
         {
+            BLIO.Log("Constructing Popup reminderId = " + rem.Id);
             InitializeComponent();
             this.rem = rem;
 
@@ -43,7 +44,7 @@ namespace RemindMe
             this.MouseClick += stopFlash_Event;
             this.ResizeEnd += stopFlash_Event;
 
-
+            BLIO.Log("Popup constructed");
         }
 
         private void lblExit_MouseEnter(object sender, EventArgs e)
@@ -67,13 +68,14 @@ namespace RemindMe
         }
 
         private void Popup2_Load(object sender, EventArgs e)
-        {            
+        {
             //Set the maximum width of the panel, so that there won't be a horizontal scrollbar, but only a vertical one(if there is a lot of text)            
+            
             FlashWindowHelper.Start(this);
             //this.MaximumSize = this.Size;
 
             if (BLSettings.IsAlwaysOnTop())
-            {
+            {                
                 this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
                 this.TopLevel = true;
             }
@@ -96,13 +98,17 @@ namespace RemindMe
             //Play the sound
             if (rem.SoundFilePath != null && rem.SoundFilePath != "")
             {
+                
                 if (System.IO.File.Exists(rem.SoundFilePath))
                 {
+                    BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
                     myPlayer.URL = rem.SoundFilePath;
                     myPlayer.controls.play();
+                    BLIO.Log("Playing sound");
                 }
                 else
                 {
+                    BLIO.Log("SoundFilePath not null / empty but doesn't exist on the hard drive!");
                     RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxReason.OK);
                     //make sure its removed from the reminder
                     rem.SoundFilePath = "";
@@ -200,6 +206,7 @@ namespace RemindMe
                 formClosedCorrectly = true;
                 if (cbPostpone.Checked)
                 {
+                    BLIO.Log("Postponing reminder with id " + rem.Id);
                     if (numPostponeTime.Value == 0)
                         return;
 
@@ -211,8 +218,10 @@ namespace RemindMe
                         newReminderTime = DateTime.Now.AddHours((double)numPostponeTime.Value);
 
                     rem.PostponeDate = newReminderTime.ToString();
+                    BLIO.Log("Postpone date assigned to reminder");
                     rem.Enabled = 1;
                     BLReminder.EditReminder(rem);
+                    BLIO.Log("Reminder postponed!");
                 }
                 else
                 {
@@ -221,7 +230,8 @@ namespace RemindMe
                 }
                 UCReminders.NotifyChange();
             }
-            
+
+            BLIO.Log("Stopping media player & Closing popup");
             myPlayer.controls.stop();
             this.Close();
         }

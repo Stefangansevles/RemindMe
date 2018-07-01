@@ -29,7 +29,9 @@ namespace RemindMe
             else
                 set.EnableReminderCountPopup = 0;
 
+            
             BLSettings.UpdateSettings(set);
+            BLIO.Log("Today's reminder popup setting changed to: " + cbEnableRemindMeMessages.Checked.ToString());
         }
 
         private void cbEnableOneHourBeforeNotification_OnChange(object sender, EventArgs e)
@@ -42,6 +44,7 @@ namespace RemindMe
                 set.EnableHourBeforeReminder = 0;
 
             BLSettings.UpdateSettings(set);
+            BLIO.Log("1 hour before reminder setting changed to: " + cbEnableOneHourBeforeNotification.Checked.ToString());
         }
 
         private void UCWindowOverlay_Load(object sender, EventArgs e)
@@ -68,15 +71,23 @@ namespace RemindMe
 
         private void cbPopupType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (cbPopupType.SelectedItem.ToString() == "Always on top (Recommended)")
+            {
                 alwaysOnTop = 1;
+                BLIO.Log("Popup type selected index changed to always on top.");
+            }
             else
+            {
                 alwaysOnTop = 0;
+                BLIO.Log("Popup type selected index changed to minimized.");
+            }
 
             Settings set = BLSettings.GetSettings();
             set.AlwaysOnTop = alwaysOnTop;
 
             BLSettings.UpdateSettings(set);
+            BLIO.Log("Updated popup type.");
         }
 
         private void label5_Click(object sender, EventArgs e)

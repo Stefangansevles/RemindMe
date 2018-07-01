@@ -117,7 +117,7 @@
             // 
             // tmrAllowMail
             // 
-            this.tmrAllowMail.Interval = 300000;
+            this.tmrAllowMail.Interval = 10000;
             this.tmrAllowMail.Tick += new System.EventHandler(this.tmrAllowMail_Tick);
             // 
             // pbSending

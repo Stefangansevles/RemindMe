@@ -442,7 +442,7 @@
             this.groupRepeatRadiobuttons.Name = "groupRepeatRadiobuttons";
             this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(366, 60);
             this.groupRepeatRadiobuttons.TabIndex = 79;
-            this.groupRepeatRadiobuttons.TabStop = false;            
+            this.groupRepeatRadiobuttons.TabStop = false;
             // 
             // rbMultipleDays
             // 
@@ -866,6 +866,7 @@
             this.tbNote.Size = new System.Drawing.Size(366, 68);
             this.tbNote.TabIndex = 91;
             this.tbNote.LocationChanged += new System.EventHandler(this.tbNote_LocationChanged);
+            this.tbNote.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbNote_KeyDown);
             // 
             // tbReminderName
             // 

@@ -41,11 +41,13 @@ namespace RemindMe
         /// <param name="reminderFile"></param>
         public RemindMeImporter(string reminderFile)
         {
+            BLIO.Log("Constructing RemindMeImporter");
             InitializeComponent();
             this.Opacity = 0;
             this.remindmeFile = reminderFile;
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             tmrFadein.Start();
+            BLIO.Log("RemindMeImporter constructed");
         }
 
         private List<Reminder> GetSelectedRemindersFromListview()
@@ -67,12 +69,14 @@ namespace RemindMe
                 // This will raise an exception if the path is read only or do not have access to view the permissions. 
                 FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
                 {
+                    BLIO.Log("HasfileAccess from RemindMeImporter returned with true");                    
                     return true;
                 }
 
             }
             catch (UnauthorizedAccessException ex)
             {
+                BLIO.Log("HasfileAccess from RemindMeImporter returned with false");
                 return false;
             }
         }
@@ -98,10 +102,12 @@ namespace RemindMe
                         if (!File.Exists(rem.SoundFilePath)) //when you import reminders on another device, the path to the file might not exist. remove it.
                             rem.SoundFilePath = "";
 
+                        BLIO.Log("Pushing reminder with id " + rem.Id + " To the database");
                         BLReminder.PushReminderToDatabase(rem);
                     }
 
                     //Let remindme know that the listview should be refreshed
+                    BLIO.Log("Sending message WM_RELOAD_REMINDERS ....");
                     PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));                    
                     this.Close();
                 }

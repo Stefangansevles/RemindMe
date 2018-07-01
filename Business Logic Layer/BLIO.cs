@@ -15,7 +15,34 @@ namespace Business_Logic_Layer
         //Checks if we can send an e-mail, when users come accross an error, they tend to try it multiple times. We don't want to spam e-mails.
         private static bool allowEmail = true;
         private static System.Windows.Forms.Timer tmrAllowEmail = null;
-        private static void startTimer()
+        public static List<string> systemLog = new List<string>();
+
+        public static void Log(string entry)
+        {
+            systemLog.Add("[" + DateTime.Now.ToString() + "]  " + entry);
+        }
+        public static void Log(List<string> entries)
+        {
+            foreach (string entry in entries)
+                Log(entry);
+        }
+        /// <summary>
+        /// Saves the current log to a temporary path in .txt format and returns the path to the file
+        /// </summary>
+        /// <returns>The path to the .txt log file</returns>
+        public static string GetLogTxtPath()
+        {
+            string path = System.IO.Path.GetTempPath() + "SystemLog.txt";
+            using (FileStream fs = new FileStream(path, FileMode.Append))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                foreach(string line in systemLog)                
+                    sw.WriteLine(line);                
+                
+            }
+            return path;
+        }
+        private static void StartTimer()
         {
             if (tmrAllowEmail == null)
             {

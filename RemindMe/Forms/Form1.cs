@@ -36,7 +36,8 @@ namespace RemindMe
 
         public Form1()
         {
-        
+
+            BLIO.Log("Construct Form");
             InitializeComponent();            
 
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
@@ -56,6 +57,7 @@ namespace RemindMe
             //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
             //toolstrip items white.
             RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
+            BLIO.Log("Form constructed");
         }
 
         protected override CreateParams CreateParams
@@ -74,12 +76,17 @@ namespace RemindMe
             //This message will be sent when the RemindMeImporter imports reminders.
             if (m.Msg == WM_RELOAD_REMINDERS)
             {
+                BLIO.Log("Received message WM_RELOAD_REMINDERS");
                 int currentReminderCount = BLReminder.GetReminders().Count;
+               
                 BLReminder.NotifyChange();
                 UCReminders.NotifyChange();
 
                 if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
+                {                    
                     MessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
+                    BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
+                }
 
             }
 
@@ -89,10 +96,12 @@ namespace RemindMe
        
         private void Form1_Load(object sender, EventArgs e)
         {
+            BLIO.Log("RemindMe_Load");
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
 
             MessageFormManager.MakeTodaysRemindersPopup();
+            BLIO.Log("Today's reminders popup created");
 
             //hide the form on startup
             BeginInvoke(new MethodInvoker(delegate
@@ -114,6 +123,7 @@ namespace RemindMe
             {//Debugging ? show extra option
                 btnDebugMode.Visible = true;
             }
+            BLIO.Log("RemindMe loaded");
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -137,6 +147,7 @@ namespace RemindMe
             this.Show();
             this.WindowState = FormWindowState.Normal;
             tmrFadeIn.Start();
+            BLIO.Log("Show remindme toolstrip menu item clicked. Showing remindme");
         }
 
         private void RemindMeIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -149,6 +160,7 @@ namespace RemindMe
             this.Show();
             this.WindowState = FormWindowState.Normal;
             tmrFadeIn.Start();
+            BLIO.Log("Remindme icon double clicked");
         }
 
         private void tsExit_Click(object sender, EventArgs e)
@@ -250,13 +262,7 @@ namespace RemindMe
             if (this.Opacity >= 1)
                 tmrFadeIn.Stop();
         }
-
-        private void tmrSlide_Tick(object sender, EventArgs e)
-        {
-            ucNewReminder.Location = new Point(ucNewReminder.Location.X + 90, ucNewReminder.Location.Y);
-            if (ucNewReminder.Location.X >= 0)
-                ucNewReminder.Location = new Point(0, 0);
-        }
+  
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
@@ -270,6 +276,7 @@ namespace RemindMe
 
         private void pnlMain_ControlRemoved(object sender, ControlEventArgs e)
         {
+            BLIO.Log("Control removed from pnlMain (" + e.Control.GetType() + ")");
             //If the removed control is UCNewReminder, dispose it. Memory usage goes up and doesnt get cleaned
             //When you edit multiple reminders without disposing them.
             if (e.Control is UCNewReminder )
@@ -277,6 +284,7 @@ namespace RemindMe
                 if (ucNewReminder != null && ucNewReminder.shouldDispose)
                 {
                     e.Control.Dispose();
+                    BLIO.Log("ucNewReminder disposed");
                     ucNewReminder = null;
                 }
             }
@@ -301,8 +309,10 @@ namespace RemindMe
                 {
                     tmrDebugMode.Stop();
                     endKeyPressed = 0;
+                    BLIO.Log("end key pressed 3 times. Show dialog for debug mode");
                     if (RemindMeBox.Show("Enable debug mode?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
                     {
+                        BLIO.Log("Debug mode enabled");
                         btnDebugMode.Visible = true;
                     }
                 }
@@ -313,5 +323,11 @@ namespace RemindMe
         {
             endKeyPressed = 0;
         }
+
+        private void pnlMain_ControlAdded(object sender, ControlEventArgs e)
+        {
+            BLIO.Log("Control added to pnlMain (" + e.Control.GetType() + ")");
+        }
+        
     }
 }

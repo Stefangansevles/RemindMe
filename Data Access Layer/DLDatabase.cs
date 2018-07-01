@@ -109,7 +109,7 @@ namespace Data_Access_Layer
             var settingNames = typeof(Settings).GetProperties().Select(property => property.Name).ToList();
 
             foreach (string columnName in settingNames)
-            {
+            {                
                 if (!HasColumn(columnName, "settings"))
                     return false; //aww damn! the user has an outdated .db file!                
             }

@@ -35,6 +35,7 @@ namespace RemindMe
         }
         private void btnImport_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Import button pressed. Loading reminders into listview");
             remindersFromRemindMeFile.Clear();
             ToggleButton(sender);
             lvReminders.Items.Clear();
@@ -46,6 +47,7 @@ namespace RemindMe
                 btnImport.selected = false;
                 return;
             }
+            BLIO.Log("Valid .remindme file selected");
 
             try
             {
@@ -53,9 +55,11 @@ namespace RemindMe
 
 
                 List<object> toImportReminders = BLReminder.DeserializeRemindersFromFile(remindmeFile).Cast<object>().ToList();
+                
 
                 if (toImportReminders != null)
                 {
+                    BLIO.Log(toImportReminders.Count -1 + " reminders in this .remindme file"); 
                     transferType = ReminderTransferType.IMPORT;
 
                     foreach (object rem in toImportReminders)
@@ -80,12 +84,13 @@ namespace RemindMe
             ToggleButton(sender);
             lvReminders.Items.Clear();
 
+            BLIO.Log("Export button pressed. Loading reminders into listview");
             if (BLReminder.GetReminders().Count > 0)
             {
                 transferType = ReminderTransferType.EXPORT;
-
                 BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders());
             }
+            BLIO.Log("Added exportable reminders to listview.");
         }
 
         private void ToggleButton(object sender)
@@ -100,6 +105,7 @@ namespace RemindMe
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Cancel button pressed (UCImportExport)");
             ToggleButton(null);
             lvReminders.Items.Clear();
 
@@ -109,15 +115,19 @@ namespace RemindMe
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Confirm button pressed (UCImportExport)");
             switch (transferType)
             {
                 case ReminderTransferType.IMPORT:
+                    BLIO.Log("Importing reminders ... (UCImportExport)");
                     ImportReminders();
                     break;
                 case ReminderTransferType.EXPORT:
+                    BLIO.Log("Exporting reminders ... (UCImportExport)");
                     Exportreminders();
                     break;
                 case ReminderTransferType.RECOVER:
+                    BLIO.Log("Recovering reminders ... (UCImportExport)");
                     RecoverReminders();
                     break;
             }
@@ -136,28 +146,36 @@ namespace RemindMe
 
 
         private void Exportreminders()
-        {
+        {          
             if (GetSelectedRemindersFromListview().Count > 0)
             {
                 string selectedPath = FSManager.Folders.GetSelectedFolderPath();
+                
                 if (selectedPath != null)
                 {
+                    BLIO.Log("User selected a valid path");
+
                     Exception possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);
                     if (possibleException == null)
                     {
+                        BLIO.Log("No problems encountered (exception null)");
                         SetStatusTexts(GetSelectedRemindersFromListview().Count, BLReminder.GetReminders().Count);
                     }
                     else if (possibleException is UnauthorizedAccessException)
                     {
+                        BLIO.Log("Problem encountered: Unauthorized");
                         if (RemindMeBox.Show("Could not save reminders to \"" + selectedPath + "\"\r\nDo you wish to place them on your desktop instead?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
                         {
+                            BLIO.Log("Trying to save to desktop instead...");
                             possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
                             if (possibleException != null)
                             {//Did saving to desktop go wrong, too?? just show a message
+                                BLIO.Log("Trying to save to desktop didnt work either");
                                 RemindMeBox.Show("Something went wrong. Could not save the reminders to your desktop.", RemindMeBoxReason.OK);
                             }
                             else
-                            {//Saving to desktop did not throw an exception                        
+                            {//Saving to desktop did not throw an exception      
+                                BLIO.Log("Saved to desktop");
                                 SetStatusTexts(GetSelectedRemindersFromListview().Count, BLReminder.GetReminders().Count);
                             }
                         }
@@ -188,16 +206,22 @@ namespace RemindMe
             if (selectedReminders.Count == 0)
                 return false;
 
+            
+
             if (remindersFromRemindMeFile != null)
             {
+                BLIO.Log("Attempting to import " + selectedReminders.Count + " reminders ...");
                 foreach (Reminder rem in selectedReminders)
                 {
                     if (!File.Exists(rem.SoundFilePath)) //when you import reminders on another device, the path to the file might not exist. remove it.
                         rem.SoundFilePath = "";
 
+                    
                     BLReminder.PushReminderToDatabase(rem);
+                    BLIO.Log("Pushed reminder with id " + rem.Id + " to the database");
                     remindersInserted++;
                 }
+                BLIO.Log(remindersInserted + " Reminders inserted");
             }
             SetStatusTexts(remindersInserted, selectedReminders.Count);
             return true;
@@ -206,6 +230,7 @@ namespace RemindMe
         {
             int remindersRecovered = 0;
             List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
+            BLIO.Log("Attempting to recover " + selectedReminders.Count + " reminders ...");
             foreach (Reminder rem in selectedReminders)
             {
                 if (!File.Exists(rem.SoundFilePath)) //when you import reminders on another device, the path to the file might not exist. remove it.
@@ -213,13 +238,16 @@ namespace RemindMe
 
                 if (rem.Deleted == 1 || rem.Deleted == 2) //The user wants to recover reminders, instead of importing new ones
                 {
+                    BLIO.Log("Reminder deleted: " + rem.Deleted + ". Setting deleted,enabled and hidden to 0");
                     rem.Deleted = 0;
                     rem.Enabled = 0; //Disable it so the user doesnt instantly get the reminder as an popup, as the reminder was in the past
                     rem.Hide = 0;    //Make sure it isn't hidden, since you cant easily re-enable hidden reminders, you first have to unhide all reminders first
                     BLReminder.EditReminder(rem);
+                    BLIO.Log("Reminder with id " + rem.Id + " edited");
                 }
                 remindersRecovered++;
             }
+            BLIO.Log(remindersRecovered + " Reminders recovered");
             SetStatusTexts(remindersRecovered, selectedReminders.Count);
         }
 
@@ -277,20 +305,26 @@ namespace RemindMe
 
         private void btnRecoverDeleted_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Recover deleted button pressed. Loading reminders into listview");
+            
             lvReminders.Items.Clear();
             ToggleButton(sender);
             transferType = ReminderTransferType.RECOVER;
 
             BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetDeletedReminders().OrderBy(rem => rem.Name).ToList());
+            BLIO.Log("Added deleted reminders to listview.");
         }
 
         private void btnRecoverOld_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Recover old button pressed. Loading reminders into listview");
+            
             lvReminders.Items.Clear();
             ToggleButton(sender);
             transferType = ReminderTransferType.RECOVER;
 
             BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetArchivedReminders().OrderBy(rem => rem.Name).ToList());
+            BLIO.Log("Added old reminders to listview.");
         }
 
     }

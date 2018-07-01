@@ -20,8 +20,9 @@ namespace RemindMe
         private Exception ex;
         private bool sentCustomEmail;
         private bool allowEmail = false;
-        public ErrorPopup(string message,Exception ex)
-        {           
+        public ErrorPopup(string message,Exception ex, bool allowEmail = true)
+        {
+            BLIO.Log("Constructing ErrorPopup (" + ex.GetType().ToString() + ")");
             InitializeComponent();
             
 
@@ -40,16 +41,14 @@ namespace RemindMe
             this.ex = ex;
             this.message = message;
             lblText.Text = message + "\r\nCould you report how this happened?";
-            allowEmail = true;
+            this.allowEmail = allowEmail;
 
             while (pnlMainGradient.Height < (lblText.Location.Y + lblText.Height))
                 this.Height += 35;
+
+            BLIO.Log("Constructing ErrorPopup complete");
         }
-        public ErrorPopup(string message, Exception ex, bool allowEmail) : this(message, ex)
-        {                            
-            InitializeComponent();
-            this.allowEmail = allowEmail;
-        }
+        
 
         private void btnShowDetails_Click(object sender, EventArgs e)
         {

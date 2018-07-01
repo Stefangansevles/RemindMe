@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business_Logic_Layer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,8 +17,9 @@ namespace RemindMe
         private static string strReturnValue;
         private static int intReturnValue;
         static RemindMePrompt newPrompt;
-        public RemindMePrompt(string title,PromptReason reason)
+        public RemindMePrompt(string title, PromptReason reason)
         {
+            BLIO.Log("Constructing RemindMePrompt (" + title + ")");
             InitializeComponent();
             promptReason = reason;
             this.Opacity = 0;
@@ -40,7 +42,8 @@ namespace RemindMe
 
             strReturnValue = "";
             intReturnValue = 0;
-    }
+            BLIO.Log("RemindMePrompt constructed");
+        }
 
         public RemindMePrompt(string title,string description,PromptReason reason) : this(title, reason)
         {
@@ -57,6 +60,7 @@ namespace RemindMe
         {
             newPrompt = new RemindMePrompt(title,PromptReason.TEXT);
             newPrompt.ShowDialog();
+            BLIO.Log("RemindMePrompt closed and returned " + strReturnValue);
             return strReturnValue;
         }
         /// <summary>
@@ -68,6 +72,7 @@ namespace RemindMe
         {
             newPrompt = new RemindMePrompt(title, PromptReason.NUMERIC);
             newPrompt.ShowDialog();
+            BLIO.Log("RemindMePrompt closed and returned " + intReturnValue);
             return intReturnValue;
         }
         /// <summary>
@@ -79,6 +84,7 @@ namespace RemindMe
         {
             newPrompt = new RemindMePrompt(title, description,PromptReason.NUMERIC);
             newPrompt.ShowDialog();
+            BLIO.Log("RemindMePrompt closed and returned " + intReturnValue);
             return intReturnValue;
         }
         /// <summary>
@@ -90,6 +96,7 @@ namespace RemindMe
         {
             newPrompt = new RemindMePrompt(title, description,PromptReason.TEXT);
             newPrompt.ShowDialog();
+            BLIO.Log("RemindMePrompt closed and returned " + strReturnValue);
             return strReturnValue;
         }
 
@@ -108,7 +115,7 @@ namespace RemindMe
             {
                 try
                 {
-                    intReturnValue = Convert.ToInt32(tbPrompt.Text);
+                    intReturnValue = Convert.ToInt32(tbPrompt.Text);                    
                     this.Close(); //Won't reach this if the input text is not numeric.                    
                 }
                 catch

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,26 @@ namespace Business_Logic_Layer
 
       
 
-        public static Exception SendEmail(string subject, string message)
+        public static Exception SendEmail(string subject, string message, bool includeLog = true)
         {
             MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
+
+            // Create the file attachment for this e-mail message.
+            string path = BLIO.GetLogTxtPath();            
+            Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
+
+            // Add time stamp information for the file.
+            ContentDisposition disposition = data.ContentDisposition;
+            disposition.CreationDate = System.IO.File.GetCreationTime(path);
+            disposition.ModificationDate = System.IO.File.GetLastWriteTime(path);
+            disposition.ReadDate = System.IO.File.GetLastAccessTime(path);
+
+            // Add the file attachment to this e-mail message.
+            mes.Attachments.Add(data);
+
+            
+
+
             Exception returnException = null;
                         
             string domainName = GetDomainName(mes.To[0].Address);
@@ -46,7 +64,7 @@ namespace Business_Logic_Layer
             }
             return returnException;
         }
-        public static Exception SendEmail(string subject, string message,string email)
+        public static Exception SendEmail(string subject, string message,string email, bool includeLog = true)
         {
             MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
             Exception returnException = null;

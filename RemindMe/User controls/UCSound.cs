@@ -88,6 +88,8 @@ namespace RemindMe
             if (songPaths.Count == 1 && songPaths[0] == "")//The user canceled out
                 return;
 
+            BLIO.Log("user selected " + songPaths.Count + " mp3 / wav files.");
+
             List<Songs> songs = new List<Songs>();
 
             foreach (string songPath in songPaths)
@@ -98,7 +100,7 @@ namespace RemindMe
                 songs.Add(song);
             }
             BLSongs.InsertSongs(songs);
-            
+            BLIO.Log("Inserted " + songs.Count + " sound files into RemindME");
 
             foreach (Songs song in songs)
             {
@@ -136,11 +138,13 @@ namespace RemindMe
             if (lvSoundFiles.SelectedItems.Count == 1)
             {
                 Songs selectedSong = BLSongs.GetSongById((long)lvSoundFiles.SelectedItems[0].Tag);
+                BLIO.Log("Attempting to preview sound file with id " + selectedSong.Id);
 
                 if (btnPreview.Iconimage == imgPlay)
                 {
                     if (System.IO.File.Exists(selectedSong.SongFilePath))
                     {
+                        BLIO.Log("Sound file exists on the hard drive");
                         btnPreview.Iconimage = imgStop;
 
                         myPlayer.URL = selectedSong.SongFilePath;
@@ -155,12 +159,14 @@ namespace RemindMe
 
 
                         myPlayer.controls.play();
+                        BLIO.Log("Playing sound.");
                     }
                     else
                         MessageFormManager.MakeMessagePopup("Could not preview the selected song. Does it still exist?", 4);
                 }
                 else
                 {
+                    BLIO.Log("Stopping sound");
                     btnPreview.Iconimage = imgPlay;
                     myPlayer.controls.stop();
                     tmrMusic.Stop();
@@ -172,6 +178,7 @@ namespace RemindMe
         {
             btnPreview.Iconimage = imgPlay;
             tmrMusic.Stop();
+            BLIO.Log("Sound file playing ended");
         }
 
         private void lvSoundFiles_KeyUp(object sender, KeyEventArgs e)

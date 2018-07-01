@@ -50,13 +50,13 @@ namespace RemindMe
 
                     // TimeSpan timeout = TimeSpan.FromSeconds(5);
                     if (string.IsNullOrWhiteSpace(email))
-                        sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note));
+                        sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note,false));
                     else
                     {
                         try
                         {
                             MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, note);
-                            sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email));                            
+                            sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email,false));                            
                         }
                         catch (FormatException ex)
                         {                            
