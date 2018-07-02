@@ -70,6 +70,15 @@ namespace RemindMe
             }
         }
 
+        private void Cleanup()
+        {
+            //RemindMe loaded, if an old system log/temp reminders still exists, delete it
+            string oldSystemLog = System.IO.Path.GetTempPath() + "SystemLog.txt";
+            string oldTempReminders = System.IO.Path.GetTempPath() + "Exported Reminders.remindme";
+
+            if (File.Exists(oldSystemLog)) File.Delete(oldSystemLog);
+            if (File.Exists(oldTempReminders)) File.Delete(oldTempReminders);
+        }
 
         protected override void WndProc(ref Message m)
         {
@@ -114,7 +123,7 @@ namespace RemindMe
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
 
-
+            
 
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
@@ -124,6 +133,7 @@ namespace RemindMe
                 btnDebugMode.Visible = true;
             }
             BLIO.Log("RemindMe loaded");
+            Cleanup();
         }
 
         private void lblExit_Click(object sender, EventArgs e)

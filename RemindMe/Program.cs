@@ -59,7 +59,7 @@ namespace RemindMe
         {
             //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
             //that has an bunifu control in it(like a button), while there shouldn't be an exception.
-            if (ex.Source != "Bunifu_UI_v1.5.3" && !ex.Source.Contains("GDI+"))
+            if (ex is System.Runtime.InteropServices.ExternalException && ex.Source != "System.Drawing" && !ex.StackTrace.Contains("GDI+"))
             {
                 BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");
                 ErrorPopup popup;

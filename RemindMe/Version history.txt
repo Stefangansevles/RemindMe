@@ -659,3 +659,9 @@ V2.2.2
 You can now drag reminders out of remind me into a folder on or your desktop. Because why not?
 
 Added a system log to the debug window. This can be usefull to find out where exactly bugs happen
+
+V2.2.21
+Fixed a small bug where importing reminders through drag&drop didn't work aymore
+
+V2.2.22
+RemindMe no longer shows error popups for drawing GDI+ exceptions, this was easily caused when locking windows (Windows+L) when a RemindMeMessageForm was constructed

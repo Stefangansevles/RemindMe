@@ -33,6 +33,9 @@ namespace Business_Logic_Layer
         public static string GetLogTxtPath()
         {
             string path = System.IO.Path.GetTempPath() + "SystemLog.txt";
+
+            if (File.Exists(path)) File.Delete(path);
+
             using (FileStream fs = new FileStream(path, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {
