@@ -95,7 +95,7 @@ namespace RemindMe
 
        
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {            
             BLIO.Log("RemindMe_Load");
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);

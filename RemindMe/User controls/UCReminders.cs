@@ -487,8 +487,8 @@ namespace RemindMe
 
         private void lvReminders_DragDrop(object sender, DragEventArgs e)
         {
-            string source = e.Data.GetData("DragSource").ToString();
-            if(source != null && source == "lvReminders")
+            object source = e.Data.GetData("DragSource");
+            if(source != null && source.ToString() == "lvReminders")
             {
                 if (RemindMeBox.Show("Do you want to copy the selected reminders?\n\nYou just dragged reminders and dropped them in RemindMe again.",RemindMeBoxReason.YesNo) == DialogResult.No)
                     return;
