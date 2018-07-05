@@ -201,8 +201,15 @@ namespace RemindMe
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+           
             if (rem.Id != -1) //Don't do stuff if the id is -1, invalid. the id is set to -1 when the user previews an reminder
             {
+                if(BLReminder.GetReminderById(rem.Id) == null)
+                {
+                    //The reminder popped up, it existed, but when pressing OK it doesn't exist anymore (maybe the user deleted it or tempered with the .db file)
+                    BLIO.Log("DETECTED NONEXISTING REMINDER WITH ID " + rem.Id + ", Attempted to press OK on a reminder that somehow doesn't exist");
+                    goto close;
+                }
                 formClosedCorrectly = true;
                 if (cbPostpone.Checked)
                 {
@@ -227,10 +234,11 @@ namespace RemindMe
                 {
                     rem.PostponeDate = null;
                     BLReminder.UpdateReminder(rem);
-                }
-                UCReminders.NotifyChange();
+                }                
             }
 
+            close:
+            UCReminders.NotifyChange();
             BLIO.Log("Stopping media player & Closing popup");
             myPlayer.controls.stop();
             this.Close();

@@ -665,3 +665,8 @@ Fixed a small bug where importing reminders through drag&drop didn't work aymore
 
 V2.2.22
 RemindMe no longer shows error popups for drawing GDI+ exceptions, this was easily caused when locking windows (Windows+L) when a RemindMeMessageForm was constructed
+
+V2.2.3
+Fixed a small issue where the error popup wouldn't popup because of a mistake in a boolean check
+
+Attempting to close a reminder that doesn't exist anymore(for example it has been deleted when the popup is visible) now doesnt show an error

@@ -1,6 +1,7 @@
 ﻿using Business_Logic_Layer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace RemindMe
         {
             //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
             //that has an bunifu control in it(like a button), while there shouldn't be an exception.
-            if (ex is System.Runtime.InteropServices.ExternalException && ex.Source != "System.Drawing" && !ex.StackTrace.Contains("GDI+"))
+            if ( !(ex is System.Runtime.InteropServices.ExternalException) && ex.Source != "System.Drawing" && !ex.StackTrace.Contains("GDI+"))
             {
                 BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");
                 ErrorPopup popup;
@@ -165,13 +166,18 @@ namespace RemindMe
                 BLIO.WriteError(e.Exception, "Out of Memory");
                 ShowError(e.Exception, "Out of Memory", "RemindMe is out of memory!");
             }
+            else if (e.Exception is DbUpdateConcurrencyException)
+            {
+                BLIO.WriteError(e.Exception, "Database error.");
+                ShowError(e.Exception, "Database error!", "Database error encountered!");
+            }
 
-           
             else if (e.Exception is Exception)
             {
                 BLIO.WriteError(e.Exception, "Unknown exception in main.");
                 ShowError(e.Exception, "Unknown", "Unknown exception in main.");
             }
+            
         }
     }
 }
