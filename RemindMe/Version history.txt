@@ -670,3 +670,5 @@ V2.2.3
 Fixed a small issue where the error popup wouldn't popup because of a mistake in a boolean check
 
 Attempting to close a reminder that doesn't exist anymore(for example it has been deleted when the popup is visible) now doesnt show an error
+
+Fixed a weird issue where creating a reminder or pressing the back button would throw a nullreference exception because for some reason removing UCNewReminder made the parent container(panel) null

@@ -1245,15 +1245,19 @@ namespace RemindMe
             BLIO.Log("User pressed back (UCNewReminder)");
             shouldDispose = true;
             btnPlaySound.Image = imgPlayResume;
+                                    
+            if(myPlayer.controls.currentPosition != 0)
+                BLIO.Log("stopping music");
+
             myPlayer.controls.stop();
-            BLIO.Log("stopping music");
             tmrMusic.Stop();
 
             //Refresh listview with the newly made reminder            
             UCReminders.NotifyChange();
 
-            this.Parent.Controls.Add(callback);
-            this.Parent.Controls.Remove(this);                        
+
+            this.Parent.Controls.Add(callback);            
+            this.Parent.Controls.Remove(this);                                           
         }
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)

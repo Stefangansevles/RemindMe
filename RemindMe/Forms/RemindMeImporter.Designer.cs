@@ -30,51 +30,60 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemindMeImporter));
-            this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.pnlMainGradient = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.lvReminders = new System.Windows.Forms.ListView();
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chRepeat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pnlFooter = new System.Windows.Forms.Panel();
-            this.btnCancel = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnImport = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.pnlHeader = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlHeaderText = new System.Windows.Forms.Panel();
+            this.pbIcon = new System.Windows.Forms.PictureBox();
+            this.lblAmountOfReminders = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tmrFadein = new System.Windows.Forms.Timer(this.components);
-            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
+            this.pnlFooterButtons = new System.Windows.Forms.Panel();
+            this.btnImport = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnCancel = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl4 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.bunifuGradientPanel1.SuspendLayout();
-            this.pnlFooter.SuspendLayout();
-            this.pnlHeader.SuspendLayout();
+            this.pnlMainGradient.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pnlHeaderText.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
+            this.pnlFooterButtons.SuspendLayout();
             this.SuspendLayout();
             // 
-            // bunifuGradientPanel1
+            // pnlMainGradient
             // 
-            this.bunifuGradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel1.BackgroundImage")));
-            this.bunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuGradientPanel1.Controls.Add(this.lvReminders);
-            this.bunifuGradientPanel1.Controls.Add(this.pnlFooter);
-            this.bunifuGradientPanel1.Controls.Add(this.pnlHeader);
-            this.bunifuGradientPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bunifuGradientPanel1.GradientBottomLeft = System.Drawing.SystemColors.GrayText;
-            this.bunifuGradientPanel1.GradientBottomRight = System.Drawing.SystemColors.GrayText;
-            this.bunifuGradientPanel1.GradientTopLeft = System.Drawing.Color.Black;
-            this.bunifuGradientPanel1.GradientTopRight = System.Drawing.Color.Black;
-            this.bunifuGradientPanel1.Location = new System.Drawing.Point(0, 0);
-            this.bunifuGradientPanel1.Name = "bunifuGradientPanel1";
-            this.bunifuGradientPanel1.Quality = 10;
-            this.bunifuGradientPanel1.Size = new System.Drawing.Size(663, 325);
-            this.bunifuGradientPanel1.TabIndex = 0;
+            this.pnlMainGradient.AutoSize = true;
+            this.pnlMainGradient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.pnlMainGradient.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMainGradient.BackgroundImage")));
+            this.pnlMainGradient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlMainGradient.Controls.Add(this.panel1);
+            this.pnlMainGradient.Controls.Add(this.pnlHeaderText);
+            this.pnlMainGradient.Controls.Add(this.pnlFooterButtons);
+            this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMainGradient.GradientBottomLeft = System.Drawing.Color.Black;
+            this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.Black;
+            this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.DimGray;
+            this.pnlMainGradient.GradientTopRight = System.Drawing.Color.DimGray;
+            this.pnlMainGradient.Location = new System.Drawing.Point(0, 0);
+            this.pnlMainGradient.Name = "pnlMainGradient";
+            this.pnlMainGradient.Quality = 10;
+            this.pnlMainGradient.Size = new System.Drawing.Size(416, 354);
+            this.pnlMainGradient.TabIndex = 2;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lvReminders);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 50);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(416, 241);
+            this.panel1.TabIndex = 88;
             // 
             // lvReminders
             // 
@@ -83,104 +92,101 @@
             this.lvReminders.CheckBoxes = true;
             this.lvReminders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chTitle,
-            this.chDate,
-            this.chRepeat,
-            this.chEnabled});
+            this.chDate});
             this.lvReminders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvReminders.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.lvReminders.Font = new System.Drawing.Font("Century Gothic", 9.25F, System.Drawing.FontStyle.Bold);
             this.lvReminders.ForeColor = System.Drawing.Color.White;
             this.lvReminders.FullRowSelect = true;
-            this.lvReminders.Location = new System.Drawing.Point(0, 67);
+            this.lvReminders.Location = new System.Drawing.Point(0, 0);
             this.lvReminders.Name = "lvReminders";
-            this.lvReminders.Size = new System.Drawing.Size(663, 217);
-            this.lvReminders.TabIndex = 2;
+            this.lvReminders.Size = new System.Drawing.Size(416, 241);
+            this.lvReminders.TabIndex = 3;
             this.lvReminders.UseCompatibleStateImageBehavior = false;
             this.lvReminders.View = System.Windows.Forms.View.Details;
-            this.lvReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvReminders_KeyDown);
             // 
             // chTitle
             // 
             this.chTitle.Text = "Title";
-            this.chTitle.Width = 300;
+            this.chTitle.Width = 290;
             // 
             // chDate
             // 
             this.chDate.Text = "Date";
             this.chDate.Width = 100;
             // 
-            // chRepeat
+            // pnlHeaderText
             // 
-            this.chRepeat.Text = "Repeating";
-            this.chRepeat.Width = 135;
+            this.pnlHeaderText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.pnlHeaderText.Controls.Add(this.pbIcon);
+            this.pnlHeaderText.Controls.Add(this.lblAmountOfReminders);
+            this.pnlHeaderText.Controls.Add(this.lblTitle);
+            this.pnlHeaderText.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeaderText.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeaderText.Name = "pnlHeaderText";
+            this.pnlHeaderText.Size = new System.Drawing.Size(416, 50);
+            this.pnlHeaderText.TabIndex = 87;
             // 
-            // chEnabled
+            // pbIcon
             // 
-            this.chEnabled.Text = "Enabled";
-            this.chEnabled.Width = 100;
+            this.pbIcon.BackColor = System.Drawing.Color.Transparent;
+            this.pbIcon.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeImport;
+            this.pbIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pbIcon.Location = new System.Drawing.Point(0, 0);
+            this.pbIcon.Name = "pbIcon";
+            this.pbIcon.Size = new System.Drawing.Size(53, 50);
+            this.pbIcon.TabIndex = 4;
+            this.pbIcon.TabStop = false;
             // 
-            // pnlFooter
+            // lblAmountOfReminders
             // 
-            this.pnlFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.pnlFooter.Controls.Add(this.btnCancel);
-            this.pnlFooter.Controls.Add(this.btnImport);
-            this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 284);
-            this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(663, 41);
-            this.pnlFooter.TabIndex = 1;
+            this.lblAmountOfReminders.AutoSize = true;
+            this.lblAmountOfReminders.BackColor = System.Drawing.Color.Transparent;
+            this.lblAmountOfReminders.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAmountOfReminders.ForeColor = System.Drawing.Color.White;
+            this.lblAmountOfReminders.Location = new System.Drawing.Point(165, 29);
+            this.lblAmountOfReminders.Name = "lblAmountOfReminders";
+            this.lblAmountOfReminders.Size = new System.Drawing.Size(84, 16);
+            this.lblAmountOfReminders.TabIndex = 1;
+            this.lblAmountOfReminders.Text = "x reminders";
             // 
-            // btnCancel
+            // lblTitle
             // 
-            this.btnCancel.Activecolor = System.Drawing.Color.DimGray;
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCancel.BorderRadius = 5;
-            this.btnCancel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnCancel.ButtonText = "    Cancel";
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.DisabledColor = System.Drawing.Color.Gray;
-            this.btnCancel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnCancel.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnCancel.Iconimage = global::RemindMe.Properties.Resources.if_cancel_216128;
-            this.btnCancel.Iconimage_right = null;
-            this.btnCancel.Iconimage_right_Selected = null;
-            this.btnCancel.Iconimage_Selected = null;
-            this.btnCancel.IconMarginLeft = 0;
-            this.btnCancel.IconMarginRight = 0;
-            this.btnCancel.IconRightVisible = true;
-            this.btnCancel.IconRightZoom = 0D;
-            this.btnCancel.IconVisible = true;
-            this.btnCancel.IconZoom = 50D;
-            this.btnCancel.IsTab = false;
-            this.btnCancel.Location = new System.Drawing.Point(167, 0);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCancel.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnCancel.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnCancel.selected = false;
-            this.btnCancel.Size = new System.Drawing.Size(167, 41);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "    Cancel";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Textcolor = System.Drawing.Color.White;
-            this.btnCancel.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(126, 3);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(166, 23);
+            this.lblTitle.TabIndex = 2;
+            this.lblTitle.Text = "Import reminders";
+            // 
+            // pnlFooterButtons
+            // 
+            this.pnlFooterButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.pnlFooterButtons.Controls.Add(this.btnImport);
+            this.pnlFooterButtons.Controls.Add(this.btnCancel);
+            this.pnlFooterButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlFooterButtons.Location = new System.Drawing.Point(0, 291);
+            this.pnlFooterButtons.Name = "pnlFooterButtons";
+            this.pnlFooterButtons.Size = new System.Drawing.Size(416, 63);
+            this.pnlFooterButtons.TabIndex = 1;
             // 
             // btnImport
             // 
             this.btnImport.Activecolor = System.Drawing.Color.DimGray;
-            this.btnImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnImport.BorderRadius = 5;
             this.btnImport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnImport.ButtonText = "    Import selected";
+            this.btnImport.ButtonText = "    Import";
             this.btnImport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImport.DisabledColor = System.Drawing.Color.Gray;
-            this.btnImport.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnImport.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.btnImport.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnImport.Iconimage = global::RemindMe.Properties.Resources.arrow;
+            this.btnImport.Iconimage = null;
             this.btnImport.Iconimage_right = null;
             this.btnImport.Iconimage_right_Selected = null;
             this.btnImport.Iconimage_Selected = null;
@@ -191,106 +197,91 @@
             this.btnImport.IconVisible = true;
             this.btnImport.IconZoom = 50D;
             this.btnImport.IsTab = false;
-            this.btnImport.Location = new System.Drawing.Point(0, 0);
+            this.btnImport.Location = new System.Drawing.Point(303, 15);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnImport.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnImport.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnImport.OnHoverTextColor = System.Drawing.Color.White;
             this.btnImport.selected = false;
-            this.btnImport.Size = new System.Drawing.Size(167, 41);
-            this.btnImport.TabIndex = 1;
-            this.btnImport.Text = "    Import selected";
+            this.btnImport.Size = new System.Drawing.Size(79, 30);
+            this.btnImport.TabIndex = 8;
+            this.btnImport.Text = "    Import";
             this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnImport.Textcolor = System.Drawing.Color.White;
             this.btnImport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
-            // pnlHeader
+            // btnCancel
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.Transparent;
-            this.pnlHeader.Controls.Add(this.panel1);
-            this.pnlHeader.Controls.Add(this.pictureBox2);
-            this.pnlHeader.Controls.Add(this.pictureBox1);
-            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(663, 67);
-            this.pnlHeader.TabIndex = 0;
+            this.btnCancel.Activecolor = System.Drawing.Color.DimGray;
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancel.BorderRadius = 5;
+            this.btnCancel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnCancel.ButtonText = "    Cancel";
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.DisabledColor = System.Drawing.Color.Gray;
+            this.btnCancel.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.btnCancel.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnCancel.Iconimage = null;
+            this.btnCancel.Iconimage_right = null;
+            this.btnCancel.Iconimage_right_Selected = null;
+            this.btnCancel.Iconimage_Selected = null;
+            this.btnCancel.IconMarginLeft = 0;
+            this.btnCancel.IconMarginRight = 0;
+            this.btnCancel.IconRightVisible = true;
+            this.btnCancel.IconRightZoom = 0D;
+            this.btnCancel.IconVisible = true;
+            this.btnCancel.IconZoom = 50D;
+            this.btnCancel.IsTab = false;
+            this.btnCancel.Location = new System.Drawing.Point(218, 15);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnCancel.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnCancel.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnCancel.selected = false;
+            this.btnCancel.Size = new System.Drawing.Size(79, 30);
+            this.btnCancel.TabIndex = 7;
+            this.btnCancel.Text = "    Cancel";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Textcolor = System.Drawing.Color.White;
+            this.btnCancel.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // panel1
+            // bunifuDragControl1
             // 
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(67, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(529, 67);
-            this.panel1.TabIndex = 3;
+            this.bunifuDragControl1.Fixed = true;
+            this.bunifuDragControl1.Horizontal = true;
+            this.bunifuDragControl1.TargetControl = this.pnlHeaderText;
+            this.bunifuDragControl1.Vertical = true;
             // 
-            // lblTitle
+            // tmrFadeIn
             // 
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(529, 67);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Import reminders";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tmrFadeIn.Interval = 10;
+            this.tmrFadeIn.Tick += new System.EventHandler(this.tmrFadeIn_Tick_1);
             // 
-            // pictureBox2
+            // timer1
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::RemindMe.Properties.Resources.ImportIcon2;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox2.Location = new System.Drawing.Point(596, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(67, 67);
-            this.pictureBox2.TabIndex = 2;
-            this.pictureBox2.TabStop = false;
+            this.timer1.Interval = 10;
             // 
-            // pictureBox1
+            // bunifuDragControl2
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeImport;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(67, 67);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // tmrFadein
-            // 
-            this.tmrFadein.Interval = 10;
-            this.tmrFadein.Tick += new System.EventHandler(this.tmrFadein_Tick);
+            this.bunifuDragControl2.Fixed = true;
+            this.bunifuDragControl2.Horizontal = true;
+            this.bunifuDragControl2.TargetControl = this.pbIcon;
+            this.bunifuDragControl2.Vertical = true;
             // 
             // bunifuElipse1
             // 
             this.bunifuElipse1.ElipseRadius = 5;
             this.bunifuElipse1.TargetControl = this;
             // 
-            // bunifuDragControl1
-            // 
-            this.bunifuDragControl1.Fixed = true;
-            this.bunifuDragControl1.Horizontal = true;
-            this.bunifuDragControl1.TargetControl = this.pnlHeader;
-            this.bunifuDragControl1.Vertical = true;
-            // 
-            // bunifuDragControl2
-            // 
-            this.bunifuDragControl2.Fixed = true;
-            this.bunifuDragControl2.Horizontal = true;
-            this.bunifuDragControl2.TargetControl = this.pictureBox1;
-            this.bunifuDragControl2.Vertical = true;
-            // 
             // bunifuDragControl3
             // 
             this.bunifuDragControl3.Fixed = true;
             this.bunifuDragControl3.Horizontal = true;
-            this.bunifuDragControl3.TargetControl = this.pictureBox2;
+            this.bunifuDragControl3.TargetControl = this.lblAmountOfReminders;
             this.bunifuDragControl3.Vertical = true;
             // 
             // bunifuDragControl4
@@ -304,43 +295,43 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(663, 325);
-            this.Controls.Add(this.bunifuGradientPanel1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.ClientSize = new System.Drawing.Size(416, 354);
+            this.Controls.Add(this.pnlMainGradient);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemindMeImporter";
-            this.Text = "RemindMeImporter";
+            this.Text = "Importer";
             this.Load += new System.EventHandler(this.RemindMeImporter_Load);
-            this.bunifuGradientPanel1.ResumeLayout(false);
-            this.pnlFooter.ResumeLayout(false);
-            this.pnlHeader.ResumeLayout(false);
+            this.pnlMainGradient.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.pnlHeaderText.ResumeLayout(false);
+            this.pnlHeaderText.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
+            this.pnlFooterButtons.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Bunifu.Framework.UI.BunifuGradientPanel bunifuGradientPanel1;
-        private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private Bunifu.Framework.UI.BunifuGradientPanel pnlMainGradient;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Panel pnlFooter;
+        private System.Windows.Forms.Panel pnlHeaderText;
+        private System.Windows.Forms.PictureBox pbIcon;
+        private System.Windows.Forms.Label lblAmountOfReminders;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel pnlFooterButtons;
+        private Bunifu.Framework.UI.BunifuFlatButton btnImport;
+        private Bunifu.Framework.UI.BunifuFlatButton btnCancel;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
+        private System.Windows.Forms.Timer tmrFadeIn;
         public System.Windows.Forms.ListView lvReminders;
         private System.Windows.Forms.ColumnHeader chTitle;
         private System.Windows.Forms.ColumnHeader chDate;
-        private System.Windows.Forms.ColumnHeader chRepeat;
-        private System.Windows.Forms.ColumnHeader chEnabled;
-        private Bunifu.Framework.UI.BunifuFlatButton btnCancel;
-        private Bunifu.Framework.UI.BunifuFlatButton btnImport;
-        private System.Windows.Forms.Timer tmrFadein;
-        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
-        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
+        private System.Windows.Forms.Timer timer1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl3;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl4;
     }

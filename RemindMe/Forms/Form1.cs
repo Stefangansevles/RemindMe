@@ -33,6 +33,7 @@ namespace RemindMe
         public static UCNewReminder ucNewReminder; //Can be null
         //If the user presses the end key quickly 3 times, enable debug mode
         private int endKeyPressed = 0;
+        Control ctrl;
 
         public Form1()
         {
@@ -284,7 +285,7 @@ namespace RemindMe
 
         }
 
-        private void pnlMain_ControlRemoved(object sender, ControlEventArgs e)
+        private async void pnlMain_ControlRemoved(object sender, ControlEventArgs e)
         {
             BLIO.Log("Control removed from pnlMain (" + e.Control.GetType() + ")");
             //If the removed control is UCNewReminder, dispose it. Memory usage goes up and doesnt get cleaned
@@ -292,11 +293,14 @@ namespace RemindMe
             if (e.Control is UCNewReminder )
             {
                 if (ucNewReminder != null && ucNewReminder.shouldDispose)
-                {
-                    e.Control.Dispose();
+                {                                        
                     BLIO.Log("ucNewReminder disposed");
                     ucNewReminder = null;
-                }
+                    //For some reason this.parent(pnlMain) in UCNewReminder is null after this event.
+                    //Then you can't remove UCNewReminder from the panel, because it will throw a nullreference, this is a weird fix that works
+                    await Task.Delay(100); 
+                    e.Control.Dispose();                    
+                }                
             }
         }
 
@@ -338,6 +342,7 @@ namespace RemindMe
         {
             BLIO.Log("Control added to pnlMain (" + e.Control.GetType() + ")");
         }
-        
+
+       
     }
 }

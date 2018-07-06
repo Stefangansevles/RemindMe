@@ -53,6 +53,7 @@
             this.btnBackupImport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnReminders = new Bunifu.Framework.UI.BunifuFlatButton();
             this.tmrDebugMode = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
@@ -546,6 +547,7 @@
         private System.Windows.Forms.Timer tmrFadeIn;
         private Bunifu.Framework.UI.BunifuFlatButton btnDebugMode;
         private System.Windows.Forms.Timer tmrDebugMode;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

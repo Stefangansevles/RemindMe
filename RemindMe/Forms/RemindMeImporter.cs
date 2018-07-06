@@ -46,7 +46,7 @@ namespace RemindMe
             this.Opacity = 0;
             this.remindmeFile = reminderFile;
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
-            tmrFadein.Start();
+            tmrFadeIn.Start();
             BLIO.Log("RemindMeImporter constructed");
         }
 
@@ -146,7 +146,9 @@ namespace RemindMe
 
                 try
                 {
-                    foreach (object rem in BLReminder.DeserializeRemindersFromFile(remindmeFile))
+                    List<object> deSerializedReminders = BLReminder.DeserializeRemindersFromFile(remindmeFile);
+                    lblAmountOfReminders.Text = deSerializedReminders.Count - 1 + " Reminders"; //-1 because of country code
+                    foreach (object rem in deSerializedReminders)
                     {
                         if (rem.GetType() == typeof(Reminder))
                             remindersFromRemindMeFile.Add((Reminder)rem);
@@ -195,11 +197,12 @@ namespace RemindMe
             }
         }
 
-        private void tmrFadein_Tick(object sender, EventArgs e)
+     
+        private void tmrFadeIn_Tick_1(object sender, EventArgs e)
         {
             this.Opacity += 0.06;
             if (this.Opacity >= 1)
-                tmrFadein.Stop();
+                tmrFadeIn.Stop();
         }
     }
 }
