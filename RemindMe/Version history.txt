@@ -673,3 +673,8 @@ Attempting to close a reminder that doesn't exist anymore(for example it has bee
 
 V2.2.31
 Fixed a weird issue where creating a reminder or pressing the back button would throw a nullreference exception because for some reason removing UCNewReminder made the parent container(panel) null
+
+V2.2.32
+Fixed a visual bug where the + and - button for adding monthly days when creating a new reminder would not be in the right place
+
+Fixed a small issue where selected reminders would get deleted from the listview when using the export function, and pressing cancel on selecting the location

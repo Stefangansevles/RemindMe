@@ -1281,7 +1281,7 @@ namespace RemindMe
 
         private void UCNewReminder_Load(object sender, EventArgs e)
         {
-            
+            cbEvery.LocationChanged += cbEvery_VisibleChanged;
             dtpTime.Format = DateTimePickerFormat.Custom;
 
             if (editableReminder == null)
@@ -1420,5 +1420,7 @@ namespace RemindMe
                 tbNote.Focus();
             }
         }
+
+      
     }
 }

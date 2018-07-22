@@ -94,7 +94,7 @@
             this.chTitle,
             this.chDate});
             this.lvReminders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvReminders.Font = new System.Drawing.Font("Century Gothic", 9.25F, System.Drawing.FontStyle.Bold);
+            this.lvReminders.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.lvReminders.ForeColor = System.Drawing.Color.White;
             this.lvReminders.FullRowSelect = true;
             this.lvReminders.Location = new System.Drawing.Point(0, 0);
@@ -299,6 +299,7 @@
             this.ClientSize = new System.Drawing.Size(416, 354);
             this.Controls.Add(this.pnlMainGradient);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemindMeImporter";
             this.Text = "Importer";
             this.Load += new System.EventHandler(this.RemindMeImporter_Load);

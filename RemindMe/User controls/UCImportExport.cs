@@ -116,24 +116,25 @@ namespace RemindMe
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             BLIO.Log("Confirm button pressed (UCImportExport)");
+            bool success = false;
             switch (transferType)
             {
                 case ReminderTransferType.IMPORT:
                     BLIO.Log("Importing reminders ... (UCImportExport)");
-                    ImportReminders();
+                    success = ImportReminders();
                     break;
                 case ReminderTransferType.EXPORT:
                     BLIO.Log("Exporting reminders ... (UCImportExport)");
-                    Exportreminders();
+                    success = Exportreminders();
                     break;
                 case ReminderTransferType.RECOVER:
                     BLIO.Log("Recovering reminders ... (UCImportExport)");
-                    RecoverReminders();
+                    success = RecoverReminders();
                     break;
             }
-
-            foreach (ListViewItem item in lvReminders.CheckedItems)
-                lvReminders.Items.Remove(item);
+            if(success)
+                foreach (ListViewItem item in lvReminders.CheckedItems)
+                    lvReminders.Items.Remove(item);
 
 
 
@@ -145,7 +146,7 @@ namespace RemindMe
 
 
 
-        private void Exportreminders()
+        private bool Exportreminders()
         {          
             if (GetSelectedRemindersFromListview().Count > 0)
             {
@@ -172,6 +173,7 @@ namespace RemindMe
                             {//Did saving to desktop go wrong, too?? just show a message
                                 BLIO.Log("Trying to save to desktop didnt work either");
                                 RemindMeBox.Show("Something went wrong. Could not save the reminders to your desktop.", RemindMeBoxReason.OK);
+                                return false;
                             }
                             else
                             {//Saving to desktop did not throw an exception      
@@ -183,12 +185,12 @@ namespace RemindMe
                     else
                     {
                         MessageFormManager.MakeMessagePopup("Backup failed.", 6);
-                        return;
+                        return false;
                     }
                 }
                 else
                 {
-                    return;
+                    return false;
                 }
 
             }
@@ -196,6 +198,7 @@ namespace RemindMe
             {
                 MessageFormManager.MakeMessagePopup("Please select one or more reminder(s)", 6);
             }
+            return true;
 
         }
         private bool ImportReminders()
@@ -226,10 +229,14 @@ namespace RemindMe
             SetStatusTexts(remindersInserted, selectedReminders.Count);
             return true;
         }
-        private void RecoverReminders()
+        private bool RecoverReminders()
         {
             int remindersRecovered = 0;
             List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
+
+            if (selectedReminders.Count == 0)
+                return false;
+
             BLIO.Log("Attempting to recover " + selectedReminders.Count + " reminders ...");
             foreach (Reminder rem in selectedReminders)
             {
@@ -249,6 +256,7 @@ namespace RemindMe
             }
             BLIO.Log(remindersRecovered + " Reminders recovered");
             SetStatusTexts(remindersRecovered, selectedReminders.Count);
+            return true;
         }
 
 

@@ -651,7 +651,7 @@
             this.cbEvery.Name = "cbEvery";
             this.cbEvery.Size = new System.Drawing.Size(76, 21);
             this.cbEvery.TabIndex = 84;
-            this.cbEvery.Visible = false;
+            this.cbEvery.Visible = false;            
             this.cbEvery.VisibleChanged += new System.EventHandler(this.cbEvery_VisibleChanged);
             this.cbEvery.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbEvery_KeyUp);
             // 
