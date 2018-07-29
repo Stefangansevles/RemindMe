@@ -678,3 +678,9 @@ V2.2.32
 Fixed a visual bug where the + and - button for adding monthly days when creating a new reminder would not be in the right place
 
 Fixed a small issue where selected reminders would get deleted from the listview when using the export function, and pressing cancel on selecting the location
+
+V2.2.33
+When you enter a numberic value into the postpone field on a reminder, the postpone option automatically selects itself.
+
+You will no longer see error popups from errors caused by GDI+ drawing bunify components. This also won't be written to the error log anymore
+

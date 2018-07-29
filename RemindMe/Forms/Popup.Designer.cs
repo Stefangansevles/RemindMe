@@ -241,6 +241,7 @@
             0,
             0});
             this.numPostponeTime.ValueChanged += new System.EventHandler(this.numPostponeTime_ValueChanged);
+            this.numPostponeTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numPostponeTime_KeyUp);
             // 
             // btnOk
             // 

@@ -188,7 +188,7 @@ namespace RemindMe
         }
 
         private void numPostponeTime_ValueChanged(object sender, EventArgs e)
-        {
+        {            
             cbPostpone.Checked = true;
         }
 
@@ -242,6 +242,12 @@ namespace RemindMe
             BLIO.Log("Stopping media player & Closing popup");
             myPlayer.controls.stop();
             this.Close();
+        }
+
+        private void numPostponeTime_KeyUp(object sender, KeyEventArgs e)
+        {            
+            if(!cbPostpone.Checked) //If its not already checked, then...
+                cbPostpone.Checked = char.IsNumber((char)e.KeyCode);
         }
     }
 }

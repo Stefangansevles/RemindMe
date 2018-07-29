@@ -122,7 +122,12 @@ namespace Business_Logic_Layer
         /// <param name="message">A short message i.e "Error while loading reminders"</param>
         /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
         public static void WriteError(Exception ex, string message)
-        {                        
+        {
+            //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
+            //that has an bunifu control in it(like a button), while there shouldn't be an exception.
+            if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
+                return;
+
             using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {

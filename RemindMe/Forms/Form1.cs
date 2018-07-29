@@ -77,8 +77,12 @@ namespace RemindMe
             string oldSystemLog = System.IO.Path.GetTempPath() + "SystemLog.txt";
             string oldTempReminders = System.IO.Path.GetTempPath() + "Exported Reminders.remindme";
 
-            if (File.Exists(oldSystemLog)) File.Delete(oldSystemLog);
-            if (File.Exists(oldTempReminders)) File.Delete(oldTempReminders);
+            try
+            {
+                if (File.Exists(oldSystemLog)) File.Delete(oldSystemLog);
+                if (File.Exists(oldTempReminders)) File.Delete(oldTempReminders);
+            }
+            catch(IOException ex) { BLIO.WriteError(ex, "Error in Cleanup()"); }
         }
 
         protected override void WndProc(ref Message m)
