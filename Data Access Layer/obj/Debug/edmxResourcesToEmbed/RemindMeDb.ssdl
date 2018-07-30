@@ -37,6 +37,7 @@
     <Property Name="SoundFilePath" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="Hide" Type="integer" />
+    <Property Name="Corrupted" Type="integer" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>

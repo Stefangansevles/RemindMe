@@ -66,11 +66,11 @@ namespace RemindMe
                 ErrorPopup popup;
                 if (allowEmail)
                 {
-                    popup = new ErrorPopup(message, ex);
+                    popup = new ErrorPopup(message + "\r\n" + description, ex);
                     startTimer();
                 }
                 else
-                    popup = new ErrorPopup(message, ex, false);
+                    popup = new ErrorPopup(message + "\r\n" + description, ex, false);
 
                 popup.Show();
             }
@@ -103,14 +103,22 @@ namespace RemindMe
         //All uncaught exceptions will go here instead. We will replace the default windows popup with our own custom one and filter out what kind of exception is being thrown
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            if (e.Exception is DirectoryNotFoundException)
+            
+            if (e.Exception is ReminderException)
+            {
+                ReminderException theException = (ReminderException)e.Exception;
+                BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !");
+                ShowError(e.Exception, "Reminder error!", theException.Message);
+                UCReminders.NotifyChange();
+            }
+            else if(e.Exception is DirectoryNotFoundException)
             {
                 DirectoryNotFoundException theException = (DirectoryNotFoundException)e.Exception;
                 BLIO.WriteError(theException, "Folder not found.");
                 ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
             }
 
-            if (e.Exception is UnauthorizedAccessException)
+            else if(e.Exception is UnauthorizedAccessException)
             {
                 UnauthorizedAccessException theException = (UnauthorizedAccessException)e.Exception;
                 BLIO.WriteError(e.Exception, "Unauthorized!");

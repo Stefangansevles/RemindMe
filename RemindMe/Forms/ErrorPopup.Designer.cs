@@ -252,7 +252,7 @@
             this.btnShowDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnShowDetails.BorderRadius = 5;
             this.btnShowDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnShowDetails.ButtonText = "    Show details";
+            this.btnShowDetails.ButtonText = "  Advanced details";
             this.btnShowDetails.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnShowDetails.DisabledColor = System.Drawing.Color.Gray;
             this.btnShowDetails.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -275,9 +275,9 @@
             this.btnShowDetails.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnShowDetails.OnHoverTextColor = System.Drawing.Color.White;
             this.btnShowDetails.selected = false;
-            this.btnShowDetails.Size = new System.Drawing.Size(104, 30);
+            this.btnShowDetails.Size = new System.Drawing.Size(130, 30);
             this.btnShowDetails.TabIndex = 7;
-            this.btnShowDetails.Text = "    Show details";
+            this.btnShowDetails.Text = "  Advanced details";
             this.btnShowDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShowDetails.Textcolor = System.Drawing.Color.White;
             this.btnShowDetails.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

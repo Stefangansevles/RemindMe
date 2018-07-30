@@ -24,7 +24,7 @@ namespace RemindMe
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
-            ErrorPopup pop = new ErrorPopup("This is a test error in debug mode", new ReminderException("Test"), false);
+            ErrorPopup pop = new ErrorPopup("This is a test error in debug mode", new ReminderException("Test",null), false);
             pop.Show();
         }
 

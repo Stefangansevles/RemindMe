@@ -17,6 +17,7 @@
     <Property Name="Deleted" Type="Int64" Nullable="false" />
     <Property Name="DayOfMonth" Type="Int64" />
     <Property Name="Hide" Type="Int64" />
+    <Property Name="Corrupted" Type="Int64" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>

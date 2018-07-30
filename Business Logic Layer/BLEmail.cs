@@ -29,17 +29,22 @@ namespace Business_Logic_Layer
             MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
 
             // Create the file attachment for this e-mail message.
-            string path = BLIO.GetLogTxtPath();            
-            Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
+            if (includeLog)
+            {
+                string path = BLIO.GetLogTxtPath();
+                Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
 
-            // Add time stamp information for the file.
-            ContentDisposition disposition = data.ContentDisposition;
-            disposition.CreationDate = System.IO.File.GetCreationTime(path);
-            disposition.ModificationDate = System.IO.File.GetLastWriteTime(path);
-            disposition.ReadDate = System.IO.File.GetLastAccessTime(path);
+                // Add time stamp information for the file.
+                ContentDisposition disposition = data.ContentDisposition;
+                disposition.CreationDate = System.IO.File.GetCreationTime(path);
+                disposition.ModificationDate = System.IO.File.GetLastWriteTime(path);
+                disposition.ReadDate = System.IO.File.GetLastAccessTime(path);
 
-            // Add the file attachment to this e-mail message.
-            mes.Attachments.Add(data);
+                // Add the file attachment to this e-mail message.
+                mes.Attachments.Add(data);
+            }
+
+            
 
             
 

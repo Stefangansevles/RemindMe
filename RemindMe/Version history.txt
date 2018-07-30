@@ -684,3 +684,11 @@ When you enter a numberic value into the postpone field on a reminder, the postp
 
 You will no longer see error popups from errors caused by GDI+ drawing bunify components. This also won't be written to the error log anymore
 
+
+V2.3.0
+Whenever a reminder has somehow become corrupt (unparsable date, or anything that causes an exception) it will now be marked as corrupt and removed from
+the list of reminders. After that the other reminders that aren't corrupt will be loaded succesfully
+
+The ReminderException class is now being used and thrown whenever a reminder is invalid. This reminder will be included into the e-mail to help understand the issue.
+The name and note of the reminder will be removed in the e-mail for privacy reasons.
+

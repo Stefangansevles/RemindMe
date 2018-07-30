@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Reminder">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
         <MappingFragment StoreEntitySet="Reminder">
+          <ScalarProperty Name="Corrupted" ColumnName="Corrupted" />
           <ScalarProperty Name="Hide" ColumnName="Hide" />
           <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />

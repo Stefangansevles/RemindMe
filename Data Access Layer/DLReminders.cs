@@ -42,7 +42,7 @@ namespace Data_Access_Layer
             
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
-            return localReminders.Where(r => r.Deleted == 0).ToList(); //only return "existing" reminders
+            return localReminders.Where(r => r.Deleted == 0 && r.Corrupted == 0).ToList(); //only return "existing" reminders
         }
         /// <summary>
         /// Gets every reminder from the database, including deleted and archived reminders
@@ -57,7 +57,7 @@ namespace Data_Access_Layer
 
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
-            return localReminders; //only return "existing" reminders
+            return localReminders.Where(r=> r.Corrupted == 0).ToList(); //We still want to filter out corrupted reminders, because they can't be processed
         }
 
         /// <summary>
@@ -136,7 +136,22 @@ namespace Data_Access_Layer
             List<Reminder> toReturnList = new List<Reminder>();
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
-                toReturnList = localReminders.Where(r => r.Deleted == 1).ToList();
+                toReturnList = localReminders.Where(r => r.Deleted == 1 && r.Corrupted == 0).ToList();
+                db.Dispose();
+            }
+            return toReturnList;
+        }
+
+        /// <summary>
+        /// Gets all "Corrupted" reminders. Corrupted reminders are reminders that are marked as corrupted, because they caused an exception. They can't be processed
+        /// </summary>
+        /// <returns>A list of reminders that are marked as corrupted</returns>
+        public static List<Reminder> GetCorruptedReminders()
+        {
+            List<Reminder> toReturnList = new List<Reminder>();
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                toReturnList = localReminders.Where(r => r.Corrupted == 1).ToList();
                 db.Dispose();
             }
             return toReturnList;
@@ -151,7 +166,7 @@ namespace Data_Access_Layer
             List<Reminder> toReturnList = new List<Reminder>();
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
-                toReturnList = localReminders.Where(r => r.Deleted == 2).ToList();
+                toReturnList = localReminders.Where(r => r.Deleted == 2 && r.Corrupted == 0).ToList();
                 db.Dispose();
             }
             return toReturnList;

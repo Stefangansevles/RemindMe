@@ -93,6 +93,15 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
+        /// Gets all "Corrupted" reminders. Corrupted reminders are reminders that are marked as corrupted, because they caused an exception. They can't be processed
+        /// </summary>
+        /// <returns></returns>
+        public static List<Reminder> GetCorruptedReminders()
+        {
+            return DLReminders.GetCorruptedReminders();
+        }
+
+        /// <summary>
         /// Get all reminders that are marked as deleted
         /// </summary>
         /// <returns></returns>
@@ -521,6 +530,47 @@ namespace Business_Logic_Layer
             return DLReminders.PushReminderToDatabase(rem);            
         }
 
+        /// <summary>
+        /// Checks if there is anything wrong with the reminder that might cause an exception
+        /// </summary>
+        /// <param name="rem">The reminder you want to check on</param>
+        /// <returns>True if this reminder could cause an exception, false if not</returns>
+        public static bool IsValidReminder(Reminder rem)
+        {
+            try
+            {
+                DateTime date;
+                //Check all possible dates
+                foreach (string stringDate in rem.Date.Split(','))
+                {
+                    date = Convert.ToDateTime(stringDate);
+                }
+                
+
+                if(rem.PostponeDate != null)
+                    date = Convert.ToDateTime(rem.PostponeDate.Split(',')[0]);
+
+                //If the reminder is weekdays, check if there are more than 0 days 
+                if(rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
+                {
+                    string[] days = rem.RepeatDays.Split(',');
+
+                    if (days.Length <= 0)
+                        return false;
+                }
+                if (rem.RepeatType == ReminderRepeatType.CUSTOM.ToString())
+                {
+                    if (rem.EveryXCustom <= 0)
+                        return false;
+                }
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Serializes the provided list of reminder objects to a file located at the given path

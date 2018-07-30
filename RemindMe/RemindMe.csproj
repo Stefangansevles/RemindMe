@@ -164,7 +164,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReminderException.cs" />
     <Compile Include="User controls\UCDebugMode.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -67,7 +67,30 @@ namespace RemindMe
             {
                 try
                 {
-                    Thread sendMailThread = new Thread(() => BLEmail.SendEmail("Error Report: " + ex.GetType().ToString(), "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString()));
+                    string mess = "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString();
+
+                    if(ex is ReminderException)
+                    {
+                        ReminderException theException = (ReminderException)ex;
+                        theException.Reminder.Note = "Removed for privacy reasons";
+                        theException.Reminder.Name = "Removed for privacy reasons";
+
+                        mess += "\r\n\r\nThis exception is an ReminderException! Let's see if we can figure out what's wrong with it....\r\n";
+                        mess += "ID:    " + theException.Reminder.Id + "\r\n";
+                        mess += "Deleted:    " + theException.Reminder.Deleted + "\r\n";
+                        mess += "Date:  " + theException.Reminder.Date + "\r\n";
+                        mess += "RepeatType:    " + theException.Reminder.RepeatType + "\r\n";
+                        mess += "Enabled:   " + theException.Reminder.Enabled + "\r\n";
+                        mess += "DayOfMonth:    " + theException.Reminder.DayOfMonth + "\r\n";
+                        mess += "EveryXCustom:  " + theException.Reminder.EveryXCustom + "\r\n";
+                        mess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
+                        mess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
+                        mess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
+                        mess += "Hide:  " + theException.Reminder.Hide + "\r\n";
+
+                    }
+
+                    Thread sendMailThread = new Thread(() => BLEmail.SendEmail("Error Report: " + ex.GetType().ToString(), mess));
                     sendMailThread.Start();
                 }
                 catch { }
@@ -104,7 +127,30 @@ namespace RemindMe
             try
             {
                 string textBoxText = tbNote.Text; //Cant access tbNote in a thread. save the text in a variable instead
-                Thread sendMailThread = new Thread(() => BLEmail.SendEmail("[CUSTOM] | Error Report: " + ex.GetType().ToString(), "[CUSTOM USER INPUT]\r\n" + textBoxText + "\r\n\r\n---------------Default below--------------------\r\nOops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString()));
+                string customMess = "[CUSTOM USER INPUT]\r\n" + textBoxText + "\r\n\r\n---------------Default below--------------------\r\nOops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString();
+
+                if (ex is ReminderException)
+                {
+                    ReminderException theException = (ReminderException)ex;
+                    theException.Reminder.Note = "Removed for privacy reasons";
+                    theException.Reminder.Name = "Removed for privacy reasons";
+
+                    customMess += "\r\n\r\nThis exception is an ReminderException! Let's see if we can figure out what's wrong with it....\r\n";
+                    customMess += "ID:    " + theException.Reminder.Id + "\r\n";
+                    customMess += "Deleted:    " + theException.Reminder.Deleted + "\r\n";
+                    customMess += "Date:  " + theException.Reminder.Date + "\r\n";
+                    customMess += "RepeatType:    " + theException.Reminder.RepeatType + "\r\n";
+                    customMess += "Enabled:   " + theException.Reminder.Enabled + "\r\n";
+                    customMess += "DayOfMonth:    " + theException.Reminder.DayOfMonth + "\r\n";
+                    customMess += "EveryXCustom:  " + theException.Reminder.EveryXCustom + "\r\n";
+                    customMess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
+                    customMess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
+                    customMess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
+                    customMess += "Hide:  " + theException.Reminder.Hide + "\r\n";
+
+                }
+
+                Thread sendMailThread = new Thread(() => BLEmail.SendEmail("[CUSTOM] | Error Report: " + ex.GetType().ToString(), customMess));
                 sendMailThread.Start();
                 MessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
                 this.Dispose();

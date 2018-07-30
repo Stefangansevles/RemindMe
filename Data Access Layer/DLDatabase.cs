@@ -15,7 +15,7 @@ namespace Data_Access_Layer
         private static readonly string DB_FILE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
 
         //The neccesary query to execute to create the table Reminder
-        private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Deleted]bigint DEFAULT 0  NOT NULL, [Name] text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT 0  NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
+        private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Deleted]bigint DEFAULT 0  NOT NULL, [Name] text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT 0  NULL, [Corrupted]bigint DEFAULT 0  NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Settings
         private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1  NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1  NOT NULL, [HideReminderConfirmation] bigint DEFAULT 0  NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
@@ -26,6 +26,7 @@ namespace Data_Access_Layer
         //The neccesary query to execute to create the table PopupDimensions
         private const string TABLE_POPUP_DIMENSIONS = "CREATE TABLE [PopupDimensions] ([Id] INTEGER NOT NULL, [FormWidth]bigint NOT NULL, [FormHeight]bigint NOT NULL, [FontTitleSize]bigint NOT NULL, [FontNoteSize]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_PopupDimensions] PRIMARY KEY([Id]));";
 
+        //The neccesary query to execute to create the table Listview_Column_sizes
         private const string TABLE_LISTVIEW_COLUMN_SIZES = "CREATE TABLE[ListviewColumnSizes] ([Id]INTEGER NOT NULL, [Title]bigint NOT NULL, [Date]bigint NOT NULL, [Repeating]bigint NOT NULL, [Enabled]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_ListviewColumnSizes] PRIMARY KEY([Id]));";
 
         /// <summary>
@@ -299,6 +300,7 @@ namespace Data_Access_Layer
                 case "SoundFilePath": return "text NULL";
                 case "PostponeDate": return "text NULL";
                 case "Hide": return "bigint DEFAULT 0  NULL";
+                case "Corrupted": return "bigint DEFAULT 0  NULL";
                 default: return "text NULL";
             }
         }

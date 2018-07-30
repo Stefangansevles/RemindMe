@@ -45,7 +45,7 @@ namespace Business_Logic_Layer
         /// </summary>
         public static void InsertNewColumns()
         {
-            DLDatabase.InsertNewColumns();
+            DLDatabase.InsertNewColumns(); 
         }  
     }
 }

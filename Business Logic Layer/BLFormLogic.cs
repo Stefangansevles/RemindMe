@@ -24,7 +24,7 @@ namespace Business_Logic_Layer
             b.FlatStyle = FlatStyle.Flat;
             b.FlatAppearance.BorderSize = 0;
         }
-                
+
 
 
         /// <summary>
@@ -34,10 +34,17 @@ namespace Business_Logic_Layer
         /// <param name="rem">The reminder</param>
         public static void AddReminderToListview(ListView lv, Reminder rem)
         {
-            
+            if (!BLReminder.IsValidReminder(rem))
+            {
+                //This reminder isn't valid! Set the "Corrupted" tag to 1 and throw exception
+                rem.Corrupted = 1;
+                BLReminder.EditReminder(rem);
+                throw new ReminderException("Corrupted/damaged reminder: " + rem.Name + " \r\nIt has been removed from your list of reminders", rem);
+            }
+
             ListViewItem itm = new ListViewItem(rem.Name);
             itm.Tag = rem.Id; //Add the id as a tag(invisible)
-       
+
 
             if (rem.PostponeDate == null)
             {
@@ -56,17 +63,17 @@ namespace Business_Logic_Layer
 
             if (rem.EveryXCustom == null)
             {
-                
-                if(rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
+
+                if (rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
                 {
                     string cutOffString = "";
-                    foreach(string day in rem.RepeatDays.Split(','))                   
+                    foreach (string day in rem.RepeatDays.Split(','))
                         cutOffString += day.Substring(0, 3) + ",";
 
                     cutOffString = cutOffString.Remove(cutOffString.Length - 1, 1); //remove the final ','
                     itm.SubItems.Add(cutOffString); //Add all the repeating days to the listview column. example: mon,tue,sat
                 }
-                else if(rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
+                else if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
                 {
                     string multipleDays = "";
                     foreach (string date in rem.Date.Split(','))
@@ -102,10 +109,23 @@ namespace Business_Logic_Layer
         /// <param name="rem">The list of reminders</param>
         public static void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
         {
-            List<Reminder> disabledReminders = new List<Reminder>(); //We're going to add the disabled reminders after all the enabled ones.
+            List<Reminder> disabledReminders = new List<Reminder>(); //We're going to add the disabled reminders after all the enabled ones.  
+            
+            //First, lets check if this list is correct
+            foreach(Reminder checkRem in reminderList)
+            {
+                if (!BLReminder.IsValidReminder(checkRem))
+                {
+                    //This reminder isn't valid! Set the "Corrupted" tag to 1 and throw exception
+                    checkRem.Corrupted = 1;
+                    BLReminder.EditReminder(checkRem);
+                    throw new ReminderException("Corrupted/damaged reminder: " + checkRem.Name + " \r\nIt has been removed from your list of reminders", checkRem);
+                }
+            }
+                      
             List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
             foreach (Reminder rem in list)
-            {
+            {                
                 if (rem.Enabled == 1) //not disabled? add to listview
                     AddReminderToListview(lv, rem);
                 else

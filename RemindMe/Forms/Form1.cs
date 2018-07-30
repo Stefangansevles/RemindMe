@@ -111,6 +111,9 @@ namespace RemindMe
         private void Form1_Load(object sender, EventArgs e)
         {            
             BLIO.Log("RemindMe_Load");
+
+            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
+
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
 
@@ -130,7 +133,7 @@ namespace RemindMe
 
             
 
-            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
+            
 
 
             if (System.Diagnostics.Debugger.IsAttached)

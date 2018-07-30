@@ -59,6 +59,7 @@
     <Compile Include="BLSongs.cs" />
     <Compile Include="IOVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReminderException.cs" />
     <Compile Include="ReminderRepeatType.cs" />
   </ItemGroup>
   <ItemGroup>

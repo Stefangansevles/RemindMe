@@ -74,7 +74,7 @@ namespace RemindMe
             BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);                                
             BLIO.Log("Starting the reminder timer");
             tmrCheckReminder.Start();
-        }
+        }        
 
         /// <summary>
         /// Set the column widths to the widths from the database. Whenever the user changes the width of them, they will save.
