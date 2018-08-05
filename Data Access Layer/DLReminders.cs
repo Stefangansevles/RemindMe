@@ -34,7 +34,9 @@ namespace Data_Access_Layer
         /// </summary>
         /// <returns></returns>
         public static List<Reminder> GetReminders()
-        {            
+        {
+            FixOldReminders();
+
             //If the list  is still null, it means GetReminders() hasn't been called yet. So, we give it a value once. Then, the list will only
             //be altered when the database changes. This way we minimize wthe amount of database calls
             if (localReminders == null)            
@@ -43,6 +45,24 @@ namespace Data_Access_Layer
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
             return localReminders.Where(r => r.Deleted == 0 && r.Corrupted == 0).ToList(); //only return "existing" reminders
+        }
+
+        /// <summary>
+        /// If an reminder is old, it might not have the new database properties, like for example the "corrupted" property.
+        /// </summary>
+        private static void FixOldReminders()
+        {
+            if (localReminders == null)
+                return;
+
+            foreach (Reminder rem in localReminders.Where(r => r.Corrupted == null || r.Hide == null).ToList())
+            {
+                if(rem.Corrupted == null)
+                    rem.Corrupted = 1;
+                if (rem.Hide == null)
+                    rem.Hide = 0;                
+            }
+            
         }
         /// <summary>
         /// Gets every reminder from the database, including deleted and archived reminders
