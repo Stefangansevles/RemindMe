@@ -692,3 +692,5 @@ the list of reminders. After that the other reminders that aren't corrupt will b
 The ReminderException class is now being used and thrown whenever a reminder is invalid. This reminder will be included into the e-mail to help understand the issue.
 The name and note of the reminder will be removed in the e-mail for privacy reasons.
 
+V2.3.01
+Fixed a small bug where the tag "corrupted" on a new reminder was set to null. New reminders would not load into RemindMe because RemindMe loads reminders from the database where corrupted is equal to 0

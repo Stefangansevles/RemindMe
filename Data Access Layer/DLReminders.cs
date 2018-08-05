@@ -89,7 +89,8 @@ namespace Data_Access_Layer
         /// </summary>
         /// <param name="rem">The reminder you want added into the database</param>
         public static long PushReminderToDatabase(Reminder rem)
-        {            
+        {
+            rem.Corrupted = 0;
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 if (db.Reminder.Count() > 0)
