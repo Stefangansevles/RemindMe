@@ -697,3 +697,6 @@ Fixed a small bug where the tag "corrupted" on a new reminder was set to null. N
 
 V2.3.02
 When you import reminders that don't have the corrupted tag, it would be set to null, this would then cause the issue of it not loading into RemindMe. This is now fixed on a global scale so that it is automatically fixed in every situation.
+
+V2.3.03
+You can now re-enable the warning that pops up by default when hiding a reminder.

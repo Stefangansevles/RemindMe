@@ -223,6 +223,7 @@ namespace RemindMe
                 HideOrShowRemovePostponeMenuItem(selectedReminders);
                 HideOrShowSkipForwardMenuItem(selectedReminders);
                 HideOrShowUnhideReminders();
+                HideOrShowEnableHideWarning();
                 ReminderMenuStrip.Show(Cursor.Position);
             }
            
@@ -281,8 +282,15 @@ namespace RemindMe
 
             //determine if we are going to hide the "Remove postpone" option based on the boolean hideMenuItem
             unHideToolStripItem.Visible = showMenuItem;
-            BLIO.Log("Showing unhide reminders ption from right click menu: " + showMenuItem);
+            BLIO.Log("Showing unhide reminders option from right click menu: " + showMenuItem);
 
+        }
+        private void HideOrShowEnableHideWarning()
+        {
+            //The option
+            enableWarningToolStripMenuItem.Visible = BLSettings.GetSettings().HideReminderConfirmation == 1;
+                        
+            BLIO.Log("Showing enable hide warning option from right click menu: " + (BLSettings.GetSettings().HideReminderConfirmation == 1) );
         }
         /// <summary>
         /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
@@ -685,6 +693,23 @@ namespace RemindMe
             this.lvReminders.DoDragDrop(dataObj, DragDropEffects.Move);            
         }
 
-       
+        private void enableWarningToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BLIO.Log("Attempting to re-enable the hide warning on reminders....");
+
+            //Get the current settings from the database
+            Settings currentSettings = BLSettings.GetSettings();
+
+            //Set the hiding of the confirmation on hiding a reminder to false
+            currentSettings.HideReminderConfirmation = 0;
+
+            //Make the right-click menu option invisible
+            enableWarningToolStripMenuItem.Visible = false;
+
+            //Push the updated settings to the database
+            BLSettings.UpdateSettings(currentSettings);
+
+            BLIO.Log("Re-enabled the hide warning on reminders!");
+        }
     }
 }

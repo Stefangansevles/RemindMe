@@ -55,6 +55,7 @@
             this.btnEditReminder = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnRemoveReminder = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnAddReminder = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.enableWarningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReminderMenuStrip.SuspendLayout();
             this.pnlReminderButtons.SuspendLayout();
             this.SuspendLayout();
@@ -81,7 +82,7 @@
             this.lvReminders.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.lvReminders_ColumnWidthChanged);
             this.lvReminders.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lvReminders_ItemDrag);
             this.lvReminders.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragDrop);
-            this.lvReminders.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragEnter);            
+            this.lvReminders.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvReminders_DragEnter);
             this.lvReminders.DoubleClick += new System.EventHandler(this.lvReminders_DoubleClick);
             this.lvReminders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvReminders_KeyDown);
             this.lvReminders.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvReminders_MouseClick);
@@ -122,7 +123,7 @@
             this.skipToNextDateToolStripMenuItem,
             this.toolStripMenuItem1});
             this.ReminderMenuStrip.Name = "ReminderMenuStrip";
-            this.ReminderMenuStrip.Size = new System.Drawing.Size(255, 202);
+            this.ReminderMenuStrip.Size = new System.Drawing.Size(255, 224);
             // 
             // previewToolStripMenuItem
             // 
@@ -189,6 +190,8 @@
             // 
             this.hideReminderToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("hideReminderToolStripMenuItem.BackgroundImage")));
             this.hideReminderToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.hideReminderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enableWarningToolStripMenuItem});
             this.hideReminderToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.hideReminderToolStripMenuItem.Image = global::RemindMe.Properties.Resources.hide;
             this.hideReminderToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -432,6 +435,17 @@
             this.btnAddReminder.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddReminder.Click += new System.EventHandler(this.btnAddReminder_Click);
             // 
+            // enableWarningToolStripMenuItem
+            // 
+            this.enableWarningToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
+            this.enableWarningToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
+            this.enableWarningToolStripMenuItem.Image = global::RemindMe.Properties.Resources.err;
+            this.enableWarningToolStripMenuItem.Name = "enableWarningToolStripMenuItem";
+            this.enableWarningToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.enableWarningToolStripMenuItem.Text = "Enable warning";
+            this.enableWarningToolStripMenuItem.Visible = false;
+            this.enableWarningToolStripMenuItem.Click += new System.EventHandler(this.enableWarningToolStripMenuItem_Click);
+            // 
             // UCReminders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -475,5 +489,6 @@
         private System.Windows.Forms.Timer tmrClearMessageCache;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem hideReminderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enableWarningToolStripMenuItem;
     }
 }
