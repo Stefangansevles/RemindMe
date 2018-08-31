@@ -706,3 +706,6 @@ The icons on the left side panel of RemindMe have been updated to match with eac
 
 RemindMe now has a timer feature for if you want to set a "Reminder" for not so far into the future, for example 5 minutes, 10 minutes, 60 minutes, etc.
 Protip: press Ctrl + Shift + R to create a quick reminder without having to open RemindMe! (hotkeys are changeable in the settings)
+
+V2.4.01
+Fixed a small issue where the amount of hours was not calculated correctly from the quick timer menu (default ctrl+shift+R)

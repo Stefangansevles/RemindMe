@@ -32,13 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimerPopup));
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.tbNote = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.tbTime = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.lblHeader = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuGradientPanel1.SuspendLayout();
@@ -70,6 +70,23 @@
             this.bunifuGradientPanel1.Quality = 10;
             this.bunifuGradientPanel1.Size = new System.Drawing.Size(358, 180);
             this.bunifuGradientPanel1.TabIndex = 0;
+            // 
+            // lblExit
+            // 
+            this.lblExit.AutoSize = true;
+            this.lblExit.BackColor = System.Drawing.Color.Transparent;
+            this.lblExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblExit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExit.ForeColor = System.Drawing.Color.Transparent;
+            this.lblExit.Location = new System.Drawing.Point(336, 0);
+            this.lblExit.Name = "lblExit";
+            this.lblExit.Size = new System.Drawing.Size(22, 22);
+            this.lblExit.TabIndex = 111;
+            this.lblExit.Text = "X";
+            this.lblExit.Click += new System.EventHandler(this.lblExit_Click);
+            this.lblExit.MouseEnter += new System.EventHandler(this.lblExit_MouseEnter);
+            this.lblExit.MouseLeave += new System.EventHandler(this.lblExit_MouseLeave);
             // 
             // tbNote
             // 
@@ -145,23 +162,6 @@
             this.bunifuDragControl1.Horizontal = true;
             this.bunifuDragControl1.TargetControl = this.bunifuGradientPanel1;
             this.bunifuDragControl1.Vertical = true;
-            // 
-            // lblExit
-            // 
-            this.lblExit.AutoSize = true;
-            this.lblExit.BackColor = System.Drawing.Color.Transparent;
-            this.lblExit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblExit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExit.ForeColor = System.Drawing.Color.Transparent;
-            this.lblExit.Location = new System.Drawing.Point(336, 0);
-            this.lblExit.Name = "lblExit";
-            this.lblExit.Size = new System.Drawing.Size(22, 22);
-            this.lblExit.TabIndex = 111;
-            this.lblExit.Text = "X";
-            this.lblExit.Click += new System.EventHandler(this.lblExit_Click);
-            this.lblExit.MouseEnter += new System.EventHandler(this.lblExit_MouseEnter);
-            this.lblExit.MouseLeave += new System.EventHandler(this.lblExit_MouseLeave);
             // 
             // bunifuDragControl2
             // 

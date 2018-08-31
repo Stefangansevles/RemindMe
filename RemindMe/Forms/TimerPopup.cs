@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace RemindMe
 {
     public partial class TimerPopup : Form
     {
+        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
         public TimerPopup()
         {            
             InitializeComponent();            
@@ -23,11 +25,20 @@ namespace RemindMe
             this.KeyUp += TimerPopup_KeyUp;
         }
 
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
         private void TimerPopup_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
                 UCTimer ucTimer = Form1.Instance.ucTimer;
+
+                int tryparse;
+                try { tryparse = Convert.ToInt32(tbTime.Text); }
+                catch (Exception ex) { return; }
+                
 
                 TimeSpan time = TimeSpan.FromSeconds(Convert.ToInt32(tbTime.Text) * 60);
                                                 
@@ -36,7 +47,7 @@ namespace RemindMe
                 
                 ucTimer.numMinutes.Value = Math.Ceiling((decimal)time.Minutes % 60);
 
-                ucTimer.numHours.Value = Math.Ceiling((decimal)time.Hours / 60);
+                ucTimer.numHours.Value = Math.Ceiling((decimal)time.Hours);
 
                 ucTimer.timerNote = tbNote.Text;
                 

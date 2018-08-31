@@ -80,6 +80,7 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBo
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeMessageForm.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMePrompt.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.TimerPopup.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Properties.Resources.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCDebugMode.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCImportExport.resources
@@ -93,4 +94,3 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSettings
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.Cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.TimerPopup.resources
