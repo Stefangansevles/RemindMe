@@ -29,6 +29,8 @@
     <Property Name="EnableReminderCountPopup" Type="Int64" Nullable="false" />
     <Property Name="EnableHourBeforeReminder" Type="Int64" Nullable="false" />
     <Property Name="HideReminderConfirmation" Type="Int64" />
+    <Property Name="EnableQuickTimer" Type="Int64" Nullable="false" />
+    <Property Name="LastVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>
@@ -44,6 +46,7 @@
     <EntitySet Name="Songs" EntityType="Self.Songs" />
     <EntitySet Name="PopupDimensions" EntityType="RemindMeDatabaseModel.PopupDimensions" />
     <EntitySet Name="ListviewColumnSizes" EntityType="RemindMeDatabaseModel.ListviewColumnSizes" />
+    <EntitySet Name="Hotkeys" EntityType="RemindMeDatabaseModel.Hotkeys" />
   </EntityContainer>
   <EntityType Name="PopupDimensions">
     <Key>
@@ -64,5 +67,14 @@
     <Property Name="Date" Type="Int64" Nullable="false" />
     <Property Name="Repeating" Type="Int64" Nullable="false" />
     <Property Name="Enabled" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hotkeys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Key" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Modifiers" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

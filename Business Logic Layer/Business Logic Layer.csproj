@@ -51,6 +51,7 @@
     <Compile Include="BLDateTime.cs" />
     <Compile Include="BLEmail.cs" />
     <Compile Include="BLFormLogic.cs" />
+    <Compile Include="BLHotkeys.cs" />
     <Compile Include="BLIO.cs" />
     <Compile Include="BLListviewColumnSizes.cs" />
     <Compile Include="BLPopupDimensions.cs" />

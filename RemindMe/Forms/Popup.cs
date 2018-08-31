@@ -84,13 +84,7 @@ namespace RemindMe
                 this.TopMost = false;
                 this.WindowState = FormWindowState.Minimized;
             }
-
-            //Show what date this reminder was set for
-            if (rem.PostponeDate == null)
-                lblDate.Text = "This reminder was set for " + rem.Date.Split(',')[0];
-            else
-                lblDate.Text = "This reminder was set for " + rem.PostponeDate;
-
+            
 
             lblTitle.Text = rem.Name;
             lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
@@ -114,6 +108,16 @@ namespace RemindMe
                     rem.SoundFilePath = "";
                 }
             }
+
+            if (rem.Date == null)
+                rem.Date = DateTime.Now.ToString();
+
+            //Show what date this reminder was set for
+            BLIO.Log("Setting \"This reminder was set for\" text");
+            if (rem.PostponeDate == null)
+                lblDate.Text = "This reminder was set for " + rem.Date.Split(',')[0];
+            else
+                lblDate.Text = "This reminder was set for " + rem.PostponeDate;
         }
 
         private void lblMinimize_MouseEnter(object sender, EventArgs e)

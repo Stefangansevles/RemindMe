@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hotkeys">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Key" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Modifiers" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="ListviewColumnSizes">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,6 +63,8 @@
           <Property Name="EnableReminderCountPopup" Type="integer" Nullable="false" />
           <Property Name="EnableHourBeforeReminder" Type="integer" Nullable="false" />
           <Property Name="HideReminderConfirmation" Type="integer" />
+          <Property Name="EnableQuickTimer" Type="integer" Nullable="false" />
+          <Property Name="LastVersion" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -64,6 +75,7 @@
           <Property Name="SongFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityContainer Name="RemindMeDatabaseModelStoreContainer">
+          <EntitySet Name="Hotkeys" EntityType="Self.Hotkeys" store:Type="Tables" />
           <EntitySet Name="ListviewColumnSizes" EntityType="Self.ListviewColumnSizes" store:Type="Tables" />
           <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />
           <EntitySet Name="Reminder" EntityType="Self.Reminder" store:Type="Tables" />
@@ -103,6 +115,8 @@
           <Property Name="EnableReminderCountPopup" Type="Int64" Nullable="false" />
           <Property Name="EnableHourBeforeReminder" Type="Int64" Nullable="false" />
           <Property Name="HideReminderConfirmation" Type="Int64" />
+          <Property Name="EnableQuickTimer" Type="Int64" Nullable="false" />
+          <Property Name="LastVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -118,6 +132,7 @@
           <EntitySet Name="Songs" EntityType="Self.Songs" />
           <EntitySet Name="PopupDimensions" EntityType="RemindMeDatabaseModel.PopupDimensions" />
           <EntitySet Name="ListviewColumnSizes" EntityType="RemindMeDatabaseModel.ListviewColumnSizes" />
+          <EntitySet Name="Hotkeys" EntityType="RemindMeDatabaseModel.Hotkeys" />
         </EntityContainer>
         <EntityType Name="PopupDimensions">
           <Key>
@@ -138,6 +153,15 @@
           <Property Name="Date" Type="Int64" Nullable="false" />
           <Property Name="Repeating" Type="Int64" Nullable="false" />
           <Property Name="Enabled" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hotkeys">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Key" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Modifiers" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -168,6 +192,8 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="LastVersion" ColumnName="LastVersion" />
+                <ScalarProperty Name="EnableQuickTimer" ColumnName="EnableQuickTimer" />
                 <ScalarProperty Name="HideReminderConfirmation" ColumnName="HideReminderConfirmation" />
                 <ScalarProperty Name="EnableHourBeforeReminder" ColumnName="EnableHourBeforeReminder" />
                 <ScalarProperty Name="EnableReminderCountPopup" ColumnName="EnableReminderCountPopup" />
@@ -204,6 +230,16 @@
                 <ScalarProperty Name="Repeating" ColumnName="Repeating" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotkeys">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.Hotkeys">
+              <MappingFragment StoreEntitySet="Hotkeys">
+                <ScalarProperty Name="Modifiers" ColumnName="Modifiers" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

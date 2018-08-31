@@ -71,6 +71,7 @@
       <Link>ReminderException.cs</Link>
     </Compile>
     <Compile Include="DLDatabase.cs" />
+    <Compile Include="DLHotkeys.cs" />
     <Compile Include="DLListviewColumnSizes.cs" />
     <Compile Include="DLPopupDimensions.cs" />
     <Compile Include="DLReminders.cs" />

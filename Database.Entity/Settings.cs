@@ -21,5 +21,7 @@ namespace Database.Entity
         public long EnableReminderCountPopup { get; set; }
         public long EnableHourBeforeReminder { get; set; }
         public Nullable<long> HideReminderConfirmation { get; set; }
+        public long EnableQuickTimer { get; set; }
+        public string LastVersion { get; set; }
     }
 }

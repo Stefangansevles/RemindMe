@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
 using System.Reflection;
+using Gma.System.MouseKeyHook;
 
 namespace RemindMe
 {
@@ -22,18 +23,24 @@ namespace RemindMe
         private static extern int RegisterWindowMessage(string message);
         private static readonly int WM_RELOAD_REMINDERS = RegisterWindowMessage("WM_RELOAD_REMINDERS");
 
+        private IKeyboardMouseEvents m_GlobalHook;
+
+        //The hotkey key-combination(customizable) to make a quick-timer popup
+        Hotkeys timerHotkey;
+
         //User controls that will be loaded into the "main" panel
         private UCReminders ucReminders;
         private UCImportExport ucImportExport;
         private UCSound ucSound;
-        private UCWindowOverlay ucOverlay;
-        private UCResizePopup ucResizePopup;
+        private UCSettings ucOverlay;
+        private UCResizePopup ucResizePopup;        
         private UCSupport ucSupport;
         private UCDebugMode ucDebug;
+        public UCTimer ucTimer;
         public static UCNewReminder ucNewReminder; //Can be null
         //If the user presses the end key quickly 3 times, enable debug mode
-        private int endKeyPressed = 0;
-        Control ctrl;
+        private int endKeyPressed = 0;       
+        private static Form1 instance;
 
         public Form1()
         {
@@ -49,16 +56,54 @@ namespace RemindMe
             ucReminders = new UCReminders();
             ucImportExport = new UCImportExport();
             ucSound = new UCSound();
-            ucOverlay = new UCWindowOverlay();
+            ucOverlay = new UCSettings();
             ucResizePopup = new UCResizePopup();
             ucSupport = new UCSupport();
             ucDebug = new UCDebugMode();
+            ucTimer = new UCTimer();
+
+            m_GlobalHook = Hook.GlobalEvents();
+            m_GlobalHook.KeyUp += GlobalKeyPress;
 
             //Set the Renderer of the menustrip to our custom renderer, which sets the highlight and border collor to DimGray, which is the same
             //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
             //toolstrip items white.
             RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
+
+            instance = this;
             BLIO.Log("Form constructed");
+            
+        }
+
+        public static Form1 Instance
+        {
+            get { return instance; }
+        }
+            
+        /// <summary>
+        /// Looks for key combinations to launch the timer form (to set a timer quickly)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">The keyeventargs which contains the pressed keys</param>
+        private void GlobalKeyPress(object sender, KeyEventArgs e)
+        {
+            if (BLSettings.GetSettings().EnableQuickTimer != 1) //Not enabled? don't do anything
+                return;
+
+            if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
+                return;
+
+            //Good! now let's check if the KeyCode is not alt shift or ctr
+            if (e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey)
+                return;
+
+            timerHotkey = BLHotkeys.TimerPopup;
+            
+            if (e.Modifiers.ToString().Replace(" ",string.Empty) == timerHotkey.Modifiers && e.KeyCode.ToString() == timerHotkey.Key)
+            {
+                TimerPopup quickTimer = new TimerPopup();
+                quickTimer.Show();
+            }   
         }
 
         protected override CreateParams CreateParams
@@ -113,6 +158,15 @@ namespace RemindMe
             BLIO.Log("RemindMe_Load");
 
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
+                        
+            
+            if (BLSettings.GetSettings().LastVersion != null && (new Version(BLSettings.GetSettings().LastVersion) < new Version(IOVariables.RemindMeVersion)) )
+            {
+                //User has a new RemindMe version! in the future we can do stuff here
+                Settings set = BLSettings.GetSettings();
+                set.LastVersion = IOVariables.RemindMeVersion;
+                BLSettings.UpdateSettings(set);
+            }
 
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
@@ -131,9 +185,8 @@ namespace RemindMe
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
 
-            
 
-            
+           
 
 
             if (System.Diagnostics.Debugger.IsAttached)
@@ -155,6 +208,12 @@ namespace RemindMe
 
         private void showRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (this.Visible)
+            {
+                BLIO.Log("Remindme was already visible though..");
+                return;
+            }
+
             this.ShowInTaskbar = true;
             this.WindowState = FormWindowState.Minimized;
 
@@ -165,24 +224,31 @@ namespace RemindMe
             this.Show();
             this.WindowState = FormWindowState.Normal;
             tmrFadeIn.Start();
-            BLIO.Log("Show remindme toolstrip menu item clicked. Showing remindme");
+            BLIO.Log("Show remindme toolstrip menu item clicked(not double-click). Showing remindme");
         }
 
         private void RemindMeIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            BLIO.Log("Remindme icon double clicked");
+
             if (this.Visible)
+            {
+                BLIO.Log("Remindme was already visible though..");
                 return;
+            }
 
             this.ShowInTaskbar = true;
             this.WindowState = FormWindowState.Minimized;
             this.Show();
             this.WindowState = FormWindowState.Normal;
             tmrFadeIn.Start();
-            BLIO.Log("Remindme icon double clicked");
+            BLIO.Log("Showing RemindMe");
+
         }
 
         private void tsExit_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Closing RemindMe(through RemindMeIcon)");
             this.Close();
         }
 
@@ -208,7 +274,7 @@ namespace RemindMe
         /// Toggles a button to become selected.
         /// </summary>
         private void ToggleButton(object sender)
-        {
+        {            
             btnBackupImport.selected = false;
             btnReminders.selected = false;
             btnResizePopup.selected = false;
@@ -267,6 +333,7 @@ namespace RemindMe
         private void lblExit_MouseLeave(object sender, EventArgs e)
         {
             lblExit.ForeColor = Color.Transparent;
+            
         }
 
         private void lblExit_MouseEnter(object sender, EventArgs e)
@@ -350,6 +417,11 @@ namespace RemindMe
             BLIO.Log("Control added to pnlMain (" + e.Control.GetType() + ")");
         }
 
-       
+        private void btnTimer_Click(object sender, EventArgs e)
+        {
+            ToggleButton(sender);
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(ucTimer);
+        }
     }
 }

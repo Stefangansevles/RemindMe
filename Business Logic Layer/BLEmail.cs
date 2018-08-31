@@ -26,11 +26,14 @@ namespace Business_Logic_Layer
 
         public static Exception SendEmail(string subject, string message, bool includeLog = true)
         {
+            BLIO.Log("Entered SendEmail()");
             MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
+            BLIO.Log("New MailMessage object created");
 
             // Create the file attachment for this e-mail message.
             if (includeLog)
             {
+                BLIO.Log("Include log = true. Creating attachment....");
                 string path = BLIO.GetLogTxtPath();
                 Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
 
@@ -42,6 +45,7 @@ namespace Business_Logic_Layer
 
                 // Add the file attachment to this e-mail message.
                 mes.Attachments.Add(data);
+                BLIO.Log("Attachment created and added to the MailMessage");
             }
 
             
@@ -50,22 +54,31 @@ namespace Business_Logic_Layer
 
 
             Exception returnException = null;
-                        
+
+            BLIO.Log("Getting domain names/servers....");
             string domainName = GetDomainName(mes.To[0].Address);
             IPAddress[] servers = GetMailExchangeServer(domainName);
+
+            int count = 0;
             foreach (IPAddress server in servers)
             {
                 try
                 {
+                    count++;
+                    BLIO.Log(count + ": attempting to create SmtpClient....");
                     SmtpClient client = new SmtpClient(server.ToString(), SmtpPort);
+                    BLIO.Log(count + ": SmtpClient created. Attempting to send the E-mail....");
                     client.Send(mes);
+                    BLIO.Log(count + ": Success! E-mail sent.");
                     return null;
                 }
                 catch(Exception ex)
                 {
+                    BLIO.Log(count + ": Could not send the e-mail :( an exception happened..... Exception type: " + ex.GetType().ToString() + "\r\n Message: \r\n" + ex.Message);
                     returnException = ex;
                     continue;
                 }
+                
             }
             return returnException;
         }

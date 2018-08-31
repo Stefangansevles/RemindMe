@@ -42,6 +42,8 @@ public partial class RemindMeDbEntities : DbContext
 
     public DbSet<ListviewColumnSizes> ListviewColumnSizes { get; set; }
 
+    public DbSet<Hotkeys> Hotkeys { get; set; }
+
 }
 
 }

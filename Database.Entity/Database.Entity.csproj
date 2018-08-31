@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hotkeys.cs">
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="ListviewColumnSizes.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>

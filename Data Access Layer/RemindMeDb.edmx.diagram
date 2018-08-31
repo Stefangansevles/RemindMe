@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="RemindMeDatabaseModel.Songs" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.PopupDimensions" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.ListviewColumnSizes" Width="1.875" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RemindMeDatabaseModel.Hotkeys" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

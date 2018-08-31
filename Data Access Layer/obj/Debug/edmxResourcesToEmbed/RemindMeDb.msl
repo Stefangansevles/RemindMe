@@ -24,6 +24,8 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="LastVersion" ColumnName="LastVersion" />
+          <ScalarProperty Name="EnableQuickTimer" ColumnName="EnableQuickTimer" />
           <ScalarProperty Name="HideReminderConfirmation" ColumnName="HideReminderConfirmation" />
           <ScalarProperty Name="EnableHourBeforeReminder" ColumnName="EnableHourBeforeReminder" />
           <ScalarProperty Name="EnableReminderCountPopup" ColumnName="EnableReminderCountPopup" />
@@ -60,6 +62,16 @@
           <ScalarProperty Name="Repeating" ColumnName="Repeating" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hotkeys">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.Hotkeys">
+        <MappingFragment StoreEntitySet="Hotkeys">
+          <ScalarProperty Name="Modifiers" ColumnName="Modifiers" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

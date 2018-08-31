@@ -18,7 +18,7 @@ namespace Data_Access_Layer
         private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Deleted]bigint DEFAULT 0  NOT NULL, [Name] text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT 0  NULL, [Corrupted]bigint DEFAULT 0  NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Settings
-        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1  NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1  NOT NULL, [HideReminderConfirmation] bigint DEFAULT 0  NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
+        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1  NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1  NOT NULL, [HideReminderConfirmation] bigint DEFAULT 0  NULL, [EnableQuickTimer]bigint DEFAULT 1  NOT NULL, [LastVersion] text NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Songs
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
@@ -28,6 +28,10 @@ namespace Data_Access_Layer
 
         //The neccesary query to execute to create the table Listview_Column_sizes
         private const string TABLE_LISTVIEW_COLUMN_SIZES = "CREATE TABLE[ListviewColumnSizes] ([Id]INTEGER NOT NULL, [Title]bigint NOT NULL, [Date]bigint NOT NULL, [Repeating]bigint NOT NULL, [Enabled]bigint NOT NULL, CONSTRAINT[sqlite_master_PK_ListviewColumnSizes] PRIMARY KEY([Id]));";
+
+        //The neccesary query to execute to create the table Listview_Column_sizes
+        private const string TABLE_HOTKEYS = "CREATE TABLE [Hotkeys] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Key]text NOT NULL, [Modifiers]text NOT NULL, CONSTRAINT[sqlite_master_PK_Hotkeys] PRIMARY KEY([Id]));";
+        
 
         /// <summary>
         /// Creates the database with associated tables
@@ -43,24 +47,28 @@ namespace Data_Access_Layer
             SQLiteCommand tableSongs = new SQLiteCommand();
             SQLiteCommand tablePopupDimensions = new SQLiteCommand();
             SQLiteCommand tableListviewColumnSizes = new SQLiteCommand();
+            SQLiteCommand tableHotkeys = new SQLiteCommand();
 
             tableReminder.CommandText = TABLE_REMINDER;
             tableSettings.CommandText = TABLE_SETTINGS;
             tableSongs.CommandText = TABLE_SONGS;
             tablePopupDimensions.CommandText = TABLE_POPUP_DIMENSIONS;
             tableListviewColumnSizes.CommandText = TABLE_LISTVIEW_COLUMN_SIZES;
+            tableHotkeys.CommandText = TABLE_HOTKEYS;
 
             tableReminder.Connection = conn;
             tableSettings.Connection = conn;
             tableSongs.Connection = conn;
             tablePopupDimensions.Connection = conn;
             tableListviewColumnSizes.Connection = conn;
+            tableHotkeys.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
             tableSettings.ExecuteNonQuery();
             tableSongs.ExecuteNonQuery();
             tablePopupDimensions.ExecuteNonQuery();
             tableListviewColumnSizes.ExecuteNonQuery();
+            tableHotkeys.ExecuteNonQuery();
 
             conn.Close();
             conn.Dispose();
@@ -139,6 +147,14 @@ namespace Data_Access_Layer
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
+            var hotkeys = typeof(Hotkeys).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in hotkeys)
+            {
+                if (!HasColumn(columnName, "Hotkeys"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
             return true;
         }
 
@@ -168,7 +184,7 @@ namespace Data_Access_Layer
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
-                if (HasTable("reminder", db) && HasTable("settings", db) && HasTable("songs", db) && HasTable("popupdimensions", db) && HasTable("listviewcolumnsizes", db))
+                if (HasTable("reminder", db) && HasTable("settings", db) && HasTable("songs", db) && HasTable("popupdimensions", db) && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db))
                     return true;
                 else
                     return false;                
@@ -192,18 +208,21 @@ namespace Data_Access_Layer
                 SQLiteCommand tableSongs = new SQLiteCommand();
                 SQLiteCommand tablePopupDimensions = new SQLiteCommand();
                 SQLiteCommand tableListviewColumnSizes = new SQLiteCommand();
+                SQLiteCommand tableHotkeys = new SQLiteCommand();
 
                 tableReminder.CommandText = TABLE_REMINDER;
                 tableSettings.CommandText = TABLE_SETTINGS;
                 tableSongs.CommandText = TABLE_SONGS;
                 tablePopupDimensions.CommandText = TABLE_POPUP_DIMENSIONS;
                 tableListviewColumnSizes.CommandText = TABLE_LISTVIEW_COLUMN_SIZES;
+                tableHotkeys.CommandText = TABLE_HOTKEYS;
 
                 tableReminder.Connection = conn;
                 tableSettings.Connection = conn;
                 tableSongs.Connection = conn;
                 tablePopupDimensions.Connection = conn;
                 tableListviewColumnSizes.Connection = conn;
+                tableHotkeys.Connection = conn;
 
                 if (!HasTable("Reminder", db))
                     tableReminder.ExecuteNonQuery();
@@ -219,6 +238,9 @@ namespace Data_Access_Layer
 
                 if (!HasTable("ListviewColumnSizes", db))
                     tableListviewColumnSizes.ExecuteNonQuery();
+
+                if (!HasTable("Hotkeys", db))
+                    tableHotkeys.ExecuteNonQuery();
 
                 conn.Close();
                 conn.Dispose();
@@ -239,6 +261,7 @@ namespace Data_Access_Layer
                 var songNames = typeof(Songs).GetProperties().Select(property => property.Name).ToArray();
                 var popupDimensionsNames = typeof(PopupDimensions).GetProperties().Select(property => property.Name).ToArray();
                 var lvColumnSizes = typeof(ListviewColumnSizes).GetProperties().Select(property => property.Name).ToArray();
+                var hotkeys = typeof(Hotkeys).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
                 {
@@ -269,7 +292,13 @@ namespace Data_Access_Layer
                     if (!HasColumn(column, "ListviewColumnSizes"))
                         db.Database.ExecuteSqlCommand("ALTER TABLE ListviewColumnSizes ADD COLUMN " + column + " " + GetLvColumnSizesColumnSqlType(column));
                 }
-                
+
+                foreach (string column in hotkeys)
+                {
+                    if (!HasColumn(column, "Hotkeys"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE Hotkeys ADD COLUMN " + column + " " + GetHotkeysColumnSqlType(column));
+                }
+
 
                 db.SaveChanges();                
                 db.Dispose();
@@ -321,6 +350,8 @@ namespace Data_Access_Layer
                 case "EnablePopupMessage": return "INTEGER DEFAULT 1 NOT NULL";
                 case "EnableHourBeforeReminder": return "INTEGER DEFAULT 1 NOT NULL";
                 case "HideReminderConfirmation": return "bigint DEFAULT 0  NULL";
+                case "EnableQuickTimer": return "bigint DEFAULT 1  NOT NULL";
+                case "LastVersion": return "text NULL";
                 default: return "text NULL";
             }
         }
@@ -378,7 +409,17 @@ namespace Data_Access_Layer
                 default: return "bigint NOT NULL";
             }
         }
-
+        private static string GetHotkeysColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {
+                case "Id": return "INTEGER NOT NULL";
+                case "Name": return "text NOT NULL";
+                case "Key": return "text NOT NULL";
+                case "Modifiers": return "text NOT NULL";                
+                default: return "text NOT NULL";
+            }
+        }
 
 
     }

@@ -281,7 +281,7 @@ namespace RemindMe
         /// <param name="cbSound"></param>
         private void FillSoundComboboxFromDatabase(ComboBox cbSound)
         {
-            //Fill the list with all the sounds from the settings.ini file
+            //Fill the list with all the sounds from the Database
             List<Songs> sounds = BLSongs.GetSongs();
 
             cbSound.Items.Clear();
@@ -1396,7 +1396,7 @@ namespace RemindMe
                     foreach (Songs item in toInsertSongs.Where(itm => itm.SongFileName != "").ToList()) 
                             cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), BLSongs.GetSongByFullPath(item.SongFilePath)));
 
-
+                    
                     //Make sure that Add files... is in the combobox
                     cbSound.Items.Remove(" Add files...");
                     cbSound.Items.Add(" Add files...");

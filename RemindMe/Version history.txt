@@ -700,3 +700,9 @@ When you import reminders that don't have the corrupted tag, it would be set to 
 
 V2.3.03
 You can now re-enable the warning that pops up by default when hiding a reminder.
+
+V2.4.0 
+The icons on the left side panel of RemindMe have been updated to match with eachother
+
+RemindMe now has a timer feature for if you want to set a "Reminder" for not so far into the future, for example 5 minutes, 10 minutes, 60 minutes, etc.
+Protip: press Ctrl + Shift + R to create a quick reminder without having to open RemindMe! (hotkeys are changeable in the settings)

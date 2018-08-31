@@ -55,6 +55,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Visual Studio 2015\Projects\FSManager\FSManager\bin\Debug\FSManager.dll</HintPath>
     </Reference>
+    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack.1.1.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
       <Private>True</Private>
@@ -136,6 +140,12 @@
     <Compile Include="Forms\RemindMePrompt.Designer.cs">
       <DependentUpon>RemindMePrompt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TimerPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TimerPopup.Designer.cs">
+      <DependentUpon>TimerPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Managers\MessageFormManager.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
@@ -206,11 +216,17 @@
     <Compile Include="User controls\UCSupport.Designer.cs">
       <DependentUpon>UCSupport.cs</DependentUpon>
     </Compile>
-    <Compile Include="User controls\UCWindowOverlay.cs">
+    <Compile Include="User controls\UCTimer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="User controls\UCWindowOverlay.Designer.cs">
-      <DependentUpon>UCWindowOverlay.cs</DependentUpon>
+    <Compile Include="User controls\UCTimer.Designer.cs">
+      <DependentUpon>UCTimer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\UCSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\UCSettings.Designer.cs">
+      <DependentUpon>UCSettings.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\ErrorPopup.resx">
       <DependentUpon>ErrorPopup.cs</DependentUpon>
@@ -235,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemindMePrompt.resx">
       <DependentUpon>RemindMePrompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TimerPopup.resx">
+      <DependentUpon>TimerPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -262,8 +281,11 @@
     <EmbeddedResource Include="User controls\UCSupport.resx">
       <DependentUpon>UCSupport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User controls\UCWindowOverlay.resx">
-      <DependentUpon>UCWindowOverlay.cs</DependentUpon>
+    <EmbeddedResource Include="User controls\UCTimer.resx">
+      <DependentUpon>UCTimer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User controls\UCSettings.resx">
+      <DependentUpon>UCSettings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -327,6 +349,13 @@
     <None Include="Resources\show.png" />
     <None Include="Resources\bug.png" />
     <None Include="Resources\debug.png" />
+    <None Include="Resources\bell.png" />
+    <None Include="Resources\Bell2.png" />
+    <None Include="Resources\Bellwhite.png" />
+    <None Include="Resources\Settingswhite.png" />
+    <None Include="Resources\Resizewhite.png" />
+    <None Include="Resources\Emailwhite.png" />
+    <None Include="Resources\RemindMeTimer.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />
