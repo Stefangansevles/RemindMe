@@ -38,6 +38,8 @@ namespace RemindMe
                 int tryparse;
                 try { tryparse = Convert.ToInt32(tbTime.Text); }
                 catch (Exception ex) { return; }
+                if (tryparse <= 0)
+                    return;
                 
 
                 TimeSpan time = TimeSpan.FromSeconds(Convert.ToInt32(tbTime.Text) * 60);
