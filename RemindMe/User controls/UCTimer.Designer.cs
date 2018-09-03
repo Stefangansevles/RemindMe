@@ -44,6 +44,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnStartTimer = new Bunifu.Framework.UI.BunifuFlatButton();
             this.lblKeyCombination = new System.Windows.Forms.Label();
+            this.btnRemoveSong = new Bunifu.Framework.UI.BunifuTileButton();
             ((System.ComponentModel.ISupportInitialize)(this.numHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSeconds)).BeginInit();
@@ -181,8 +182,9 @@
             this.cbSound.ItemHeight = 16;
             this.cbSound.Location = new System.Drawing.Point(214, 298);
             this.cbSound.Name = "cbSound";
-            this.cbSound.Size = new System.Drawing.Size(258, 24);
+            this.cbSound.Size = new System.Drawing.Size(225, 24);
             this.cbSound.TabIndex = 107;
+            this.cbSound.SelectedIndexChanged += new System.EventHandler(this.cbSound_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -256,11 +258,32 @@
             this.lblKeyCombination.TabIndex = 109;
             this.lblKeyCombination.Text = "protip: You can create a quick timer by pressing the key combination: ";
             // 
+            // btnRemoveSong
+            // 
+            this.btnRemoveSong.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemoveSong.color = System.Drawing.Color.Transparent;
+            this.btnRemoveSong.colorActive = System.Drawing.Color.DarkGray;
+            this.btnRemoveSong.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRemoveSong.Font = new System.Drawing.Font("Century Gothic", 15.75F);
+            this.btnRemoveSong.ForeColor = System.Drawing.Color.Transparent;
+            this.btnRemoveSong.Image = global::RemindMe.Properties.Resources.bin;
+            this.btnRemoveSong.ImagePosition = 0;
+            this.btnRemoveSong.ImageZoom = 100;
+            this.btnRemoveSong.LabelPosition = 0;
+            this.btnRemoveSong.LabelText = "";
+            this.btnRemoveSong.Location = new System.Drawing.Point(448, 298);
+            this.btnRemoveSong.Margin = new System.Windows.Forms.Padding(6);
+            this.btnRemoveSong.Name = "btnRemoveSong";
+            this.btnRemoveSong.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveSong.TabIndex = 110;
+            this.btnRemoveSong.Click += new System.EventHandler(this.btnRemoveSong_Click);
+            // 
             // UCTimer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.btnRemoveSong);
             this.Controls.Add(this.lblKeyCombination);
             this.Controls.Add(this.tbNote);
             this.Controls.Add(this.cbSound);
@@ -278,6 +301,7 @@
             this.Name = "UCTimer";
             this.Size = new System.Drawing.Size(666, 436);
             this.Load += new System.EventHandler(this.UCTimer_Load);
+            this.VisibleChanged += new System.EventHandler(this.UCTimer_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.numHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSeconds)).EndInit();
@@ -303,5 +327,6 @@
         public System.Windows.Forms.NumericUpDown numMinutes;
         public System.Windows.Forms.NumericUpDown numSeconds;
         public System.Windows.Forms.Timer tmrCountdown;
+        private Bunifu.Framework.UI.BunifuTileButton btnRemoveSong;
     }
 }

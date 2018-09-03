@@ -192,6 +192,12 @@
     <Compile Include="User controls\UCNewReminder.Designer.cs">
       <DependentUpon>UCNewReminder.cs</DependentUpon>
     </Compile>
+    <Compile Include="User controls\UCReminderItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\UCReminderItem.Designer.cs">
+      <DependentUpon>UCReminderItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="User controls\UCReminders.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -268,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\UCNewReminder.resx">
       <DependentUpon>UCNewReminder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User controls\UCReminderItem.resx">
+      <DependentUpon>UCReminderItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\UCReminders.resx">
       <DependentUpon>UCReminders.cs</DependentUpon>
@@ -356,6 +365,7 @@
     <None Include="Resources\Resizewhite.png" />
     <None Include="Resources\Emailwhite.png" />
     <None Include="Resources\RemindMeTimer.png" />
+    <None Include="Resources\Repeatwhite.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

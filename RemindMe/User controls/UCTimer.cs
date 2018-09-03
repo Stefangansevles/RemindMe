@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Database.Entity;
 using Business_Logic_Layer;
+using System.IO;
 
 namespace RemindMe
 {
@@ -62,12 +63,9 @@ namespace RemindMe
                 else
                     rem.Note = tbNote.Text;
 
-                if(cbSound.SelectedItem != null)
-                {
-                    ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
-                    Songs selectedSong = (Songs)selectedItem.Value;
-                    rem.SoundFilePath = selectedSong.SongFilePath;
-                }
+                Settings set = BLSettings.GetSettings();
+                rem.SoundFilePath = set.DefaultTimerSound;
+
                 Popup pop = new Popup(rem);
                 pop.Show();
             }
@@ -97,9 +95,9 @@ namespace RemindMe
         }
 
         private void FillSoundCombobox()
-        {
-            //Fill the list with all the sounds from the Database
-            List<Songs> sounds = BLSongs.GetSongs();
+        {            
+            //Fill the list with all the sounds from the Database(non default windows ones)
+            List<Songs> sounds = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();
 
             cbSound.Items.Clear();
             ComboBoxItemManager.ClearComboboxItems();
@@ -109,7 +107,16 @@ namespace RemindMe
                     if (item.SongFileName != "")
                         cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
 
-            cbSound.Sorted = true;
+            //Let's make sure the default windows System sounds are placed at the bottom
+            List<Songs> windowsDefaultSongs = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() == "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();
+
+            if (windowsDefaultSongs != null)
+                foreach (Songs item in windowsDefaultSongs)
+                    if (item.SongFileName != "")
+                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
+
+            cbSound.Items.Remove(" Add files...");
+            cbSound.Items.Add(" Add files...");
         }
         private void tmrCountdown_Tick(object sender, EventArgs e)
         {
@@ -134,13 +141,48 @@ namespace RemindMe
         private void UCTimer_Load(object sender, EventArgs e)
         {
             FillSoundCombobox();
+            SetKeyCombinationLabel();
 
-            
+            Settings set = BLSettings.GetSettings();
+            cbSound.Text = Path.GetFileNameWithoutExtension(set.DefaultTimerSound);
+        }
+
+        private void UCTimer_VisibleChanged(object sender, EventArgs e)
+        {
+            if(this.Visible)            
+                SetKeyCombinationLabel();            
+        }
+        private void SetKeyCombinationLabel()
+        {
+            lblKeyCombination.Text = "protip: You can create a quick timer by pressing the key combination: ";
             foreach (string m in BLHotkeys.TimerPopup.Modifiers.ToString().Split(','))
             {
                 lblKeyCombination.Text += m + " + ";
             }
-            lblKeyCombination.Text += BLHotkeys.TimerPopup.Key.ToString();
+            lblKeyCombination.Text += BLHotkeys.TimerPopup.Key.ToString();            
+        }
+
+        private void cbSound_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
+            if (selectedItem != null)
+            {
+                Songs selectedSong = (Songs)selectedItem.Value;
+                Settings set = BLSettings.GetSettings();
+                set.DefaultTimerSound = selectedSong.SongFilePath;
+                BLSettings.UpdateSettings(set);
+            }
+               
+            
+        }
+
+        private void btnRemoveSong_Click(object sender, EventArgs e)
+        {
+            cbSound.SelectedItem = null;
+            cbSound.Text = "";
+            Settings set = BLSettings.GetSettings();
+            set.DefaultTimerSound = "";
+            BLSettings.UpdateSettings(set);
         }
     }
 }

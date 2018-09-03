@@ -14,6 +14,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Reflection;
 using Gma.System.MouseKeyHook;
+using System.Threading;
 
 namespace RemindMe
 {
@@ -51,6 +52,9 @@ namespace RemindMe
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
+            
+            
+            
 
             //User controls that will be loaded into the "main" panel
             ucReminders = new UCReminders();
@@ -184,15 +188,16 @@ namespace RemindMe
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
-
-
-           
-
+          
 
             if (System.Diagnostics.Debugger.IsAttached)
             {//Debugging ? show extra option
                 btnDebugMode.Visible = true;
             }
+
+            
+            BLSongs.InsertWindowsSystemSounds();
+
             BLIO.Log("RemindMe loaded");
             Cleanup();
         }

@@ -23,5 +23,6 @@ namespace Database.Entity
         public Nullable<long> HideReminderConfirmation { get; set; }
         public long EnableQuickTimer { get; set; }
         public string LastVersion { get; set; }
+        public string DefaultTimerSound { get; set; }
     }
 }

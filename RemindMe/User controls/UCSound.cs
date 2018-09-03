@@ -51,7 +51,7 @@ namespace RemindMe
         private void LoadSongs()
         {
             lvSoundFiles.Items.Clear();
-            List<Songs> songs = BLSongs.GetSongs();
+            List<Songs> songs = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").ToList();
             songs = songs.OrderBy(s => s.SongFilePath).ToList();
             if (songs != null && songs.Count > 0)
             {

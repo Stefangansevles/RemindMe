@@ -709,3 +709,8 @@ Protip: press Ctrl + Shift + R to create a quick reminder without having to open
 
 V2.4.01
 Fixed a small issue where the amount of hours was not calculated correctly from the quick timer menu (default ctrl+shift+R)
+
+V2.4.02
+RemindMe now automatically adds the Windows sound effects into RemindMe, so you don't have to add sound effects into RemindMe if you just want to use the default Windows sound effects
+
+RemindMe will now remember the sound effect you select for a timer, and will use this as a default every time until you change it with the option to remove it.

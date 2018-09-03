@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Data_Access_Layer;
 using Database.Entity;
+using System.IO;
 
 namespace Business_Logic_Layer
 {
@@ -93,6 +94,33 @@ namespace Business_Logic_Layer
         {
             //no business logic(yet)
             return DLSongs.SongExistsInDatabase(pathToSong);
+        }
+
+        public static void InsertWindowsSystemSounds()
+        {
+            GetSongs();
+            //Now let's add default windows sounds            
+            List<Songs> tempSongs = new List<Songs>();
+            foreach (string file in Directory.GetFiles(@"C:\Windows\Media", "*.wav"))
+            {
+                Songs tempSong = new Songs();
+                tempSong.SongFilePath = file;
+
+                //File doesnt stary with Windows, make sure the user understands its a default sound
+                if (!Path.GetFileNameWithoutExtension(file).ToLower().StartsWith("windows"))
+                    tempSong.SongFileName = "(Windows) " + Path.GetFileNameWithoutExtension(file);
+                else
+                {
+                    //Add ( ) to Windows
+                    string songName = Path.GetFileNameWithoutExtension(file);
+                    songName = songName.Insert(0, "(");
+                    songName = songName.Insert(8, ")");
+                    tempSong.SongFileName = songName;
+                }
+
+                tempSongs.Add(tempSong);                
+            }
+            InsertSongs(tempSongs);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business_Logic_Layer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,7 @@ using System.Windows.Forms;
 namespace RemindMe
 {
     public partial class TimerPopup : Form
-    {
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+    {       
         public TimerPopup()
         {            
             InitializeComponent();            
@@ -23,28 +23,28 @@ namespace RemindMe
             tbTime.KeyUp += TimerPopup_KeyUp;
             tbNote.KeyUp += TimerPopup_KeyUp;
             this.KeyUp += TimerPopup_KeyUp;
+            BLIO.Log("TimerPopup created");
         }
 
-        private static bool IsTextAllowed(string text)
-        {
-            return !_regex.IsMatch(text);
-        }
+        
         private void TimerPopup_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
+                BLIO.Log("TimerPopup enter pressed");
                 UCTimer ucTimer = Form1.Instance.ucTimer;
 
+                BLIO.Log("Parsing number....");
                 int tryparse;
                 try { tryparse = Convert.ToInt32(tbTime.Text); }
                 catch (Exception ex) { return; }
                 if (tryparse <= 0)
                     return;
-                
+                BLIO.Log("Success. (" + tryparse + ") Creating timespan.");
 
                 TimeSpan time = TimeSpan.FromSeconds(Convert.ToInt32(tbTime.Text) * 60);
-                                                
 
+                BLIO.Log("Setting values of (UCTimer) numericupdowns");
                 ucTimer.numSeconds.Value = Math.Ceiling((decimal)time.Seconds / 60);
                 
                 ucTimer.numMinutes.Value = Math.Ceiling((decimal)time.Minutes % 60);
@@ -52,11 +52,15 @@ namespace RemindMe
                 ucTimer.numHours.Value = Math.Ceiling((decimal)time.Hours);
 
                 ucTimer.timerNote = tbNote.Text;
-                
+
+                BLIO.Log("Values set");
+
                 ucTimer.ToggleTimer();
 
                 if(!ucTimer.tmrCountdown.Enabled)
                     ucTimer.ToggleTimer();
+
+                BLIO.Log("Timer started");
 
                 this.Dispose();
             }

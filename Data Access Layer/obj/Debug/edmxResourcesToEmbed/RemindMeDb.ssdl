@@ -60,6 +60,7 @@
     <Property Name="HideReminderConfirmation" Type="integer" />
     <Property Name="EnableQuickTimer" Type="integer" Nullable="false" />
     <Property Name="LastVersion" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="DefaultTimerSound" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

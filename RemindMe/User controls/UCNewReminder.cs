@@ -281,8 +281,8 @@ namespace RemindMe
         /// <param name="cbSound"></param>
         private void FillSoundComboboxFromDatabase(ComboBox cbSound)
         {
-            //Fill the list with all the sounds from the Database
-            List<Songs> sounds = BLSongs.GetSongs();
+            //Fill the list with all the sounds from the Database(non default windows ones)
+            List<Songs> sounds = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();            
 
             cbSound.Items.Clear();
             ComboBoxItemManager.ClearComboboxItems();
@@ -290,13 +290,19 @@ namespace RemindMe
             if (sounds != null)
                 foreach (Songs item in sounds)
                     if (item.SongFileName != "")
+                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));            
+
+            //Let's make sure the default windows System sounds are placed at the bottom
+            List<Songs> windowsDefaultSongs = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() == "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();            
+
+            if (windowsDefaultSongs != null)
+                foreach (Songs item in windowsDefaultSongs)
+                    if (item.SongFileName != "")
                         cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
-
-
 
             cbSound.Items.Remove(" Add files...");
             cbSound.Items.Add(" Add files...");
-            cbSound.Sorted = true;
+            
         }
 
 

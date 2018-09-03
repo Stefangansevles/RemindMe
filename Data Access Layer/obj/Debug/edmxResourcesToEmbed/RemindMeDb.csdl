@@ -31,6 +31,7 @@
     <Property Name="HideReminderConfirmation" Type="Int64" />
     <Property Name="EnableQuickTimer" Type="Int64" Nullable="false" />
     <Property Name="LastVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="DefaultTimerSound" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

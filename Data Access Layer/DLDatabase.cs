@@ -18,7 +18,7 @@ namespace Data_Access_Layer
         private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Deleted]bigint DEFAULT 0  NOT NULL, [Name] text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT 0  NULL, [Corrupted]bigint DEFAULT 0  NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Settings
-        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1  NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1  NOT NULL, [HideReminderConfirmation] bigint DEFAULT 0  NULL, [EnableQuickTimer]bigint DEFAULT 1  NOT NULL, [LastVersion] text NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
+        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1  NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1  NOT NULL, [HideReminderConfirmation] bigint DEFAULT 0  NULL, [EnableQuickTimer]bigint DEFAULT 1  NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Songs
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
@@ -352,6 +352,7 @@ namespace Data_Access_Layer
                 case "HideReminderConfirmation": return "bigint DEFAULT 0  NULL";
                 case "EnableQuickTimer": return "bigint DEFAULT 1  NOT NULL";
                 case "LastVersion": return "text NULL";
+                case "DefaultTimerSound": return "text NULL";
                 default: return "text NULL";
             }
         }
