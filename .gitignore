@@ -2,4 +2,5 @@
 Database.Entity/obj/Debug/Database.Entity.csproj.FileListAbsolute.txt
 *.vdproj
 *.pdb
+*.nupkg
 *.dll

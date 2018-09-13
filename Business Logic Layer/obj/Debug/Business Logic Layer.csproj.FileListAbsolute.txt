@@ -78,3 +78,23 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Busines
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll.CodeAnalysisLog.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll.lastcodeanalysissucceeded
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Business Logic Layer.pdb
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Data Access Layer.dll
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Database.Entity.dll
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\EntityFramework.dll
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Data Access Layer.pdb
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Data Access Layer.dll.config
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Database.Entity.pdb
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\Database.Entity.dll.config
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\EntityFramework.xml
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\System.Data.SQLite.xml
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.csprojAssemblyReference.cache
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Interop.WMPLib.dll
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CopyComplete
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
+C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
