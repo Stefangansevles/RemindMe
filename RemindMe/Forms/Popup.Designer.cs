@@ -387,6 +387,7 @@
             this.Name = "Popup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Popup_FormClosing);
             this.Load += new System.EventHandler(this.Popup2_Load);
             this.SizeChanged += new System.EventHandler(this.Popup2_SizeChanged);
             this.pnlHeaderText.ResumeLayout(false);

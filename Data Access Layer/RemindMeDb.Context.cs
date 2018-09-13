@@ -44,6 +44,10 @@ public partial class RemindMeDbEntities : DbContext
 
     public DbSet<Hotkeys> Hotkeys { get; set; }
 
+    public DbSet<AdvancedReminderFilesFolders> AdvancedReminderFilesFolders { get; set; }
+
+    public DbSet<AdvancedReminderProperties> AdvancedReminderProperties { get; set; }
+
 }
 
 }

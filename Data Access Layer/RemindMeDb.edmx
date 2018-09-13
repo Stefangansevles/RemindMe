@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdvancedReminderFilesFolders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="Remid" Type="integer" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdvancedReminderProperties">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="Remid" Type="integer" Nullable="false" />
+          <Property Name="BatchScript" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShowReminder" Type="integer" />
+        </EntityType>
         <EntityType Name="Hotkeys">
           <Key>
             <PropertyRef Name="Id" />
@@ -52,6 +70,7 @@
           <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Hide" Type="integer" />
           <Property Name="Corrupted" Type="integer" />
+          <Property Name="EnableAdvancedReminder" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -66,6 +85,7 @@
           <Property Name="EnableQuickTimer" Type="integer" Nullable="false" />
           <Property Name="LastVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="DefaultTimerSound" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="EnableAdvancedReminders" Type="integer" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -76,6 +96,8 @@
           <Property Name="SongFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityContainer Name="RemindMeDatabaseModelStoreContainer">
+          <EntitySet Name="AdvancedReminderFilesFolders" EntityType="Self.AdvancedReminderFilesFolders" store:Type="Tables" />
+          <EntitySet Name="AdvancedReminderProperties" EntityType="Self.AdvancedReminderProperties" store:Type="Tables" />
           <EntitySet Name="Hotkeys" EntityType="Self.Hotkeys" store:Type="Tables" />
           <EntitySet Name="ListviewColumnSizes" EntityType="Self.ListviewColumnSizes" store:Type="Tables" />
           <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />
@@ -104,7 +126,8 @@
           <Property Name="Deleted" Type="Int64" Nullable="false" />
           <Property Name="DayOfMonth" Type="Int64" />
           <Property Name="Hide" Type="Int64" />
-          <Property Name="Corrupted" Type="Int64" />          
+          <Property Name="Corrupted" Type="Int64" />
+          <Property Name="EnableAdvancedReminder" Type="Int64" Nullable="false" />          
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -119,6 +142,7 @@
           <Property Name="EnableQuickTimer" Type="Int64" Nullable="false" />
           <Property Name="LastVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="DefaultTimerSound" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EnableAdvancedReminders" Type="Int64" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -135,6 +159,8 @@
           <EntitySet Name="PopupDimensions" EntityType="RemindMeDatabaseModel.PopupDimensions" />
           <EntitySet Name="ListviewColumnSizes" EntityType="RemindMeDatabaseModel.ListviewColumnSizes" />
           <EntitySet Name="Hotkeys" EntityType="RemindMeDatabaseModel.Hotkeys" />
+          <EntitySet Name="AdvancedReminderFilesFolders" EntityType="RemindMeDatabaseModel.AdvancedReminderFilesFolders" />
+          <EntitySet Name="AdvancedReminderProperties" EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" />
         </EntityContainer>
         <EntityType Name="PopupDimensions">
           <Key>
@@ -165,6 +191,24 @@
           <Property Name="Key" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Modifiers" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="AdvancedReminderFilesFolders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Remid" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdvancedReminderProperties">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Remid" Type="Int64" Nullable="false" />
+          <Property Name="BatchScript" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShowReminder" Type="Int64" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -174,6 +218,7 @@
           <EntitySetMapping Name="Reminder">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
               <MappingFragment StoreEntitySet="Reminder">                                                                
+                <ScalarProperty Name="EnableAdvancedReminder" ColumnName="EnableAdvancedReminder" />
                 <ScalarProperty Name="Corrupted" ColumnName="Corrupted" />
                 <ScalarProperty Name="Hide" ColumnName="Hide" />
                 <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
@@ -194,6 +239,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
                 <ScalarProperty Name="DefaultTimerSound" ColumnName="DefaultTimerSound" />
                 <ScalarProperty Name="LastVersion" ColumnName="LastVersion" />
                 <ScalarProperty Name="EnableQuickTimer" ColumnName="EnableQuickTimer" />
@@ -243,6 +289,26 @@
                 <ScalarProperty Name="Modifiers" ColumnName="Modifiers" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvancedReminderFilesFolders">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.AdvancedReminderFilesFolders">
+              <MappingFragment StoreEntitySet="AdvancedReminderFilesFolders">
+                <ScalarProperty Name="Remid" ColumnName="Remid" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvancedReminderProperties">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.AdvancedReminderProperties">
+              <MappingFragment StoreEntitySet="AdvancedReminderProperties">
+                <ScalarProperty Name="ShowReminder" ColumnName="ShowReminder" />
+                <ScalarProperty Name="BatchScript" ColumnName="BatchScript" />
+                <ScalarProperty Name="Remid" ColumnName="Remid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,5 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdvancedReminderFilesFolders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="integer" Nullable="false" />
+    <Property Name="Remid" Type="integer" Nullable="false" />
+    <Property Name="Path" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="Action" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdvancedReminderProperties">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="integer" Nullable="false" />
+    <Property Name="Remid" Type="integer" Nullable="false" />
+    <Property Name="BatchScript" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="ShowReminder" Type="integer" />
+  </EntityType>
   <EntityType Name="Hotkeys">
     <Key>
       <PropertyRef Name="Id" />
@@ -47,6 +65,7 @@
     <Property Name="PostponeDate" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="Hide" Type="integer" />
     <Property Name="Corrupted" Type="integer" />
+    <Property Name="EnableAdvancedReminder" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>
@@ -61,6 +80,7 @@
     <Property Name="EnableQuickTimer" Type="integer" Nullable="false" />
     <Property Name="LastVersion" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="DefaultTimerSound" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="EnableAdvancedReminders" Type="integer" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>
@@ -71,6 +91,8 @@
     <Property Name="SongFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
   </EntityType>
   <EntityContainer Name="RemindMeDatabaseModelStoreContainer">
+    <EntitySet Name="AdvancedReminderFilesFolders" EntityType="Self.AdvancedReminderFilesFolders" store:Type="Tables" />
+    <EntitySet Name="AdvancedReminderProperties" EntityType="Self.AdvancedReminderProperties" store:Type="Tables" />
     <EntitySet Name="Hotkeys" EntityType="Self.Hotkeys" store:Type="Tables" />
     <EntitySet Name="ListviewColumnSizes" EntityType="Self.ListviewColumnSizes" store:Type="Tables" />
     <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />

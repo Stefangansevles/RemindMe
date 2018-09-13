@@ -714,3 +714,8 @@ V2.4.02
 RemindMe now automatically adds the Windows sound effects into RemindMe, so you don't have to add sound effects into RemindMe if you just want to use the default Windows sound effects
 
 RemindMe will now remember the sound effect you select for a timer, and will use this as a default every time until you change it with the option to remove it.
+
+V2.4.1
+RemindMe now has advanced reminders. The user can enable this in the settings. 
+Advanced reminders can open/delete folders/files, launch an application or execute windows batch script.
+These actions go into action when the reminder pops up. You can also make it so that you don't see the reminder popup, so it will just do it's work.

@@ -32,7 +32,7 @@ namespace RemindMe
             this.Size = new Size((int)BLPopupDimensions.GetPopupDimensions().FormWidth, (int)BLPopupDimensions.GetPopupDimensions().FormHeight);
             lblTitle.Font = new Font(lblTitle.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontTitleSize, FontStyle.Bold);
             lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
-            
+            this.Text = rem.Name;
 
             lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 10, 0);
             lblTitle.MaximumSize = new Size((pnlTitle.Width - lblTitle.Location.X) - 10, 0);
@@ -251,7 +251,13 @@ namespace RemindMe
         private void numPostponeTime_KeyUp(object sender, KeyEventArgs e)
         {            
             if(!cbPostpone.Checked) //If its not already checked, then...
-                cbPostpone.Checked = char.IsNumber((char)e.KeyCode);
+                cbPostpone.Checked = char.IsNumber((char)e.KeyCode);            
+        }
+
+        private void Popup_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.WindowsShutDown)
+                e.Cancel = true;
         }
     }
 }

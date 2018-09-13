@@ -36,9 +36,9 @@
             this.tbNote = new System.Windows.Forms.TextBox();
             this.tmrSendMail = new System.Windows.Forms.Timer(this.components);
             this.tmrAllowMail = new System.Windows.Forms.Timer(this.components);
+            this.lblSending = new System.Windows.Forms.Label();
             this.pbSending = new System.Windows.Forms.PictureBox();
             this.btnSend = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.lblSending = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbSending)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,6 +120,18 @@
             this.tmrAllowMail.Interval = 10000;
             this.tmrAllowMail.Tick += new System.EventHandler(this.tmrAllowMail_Tick);
             // 
+            // lblSending
+            // 
+            this.lblSending.AutoSize = true;
+            this.lblSending.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.lblSending.ForeColor = System.Drawing.Color.White;
+            this.lblSending.Location = new System.Drawing.Point(34, 414);
+            this.lblSending.Name = "lblSending";
+            this.lblSending.Size = new System.Drawing.Size(85, 19);
+            this.lblSending.TabIndex = 95;
+            this.lblSending.Text = "Sending...";
+            this.lblSending.Visible = false;
+            // 
             // pbSending
             // 
             this.pbSending.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -144,7 +156,7 @@
             this.btnSend.DisabledColor = System.Drawing.Color.Gray;
             this.btnSend.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSend.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSend.Iconimage = global::RemindMe.Properties.Resources.email1;
+            this.btnSend.Iconimage = global::RemindMe.Properties.Resources.Emailwhite;
             this.btnSend.Iconimage_right = null;
             this.btnSend.Iconimage_right_Selected = null;
             this.btnSend.Iconimage_Selected = null;
@@ -168,18 +180,6 @@
             this.btnSend.Textcolor = System.Drawing.Color.White;
             this.btnSend.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // lblSending
-            // 
-            this.lblSending.AutoSize = true;
-            this.lblSending.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSending.ForeColor = System.Drawing.Color.White;
-            this.lblSending.Location = new System.Drawing.Point(34, 414);
-            this.lblSending.Name = "lblSending";
-            this.lblSending.Size = new System.Drawing.Size(85, 19);
-            this.lblSending.TabIndex = 95;
-            this.lblSending.Text = "Sending...";
-            this.lblSending.Visible = false;
             // 
             // UCSupport
             // 

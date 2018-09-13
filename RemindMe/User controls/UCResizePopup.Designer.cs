@@ -223,7 +223,7 @@
             this.btnReset.DisabledColor = System.Drawing.Color.Gray;
             this.btnReset.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnReset.Iconimage = global::RemindMe.Properties.Resources.reset;
+            this.btnReset.Iconimage = global::RemindMe.Properties.Resources.Reset_White;
             this.btnReset.Iconimage_right = null;
             this.btnReset.Iconimage_right_Selected = null;
             this.btnReset.Iconimage_Selected = null;
@@ -260,7 +260,7 @@
             this.btnSave.DisabledColor = System.Drawing.Color.Gray;
             this.btnSave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSave.Iconimage = global::RemindMe.Properties.Resources.SaveIconBlack;
+            this.btnSave.Iconimage = global::RemindMe.Properties.Resources.Save_white;
             this.btnSave.Iconimage_right = null;
             this.btnSave.Iconimage_right_Selected = null;
             this.btnSave.Iconimage_Selected = null;

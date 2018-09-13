@@ -72,6 +72,7 @@ namespace RemindMe
             cbRemindMeMessages.Checked = BLSettings.IsReminderCountPopupEnabled();
             cbOneHourBeforeNotification.Checked = BLSettings.IsHourBeforeNotificationEnabled();
             cbQuicktimer.Checked = BLSettings.GetSettings().EnableQuickTimer == 1;
+            cbAdvancedReminders.Checked = BLSettings.GetSettings().EnableAdvancedReminders == 1;
 
             Hotkeys timerKey = BLHotkeys.TimerPopup;
             foreach(string m in timerKey.Modifiers.Split(','))
@@ -146,19 +147,33 @@ namespace RemindMe
             BLIO.Log("Checkbox change (Quick timer)");
             Settings set = BLSettings.GetSettings();
 
-            if (cbQuicktimer.Checked)
-                set.EnableQuickTimer = 1;
-            else
-                set.EnableQuickTimer = 0;
+            set.EnableQuickTimer = cbQuicktimer.Checked ? 1 : 0;
 
             BLSettings.UpdateSettings(set);
-            BLIO.Log("Quick timer setting changed to: " + cbOneHourBeforeNotification.Checked.ToString());
+            BLIO.Log("Quick timer setting changed to: " + cbQuicktimer.Checked.ToString());
         }
 
         private void label10_Click(object sender, EventArgs e)
         {
             cbQuicktimer.Checked = !cbQuicktimer.Checked;
             cbEnableQuicktimer_OnChange(sender, e);
+        }
+
+        private void cbAdvancedReminders_OnChange(object sender, EventArgs e)
+        {
+            BLIO.Log("Checkbox change (Advanced Reminder)");
+            Settings set = BLSettings.GetSettings();
+
+            set.EnableAdvancedReminders = cbAdvancedReminders.Checked ? 1 : 0;
+
+            BLSettings.UpdateSettings(set);
+            BLIO.Log("Advanced Reminder setting changed to: " + cbAdvancedReminders.Checked.ToString());
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            cbAdvancedReminders.Checked = !cbAdvancedReminders.Checked;
+            cbAdvancedReminders_OnChange(sender, e);
         }
     }
 }

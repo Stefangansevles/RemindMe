@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Reminder">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
         <MappingFragment StoreEntitySet="Reminder">
+          <ScalarProperty Name="EnableAdvancedReminder" ColumnName="EnableAdvancedReminder" />
           <ScalarProperty Name="Corrupted" ColumnName="Corrupted" />
           <ScalarProperty Name="Hide" ColumnName="Hide" />
           <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
@@ -24,6 +25,7 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
           <ScalarProperty Name="DefaultTimerSound" ColumnName="DefaultTimerSound" />
           <ScalarProperty Name="LastVersion" ColumnName="LastVersion" />
           <ScalarProperty Name="EnableQuickTimer" ColumnName="EnableQuickTimer" />
@@ -73,6 +75,26 @@
           <ScalarProperty Name="Modifiers" ColumnName="Modifiers" />
           <ScalarProperty Name="Key" ColumnName="Key" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdvancedReminderFilesFolders">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.AdvancedReminderFilesFolders">
+        <MappingFragment StoreEntitySet="AdvancedReminderFilesFolders">
+          <ScalarProperty Name="Remid" ColumnName="Remid" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdvancedReminderProperties">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.AdvancedReminderProperties">
+        <MappingFragment StoreEntitySet="AdvancedReminderProperties">
+          <ScalarProperty Name="ShowReminder" ColumnName="ShowReminder" />
+          <ScalarProperty Name="BatchScript" ColumnName="BatchScript" />
+          <ScalarProperty Name="Remid" ColumnName="Remid" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

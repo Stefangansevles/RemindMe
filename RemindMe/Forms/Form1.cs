@@ -156,15 +156,15 @@ namespace RemindMe
             base.WndProc(ref m);
         }
 
-       
+
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {
             BLIO.Log("RemindMe_Load");
 
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
-                        
-            
-            if (BLSettings.GetSettings().LastVersion != null && (new Version(BLSettings.GetSettings().LastVersion) < new Version(IOVariables.RemindMeVersion)) )
+
+
+            if (BLSettings.GetSettings().LastVersion != null && (new Version(BLSettings.GetSettings().LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
                 //User has a new RemindMe version! in the future we can do stuff here
                 Settings set = BLSettings.GetSettings();
@@ -188,14 +188,14 @@ namespace RemindMe
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
-          
+
 
             if (System.Diagnostics.Debugger.IsAttached)
             {//Debugging ? show extra option
                 btnDebugMode.Visible = true;
             }
 
-            
+
             BLSongs.InsertWindowsSystemSounds();
 
             BLIO.Log("RemindMe loaded");

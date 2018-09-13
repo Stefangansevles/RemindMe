@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio 14.0\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="14.0">
+ <Targets>
+  <Target Name="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Data Access Layer.dll">
+   <Modules>
+    <Module Name="data access layer.dll">
+     <Namespaces>
+      <Namespace Name="Business_Logic_Layer">
+       <Types>
+        <Type Name="ReminderException" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="NonBreaking">
+           <Issue Certainty="95" Level="Error">Add [Serializable] to 'ReminderException' as this type implements ISerializable.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Data_Access_Layer">
+       <Types>
+        <Type Name="DLAVRProperties" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#DeleteAvrFilesFoldersById(System.Int64)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLAVRProperties.cs" Line="110">Object 'db' can be disposed more than once in method 'DLAVRProperties.DeleteAvrFilesFoldersById(long)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 110</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#GetAVRFilesFolders(System.Int64)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLAVRProperties.cs" Line="41">Object 'db' can be disposed more than once in method 'DLAVRProperties.GetAVRFilesFolders(long)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 41</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#GetAVRProperties(System.Int64)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLAVRProperties.cs" Line="26">Object 'db' can be disposed more than once in method 'DLAVRProperties.GetAVRProperties(long)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 26</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#InsertAVRFilesFolders(Database.Entity.AdvancedReminderFilesFolders)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLAVRProperties.cs" Line="94">Object 'db' can be disposed more than once in method 'DLAVRProperties.InsertAVRFilesFolders(AdvancedReminderFilesFolders)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 94</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#InsertAVRProperties(Database.Entity.AdvancedReminderProperties)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLAVRProperties.cs" Line="68">Object 'db' can be disposed more than once in method 'DLAVRProperties.InsertAVRProperties(AdvancedReminderProperties)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 68</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DLDatabase" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#CreateDatabase()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLDatabase.cs" Line="90">Object 'conn' can be disposed more than once in method 'DLDatabase.CreateDatabase()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 90</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#HasColumn(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLDatabase.cs" Line="114">Object 'db' can be disposed more than once in method 'DLDatabase.HasColumn(string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 114</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#InsertMissingTables()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLDatabase.cs" Line="295">Object 'conn' can be disposed more than once in method 'DLDatabase.InsertMissingTables()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 295</Issue>
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLDatabase.cs" Line="297">Object 'db' can be disposed more than once in method 'DLDatabase.InsertMissingTables()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 297</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#InsertNewColumns()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLDatabase.cs" Line="368">Object 'db' can be disposed more than once in method 'DLDatabase.InsertNewColumns()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 368</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DLHotkeys" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#InsertHotkey(Database.Entity.Hotkeys)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLHotkeys.cs" Line="52">Object 'db' can be disposed more than once in method 'DLHotkeys.InsertHotkey(Hotkeys)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 52</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#TimerPopup" Kind="Property" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Accessors>
+            <Accessor Name="#get_TimerPopup()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+             <Messages>
+              <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+               <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLHotkeys.cs" Line="33">Object 'db' can be disposed more than once in method 'DLHotkeys.TimerPopup.get()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 33</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#UpdateHotkey(Database.Entity.Hotkeys)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLHotkeys.cs" Line="74">Object 'db' can be disposed more than once in method 'DLHotkeys.UpdateHotkey(Hotkeys)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 74</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DLListviewColumnSizes" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#RefreshDimensions()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLListviewColumnSizes.cs" Line="57">Object 'db' can be disposed more than once in method 'DLListviewColumnSizes.RefreshDimensions()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 57</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#ResetToDefaults()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLListviewColumnSizes.cs" Line="73">Object 'db' can be disposed more than once in method 'DLListviewColumnSizes.ResetToDefaults()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 73</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DLPopupDimensions" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#RefreshDimensions()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLPopupDimensions.cs" Line="58">Object 'db' can be disposed more than once in method 'DLPopupDimensions.RefreshDimensions()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 58</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#ResetToDefaults()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLPopupDimensions.cs" Line="74">Object 'db' can be disposed more than once in method 'DLPopupDimensions.ResetToDefaults()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 74</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DLReminders" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#GetArchivedReminders()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLReminders.cs" Line="192">Object 'db' can be disposed more than once in method 'DLReminders.GetArchivedReminders()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 192</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#GetCorruptedReminders()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLReminders.cs" Line="177">Object 'db' can be disposed more than once in method 'DLReminders.GetCorruptedReminders()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 177</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#GetDeletedReminders()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLReminders.cs" Line="162">Object 'db' can be disposed more than once in method 'DLReminders.GetDeletedReminders()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 162</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#GetReminderById(System.Int64)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLReminders.cs" Line="147">Object 'db' can be disposed more than once in method 'DLReminders.GetReminderById(long)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 147</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#RefreshCacheList()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLReminders.cs" Line="101">Object 'db' can be disposed more than once in method 'DLReminders.RefreshCacheList()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 101</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DLSettings" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#HideReminderOptionEnabled()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSettings.cs" Line="88">Object 'db' can be disposed more than once in method 'DLSettings.HideReminderOptionEnabled()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 88</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#IsAlwaysOnTop()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSettings.cs" Line="41">Object 'db' can be disposed more than once in method 'DLSettings.IsAlwaysOnTop()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 41</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#IsHourBeforeNotificationEnabled()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSettings.cs" Line="112">Object 'db' can be disposed more than once in method 'DLSettings.IsHourBeforeNotificationEnabled()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 112</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#IsReminderCountPopupEnabled()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSettings.cs" Line="64">Object 'db' can be disposed more than once in method 'DLSettings.IsReminderCountPopupEnabled()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 64</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#IsStickyForm()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSettings.cs" Line="135">Object 'db' can be disposed more than once in method 'DLSettings.IsStickyForm()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 135</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#RefreshSettings()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSettings.cs" Line="164">Object 'db' can be disposed more than once in method 'DLSettings.RefreshSettings()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 164</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#UpdateSettings(Database.Entity.Settings)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSettings.cs" Line="186">Object 'db' can be disposed more than once in method 'DLSettings.UpdateSettings(Settings)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 186</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DLSongs" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#RefreshCacheList()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-09-13 17:17:14Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer" File="DLSongs.cs" Line="70">Object 'db' can be disposed more than once in method 'DLSongs.RefreshCacheList()'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 70</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202">
+   <Name>Do not dispose objects multiple times</Name>
+   <Description>A correctly implemented Dispose method can be called multiple times without throwing an exception. However, this is not guaranteed and to avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.</Description>
+   <Resolution Name="Default">Object {0} can be disposed more than once in method {1}. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 70</Resolution>
+   <Owner>RuleOwner</Owner>
+   <Url>http://msdn.microsoft.com/library/ms182334.aspx</Url>
+   <Email />
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="dataflowrules.dll" Version="14.0.0.0" />
+  </Rule>
+  <Rule TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237">
+   <Name>Mark ISerializable types with SerializableAttribute</Name>
+   <Description>The System.Runtime.Serialization.ISerializable interface allows the type to customize its serialization, while the Serializable attribute enables the runtime to recognize the type as being serializable.</Description>
+   <Resolution Name="Default">Add [Serializable] to {0} as this type implements ISerializable.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182350.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="usagerules.dll" Version="14.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Category</String>
+  <String Key="Certainty">Certainty</String>
+  <String Key="CollapseAll">Collapse All</String>
+  <String Key="CheckId">Check Id</String>
+  <String Key="Error">Error</String>
+  <String Key="Errors">error(s)</String>
+  <String Key="ExpandAll">Expand All</String>
+  <String Key="Help">Help</String>
+  <String Key="Line">Line</String>
+  <String Key="Messages">message(s)</String>
+  <String Key="LocationNotStoredInPdb">[Location not stored in Pdb]</String>
+  <String Key="Project">Project</String>
+  <String Key="Resolution">Resolution</String>
+  <String Key="Rule">Rule</String>
+  <String Key="RuleFile">Rule File</String>
+  <String Key="RuleDescription">Rule Description</String>
+  <String Key="Source">Source</String>
+  <String Key="Status">Status</String>
+  <String Key="Target">Target</String>
+  <String Key="Warning">Warning</String>
+  <String Key="Warnings">warning(s)</String>
+  <String Key="ReportTitle">Code Analysis Report</String>
+ </Localized>
+</FxCopReport>

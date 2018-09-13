@@ -15,10 +15,10 @@ namespace Data_Access_Layer
         private static readonly string DB_FILE = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
 
         //The neccesary query to execute to create the table Reminder
-        private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER NOT NULL, [Deleted]bigint DEFAULT 0  NOT NULL, [Name] text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT 0  NULL, [Corrupted]bigint DEFAULT 0  NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
+        private const string TABLE_REMINDER = "CREATE TABLE [Reminder] (Id] INTEGER NOT NULL, [Deleted]bigint DEFAULT 0  NOT NULL, [Name] text NOT NULL, [Date]text NOT NULL, [RepeatType]text NOT NULL, [Note]text NOT NULL, [Enabled]bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT 0  NULL, [Corrupted]bigint DEFAULT 0  NULL, [EnableAdvancedReminder]bigint DEFAULT 1  NOT NULL, CONSTRAINT[sqlite_master_PK_Reminder] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Settings
-        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1  NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1  NOT NULL, [HideReminderConfirmation] bigint DEFAULT 0  NULL, [EnableQuickTimer]bigint DEFAULT 1  NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
+        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER NOT NULL, [AlwaysOnTop]bigint NOT NULL, [StickyForm]bigint NOT NULL, [EnableReminderCountPopup]bigint DEFAULT 1  NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT 1  NOT NULL, [HideReminderConfirmation] bigint DEFAULT 0  NULL, [EnableQuickTimer]bigint DEFAULT 1  NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, [EnableAdvancedReminders] bigint DEFAULT 0 NULL, CONSTRAINT[sqlite_master_PK_Settings] PRIMARY KEY([Id]));";
 
         //The neccesary query to execute to create the table Songs
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
@@ -31,6 +31,13 @@ namespace Data_Access_Layer
 
         //The neccesary query to execute to create the table Listview_Column_sizes
         private const string TABLE_HOTKEYS = "CREATE TABLE [Hotkeys] ([Id] INTEGER NOT NULL, [Name]text NOT NULL, [Key]text NOT NULL, [Modifiers]text NOT NULL, CONSTRAINT[sqlite_master_PK_Hotkeys] PRIMARY KEY([Id]));";
+    
+        //AVR = Advanced reminder. Table contains advanced reminder properties. Has a foreign key to TABLE_REMINDER
+        private const string TABLE_AVR_PROPERTIES = "CREATE TABLE [AdvancedReminderProperties] ([Id] INTEGER NOT NULL, [Remid]bigint NOT NULL, [BatchScript]text NULL, [ShowReminder] bigint DEFAULT 1  NULL, CONSTRAINT[sqlite_master_PK_AdvancedReminderProperties] PRIMARY KEY([Id]));";
+
+        //Contains the files/folders and their actions, example: delete folder x. open file x. Has a foreign key to TABLE_REMINDER
+        private const string TABLE_AVR_FILES_FOLDERS = "CREATE TABLE [AdvancedReminderFilesFolders] ([Id] INTEGER NOT NULL, [Remid]bigint NOT NULL, [Path]text NOT NULL, [Action]text NOT NULL, CONSTRAINT[sqlite_master_PK_AdvancedReminderFilesFolders] PRIMARY KEY([Id]));";
+
         
 
         /// <summary>
@@ -48,6 +55,9 @@ namespace Data_Access_Layer
             SQLiteCommand tablePopupDimensions = new SQLiteCommand();
             SQLiteCommand tableListviewColumnSizes = new SQLiteCommand();
             SQLiteCommand tableHotkeys = new SQLiteCommand();
+            SQLiteCommand tableAvrProperties = new SQLiteCommand();
+            SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
+            
 
             tableReminder.CommandText = TABLE_REMINDER;
             tableSettings.CommandText = TABLE_SETTINGS;
@@ -55,6 +65,8 @@ namespace Data_Access_Layer
             tablePopupDimensions.CommandText = TABLE_POPUP_DIMENSIONS;
             tableListviewColumnSizes.CommandText = TABLE_LISTVIEW_COLUMN_SIZES;
             tableHotkeys.CommandText = TABLE_HOTKEYS;
+            tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
+            tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
 
             tableReminder.Connection = conn;
             tableSettings.Connection = conn;
@@ -62,6 +74,8 @@ namespace Data_Access_Layer
             tablePopupDimensions.Connection = conn;
             tableListviewColumnSizes.Connection = conn;
             tableHotkeys.Connection = conn;
+            tableAvrProperties.Connection = conn;
+            tableAvrFilesFolders.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
             tableSettings.ExecuteNonQuery();
@@ -69,6 +83,8 @@ namespace Data_Access_Layer
             tablePopupDimensions.ExecuteNonQuery();
             tableListviewColumnSizes.ExecuteNonQuery();
             tableHotkeys.ExecuteNonQuery();
+            tableAvrProperties.ExecuteNonQuery();
+            tableAvrFilesFolders.ExecuteNonQuery();
 
             conn.Close();
             conn.Dispose();
@@ -155,6 +171,22 @@ namespace Data_Access_Layer
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
+            var AVR_Properties = typeof(AdvancedReminderProperties).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in hotkeys)
+            {
+                if (!HasColumn(columnName, "AdvancedReminderProperties"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
+            var AVR_Files_Folders = typeof(AdvancedReminderFilesFolders).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in hotkeys)
+            {
+                if (!HasColumn(columnName, "AdvancedReminderFilesFolders"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
             return true;
         }
 
@@ -184,7 +216,10 @@ namespace Data_Access_Layer
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
-                if (HasTable("reminder", db) && HasTable("settings", db) && HasTable("songs", db) && HasTable("popupdimensions", db) && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db))
+                if (HasTable("reminder", db) && HasTable("settings", db) 
+                    && HasTable("songs", db) && HasTable("popupdimensions", db) 
+                    && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db)
+                    && HasTable("AdvancedReminderProperties", db) && HasTable("AdvancedReminderFilesFolders", db))
                     return true;
                 else
                     return false;                
@@ -209,6 +244,9 @@ namespace Data_Access_Layer
                 SQLiteCommand tablePopupDimensions = new SQLiteCommand();
                 SQLiteCommand tableListviewColumnSizes = new SQLiteCommand();
                 SQLiteCommand tableHotkeys = new SQLiteCommand();
+                SQLiteCommand tableAvrProperties = new SQLiteCommand();
+                SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
+
 
                 tableReminder.CommandText = TABLE_REMINDER;
                 tableSettings.CommandText = TABLE_SETTINGS;
@@ -216,6 +254,8 @@ namespace Data_Access_Layer
                 tablePopupDimensions.CommandText = TABLE_POPUP_DIMENSIONS;
                 tableListviewColumnSizes.CommandText = TABLE_LISTVIEW_COLUMN_SIZES;
                 tableHotkeys.CommandText = TABLE_HOTKEYS;
+                tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
+                tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
 
                 tableReminder.Connection = conn;
                 tableSettings.Connection = conn;
@@ -223,6 +263,8 @@ namespace Data_Access_Layer
                 tablePopupDimensions.Connection = conn;
                 tableListviewColumnSizes.Connection = conn;
                 tableHotkeys.Connection = conn;
+                tableAvrProperties.Connection = conn;
+                tableAvrFilesFolders.Connection = conn;
 
                 if (!HasTable("Reminder", db))
                     tableReminder.ExecuteNonQuery();
@@ -241,6 +283,13 @@ namespace Data_Access_Layer
 
                 if (!HasTable("Hotkeys", db))
                     tableHotkeys.ExecuteNonQuery();
+
+                if (!HasTable("AdvancedReminderProperties", db))
+                    tableHotkeys.ExecuteNonQuery();
+
+                if (!HasTable("AdvancedReminderFilesFolders", db))
+                    tableHotkeys.ExecuteNonQuery();
+
 
                 conn.Close();
                 conn.Dispose();
@@ -262,6 +311,8 @@ namespace Data_Access_Layer
                 var popupDimensionsNames = typeof(PopupDimensions).GetProperties().Select(property => property.Name).ToArray();
                 var lvColumnSizes = typeof(ListviewColumnSizes).GetProperties().Select(property => property.Name).ToArray();
                 var hotkeys = typeof(Hotkeys).GetProperties().Select(property => property.Name).ToArray();
+                var avrProperties = typeof(AdvancedReminderProperties).GetProperties().Select(property => property.Name).ToArray();
+                var avrFilesFolders = typeof(AdvancedReminderFilesFolders).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
                 {
@@ -299,6 +350,18 @@ namespace Data_Access_Layer
                         db.Database.ExecuteSqlCommand("ALTER TABLE Hotkeys ADD COLUMN " + column + " " + GetHotkeysColumnSqlType(column));
                 }
 
+                foreach (string column in avrProperties)
+                {
+                    if (!HasColumn(column, "AdvancedReminderProperties"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE AdvancedReminderProperties ADD COLUMN " + column + " " + GetAvrPropertiesColumnSqlType(column));
+                }
+
+                foreach (string column in avrFilesFolders)
+                {
+                    if (!HasColumn(column, "AdvancedReminderFilesFolders"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE AdvancedReminderFilesFolders ADD COLUMN " + column + " " + GetAvrFilesFoldersColumnSqlType(column));
+                }
+
 
                 db.SaveChanges();                
                 db.Dispose();
@@ -330,6 +393,7 @@ namespace Data_Access_Layer
                 case "PostponeDate": return "text NULL";
                 case "Hide": return "bigint DEFAULT 0  NULL";
                 case "Corrupted": return "bigint DEFAULT 0  NULL";
+                case "EnableAdvancedReminder": return "bigint DEFAULT 1  NOT NULL";
                 default: return "text NULL";
             }
         }
@@ -353,6 +417,7 @@ namespace Data_Access_Layer
                 case "EnableQuickTimer": return "bigint DEFAULT 1  NOT NULL";
                 case "LastVersion": return "text NULL";
                 case "DefaultTimerSound": return "text NULL";
+                case "EnableAdvancedReminders": return "bigint DEFAULT 0 NULL";
                 default: return "text NULL";
             }
         }
@@ -418,6 +483,30 @@ namespace Data_Access_Layer
                 case "Name": return "text NOT NULL";
                 case "Key": return "text NOT NULL";
                 case "Modifiers": return "text NOT NULL";                
+                default: return "text NOT NULL";
+            }
+        }
+
+        private static string GetAvrPropertiesColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {                
+                case "Id": return "INTEGER NOT NULL";
+                case "Remid": return "bigint NOT NULL";
+                case "BatchScript": return "text NULL";
+                case "ShowReminder": return "bigint DEFAULT 1  NULL";
+                default: return "text NOT NULL";
+            }
+        }
+
+        private static string GetAvrFilesFoldersColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {
+                case "Id": return "INTEGER NOT NULL";
+                case "Remid": return "bigint NOT NULL";
+                case "Path": return "text NOT NULL";
+                case "Action": return "text NOT NULL";
                 default: return "text NOT NULL";
             }
         }

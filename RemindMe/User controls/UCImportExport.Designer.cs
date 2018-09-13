@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.btnCancel = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnConfirm = new Bunifu.Framework.UI.BunifuFlatButton();
             this.lvReminders = new System.Windows.Forms.ListView();
             this.chTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chRepeat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnRecoverOld = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnRecoverDeleted = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnImport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnExport = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancel = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnConfirm = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlFooter.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -56,82 +56,6 @@
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(666, 41);
             this.pnlFooter.TabIndex = 5;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Activecolor = System.Drawing.Color.DimGray;
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCancel.BorderRadius = 5;
-            this.btnCancel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnCancel.ButtonText = "    Cancel";
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.DisabledColor = System.Drawing.Color.Gray;
-            this.btnCancel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnCancel.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnCancel.Iconimage = global::RemindMe.Properties.Resources.if_cancel_216128;
-            this.btnCancel.Iconimage_right = null;
-            this.btnCancel.Iconimage_right_Selected = null;
-            this.btnCancel.Iconimage_Selected = null;
-            this.btnCancel.IconMarginLeft = 0;
-            this.btnCancel.IconMarginRight = 0;
-            this.btnCancel.IconRightVisible = true;
-            this.btnCancel.IconRightZoom = 0D;
-            this.btnCancel.IconVisible = true;
-            this.btnCancel.IconZoom = 50D;
-            this.btnCancel.IsTab = false;
-            this.btnCancel.Location = new System.Drawing.Point(121, 0);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCancel.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnCancel.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnCancel.selected = false;
-            this.btnCancel.Size = new System.Drawing.Size(121, 41);
-            this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "    Cancel";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnCancel.Textcolor = System.Drawing.Color.White;
-            this.btnCancel.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.Activecolor = System.Drawing.Color.DimGray;
-            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnConfirm.BorderRadius = 5;
-            this.btnConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnConfirm.ButtonText = "    Confirm";
-            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfirm.DisabledColor = System.Drawing.Color.Gray;
-            this.btnConfirm.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnConfirm.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Iconimage = global::RemindMe.Properties.Resources.if_Check_circle_2202263;
-            this.btnConfirm.Iconimage_right = null;
-            this.btnConfirm.Iconimage_right_Selected = null;
-            this.btnConfirm.Iconimage_Selected = null;
-            this.btnConfirm.IconMarginLeft = 0;
-            this.btnConfirm.IconMarginRight = 0;
-            this.btnConfirm.IconRightVisible = true;
-            this.btnConfirm.IconRightZoom = 0D;
-            this.btnConfirm.IconVisible = true;
-            this.btnConfirm.IconZoom = 50D;
-            this.btnConfirm.IsTab = false;
-            this.btnConfirm.Location = new System.Drawing.Point(0, 0);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnConfirm.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnConfirm.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnConfirm.selected = false;
-            this.btnConfirm.Size = new System.Drawing.Size(121, 41);
-            this.btnConfirm.TabIndex = 4;
-            this.btnConfirm.Text = "    Confirm";
-            this.btnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnConfirm.Textcolor = System.Drawing.Color.White;
-            this.btnConfirm.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // lvReminders
             // 
@@ -187,6 +111,15 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(666, 41);
             this.pnlTop.TabIndex = 7;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lvReminders);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 41);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(666, 354);
+            this.panel1.TabIndex = 8;
             // 
             // btnRecoverOld
             // 
@@ -340,14 +273,81 @@
             this.btnExport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // panel1
+            // btnCancel
             // 
-            this.panel1.Controls.Add(this.lvReminders);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 41);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(666, 354);
-            this.panel1.TabIndex = 8;
+            this.btnCancel.Activecolor = System.Drawing.Color.DimGray;
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancel.BorderRadius = 5;
+            this.btnCancel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnCancel.ButtonText = "    Cancel";
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.DisabledColor = System.Drawing.Color.Gray;
+            this.btnCancel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnCancel.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnCancel.Iconimage = global::RemindMe.Properties.Resources.Cancel_white;
+            this.btnCancel.Iconimage_right = null;
+            this.btnCancel.Iconimage_right_Selected = null;
+            this.btnCancel.Iconimage_Selected = null;
+            this.btnCancel.IconMarginLeft = 0;
+            this.btnCancel.IconMarginRight = 0;
+            this.btnCancel.IconRightVisible = true;
+            this.btnCancel.IconRightZoom = 0D;
+            this.btnCancel.IconVisible = true;
+            this.btnCancel.IconZoom = 50D;
+            this.btnCancel.IsTab = false;
+            this.btnCancel.Location = new System.Drawing.Point(121, 0);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCancel.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnCancel.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnCancel.selected = false;
+            this.btnCancel.Size = new System.Drawing.Size(121, 41);
+            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Text = "    Cancel";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnCancel.Textcolor = System.Drawing.Color.White;
+            this.btnCancel.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Activecolor = System.Drawing.Color.DimGray;
+            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnConfirm.BorderRadius = 5;
+            this.btnConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnConfirm.ButtonText = "    Confirm";
+            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConfirm.DisabledColor = System.Drawing.Color.Gray;
+            this.btnConfirm.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnConfirm.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnConfirm.Iconimage = global::RemindMe.Properties.Resources.Check_white;
+            this.btnConfirm.Iconimage_right = null;
+            this.btnConfirm.Iconimage_right_Selected = null;
+            this.btnConfirm.Iconimage_Selected = null;
+            this.btnConfirm.IconMarginLeft = 0;
+            this.btnConfirm.IconMarginRight = 0;
+            this.btnConfirm.IconRightVisible = true;
+            this.btnConfirm.IconRightZoom = 0D;
+            this.btnConfirm.IconVisible = true;
+            this.btnConfirm.IconZoom = 60D;
+            this.btnConfirm.IsTab = false;
+            this.btnConfirm.Location = new System.Drawing.Point(0, 0);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnConfirm.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnConfirm.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnConfirm.selected = false;
+            this.btnConfirm.Size = new System.Drawing.Size(121, 41);
+            this.btnConfirm.TabIndex = 4;
+            this.btnConfirm.Text = "    Confirm";
+            this.btnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnConfirm.Textcolor = System.Drawing.Color.White;
+            this.btnConfirm.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // UCImportExport
             // 

@@ -31,21 +31,21 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lvSoundFiles = new System.Windows.Forms.ListView();
             this.chSoundFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlfooter = new System.Windows.Forms.Panel();
-            this.btnPreview = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnRemoveFiles = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label2 = new System.Windows.Forms.Label();
             this.bunifuSwitch1 = new Bunifu.Framework.UI.BunifuSwitch();
-            this.btnAddFiles = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
+            this.btnPreview = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnRemoveFiles = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnAddFiles = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlfooter.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,17 +68,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(666, 58);
             this.panel1.TabIndex = 2;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.if_sound_115787;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(605, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(61, 58);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
             // 
             // lvSoundFiles
             // 
@@ -117,6 +106,47 @@
             this.pnlfooter.Size = new System.Drawing.Size(666, 40);
             this.pnlfooter.TabIndex = 6;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(514, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 16);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Show File Path";
+            // 
+            // bunifuSwitch1
+            // 
+            this.bunifuSwitch1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuSwitch1.BorderRadius = 0;
+            this.bunifuSwitch1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bunifuSwitch1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.bunifuSwitch1.Location = new System.Drawing.Point(610, 18);
+            this.bunifuSwitch1.Name = "bunifuSwitch1";
+            this.bunifuSwitch1.Oncolor = System.Drawing.Color.Black;
+            this.bunifuSwitch1.Onoffcolor = System.Drawing.Color.DarkGray;
+            this.bunifuSwitch1.Size = new System.Drawing.Size(51, 19);
+            this.bunifuSwitch1.TabIndex = 7;
+            this.bunifuSwitch1.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.bunifuSwitch1.Value = true;
+            this.bunifuSwitch1.Click += new System.EventHandler(this.bunifuSwitch1_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lvSoundFiles);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 58);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(666, 338);
+            this.panel2.TabIndex = 8;
+            // 
+            // tmrMusic
+            // 
+            this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
+            // 
             // btnPreview
             // 
             this.btnPreview.Activecolor = System.Drawing.Color.DimGray;
@@ -130,7 +160,7 @@
             this.btnPreview.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnPreview.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPreview.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnPreview.Iconimage = null;
+            this.btnPreview.Iconimage = global::RemindMe.Properties.Resources.Play;
             this.btnPreview.Iconimage_right = null;
             this.btnPreview.Iconimage_right_Selected = null;
             this.btnPreview.Iconimage_Selected = null;
@@ -168,7 +198,7 @@
             this.btnRemoveFiles.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnRemoveFiles.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveFiles.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnRemoveFiles.Iconimage = global::RemindMe.Properties.Resources.bin;
+            this.btnRemoveFiles.Iconimage = global::RemindMe.Properties.Resources.Bin_white;
             this.btnRemoveFiles.Iconimage_right = null;
             this.btnRemoveFiles.Iconimage_right_Selected = null;
             this.btnRemoveFiles.Iconimage_Selected = null;
@@ -193,34 +223,6 @@
             this.btnRemoveFiles.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveFiles.Click += new System.EventHandler(this.btnRemoveFiles_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(514, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 16);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Show File Path";
-            // 
-            // bunifuSwitch1
-            // 
-            this.bunifuSwitch1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuSwitch1.BorderRadius = 0;
-            this.bunifuSwitch1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuSwitch1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bunifuSwitch1.Location = new System.Drawing.Point(610, 18);
-            this.bunifuSwitch1.Name = "bunifuSwitch1";
-            this.bunifuSwitch1.Oncolor = System.Drawing.Color.Black;
-            this.bunifuSwitch1.Onoffcolor = System.Drawing.Color.DarkGray;
-            this.bunifuSwitch1.Size = new System.Drawing.Size(51, 19);
-            this.bunifuSwitch1.TabIndex = 7;
-            this.bunifuSwitch1.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bunifuSwitch1.Value = true;
-            this.bunifuSwitch1.Click += new System.EventHandler(this.bunifuSwitch1_Click);
-            // 
             // btnAddFiles
             // 
             this.btnAddFiles.Activecolor = System.Drawing.Color.DimGray;
@@ -234,7 +236,7 @@
             this.btnAddFiles.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnAddFiles.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddFiles.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnAddFiles.Iconimage = global::RemindMe.Properties.Resources.if_add_126583;
+            this.btnAddFiles.Iconimage = global::RemindMe.Properties.Resources.Plus_white;
             this.btnAddFiles.Iconimage_right = null;
             this.btnAddFiles.Iconimage_right_Selected = null;
             this.btnAddFiles.Iconimage_Selected = null;
@@ -259,18 +261,16 @@
             this.btnAddFiles.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddFiles.Click += new System.EventHandler(this.btnAddFiles_Click);
             // 
-            // panel2
+            // pictureBox1
             // 
-            this.panel2.Controls.Add(this.lvSoundFiles);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 58);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(666, 338);
-            this.panel2.TabIndex = 8;
-            // 
-            // tmrMusic
-            // 
-            this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
+            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.Sound_white;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox1.Location = new System.Drawing.Point(605, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(61, 58);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // UCSound
             // 
@@ -285,10 +285,10 @@
             this.Load += new System.EventHandler(this.UCSound_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlfooter.ResumeLayout(false);
             this.pnlfooter.PerformLayout();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

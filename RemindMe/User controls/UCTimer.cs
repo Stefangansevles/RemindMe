@@ -113,10 +113,7 @@ namespace RemindMe
             if (windowsDefaultSongs != null)
                 foreach (Songs item in windowsDefaultSongs)
                     if (item.SongFileName != "")
-                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
-
-            cbSound.Items.Remove(" Add files...");
-            cbSound.Items.Add(" Add files...");
+                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));            
         }
         private void tmrCountdown_Tick(object sender, EventArgs e)
         {

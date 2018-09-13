@@ -76,3 +76,5 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll.CodeAnalysisLog.xml
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll.lastcodeanalysissucceeded

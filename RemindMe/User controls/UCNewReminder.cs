@@ -38,6 +38,8 @@ namespace RemindMe
 
         UserControl callback;
 
+        AdvancedReminderForm AVRForm;
+
         /// <summary>
         /// Create a new usercontrol to manage reminders
         /// </summary>
@@ -45,12 +47,13 @@ namespace RemindMe
         public UCNewReminder(UserControl callback)
         {
             InitializeComponent();
+            AVRForm = new AdvancedReminderForm();
             this.callback = callback;
             FillSoundComboboxFromDatabase(cbSound);
             SetComboBoxHeight(cbSound.Handle, 24);
 
-            imgStop = Properties.Resources.stop_2x;
-            imgPlayResume = Properties.Resources.play_2x;
+            imgStop = Properties.Resources.Stop;
+            imgPlayResume = Properties.Resources.Play;
 
             btnPlaySound.Image = imgPlayResume;
 
@@ -224,7 +227,37 @@ namespace RemindMe
                 //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
                 pnlDayCheckBoxes_VisibleChanged(null, null);
 
+                //Now, let's see if this reminder has any advanced properties
+                AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
+                List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+                if (avrProps != null)
+                {
+                    if(avrProps.ShowReminder.HasValue)
+                        AVRForm.ShowReminder = (long)avrProps.ShowReminder;
 
+                    AVRForm.BatchScript = avrProps.BatchScript;
+                    if (BLSettings.GetSettings().EnableAdvancedReminders == 1)
+                    {
+                        cbAdvancedReminder.Visible = true;
+                        lblAdvancedReminders.Visible = true;
+                    }
+                    cbAdvancedReminder.Checked = rem.EnableAdvancedReminder == 1;
+
+                    if (!cbAdvancedReminder.Checked)
+                        lblAdvancedReminders.Text = "Disabled.";
+                    else
+                        lblAdvancedReminders.Text = "Enabled!";
+                }
+                if (avrFF != null)
+                {
+                    Dictionary<string, string> filesFolders = new Dictionary<string, string>();
+                    foreach (AdvancedReminderFilesFolders dic in avrFF)
+                    {
+                        if(!filesFolders.ContainsKey(dic.Path))
+                            filesFolders.Add(dic.Path, dic.Action);
+                    }
+                    AVRForm.FilesFolders = filesFolders;                    
+                }                
             }
             else
             {
@@ -897,10 +930,11 @@ namespace RemindMe
 
 
         private void btnConfirm_Click(object sender, EventArgs e)
-        {
+        {            
             BLIO.Log("User pressed confirm at reminder user control. Attempting to create/edit a reminder (UCNewReminder)");
             //set it to empty at first, the user may not have this option selected            
             string commaSeperatedDays = "";
+            long remId = -1;
 
             //Will be different based on what repeating method the user has selected
             if (!string.IsNullOrWhiteSpace(tbReminderName.Text) && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now || rbNoRepeat.Checked)) //for the radiobuton rbnorepeat it doesn't matter if the datetime pickers have dates from the past, because it checks the added dates in the cbMultipleDates ComboBox
@@ -945,7 +979,7 @@ namespace RemindMe
                     if (repeat == ReminderRepeatType.MONTHLY)
                     {
                         if (cbMonthlyDays.Items.Count > 0)
-                            BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                            remId = BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                         else
                         {
                             //MakeScrollingPopupMessage("Can not create an reminder with monthly day(s) if there are no days selected!");
@@ -957,14 +991,14 @@ namespace RemindMe
 
                     else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
                         if (IsAtLeastOneWeeklyCheckboxSelected())
-                            BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                            remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                         else
                         {
                             //MakeScrollingPopupMessage("You do not have any day(s) selected!");
                             return;
                         }
                     else if (repeat == ReminderRepeatType.CUSTOM)
-                        BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                     else if (repeat == ReminderRepeatType.NONE)
                     {
                         DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
@@ -972,7 +1006,7 @@ namespace RemindMe
                             cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him.                                              
 
                         if (cbMultipleDates.Items.Count > 0)
-                            BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMultipleDatesComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                            remId = BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMultipleDatesComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
                         else
                         {
                             //MakeScrollingPopupMessage("You have not added any dates!\r\nIf you have selected a date and want only that one, press the \"+\" button");
@@ -980,14 +1014,14 @@ namespace RemindMe
                         }
                     }
                     else
-                        BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
 
                     BLIO.Log("New reminder succesfully created! (UCNewReminder)");
                 }
                 else
                 {//The user is editing an existing reminder                                        
                     editableReminder.Name = tbReminderName.Text;
-
+                    remId = editableReminder.Id;
                     if (rbEveryXCustom.Checked)
                     {
                         editableReminder.RepeatType = cbEveryXCustom.SelectedItem.ToString();
@@ -1064,14 +1098,15 @@ namespace RemindMe
                     BLIO.Log("Reminder with id " + editableReminder.Id + " edited! (UCNewReminder)");
                 }
 
-                //clear the entire listview an re-fill it so that the listview is ordered by date again                
 
+                //Assign AVR properties to this reminder                                
+                CreateAdvancedReminderProperties(remId);
             }
             else
             {
                 if (string.IsNullOrWhiteSpace(tbReminderName.Text))
                 {//User didnt fill in a title
-                    tbReminderName.BackColor = Color.Red;
+                    tbReminderName.LineIdleColor = Color.Red;
                     pbExclamationTitle.Visible = true;
                     toolTip1.SetToolTip(pbExclamationTitle, "Please enter a title.");
                 }
@@ -1094,6 +1129,37 @@ namespace RemindMe
             //HideScrollingPopupMessage();            
             btnBack_Click(sender, e);
 
+        }
+
+        private void CreateAdvancedReminderProperties(long remId)
+        {
+            Reminder rem = BLReminder.GetReminderById(remId);
+            rem.EnableAdvancedReminder = cbAdvancedReminder.Checked ? 1 : 0;
+            BLReminder.EditReminder(rem);
+
+            //Create AVR properties and insert them into the database
+            AdvancedReminderProperties avr = BLAVRProperties.GetAVRProperties(remId);
+            if (avr == null) { avr = new AdvancedReminderProperties(); }
+
+            avr.ShowReminder = AVRForm.ShowReminder;
+            avr.BatchScript = AVRForm.BatchScript;
+            avr.Remid = remId; //Link this reminder to it
+            BLAVRProperties.InsertAVRProperties(avr);
+
+            //Create AVR properties for file/folder actions and insert them into the database
+            AdvancedReminderFilesFolders avrFF = new AdvancedReminderFilesFolders();
+
+            //Delete all the files/folders with this id. Then insert the ones we have now in case the user deleted some
+            BLAVRProperties.DeleteAvrFilesFoldersById(remId);
+
+            foreach (KeyValuePair<string, string> entry in AVRForm.FilesFolders)
+            {
+                avrFF.Path = entry.Key;
+                avrFF.Id = -1;
+                avrFF.Action = entry.Value;
+                avrFF.Remid = remId; //Link this reminder to it
+                BLAVRProperties.InsertAVRFilesFolders(avrFF);
+            }
         }
 
         /// <summary>
@@ -1289,9 +1355,10 @@ namespace RemindMe
         {
             cbEvery.LocationChanged += cbEvery_VisibleChanged;
             dtpTime.Format = DateTimePickerFormat.Custom;
+            btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
 
             if (editableReminder == null)
-                ResetReminderForm();            
+                ResetReminderForm();                        
         }
 
         private void cbEvery_KeyUp(object sender, KeyEventArgs e)
@@ -1427,6 +1494,48 @@ namespace RemindMe
             }
         }
 
-      
+        private void tbReminderName_Enter(object sender, EventArgs e)
+        {
+            tbReminderName.LineIdleColor = Color.Silver;            
+            tbReminderName.HintForeColor = Color.White;
+        }
+
+        private void btnAdvancedReminder_Click(object sender, EventArgs e)
+        {                        
+            AVRForm.ShowDialog();
+            if(AVRForm.FilesFolders.Count > 0 || !string.IsNullOrWhiteSpace(AVRForm.BatchScript))
+            {
+                cbAdvancedReminder.Visible = true;                
+                lblAdvancedReminders.Visible = true;
+            }
+            else
+            {
+                cbAdvancedReminder.Visible = false;                
+                lblAdvancedReminders.Visible = false;
+            }
+        }
+
+        private void UCNewReminder_VisibleChanged(object sender, EventArgs e)
+        {
+            btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
+        }
+
+        private void tbReminderName_Leave(object sender, EventArgs e)
+        {
+            tbReminderName.HintForeColor = Color.DarkGray;
+        }
+
+        private void lblAdvancedReminders_Click(object sender, EventArgs e)
+        {
+            cbAdvancedReminder.Checked = !cbAdvancedReminder.Checked;            
+        }
+
+        private void cbAdvancedReminder_OnChange(object sender, EventArgs e)
+        {            
+            if(!cbAdvancedReminder.Checked)            
+                lblAdvancedReminders.Text = "Disabled.";            
+            else            
+                lblAdvancedReminders.Text = "Enabled!";           
+        }
     }
 }

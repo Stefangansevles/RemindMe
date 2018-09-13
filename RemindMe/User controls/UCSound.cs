@@ -20,8 +20,8 @@ namespace RemindMe
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         private IWMPMedia mediaInfo;
 
-        private Image imgPlay = Properties.Resources.play_2x;
-        private Image imgStop = Properties.Resources.stop_2x;
+        private Image imgPlay = Properties.Resources.Play;
+        private Image imgStop = Properties.Resources.Stop;
         public UCSound()
         {
             InitializeComponent();

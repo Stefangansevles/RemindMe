@@ -29,5 +29,6 @@ namespace Database.Entity
         public Nullable<long> DayOfMonth { get; set; }
         public Nullable<long> Hide { get; set; }
         public Nullable<long> Corrupted { get; set; }
+        public long EnableAdvancedReminder { get; set; }
     }
 }

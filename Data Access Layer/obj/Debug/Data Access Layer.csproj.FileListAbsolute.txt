@@ -78,3 +78,5 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Dat
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csprojResolveAssemblyReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Data Access Layer.dll.CodeAnalysisLog.xml
+D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Data Access Layer.dll.lastcodeanalysissucceeded

@@ -183,7 +183,7 @@
             this.label8.Size = new System.Drawing.Size(198, 17);
             this.label8.TabIndex = 101;
             this.label8.Text = "Enable advanced reminders";
-            this.label8.Visible = false;
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // cbAdvancedReminders
             // 
@@ -196,7 +196,7 @@
             this.cbAdvancedReminders.Name = "cbAdvancedReminders";
             this.cbAdvancedReminders.Size = new System.Drawing.Size(20, 20);
             this.cbAdvancedReminders.TabIndex = 100;
-            this.cbAdvancedReminders.Visible = false;
+            this.cbAdvancedReminders.OnChange += new System.EventHandler(this.cbAdvancedReminders_OnChange);
             // 
             // panel1
             // 

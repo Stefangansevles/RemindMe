@@ -24,5 +24,6 @@ namespace Database.Entity
         public long EnableQuickTimer { get; set; }
         public string LastVersion { get; set; }
         public string DefaultTimerSound { get; set; }
+        public Nullable<long> EnableAdvancedReminders { get; set; }
     }
 }

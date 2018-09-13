@@ -32,9 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCNewReminder));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnClear = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnConfirm = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnBack = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label2 = new System.Windows.Forms.Label();
             this.cbSound = new System.Windows.Forms.ComboBox();
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
@@ -77,14 +74,9 @@
             this.cbThursday = new Bunifu.Framework.UI.BunifuCheckbox();
             this.cbMonday = new Bunifu.Framework.UI.BunifuCheckbox();
             this.tbNote = new System.Windows.Forms.TextBox();
-            this.tbReminderName = new System.Windows.Forms.TextBox();
             this.btnAddMonthlyDay = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnRemoveMonthlyDay = new Bunifu.Framework.UI.BunifuFlatButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.pbExclamationDate = new System.Windows.Forms.PictureBox();
-            this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
-            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
-            this.btnPlaySound = new Bunifu.Framework.UI.BunifuTileButton();
             this.AddDaysMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addMinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,14 +85,25 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.resetTimeDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.tbReminderName = new Bunifu.Framework.UI.BunifuMaterialTextbox();
+            this.lblAdvancedReminders = new System.Windows.Forms.Label();
+            this.cbAdvancedReminder = new Bunifu.Framework.UI.BunifuCheckbox();
+            this.btnAdvancedReminder = new Bunifu.Framework.UI.BunifuTileButton();
+            this.pbExclamationDate = new System.Windows.Forms.PictureBox();
+            this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
+            this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
+            this.btnPlaySound = new Bunifu.Framework.UI.BunifuTileButton();
+            this.btnClear = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnConfirm = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnBack = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel1.SuspendLayout();
             this.groupRepeatRadiobuttons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             this.pnlDayCheckBoxes.SuspendLayout();
+            this.AddDaysMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
-            this.AddDaysMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -125,120 +128,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(666, 40);
             this.panel1.TabIndex = 7;
-            // 
-            // btnClear
-            // 
-            this.btnClear.Activecolor = System.Drawing.Color.DimGray;
-            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnClear.BorderRadius = 5;
-            this.btnClear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnClear.ButtonText = "    Clear";
-            this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClear.DisabledColor = System.Drawing.Color.Gray;
-            this.btnClear.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnClear.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnClear.Iconimage = global::RemindMe.Properties.Resources.if_cancel_216128;
-            this.btnClear.Iconimage_right = null;
-            this.btnClear.Iconimage_right_Selected = null;
-            this.btnClear.Iconimage_Selected = null;
-            this.btnClear.IconMarginLeft = 0;
-            this.btnClear.IconMarginRight = 0;
-            this.btnClear.IconRightVisible = true;
-            this.btnClear.IconRightZoom = 0D;
-            this.btnClear.IconVisible = true;
-            this.btnClear.IconZoom = 50D;
-            this.btnClear.IsTab = false;
-            this.btnClear.Location = new System.Drawing.Point(236, 0);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnClear.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnClear.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnClear.selected = false;
-            this.btnClear.Size = new System.Drawing.Size(118, 40);
-            this.btnClear.TabIndex = 8;
-            this.btnClear.Text = "    Clear";
-            this.btnClear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClear.Textcolor = System.Drawing.Color.White;
-            this.btnClear.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.Activecolor = System.Drawing.Color.DimGray;
-            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnConfirm.BorderRadius = 5;
-            this.btnConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnConfirm.ButtonText = "    Confirm";
-            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfirm.DisabledColor = System.Drawing.Color.Gray;
-            this.btnConfirm.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnConfirm.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Iconimage = global::RemindMe.Properties.Resources.if_Check_circle_2202263;
-            this.btnConfirm.Iconimage_right = null;
-            this.btnConfirm.Iconimage_right_Selected = null;
-            this.btnConfirm.Iconimage_Selected = null;
-            this.btnConfirm.IconMarginLeft = 0;
-            this.btnConfirm.IconMarginRight = 0;
-            this.btnConfirm.IconRightVisible = true;
-            this.btnConfirm.IconRightZoom = 0D;
-            this.btnConfirm.IconVisible = true;
-            this.btnConfirm.IconZoom = 50D;
-            this.btnConfirm.IsTab = false;
-            this.btnConfirm.Location = new System.Drawing.Point(118, 0);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnConfirm.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnConfirm.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnConfirm.selected = false;
-            this.btnConfirm.Size = new System.Drawing.Size(118, 40);
-            this.btnConfirm.TabIndex = 7;
-            this.btnConfirm.Text = "    Confirm";
-            this.btnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfirm.Textcolor = System.Drawing.Color.White;
-            this.btnConfirm.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Activecolor = System.Drawing.Color.DimGray;
-            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBack.BorderRadius = 5;
-            this.btnBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnBack.ButtonText = "    Back";
-            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBack.DisabledColor = System.Drawing.Color.Gray;
-            this.btnBack.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnBack.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnBack.Iconimage = global::RemindMe.Properties.Resources.if_arrow_back_216437;
-            this.btnBack.Iconimage_right = null;
-            this.btnBack.Iconimage_right_Selected = null;
-            this.btnBack.Iconimage_Selected = null;
-            this.btnBack.IconMarginLeft = 0;
-            this.btnBack.IconMarginRight = 0;
-            this.btnBack.IconRightVisible = true;
-            this.btnBack.IconRightZoom = 0D;
-            this.btnBack.IconVisible = true;
-            this.btnBack.IconZoom = 50D;
-            this.btnBack.IsTab = false;
-            this.btnBack.Location = new System.Drawing.Point(0, 0);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnBack.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnBack.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnBack.selected = false;
-            this.btnBack.Size = new System.Drawing.Size(118, 40);
-            this.btnBack.TabIndex = 6;
-            this.btnBack.Text = "    Back";
-            this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBack.Textcolor = System.Drawing.Color.White;
-            this.btnBack.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // label2
             // 
@@ -337,8 +226,8 @@
             // 
             // btnAddDays
             // 
-            this.btnAddDays.BackColor = System.Drawing.Color.DarkGray;
-            this.btnAddDays.color = System.Drawing.Color.DarkGray;
+            this.btnAddDays.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAddDays.color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnAddDays.colorActive = System.Drawing.Color.Silver;
             this.btnAddDays.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddDays.Font = new System.Drawing.Font("Century Gothic", 15.75F);
@@ -651,7 +540,7 @@
             this.cbEvery.Name = "cbEvery";
             this.cbEvery.Size = new System.Drawing.Size(76, 21);
             this.cbEvery.TabIndex = 84;
-            this.cbEvery.Visible = false;            
+            this.cbEvery.Visible = false;
             this.cbEvery.VisibleChanged += new System.EventHandler(this.cbEvery_VisibleChanged);
             this.cbEvery.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbEvery_KeyUp);
             // 
@@ -707,7 +596,7 @@
             // 
             // cbSaturday
             // 
-            this.cbSaturday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbSaturday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbSaturday.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbSaturday.Checked = false;
             this.cbSaturday.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -719,7 +608,7 @@
             // 
             // cbFriday
             // 
-            this.cbFriday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbFriday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbFriday.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbFriday.Checked = false;
             this.cbFriday.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -770,7 +659,7 @@
             // 
             // cbWednesday
             // 
-            this.cbWednesday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbWednesday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbWednesday.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbWednesday.Checked = false;
             this.cbWednesday.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -795,7 +684,7 @@
             // 
             // cbTuesday
             // 
-            this.cbTuesday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbTuesday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbTuesday.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbTuesday.Checked = false;
             this.cbTuesday.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -820,7 +709,7 @@
             // 
             // cbSunday
             // 
-            this.cbSunday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbSunday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbSunday.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbSunday.Checked = false;
             this.cbSunday.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -832,7 +721,7 @@
             // 
             // cbThursday
             // 
-            this.cbThursday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbThursday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbThursday.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbThursday.Checked = false;
             this.cbThursday.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -844,7 +733,7 @@
             // 
             // cbMonday
             // 
-            this.cbMonday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbMonday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbMonday.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbMonday.Checked = false;
             this.cbMonday.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -867,16 +756,6 @@
             this.tbNote.TabIndex = 91;
             this.tbNote.LocationChanged += new System.EventHandler(this.tbNote_LocationChanged);
             this.tbNote.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbNote_KeyDown);
-            // 
-            // tbReminderName
-            // 
-            this.tbReminderName.BackColor = System.Drawing.Color.DimGray;
-            this.tbReminderName.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbReminderName.ForeColor = System.Drawing.Color.White;
-            this.tbReminderName.Location = new System.Drawing.Point(120, 14);
-            this.tbReminderName.Name = "tbReminderName";
-            this.tbReminderName.Size = new System.Drawing.Size(366, 26);
-            this.tbReminderName.TabIndex = 104;
             // 
             // btnAddMonthlyDay
             // 
@@ -957,59 +836,6 @@
             this.toolTip1.InitialDelay = 0;
             this.toolTip1.ReshowDelay = 0;
             // 
-            // pbExclamationDate
-            // 
-            this.pbExclamationDate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationDate.BackgroundImage")));
-            this.pbExclamationDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationDate.Location = new System.Drawing.Point(495, 93);
-            this.pbExclamationDate.Name = "pbExclamationDate";
-            this.pbExclamationDate.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationDate.TabIndex = 109;
-            this.pbExclamationDate.TabStop = false;
-            this.pbExclamationDate.Visible = false;
-            // 
-            // pbExclamationWorkday
-            // 
-            this.pbExclamationWorkday.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationWorkday.BackgroundImage")));
-            this.pbExclamationWorkday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationWorkday.Location = new System.Drawing.Point(495, 93);
-            this.pbExclamationWorkday.Name = "pbExclamationWorkday";
-            this.pbExclamationWorkday.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationWorkday.TabIndex = 106;
-            this.pbExclamationWorkday.TabStop = false;
-            this.pbExclamationWorkday.Visible = false;
-            // 
-            // pbExclamationTitle
-            // 
-            this.pbExclamationTitle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationTitle.BackgroundImage")));
-            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationTitle.Location = new System.Drawing.Point(492, 14);
-            this.pbExclamationTitle.Name = "pbExclamationTitle";
-            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
-            this.pbExclamationTitle.TabIndex = 105;
-            this.pbExclamationTitle.TabStop = false;
-            this.pbExclamationTitle.Visible = false;
-            // 
-            // btnPlaySound
-            // 
-            this.btnPlaySound.BackColor = System.Drawing.Color.DarkGray;
-            this.btnPlaySound.color = System.Drawing.Color.DarkGray;
-            this.btnPlaySound.colorActive = System.Drawing.Color.Silver;
-            this.btnPlaySound.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPlaySound.Font = new System.Drawing.Font("Century Gothic", 15.75F);
-            this.btnPlaySound.ForeColor = System.Drawing.Color.White;
-            this.btnPlaySound.Image = global::RemindMe.Properties.Resources.play_2x;
-            this.btnPlaySound.ImagePosition = 0;
-            this.btnPlaySound.ImageZoom = 100;
-            this.btnPlaySound.LabelPosition = 0;
-            this.btnPlaySound.LabelText = "";
-            this.btnPlaySound.Location = new System.Drawing.Point(456, 45);
-            this.btnPlaySound.Margin = new System.Windows.Forms.Padding(6);
-            this.btnPlaySound.Name = "btnPlaySound";
-            this.btnPlaySound.Size = new System.Drawing.Size(30, 26);
-            this.btnPlaySound.TabIndex = 67;
-            this.btnPlaySound.Click += new System.EventHandler(this.bunifuTileButton1_Click);
-            // 
             // AddDaysMenuStrip
             // 
             this.AddDaysMenuStrip.BackColor = System.Drawing.Color.DimGray;
@@ -1083,11 +909,251 @@
             this.dtpDate.TabIndex = 110;
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpTime_ValueChanged);
             // 
+            // tbReminderName
+            // 
+            this.tbReminderName.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbReminderName.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbReminderName.ForeColor = System.Drawing.Color.White;
+            this.tbReminderName.HintForeColor = System.Drawing.Color.DarkGray;
+            this.tbReminderName.HintText = "Reminder name";
+            this.tbReminderName.isPassword = false;
+            this.tbReminderName.LineFocusedColor = System.Drawing.Color.White;
+            this.tbReminderName.LineIdleColor = System.Drawing.Color.Silver;
+            this.tbReminderName.LineMouseHoverColor = System.Drawing.Color.White;
+            this.tbReminderName.LineThickness = 3;
+            this.tbReminderName.Location = new System.Drawing.Point(118, 7);
+            this.tbReminderName.Margin = new System.Windows.Forms.Padding(4);
+            this.tbReminderName.Name = "tbReminderName";
+            this.tbReminderName.Size = new System.Drawing.Size(367, 33);
+            this.tbReminderName.TabIndex = 112;
+            this.tbReminderName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbReminderName.Enter += new System.EventHandler(this.tbReminderName_Enter);
+            this.tbReminderName.Leave += new System.EventHandler(this.tbReminderName_Leave);
+            // 
+            // lblAdvancedReminders
+            // 
+            this.lblAdvancedReminders.AutoSize = true;
+            this.lblAdvancedReminders.BackColor = System.Drawing.Color.Transparent;
+            this.lblAdvancedReminders.Font = new System.Drawing.Font("Century Gothic", 8F, System.Drawing.FontStyle.Bold);
+            this.lblAdvancedReminders.ForeColor = System.Drawing.Color.White;
+            this.lblAdvancedReminders.Location = new System.Drawing.Point(608, 85);
+            this.lblAdvancedReminders.Name = "lblAdvancedReminders";
+            this.lblAdvancedReminders.Size = new System.Drawing.Size(54, 15);
+            this.lblAdvancedReminders.TabIndex = 114;
+            this.lblAdvancedReminders.Text = "Enabled!";
+            this.lblAdvancedReminders.Visible = false;
+            this.lblAdvancedReminders.Click += new System.EventHandler(this.lblAdvancedReminders_Click);
+            // 
+            // cbAdvancedReminder
+            // 
+            this.cbAdvancedReminder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cbAdvancedReminder.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbAdvancedReminder.Checked = true;
+            this.cbAdvancedReminder.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cbAdvancedReminder.ForeColor = System.Drawing.Color.White;
+            this.cbAdvancedReminder.Location = new System.Drawing.Point(587, 84);
+            this.cbAdvancedReminder.Name = "cbAdvancedReminder";
+            this.cbAdvancedReminder.Size = new System.Drawing.Size(20, 20);
+            this.cbAdvancedReminder.TabIndex = 113;
+            this.cbAdvancedReminder.Visible = false;
+            this.cbAdvancedReminder.OnChange += new System.EventHandler(this.cbAdvancedReminder_OnChange);
+            // 
+            // btnAdvancedReminder
+            // 
+            this.btnAdvancedReminder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAdvancedReminder.color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAdvancedReminder.colorActive = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnAdvancedReminder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAdvancedReminder.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdvancedReminder.ForeColor = System.Drawing.Color.White;
+            this.btnAdvancedReminder.Image = global::RemindMe.Properties.Resources.RemindMe;
+            this.btnAdvancedReminder.ImagePosition = 10;
+            this.btnAdvancedReminder.ImageZoom = 50;
+            this.btnAdvancedReminder.LabelPosition = 27;
+            this.btnAdvancedReminder.LabelText = "Advanced";
+            this.btnAdvancedReminder.Location = new System.Drawing.Point(587, 7);
+            this.btnAdvancedReminder.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAdvancedReminder.Name = "btnAdvancedReminder";
+            this.btnAdvancedReminder.Size = new System.Drawing.Size(70, 70);
+            this.btnAdvancedReminder.TabIndex = 111;
+            this.btnAdvancedReminder.Click += new System.EventHandler(this.btnAdvancedReminder_Click);
+            // 
+            // pbExclamationDate
+            // 
+            this.pbExclamationDate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationDate.BackgroundImage")));
+            this.pbExclamationDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationDate.Location = new System.Drawing.Point(495, 93);
+            this.pbExclamationDate.Name = "pbExclamationDate";
+            this.pbExclamationDate.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationDate.TabIndex = 109;
+            this.pbExclamationDate.TabStop = false;
+            this.pbExclamationDate.Visible = false;
+            // 
+            // pbExclamationWorkday
+            // 
+            this.pbExclamationWorkday.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationWorkday.BackgroundImage")));
+            this.pbExclamationWorkday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationWorkday.Location = new System.Drawing.Point(495, 93);
+            this.pbExclamationWorkday.Name = "pbExclamationWorkday";
+            this.pbExclamationWorkday.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationWorkday.TabIndex = 106;
+            this.pbExclamationWorkday.TabStop = false;
+            this.pbExclamationWorkday.Visible = false;
+            // 
+            // pbExclamationTitle
+            // 
+            this.pbExclamationTitle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationTitle.BackgroundImage")));
+            this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbExclamationTitle.Location = new System.Drawing.Point(492, 14);
+            this.pbExclamationTitle.Name = "pbExclamationTitle";
+            this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
+            this.pbExclamationTitle.TabIndex = 105;
+            this.pbExclamationTitle.TabStop = false;
+            this.pbExclamationTitle.Visible = false;
+            // 
+            // btnPlaySound
+            // 
+            this.btnPlaySound.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnPlaySound.color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnPlaySound.colorActive = System.Drawing.Color.Silver;
+            this.btnPlaySound.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPlaySound.Font = new System.Drawing.Font("Century Gothic", 15.75F);
+            this.btnPlaySound.ForeColor = System.Drawing.Color.White;
+            this.btnPlaySound.Image = global::RemindMe.Properties.Resources.Play;
+            this.btnPlaySound.ImagePosition = 0;
+            this.btnPlaySound.ImageZoom = 90;
+            this.btnPlaySound.LabelPosition = 0;
+            this.btnPlaySound.LabelText = "";
+            this.btnPlaySound.Location = new System.Drawing.Point(456, 45);
+            this.btnPlaySound.Margin = new System.Windows.Forms.Padding(6);
+            this.btnPlaySound.Name = "btnPlaySound";
+            this.btnPlaySound.Size = new System.Drawing.Size(30, 26);
+            this.btnPlaySound.TabIndex = 67;
+            this.btnPlaySound.Click += new System.EventHandler(this.bunifuTileButton1_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Activecolor = System.Drawing.Color.DimGray;
+            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClear.BorderRadius = 5;
+            this.btnClear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnClear.ButtonText = "    Clear";
+            this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClear.DisabledColor = System.Drawing.Color.Gray;
+            this.btnClear.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnClear.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnClear.Iconimage = global::RemindMe.Properties.Resources.Bin_white;
+            this.btnClear.Iconimage_right = null;
+            this.btnClear.Iconimage_right_Selected = null;
+            this.btnClear.Iconimage_Selected = null;
+            this.btnClear.IconMarginLeft = 0;
+            this.btnClear.IconMarginRight = 0;
+            this.btnClear.IconRightVisible = true;
+            this.btnClear.IconRightZoom = 0D;
+            this.btnClear.IconVisible = true;
+            this.btnClear.IconZoom = 50D;
+            this.btnClear.IsTab = false;
+            this.btnClear.Location = new System.Drawing.Point(236, 0);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnClear.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnClear.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnClear.selected = false;
+            this.btnClear.Size = new System.Drawing.Size(118, 40);
+            this.btnClear.TabIndex = 8;
+            this.btnClear.Text = "    Clear";
+            this.btnClear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClear.Textcolor = System.Drawing.Color.White;
+            this.btnClear.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Activecolor = System.Drawing.Color.DimGray;
+            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnConfirm.BorderRadius = 5;
+            this.btnConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnConfirm.ButtonText = "    Confirm";
+            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConfirm.DisabledColor = System.Drawing.Color.Gray;
+            this.btnConfirm.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnConfirm.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnConfirm.Iconimage = global::RemindMe.Properties.Resources.Check_white;
+            this.btnConfirm.Iconimage_right = null;
+            this.btnConfirm.Iconimage_right_Selected = null;
+            this.btnConfirm.Iconimage_Selected = null;
+            this.btnConfirm.IconMarginLeft = 0;
+            this.btnConfirm.IconMarginRight = 0;
+            this.btnConfirm.IconRightVisible = true;
+            this.btnConfirm.IconRightZoom = 0D;
+            this.btnConfirm.IconVisible = true;
+            this.btnConfirm.IconZoom = 60D;
+            this.btnConfirm.IsTab = false;
+            this.btnConfirm.Location = new System.Drawing.Point(118, 0);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnConfirm.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnConfirm.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnConfirm.selected = false;
+            this.btnConfirm.Size = new System.Drawing.Size(118, 40);
+            this.btnConfirm.TabIndex = 7;
+            this.btnConfirm.Text = "    Confirm";
+            this.btnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfirm.Textcolor = System.Drawing.Color.White;
+            this.btnConfirm.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.Activecolor = System.Drawing.Color.DimGray;
+            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBack.BorderRadius = 5;
+            this.btnBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnBack.ButtonText = "    Back";
+            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBack.DisabledColor = System.Drawing.Color.Gray;
+            this.btnBack.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnBack.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnBack.Iconimage = global::RemindMe.Properties.Resources.Arrow_back;
+            this.btnBack.Iconimage_right = null;
+            this.btnBack.Iconimage_right_Selected = null;
+            this.btnBack.Iconimage_Selected = null;
+            this.btnBack.IconMarginLeft = 0;
+            this.btnBack.IconMarginRight = 0;
+            this.btnBack.IconRightVisible = true;
+            this.btnBack.IconRightZoom = 0D;
+            this.btnBack.IconVisible = true;
+            this.btnBack.IconZoom = 50D;
+            this.btnBack.IsTab = false;
+            this.btnBack.Location = new System.Drawing.Point(0, 0);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnBack.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnBack.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnBack.selected = false;
+            this.btnBack.Size = new System.Drawing.Size(118, 40);
+            this.btnBack.TabIndex = 6;
+            this.btnBack.Text = "    Back";
+            this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBack.Textcolor = System.Drawing.Color.White;
+            this.btnBack.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // UCNewReminder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.lblAdvancedReminders);
+            this.Controls.Add(this.cbAdvancedReminder);
+            this.Controls.Add(this.tbReminderName);
+            this.Controls.Add(this.btnAdvancedReminder);
             this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.pbExclamationDate);
             this.Controls.Add(this.btnRemoveMonthlyDay);
@@ -1098,7 +1164,6 @@
             this.Controls.Add(this.cbEveryXCustom);
             this.Controls.Add(this.tbNote);
             this.Controls.Add(this.numEveryXDays);
-            this.Controls.Add(this.tbReminderName);
             this.Controls.Add(this.pnlDayCheckBoxes);
             this.Controls.Add(this.lblEvery);
             this.Controls.Add(this.lblNote);
@@ -1121,16 +1186,17 @@
             this.Name = "UCNewReminder";
             this.Size = new System.Drawing.Size(666, 436);
             this.Load += new System.EventHandler(this.UCNewReminder_Load);
+            this.VisibleChanged += new System.EventHandler(this.UCNewReminder_VisibleChanged);
             this.panel1.ResumeLayout(false);
             this.groupRepeatRadiobuttons.ResumeLayout(false);
             this.groupRepeatRadiobuttons.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             this.pnlDayCheckBoxes.ResumeLayout(false);
             this.pnlDayCheckBoxes.PerformLayout();
+            this.AddDaysMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
-            this.AddDaysMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1185,7 +1251,6 @@
         private Bunifu.Framework.UI.BunifuCheckbox cbSunday;
         private Bunifu.Framework.UI.BunifuCheckbox cbThursday;
         public System.Windows.Forms.TextBox tbNote;
-        public System.Windows.Forms.TextBox tbReminderName;
         private System.Windows.Forms.PictureBox pbExclamationTitle;
         private System.Windows.Forms.PictureBox pbExclamationWorkday;
         private Bunifu.Framework.UI.BunifuFlatButton btnAddMonthlyDay;
@@ -1200,5 +1265,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.ToolStripMenuItem resetTimeDateToolStripMenuItem;
+        private Bunifu.Framework.UI.BunifuTileButton btnAdvancedReminder;
+        private Bunifu.Framework.UI.BunifuMaterialTextbox tbReminderName;
+        private System.Windows.Forms.Label lblAdvancedReminders;
+        private Bunifu.Framework.UI.BunifuCheckbox cbAdvancedReminder;
     }
 }

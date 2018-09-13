@@ -18,6 +18,7 @@
     <Property Name="DayOfMonth" Type="Int64" />
     <Property Name="Hide" Type="Int64" />
     <Property Name="Corrupted" Type="Int64" />
+    <Property Name="EnableAdvancedReminder" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>
@@ -32,6 +33,7 @@
     <Property Name="EnableQuickTimer" Type="Int64" Nullable="false" />
     <Property Name="LastVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="DefaultTimerSound" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="EnableAdvancedReminders" Type="Int64" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>
@@ -48,6 +50,8 @@
     <EntitySet Name="PopupDimensions" EntityType="RemindMeDatabaseModel.PopupDimensions" />
     <EntitySet Name="ListviewColumnSizes" EntityType="RemindMeDatabaseModel.ListviewColumnSizes" />
     <EntitySet Name="Hotkeys" EntityType="RemindMeDatabaseModel.Hotkeys" />
+    <EntitySet Name="AdvancedReminderFilesFolders" EntityType="RemindMeDatabaseModel.AdvancedReminderFilesFolders" />
+    <EntitySet Name="AdvancedReminderProperties" EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" />
   </EntityContainer>
   <EntityType Name="PopupDimensions">
     <Key>
@@ -77,5 +81,23 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="Key" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="Modifiers" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AdvancedReminderFilesFolders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Action" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Remid" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdvancedReminderProperties">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Remid" Type="Int64" Nullable="false" />
+    <Property Name="BatchScript" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="ShowReminder" Type="Int64" />
   </EntityType>
 </Schema>
