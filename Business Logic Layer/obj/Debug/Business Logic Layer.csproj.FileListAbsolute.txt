@@ -96,3 +96,7 @@ C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Busi
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CopyComplete
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.dll.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Database.Entity.dll.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CoreCompileInputs.cache
