@@ -100,8 +100,6 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeOp
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCFiles.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCBatch.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCGeneral.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.CodeAnalysisLog.xml
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.lastcodeanalysissucceeded
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\obj\Debug\RemindMe.csprojAssemblyReference.cache
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\obj\Debug\Interop.WMPLib.dll
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\obj\Debug\RemindMe.csproj.ResolveComReference.cache
