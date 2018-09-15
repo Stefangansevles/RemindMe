@@ -276,13 +276,18 @@ namespace Data_Access_Layer
         /// </summary>
         /// <param name="rem">The reminder you wish to remove</param>
         public static void PermanentelyDeleteReminder(Reminder rem)
-        {        
+        {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 db.Reminder.Attach(rem);
                 db.Reminder.Remove(rem);
+
+                DLAVRProperties.DeleteAvrFilesFoldersById(rem.Id);
+                DLAVRProperties.DeleteAvrProperties(rem.Id);
+
                 SaveAndCloseDataBase(db);
             }
+
         }
 
         /// <summary>
@@ -316,11 +321,14 @@ namespace Data_Access_Layer
                     if (GetReminderById(rem.Id) != null) //Check if the reminder exists
                     {
                         db.Reminder.Attach(rem);
-                        db.Reminder.Remove(rem);
+                        db.Reminder.Remove(rem);                        
                     }
+
+                    DLAVRProperties.DeleteAvrFilesFoldersById(rem.Id);
+                    DLAVRProperties.DeleteAvrProperties(rem.Id);
                 }
                 SaveAndCloseDataBase(db);
-            }
+            }                        
         }
 
         /// <summary>

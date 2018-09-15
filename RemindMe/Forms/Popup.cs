@@ -20,13 +20,12 @@ namespace RemindMe
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         private IWMPMedia mediaInfo;
-
-        //Will be true if the user pressed the OK button to close the reminder
-        private bool formClosedCorrectly = false;
+        
         public Popup(Reminder rem)
         {
             BLIO.Log("Constructing Popup reminderId = " + rem.Id);
             InitializeComponent();
+            this.Opacity = 0;
             this.rem = rem;
 
             this.Size = new Size((int)BLPopupDimensions.GetPopupDimensions().FormWidth, (int)BLPopupDimensions.GetPopupDimensions().FormHeight);
@@ -69,8 +68,69 @@ namespace RemindMe
 
         private void Popup2_Load(object sender, EventArgs e)
         {
-            //Set the maximum width of the panel, so that there won't be a horizontal scrollbar, but only a vertical one(if there is a lot of text)            
+            BLIO.Log("Popup_load");
+            AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
+            List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+            if (avrProps != null) //Not null? this reminder has advanced properties.
+            {
+                BLIO.Log("Reminder " + rem.Id + " has advanced reminder properties!");
+                if (!string.IsNullOrWhiteSpace(avrProps.BatchScript))
+                    BLIO.ExecuteBatch(avrProps.BatchScript);
+
+                this.Visible = avrProps.ShowReminder == 1;
+            }
+
+            if(avrFF != null && avrFF.Count > 0)
+            {
+                //Go through each action, for example c:\test , delete. c:\sometest\testFile.txt , open
+                foreach(AdvancedReminderFilesFolders avr in avrFF)
+                {
+                    if (avr.Action.ToString() == "Open")
+                    {
+                        if(File.Exists(avr.Path) || Directory.Exists(avr.Path))
+                            System.Diagnostics.Process.Start(avr.Path);
+                    }
+                    else if (avr.Action.ToString() == "Delete")
+                    {
+                        FileAttributes attr = File.GetAttributes(avr.Path);
+                        //Check if it's a file or a directory
+                        if (File.Exists(avr.Path))
+                            File.Delete(avr.Path);
+                        else if (Directory.Exists(avr.Path))                        
+                            Directory.Delete(avr.Path,true);                       
+                    }
+                }
+            }            
+
+            if (this.Visible)
+                tmrFadeIn.Start();
+            else
+            {
+                btnOk_Click(sender,e);
+                return;
+            }
             
+
+            //Play the sound
+            if (rem.SoundFilePath != null && rem.SoundFilePath != "")
+            {
+
+                if (System.IO.File.Exists(rem.SoundFilePath))
+                {
+                    BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
+                    myPlayer.URL = rem.SoundFilePath;
+                    myPlayer.controls.play();
+                    BLIO.Log("Playing sound");
+                }
+                else
+                {
+                    BLIO.Log("SoundFilePath not null / empty but doesn't exist on the hard drive!");
+                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxReason.OK);
+                    //make sure its removed from the reminder
+                    rem.SoundFilePath = "";
+                }
+            }
+
             FlashWindowHelper.Start(this);
             //this.MaximumSize = this.Size;
 
@@ -89,25 +149,7 @@ namespace RemindMe
             lblTitle.Text = rem.Name;
             lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
 
-            //Play the sound
-            if (rem.SoundFilePath != null && rem.SoundFilePath != "")
-            {
-                
-                if (System.IO.File.Exists(rem.SoundFilePath))
-                {
-                    BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
-                    myPlayer.URL = rem.SoundFilePath;
-                    myPlayer.controls.play();
-                    BLIO.Log("Playing sound");
-                }
-                else
-                {
-                    BLIO.Log("SoundFilePath not null / empty but doesn't exist on the hard drive!");
-                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxReason.OK);
-                    //make sure its removed from the reminder
-                    rem.SoundFilePath = "";
-                }
-            }
+            
 
             if (rem.Date == null)
                 rem.Date = DateTime.Now.ToString();
@@ -117,7 +159,7 @@ namespace RemindMe
             if (rem.PostponeDate == null)
                 lblDate.Text = "This reminder was set for " + rem.Date.Split(',')[0];
             else
-                lblDate.Text = "This reminder was set for " + rem.PostponeDate;
+                lblDate.Text = "This reminder was set for " + rem.PostponeDate;            
         }
 
         private void lblMinimize_MouseEnter(object sender, EventArgs e)
@@ -214,7 +256,7 @@ namespace RemindMe
                     BLIO.Log("DETECTED NONEXISTING REMINDER WITH ID " + rem.Id + ", Attempted to press OK on a reminder that somehow doesn't exist");
                     goto close;
                 }
-                formClosedCorrectly = true;
+                
                 if (cbPostpone.Checked)
                 {
                     BLIO.Log("Postponing reminder with id " + rem.Id);
@@ -258,6 +300,13 @@ namespace RemindMe
         {
             if (e.CloseReason == CloseReason.WindowsShutDown)
                 e.Cancel = true;
+        }
+
+        private void tmrFadeIn_Tick(object sender, EventArgs e)
+        {
+            this.Opacity += 0.1;
+            if (this.Opacity >= 1)
+                tmrFadeIn.Stop();
         }
     }
 }

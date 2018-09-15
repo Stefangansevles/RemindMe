@@ -110,6 +110,31 @@ namespace Data_Access_Layer
             }
         }
 
+        public static void DeleteAvrProperties(long id)
+        {
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                AdvancedReminderProperties prop = GetAVRProperties(id);
+                db.AdvancedReminderProperties.Attach(prop);
+                db.AdvancedReminderProperties.Remove(prop);
+
+                db.SaveChanges();
+                db.Dispose();
+            }
+        }
+
+        public static void DeleteAvrProperties(AdvancedReminderProperties prop)
+        {
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {                
+                db.AdvancedReminderProperties.Attach(prop);
+                db.AdvancedReminderProperties.Remove(prop);
+
+                db.SaveChanges();
+                db.Dispose();
+            }
+        }
+
 
     }
 }

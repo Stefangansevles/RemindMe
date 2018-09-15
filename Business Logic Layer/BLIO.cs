@@ -59,6 +59,7 @@ namespace Business_Logic_Layer
                 tmrAllowEmail.Start();
         }
 
+
         private static void TmrAllowEmail_Tick(object sender, EventArgs e)
         {
             if (!allowEmail) //Not allowed? allow.
@@ -114,7 +115,22 @@ namespace Business_Logic_Layer
             return Path.GetExtension(path) == ".remindme";            
         }
 
+        /// <summary>
+        /// Creates a batch file, puts the batch script into the file and runs it.
+        /// </summary>
+        /// <param name="batch">The batch script you want to execute</param>
+        public static void ExecuteBatch(string batch)
+        {            
+            using (StreamWriter wr = new StreamWriter(IOVariables.batchFile))
+            {
+                wr.Write("@echo **Executing advanced reminder script (RemindMe)**\r\n" + batch);
+            }
 
+            if(!File.Exists(IOVariables.batchFile))
+                throw new FileNotFoundException("Could not found the file neccesary to execute a batch script");
+
+            System.Diagnostics.Process.Start(IOVariables.batchFile);
+        }
        
                                        
         /// <summary>

@@ -54,6 +54,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pbIcon = new System.Windows.Forms.PictureBox();
+            this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.pnlHeaderText.SuspendLayout();
             this.pnlMainGradient.SuspendLayout();
             this.pnlText.SuspendLayout();
@@ -376,6 +377,11 @@
             this.pbIcon.TabIndex = 3;
             this.pbIcon.TabStop = false;
             // 
+            // tmrFadeIn
+            // 
+            this.tmrFadeIn.Interval = 10;
+            this.tmrFadeIn.Tick += new System.EventHandler(this.tmrFadeIn_Tick);
+            // 
             // Popup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,5 +439,6 @@
         private System.Windows.Forms.Panel pnlText;
         public System.Windows.Forms.Label lblTitle;
         public System.Windows.Forms.Label lblNoteText;
+        private System.Windows.Forms.Timer tmrFadeIn;
     }
 }
