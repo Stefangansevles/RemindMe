@@ -120,7 +120,10 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="batch">The batch script you want to execute</param>
         public static void ExecuteBatch(string batch)
-        {            
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(IOVariables.batchFile)))
+                Directory.CreateDirectory(Path.GetDirectoryName(IOVariables.batchFile));
+
             using (StreamWriter wr = new StreamWriter(IOVariables.batchFile))
             {
                 wr.Write("@echo **Executing advanced reminder script (RemindMe)**\r\n" + batch);

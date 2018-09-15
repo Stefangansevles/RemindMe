@@ -715,7 +715,7 @@ RemindMe now automatically adds the Windows sound effects into RemindMe, so you 
 
 RemindMe will now remember the sound effect you select for a timer, and will use this as a default every time until you change it with the option to remove it.
 
-V2.4.1
+V2.4.10
 RemindMe now has advanced reminders. The user can enable this in the settings. 
 Advanced reminders can open/delete folders/files, launch an application or execute windows batch script.
 These actions go into action when the reminder pops up. You can also make it so that you don't see the reminder popup, so it will just do it's work.
@@ -723,3 +723,6 @@ These actions go into action when the reminder pops up. You can also make it so 
 The reminder popup now also has a fast fade-in animation
 
 Fixed an issue with creating the database if the user doesn't have it(first use, for example)
+
+V2.4.11
+Fixed a small issue where the temp folder for batch scripts wasn't being created
