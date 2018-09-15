@@ -157,8 +157,3 @@ C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\bin\Debug\System.Data.SQLi
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\bin\Debug\Data Access Layer.pdb
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\bin\Debug\Data Access Layer.dll.config
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CoreCompileInputs.cache

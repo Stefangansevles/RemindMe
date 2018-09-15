@@ -98,6 +98,3 @@ C:\Users\Stefan\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Ac
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CopyComplete
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.dll
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\Data Access Layer\obj\Debug\Data Access Layer.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Database.Entity.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CoreCompileInputs.cache
