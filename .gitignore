@@ -3,3 +3,6 @@ Database.Entity/obj/Debug/Database.Entity.csproj.FileListAbsolute.txt
 *.pdb
 *.nupkg
 *.dll
+*.suo
+*.cache
+*.exe
