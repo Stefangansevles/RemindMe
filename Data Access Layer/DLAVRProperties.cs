@@ -112,9 +112,12 @@ namespace Data_Access_Layer
 
         public static void DeleteAvrProperties(long id)
         {
+            AdvancedReminderProperties prop = GetAVRProperties(id);
+            if (prop == null)
+                return;
+
             using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                AdvancedReminderProperties prop = GetAVRProperties(id);
+            {                
                 db.AdvancedReminderProperties.Attach(prop);
                 db.AdvancedReminderProperties.Remove(prop);
 

@@ -11,6 +11,7 @@ using Database.Entity;
 using Business_Logic_Layer;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace RemindMe
 {
@@ -30,6 +31,7 @@ namespace RemindMe
         private static int dayOfStartRemindMe = DateTime.Now.Day;
 
         private List<string> popupMessages = new List<string>();
+        
         public UCReminders()
         {
             InitializeComponent();
@@ -69,12 +71,28 @@ namespace RemindMe
                 GetInstance().tmrCheckReminder.Start();            
         }
         private void UCReminders_Load(object sender, EventArgs e)
-        {
+        {            
             BLIO.Log("Loading reminders from database");
+            //AddRemindersToPanel();
             BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);                                
             BLIO.Log("Starting the reminder timer");
             tmrCheckReminder.Start();
-        }        
+        }   
+        
+        private void AddRemindersToPanel()
+        {
+            Point loc = new Point(10,10);
+            UCReminderItem itm = null;
+            foreach (Reminder rem in BLReminder.GetReminders())
+            {
+                if (itm != null)
+                    loc = new Point(loc.X, (itm.Location.Y + itm.Height) + 10);
+                
+                itm = new UCReminderItem(rem);                
+                itm.Location = loc;
+                pnlReminders.Controls.Add(itm);
+            }
+        }
 
         /// <summary>
         /// Set the column widths to the widths from the database. Whenever the user changes the width of them, they will save.
@@ -84,7 +102,7 @@ namespace RemindMe
             foreach (ColumnHeader ch in lvReminders.Columns)
             {
                 switch (ch.Text)
-                {
+                {                    
                     case "Title":
                         ch.Width = (int)sizes.Title;
                         break;
@@ -710,6 +728,31 @@ namespace RemindMe
             BLSettings.UpdateSettings(currentSettings);
 
             BLIO.Log("Re-enabled the hide warning on reminders!");
+        }
+
+        private void ReminderMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void previewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvReminders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlReminderButtons_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pnlReminders_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

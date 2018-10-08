@@ -121,6 +121,9 @@
   <ItemGroup>
     <Compile Include="ComboboxItems\ComboBoxItem.cs" />
     <Compile Include="ComboboxItems\ComboBoxItemManager.cs" />
+    <Compile Include="NonFlickerPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Other classes\EmbeddedAssembly.cs" />
     <Compile Include="Other classes\FlashWindowHelper.cs" />
     <Compile Include="Forms\AdvancedReminderForm.cs">
@@ -247,6 +250,12 @@
     </Compile>
     <Compile Include="User controls\UCReminders.Designer.cs">
       <DependentUpon>UCReminders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\UCRemindersNew.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\UCRemindersNew.Designer.cs">
+      <DependentUpon>UCRemindersNew.cs</DependentUpon>
     </Compile>
     <Compile Include="User controls\UCResizePopup.cs">
       <SubType>UserControl</SubType>
@@ -447,6 +456,8 @@
     <None Include="Resources\FileFolder.png" />
     <None Include="Resources\Program_white1.png" />
     <None Include="Resources\Bracers_white.png" />
+    <None Include="Resources\calendarWhite.png" />
+    <None Include="Resources\calendarWhite1.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />
