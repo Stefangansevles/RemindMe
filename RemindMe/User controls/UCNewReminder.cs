@@ -836,7 +836,7 @@ namespace RemindMe
                     if (!cbMonthlyDays.Items.Contains(cbEvery.SelectedItem.ToString()))
                     {
                         cbMonthlyDays.Items.Add(cbEvery.SelectedItem);
-                        BLIO.Log("value between 1 and 31! setted the selected item (" + cbEvery.SelectedItem.ToString() + ") and added it to cbMonthlyDays");
+                        BLIO.Log("value between 1 and 31! set the selected item (" + cbEvery.SelectedItem.ToString() + ") and added it to cbMonthlyDays");
                     }
                     // else
                     //MakeScrollingPopupMessage("The number " + newValue + " is already added.");
@@ -860,6 +860,9 @@ namespace RemindMe
 
         private void btnRemoveMonthlyDay_Click(object sender, EventArgs e)
         {
+            if (cbMonthlyDays.SelectedItem == null)
+                return;
+
             BLIO.Log("removing monthly day from cbMonthlyDays (" + cbMonthlyDays.SelectedItem.ToString() + ")");
             cbMonthlyDays.Items.Remove(cbMonthlyDays.SelectedItem);
             SetDateTimePickerMonthlyValue();

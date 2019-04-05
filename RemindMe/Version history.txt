@@ -726,3 +726,10 @@ Fixed an issue with creating the database if the user doesn't have it(first use,
 
 V2.4.11
 Fixed a small issue where the temp folder for batch scripts wasn't being created
+
+V2.4.12
+Fixed a issue where you couldn't permanentely delete a reminder if there were no advanced reminder properties attached to the reminder
+
+V2.4.13
+Small fix with resizing popups where you could enter  values below 0 or above the maximum
+Small fix where removing an day from the month combobox(when no value was selected) when creating a monthly reminder would throw an error

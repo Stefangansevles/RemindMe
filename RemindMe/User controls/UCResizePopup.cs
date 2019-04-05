@@ -174,6 +174,13 @@ namespace RemindMe
                 bool success = int.TryParse(tbWidth.Text, out size);
                 if(success)
                 {
+                    if (size > trbWidth.Maximum)
+                        size = trbWidth.Maximum;
+                    if (size < 1)
+                        size = 1;
+
+                    tbWidth.Text = size.ToString();
+
                     trbWidth.Value = size;
                     ApplyPreviewChanges();
                 }
@@ -188,6 +195,13 @@ namespace RemindMe
                 bool success = int.TryParse(tbHeight.Text, out size);
                 if (success)
                 {
+                    if (size > trbHeight.Maximum)
+                        size = trbHeight.Maximum;
+                    if (size < 1)
+                        size = 1;
+
+                    tbHeight.Text = size.ToString();
+
                     trbHeight.Value = size;
                     ApplyPreviewChanges();
                 }
@@ -202,6 +216,13 @@ namespace RemindMe
                 bool success = int.TryParse(tbTitleFont.Text, out size);
                 if (success)
                 {
+                    if (size > trbTitleFont.Maximum)
+                        size = trbTitleFont.Maximum;
+                    if (size < 1)
+                        size = 1;
+
+                    tbTitleFont.Text = size.ToString();
+
                     trbTitleFont.Value = size;
                     ApplyPreviewChanges();
                 }
@@ -212,10 +233,17 @@ namespace RemindMe
         {
             if (e.KeyCode == Keys.Enter)
             {
-                int size = 0;
+                int size = 0;                
                 bool success = int.TryParse(tbNoteFont.Text, out size);
                 if (success)
                 {
+                    if (size > trbNoteFont.Maximum)
+                        size = trbNoteFont.Maximum;
+                    if (size < 1)
+                        size = 1;
+
+                    tbNoteFont.Text = size.ToString();
+
                     trbNoteFont.Value = size;
                     ApplyPreviewChanges();
                 }
