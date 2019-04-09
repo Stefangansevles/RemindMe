@@ -733,3 +733,6 @@ Fixed a issue where you couldn't permanentely delete a reminder if there were no
 V2.4.13
 Small fix with resizing popups where you could enter  values below 0 or above the maximum
 Small fix where removing an day from the month combobox(when no value was selected) when creating a monthly reminder would throw an error
+
+V2.4.14
+Attempting to create a reminder with a date with a comma in it, for example "Wednesday, June, 5, 2019 10:00:00 AM" will now be converted to a date without a comma.

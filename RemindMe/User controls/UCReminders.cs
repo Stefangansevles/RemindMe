@@ -74,7 +74,9 @@ namespace RemindMe
         {            
             BLIO.Log("Loading reminders from database");
             //AddRemindersToPanel();
-            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);                                
+            
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);   
+            
             BLIO.Log("Starting the reminder timer");
             tmrCheckReminder.Start();
         }   

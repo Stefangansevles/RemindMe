@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -86,7 +87,14 @@ namespace RemindMe
                         mess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
                         mess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
                         mess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
-                        mess += "Hide:  " + theException.Reminder.Hide + "\r\n";
+                        mess += "Hide:  " + theException.Reminder.Hide + "\r\n\r\n";
+
+                        mess += "=== Displaying date culture info, so you might be able to re-create the reminder ===\r\n";
+                        mess += "Current culture DisplayName: " + CultureInfo.CurrentCulture.DisplayName + "\r\n";
+                        mess += "Current culture ShortTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern + "\r\n";
+                        mess += "Current culture ShortDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "\r\n";
+                        mess += "Current culture ToString(): " + CultureInfo.CurrentCulture.ToString() + "\r\n";
+
 
                     }
 

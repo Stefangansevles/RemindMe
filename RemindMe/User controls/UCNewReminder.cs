@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using WMPLib;
 using System.IO;
 using System.Reflection;
+using System.Globalization;
 
 namespace RemindMe
 {
@@ -872,6 +873,16 @@ namespace RemindMe
         {
             BLIO.Log("Attempting to add date to reminder...");
             DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
+            
+            if (selectedDate.ToString().Contains(","))
+            {
+                //The date contains a ',' , no good! Try and convert it to en-us
+                selectedDate = DateTime.Parse(selectedDate.ToString(), CultureInfo.CurrentCulture);      
+
+                if(selectedDate.ToShortDateString().Contains(","))//Still contains a comma? Let's just convert it to en-us then..
+                    selectedDate = DateTime.Parse(selectedDate.ToString(), new CultureInfo("en-US"));                
+            }
+            
             if (selectedDate > DateTime.Now)
             {
                 BLIO.Log("selectedDate > DateTime.now !");
@@ -939,6 +950,8 @@ namespace RemindMe
             string commaSeperatedDays = "";
             long remId = -1;
 
+            
+            
             //Will be different based on what repeating method the user has selected
             if (!string.IsNullOrWhiteSpace(tbReminderName.Text) && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now || rbNoRepeat.Checked)) //for the radiobuton rbnorepeat it doesn't matter if the datetime pickers have dates from the past, because it checks the added dates in the cbMultipleDates ComboBox
             {
@@ -1040,7 +1053,7 @@ namespace RemindMe
                             break;
                         case "MULTIPLE_DAYS":
                             if (IsAtLeastOneWeeklyCheckboxSelected())
-                                editableReminder.Date = editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();//Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString();
+                                editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();//Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString();
                             else
                             {
                                 //MakeScrollingPopupMessage("You do not have any day(s) selected!");
@@ -1084,6 +1097,7 @@ namespace RemindMe
                             editableReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
                             break;
                     }
+                    
 
                     editableReminder.SoundFilePath = soundPath;
                     editableReminder.Note = tbNote.Text.Replace(Environment.NewLine, "\\n");

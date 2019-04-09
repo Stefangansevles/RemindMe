@@ -507,6 +507,20 @@ namespace Business_Logic_Layer
         {
             Reminder rem = new Reminder();
             rem.Name = name;
+
+            DateTime test;
+            date = "Wednesday, June, 5, 2019 10:00:00 AM";
+            //If split by comma [1] (second value) is not a datetime, it means the date is a single date WITH a comma in it. we gotta fix that
+            if (date.Split(',').Length > 1 && !DateTime.TryParse(date.Split(',')[1],out test))
+            {
+                //The date contains a ',' , no good! Try and convert it to en-us
+                date = DateTime.Parse(date.ToString(), CultureInfo.CurrentCulture).ToString();
+
+                if (date.Contains(","))//Still contains a comma? Let's just convert it to en-us then..
+                    date = DateTime.Parse(date.ToString(), new CultureInfo("en-US")).ToString();
+
+            }
+            
             rem.Date = date;
 
 
@@ -539,7 +553,7 @@ namespace Business_Logic_Layer
         {
             try
             {
-                DateTime date;
+                DateTime date;                
                 //Check all possible dates
                 foreach (string stringDate in rem.Date.Split(','))
                 {
