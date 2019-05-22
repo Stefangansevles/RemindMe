@@ -736,3 +736,6 @@ Small fix where removing an day from the month combobox(when no value was select
 
 V2.4.14
 Attempting to create a reminder with a date with a comma in it, for example "Wednesday, June, 5, 2019 10:00:00 AM" will now be converted to a date without a comma.
+
+V2.4.15
+The RemindMe Timer popup(for quick timers) now accepts xxhxxm syntax, for example 5h30m will now be accepted. Previously you had to enter 530(minutes) to reach the same goal.

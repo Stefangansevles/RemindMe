@@ -13,7 +13,10 @@ using System.Windows.Forms;
 namespace RemindMe
 {
     public partial class TimerPopup : Form
-    {       
+    {
+        //The amount of minutes the timer is going to be set for    
+        private int timerMinutes = 0;
+
         public TimerPopup()
         {            
             InitializeComponent();            
@@ -32,17 +35,60 @@ namespace RemindMe
             if(e.KeyCode == Keys.Enter)
             {
                 BLIO.Log("TimerPopup enter pressed");
+                timerMinutes = 0;
+                lblErrorText.Visible = false;
+
                 UCTimer ucTimer = Form1.Instance.ucTimer;
 
-                BLIO.Log("Parsing number....");
-                int tryparse;
-                try { tryparse = Convert.ToInt32(tbTime.Text); }
-                catch (Exception ex) { return; }
-                if (tryparse <= 0)
-                    return;
-                BLIO.Log("Success. (" + tryparse + ") Creating timespan.");
+                try
+                {
 
-                TimeSpan time = TimeSpan.FromSeconds(Convert.ToInt32(tbTime.Text) * 60);
+
+                    if (tbTime.Text.ToLower().Contains('h'))
+                    {
+                        BLIO.Log("timer popup contains 'h'. Checking what's before it");
+
+                        //Text without the 'm'. We know the number after 'h' is in minutes, no need to keep it in the string
+                        string tbText = tbTime.Text.Replace("m", "");
+
+                        //Get the index number of the 'h' in the text
+                        int index = tbTime.Text.ToLower().IndexOf('h');
+
+                        //Now get all the text before it(should be a numer) and multiply by 60 because the user input hours
+                        BLIO.Log("Parsing hours....");
+                        timerMinutes += Convert.ToInt32(tbTime.Text.Substring(0, index)) * 60;
+
+                        //Now get the number after the 'h' , which should be minutes, and add it to timerMinutes
+                        //But, first check if there is actually something after the 'h'
+
+                        if (tbText.Length > index+1)//+1 because .Length starts from 1, index starts from 0
+                        {
+                            BLIO.Log("Parsing minutes....");
+                            timerMinutes += Convert.ToInt32(tbText.Substring(index + 1, tbText.Length - (index + 1)));
+                        }
+                    }
+                    else                    
+                        timerMinutes = Convert.ToInt32(tbTime.Text);
+
+                    if (timerMinutes <= 0 || timerMinutes >= 1440) //<= 0 OR >= 24 hours(1 day), return. If you want to set a quick timer for more than a day, maybe set a reminder instead..
+                    {
+                        lblErrorText.Visible = true;
+                        lblErrorText.Text = "Invalid input time. (up to 24 hours)";
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblErrorText.Visible = true;
+                    lblErrorText.Text = "Invalid input";
+                    return;
+                }
+
+                                
+                
+                BLIO.Log("Success. (" + timerMinutes + "minutes ) Creating timespan.");
+
+                TimeSpan time = TimeSpan.FromMinutes(timerMinutes);
 
                 BLIO.Log("Setting values of (UCTimer) numericupdowns");
                 ucTimer.numSeconds.Value = Math.Ceiling((decimal)time.Seconds / 60);

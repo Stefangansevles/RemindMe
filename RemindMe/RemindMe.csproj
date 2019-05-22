@@ -174,7 +174,6 @@
     <Compile Include="Forms\TimerPopup.Designer.cs">
       <DependentUpon>TimerPopup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Other classes\InstalledPrograms.cs" />
     <Compile Include="Managers\MessageFormManager.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>

@@ -242,7 +242,8 @@ namespace RemindMe
                         cbAdvancedReminder.Visible = true;
                         lblAdvancedReminders.Visible = true;
                     }
-                    cbAdvancedReminder.Checked = rem.EnableAdvancedReminder == 1;
+                    cbAdvancedReminder.Checked = rem.EnableAdvancedReminder == 1 && (BLAVRProperties.GetAVRProperties(rem.Id) != null || BLAVRProperties.GetAVRFilesFolders(rem.Id) != null);
+                    
 
                     if (!cbAdvancedReminder.Checked)
                         lblAdvancedReminders.Text = "Disabled.";

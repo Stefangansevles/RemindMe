@@ -41,6 +41,8 @@
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.lblErrorText = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.bunifuGradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +57,8 @@
             this.bunifuGradientPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.bunifuGradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel1.BackgroundImage")));
             this.bunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuGradientPanel1.Controls.Add(this.label1);
+            this.bunifuGradientPanel1.Controls.Add(this.lblErrorText);
             this.bunifuGradientPanel1.Controls.Add(this.lblExit);
             this.bunifuGradientPanel1.Controls.Add(this.tbNote);
             this.bunifuGradientPanel1.Controls.Add(this.tbTime);
@@ -101,7 +105,7 @@
             this.tbNote.LineIdleColor = System.Drawing.Color.Silver;
             this.tbNote.LineMouseHoverColor = System.Drawing.Color.White;
             this.tbNote.LineThickness = 3;
-            this.tbNote.Location = new System.Drawing.Point(76, 111);
+            this.tbNote.Location = new System.Drawing.Point(76, 118);
             this.tbNote.Margin = new System.Windows.Forms.Padding(4);
             this.tbNote.Name = "tbNote";
             this.tbNote.Size = new System.Drawing.Size(173, 28);
@@ -121,7 +125,7 @@
             this.tbTime.LineIdleColor = System.Drawing.Color.Silver;
             this.tbTime.LineMouseHoverColor = System.Drawing.Color.White;
             this.tbTime.LineThickness = 3;
-            this.tbTime.Location = new System.Drawing.Point(76, 75);
+            this.tbTime.Location = new System.Drawing.Point(76, 82);
             this.tbTime.Margin = new System.Windows.Forms.Padding(4);
             this.tbTime.Name = "tbTime";
             this.tbTime.Size = new System.Drawing.Size(173, 28);
@@ -134,7 +138,7 @@
             this.lblHeader.BackColor = System.Drawing.Color.Transparent;
             this.lblHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.lblHeader.ForeColor = System.Drawing.Color.White;
-            this.lblHeader.Location = new System.Drawing.Point(78, 18);
+            this.lblHeader.Location = new System.Drawing.Point(101, 13);
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Size = new System.Drawing.Size(172, 22);
             this.lblHeader.TabIndex = 110;
@@ -177,6 +181,31 @@
             this.bunifuDragControl3.TargetControl = this.pictureBox1;
             this.bunifuDragControl3.Vertical = true;
             // 
+            // lblErrorText
+            // 
+            this.lblErrorText.AutoSize = true;
+            this.lblErrorText.BackColor = System.Drawing.Color.Transparent;
+            this.lblErrorText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorText.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblErrorText.Location = new System.Drawing.Point(75, 156);
+            this.lblErrorText.Name = "lblErrorText";
+            this.lblErrorText.Size = new System.Drawing.Size(17, 13);
+            this.lblErrorText.TabIndex = 112;
+            this.lblErrorText.Text = " x";
+            this.lblErrorText.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(104, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 26);
+            this.label1.TabIndex = 113;
+            this.label1.Text = "Tip: enter time in minutes/hours\r\n           Example: 5h30m\r\n";
+            // 
             // TimerPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,5 +238,7 @@
         private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl3;
+        private System.Windows.Forms.Label lblErrorText;
+        private System.Windows.Forms.Label label1;
     }
 }
