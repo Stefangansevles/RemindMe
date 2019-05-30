@@ -105,6 +105,7 @@ namespace RemindMe
             
             if (e.Modifiers.ToString().Replace(" ",string.Empty) == timerHotkey.Modifiers && e.KeyCode.ToString() == timerHotkey.Key)
             {
+                BLIO.Log("Timer hotkey combination pressed!");
                 TimerPopup quickTimer = new TimerPopup();
                 quickTimer.Show();
             }   

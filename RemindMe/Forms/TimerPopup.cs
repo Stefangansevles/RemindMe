@@ -17,6 +17,8 @@ namespace RemindMe
         //The amount of minutes the timer is going to be set for    
         private int timerMinutes = 0;
 
+        private int forceFocusCount = 0;
+
         public TimerPopup()
         {            
             InitializeComponent();            
@@ -25,7 +27,8 @@ namespace RemindMe
 
             tbTime.KeyUp += TimerPopup_KeyUp;
             tbNote.KeyUp += TimerPopup_KeyUp;
-            this.KeyUp += TimerPopup_KeyUp;
+            this.KeyUp += TimerPopup_KeyUp;            
+
             BLIO.Log("TimerPopup created");
         }
 
@@ -101,11 +104,11 @@ namespace RemindMe
 
                 BLIO.Log("Values set");
 
-                ucTimer.ToggleTimer();
+                ucTimer.AddTimer(timerMinutes*60, tbNote.Text);
 
-                if(!ucTimer.tmrCountdown.Enabled)
-                    ucTimer.ToggleTimer();
 
+                //ucTimer.ToggleTimer();
+                                
                 BLIO.Log("Timer started");
 
                 this.Dispose();
@@ -117,17 +120,20 @@ namespace RemindMe
             this.Opacity += 0.1;
             if (this.Opacity >= 1)
             {
-                tmrFadeIn.Stop();
-                this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
-                this.TopLevel = true;
-                this.ActiveControl = tbTime;
-                this.Activate();
-                
+                tmrFadeIn.Stop();                                
             }
+            this.BringToFront();                        
+            this.Activate();
         }
 
         private void TimerPopup_Load(object sender, EventArgs e)
-        {           
+        {
+            this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
+            this.TopLevel = true;
+            this.BringToFront();
+            this.ActiveControl = tbTime;
+            tbTime.Focus();
+            this.Activate();            
         }
 
         private void lblExit_MouseEnter(object sender, EventArgs e)
@@ -144,5 +150,7 @@ namespace RemindMe
         {
             this.Dispose();            
         }
+
+       
     }
 }

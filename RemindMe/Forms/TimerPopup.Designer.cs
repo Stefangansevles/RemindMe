@@ -31,18 +31,18 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimerPopup));
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
+            this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
+            this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblErrorText = new System.Windows.Forms.Label();
             this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.tbNote = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.tbTime = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.lblHeader = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
-            this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.lblErrorText = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.bunifuGradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -51,6 +51,32 @@
             // 
             this.bunifuElipse1.ElipseRadius = 20;
             this.bunifuElipse1.TargetControl = this;
+            // 
+            // tmrFadeIn
+            // 
+            this.tmrFadeIn.Interval = 10;
+            this.tmrFadeIn.Tick += new System.EventHandler(this.tmrFadeIn_Tick);
+            // 
+            // bunifuDragControl1
+            // 
+            this.bunifuDragControl1.Fixed = true;
+            this.bunifuDragControl1.Horizontal = true;
+            this.bunifuDragControl1.TargetControl = this.bunifuGradientPanel1;
+            this.bunifuDragControl1.Vertical = true;
+            // 
+            // bunifuDragControl2
+            // 
+            this.bunifuDragControl2.Fixed = true;
+            this.bunifuDragControl2.Horizontal = true;
+            this.bunifuDragControl2.TargetControl = this.lblHeader;
+            this.bunifuDragControl2.Vertical = true;
+            // 
+            // bunifuDragControl3
+            // 
+            this.bunifuDragControl3.Fixed = true;
+            this.bunifuDragControl3.Horizontal = true;
+            this.bunifuDragControl3.TargetControl = this.pictureBox1;
+            this.bunifuDragControl3.Vertical = true;
             // 
             // bunifuGradientPanel1
             // 
@@ -74,6 +100,31 @@
             this.bunifuGradientPanel1.Quality = 10;
             this.bunifuGradientPanel1.Size = new System.Drawing.Size(358, 180);
             this.bunifuGradientPanel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(104, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 26);
+            this.label1.TabIndex = 113;
+            this.label1.Text = "Tip: enter time in minutes/hours\r\n           Example: 5h30m\r\n";
+            // 
+            // lblErrorText
+            // 
+            this.lblErrorText.AutoSize = true;
+            this.lblErrorText.BackColor = System.Drawing.Color.Transparent;
+            this.lblErrorText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorText.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblErrorText.Location = new System.Drawing.Point(75, 156);
+            this.lblErrorText.Name = "lblErrorText";
+            this.lblErrorText.Size = new System.Drawing.Size(17, 13);
+            this.lblErrorText.TabIndex = 112;
+            this.lblErrorText.Text = " x";
+            this.lblErrorText.Visible = false;
             // 
             // lblExit
             // 
@@ -154,57 +205,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(50, 50);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // tmrFadeIn
-            // 
-            this.tmrFadeIn.Interval = 10;
-            this.tmrFadeIn.Tick += new System.EventHandler(this.tmrFadeIn_Tick);
-            // 
-            // bunifuDragControl1
-            // 
-            this.bunifuDragControl1.Fixed = true;
-            this.bunifuDragControl1.Horizontal = true;
-            this.bunifuDragControl1.TargetControl = this.bunifuGradientPanel1;
-            this.bunifuDragControl1.Vertical = true;
-            // 
-            // bunifuDragControl2
-            // 
-            this.bunifuDragControl2.Fixed = true;
-            this.bunifuDragControl2.Horizontal = true;
-            this.bunifuDragControl2.TargetControl = this.lblHeader;
-            this.bunifuDragControl2.Vertical = true;
-            // 
-            // bunifuDragControl3
-            // 
-            this.bunifuDragControl3.Fixed = true;
-            this.bunifuDragControl3.Horizontal = true;
-            this.bunifuDragControl3.TargetControl = this.pictureBox1;
-            this.bunifuDragControl3.Vertical = true;
-            // 
-            // lblErrorText
-            // 
-            this.lblErrorText.AutoSize = true;
-            this.lblErrorText.BackColor = System.Drawing.Color.Transparent;
-            this.lblErrorText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorText.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblErrorText.Location = new System.Drawing.Point(75, 156);
-            this.lblErrorText.Name = "lblErrorText";
-            this.lblErrorText.Size = new System.Drawing.Size(17, 13);
-            this.lblErrorText.TabIndex = 112;
-            this.lblErrorText.Text = " x";
-            this.lblErrorText.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(104, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 26);
-            this.label1.TabIndex = 113;
-            this.label1.Text = "Tip: enter time in minutes/hours\r\n           Example: 5h30m\r\n";
             // 
             // TimerPopup
             // 

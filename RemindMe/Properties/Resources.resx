@@ -142,9 +142,6 @@
   <data name="RemindMeSettingsNew" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemindMeSettingsNew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="export" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ColourPalette2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ColourPalette2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,11 +169,14 @@
   <data name="email1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\email1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Save_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Resizewhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Resizewhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="calendarWhite1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\calendarWhite1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Plus_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Plus_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Bin_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bin_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,14 +232,14 @@
   <data name="if_add_126583" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\if_add_126583.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DimGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DimGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pause@2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pause@2x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RemindMe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemindMe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="preview_eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\preview_eye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="play@2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\play@2x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -261,9 +261,6 @@
   </data>
   <data name="ColourPallette" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ColourPallette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_cancel_216128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_cancel_216128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="file" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\file.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -346,8 +343,8 @@
   <data name="if_mail_115714" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\if_mail_115714.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Plus_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Plus_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="preview_eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\preview_eye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="import" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -376,31 +373,37 @@
   <data name="zzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_2arrows" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2arrows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Save_white1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save_white1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="export_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\export_black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Bracers_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bracers_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="RemindMeTimer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemindMeTimer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DimGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DimGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="if_sound_115787" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\if_sound_115787.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Bracers_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bracers_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="if_cancel_216128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\if_cancel_216128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_2arrows" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2arrows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Save_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dark-green-check-mark-hi" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dark-green-check-mark-hi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="calendarWhite1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\calendarWhite1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pause@2x1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pause@2x1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

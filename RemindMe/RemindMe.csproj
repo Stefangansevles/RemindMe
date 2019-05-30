@@ -174,7 +174,7 @@
     <Compile Include="Forms\TimerPopup.Designer.cs">
       <DependentUpon>TimerPopup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Managers\MessageFormManager.cs" />
+    <Compile Include="Other classes\MessageFormManager.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,6 +195,7 @@
     </Compile>
     <Compile Include="Other classes\IOVariables.cs" />
     <Compile Include="Other classes\MyToolStripMenuRenderer.cs" />
+    <Compile Include="Other classes\TimerItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -249,12 +250,6 @@
     </Compile>
     <Compile Include="User controls\UCReminders.Designer.cs">
       <DependentUpon>UCReminders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="User controls\UCRemindersNew.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="User controls\UCRemindersNew.Designer.cs">
-      <DependentUpon>UCRemindersNew.cs</DependentUpon>
     </Compile>
     <Compile Include="User controls\UCResizePopup.cs">
       <SubType>UserControl</SubType>
@@ -457,6 +452,7 @@
     <None Include="Resources\Bracers_white.png" />
     <None Include="Resources\calendarWhite.png" />
     <None Include="Resources\calendarWhite1.png" />
+    <None Include="Resources\pause%402x1.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

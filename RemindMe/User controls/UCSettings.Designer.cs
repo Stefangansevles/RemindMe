@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbPopupType = new System.Windows.Forms.ComboBox();
@@ -45,6 +46,11 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tbTimerHotkey = new System.Windows.Forms.TextBox();
+            this.btnRemoveSong = new Bunifu.Framework.UI.BunifuTileButton();
+            this.cbSound = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnPreviewSong = new Bunifu.Framework.UI.BunifuTileButton();
+            this.tmrMusic = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -178,7 +184,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(49, 347);
+            this.label8.Location = new System.Drawing.Point(49, 270);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(198, 17);
             this.label8.TabIndex = 101;
@@ -192,7 +198,7 @@
             this.cbAdvancedReminders.Checked = false;
             this.cbAdvancedReminders.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbAdvancedReminders.ForeColor = System.Drawing.Color.White;
-            this.cbAdvancedReminders.Location = new System.Drawing.Point(23, 347);
+            this.cbAdvancedReminders.Location = new System.Drawing.Point(23, 270);
             this.cbAdvancedReminders.Name = "cbAdvancedReminders";
             this.cbAdvancedReminders.Size = new System.Drawing.Size(20, 20);
             this.cbAdvancedReminders.TabIndex = 100;
@@ -201,6 +207,10 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.btnPreviewSong);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.btnRemoveSong);
+            this.panel1.Controls.Add(this.cbSound);
             this.panel1.Controls.Add(this.cbQuicktimer);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
@@ -229,7 +239,7 @@
             this.cbQuicktimer.Checked = false;
             this.cbQuicktimer.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbQuicktimer.ForeColor = System.Drawing.Color.White;
-            this.cbQuicktimer.Location = new System.Drawing.Point(23, 266);
+            this.cbQuicktimer.Location = new System.Drawing.Point(23, 298);
             this.cbQuicktimer.Name = "cbQuicktimer";
             this.cbQuicktimer.Size = new System.Drawing.Size(20, 20);
             this.cbQuicktimer.TabIndex = 108;
@@ -240,7 +250,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(49, 268);
+            this.label10.Location = new System.Drawing.Point(49, 300);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(184, 17);
             this.label10.TabIndex = 107;
@@ -252,7 +262,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(20, 295);
+            this.label9.Location = new System.Drawing.Point(20, 327);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(284, 17);
             this.label9.TabIndex = 106;
@@ -263,12 +273,80 @@
             this.tbTimerHotkey.BackColor = System.Drawing.Color.DimGray;
             this.tbTimerHotkey.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
             this.tbTimerHotkey.ForeColor = System.Drawing.Color.White;
-            this.tbTimerHotkey.Location = new System.Drawing.Point(22, 315);
+            this.tbTimerHotkey.Location = new System.Drawing.Point(22, 347);
             this.tbTimerHotkey.Name = "tbTimerHotkey";
             this.tbTimerHotkey.ReadOnly = true;
             this.tbTimerHotkey.Size = new System.Drawing.Size(227, 22);
             this.tbTimerHotkey.TabIndex = 105;
             this.tbTimerHotkey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbTimerHotkey_KeyUp);
+            // 
+            // btnRemoveSong
+            // 
+            this.btnRemoveSong.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemoveSong.color = System.Drawing.Color.Transparent;
+            this.btnRemoveSong.colorActive = System.Drawing.Color.DarkGray;
+            this.btnRemoveSong.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRemoveSong.Font = new System.Drawing.Font("Century Gothic", 15.75F);
+            this.btnRemoveSong.ForeColor = System.Drawing.Color.Transparent;
+            this.btnRemoveSong.Image = global::RemindMe.Properties.Resources.Bin_white;
+            this.btnRemoveSong.ImagePosition = 0;
+            this.btnRemoveSong.ImageZoom = 100;
+            this.btnRemoveSong.LabelPosition = 0;
+            this.btnRemoveSong.LabelText = "";
+            this.btnRemoveSong.Location = new System.Drawing.Point(285, 395);
+            this.btnRemoveSong.Margin = new System.Windows.Forms.Padding(6);
+            this.btnRemoveSong.Name = "btnRemoveSong";
+            this.btnRemoveSong.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveSong.TabIndex = 112;
+            this.btnRemoveSong.Click += new System.EventHandler(this.btnRemoveSong_Click);
+            // 
+            // cbSound
+            // 
+            this.cbSound.BackColor = System.Drawing.Color.DimGray;
+            this.cbSound.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.cbSound.ForeColor = System.Drawing.Color.White;
+            this.cbSound.FormattingEnabled = true;
+            this.cbSound.ItemHeight = 16;
+            this.cbSound.Location = new System.Drawing.Point(22, 395);
+            this.cbSound.Name = "cbSound";
+            this.cbSound.Size = new System.Drawing.Size(225, 24);
+            this.cbSound.TabIndex = 111;
+            this.cbSound.SelectedIndexChanged += new System.EventHandler(this.cbSound_SelectedIndexChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(20, 373);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(296, 17);
+            this.label11.TabIndex = 113;
+            this.label11.Text = "Sound effect to play when a timer pops up:";
+            // 
+            // btnPreviewSong
+            // 
+            this.btnPreviewSong.BackColor = System.Drawing.Color.Transparent;
+            this.btnPreviewSong.color = System.Drawing.Color.Transparent;
+            this.btnPreviewSong.colorActive = System.Drawing.Color.DarkGray;
+            this.btnPreviewSong.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPreviewSong.Font = new System.Drawing.Font("Century Gothic", 15.75F);
+            this.btnPreviewSong.ForeColor = System.Drawing.Color.Transparent;
+            this.btnPreviewSong.Image = global::RemindMe.Properties.Resources.Play;
+            this.btnPreviewSong.ImagePosition = 0;
+            this.btnPreviewSong.ImageZoom = 100;
+            this.btnPreviewSong.LabelPosition = 0;
+            this.btnPreviewSong.LabelText = "";
+            this.btnPreviewSong.Location = new System.Drawing.Point(256, 395);
+            this.btnPreviewSong.Margin = new System.Windows.Forms.Padding(6);
+            this.btnPreviewSong.Name = "btnPreviewSong";
+            this.btnPreviewSong.Size = new System.Drawing.Size(24, 24);
+            this.btnPreviewSong.TabIndex = 114;
+            this.btnPreviewSong.Click += new System.EventHandler(this.btnPreviewSong_Click);
+            // 
+            // tmrMusic
+            // 
+            this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
             // 
             // UCSettings
             // 
@@ -304,5 +382,10 @@
         private Bunifu.Framework.UI.BunifuCheckbox cbQuicktimer;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private Bunifu.Framework.UI.BunifuTileButton btnRemoveSong;
+        public System.Windows.Forms.ComboBox cbSound;
+        private Bunifu.Framework.UI.BunifuTileButton btnPreviewSong;
+        private System.Windows.Forms.Timer tmrMusic;
     }
 }

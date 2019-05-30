@@ -9,16 +9,30 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business_Logic_Layer;
 using Database.Entity;
+using System.IO;
+using WMPLib;
 
 namespace RemindMe
 {
     public partial class UCSettings : UserControl
     {
-        private int alwaysOnTop = 1;        
-        
+        private int alwaysOnTop = 1;
+
+        //Used to play a sound
+        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
+        IWMPMedia mediaInfo;
+
+        //The stop playing preview sound icon
+        Image imgStop;    
+        //The start playing preview sound icon
+        Image imgPlayResume;
+
         public UCSettings()
         {
             InitializeComponent();
+
+            imgStop = Properties.Resources.Stop;
+            imgPlayResume = Properties.Resources.Play;
         }
 
         private void cbEnableRemindMeMessages_OnChange(object sender, EventArgs e)
@@ -81,6 +95,12 @@ namespace RemindMe
             }
             tbTimerHotkey.Text += timerKey.Key;
 
+            //Fill the combobox to select a timer popup sound with data
+            FillSoundCombobox();
+            //Set the item the user selected as text           
+            
+            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLSettings.GetSettings().DefaultTimerSound), BLSongs.GetSongByFullPath(BLSettings.GetSettings().DefaultTimerSound)));
+            cbSound.Text = Path.GetFileNameWithoutExtension(BLSettings.GetSettings().DefaultTimerSound);
         }
 
         private void cbPopupType_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,6 +162,28 @@ namespace RemindMe
 
         }
 
+        private void FillSoundCombobox()
+        {
+            //Fill the list with all the sounds from the Database(non default windows ones)
+            List<Songs> sounds = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();
+
+            cbSound.Items.Clear();
+            ComboBoxItemManager.ClearComboboxItems();
+
+            if (sounds != null)
+                foreach (Songs item in sounds)
+                    if (item.SongFileName != "")
+                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
+
+            //Let's make sure the default windows System sounds are placed at the bottom
+            List<Songs> windowsDefaultSongs = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() == "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();
+
+            if (windowsDefaultSongs != null)
+                foreach (Songs item in windowsDefaultSongs)
+                    if (item.SongFileName != "")
+                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
+        }
+
         private void cbEnableQuicktimer_OnChange(object sender, EventArgs e)
         {
             BLIO.Log("Checkbox change (Quick timer)");
@@ -174,6 +216,76 @@ namespace RemindMe
         {
             cbAdvancedReminders.Checked = !cbAdvancedReminders.Checked;
             cbAdvancedReminders_OnChange(sender, e);
+        }
+
+        private void btnRemoveSong_Click(object sender, EventArgs e)
+        {
+            cbSound.SelectedItem = null;
+            cbSound.Text = "";
+            Settings set = BLSettings.GetSettings();
+            set.DefaultTimerSound = "";
+            BLSettings.UpdateSettings(set);
+        }
+
+        private void cbSound_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
+            if (selectedItem != null)
+            {
+                Songs selectedSong = (Songs)selectedItem.Value;
+                Settings set = BLSettings.GetSettings();
+                set.DefaultTimerSound = selectedSong.SongFilePath;
+                BLSettings.UpdateSettings(set);
+            }
+        }
+
+        private void btnPreviewSong_Click(object sender, EventArgs e)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
+            if (selectedItem == null)
+                return;
+
+            Songs selectedSong = (Songs)selectedItem.Value;
+            if (selectedSong == null)
+                return;
+
+            //Stop the song
+            if(btnPreviewSong.Image == imgStop)
+            {
+                btnPreviewSong.Image = imgPlayResume;
+                myPlayer.controls.stop();
+                tmrMusic.Stop();
+                return;
+            }
+
+            //Does the file we're trying to play REALLY exist?
+            if (File.Exists(selectedSong.SongFilePath))
+            {
+                BLIO.Log("selected sound file exists on hard drive (UCsettings)");
+                //Set the image to "Stop", since we're going to play a song. Give the user the option to stop it
+                btnPreviewSong.Image = imgStop;
+
+                //Give the player the path to the file
+                myPlayer.URL = selectedSong.SongFilePath;
+                //Get media info so we know when the song ends
+                mediaInfo = myPlayer.newMedia(myPlayer.URL);
+
+                //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
+                if (mediaInfo.duration > 0)
+                    tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
+                else
+                    tmrMusic.Interval = 1000;
+                tmrMusic.Start();
+
+                BLIO.Log("Playing sound... (UCsettings)");
+                myPlayer.controls.play();
+            }
+        }
+
+        private void tmrMusic_Tick(object sender, EventArgs e)
+        {
+            btnPreviewSong.Image = imgPlayResume;
+            tmrMusic.Stop();
         }
     }
 }

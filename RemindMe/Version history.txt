@@ -739,3 +739,11 @@ Attempting to create a reminder with a date with a comma in it, for example "Wed
 
 V2.4.15
 The RemindMe Timer popup(for quick timers) now accepts xxhxxm syntax, for example 5h30m will now be accepted. Previously you had to enter 530(minutes) to reach the same goal.
+
+V2.4.16
+Big change to the Timer system. You can now create as many timers as you want! they will all run simultaneously. 
+The Timer screen has been altered to fit this change. Once you start to add timers you will be able to select the timers by clicking the button(s). You can then pause them or alter the time in which they will pop up.
+You can also delete the timers by right-clicking the button.
+
+Attempted to make the TimerPopup have more priority over other things running on your computer, so that you can always instantly type the time/timer note, instead of having to click
+on the popup to gain focus

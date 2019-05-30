@@ -10,18 +10,39 @@ using System.Windows.Forms;
 using Database.Entity;
 using Business_Logic_Layer;
 using System.IO;
+using RemindMe.Other_classes;
+using Bunifu.Framework.UI;
 
 namespace RemindMe
 {
     public partial class UCTimer : UserControl
     {
         public decimal timerDuration = 0;
+        public List<TimerItem> timers = new List<TimerItem>();
         public string timerNote = "";
+
+        //Contains the TimerItem the user is currently viewing/editing. This should change if the user clicks one of the timer buttons(if there are multiple timers)
+        private TimerItem currentTimerItem;
+
+        private int timerIdCounter = 1;
+        
         public UCTimer()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            TimerMenuStrip.Renderer = new MyToolStripMenuRenderer();
+            btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;
+
+            //Link events to the global event
+            numSeconds.Click += numericUpDown_ValueChange;
+            numMinutes.Click += numericUpDown_ValueChange;
+            numHours.Click += numericUpDown_ValueChange;
+
+            numSeconds.KeyUp += numericUpDown_ValueChange;
+            numMinutes.KeyUp += numericUpDown_ValueChange;
+            numHours.KeyUp += numericUpDown_ValueChange;
+            //The user can change the time of an timer with these numeric up-downs. When the user attempts to do that, link the event to the global numericUpDown_ValueChange
         }
-     
+
         /// <summary>
         /// Subtracts a second from the numeric updown every second, a minute if seconds = 0, an hour if minutes = 0
         /// </summary>
@@ -47,21 +68,17 @@ namespace RemindMe
                     
                 }                
             }
-
-            timerDuration = (numHours.Value * 60 * 60) + (numMinutes.Value * 60) + numSeconds.Value;
+            
 
             if (timerDuration <= 0)
             {
-                tmrCountdown.Stop();
-                btnStartTimer.Text = "Start timer";
+                BLIO.Log("Creating timer popup..");
+                tmrCountdown.Stop();                
                 Reminder rem = new Reminder();
                 rem.Id = -1; //Set it to our "Invalid id" number. It is not a real reminder after all.
                 rem.Name = "Timer";
 
-                if (timerNote != "") //timerNote can be set from TimerPopup
-                    rem.Note = timerNote;
-                else
-                    rem.Note = tbNote.Text;
+               
 
                 Settings set = BLSettings.GetSettings();
                 rem.SoundFilePath = set.DefaultTimerSound;
@@ -71,77 +88,124 @@ namespace RemindMe
             }
         }
 
-        private void btnStartTimer_Click(object sender, EventArgs e)
-        {
-            ToggleTimer();            
-        }
+       
         public void ToggleTimer()
         {
             if (tmrCountdown.Enabled)
             {
-                tmrCountdown.Stop();                
-                btnStartTimer.Text = "Start timer";
+                tmrCountdown.Stop();                                
                 return;
-            }
-            
-            timerDuration = (numHours.Value * 60 * 60) + (numMinutes.Value * 60) + numSeconds.Value;
+            }                        
 
             if (timerDuration > 0)
             {
                 tmrCountdown.Start();
-                label1.Focus(); //Dont leave focus on the numeric up down, showing the Ibeam cursor isnt very good looking
-                btnStartTimer.Text = "Stop timer";
+                label2.Focus(); //Dont leave focus on the numeric up down, showing the Ibeam cursor isnt very good looking                
             }
         }
+        public void AddTimer(int seconds, string text)
+        {
+            BLIO.Log("Attempting to add a timer for " + seconds + " seconds.");
+            TimerItem tmrItem = new TimerItem(seconds, text, timerIdCounter);
+            tmrItem.updateAllowed = true;            
+            tmrItem.StartTimer();            
+            timers.Add(tmrItem);
 
-        private void FillSoundCombobox()
-        {            
-            //Fill the list with all the sounds from the Database(non default windows ones)
-            List<Songs> sounds = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();
+            //Generate a new BunifuFlatbutton, but with the template markup
+            BunifuFlatButton timerButton = CloneButton();
+            
 
-            cbSound.Items.Clear();
-            ComboBoxItemManager.ClearComboboxItems();
+            timerButton.Text = " Timer " + timerIdCounter;
 
-            if (sounds != null)
-                foreach (Songs item in sounds)
-                    if (item.SongFileName != "")
-                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));
+            //Link every new button click to this event.            
+            timerButton.Click += TimerButton_Click;
+            BLIO.Log("Button cloned & event listener linked");
 
-            //Let's make sure the default windows System sounds are placed at the bottom
-            List<Songs> windowsDefaultSongs = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() == "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();
+            //Add the new button to top panel
+            pnlRunningTimers.Controls.Add(timerButton);
 
-            if (windowsDefaultSongs != null)
-                foreach (Songs item in windowsDefaultSongs)
-                    if (item.SongFileName != "")
-                        cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));            
+            currentTimerItem = tmrItem;
+
+            //Up the Id so that the next timer has a higher id
+            timerIdCounter++;
+
+            EnableButton(timerButton);
+            BLIO.Log("Timer added!");            
         }
+
+        /// <summary>
+        /// Gives all buttons the non-selected color, except the parameter
+        /// </summary>
+        /// <param name="button">The button that is going to be "selected"</param>
+        private void EnableButton(BunifuFlatButton btn)
+        {
+            //De-select all buttons 
+            BunifuFlatButton button = null;
+            foreach (Control c in pnlRunningTimers.Controls)
+            {
+                if (c is BunifuFlatButton)
+                {
+                    button = (BunifuFlatButton)c;
+                    button.Normalcolor = Color.FromArgb(64, 64, 64);
+                }
+            }
+            //Select the clicked button
+            btn.Normalcolor = Color.Gray;
+        }
+
+       
+
+        public void RemoveTimer(TimerItem tmrItem)
+        {
+            BLIO.Log("Attempting to remove timer with ID " + tmrItem.ID);
+            TimerItem itemToRemove = null;
+            BunifuFlatButton toRemovebutton = null;
+
+            foreach (TimerItem itm in timers)
+                if (itm.ID == tmrItem.ID)
+                    itemToRemove = itm;
+
+            if (itemToRemove != null)
+            {
+                timers.Remove(itemToRemove);
+
+                foreach (Control c in pnlRunningTimers.Controls)
+                {
+                    if (c is BunifuFlatButton)
+                    {
+                        if (c.Text == " Timer " + itemToRemove.ID) //Remove this button
+                            toRemovebutton = (BunifuFlatButton)c;
+                    }
+                }
+            }
+
+            if (toRemovebutton != null)
+            {
+                pnlRunningTimers.Controls.Remove(toRemovebutton);
+                toRemovebutton.Dispose();
+            }
+
+            
+
+        }
+
+     
         private void tmrCountdown_Tick(object sender, EventArgs e)
         {
             TickDownTime();
-        }
+        }       
 
-        private void numHours_Click(object sender, EventArgs e)
+        private void numericUpDown_ValueChange(object sender, EventArgs e)
         {
-            timerDuration = (numHours.Value * 60 * 60) + (numMinutes.Value * 60) + numSeconds.Value;
-        }
+            if (currentTimerItem == null)
+                return;
 
-        private void numMinutes_Click(object sender, EventArgs e)
-        {
-            timerDuration = (numHours.Value * 60 * 60) + (numMinutes.Value * 60) + numSeconds.Value;
-        }
-
-        private void numSeconds_Click(object sender, EventArgs e)
-        {
-            timerDuration = (numHours.Value * 60 * 60) + (numMinutes.Value * 60) + numSeconds.Value;
+            currentTimerItem.SecondsRemaining = Convert.ToInt32((numHours.Value * 60 * 60) + (numMinutes.Value * 60) + numSeconds.Value);
         }
 
         private void UCTimer_Load(object sender, EventArgs e)
-        {
-            FillSoundCombobox();
-            SetKeyCombinationLabel();
-
-            Settings set = BLSettings.GetSettings();
-            cbSound.Text = Path.GetFileNameWithoutExtension(set.DefaultTimerSound);
+        {            
+            SetKeyCombinationLabel();            
         }
 
         private void UCTimer_VisibleChanged(object sender, EventArgs e)
@@ -159,27 +223,202 @@ namespace RemindMe
             lblKeyCombination.Text += BLHotkeys.TimerPopup.Key.ToString();            
         }
 
-        private void cbSound_SelectedIndexChanged(object sender, EventArgs e)
+    
+
+        /// <summary>
+        /// Copy the appearance of a template button into a new button. Basically cloning an object, but only these fields
+        /// </summary>
+        /// <returns></returns>
+        private BunifuFlatButton CloneButton()
         {
-            ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
-            if (selectedItem != null)
-            {
-                Songs selectedSong = (Songs)selectedItem.Value;
-                Settings set = BLSettings.GetSettings();
-                set.DefaultTimerSound = selectedSong.SongFilePath;
-                BLSettings.UpdateSettings(set);
-            }
-               
+            BunifuFlatButton btn = new BunifuFlatButton();
+            btn.Activecolor = btnTimerTemplate.Activecolor;
+            btn.BackColor = btnTimerTemplate.BackColor;                       
+            btn.BackgroundImageLayout = btnTimerTemplate.BackgroundImageLayout;
+            btn.BorderRadius = btnTimerTemplate.BorderRadius;
+            btn.Text = btnTimerTemplate.Text;
+            btn.DisabledColor = btnTimerTemplate.DisabledColor;
+            btn.Font = btnTimerTemplate.Font;
+            btn.Cursor = btnTimerTemplate.Cursor;
+            btn.Iconimage = btnTimerTemplate.Iconimage;
+            btn.IconZoom = btnTimerTemplate.IconZoom;
+            btn.Normalcolor = btnTimerTemplate.Normalcolor;
+            btn.OnHovercolor = btnTimerTemplate.OnHovercolor;
+            btn.OnHoverTextColor = btnTimerTemplate.OnHoverTextColor;
+            btn.selected = false;
+            btn.TextAlign = btnTimerTemplate.TextAlign;
+            btn.Textcolor = btnTimerTemplate.Textcolor;
+            btn.TextFont = btnTimerTemplate.TextFont;
+            btn.Size = btnTimerTemplate.Size;
+            btn.Dock = DockStyle.Left;
             
+
+            return btn;
         }
 
-        private void btnRemoveSong_Click(object sender, EventArgs e)
+        private void btnTimerTemplate_Click(object sender, EventArgs e)
         {
-            cbSound.SelectedItem = null;
-            cbSound.Text = "";
-            Settings set = BLSettings.GetSettings();
-            set.DefaultTimerSound = "";
-            BLSettings.UpdateSettings(set);
+            BunifuFlatButton btn = CloneButton();
+            btn.Text = "Timer 2";
+            pnlRunningTimers.Controls.Add(btn);
+            btn = CloneButton();
+            btn.Text = "Timer 3";
+            pnlRunningTimers.Controls.Add(btn);
+        }
+
+        private void btnNewTimer_Click(object sender, EventArgs e)
+        {
+            BLIO.Log("btnNewTimer clicked!");
+            TimerPopup quickTimer = new TimerPopup();
+            quickTimer.Show();
+        }
+
+        private void TimerButton_Click(object sender, EventArgs e)
+        {            
+            //Right click delete
+            if (e.GetType().Equals(typeof(MouseEventArgs)))
+            {
+                MouseEventArgs mouse = (MouseEventArgs)e;                
+                if (mouse.Button == MouseButtons.Right)
+                {
+                    TimerMenuStrip.Show(Cursor.Position);
+                }
+            }
+
+            BLIO.Log("TimerButton clicked!");
+            //Get selected TimerItem
+            BunifuFlatButton clickedButton = (BunifuFlatButton)sender;
+            BLIO.Log("^^^^ (" + clickedButton.Text + ")");
+            //Remove all the text apart from the id and store it
+            int id = Convert.ToInt32(clickedButton.Text.Replace("Timer","").Replace(" ","")); 
+
+            foreach (TimerItem itm in timers)
+            {
+                if (itm.ID == id)
+                {
+                    currentTimerItem = itm;  
+
+                    if(currentTimerItem.IsRunning())
+                        tmrCountdown.Start();
+                    else
+                        tmrCountdown.Stop();
+
+
+                    BLIO.Log("Setting values of (UCTimer) numericupdowns");
+                    TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);                    
+                    numSeconds.Value = time.Seconds;
+                    numMinutes.Value = time.Minutes;
+                    numHours.Value = time.Hours;
+                }
+            }            
+
+            //Show play or pause depending on if the selected timer is running or not
+            if (currentTimerItem.IsRunning())            
+                btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;                            
+            else            
+                btnPauseResumeTimer.Iconimage = Properties.Resources.Play;
+
+            EnableButton(clickedButton);
+        }
+
+        private void pnlRunningTimers_ControlAdded(object sender, ControlEventArgs e)
+        {
+            lblNoTimers.Visible = pnlRunningTimers.Controls.Count == 1;
+
+            if (pnlRunningTimers.HorizontalScroll.Visible && pnlRunningTimers.Size.Height == 33)
+                pnlRunningTimers.Size = new Size(pnlRunningTimers.Size.Width, pnlRunningTimers.Height+20);
+        }
+
+        private void pnlRunningTimers_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            lblNoTimers.Visible = pnlRunningTimers.Controls.Count == 1;
+
+            if (!pnlRunningTimers.HorizontalScroll.Visible && pnlRunningTimers.Size.Height > 33)
+                pnlRunningTimers.Size = new Size(pnlRunningTimers.Size.Width, pnlRunningTimers.Height - 20);
+        }
+
+        private void btnPauseResumeTimer_Click(object sender, EventArgs e)
+        {            
+            if (currentTimerItem.Disposed || currentTimerItem == null)
+                return;
+
+            if (currentTimerItem.IsRunning())
+            {
+                btnPauseResumeTimer.Iconimage = Properties.Resources.Play;
+                currentTimerItem.StopTimer();
+            }
+            else
+            {
+                btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;
+                currentTimerItem.StartTimer();
+            }            
+        }
+
+        private void ucTimerDeleteToolstrip_Click(object sender, EventArgs e)
+        {
+            //First, see what button is pressed
+            BunifuFlatButton button = null;
+            foreach (Control c in pnlRunningTimers.Controls)
+            {
+                if (c is BunifuFlatButton)
+                {
+                    button = (BunifuFlatButton)c;
+
+                    if (button.Normalcolor == Color.Gray)
+                        break;
+                }
+            }
+
+            //Now that we have the selected button stored in the "button" variable, let's work with it
+            //Get the id
+            int id = Convert.ToInt32(button.Text.Replace("Timer", "").Replace(" ", ""));
+            //Use the id to get the correct TimerItem from the "timers" collection, and delete it
+            TimerItem toRemoveItem = timers.Where(t => t.ID == id).ToList()[0];
+            RemoveTimer(toRemoveItem);
+            toRemoveItem.Dispose();
+
+            //Set the current timer to the first one in the list
+            if (timers.Count > 0)
+            {
+                currentTimerItem = timers[0];
+                
+
+                BLIO.Log("Setting values of (UCTimer) numericupdowns");
+                TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
+                numSeconds.Value = time.Seconds;
+                numMinutes.Value = time.Minutes;
+                numHours.Value = time.Hours;
+            }
+            else  //Nothing left
+            {
+                numSeconds.Value = 0;
+                numMinutes.Value = 0;
+                numHours.Value = 0;
+                btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;
+            }
+
+            //Set the pause/resume icon image depending on the current timer
+            if (currentTimerItem.Disposed || currentTimerItem == null)
+                return;
+
+            tmrCountdown.Enabled = currentTimerItem.IsRunning();
+
+            if (currentTimerItem.IsRunning())
+                btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;
+            else
+                btnPauseResumeTimer.Iconimage = Properties.Resources.Play;
+
+            //Now make the current TimerItem button selected
+            foreach (Control c in pnlRunningTimers.Controls)
+            {
+                if (c is BunifuFlatButton)
+                {
+                    button = (BunifuFlatButton)c;
+
+                    if (Convert.ToInt32(button.Text.Replace("Timer", "").Replace(" ", "")) == currentTimerItem.ID)
+                        button.Normalcolor = Color.Gray; //This is our button                    
+                }
+            }
         }
     }
 }

@@ -147,7 +147,9 @@ namespace RemindMe
             
 
             lblTitle.Text = rem.Name;
-            lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
+
+            if(rem.Note != null)
+                lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
 
             
 
