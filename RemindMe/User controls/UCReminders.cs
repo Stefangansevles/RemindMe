@@ -71,14 +71,24 @@ namespace RemindMe
                 GetInstance().tmrCheckReminder.Start();            
         }
         private void UCReminders_Load(object sender, EventArgs e)
-        {            
+        {
+            
             BLIO.Log("Loading reminders from database");
             //AddRemindersToPanel();
             
-            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);   
+            //BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);   
             
             BLIO.Log("Starting the reminder timer");
             tmrCheckReminder.Start();
+
+            lvReminders.Visible = false;
+            pnlReminders.Visible = true;
+            pnlReminders.Controls.Add(new UCReminderItem(BLReminder.GetReminders()[0]));            
+            pnlReminders.Controls.Add(new UCReminderItem(BLReminder.GetReminders()[1]));
+
+            pnlReminders.Controls[1].Location = new Point(0,pnlReminders.Controls[0].Location.Y + pnlReminders.Controls[0].Size.Height);
+            pnlReminders.Controls.Add(new UCReminderItem(BLReminder.GetReminders()[2]));
+            pnlReminders.Controls[2].Location = new Point(0,pnlReminders.Controls[1].Location.Y + pnlReminders.Controls[1].Size.Height);
         }   
         
         private void AddRemindersToPanel()

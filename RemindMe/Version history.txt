@@ -747,3 +747,6 @@ You can also delete the timers by right-clicking the button.
 
 Attempted to make the TimerPopup have more priority over other things running on your computer, so that you can always instantly type the time/timer note, instead of having to click
 on the popup to gain focus
+
+V2.4.17
+tiny fix to the timer system. Timer's are now being disposed when they run out

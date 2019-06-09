@@ -339,7 +339,7 @@ namespace RemindMe
 
         private void btnPauseResumeTimer_Click(object sender, EventArgs e)
         {            
-            if (currentTimerItem.Disposed || currentTimerItem == null)
+            if (currentTimerItem == null || currentTimerItem.Disposed)
                 return;
 
             if (currentTimerItem.IsRunning())
