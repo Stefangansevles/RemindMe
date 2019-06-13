@@ -52,9 +52,7 @@ namespace RemindMe
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
-            
-            
-            
+                                    
 
             //User controls that will be loaded into the "main" panel
             ucReminders = new UCReminders();

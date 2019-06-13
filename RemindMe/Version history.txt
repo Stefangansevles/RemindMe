@@ -750,3 +750,6 @@ on the popup to gain focus
 
 V2.4.17
 tiny fix to the timer system. Timer's are now being disposed when they run out
+
+V2.4.18
+Fixed a small issue where a test date was still hardcoded in, which made it impossible to make a new reminder with a custom date, Oops!
