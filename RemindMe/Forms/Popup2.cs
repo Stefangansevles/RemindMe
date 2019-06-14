@@ -333,8 +333,7 @@ namespace RemindMe
                 {
                     rem.PostponeDate = null;
                     BLReminder.UpdateReminder(rem);
-                }
-                UCReminders.NotifyChange();
+                }                
             }
             this.Close();
         }

@@ -16,7 +16,8 @@ namespace RemindMe
         private static PromptReason promptReason;
         private static string strReturnValue;
         private static int intReturnValue;
-        static RemindMePrompt newPrompt;
+        private static RemindMePrompt newPrompt;
+        private static int minutes;
         public RemindMePrompt(string title, PromptReason reason)
         {
             BLIO.Log("Constructing RemindMePrompt (" + title + ")");
@@ -42,6 +43,7 @@ namespace RemindMe
 
             strReturnValue = "";
             intReturnValue = 0;
+            minutes = 0;
             BLIO.Log("RemindMePrompt constructed");
         }
 
@@ -87,6 +89,13 @@ namespace RemindMe
             BLIO.Log("RemindMePrompt closed and returned " + intReturnValue);
             return intReturnValue;
         }
+
+        public static int ShowMinutes(string title, string description)
+        {
+            newPrompt = new RemindMePrompt(title, description, PromptReason.MINUTES);
+            newPrompt.ShowDialog();
+            return minutes;
+        }
         /// <summary>
         /// Shows a prompt where the user can enter a string
         /// </summary>
@@ -115,7 +124,7 @@ namespace RemindMe
             {
                 try
                 {
-                    intReturnValue = Convert.ToInt32(tbPrompt.Text);                    
+                    intReturnValue = Convert.ToInt32(tbPrompt.Text);
                     this.Close(); //Won't reach this if the input text is not numeric.                    
                 }
                 catch
@@ -123,11 +132,49 @@ namespace RemindMe
                     tbPrompt.Text = "";
                 }
             }
-            else
+            else if (promptReason == PromptReason.TEXT)
             {
                 strReturnValue = tbPrompt.Text;
                 this.Close();
             }
+            else if (promptReason == PromptReason.MINUTES)
+            {
+                try
+                {
+                    if (tbPrompt.Text.ToLower().Contains('h'))
+                    {
+                        BLIO.Log("timer popup contains 'h'. Checking what's before it");
+
+                        //Text without the 'm'. We know the number after 'h' is in minutes, no need to keep it in the string
+                        string tbText = tbPrompt.Text.Replace("m", "");
+
+                        //Get the index number of the 'h' in the text
+                        int index = tbPrompt.Text.ToLower().IndexOf('h');
+
+                        //Now get all the text before it(should be a numer) and multiply by 60 because the user input hours
+                        BLIO.Log("Parsing hours....");
+                        minutes += Convert.ToInt32(tbPrompt.Text.Substring(0, index)) * 60;
+
+                        //Now get the number after the 'h' , which should be minutes, and add it to timerMinutes
+                        //But, first check if there is actually something after the 'h'
+
+                        if (tbText.Length > index + 1)//+1 because .Length starts from 1, index starts from 0
+                        {
+                            BLIO.Log("Parsing minutes....");
+                            minutes += Convert.ToInt32(tbText.Substring(index + 1, tbText.Length - (index + 1)));
+                        }
+                    }
+                    else
+                        minutes = Convert.ToInt32(tbPrompt.Text);
+                }
+                catch { }
+
+                if (minutes <= 0)
+                    tbPrompt.ForeColor = Color.Firebrick;
+                else
+                    this.Close();
+            }
+
         }
 
         private void tmrFadeIn_Tick(object sender, EventArgs e)
@@ -155,7 +202,8 @@ namespace RemindMe
     public enum PromptReason
     {
         TEXT,
-        NUMERIC
+        NUMERIC,
+        MINUTES
     }
 
 }

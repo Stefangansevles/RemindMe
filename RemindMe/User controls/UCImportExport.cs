@@ -139,7 +139,7 @@ namespace RemindMe
 
 
             ToggleButton(null);
-            UCReminders.NotifyChange();
+            UCReminders.GetInstance().UpdateCurrentPage();
         }
 
 

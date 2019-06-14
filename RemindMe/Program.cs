@@ -111,7 +111,7 @@ namespace RemindMe
                 ReminderException theException = (ReminderException)e.Exception;
                 BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !");
                 ShowError(e.Exception, "Reminder error!", theException.Message);
-                UCReminders.NotifyChange();
+                UCReminders.GetInstance().UpdateCurrentPage();
             }
             else if(e.Exception is DirectoryNotFoundException)
             {

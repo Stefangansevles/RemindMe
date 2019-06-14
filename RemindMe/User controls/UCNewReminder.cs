@@ -14,6 +14,7 @@ using WMPLib;
 using System.IO;
 using System.Reflection;
 using System.Globalization;
+using System.Threading;
 
 namespace RemindMe
 {
@@ -48,10 +49,15 @@ namespace RemindMe
         public UCNewReminder(UserControl callback)
         {
             InitializeComponent();
+
             AVRForm = new AdvancedReminderForm();
             this.callback = callback;
+
             FillSoundComboboxFromDatabase(cbSound);
             SetComboBoxHeight(cbSound.Handle, 24);
+
+
+
 
             imgStop = Properties.Resources.Stop;
             imgPlayResume = Properties.Resources.Play;
@@ -76,6 +82,7 @@ namespace RemindMe
 
 
             AddDaysMenuStrip.Renderer = new MyToolStripMenuRenderer();
+
         }
 
         private void rbCheckedChangeEvent(object sender, EventArgs e)
@@ -1342,8 +1349,8 @@ namespace RemindMe
             myPlayer.controls.stop();
             tmrMusic.Stop();
 
-            //Refresh listview with the newly made reminder            
-            UCReminders.NotifyChange();
+            //Refresh listview with the newly made reminder                        
+            UCReminders.GetInstance().UpdateCurrentPage();
 
 
             this.Parent.Controls.Add(callback);            

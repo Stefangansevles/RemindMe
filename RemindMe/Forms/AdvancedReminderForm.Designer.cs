@@ -138,7 +138,7 @@
             this.btnClear.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnClear.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnClear.Iconimage = global::RemindMe.Properties.Resources.Repeatwhite;
+            this.btnClear.Iconimage = global::RemindMe.Properties.Resources.Repeatwhite; 
             this.btnClear.Iconimage_right = null;
             this.btnClear.Iconimage_right_Selected = null;
             this.btnClear.Iconimage_Selected = null;

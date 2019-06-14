@@ -38,10 +38,13 @@
             this.ReminderMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.tmrClearMessageCache = new System.Windows.Forms.Timer(this.components);
-            this.pnlReminderButtons = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.btnDisableEnable = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnEditReminder = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnRemoveReminder = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.pnlReminders1 = new RemindMe.NonFlickerPanel();
+            this.pnlBackground = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.pnlReminders = new RemindMe.NonFlickerPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUnhideReminders = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnNextPage = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnPreviousPage = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnAddReminder = new Bunifu.Framework.UI.BunifuFlatButton();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewThisReminderNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,9 +59,9 @@
             this.removePostponeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skipToNextDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlReminders = new RemindMe.NonFlickerPanel();
             this.ReminderMenuStrip.SuspendLayout();
-            this.pnlReminderButtons.SuspendLayout();
+            this.pnlBackground.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvReminders
@@ -70,13 +73,12 @@
             this.chDate,
             this.chRepeat,
             this.chEnabled});
-            this.lvReminders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvReminders.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.lvReminders.ForeColor = System.Drawing.Color.White;
             this.lvReminders.FullRowSelect = true;
-            this.lvReminders.Location = new System.Drawing.Point(0, 0);
+            this.lvReminders.Location = new System.Drawing.Point(277, 17);
             this.lvReminders.Name = "lvReminders";
-            this.lvReminders.Size = new System.Drawing.Size(666, 397);
+            this.lvReminders.Size = new System.Drawing.Size(339, 221);
             this.lvReminders.TabIndex = 0;
             this.lvReminders.UseCompatibleStateImageBehavior = false;
             this.lvReminders.View = System.Windows.Forms.View.Details;
@@ -138,139 +140,169 @@
             this.tmrClearMessageCache.Interval = 120000;
             this.tmrClearMessageCache.Tick += new System.EventHandler(this.tmrClearMessageCache_Tick);
             // 
-            // pnlReminderButtons
+            // pnlReminders1
             // 
-            this.pnlReminderButtons.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlReminderButtons.BackgroundImage")));
-            this.pnlReminderButtons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlReminderButtons.Controls.Add(this.btnDisableEnable);
-            this.pnlReminderButtons.Controls.Add(this.btnEditReminder);
-            this.pnlReminderButtons.Controls.Add(this.btnRemoveReminder);
-            this.pnlReminderButtons.Controls.Add(this.btnAddReminder);
-            this.pnlReminderButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlReminderButtons.GradientBottomLeft = System.Drawing.Color.Gray;
-            this.pnlReminderButtons.GradientBottomRight = System.Drawing.Color.Gray;
-            this.pnlReminderButtons.GradientTopLeft = System.Drawing.Color.Gray;
-            this.pnlReminderButtons.GradientTopRight = System.Drawing.Color.Gray;
-            this.pnlReminderButtons.Location = new System.Drawing.Point(0, 397);
-            this.pnlReminderButtons.Name = "pnlReminderButtons";
-            this.pnlReminderButtons.Quality = 10;
-            this.pnlReminderButtons.Size = new System.Drawing.Size(666, 39);
-            this.pnlReminderButtons.TabIndex = 1;
-            this.pnlReminderButtons.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlReminderButtons_Paint);
+            this.pnlReminders1.AutoScroll = true;
+            this.pnlReminders1.BackColor = System.Drawing.Color.Transparent;
+            this.pnlReminders1.Location = new System.Drawing.Point(581, 181);
+            this.pnlReminders1.Name = "pnlReminders1";
+            this.pnlReminders1.Size = new System.Drawing.Size(172, 168);
+            this.pnlReminders1.TabIndex = 4;
+            this.pnlReminders1.Visible = false;
             // 
-            // btnDisableEnable
+            // pnlBackground
             // 
-            this.btnDisableEnable.Activecolor = System.Drawing.Color.DimGray;
-            this.btnDisableEnable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnDisableEnable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnDisableEnable.BorderRadius = 5;
-            this.btnDisableEnable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnDisableEnable.ButtonText = "    Enable/Disable";
-            this.btnDisableEnable.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDisableEnable.DisabledColor = System.Drawing.Color.Gray;
-            this.btnDisableEnable.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnDisableEnable.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisableEnable.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnDisableEnable.Iconimage = global::RemindMe.Properties.Resources.Enable_white;
-            this.btnDisableEnable.Iconimage_right = null;
-            this.btnDisableEnable.Iconimage_right_Selected = null;
-            this.btnDisableEnable.Iconimage_Selected = null;
-            this.btnDisableEnable.IconMarginLeft = 0;
-            this.btnDisableEnable.IconMarginRight = 0;
-            this.btnDisableEnable.IconRightVisible = true;
-            this.btnDisableEnable.IconRightZoom = 0D;
-            this.btnDisableEnable.IconVisible = true;
-            this.btnDisableEnable.IconZoom = 50D;
-            this.btnDisableEnable.IsTab = false;
-            this.btnDisableEnable.Location = new System.Drawing.Point(501, 0);
-            this.btnDisableEnable.Name = "btnDisableEnable";
-            this.btnDisableEnable.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnDisableEnable.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnDisableEnable.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnDisableEnable.selected = false;
-            this.btnDisableEnable.Size = new System.Drawing.Size(166, 39);
-            this.btnDisableEnable.TabIndex = 3;
-            this.btnDisableEnable.Text = "    Enable/Disable";
-            this.btnDisableEnable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDisableEnable.Textcolor = System.Drawing.Color.White;
-            this.btnDisableEnable.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisableEnable.Click += new System.EventHandler(this.btnDisableEnable_Click);
+            this.pnlBackground.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlBackground.BackgroundImage")));
+            this.pnlBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlBackground.Controls.Add(this.pnlReminders);
+            this.pnlBackground.Controls.Add(this.panel1);
+            this.pnlBackground.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBackground.GradientBottomLeft = System.Drawing.Color.Gray;
+            this.pnlBackground.GradientBottomRight = System.Drawing.Color.DimGray;
+            this.pnlBackground.GradientTopLeft = System.Drawing.Color.Gray;
+            this.pnlBackground.GradientTopRight = System.Drawing.Color.Gray;
+            this.pnlBackground.Location = new System.Drawing.Point(0, 0);
+            this.pnlBackground.Name = "pnlBackground";
+            this.pnlBackground.Quality = 10;
+            this.pnlBackground.Size = new System.Drawing.Size(666, 436);
+            this.pnlBackground.TabIndex = 5;
             // 
-            // btnEditReminder
+            // pnlReminders
             // 
-            this.btnEditReminder.Activecolor = System.Drawing.Color.DimGray;
-            this.btnEditReminder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnEditReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnEditReminder.BorderRadius = 5;
-            this.btnEditReminder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnEditReminder.ButtonText = "    Edit Reminder";
-            this.btnEditReminder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditReminder.DisabledColor = System.Drawing.Color.Gray;
-            this.btnEditReminder.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnEditReminder.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditReminder.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnEditReminder.Iconimage = global::RemindMe.Properties.Resources.Edit_white;
-            this.btnEditReminder.Iconimage_right = null;
-            this.btnEditReminder.Iconimage_right_Selected = null;
-            this.btnEditReminder.Iconimage_Selected = null;
-            this.btnEditReminder.IconMarginLeft = 0;
-            this.btnEditReminder.IconMarginRight = 0;
-            this.btnEditReminder.IconRightVisible = true;
-            this.btnEditReminder.IconRightZoom = 0D;
-            this.btnEditReminder.IconVisible = true;
-            this.btnEditReminder.IconZoom = 50D;
-            this.btnEditReminder.IsTab = false;
-            this.btnEditReminder.Location = new System.Drawing.Point(334, 0);
-            this.btnEditReminder.Name = "btnEditReminder";
-            this.btnEditReminder.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnEditReminder.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnEditReminder.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnEditReminder.selected = false;
-            this.btnEditReminder.Size = new System.Drawing.Size(167, 39);
-            this.btnEditReminder.TabIndex = 2;
-            this.btnEditReminder.Text = "    Edit Reminder";
-            this.btnEditReminder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditReminder.Textcolor = System.Drawing.Color.White;
-            this.btnEditReminder.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditReminder.Click += new System.EventHandler(this.btnEditReminder_Click);
+            this.pnlReminders.AllowDrop = true;
+            this.pnlReminders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlReminders.Location = new System.Drawing.Point(0, 0);
+            this.pnlReminders.Name = "pnlReminders";
+            this.pnlReminders.Size = new System.Drawing.Size(666, 394);
+            this.pnlReminders.TabIndex = 6;
             // 
-            // btnRemoveReminder
+            // panel1
             // 
-            this.btnRemoveReminder.Activecolor = System.Drawing.Color.DimGray;
-            this.btnRemoveReminder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRemoveReminder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRemoveReminder.BorderRadius = 5;
-            this.btnRemoveReminder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnRemoveReminder.ButtonText = "Remove Reminder";
-            this.btnRemoveReminder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRemoveReminder.DisabledColor = System.Drawing.Color.Gray;
-            this.btnRemoveReminder.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnRemoveReminder.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveReminder.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnRemoveReminder.Iconimage = global::RemindMe.Properties.Resources.Bin_white;
-            this.btnRemoveReminder.Iconimage_right = null;
-            this.btnRemoveReminder.Iconimage_right_Selected = null;
-            this.btnRemoveReminder.Iconimage_Selected = null;
-            this.btnRemoveReminder.IconMarginLeft = 0;
-            this.btnRemoveReminder.IconMarginRight = 0;
-            this.btnRemoveReminder.IconRightVisible = true;
-            this.btnRemoveReminder.IconRightZoom = 0D;
-            this.btnRemoveReminder.IconVisible = true;
-            this.btnRemoveReminder.IconZoom = 50D;
-            this.btnRemoveReminder.IsTab = false;
-            this.btnRemoveReminder.Location = new System.Drawing.Point(167, 0);
-            this.btnRemoveReminder.Name = "btnRemoveReminder";
-            this.btnRemoveReminder.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRemoveReminder.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnRemoveReminder.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnRemoveReminder.selected = false;
-            this.btnRemoveReminder.Size = new System.Drawing.Size(167, 39);
-            this.btnRemoveReminder.TabIndex = 1;
-            this.btnRemoveReminder.Text = "Remove Reminder";
-            this.btnRemoveReminder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRemoveReminder.Textcolor = System.Drawing.Color.White;
-            this.btnRemoveReminder.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveReminder.Click += new System.EventHandler(this.btnRemoveReminder_Click);
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.Controls.Add(this.btnUnhideReminders);
+            this.panel1.Controls.Add(this.btnNextPage);
+            this.panel1.Controls.Add(this.btnPreviousPage);
+            this.panel1.Controls.Add(this.btnAddReminder);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel1.Location = new System.Drawing.Point(0, 394);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(666, 42);
+            this.panel1.TabIndex = 5;
+            // 
+            // btnUnhideReminders
+            // 
+            this.btnUnhideReminders.Activecolor = System.Drawing.Color.DimGray;
+            this.btnUnhideReminders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnUnhideReminders.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnUnhideReminders.BorderRadius = 5;
+            this.btnUnhideReminders.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnUnhideReminders.ButtonText = "  Unhide reminders";
+            this.btnUnhideReminders.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUnhideReminders.DisabledColor = System.Drawing.Color.Gray;
+            this.btnUnhideReminders.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnUnhideReminders.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUnhideReminders.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnUnhideReminders.Iconimage = global::RemindMe.Properties.Resources.show1;
+            this.btnUnhideReminders.Iconimage_right = null;
+            this.btnUnhideReminders.Iconimage_right_Selected = null;
+            this.btnUnhideReminders.Iconimage_Selected = null;
+            this.btnUnhideReminders.IconMarginLeft = 0;
+            this.btnUnhideReminders.IconMarginRight = 0;
+            this.btnUnhideReminders.IconRightVisible = true;
+            this.btnUnhideReminders.IconRightZoom = 0D;
+            this.btnUnhideReminders.IconVisible = true;
+            this.btnUnhideReminders.IconZoom = 40D;
+            this.btnUnhideReminders.IsTab = false;
+            this.btnUnhideReminders.Location = new System.Drawing.Point(501, 0);
+            this.btnUnhideReminders.Name = "btnUnhideReminders";
+            this.btnUnhideReminders.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnUnhideReminders.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnUnhideReminders.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnUnhideReminders.selected = false;
+            this.btnUnhideReminders.Size = new System.Drawing.Size(167, 42);
+            this.btnUnhideReminders.TabIndex = 3;
+            this.btnUnhideReminders.Text = "  Unhide reminders";
+            this.btnUnhideReminders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUnhideReminders.Textcolor = System.Drawing.Color.White;
+            this.btnUnhideReminders.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUnhideReminders.Click += new System.EventHandler(this.btnUnhideReminders_Click);
+            // 
+            // btnNextPage
+            // 
+            this.btnNextPage.Activecolor = System.Drawing.Color.DimGray;
+            this.btnNextPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnNextPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNextPage.BorderRadius = 5;
+            this.btnNextPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnNextPage.ButtonText = "    Next page";
+            this.btnNextPage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNextPage.DisabledColor = System.Drawing.Color.Gray;
+            this.btnNextPage.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnNextPage.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNextPage.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnNextPage.Iconimage = global::RemindMe.Properties.Resources.NextGray2;
+            this.btnNextPage.Iconimage_right = null;
+            this.btnNextPage.Iconimage_right_Selected = null;
+            this.btnNextPage.Iconimage_Selected = null;
+            this.btnNextPage.IconMarginLeft = 0;
+            this.btnNextPage.IconMarginRight = 0;
+            this.btnNextPage.IconRightVisible = true;
+            this.btnNextPage.IconRightZoom = 0D;
+            this.btnNextPage.IconVisible = true;
+            this.btnNextPage.IconZoom = 40D;
+            this.btnNextPage.IsTab = false;
+            this.btnNextPage.Location = new System.Drawing.Point(334, 0);
+            this.btnNextPage.Name = "btnNextPage";
+            this.btnNextPage.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnNextPage.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnNextPage.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnNextPage.selected = false;
+            this.btnNextPage.Size = new System.Drawing.Size(167, 42);
+            this.btnNextPage.TabIndex = 2;
+            this.btnNextPage.Text = "    Next page";
+            this.btnNextPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNextPage.Textcolor = System.Drawing.Color.White;
+            this.btnNextPage.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
+            // 
+            // btnPreviousPage
+            // 
+            this.btnPreviousPage.Activecolor = System.Drawing.Color.DimGray;
+            this.btnPreviousPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnPreviousPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPreviousPage.BorderRadius = 5;
+            this.btnPreviousPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnPreviousPage.ButtonText = "    Previous page";
+            this.btnPreviousPage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPreviousPage.DisabledColor = System.Drawing.Color.Gray;
+            this.btnPreviousPage.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnPreviousPage.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreviousPage.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnPreviousPage.Iconimage = global::RemindMe.Properties.Resources.PreviousGray1;
+            this.btnPreviousPage.Iconimage_right = null;
+            this.btnPreviousPage.Iconimage_right_Selected = null;
+            this.btnPreviousPage.Iconimage_Selected = null;
+            this.btnPreviousPage.IconMarginLeft = 0;
+            this.btnPreviousPage.IconMarginRight = 0;
+            this.btnPreviousPage.IconRightVisible = true;
+            this.btnPreviousPage.IconRightZoom = 0D;
+            this.btnPreviousPage.IconVisible = true;
+            this.btnPreviousPage.IconZoom = 40D;
+            this.btnPreviousPage.IsTab = false;
+            this.btnPreviousPage.Location = new System.Drawing.Point(167, 0);
+            this.btnPreviousPage.Name = "btnPreviousPage";
+            this.btnPreviousPage.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnPreviousPage.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnPreviousPage.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnPreviousPage.selected = false;
+            this.btnPreviousPage.Size = new System.Drawing.Size(167, 42);
+            this.btnPreviousPage.TabIndex = 1;
+            this.btnPreviousPage.Text = "    Previous page";
+            this.btnPreviousPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPreviousPage.Textcolor = System.Drawing.Color.White;
+            this.btnPreviousPage.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
             // 
             // btnAddReminder
             // 
@@ -302,7 +334,7 @@
             this.btnAddReminder.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnAddReminder.OnHoverTextColor = System.Drawing.Color.White;
             this.btnAddReminder.selected = false;
-            this.btnAddReminder.Size = new System.Drawing.Size(167, 39);
+            this.btnAddReminder.Size = new System.Drawing.Size(167, 42);
             this.btnAddReminder.TabIndex = 0;
             this.btnAddReminder.Text = "    New Reminder";
             this.btnAddReminder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -451,47 +483,35 @@
             this.toolStripMenuItem1.Text = "Permanentely remove reminder";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.permanentelyRemoveToolStripMenuItem_Click);
             // 
-            // pnlReminders
-            // 
-            this.pnlReminders.AutoScroll = true;
-            this.pnlReminders.BackColor = System.Drawing.Color.DimGray;
-            this.pnlReminders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlReminders.Location = new System.Drawing.Point(0, 0);
-            this.pnlReminders.Name = "pnlReminders";
-            this.pnlReminders.Size = new System.Drawing.Size(666, 397);
-            this.pnlReminders.TabIndex = 2;
-            this.pnlReminders.Visible = false;
-            this.pnlReminders.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlReminders_Paint);
-            // 
             // UCReminders
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.pnlReminders);
+            this.Controls.Add(this.pnlBackground);
+            this.Controls.Add(this.pnlReminders1);
             this.Controls.Add(this.lvReminders);
-            this.Controls.Add(this.pnlReminderButtons);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "UCReminders";
             this.Size = new System.Drawing.Size(666, 436);
             this.Load += new System.EventHandler(this.UCReminders_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragEnter);
             this.ReminderMenuStrip.ResumeLayout(false);
-            this.pnlReminderButtons.ResumeLayout(false);
+            this.pnlBackground.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private Bunifu.Framework.UI.BunifuGradientPanel pnlReminderButtons;
         public System.Windows.Forms.ListView lvReminders;
         private System.Windows.Forms.ColumnHeader chTitle;
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.ColumnHeader chRepeat;
         private System.Windows.Forms.ColumnHeader chEnabled;
         private Bunifu.Framework.UI.BunifuFlatButton btnAddReminder;
-        private Bunifu.Framework.UI.BunifuFlatButton btnDisableEnable;
-        private Bunifu.Framework.UI.BunifuFlatButton btnEditReminder;
-        private Bunifu.Framework.UI.BunifuFlatButton btnRemoveReminder;
         private System.Windows.Forms.ContextMenuStrip ReminderMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previewThisReminderNowToolStripMenuItem;
@@ -508,6 +528,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem hideReminderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableWarningToolStripMenuItem;
+        private NonFlickerPanel pnlReminders1;
+        private Bunifu.Framework.UI.BunifuGradientPanel pnlBackground;
         private NonFlickerPanel pnlReminders;
+        private System.Windows.Forms.Panel panel1;
+        private Bunifu.Framework.UI.BunifuFlatButton btnNextPage;
+        private Bunifu.Framework.UI.BunifuFlatButton btnPreviousPage;
+        private Bunifu.Framework.UI.BunifuFlatButton btnUnhideReminders;
     }
 }

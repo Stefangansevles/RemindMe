@@ -98,6 +98,22 @@ namespace RemindMe
             //Fill the combobox to select a timer popup sound with data
             FillSoundCombobox();
             //Set the item the user selected as text           
+            string def = BLSettings.GetSettings().DefaultTimerSound;
+            if (def == null) //User has no default sound combobox
+            {
+                foreach (ComboBoxItem itm in cbSound.Items)
+                {
+                    if (itm.Text.ToLower().Contains("unlock")) //Set the default timer sound to windows unlock 
+                    {
+                        Songs sng = (Songs)itm.Value;
+                        Settings set = BLSettings.GetSettings();
+                        set.DefaultTimerSound = sng.SongFilePath;
+                        BLSettings.UpdateSettings(set);
+                    }
+                }
+            }
+            if (BLSettings.GetSettings().DefaultTimerSound == null)//Still null? well damn.
+                return;
             
             cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLSettings.GetSettings().DefaultTimerSound), BLSongs.GetSongByFullPath(BLSettings.GetSettings().DefaultTimerSound)));
             cbSound.Text = Path.GetFileNameWithoutExtension(BLSettings.GetSettings().DefaultTimerSound);

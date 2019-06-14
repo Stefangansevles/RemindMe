@@ -144,7 +144,7 @@ namespace RemindMe
                 int currentReminderCount = BLReminder.GetReminders().Count;
                
                 BLReminder.NotifyChange();
-                UCReminders.NotifyChange();
+                UCReminders.GetInstance().UpdateCurrentPage();
 
                 if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
                 {                    
@@ -157,6 +157,13 @@ namespace RemindMe
             base.WndProc(ref m);
         }
 
+        public void UpdatePageNumber(int number)
+        {
+            if (number == -1)            
+                lblPageNumber.Text = "";                                        
+            else
+                lblPageNumber.Text = "Page " + number;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -271,7 +278,7 @@ namespace RemindMe
                 pnlMain.Controls.Add(ucNewReminder);
             else
             {
-                UCReminders.NotifyChange();
+                UCReminders.GetInstance().UpdateCurrentPage();
                 pnlMain.Controls.Add(ucReminders);
             }
             ToggleButton(sender);

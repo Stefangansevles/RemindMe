@@ -750,3 +750,10 @@ on the popup to gain focus
 
 V2.4.17
 tiny fix to the timer system. Timer's are now being disposed when they run out
+
+V2.4.18
+Fixed a small issue where a test date was still hardcoded in, which made it impossible to make a new reminder with a custom date, Oops!
+
+V2.5.0
+Overhauled the list of reminders. Instead of just being text, it is now a fancy item. The list contains 7 reminders and the user can press next/previous page to see the other reminders
+Fixed an issue where RemindMe would throw an error when loading the settings tab if the default timer sound was not set.

@@ -99,6 +99,36 @@ C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\bin\Debug\System.Data.SQLi
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\bin\Debug\Data Access Layer.pdb
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\bin\Debug\Data Access Layer.dll.config
 C:\Users\Stefan\Documents\[C#] RemindMe(git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csprojResolveAssemblyReference.cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\Interop.WMPLib.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.ResolveComReference.cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AdvancedReminderForm.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.ErrorPopup.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Form1.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup2.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBox.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeMessageForm.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeOptionPrompt.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMePrompt.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.TimerPopup.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Properties.Resources.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCBatch.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCFiles.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCGeneral.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCDebugMode.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCImportExport.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCNewReminder.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminderItem.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminders.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCResizePopup.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSound.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSupport.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCTimer.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSettings.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.Cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CoreCompileInputs.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.config
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.pdb
@@ -130,35 +160,5 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll.config
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csprojResolveAssemblyReference.cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\Interop.WMPLib.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.ResolveComReference.cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AdvancedReminderForm.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.ErrorPopup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Form1.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup2.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBox.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeMessageForm.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeOptionPrompt.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMePrompt.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.TimerPopup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Properties.Resources.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCBatch.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCFiles.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCGeneral.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCDebugMode.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCImportExport.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCNewReminder.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminderItem.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminders.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCResizePopup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSound.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSupport.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCTimer.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSettings.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.Cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CoreCompileInputs.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
