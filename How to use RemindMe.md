@@ -1,31 +1,31 @@
 # How do i use this program?
 
 When you launch RemindMe for the first time, you will see an empty list
-![](https://i.imgur.com/n4XwblE.png)
+![](https://i.imgur.com/toXZw69.png)
 
 You can add a new reminder by pressing the "New Reminder" button
 
 You can then fill in the  details of your reminder. You can select the reminder to popup daily,during work days only, weekly, monthly, or just once
 
 
-![](https://i.imgur.com/cS68OMY.png)
+![](https://i.imgur.com/WPgv1kp.png)
 
 If you want to add an sound when the reminder pops up, you can do so by clicking "Sound effects" on the left panel. Once you've done that you can press "Add file(s)" 
 
 
-![](https://i.imgur.com/BbrU0ON.png)
+![](https://i.imgur.com/i6RzKPK.png)
 
 You can now press Confirm, and you will see that it has been added to the list
 
 
-![](https://i.imgur.com/Ztv7Kp4.png)
+![](https://i.imgur.com/IcTVZHS.png)
 
 
 # Understanding the main page of RemindMe.
 
 This is where it shows the list of your reminders
 
-![](https://i.imgur.com/vOq9g4Q.png)
+![](https://i.imgur.com/ITasMbp.png)
 
 
 # How will it look when it pops up?
@@ -38,7 +38,7 @@ If you want to be reminded of the same reminder a little bit later, click the po
 However, if you don't want it to interrupt whatever it is you're doing, you can go to window overlay.
 
 
-![](https://i.imgur.com/FkY78hU.png)
+![](https://i.imgur.com/pfTfOAa.png)
 
 
 There you can select it to be minimized. It will make a sound if you added it to the reminder, but it will only show up in the taskbar. You won't see it until you click it
@@ -47,7 +47,7 @@ There you can select it to be minimized. It will make a sound if you added it to
 
 If you want to see what the reminder would look like when it pops up, you can preview it by right clicking it like shown here
 
-![](https://i.imgur.com/dQsIgfd.png)
+![](https://i.imgur.com/6PmRSY5.png)
 
 
 # Exporting/Importing Reminders
@@ -55,16 +55,7 @@ Do you want to move the reminders you have to another device, or do you want to 
 
 **Exporting reminders**
 
-There are 2 ways of doing this
-
-**1. From RemindMe's main menu**
-1. Select the reminders you want to export
-2. Right click and press export
-3. Select a destination for the .remindme file
-
-![](https://i.imgur.com/g4Hj4O9.png)
-
-**2. From the settings**
+**From the settings**
 
 1. Select "Backup / Import" from the left side panel
 2. Press "Export"
@@ -72,12 +63,12 @@ There are 2 ways of doing this
 4. Press export
 5. Select a destination for the .remindme file
 
-![](https://i.imgur.com/8K89GAs.png)
+![](https://i.imgur.com/TuemZRw.png)
 
 
 **Importing Reminders**
 
-Now that reminders are exported, we can import them. For this there are also 2 ways
+Now that reminders are exported, we can import them. For this there are 2 methods
 
 **1. From the settings**
 
@@ -87,7 +78,7 @@ Now that reminders are exported, we can import them. For this there are also 2 w
 4. Select the reminders you want to export
 5. Click "Import"
 
-![](https://i.imgur.com/w1tTyvJ.png)
+![](https://i.imgur.com/LxfhUT2.png)
 
 **2. From the .remindme file**
 

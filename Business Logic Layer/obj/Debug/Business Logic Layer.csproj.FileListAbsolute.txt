@@ -99,3 +99,22 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Busines
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CoreCompileInputs.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Business Logic Layer.dll
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Business Logic Layer.pdb
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Data Access Layer.dll
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Database.Entity.dll
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\EntityFramework.dll
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\System.Data.SQLite.dll
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Data Access Layer.pdb
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Data Access Layer.dll.config
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Database.Entity.pdb
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\Database.Entity.dll.config
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\EntityFramework.xml
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\System.Data.SQLite.xml
+D:\Users\rs\Documents\1panic\Business Logic Layer\bin\Debug\System.Data.SQLite.dll.config
+D:\Users\rs\Documents\1panic\Business Logic Layer\obj\Debug\Business Logic Layer.csprojResolveAssemblyReference.cache
+D:\Users\rs\Documents\1panic\Business Logic Layer\obj\Debug\Interop.WMPLib.dll
+D:\Users\rs\Documents\1panic\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
+D:\Users\rs\Documents\1panic\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CoreCompileInputs.cache
+D:\Users\rs\Documents\1panic\Business Logic Layer\obj\Debug\Business Logic Layer.dll
+D:\Users\rs\Documents\1panic\Business Logic Layer\obj\Debug\Business Logic Layer.pdb

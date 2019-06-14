@@ -509,7 +509,6 @@ namespace Business_Logic_Layer
             rem.Name = name;
 
             DateTime test;
-            
             //If split by comma [1] (second value) is not a datetime, it means the date is a single date WITH a comma in it. we gotta fix that
             if (date.Split(',').Length > 1 && !DateTime.TryParse(date.Split(',')[1],out test))
             {
