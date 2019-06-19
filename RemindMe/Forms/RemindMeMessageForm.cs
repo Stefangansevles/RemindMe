@@ -56,6 +56,7 @@ namespace RemindMe
             theReminder = rem;
 
             lblSkip.Visible = BLReminder.IsRepeatableReminder(rem);
+            lblDisable.Visible = true;
         }
 
         private const int WS_EX_NOACTIVATE = 0x08000000;

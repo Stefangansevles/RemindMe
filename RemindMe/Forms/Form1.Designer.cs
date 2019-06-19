@@ -31,21 +31,19 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dragHeader = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
+            this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dragLogo = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
+            this.tmrDebugMode = new System.Windows.Forms.Timer(this.components);
+            this.tmrUpdateRemindMe = new System.Windows.Forms.Timer(this.components);
+            this.tmrAnimateUpdateButton = new System.Windows.Forms.Timer(this.components);
+            this.pnlMain = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlBanner = new System.Windows.Forms.Panel();
             this.lblPageNumber = new System.Windows.Forms.Label();
             this.lblMinimize = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
-            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
-            this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dragLogo = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.pbLogo = new System.Windows.Forms.PictureBox();
-            this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
-            this.tmrDebugMode = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pnlMain = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlSide = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.btnDebugMode = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnSupport = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -54,12 +52,16 @@
             this.btnWindowOverlay = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnBackupImport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnTimer = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.lblVersion = new System.Windows.Forms.Label();
             this.btnReminders = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.pnlBanner.SuspendLayout();
+            this.btnNewUpdate = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            this.pnlBanner.SuspendLayout();
             this.pnlSide.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dragHeader
@@ -68,6 +70,75 @@
             this.dragHeader.Horizontal = true;
             this.dragHeader.TargetControl = this.pnlBanner;
             this.dragHeader.Vertical = true;
+            // 
+            // bunifuElipse1
+            // 
+            this.bunifuElipse1.ElipseRadius = 5;
+            this.bunifuElipse1.TargetControl = this;
+            // 
+            // RemindMeIcon
+            // 
+            this.RemindMeIcon.BalloonTipText = "RemindMe";
+            this.RemindMeIcon.ContextMenuStrip = this.RemindMeTrayIconMenuStrip;
+            this.RemindMeIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("RemindMeIcon.Icon")));
+            this.RemindMeIcon.Text = "RemindMe";
+            this.RemindMeIcon.Visible = true;
+            this.RemindMeIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RemindMeIcon_MouseDoubleClick);
+            // 
+            // RemindMeTrayIconMenuStrip
+            // 
+            this.RemindMeTrayIconMenuStrip.BackColor = System.Drawing.Color.DimGray;
+            this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsExit,
+            this.showRemindMeToolStripMenuItem});
+            this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
+            this.RemindMeTrayIconMenuStrip.ShowImageMargin = false;
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(133, 48);
+            this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
+            // 
+            // dragLogo
+            // 
+            this.dragLogo.Fixed = true;
+            this.dragLogo.Horizontal = true;
+            this.dragLogo.TargetControl = null;
+            this.dragLogo.Vertical = true;
+            // 
+            // tmrFadeIn
+            // 
+            this.tmrFadeIn.Interval = 10;
+            this.tmrFadeIn.Tick += new System.EventHandler(this.tmrOpacity_Tick);
+            // 
+            // tmrDebugMode
+            // 
+            this.tmrDebugMode.Interval = 1000;
+            this.tmrDebugMode.Tick += new System.EventHandler(this.tmrDebugMode_Tick);
+            // 
+            // tmrUpdateRemindMe
+            // 
+            this.tmrUpdateRemindMe.Interval = 300000;
+            this.tmrUpdateRemindMe.Tick += new System.EventHandler(this.tmrUpdateRemindMe_Tick);
+            // 
+            // tmrAnimateUpdateButton
+            // 
+            this.tmrAnimateUpdateButton.Interval = 75;
+            this.tmrAnimateUpdateButton.Tick += new System.EventHandler(this.tmrAnimateUpdateButton_Tick);
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMain.BackgroundImage")));
+            this.pnlMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.GradientBottomLeft = System.Drawing.Color.DimGray;
+            this.pnlMain.GradientBottomRight = System.Drawing.Color.DimGray;
+            this.pnlMain.GradientTopLeft = System.Drawing.Color.DimGray;
+            this.pnlMain.GradientTopRight = System.Drawing.Color.White;
+            this.pnlMain.Location = new System.Drawing.Point(200, 126);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Quality = 10;
+            this.pnlMain.Size = new System.Drawing.Size(666, 436);
+            this.pnlMain.TabIndex = 2;
+            this.pnlMain.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlMain_ControlAdded);
+            this.pnlMain.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlMain_ControlRemoved);
             // 
             // pnlBanner
             // 
@@ -127,99 +198,6 @@
             this.lblExit.MouseEnter += new System.EventHandler(this.lblExit_MouseEnter);
             this.lblExit.MouseLeave += new System.EventHandler(this.lblExit_MouseLeave);
             // 
-            // bunifuElipse1
-            // 
-            this.bunifuElipse1.ElipseRadius = 5;
-            this.bunifuElipse1.TargetControl = this;
-            // 
-            // RemindMeIcon
-            // 
-            this.RemindMeIcon.BalloonTipText = "RemindMe";
-            this.RemindMeIcon.ContextMenuStrip = this.RemindMeTrayIconMenuStrip;
-            this.RemindMeIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("RemindMeIcon.Icon")));
-            this.RemindMeIcon.Text = "RemindMe";
-            this.RemindMeIcon.Visible = true;
-            this.RemindMeIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RemindMeIcon_MouseDoubleClick);
-            // 
-            // RemindMeTrayIconMenuStrip
-            // 
-            this.RemindMeTrayIconMenuStrip.BackColor = System.Drawing.Color.DimGray;
-            this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsExit,
-            this.showRemindMeToolStripMenuItem});
-            this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
-            this.RemindMeTrayIconMenuStrip.ShowImageMargin = false;
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(133, 48);
-            this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
-            // 
-            // tsExit
-            // 
-            this.tsExit.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.tsExit.ForeColor = System.Drawing.Color.Silver;
-            this.tsExit.Image = ((System.Drawing.Image)(resources.GetObject("tsExit.Image")));
-            this.tsExit.ImageTransparentColor = System.Drawing.Color.Red;
-            this.tsExit.Name = "tsExit";
-            this.tsExit.Size = new System.Drawing.Size(132, 22);
-            this.tsExit.Text = "Exit RemindMe";
-            this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
-            // 
-            // showRemindMeToolStripMenuItem
-            // 
-            this.showRemindMeToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.showRemindMeToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
-            this.showRemindMeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showRemindMeToolStripMenuItem.Image")));
-            this.showRemindMeToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
-            this.showRemindMeToolStripMenuItem.Name = "showRemindMeToolStripMenuItem";
-            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
-            this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
-            // 
-            // dragLogo
-            // 
-            this.dragLogo.Fixed = true;
-            this.dragLogo.Horizontal = true;
-            this.dragLogo.TargetControl = this.pbLogo;
-            this.dragLogo.Vertical = true;
-            // 
-            // pbLogo
-            // 
-            this.pbLogo.BackColor = System.Drawing.Color.Transparent;
-            this.pbLogo.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
-            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbLogo.Location = new System.Drawing.Point(0, 0);
-            this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(200, 126);
-            this.pbLogo.TabIndex = 2;
-            this.pbLogo.TabStop = false;
-            // 
-            // tmrFadeIn
-            // 
-            this.tmrFadeIn.Interval = 10;
-            this.tmrFadeIn.Tick += new System.EventHandler(this.tmrOpacity_Tick);
-            // 
-            // tmrDebugMode
-            // 
-            this.tmrDebugMode.Interval = 1000;
-            this.tmrDebugMode.Tick += new System.EventHandler(this.tmrDebugMode_Tick);
-            // 
-            // pnlMain
-            // 
-            this.pnlMain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMain.BackgroundImage")));
-            this.pnlMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.GradientBottomLeft = System.Drawing.Color.DimGray;
-            this.pnlMain.GradientBottomRight = System.Drawing.Color.DimGray;
-            this.pnlMain.GradientTopLeft = System.Drawing.Color.DimGray;
-            this.pnlMain.GradientTopRight = System.Drawing.Color.White;
-            this.pnlMain.Location = new System.Drawing.Point(200, 126);
-            this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Quality = 10;
-            this.pnlMain.Size = new System.Drawing.Size(666, 436);
-            this.pnlMain.TabIndex = 2;
-            this.pnlMain.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlMain_ControlAdded);
-            this.pnlMain.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlMain_ControlRemoved);
-            // 
             // pnlSide
             // 
             this.pnlSide.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSide.BackgroundImage")));
@@ -231,9 +209,10 @@
             this.pnlSide.Controls.Add(this.btnWindowOverlay);
             this.pnlSide.Controls.Add(this.btnBackupImport);
             this.pnlSide.Controls.Add(this.btnTimer);
-            this.pnlSide.Controls.Add(this.lblVersion);
             this.pnlSide.Controls.Add(this.btnReminders);
-            this.pnlSide.Controls.Add(this.pbLogo);
+            this.pnlSide.Controls.Add(this.btnNewUpdate);
+            this.pnlSide.Controls.Add(this.pictureBox1);
+            this.pnlSide.Controls.Add(this.lblVersion);
             this.pnlSide.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSide.GradientBottomLeft = System.Drawing.Color.DimGray;
             this.pnlSide.GradientBottomRight = System.Drawing.Color.Gray;
@@ -267,7 +246,7 @@
             this.btnDebugMode.IconVisible = true;
             this.btnDebugMode.IconZoom = 50D;
             this.btnDebugMode.IsTab = true;
-            this.btnDebugMode.Location = new System.Drawing.Point(0, 462);
+            this.btnDebugMode.Location = new System.Drawing.Point(0, 510);
             this.btnDebugMode.Name = "btnDebugMode";
             this.btnDebugMode.Normalcolor = System.Drawing.Color.Transparent;
             this.btnDebugMode.OnHovercolor = System.Drawing.Color.DimGray;
@@ -304,7 +283,7 @@
             this.btnSupport.IconVisible = true;
             this.btnSupport.IconZoom = 50D;
             this.btnSupport.IsTab = true;
-            this.btnSupport.Location = new System.Drawing.Point(0, 414);
+            this.btnSupport.Location = new System.Drawing.Point(0, 462);
             this.btnSupport.Name = "btnSupport";
             this.btnSupport.Normalcolor = System.Drawing.Color.Transparent;
             this.btnSupport.OnHovercolor = System.Drawing.Color.DimGray;
@@ -340,7 +319,7 @@
             this.btnResizePopup.IconVisible = true;
             this.btnResizePopup.IconZoom = 50D;
             this.btnResizePopup.IsTab = true;
-            this.btnResizePopup.Location = new System.Drawing.Point(0, 366);
+            this.btnResizePopup.Location = new System.Drawing.Point(0, 414);
             this.btnResizePopup.Name = "btnResizePopup";
             this.btnResizePopup.Normalcolor = System.Drawing.Color.Transparent;
             this.btnResizePopup.OnHovercolor = System.Drawing.Color.DimGray;
@@ -376,7 +355,7 @@
             this.btnSoundEffects.IconVisible = true;
             this.btnSoundEffects.IconZoom = 50D;
             this.btnSoundEffects.IsTab = true;
-            this.btnSoundEffects.Location = new System.Drawing.Point(0, 318);
+            this.btnSoundEffects.Location = new System.Drawing.Point(0, 366);
             this.btnSoundEffects.Name = "btnSoundEffects";
             this.btnSoundEffects.Normalcolor = System.Drawing.Color.Transparent;
             this.btnSoundEffects.OnHovercolor = System.Drawing.Color.DimGray;
@@ -412,7 +391,7 @@
             this.btnWindowOverlay.IconVisible = true;
             this.btnWindowOverlay.IconZoom = 50D;
             this.btnWindowOverlay.IsTab = true;
-            this.btnWindowOverlay.Location = new System.Drawing.Point(0, 270);
+            this.btnWindowOverlay.Location = new System.Drawing.Point(0, 318);
             this.btnWindowOverlay.Name = "btnWindowOverlay";
             this.btnWindowOverlay.Normalcolor = System.Drawing.Color.Transparent;
             this.btnWindowOverlay.OnHovercolor = System.Drawing.Color.DimGray;
@@ -448,7 +427,7 @@
             this.btnBackupImport.IconVisible = true;
             this.btnBackupImport.IconZoom = 50D;
             this.btnBackupImport.IsTab = true;
-            this.btnBackupImport.Location = new System.Drawing.Point(0, 222);
+            this.btnBackupImport.Location = new System.Drawing.Point(0, 270);
             this.btnBackupImport.Name = "btnBackupImport";
             this.btnBackupImport.Normalcolor = System.Drawing.Color.Transparent;
             this.btnBackupImport.OnHovercolor = System.Drawing.Color.DimGray;
@@ -484,7 +463,7 @@
             this.btnTimer.IconVisible = true;
             this.btnTimer.IconZoom = 50D;
             this.btnTimer.IsTab = true;
-            this.btnTimer.Location = new System.Drawing.Point(0, 174);
+            this.btnTimer.Location = new System.Drawing.Point(0, 222);
             this.btnTimer.Name = "btnTimer";
             this.btnTimer.Normalcolor = System.Drawing.Color.Transparent;
             this.btnTimer.OnHovercolor = System.Drawing.Color.DimGray;
@@ -497,18 +476,6 @@
             this.btnTimer.Textcolor = System.Drawing.Color.White;
             this.btnTimer.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimer.Click += new System.EventHandler(this.btnTimer_Click);
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblVersion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
-            this.lblVersion.Location = new System.Drawing.Point(0, 546);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(81, 16);
-            this.lblVersion.TabIndex = 0;
-            this.lblVersion.Text = "Version x.x.x";
             // 
             // btnReminders
             // 
@@ -532,7 +499,7 @@
             this.btnReminders.IconVisible = true;
             this.btnReminders.IconZoom = 50D;
             this.btnReminders.IsTab = true;
-            this.btnReminders.Location = new System.Drawing.Point(0, 126);
+            this.btnReminders.Location = new System.Drawing.Point(0, 174);
             this.btnReminders.Name = "btnReminders";
             this.btnReminders.Normalcolor = System.Drawing.Color.Transparent;
             this.btnReminders.OnHovercolor = System.Drawing.Color.DimGray;
@@ -545,6 +512,90 @@
             this.btnReminders.Textcolor = System.Drawing.Color.White;
             this.btnReminders.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReminders.Click += new System.EventHandler(this.btnReminders_Click);
+            // 
+            // btnNewUpdate
+            // 
+            this.btnNewUpdate.Activecolor = System.Drawing.Color.Transparent;
+            this.btnNewUpdate.BackColor = System.Drawing.Color.Transparent;
+            this.btnNewUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNewUpdate.BorderRadius = 0;
+            this.btnNewUpdate.ButtonText = "     New Update!";
+            this.btnNewUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNewUpdate.DisabledColor = System.Drawing.Color.Transparent;
+            this.btnNewUpdate.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnNewUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewUpdate.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnNewUpdate.Iconimage = global::RemindMe.Properties.Resources.RemindMeTimer;
+            this.btnNewUpdate.Iconimage_right = null;
+            this.btnNewUpdate.Iconimage_right_Selected = null;
+            this.btnNewUpdate.Iconimage_Selected = null;
+            this.btnNewUpdate.IconMarginLeft = 0;
+            this.btnNewUpdate.IconMarginRight = 0;
+            this.btnNewUpdate.IconRightVisible = true;
+            this.btnNewUpdate.IconRightZoom = 0D;
+            this.btnNewUpdate.IconVisible = true;
+            this.btnNewUpdate.IconZoom = 50D;
+            this.btnNewUpdate.IsTab = true;
+            this.btnNewUpdate.Location = new System.Drawing.Point(0, 126);
+            this.btnNewUpdate.Name = "btnNewUpdate";
+            this.btnNewUpdate.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnNewUpdate.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnNewUpdate.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnNewUpdate.selected = false;
+            this.btnNewUpdate.Size = new System.Drawing.Size(200, 48);
+            this.btnNewUpdate.TabIndex = 18;
+            this.btnNewUpdate.Text = "     New Update!";
+            this.btnNewUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewUpdate.Textcolor = System.Drawing.Color.White;
+            this.btnNewUpdate.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewUpdate.Visible = false;
+            this.btnNewUpdate.VisibleChanged += new System.EventHandler(this.btnNewUpdate_VisibleChanged);
+            this.btnNewUpdate.Click += new System.EventHandler(this.btnNewUpdate_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(200, 126);
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.lblVersion.Location = new System.Drawing.Point(3, 541);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(81, 16);
+            this.lblVersion.TabIndex = 0;
+            this.lblVersion.Text = "Version x.x.x";
+            // 
+            // tsExit
+            // 
+            this.tsExit.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.tsExit.ForeColor = System.Drawing.Color.Silver;
+            this.tsExit.Image = ((System.Drawing.Image)(resources.GetObject("tsExit.Image")));
+            this.tsExit.ImageTransparentColor = System.Drawing.Color.Red;
+            this.tsExit.Name = "tsExit";
+            this.tsExit.Size = new System.Drawing.Size(132, 22);
+            this.tsExit.Text = "Exit RemindMe";
+            this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
+            // 
+            // showRemindMeToolStripMenuItem
+            // 
+            this.showRemindMeToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.showRemindMeToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
+            this.showRemindMeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showRemindMeToolStripMenuItem.Image")));
+            this.showRemindMeToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
+            this.showRemindMeToolStripMenuItem.Name = "showRemindMeToolStripMenuItem";
+            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
+            this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -563,12 +614,12 @@
             this.Text = "RemindMe Manager";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.RemindMeTrayIconMenuStrip.ResumeLayout(false);
             this.pnlBanner.ResumeLayout(false);
             this.pnlBanner.PerformLayout();
-            this.RemindMeTrayIconMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.pnlSide.ResumeLayout(false);
             this.pnlSide.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -578,7 +629,6 @@
         private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
         private System.Windows.Forms.Panel pnlBanner;
         private Bunifu.Framework.UI.BunifuFlatButton btnReminders;
-        private System.Windows.Forms.PictureBox pbLogo;
         private Bunifu.Framework.UI.BunifuDragControl dragHeader;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuCustomLabel lblMinimize;
@@ -598,9 +648,12 @@
         private System.Windows.Forms.Timer tmrFadeIn;
         private Bunifu.Framework.UI.BunifuFlatButton btnDebugMode;
         private System.Windows.Forms.Timer tmrDebugMode;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer tmrUpdateRemindMe;
         private Bunifu.Framework.UI.BunifuFlatButton btnTimer;
         private System.Windows.Forms.Label lblPageNumber;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private Bunifu.Framework.UI.BunifuFlatButton btnNewUpdate;
+        private System.Windows.Forms.Timer tmrAnimateUpdateButton;
     }
 }
 

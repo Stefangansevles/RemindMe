@@ -225,3 +225,7 @@ D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.dll.config
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.xml
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.WhatsNew.resources

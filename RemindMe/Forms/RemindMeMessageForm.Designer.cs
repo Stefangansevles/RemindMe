@@ -113,6 +113,7 @@
             this.lblSkip.Size = new System.Drawing.Size(107, 16);
             this.lblSkip.TabIndex = 3;
             this.lblSkip.Text = "Skip to next date";
+            this.lblSkip.Visible = false;
             this.lblSkip.Click += new System.EventHandler(this.lblSkip_Click);
             // 
             // lblDisable
@@ -126,6 +127,7 @@
             this.lblDisable.Size = new System.Drawing.Size(131, 16);
             this.lblDisable.TabIndex = 2;
             this.lblDisable.Text = "Disable this reminder";
+            this.lblDisable.Visible = false;
             this.lblDisable.Click += new System.EventHandler(this.lblDisable_Click);
             // 
             // panel1

@@ -757,3 +757,6 @@ Fixed a small issue where a test date was still hardcoded in, which made it impo
 V2.5.0
 Overhauled the list of reminders. Instead of just being text, it is now a fancy item. The list contains 7 reminders and the user can press next/previous page to see the other reminders
 Fixed an issue where RemindMe would throw an error when loading the settings tab if the default timer sound was not set.
+
+V2.5.1
+RemindMe now has update support! If there's a new version available, you will get a notification and the left panel of RemindMe will contain a green button to update!

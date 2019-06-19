@@ -344,5 +344,10 @@ namespace RemindMe
                 UCReminders.GetInstance().UpdateCurrentPage();
             }
         }
+
+        private void bunifuGradientPanel1_DoubleClick(object sender, EventArgs e)
+        {
+            btnEdit_Click(sender, e);
+        }
     }
 }

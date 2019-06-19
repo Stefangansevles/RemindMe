@@ -124,6 +124,9 @@
   <data name="NextWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NextWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ExportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExportIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="if_arrow-back_216437" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\if_arrow-back_216437.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,6 +138,9 @@
   </data>
   <data name="email" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\email.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedLoading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RedLoading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="test icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,9 +205,6 @@
   <data name="stop@2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stop@2x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NextGray2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NextGray2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pause@2x1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pause@2x1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -241,8 +244,8 @@
   <data name="TestIconBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TestIconBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="play@2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\play@2x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="if_add_126583" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\if_add_126583.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -258,6 +261,9 @@
   </data>
   <data name="preview_eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\preview_eye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="play@2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play@2x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Document_Accept" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Document_Accept.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -316,8 +322,8 @@
   <data name="RemindMe2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RemindMe1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ExportIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NextGray2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NextGray2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Plus_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Plus_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -373,8 +379,8 @@
   <data name="Stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EditPenWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditPenWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="turnedOffTwo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\turnedOffTwo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -445,7 +451,7 @@
   <data name="dark-green-check-mark-hi" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dark-green-check-mark-hi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EditPenWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EditPenWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="RemindMe3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemindMe.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

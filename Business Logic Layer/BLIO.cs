@@ -7,6 +7,9 @@ using Microsoft.VisualBasic;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using System.Net;
+using HtmlAgilityPack;
+using System.Management;
 
 namespace Business_Logic_Layer
 {
@@ -134,8 +137,66 @@ namespace Business_Logic_Layer
 
             System.Diagnostics.Process.Start(IOVariables.batchFile);
         }
-       
-                                       
+
+        
+        //Used in CheckRemindMeVersion
+        private static List<HtmlNode> GetTagsWithClass(string html, List<string> @class)
+        {            
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(html);
+
+            var result = doc.DocumentNode.Descendants()
+                .Where(x => x.Attributes.Contains("class") && @class.Contains(x.Attributes["class"].Value)).ToList();
+            return result;
+        }
+        /// <summary>
+        /// Look at RemindMe's github page(html) and check the version number of "SetupRemindMe.msi"
+        /// </summary>
+        public static Version GetGithubVersion()
+        {
+            try
+            {
+                Log("Starting the process of checking the live version on github...");
+                //Lets thread this process. It has no priority and we dont want to slow RemindMe down.            
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                List<string> lines = new List<string>();
+
+                string html;
+                using (var client = new WebClient())
+                {
+                    html = client.DownloadString("https://raw.githubusercontent.com/Stefangansevles/RemindMe/master/SetupRemindMe17/SetupRemindMe17.vdproj");
+                    lines = html.Split(new[] { "\n" }, StringSplitOptions.None).ToList();
+                }
+
+                if (lines.Count > 0)
+                    Log("Sucessfully loaded raw SetupRemindMe17.vdproj from github");
+
+                foreach (string line in lines)
+                {
+                    if (line.Contains("\"ProductVersion\""))
+                    {
+                        string splitLine = line.Replace(" ", "").Replace("\"", "");
+                        int colonIndex = splitLine.IndexOf(':');
+
+                        //Get version
+                        try
+                        {                            
+                            return new Version(splitLine.Substring(colonIndex + 1));
+                        }
+                        catch (Exception ex) { Log("ERROR Could not get the raw version from SetupRemindMe17.vdproj from github..."); }
+
+
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Log("BLIO.NewVersionOnGithub() failed: " + ex.ToString());
+            }
+            return null;
+        }
+
         /// <summary>
         ///  Writes an error to the errorlog.txt
         /// </summary>
@@ -154,6 +215,71 @@ namespace Business_Logic_Layer
             {
                 sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
             }               
-        }              
+        }
+
+        /// <summary>
+        /// Creates the .bat file neccesary to install the new update of RemindMe, uninstall the old one and re-run RemindMe
+        /// </summary>
+        public static void WriteUpdateBatch(string remindMePath)
+        {
+            new Thread(async () =>
+            {
+                string batchString = "msiexec /x ";
+                string productCode = GetProductCode("RemindMe"); //This call really does take a pretty long time. Good thing we can thread that
+
+                batchString += productCode + " /qn" + Environment.NewLine;
+                batchString += "msiexec /qb /i \"" + IOVariables.rootFolder + "SetupRemindMe.msi\"" + Environment.NewLine;                
+                batchString += "start /d \"" + remindMePath + "\" RemindMe.exe";
+
+                using (FileStream fs = new FileStream(IOVariables.rootFolder + "install.bat", FileMode.Create))
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine(batchString);
+                }
+            }).Start();
+        }
+
+        /// <summary>
+        /// Gets the MSI file version that is to be installed from the msi, before installing it.
+        /// source: https://www.codeproject.com/Articles/31021/Getting-version-from-MSI-without-installing-it
+        /// </summary>
+        /// <param name="msi"></param>
+        /// <returns></returns>
+        public static string GetMsiVersion(string msi)
+        {
+            Type type = Type.GetTypeFromProgID("WindowsInstaller.Installer");
+
+            WindowsInstaller.Installer installer = (WindowsInstaller.Installer)
+
+            Activator.CreateInstance(type);
+
+            WindowsInstaller.Database db = installer.OpenDatabase(msi, 0);
+
+            WindowsInstaller.View dv = db.OpenView(
+                 "SELECT `Value` FROM `Property` WHERE `Property`='ProductVersion'");
+
+            WindowsInstaller.Record record = null;
+
+            dv.Execute(record);
+
+            record = dv.Fetch();
+
+            return record.get_StringData(1).ToString();            
+        }
+
+        public static string GetProductCode(string productName)
+        {
+            string query = string.Format("select * from Win32_Product where Name='{0}'", productName);
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            {
+                foreach (ManagementObject product in searcher.Get())
+                    return product["IdentifyingNumber"].ToString();
+            }
+            return null;
+        }
+
+
+
+
     }
 }

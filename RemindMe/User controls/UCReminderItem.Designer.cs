@@ -228,6 +228,7 @@
             this.bunifuGradientPanel1.Quality = 10;
             this.bunifuGradientPanel1.Size = new System.Drawing.Size(666, 57);
             this.bunifuGradientPanel1.TabIndex = 116;
+            this.bunifuGradientPanel1.DoubleClick += new System.EventHandler(this.bunifuGradientPanel1_DoubleClick);
             // 
             // pnlActionButtons
             // 

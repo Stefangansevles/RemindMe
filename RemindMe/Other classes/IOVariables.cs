@@ -20,6 +20,11 @@ namespace RemindMe
         public static readonly string databaseFile = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\RemindMeDatabase.db";
 
         /// <summary>
+        /// Contains the path to the root folder of RemindMe
+        /// </summary>
+        public static readonly string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\RemindMe\";
+
+        /// <summary>
         /// Contains the startup folder path. 
         /// </summary>
         public static readonly string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
