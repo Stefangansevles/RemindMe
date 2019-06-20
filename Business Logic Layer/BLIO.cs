@@ -224,11 +224,11 @@ namespace Business_Logic_Layer
         {
             new Thread(async () =>
             {
-                string batchString = "msiexec /x ";
+                string batchString = "@echo off\r\necho Installing the new version of RemindMe.... Please do not close this window\r\n@echo on" + Environment.NewLine;
                 string productCode = GetProductCode("RemindMe"); //This call really does take a pretty long time. Good thing we can thread that
-
-                batchString += productCode + " /qn" + Environment.NewLine;
-                batchString += "msiexec /qb /i \"" + IOVariables.rootFolder + "SetupRemindMe.msi\"" + Environment.NewLine;                
+                
+                batchString += "msiexec /qb /i \"" + IOVariables.rootFolder + "SetupRemindMe.msi\"" + Environment.NewLine;
+                batchString += "msiexec /x " + productCode + " /qn" + Environment.NewLine;                
                 batchString += "start /d \"" + remindMePath + "\" RemindMe.exe";
 
                 using (FileStream fs = new FileStream(IOVariables.rootFolder + "install.bat", FileMode.Create))
