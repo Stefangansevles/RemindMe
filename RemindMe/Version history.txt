@@ -760,3 +760,6 @@ Fixed an issue where RemindMe would throw an error when loading the settings tab
 
 V2.5.1
 RemindMe now has update support! If there's a new version available, you will get a notification and the left panel of RemindMe will contain a green button to update!
+
+V2.5.2
+Fixed an issue where the timer popup would cause an error.

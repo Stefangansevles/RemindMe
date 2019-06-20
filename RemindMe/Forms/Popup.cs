@@ -250,6 +250,10 @@ namespace RemindMe
         private void btnOk_Click(object sender, EventArgs e)
         {
             rem = BLReminder.GetReminderById(rem.Id);
+
+            if (rem == null)
+                goto close;
+
             if (rem.Id != -1 && rem.Deleted == 0) //Don't do stuff if the id is -1, invalid. the id is set to -1 when the user previews an reminder
             {
                 if(BLReminder.GetReminderById(rem.Id) == null)
