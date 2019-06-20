@@ -1282,8 +1282,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{DA22D6B2-7149-4124-8E24-10C2FC101C4A}"
-        "PackageCode" = "8:{392063A7-0761-4CC3-AF92-26DA1B974188}"
+        "ProductCode" = "8:{B1770DBF-0F3D-4F1B-8292-EE33F6DD44D1}"
+        "PackageCode" = "8:{D8BC4126-011A-4D6E-95AB-21589C6C40E9}"
         "UpgradeCode" = "8:{026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

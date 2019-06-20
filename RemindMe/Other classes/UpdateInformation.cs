@@ -23,7 +23,8 @@ namespace RemindMe
             releaseNotes.Add("2.4.18", "Fixed a small issue where a test date was still hardcoded in, which made it impossible to make a new reminder with a custom date, Oops!");
             releaseNotes.Add("2.5.0", "Overhauled the list of reminders. Instead of just being text, it is now a fancy item. \r\nThe list contains 7 reminders and the user can press next/previous page to see the other reminders\r\n Fixed an issue where RemindMe would throw an error when loading the settings tab if the default timer sound was not set.");
             releaseNotes.Add("2.5.1", "RemindMe now has update support! \r\nIf there's a new version available, you will get a notification and the left panel of RemindMe will contain a green button to update!");
-            releaseNotes.Add("2.5.2", "Fixed an issue where the timer popup would cause an error.");           
+            releaseNotes.Add("2.5.2", "Fixed an issue where the timer popup would cause an error.");    
+            releaseNotes.Add("2.5.3", "Finally fixed the issue where RemindMe looks really weird(mostly windows 10) where you can't see certain parts of RemindMe until you hover over it");
         }
 
         public static Dictionary<string,string> ReleaseNotes

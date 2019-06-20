@@ -525,7 +525,7 @@
             this.btnNewUpdate.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnNewUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewUpdate.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnNewUpdate.Iconimage = global::RemindMe.Properties.Resources.RemindMeTimer;
+            this.btnNewUpdate.Iconimage = global::RemindMe.Properties.Resources.RemindMeSettingsNew;
             this.btnNewUpdate.Iconimage_right = null;
             this.btnNewUpdate.Iconimage_right_Selected = null;
             this.btnNewUpdate.Iconimage_Selected = null;
@@ -611,6 +611,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Form1";
+            this.Opacity = 0D;
             this.Text = "RemindMe Manager";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
@@ -625,14 +626,9 @@
         }
 
         #endregion
-
-        private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
-        private System.Windows.Forms.Panel pnlBanner;
         private Bunifu.Framework.UI.BunifuFlatButton btnReminders;
         private Bunifu.Framework.UI.BunifuDragControl dragHeader;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
-        private Bunifu.Framework.UI.BunifuCustomLabel lblMinimize;
-        private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
         private Bunifu.Framework.UI.BunifuFlatButton btnBackupImport;
         private Bunifu.Framework.UI.BunifuFlatButton btnResizePopup;
         private Bunifu.Framework.UI.BunifuFlatButton btnWindowOverlay;
@@ -650,10 +646,14 @@
         private System.Windows.Forms.Timer tmrDebugMode;
         private System.Windows.Forms.Timer tmrUpdateRemindMe;
         private Bunifu.Framework.UI.BunifuFlatButton btnTimer;
-        private System.Windows.Forms.Label lblPageNumber;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Bunifu.Framework.UI.BunifuFlatButton btnNewUpdate;
         private System.Windows.Forms.Timer tmrAnimateUpdateButton;
+        private System.Windows.Forms.Panel pnlBanner;
+        private System.Windows.Forms.Label lblPageNumber;
+        private Bunifu.Framework.UI.BunifuCustomLabel lblMinimize;
+        private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
+        private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
     }
 }
 

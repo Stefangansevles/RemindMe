@@ -55,12 +55,12 @@ namespace RemindMe
         private bool increaseR = true;
         private bool increaseG = true;
         private bool increaseB = true;
-        
+        private bool allowshowdisplay = false;
 
         public Form1()
         {
 
-            BLIO.Log("Construct Form");
+            BLIO.Log("Construct Form");            
             InitializeComponent();
 
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
@@ -88,6 +88,9 @@ namespace RemindMe
 
             instance = this;
             UpdateInformation.Initialize();
+            
+            formLoad();
+
             BLIO.Log("Form constructed");            
         }
 
@@ -96,7 +99,10 @@ namespace RemindMe
             get { return instance; }
         }
 
-
+        protected override void SetVisibleCore(bool value)
+        {
+            base.SetVisibleCore(allowshowdisplay ? value : allowshowdisplay);
+        }
 
         protected override CreateParams CreateParams
         {
@@ -181,9 +187,11 @@ namespace RemindMe
                 quickTimer.Show();
             }
         }
-        
 
-        private void Form1_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Alternative Form_load method since form_load doesnt get called until you first double-click the RemindMe icon due to override SetVisibleCore
+        /// </summary>
+        private void formLoad()
         {
             BLIO.Log("RemindMe_Load");
 
@@ -193,12 +201,12 @@ namespace RemindMe
 
 
             Settings set = BLSettings.GetSettings();
-            
+
             if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
                 //User has a new RemindMe version!                
                 string releaseNotesString = "";
-               
+
                 foreach (KeyValuePair<string, string> entry in UpdateInformation.ReleaseNotes)
                 {
                     if (new Version(entry.Key) > new Version(set.LastVersion))
@@ -208,26 +216,19 @@ namespace RemindMe
                 }
                 WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
                 wn.Show();
-                
+
                 //Update lastVersion
                 set.LastVersion = IOVariables.RemindMeVersion;
                 BLSettings.UpdateSettings(set);
 
-                
+
             }
 
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
 
             MessageFormManager.MakeTodaysRemindersPopup();
-            BLIO.Log("Today's reminders popup created");
-
-            //hide the form on startup
-            BeginInvoke(new MethodInvoker(delegate
-            {
-                this.Opacity = 0;
-                Hide();
-            }));
+            BLIO.Log("Today's reminders popup created");            
 
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
@@ -246,19 +247,22 @@ namespace RemindMe
             Cleanup();
 
             tmrUpdateRemindMe.Start();
-            
+
             //If the setup still exists, delete it
             File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");
-            
+
             //Call the timer once
             Thread tr = new Thread(() =>
-            {   
+            {
                 //wait a bit, then call the update timer once. It then runs every 5 minutes
                 Thread.Sleep(5000);
                 tmrUpdateRemindMe_Tick(null, null);
             });
             tr.Start();
-            
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+                     
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -271,39 +275,35 @@ namespace RemindMe
 
         private void showRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            BLIO.Log("showRemindMeToolStripMenuItem_Click");
             if (this.Visible)
             {
                 BLIO.Log("Remindme was already visible though..");
                 return;
-            }
-
-            this.ShowInTaskbar = true;
-            this.WindowState = FormWindowState.Minimized;
+            }            
 
             //Instead of calling .Show() on a form with 100% opacity making it visible instantly, we call .Show() on the form with 0% opacity.
             //The form will be drawn invisibly, and then increase the opacity until it reaches 100%. This way RemindMe's form:
             //1. Has a fade-in like animation when showing
             //2. No longer shows flickery that occurs when drawing the form(windows-forms issue)
+            allowshowdisplay = true;
+            this.ShowInTaskbar = true;
             this.Show();
-            this.WindowState = FormWindowState.Normal;
-            tmrFadeIn.Start();
+            tmrFadeIn.Start(); ;
             BLIO.Log("Show remindme toolstrip menu item clicked(not double-click). Showing remindme");
         }
 
         private void RemindMeIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             BLIO.Log("Remindme icon double clicked");
-
             if (this.Visible)
             {
                 BLIO.Log("Remindme was already visible though..");
                 return;
             }
-
+            allowshowdisplay = true;            
             this.ShowInTaskbar = true;
-            this.WindowState = FormWindowState.Minimized;
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
+            this.Show();            
             tmrFadeIn.Start();
             BLIO.Log("Showing RemindMe");
 
@@ -395,7 +395,7 @@ namespace RemindMe
 
         private void lblExit_MouseLeave(object sender, EventArgs e)
         {
-            lblExit.ForeColor = Color.Transparent;
+           lblExit.ForeColor = Color.Transparent;
 
         }
 

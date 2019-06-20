@@ -763,3 +763,6 @@ RemindMe now has update support! If there's a new version available, you will ge
 
 V2.5.2
 Fixed an issue where the timer popup would cause an error.
+
+V2.5.3
+Attempted to fix the issue where RemindMe looks really weird (on windows 10) where you can't see certain parts of RemindMe until you hover over it
