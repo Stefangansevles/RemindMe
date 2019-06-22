@@ -17,10 +17,7 @@ namespace RemindMe.Other_classes
         private bool disposed = false;
         // Instantiate a SafeHandle instance.
         SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
-
-
-        //The duration of this timer in seconds
-        private int secondsTillPop = 0;
+        
         //The timer
         private Timer timer;
         //The text that should display when the timer pops up
@@ -36,12 +33,15 @@ namespace RemindMe.Other_classes
         //Unique id to identify timers
         private int id;
 
+        //The date this timer is set for
+        private DateTime popupDate;
+
         /// <summary>
         /// Create a new TimerItem to create multiple running timers.
         /// </summary>
-        public TimerItem(int seconds,string text, int id)
+        public TimerItem(DateTime popupDate,string text, int id)
         {
-            this.secondsTillPop = seconds;
+            this.popupDate = popupDate;
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
@@ -51,14 +51,14 @@ namespace RemindMe.Other_classes
         }
 
         private void Timer_Tick(object sender, EventArgs e)
-        {
-            secondsTillPop--;
-
-            if(secondsTillPop <= 0)//Let's make the popup
+        {            
+            if(popupDate <= DateTime.Now)//Let's make the popup
             {
                 timer.Stop();
 
                 Reminder rem = new Reminder();
+                rem.Date = popupDate.ToShortDateString() + " " + popupDate.ToShortTimeString();
+                rem.RepeatType = ReminderRepeatType.NONE.ToString();
                 rem.Id = -1; //Set it to our "Invalid id" number. It is not a real reminder after all.
                 rem.Name = "Timer";
                 rem.Note = timerText;
@@ -83,8 +83,11 @@ namespace RemindMe.Other_classes
         //Read-only seconds left
         public int SecondsRemaining
         {
-            get { return secondsTillPop; }
-            set { secondsTillPop = value; }
+            get
+            {
+                return ((popupDate - DateTime.Now).Hours * 60 * 60) + (popupDate - DateTime.Now).Minutes * 60 + (popupDate - DateTime.Now).Seconds;
+            }
+            set { popupDate = DateTime.Now.AddSeconds(value); }
         }      
         /// <summary>
         /// Determines if the timer is currently running
@@ -103,7 +106,7 @@ namespace RemindMe.Other_classes
 
             if (updateAllowed)
             {
-                ucTimer.timerDuration = secondsTillPop;
+                ucTimer.timerDuration = (popupDate-DateTime.Now).Seconds;
                 if (!ucTimer.tmrCountdown.Enabled)
                     ucTimer.tmrCountdown.Start();
             }
@@ -118,7 +121,7 @@ namespace RemindMe.Other_classes
 
             if (updateAllowed)
             {
-                ucTimer.timerDuration = secondsTillPop;
+                ucTimer.timerDuration = (popupDate - DateTime.Now).Seconds;
                 if (ucTimer.tmrCountdown.Enabled)
                     ucTimer.tmrCountdown.Stop();
             }
@@ -133,14 +136,10 @@ namespace RemindMe.Other_classes
             set { timerText = value; }
         }
 
-        /// <summary>
-        /// Deletes this object by removing all the data from in
-        /// </summary>
-        public void Delete()
+        public DateTime PopupDate
         {
-            timer.Stop();
+            get { return popupDate; }
         }
-
 
 
         //== Custom dispose code below == 

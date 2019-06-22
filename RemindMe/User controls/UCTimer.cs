@@ -70,7 +70,7 @@ namespace RemindMe
             }
             
 
-            if (timerDuration <= 0)
+            if ( (currentTimerItem.PopupDate-DateTime.Now).Seconds <= 0)
             {
                 BLIO.Log("Creating timer popup..");
                 tmrCountdown.Stop();                
@@ -106,7 +106,7 @@ namespace RemindMe
         public void AddTimer(int seconds, string text)
         {
             BLIO.Log("Attempting to add a timer for " + seconds + " seconds.");
-            TimerItem tmrItem = new TimerItem(seconds, text, timerIdCounter);
+            TimerItem tmrItem = new TimerItem(DateTime.Now.AddSeconds(seconds), text, timerIdCounter);
             tmrItem.updateAllowed = true;            
             tmrItem.StartTimer();            
             timers.Add(tmrItem);
@@ -305,7 +305,7 @@ namespace RemindMe
 
 
                     BLIO.Log("Setting values of (UCTimer) numericupdowns");
-                    TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);                    
+                    TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
                     numSeconds.Value = time.Seconds;
                     numMinutes.Value = time.Minutes;
                     numHours.Value = time.Hours;
