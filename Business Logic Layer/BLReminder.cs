@@ -736,6 +736,9 @@ namespace Business_Logic_Layer
 
         public static string GetRepeatTypeText(Reminder rem)
         {
+            if (rem.RepeatType == null)
+                return "";
+
             if (rem.Date.Split(',').Count() > 1)
                 return "Multiple dates";
 

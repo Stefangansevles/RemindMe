@@ -193,10 +193,31 @@ namespace RemindMe
         private void PreviewReminder()
         {
             BLIO.Log("Previewing reminder with id " + rem.Id);
-            Reminder previewRem = rem;
+            Reminder previewRem = CopyReminder(rem);
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered
             Popup p = new Popup(previewRem);
             p.Show();
+        }
+        private Reminder CopyReminder(Reminder rem)
+        {
+            //Wouldn't it be nice if there was some sort of general C# method that copies objects?
+            Reminder copy = new Reminder();
+            copy.Corrupted = rem.Corrupted;
+            copy.Date = rem.Date;
+            copy.DayOfMonth = rem.DayOfMonth;
+            copy.Deleted = rem.Deleted;
+            copy.EnableAdvancedReminder = rem.EnableAdvancedReminder;
+            copy.Enabled = rem.Enabled;
+            copy.EveryXCustom = rem.EveryXCustom;
+            copy.Hide = rem.Hide;
+            copy.Id = -1;
+            copy.Name = rem.Name;
+            copy.Note = rem.Note;
+            copy.PostponeDate = rem.PostponeDate;
+            copy.RepeatDays = rem.RepeatDays;
+            copy.RepeatType = rem.RepeatType;
+            copy.SoundFilePath = rem.SoundFilePath;            
+            return copy;
         }
 
         private async void previewThisReminderIn5SecondsToolStripMenuItem_ClickAsync(object sender, EventArgs e)

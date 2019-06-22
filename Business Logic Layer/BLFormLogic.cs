@@ -143,12 +143,49 @@ namespace Business_Logic_Layer
             AddRemindersToListview(lv, DLReminders.GetReminders().Where(rem => rem.Hide == 0).ToList());
         }
 
-       
 
-        
+        public static int GetTextboxMinutes(Bunifu.Framework.UI.BunifuMetroTextbox tb)
+        {
+            try
+            {
+                int timerMinutes = 0;
 
-        
+                //Text without the 'm'. We know the number after 'h' is in minutes, no need to keep it in the string
+                string tbText = tb.Text.ToLower().Replace("m", "");
+                if (tbText.Contains('h'))
+                {
+                    BLIO.Log("Reminder popup contains 'h'. Checking what's before it");
 
-        
+                    //Get the tbPrompt number of the 'h' in the text
+                    int index = tbText.IndexOf('h');
+
+                    //Now get all the text before it(should be a numer) and multiply by 60 because the user input hours
+                    BLIO.Log("Parsing hours....");
+                    timerMinutes += Convert.ToInt32(tbText.Substring(0, index)) * 60;
+
+                    //Now get the number after the 'h' , which should be minutes, and add it to timerMinutes
+                    //But, first check if there is actually something after the 'h'
+
+                    if (tbText.Length > index + 1)//+1 because .Length starts from 1, index starts from 0
+                    {
+                        BLIO.Log("Parsing minutes....");
+                        timerMinutes += Convert.ToInt32(tbText.Substring(index + 1, tbText.Length - (index + 1)));
+                    }
+                }
+                else
+                    timerMinutes = Convert.ToInt32(tbText);
+
+                return timerMinutes;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+
+
+
+
+
     }
 }

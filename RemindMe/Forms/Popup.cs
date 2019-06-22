@@ -109,7 +109,23 @@ namespace RemindMe
                 btnOk_Click(sender,e);
                 return;
             }
-            
+
+            DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
+            lblSmallDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
+            lblRepeat.Text = BLReminder.GetRepeatTypeText(rem);
+
+            if(!String.IsNullOrWhiteSpace(rem.PostponeDate))
+            {
+                pbDate.BackgroundImage = Properties.Resources.RemindMeZzz;                
+                lblSmallDate.Text = Convert.ToDateTime(rem.PostponeDate) + " (Postponed)";
+            }
+
+            //If some country has a longer date string, move the repeat icon/text more to the right so it doesnt overlap
+            while (lblSmallDate.Bounds.IntersectsWith(pbRepeat.Bounds))
+            {
+                pbRepeat.Location = new Point(pbRepeat.Location.X + 5, pbRepeat.Location.Y);
+                lblRepeat.Location = new Point(lblRepeat.Location.X + 5, lblRepeat.Location.Y);
+            }
 
             //Play the sound
             if (rem.SoundFilePath != null && rem.SoundFilePath != "")
@@ -151,17 +167,15 @@ namespace RemindMe
             if(rem.Note != null)
                 lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
 
+            if (rem.Note == "")
+                lblNoteText.Text = "( No text set )";
+
+            lblNoteText.Text = Environment.NewLine + Environment.NewLine + lblNoteText.Text;              
+
             
 
             if (rem.Date == null)
-                rem.Date = DateTime.Now.ToString();
-
-            //Show what date this reminder was set for
-            BLIO.Log("Setting \"This reminder was set for\" text");
-            if (rem.PostponeDate == null)
-                lblDate.Text = "This reminder was set for " + rem.Date.Split(',')[0];
-            else
-                lblDate.Text = "This reminder was set for " + rem.PostponeDate;            
+                rem.Date = DateTime.Now.ToString();            
         }
 
         private void lblMinimize_MouseEnter(object sender, EventArgs e)
@@ -210,18 +224,15 @@ namespace RemindMe
 
         private void RepositionControls()
         {
-            //give new locations to the controls if the size changes.                        
-            lblDate.Location = new Point(lblDate.Location.X, (lblNewReminder.Location.Y + lblNewReminder.Height) + 3);
+            //give new locations to the controls if the size changes.                                    
 
-            cbPostpone.Location = new Point(3, pnlFooter.Height - cbPostpone.Height - 3);
+            //cbPostpone.Location = new Point(3, pnlFooter.Height - cbPostpone.Height - 3);
 
-            lblPostpone.Location = new Point(cbPostpone.Location.X + cbPostpone.Width + 3, cbPostpone.Location.Y);
-            numPostponeTime.Location = new Point(lblPostpone.Location.X + lblPostpone.Width + 5, cbPostpone.Location.Y + 1);
-            gbRadioButtons.Location = new Point(numPostponeTime.Location.X + numPostponeTime.Width + 3, numPostponeTime.Location.Y - 7);
+            //lblPostpone.Location = new Point(cbPostpone.Location.X + cbPostpone.Width + 3, cbPostpone.Location.Y);
+            // todo pnlPostpone.Location = new Point(lblPostpone.Location.X + lblPostpone.Width + 5, cbPostpone.Location.Y + 1);
+            //todo tbtime.Location = new Point(numPostponeTime.Location.X + numPostponeTime.Width + 3, numPostponeTime.Location.Y - 7);
             btnOk.Location = new Point(pnlFooter.Width - btnOk.Width - 3, pnlFooter.Height - btnOk.Height - 3);
-
-            lblNewReminder.Location = new Point(pnlHeaderText.Width / 2 - (lblNewReminder.Width / 2) - (int)(lblNewReminder.Width * 0.20), -3);
-            lblDate.Location = new Point(lblNewReminder.Location.X - (lblDate.Width / 2 / 2) + 30, lblDate.Location.Y);            
+            
         }
 
 
@@ -271,12 +282,20 @@ namespace RemindMe
 
                     DateTime newReminderTime = new DateTime();
 
-                    if (rbMinutes.Checked) //postpone option is x minutes                
-                        newReminderTime = DateTime.Now.AddMinutes((double)numPostponeTime.Value);
-                    else //postpone option is x hours                
-                        newReminderTime = DateTime.Now.AddHours((double)numPostponeTime.Value);
+                    if (cbPostpone.Checked && tbtime.ForeColor == Color.White && !string.IsNullOrWhiteSpace(tbtime.Text)) //postpone option is x minutes                
+                    {
+                        newReminderTime = DateTime.Now.AddMinutes(BLFormLogic.GetTextboxMinutes(tbtime));
+                        rem.PostponeDate = newReminderTime.ToString();
+                    }
+                    else
+                    {                        
+                        rem.PostponeDate = null;
+                        BLReminder.UpdateReminder(rem);
+                    }
 
-                    rem.PostponeDate = newReminderTime.ToString();
+
+
+                    
                     BLIO.Log("Postpone date assigned to reminder");
                     rem.Enabled = 1;
                     BLReminder.EditReminder(rem);
@@ -293,6 +312,7 @@ namespace RemindMe
             UCReminders.GetInstance().UpdateCurrentPage();
             BLIO.Log("Stopping media player & Closing popup");
             myPlayer.controls.stop();
+            btnOk.Enabled = false;
             this.Close();
         }
 
@@ -313,6 +333,38 @@ namespace RemindMe
             this.Opacity += 0.1;
             if (this.Opacity >= 1)
                 tmrFadeIn.Stop();
+        }
+
+        private void tbPrompt_KeyUp(object sender, KeyEventArgs e)
+        {            
+            //Show the user that whatever it is they are inputting is invalid
+            if (tbtime.Text == "" || BLFormLogic.GetTextboxMinutes(tbtime) != -1)
+                tbtime.BorderColorFocused = Color.FromArgb(64, 64, 64);
+            else
+                tbtime.BorderColorFocused = Color.Red;
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            cbPostpone.Checked = !cbPostpone.Checked;
+        }
+
+        private void tbtime_Enter(object sender, EventArgs e)
+        {
+            if (tbtime.ForeColor == Color.Gray)
+            {
+                tbtime.Text = "";
+                tbtime.ForeColor = Color.White;                
+            }
+        }
+
+        private void tbtime_Leave(object sender, EventArgs e)
+        {
+            if(String.IsNullOrEmpty(tbtime.Text))
+            {
+                tbtime.ForeColor = Color.Gray;
+                tbtime.Text = "1h30m";
+            }
         }
     }
 }
