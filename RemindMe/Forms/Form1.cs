@@ -556,9 +556,8 @@ namespace RemindMe
                 Process process = new Process();
                 process.StartInfo = info;
                 process.Start();
-                              
-                //Restart the application so the user immediately has the new version up and running
-                Application.Restart();                
+                                              
+                Application.Exit();                
             }
             catch (Exception ex)
             {
