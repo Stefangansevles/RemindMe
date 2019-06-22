@@ -59,6 +59,9 @@ namespace Business_Logic_Layer
             string domainName = GetDomainName(mes.To[0].Address);
             IPAddress[] servers = GetMailExchangeServer(domainName);
 
+            if (servers == null)
+                return new NullReferenceException();
+
             int count = 0;
             foreach (IPAddress server in servers)
             {
@@ -130,6 +133,10 @@ namespace Business_Logic_Layer
         private static IPAddress[] GetMailExchangeServer(string domainName)
         {
             IPHostEntry hostEntry = DomainNameUtil.GetIPHostEntryForMailExchange(domainName);
+
+            if (hostEntry == null)
+                return null;
+
             if (hostEntry.AddressList.Length > 0)
             {
                 return hostEntry.AddressList;

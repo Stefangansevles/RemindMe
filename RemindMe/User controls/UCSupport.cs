@@ -86,42 +86,50 @@ namespace RemindMe
 
         private void tmrSendMail_Tick(object sender, EventArgs e)
         {
-            if (sendMailThread.IsAlive)
+            try
             {
-                if (secondsPassed >= timeout)
+                if (sendMailThread.IsAlive)
                 {
-                    sendMailThread.Abort();
-                    btnSend.Enabled = true;
-                    pbSending.Visible = false;
-                    lblSending.Visible = false;
-                    MessageFormManager.MakeMessagePopup("Could not send the e-mail from your connection.", 5);                    
-                    tmrSendMail.Stop();
-                    secondsPassed = 0;
-                }
-            }
-            else
-            {
-                lblSending.Visible = false;
-                pbSending.Visible = false;
-                tmrSendMail.Stop();
-                if (sendMailException == null)
-                {                   
-                    tmrAllowMail.Start();
-                    sendMailThread = null;
-                    MessageFormManager.MakeMessagePopup("E-mail Sent. Thank you!", 5);
+                    if (secondsPassed >= timeout)
+                    {
+                        sendMailThread.Abort();
+                        btnSend.Enabled = true;
+                        pbSending.Visible = false;
+                        lblSending.Visible = false;
+                        MessageFormManager.MakeMessagePopup("Could not send the e-mail from your connection.", 5);
+                        tmrSendMail.Stop();
+                        secondsPassed = 0;
+                    }
                 }
                 else
                 {
-                    if (sendMailException is FormatException)
-                        RemindMeBox.Show("Please enter a valid e-mail address, or leave it empty");
+                    lblSending.Visible = false;
+                    pbSending.Visible = false;
+                    tmrSendMail.Stop();
+                    if (sendMailException == null)
+                    {
+                        tmrAllowMail.Start();
+                        sendMailThread = null;
+                        MessageFormManager.MakeMessagePopup("E-mail Sent. Thank you!", 5);
+                    }
                     else
-                        MessageFormManager.MakeMessagePopup("Could not send the e-mail :(", 3);     //No clue what happened                                
+                    {
+                        if (sendMailException is FormatException)
+                            RemindMeBox.Show("Please enter a valid e-mail address, or leave it empty");
+                        else
+                            MessageFormManager.MakeMessagePopup("Could not send the e-mail :(", 3);     //No clue what happened                                
 
-                    secondsPassed = 0;
-                    btnSend.Enabled = true;
+                        secondsPassed = 0;
+                        btnSend.Enabled = true;
+                    }
                 }
+                secondsPassed++;
             }
-            secondsPassed++;
+            catch(Exception ex)
+            {
+                BLIO.Log("Exception in tmrSendMail_Tick: " + ex.ToString());
+                tmrSendMail.Stop();
+            }
         }
 
         private void tmrAllowMail_Tick(object sender, EventArgs e)

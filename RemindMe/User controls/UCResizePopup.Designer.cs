@@ -124,23 +124,25 @@
             // trbWidth
             // 
             this.trbWidth.Location = new System.Drawing.Point(110, 48);
-            this.trbWidth.Minimum = 1;
+            this.trbWidth.Maximum = 350;
+            this.trbWidth.Minimum = 350;
             this.trbWidth.Name = "trbWidth";
             this.trbWidth.Size = new System.Drawing.Size(415, 45);
             this.trbWidth.TabIndex = 9;
             this.trbWidth.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trbWidth.Value = 1;
+            this.trbWidth.Value = 350;
             this.trbWidth.Scroll += new System.EventHandler(this.trbWidth_Scroll);
             // 
             // trbHeight
             // 
             this.trbHeight.Location = new System.Drawing.Point(110, 102);
-            this.trbHeight.Minimum = 1;
+            this.trbHeight.Maximum = 300;
+            this.trbHeight.Minimum = 300;
             this.trbHeight.Name = "trbHeight";
             this.trbHeight.Size = new System.Drawing.Size(415, 45);
             this.trbHeight.TabIndex = 10;
             this.trbHeight.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trbHeight.Value = 1;
+            this.trbHeight.Value = 300;
             this.trbHeight.Scroll += new System.EventHandler(this.trbHeight_Scroll);
             // 
             // trbTitleFont

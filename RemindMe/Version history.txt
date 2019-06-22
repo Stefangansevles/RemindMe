@@ -766,3 +766,8 @@ Fixed an issue where the timer popup would cause an error.
 
 V2.5.3
 Attempted to fix the issue where RemindMe looks really weird (on windows 10) where you can't see certain parts of RemindMe until you hover over it
+
+V2.5.4
+Redesigned the RemindMe popup form that shows whenever a reminder pops up
+RemindMe will no longer crash when you try to send an e-mail without having an internet connection
+Reworked the timer system. Running timers will now still have the correct date after the computer has been put to sleep for an x amount of time.
