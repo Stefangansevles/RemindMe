@@ -70,22 +70,8 @@ namespace RemindMe
             }
             
 
-            if ( (currentTimerItem.PopupDate-DateTime.Now).Seconds <= 0)
-            {
-                BLIO.Log("Creating timer popup..");
-                tmrCountdown.Stop();                
-                Reminder rem = new Reminder();
-                rem.Id = -1; //Set it to our "Invalid id" number. It is not a real reminder after all.
-                rem.Name = "Timer";
-
-               
-
-                Settings set = BLSettings.GetSettings();
-                rem.SoundFilePath = set.DefaultTimerSound;
-
-                Popup pop = new Popup(rem);
-                pop.Show();
-            }
+            if ( (currentTimerItem.PopupDate-DateTime.Now).Seconds <= 0)                            
+                tmrCountdown.Stop();                                            
         }
 
        
