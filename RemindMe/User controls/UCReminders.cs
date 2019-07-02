@@ -34,15 +34,17 @@ namespace RemindMe
         //The "page" we're on. If the user has 10 reminders and presses "next page", he should see 3 reminders (7 reminders max on 1 page, second page shows the last 3). 
         //The page number will be 2 in that case
         int pageNumber = 1;
-        
+
+        //The instance of the user control that lets an user alter a reminder.
+        private static UCNewReminder newReminderUc;
+
+
         public UCReminders()
         {
             InitializeComponent();
-            sizes = BLListviewColumnSizes.GetcolumnSizes();
-            SetColumnHeaderWidth();
+            sizes = BLListviewColumnSizes.GetcolumnSizes();            
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
-                               
-            lvRems = lvReminders;
+                                           
             instance = this;            
         }
 
@@ -66,15 +68,18 @@ namespace RemindMe
         {
             
             BLIO.Log("Loading reminders from database");
-            //AddRemindersToPanel();
-            
+            //Give initial value to newReminderUc 
+            newReminderUc = new UCNewReminder(this);
+            newReminderUc.Visible = false;
+            this.Parent.Controls.Add(newReminderUc);
+
+            Form1.Instance.ucNewReminder = newReminderUc;
             //BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);   
-            
+
             BLIO.Log("Starting the reminder timer");
             tmrCheckReminder.Start();
 
-            pnlReminders.Visible = true;
-            lvReminders.Visible = false;
+            pnlReminders.Visible = true;            
 
             pnlReminders.DragDrop += UCReminders_DragDrop;
             pnlReminders.DragEnter += UCReminders_DragEnter;
@@ -126,6 +131,8 @@ namespace RemindMe
                 Form1.Instance.UpdatePageNumber(pageNumber);
             }
         }   
+
+        
         
         private void AddRemindersToPanel()
         {
@@ -142,177 +149,7 @@ namespace RemindMe
             }
         }
 
-        /// <summary>
-        /// Set the column widths to the widths from the database. Whenever the user changes the width of them, they will save.
-        /// </summary>
-        private void SetColumnHeaderWidth()
-        {
-            foreach (ColumnHeader ch in lvReminders.Columns)
-            {
-                switch (ch.Text)
-                {                    
-                    case "Title":
-                        ch.Width = (int)sizes.Title;
-                        break;
-                    case "Date":
-                        ch.Width = (int)sizes.Date;
-                        break;
-                    case "Repeating":
-                        ch.Width = (int)sizes.Repeating;
-                        break;
-                    case "Enabled":
-                        ch.Width = (int)sizes.Enabled;
-                        break;
-                }
-            }
-            BLIO.Log("Column header width set.");
-        }
-
-
-        private void UpdateColumnHeaderWidth()
-        {
-            foreach (ColumnHeader ch in lvReminders.Columns)
-            {
-                switch (ch.Text)
-                {
-                    case "Title":
-                        sizes.Title = ch.Width;
-                        break;
-                    case "Date":
-                        sizes.Date = ch.Width;
-                        break;
-                    case "Repeating":
-                        sizes.Repeating = ch.Width;
-                        break;
-                    case "Enabled":
-                        sizes.Enabled = ch.Width;
-                        break;
-                }
-            }
-            BLListviewColumnSizes.UpdateListviewSizes(sizes);
-            BLIO.Log("Column header width updated.");
-        }
-
-        private void lvReminders_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
-        {
-            UpdateColumnHeaderWidth();
-        }
-
-        private void lvReminders_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Shift && e.KeyCode == Keys.Delete)
-                permanentelyRemoveToolStripMenuItem_Click(sender, e);
-            else if (e.KeyCode == Keys.Delete)
-                btnRemoveReminder_Click(sender, e); 
-            else if (e.KeyCode == Keys.Space)
-                btnDisableEnable_Click(sender, e);
-
-
-            if (e.Control && e.KeyCode == Keys.A)
-            {
-                //Ctrl+a = select all items
-                BLIO.Log("selecting all reminders (Ctrl + a ).");
-                foreach (ListViewItem item in lvReminders.Items)
-                    item.Selected = true;
-            }
-        }
-
-        private void btnRemoveReminder_Click(object sender, EventArgs e)
-        {
-            if (lvReminders.SelectedItems.Count > 0)
-            {
-                List<Reminder> toRemoveReminders = new List<Reminder>();
-                foreach (ListViewItem item in lvReminders.SelectedItems)
-                {
-                    toRemoveReminders.Add(BLReminder.GetReminderById(Convert.ToInt32(item.Tag)));
-                    lvReminders.Items.Remove(item);//Remove it from the listview                    
-                }
-
-                //If the user selected multiple reminders, you don't open the database, remove the reminder, and close the database for every selected reminder this way
-                BLIO.Log("Deleting " + toRemoveReminders.Count + " reminders");
-                BLReminder.DeleteReminders(toRemoveReminders);
-            }
-        }
-
-        private void btnDisableEnable_Click(object sender, EventArgs e)
-        {
-            if (lvReminders.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem itm in lvReminders.SelectedItems)
-                {
-                    if (itm.SubItems[3].Text == "True")
-                        itm.SubItems[3].Text = "False";
-                    else
-                        itm.SubItems[3].Text = "True";
-
-                    //The reminder selected from the listview
-                    Reminder rem = BLReminder.GetReminderById(Convert.ToInt32(itm.Tag));
-
-                    if (bool.Parse(itm.SubItems[3].Text))
-                    {
-                        rem.Enabled = 1;
-                        BLIO.Log("Reminder with id " + rem.Id + " enabled");
-                    }
-                    else
-                    {
-                        rem.Enabled = 0;
-                        BLIO.Log("Reminder with id " + rem.Id + " disabled");
-                    }
-
-                    BLReminder.EditReminder(rem);
-
-                }
-            }            
-            
-        }
-
-        private List<Reminder> GetSelectedRemindersFromListview()
-        {
-            BLIO.Log("Getting the selected reminders from the listview...");
-            List<Reminder> selectedReminders = new List<Reminder>();
-
-            foreach (ListViewItem item in lvReminders.SelectedItems)
-                selectedReminders.Add(BLReminder.GetReminderById((long)item.Tag));
-
-
-            BLIO.Log("result: " + selectedReminders.Count + " reminders.");
-            return selectedReminders;
-        }
-
-        private void lvReminders_MouseClick(object sender, MouseEventArgs e)
-        {
-            ReminderMenuStrip.Items.Insert(4,unHideReminderToolStripMenuItem);            
-            
-            if (e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count > 0)
-            {
-                List<Reminder> selectedReminders = GetSelectedRemindersFromListview();
-                HideOrShowRemovePostponeMenuItem(selectedReminders);
-                HideOrShowSkipForwardMenuItem(selectedReminders);
-                HideOrShowUnhideReminders();
-                HideOrShowEnableHideWarning();
-                ReminderMenuStrip.Show(Cursor.Position);
-            }
-           
-        }
-
-        private void lvReminders_MouseUp(object sender, MouseEventArgs e)
-        {            
-            if (lvReminders.SelectedItems.Count > 0)
-                return;
-
-            if (e.Button == MouseButtons.Right && lvReminders.SelectedItems.Count <= 0)
-            {
-                if (BLReminder.GetReminders().Where(r => r.Hide == 1).ToList().Count > 0)
-                {
-                    ContextMenuStrip strip = new ContextMenuStrip();
-                    strip.Renderer = new MyToolStripMenuRenderer();
-                    unHideReminderToolStripMenuItem.Visible = true;
-                    unHideReminderToolStripMenuItem.Font = hideReminderToolStripMenuItem.Font;                     
-                    strip.Items.Add(unHideReminderToolStripMenuItem);
-                    strip.Show(Cursor.Position);
-                }
-            }
-        }
+      
         /// <summary>
         /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
         /// </summary>
@@ -377,99 +214,9 @@ namespace RemindMe
 
         }
 
-        private void permanentelyRemoveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
+       
 
-        }
-
-        private void skipToNextDateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void removePostponeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void postponeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BLIO.Log("Setting up the duplicating process...");
-            foreach (Reminder rem in GetSelectedRemindersFromListview())
-            {
-                BLIO.Log("duplicating reminder with id " + rem.Id);
-                BLReminder.PushReminderToDatabase(rem);
-                BLIO.Log("reminder duplicated.");
-                BLFormLogic.RefreshListview(lvReminders);
-            }
-            BLIO.Log(GetSelectedRemindersFromListview().Count + " reminders duplicated!");
-        }
-
-        private void exportSelectedRemindersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string selectedPath = FSManager.Folders.GetSelectedFolderPath();
-            if (!string.IsNullOrEmpty(selectedPath))
-            {
-                BLIO.Log("User selected a valid path");
-                Exception possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), selectedPath);
-                if (possibleException is UnauthorizedAccessException)
-                {//Did ExportReminders return an UnauthorizedException? Give the user the option to save to the desktop instead.
-                    BLIO.Log("Problem encountered: Unauthorized");
-                    if (RemindMeBox.Show("Could not save reminders to \"" + selectedPath + "\"\r\nDo you wish to place them on your desktop instead?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
-                    {
-                        BLIO.Log("Trying to save to desktop instead...");
-                        possibleException = BLReminder.ExportReminders(GetSelectedRemindersFromListview(), Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-                        if (possibleException != null)
-                        {//Did saving to desktop go wrong, too?? just show a message
-                            BLIO.Log("Trying to save to desktop didnt work either");
-                            RemindMeBox.Show("Something went wrong. Could not save the reminders to your desktop.", RemindMeBoxReason.OK);
-                        }
-                        else
-                        {//Saving to desktop did not throw an exception    
-                            BLIO.Log("Saved to desktop");
-                            MessageFormManager.MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to: Desktop", 3);
-                        }
-                    }
-                }
-                else if (possibleException is Exception)
-                {//ExportReminders returned the global Exception. We don't know what went wrong
-                    RemindMeBox.Show("Something went wrong. Could not save the reminders.", RemindMeBoxReason.OK);
-                }
-                else if (possibleException == null) //Success
-                {
-                    BLIO.Log("No problems encountered (exception null)");
-                    MessageFormManager.MakeMessagePopup("Succesfully exported " + GetSelectedRemindersFromListview().Count + " reminders to \\" + new DirectoryInfo(selectedPath).Name, 3);
-                }
-            }
-        }
-
-        private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            foreach (Reminder rem in GetSelectedRemindersFromListview())
-                PreviewReminder(rem);
-        }
-
-        private async void previewThisReminderIn5SecondsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await Task.Delay(5000);
-
-            foreach (Reminder rem in GetSelectedRemindersFromListview())
-                PreviewReminder(rem);
-        }
-
-        private async void previewThisReminderIn10SecondsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await Task.Delay(10000);
-
-            foreach (Reminder rem in GetSelectedRemindersFromListview())
-                PreviewReminder(rem);
-        }
+       
         private void PreviewReminder(Reminder rem)
         {
             BLIO.Log("Previewing reminder with id " + rem.Id);
@@ -489,10 +236,9 @@ namespace RemindMe
         }
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
-            UCNewReminder uc = new UCNewReminder(this);
-            Form1.ucNewReminder = uc;
-            this.Parent.Controls.Add(uc);
-            this.Parent.Controls.Remove(this);
+            newReminderUc.Visible = true;
+            newReminderUc.Reminder = null;            
+            this.Visible = false;
         }
 
         private void lvReminders_DoubleClick(object sender, EventArgs e)
@@ -505,24 +251,15 @@ namespace RemindMe
             
         }
         public void EditReminder(Reminder rem)
-        {                        
-            //Create a new UCNewReminder and pass the reminder
-            UCNewReminder newRem = new UCNewReminder(this, BLReminder.GetReminderById(rem.Id));
+        {
+            newReminderUc.Visible = true;
+            newReminderUc.Reminder = BLReminder.GetReminderById(rem.Id);
             BLIO.Log("Filling form with details of reminder with id " + rem.Id + " to edit");
-            Form1.ucNewReminder = newRem;
-            this.Parent.Controls.Add(newRem);
-            this.Parent.Controls.Remove(this);
+            Form1.Instance.ucNewReminder = newReminderUc;            
+            this.Visible = false;
         }
 
-        private void lvReminders_DragDrop(object sender, DragEventArgs e)
-        {
-            
-        }
-
-        private void lvReminders_DragEnter(object sender, DragEventArgs e)
-        {
-            
-        }
+      
 
         private void tmrCheckReminder_Tick(object sender, EventArgs e)
         {            
@@ -619,56 +356,9 @@ namespace RemindMe
             //Clear the list of messages that have appeared every 2 minutes
             popupMessages.Clear();
         }
-
-        private void hideReminderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            string message = "You can hide reminders with this option. The reminder will not be deleted, you just won't be able to see it"
-                 + " in the list of reminders. This creates a sense of surprise.\r\n\r\nDo you wish to hide this reminder?";
-
-            int selectedReminders = GetSelectedRemindersFromListview().Count;
-            //Change the message if theres multiple reminders
-            if (selectedReminders > 1)
-                message = "You can hide reminders with this option. The reminder will not be deleted, you just won't be able to see it"
-                 + " in the list of reminders. This creates a sense of surprise.\r\n\r\nDo you wish to hide these reminders?";
-
-            BLIO.Log("Attempting to hide reminder(s)");
-            if (BLSettings.HideReminderOptionEnabled || RemindMeBox.Show(message, RemindMeBoxReason.YesNo, true) == DialogResult.Yes)
-            {
-                //Enable the hide flag here
-                foreach (Reminder rem in GetSelectedRemindersFromListview())
-                {                    
-                    rem.Hide = 1;
-                    BLIO.Log("Marked reminder with id " + rem.Id + " as hidden");
-                    BLReminder.EditReminder(rem);                   
-                }
-                foreach (ListViewItem rem in lvReminders.SelectedItems)
-                    lvReminders.Items.Remove(rem);
-
-                BLIO.Log(selectedReminders + " reminder(s) hidden");
-
-            }
-            else
-                BLIO.Log("Attempting to hide reminder(s) failed.");
-        }
-
-        private void unHideReminderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-        private void lvReminders_ItemDrag(object sender, ItemDragEventArgs e)
-        {        
-            BLIO.Log("User selected reminder(s) and dragged! (UCReminders)");
-            string[] path = { System.IO.Path.GetTempPath() +"\\Exported Reminders.remindme" };
-            BLReminder.SerializeRemindersToFile(GetSelectedRemindersFromListview(), path[0] );
-
-            BLIO.Log("doing drag drop!");
-            DataObject dataObj = new DataObject(DataFormats.FileDrop, path);
-            dataObj.SetData("DragSource", "lvReminders");            
-            this.lvReminders.DoDragDrop(dataObj, DragDropEffects.Move);            
-        }
+        
+      
+     
 
         private void enableWarningToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -689,31 +379,7 @@ namespace RemindMe
             BLIO.Log("Re-enabled the hide warning on reminders!");
         }
 
-        private void ReminderMenuStrip_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void previewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lvReminders_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlReminderButtons_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pnlReminders_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+       
         private void pnlReminders_ControlAdded(object sender, ControlEventArgs e)
         {
             //Check if the scrollbar is visible
@@ -765,6 +431,12 @@ namespace RemindMe
             pageNumber--;
             Form1.Instance.UpdatePageNumber(pageNumber);
 
+            SetPageButtonIcons(reminders);
+
+        }
+
+        public void SetPageButtonIcons(List<Reminder> reminders)
+        {
             //Previous/next icons
             if ((pageNumber * 7) + 1 > reminders.Count)
                 btnNextPage.Iconimage = Properties.Resources.NextGray1;
@@ -772,10 +444,9 @@ namespace RemindMe
                 btnNextPage.Iconimage = Properties.Resources.NextWhite;
 
             if (pageNumber <= 1) //Can't go to the previous page if we're on the first one            
-                btnPreviousPage.Iconimage = Properties.Resources.PreviousGray1;                            
+                btnPreviousPage.Iconimage = Properties.Resources.PreviousGray1;
             else
                 btnPreviousPage.Iconimage = Properties.Resources.PreviousWhite;
-
         }
         //Display changes on the current page. (For example a deleted or enabled/disabled reminder)
         public void UpdateCurrentPage()
@@ -877,10 +548,15 @@ namespace RemindMe
             Form1.Instance.UpdatePageNumber(pageNumber);
         }
 
-        private void bunifuFlatButton3_Click(object sender, EventArgs e)
+        public void RefreshPage()
         {
-            UpdateCurrentPage();
+            if (pageNumber > 1)
+            {
+                btnPreviousPage_Click(null, null);
+                btnNextPage_Click(null, null);
+            }
         }
+       
 
   
    
@@ -934,6 +610,15 @@ namespace RemindMe
             }
             BLIO.Log(remindersUnhidden + " reminders not hidden anymore");
             UpdateCurrentPage();
+        }
+
+        private void panel1_VisibleChanged(object sender, EventArgs e)
+        {
+            List<Reminder> reminders = BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList();
+            reminders.AddRange(BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0));
+
+            if (this.Visible)
+                SetPageButtonIcons(reminders);
         }
     }
 }

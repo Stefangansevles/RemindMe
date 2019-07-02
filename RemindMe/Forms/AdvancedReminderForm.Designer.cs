@@ -82,9 +82,9 @@
             this.pnlFooter.Controls.Add(this.btnClear);
             this.pnlFooter.Controls.Add(this.btnConfirm);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(45, 313);
+            this.pnlFooter.Location = new System.Drawing.Point(45, 371);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(395, 40);
+            this.pnlFooter.Size = new System.Drawing.Size(545, 40);
             this.pnlFooter.TabIndex = 14;
             // 
             // btnClose
@@ -138,7 +138,7 @@
             this.btnClear.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnClear.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnClear.Iconimage = global::RemindMe.Properties.Resources.Repeatwhite; 
+            this.btnClear.Iconimage = global::RemindMe.Properties.Resources.Repeatwhite;
             this.btnClear.Iconimage_right = null;
             this.btnClear.Iconimage_right_Selected = null;
             this.btnClear.Iconimage_Selected = null;
@@ -216,7 +216,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(440, 55);
+            this.panel1.Size = new System.Drawing.Size(590, 55);
             this.panel1.TabIndex = 15;
             // 
             // pictureBox1
@@ -225,7 +225,7 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(333, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(483, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(107, 55);
             this.pictureBox1.TabIndex = 0;
@@ -240,7 +240,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 55);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(45, 298);
+            this.panel2.Size = new System.Drawing.Size(45, 356);
             this.panel2.TabIndex = 16;
             // 
             // btnGeneral
@@ -290,10 +290,10 @@
             // 
             // pnlContent
             // 
-            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(45, 55);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(395, 246);
+            this.pnlContent.Size = new System.Drawing.Size(545, 316);
             this.pnlContent.TabIndex = 17;
             // 
             // AdvancedReminderForm
@@ -301,9 +301,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(440, 353);
-            this.Controls.Add(this.pnlFooter);
+            this.ClientSize = new System.Drawing.Size(590, 411);
             this.Controls.Add(this.pnlContent);
+            this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

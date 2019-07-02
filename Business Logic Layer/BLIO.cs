@@ -222,7 +222,7 @@ namespace Business_Logic_Layer
         /// </summary>
         public static void WriteUpdateBatch(string remindMePath)
         {
-            new Thread(async () =>
+            new Thread(() =>
             {
                 string batchString = "@echo off\r\necho Installing the new version of RemindMe.... Please do not close this window\r\n@echo on" + Environment.NewLine;
                 string productCode = GetProductCode("RemindMe"); //This call really does take a pretty long time. Good thing we can thread that

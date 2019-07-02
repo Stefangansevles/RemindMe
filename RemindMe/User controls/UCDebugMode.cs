@@ -35,7 +35,7 @@ namespace RemindMe
 
         private void tmrDetails_Tick(object sender, EventArgs e)
         {                        
-            if (this.Parent != null && this.Parent.Controls[0].GetType() == typeof(UCDebugMode))
+            if (this.Visible)
             {
                 lblMemoryUsage.Text = GetMemory() / 1000 + " Mb";// Process.GetCurrentProcess().VirtualMemorySize64 / 1024 / 1024 + "Mb";               
             }
@@ -55,9 +55,7 @@ namespace RemindMe
             PC.CategoryName = "Process";
             PC.CounterName = "Working Set - Private";
             PC.InstanceName = Process.GetCurrentProcess().ProcessName;
-            return Convert.ToInt32(PC.NextValue()) / (int)(1024);
-            PC.Close();
-            PC.Dispose();
+            return Convert.ToInt32(PC.NextValue()) / (int)(1024);            
         }
 
         private void bunifuFlatButton2_Click(object sender, EventArgs e)
@@ -67,7 +65,7 @@ namespace RemindMe
 
         private void tmrLog_Tick(object sender, EventArgs e)
         {
-            if (this.Parent != null && this.Parent.Controls[0].GetType() == typeof(UCDebugMode))
+            if (this.Visible)
             {                                
                 if(localCacheList.Count != BLIO.systemLog.Count)
                 {

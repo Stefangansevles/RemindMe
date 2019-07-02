@@ -79,7 +79,7 @@
             this.btnAdd.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnAdd.OnHoverTextColor = System.Drawing.Color.White;
             this.btnAdd.selected = false;
-            this.btnAdd.Size = new System.Drawing.Size(186, 35);
+            this.btnAdd.Size = new System.Drawing.Size(130, 35);
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Add";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -92,9 +92,9 @@
             this.pnlFooter.Controls.Add(this.btnRemove);
             this.pnlFooter.Controls.Add(this.btnAdd);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 211);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 281);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(395, 35);
+            this.pnlFooter.Size = new System.Drawing.Size(545, 35);
             this.pnlFooter.TabIndex = 6;
             // 
             // btnRemove
@@ -107,7 +107,7 @@
             this.btnRemove.ButtonText = "Remove";
             this.btnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRemove.DisabledColor = System.Drawing.Color.Gray;
-            this.btnRemove.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnRemove.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnRemove.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemove.Iconcolor = System.Drawing.Color.Transparent;
             this.btnRemove.Iconimage = global::RemindMe.Properties.Resources.Cancel_white;
@@ -121,13 +121,13 @@
             this.btnRemove.IconVisible = true;
             this.btnRemove.IconZoom = 50D;
             this.btnRemove.IsTab = false;
-            this.btnRemove.Location = new System.Drawing.Point(209, 0);
+            this.btnRemove.Location = new System.Drawing.Point(130, 0);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnRemove.OnHovercolor = System.Drawing.Color.DimGray;
             this.btnRemove.OnHoverTextColor = System.Drawing.Color.White;
             this.btnRemove.selected = false;
-            this.btnRemove.Size = new System.Drawing.Size(186, 35);
+            this.btnRemove.Size = new System.Drawing.Size(140, 35);
             this.btnRemove.TabIndex = 6;
             this.btnRemove.Text = "Remove";
             this.btnRemove.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -148,7 +148,7 @@
             this.lvItems.FullRowSelect = true;
             this.lvItems.Location = new System.Drawing.Point(0, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(395, 211);
+            this.lvItems.Size = new System.Drawing.Size(545, 281);
             this.lvItems.TabIndex = 7;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -172,7 +172,7 @@
             this.Controls.Add(this.lvItems);
             this.Controls.Add(this.pnlFooter);
             this.Name = "AVR_UCFiles";
-            this.Size = new System.Drawing.Size(395, 246);
+            this.Size = new System.Drawing.Size(545, 316);
             this.pnlFooter.ResumeLayout(false);
             this.ResumeLayout(false);
 

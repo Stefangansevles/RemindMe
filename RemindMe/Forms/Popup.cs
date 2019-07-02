@@ -188,13 +188,7 @@ namespace RemindMe
             lblMinimize.ForeColor = Color.Transparent;
         }
 
-        private void cbPostpone_OnChange(object sender, EventArgs e)
-        {
-            if (cbPostpone.Checked)
-                btnOk.Text = "Postpone";
-            else
-                btnOk.Text = "Ok";
-        }
+      
 
         private void lblPostpone_Click(object sender, EventArgs e)
         {
@@ -347,6 +341,13 @@ namespace RemindMe
         private void label13_Click(object sender, EventArgs e)
         {
             cbPostpone.Checked = !cbPostpone.Checked;
+
+            if (cbPostpone.Checked)
+                btnOk.Text = "Postpone";
+            else
+                btnOk.Text = "Ok";
+
+            tbtime.Visible = cbPostpone.Checked;
         }
 
         private void tbtime_Enter(object sender, EventArgs e)
@@ -365,6 +366,18 @@ namespace RemindMe
                 tbtime.ForeColor = Color.Gray;
                 tbtime.Text = "1h30m";
             }
+        }
+
+       
+
+        private void cbPostpone_OnChange_1(object sender, EventArgs e)
+        {
+            if (cbPostpone.Checked)
+                btnOk.Text = "Postpone";
+            else
+                btnOk.Text = "Ok";
+
+            tbtime.Visible = cbPostpone.Checked;
         }
     }
 }

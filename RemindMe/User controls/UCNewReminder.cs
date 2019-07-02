@@ -36,18 +36,19 @@ namespace RemindMe
 
         private Reminder editableReminder = null;
 
-        public bool shouldDispose = false;
-
         UserControl callback;
 
         AdvancedReminderForm AVRForm;
+
+        //If the user was editing an reminder, and selecter another screen from the left panel, we need to save this state
+        public bool saveState = false;
 
         /// <summary>
         /// Create a new usercontrol to manage reminders
         /// </summary>
         /// <param name="callback">The usercontrol you should go back to when pressing the back button from UCNewReminder</param>
         public UCNewReminder(UserControl callback)
-        {
+        {            
             InitializeComponent();
 
             AVRForm = new AdvancedReminderForm();
@@ -114,17 +115,17 @@ namespace RemindMe
                 handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
                 return handleParam;
             }
-        }
+        }        
 
-        /// <summary>
-        /// Create a new usercontrol to manage reminders
-        /// </summary>
-        /// <param name="callback">The usercontrol you should go back to when pressing the back button from UCNewReminder</param>
-        /// <param name="editableReminder">The reminder you wish to fill the controls with</param>
-        public UCNewReminder(UserControl callback, Reminder editableReminder) : this(callback)
+        public Reminder Reminder
         {
-            this.editableReminder = editableReminder;
-            FillControlsForEdit(editableReminder);
+            get { return editableReminder; }
+            set
+            {
+                editableReminder = value;                
+                ResetReminderForm();
+                FillControlsForEdit(editableReminder);
+            }
         }
 
 
@@ -139,140 +140,137 @@ namespace RemindMe
         private void FillControlsForEdit(Reminder rem)
         {
             pnlDayCheckBoxes.Visible = false;
-            if (rem != null)
+            //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
+            pnlDayCheckBoxes_VisibleChanged(null, null);
+
+            if (rem == null)
             {
-                dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
-                DateTime remDate = Convert.ToDateTime(rem.Date.Split(',')[0]);
-
-                //Due to some really weird bug in winforms, the .checked has to be set to true(even though it already is true) to fix a problem where the
-                //datetimepicker does not show the text matching it's value
-                dtpDate.Checked = true;
-                dtpDate.Value = remDate;
-
-
-                FillSoundComboboxFromDatabase(cbSound);
-                tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
-                tbReminderName.Text = rem.Name;
-
-                if (rem.SoundFilePath != null)
-                {
-                    string song = Path.GetFileNameWithoutExtension(rem.SoundFilePath);
-                    ComboBoxItem reminderItem = ComboBoxItemManager.GetComboBoxItem(song, BLSongs.GetSongByFullPath(rem.SoundFilePath));
-
-                    if (reminderItem != null)
-                        cbSound.SelectedItem = reminderItem;
-                }
-
-
-
-
-                switch (rem.RepeatType)
-                {
-                    case "NONE":
-                        rbNoRepeat.Checked = true;
-                        cbMultipleDates.Items.Clear();
-                        foreach (string date in rem.Date.Split(','))
-                            cbMultipleDates.Items.Add(Convert.ToDateTime(date));
-
-                        if (cbMultipleDates.Items.Count > 0)
-                            cbMultipleDates.SelectedItem = cbMultipleDates.Items[0];
-                        break;
-                    case "DAILY":
-                        rbDaily.Checked = true;
-                        break;
-                    case "MONTHLY":
-                        rbMonthly.Checked = true;
-                        List<int> days = new List<int>();
-
-                        //Remove the items, then go through the date string, and get all the dates from each date. 25-7-2017 00:00:00,31-7-2017 00:00:00 will return 25,31
-                        cbMonthlyDays.Items.Clear();
-                        foreach (string date in rem.Date.Split(','))
-                            cbMonthlyDays.Items.Add(Convert.ToDateTime(date).Day);
-
-                        if (cbMonthlyDays.Items.Count > 0)
-                            cbMonthlyDays.SelectedItem = cbMonthlyDays.Items[0];
-
-                        break;
-                    case "WORKDAYS":
-                        rbWorkDays.Checked = true;
-                        break;
-                    case "MULTIPLE_DAYS":
-                        PlaceDayCheckBoxesPanel();
-                        rbMultipleDays.Checked = true;
-                        //get the RepeatDays string (monday,friday,saturday) and split them.
-                        List<string> repeatDays = rem.RepeatDays.Split(',').ToList();
-                        //check all the checkboxes from the split string. did it contain monday? check the checkbox "cbMonday", etc
-                        CheckDayCheckBoxes(repeatDays);
-                        break;
-                }
-                if (rem.EveryXCustom != null)
-                {
-                    rbEveryXCustom.Checked = true;
-                    numEveryXDays.Value = (decimal)rem.EveryXCustom;
-
-                    //The repeating type will now be different, because the user selected a custom reminder. repeating types will now be minutes,hours,days,weeks or months
-                    switch (rem.RepeatType.ToLower())
-                    {
-                        case "minutes":
-                            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[0];
-                            break;
-                        case "hours":
-                            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[1];
-                            break;
-                        case "days":
-                            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2];
-                            break;
-                        case "weeks":
-                            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[3];
-                            break;
-                        case "months":
-                            cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[4];
-                            break;
-                    }
-                }
-
-
-                //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
-                pnlDayCheckBoxes_VisibleChanged(null, null);
-
-                //Now, let's see if this reminder has any advanced properties
-                AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
-                List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
-                if (avrProps != null)
-                {
-                    if(avrProps.ShowReminder.HasValue)
-                        AVRForm.ShowReminder = (long)avrProps.ShowReminder;
-
-                    AVRForm.BatchScript = avrProps.BatchScript;
-                    if (BLSettings.GetSettings().EnableAdvancedReminders == 1)
-                    {
-                        cbAdvancedReminder.Visible = true;
-                        lblAdvancedReminders.Visible = true;
-                    }
-                    cbAdvancedReminder.Checked = rem.EnableAdvancedReminder == 1 && (BLAVRProperties.GetAVRProperties(rem.Id) != null || BLAVRProperties.GetAVRFilesFolders(rem.Id) != null);
-                    
-
-                    if (!cbAdvancedReminder.Checked)
-                        lblAdvancedReminders.Text = "Disabled.";
-                    else
-                        lblAdvancedReminders.Text = "Enabled!";
-                }
-                if (avrFF != null)
-                {
-                    Dictionary<string, string> filesFolders = new Dictionary<string, string>();
-                    foreach (AdvancedReminderFilesFolders dic in avrFF)
-                    {
-                        if(!filesFolders.ContainsKey(dic.Path))
-                            filesFolders.Add(dic.Path, dic.Action);
-                    }
-                    AVRForm.FilesFolders = filesFolders;                    
-                }                
+                ResetControlValues();
+                return;
             }
-            else
+
+            dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
+            DateTime remDate = Convert.ToDateTime(rem.Date.Split(',')[0]);
+
+            //Due to some really weird bug in winforms, the .checked has to be set to true(even though it already is true) to fix a problem where the
+            //datetimepicker does not show the text matching it's value
+            dtpDate.Checked = true;
+            dtpDate.Value = remDate;
+
+
+            FillSoundComboboxFromDatabase(cbSound);
+            tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);
+            tbReminderName.Text = rem.Name;
+
+            if (rem.SoundFilePath != null)
             {
-                BLIO.WriteError(new ArgumentNullException(), "Error loading reminder");
-                ErrorPopup pop = new ErrorPopup("Error loading reminder. Reminder is null", new ArgumentNullException());
-                pop.Show();
+                string song = Path.GetFileNameWithoutExtension(rem.SoundFilePath);
+                ComboBoxItem reminderItem = ComboBoxItemManager.GetComboBoxItem(song, BLSongs.GetSongByFullPath(rem.SoundFilePath));
+
+                if (reminderItem != null)
+                    cbSound.SelectedItem = reminderItem;
+            }
+
+
+
+
+            switch (rem.RepeatType)
+            {
+                case "NONE":
+                    rbNoRepeat.Checked = true;
+                    cbMultipleDates.Items.Clear();
+                    foreach (string date in rem.Date.Split(','))
+                        cbMultipleDates.Items.Add(Convert.ToDateTime(date));
+
+                    if (cbMultipleDates.Items.Count > 0)
+                        cbMultipleDates.SelectedItem = cbMultipleDates.Items[0];
+                    break;
+                case "DAILY":
+                    rbDaily.Checked = true;
+                    break;
+                case "MONTHLY":
+                    rbMonthly.Checked = true;
+                    List<int> days = new List<int>();
+
+                    //Remove the items, then go through the date string, and get all the dates from each date. 25-7-2017 00:00:00,31-7-2017 00:00:00 will return 25,31
+                    cbMonthlyDays.Items.Clear();
+                    foreach (string date in rem.Date.Split(','))
+                        cbMonthlyDays.Items.Add(Convert.ToDateTime(date).Day);
+
+                    if (cbMonthlyDays.Items.Count > 0)
+                        cbMonthlyDays.SelectedItem = cbMonthlyDays.Items[0];
+
+                    break;
+                case "WORKDAYS":
+                    rbWorkDays.Checked = true;
+                    break;
+                case "MULTIPLE_DAYS":
+                    PlaceDayCheckBoxesPanel();
+                    rbMultipleDays.Checked = true;
+                    //get the RepeatDays string (monday,friday,saturday) and split them.
+                    List<string> repeatDays = rem.RepeatDays.Split(',').ToList();
+                    //check all the checkboxes from the split string. did it contain monday? check the checkbox "cbMonday", etc
+                    CheckDayCheckBoxes(repeatDays);
+                    break;
+            }
+            if (rem.EveryXCustom != null)
+            {
+                rbEveryXCustom.Checked = true;
+                numEveryXDays.Value = (decimal)rem.EveryXCustom;
+
+                //The repeating type will now be different, because the user selected a custom reminder. repeating types will now be minutes,hours,days,weeks or months
+                switch (rem.RepeatType.ToLower())
+                {
+                    case "minutes":
+                        cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[0];
+                        break;
+                    case "hours":
+                        cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[1];
+                        break;
+                    case "days":
+                        cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2];
+                        break;
+                    case "weeks":
+                        cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[3];
+                        break;
+                    case "months":
+                        cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[4];
+                        break;
+                }
+            }
+            
+
+            //Now, let's see if this reminder has any advanced properties
+            AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
+            List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+            if (avrProps != null)
+            {
+                if (avrProps.ShowReminder.HasValue)
+                    AVRForm.ShowReminder = (long)avrProps.ShowReminder;
+
+                AVRForm.BatchScript = avrProps.BatchScript;
+                if (BLSettings.GetSettings().EnableAdvancedReminders == 1)
+                {
+                    cbAdvancedReminder.Visible = true;
+                    lblAdvancedReminders.Visible = true;
+                }
+                cbAdvancedReminder.Checked = rem.EnableAdvancedReminder == 1 && (BLAVRProperties.GetAVRProperties(rem.Id) != null || BLAVRProperties.GetAVRFilesFolders(rem.Id) != null);
+
+
+                if (!cbAdvancedReminder.Checked)
+                    lblAdvancedReminders.Text = "Disabled.";
+                else
+                    lblAdvancedReminders.Text = "Enabled!";
+            }
+            if (avrFF != null)
+            {
+                Dictionary<string, string> filesFolders = new Dictionary<string, string>();
+                foreach (AdvancedReminderFilesFolders dic in avrFF)
+                {
+                    if (!filesFolders.ContainsKey(dic.Path))
+                        filesFolders.Add(dic.Path, dic.Action);
+                }
+                AVRForm.FilesFolders = filesFolders;
             }
 
         }
@@ -1153,7 +1151,6 @@ namespace RemindMe
             //If there is an scrolling popup, hide it.
             //HideScrollingPopupMessage();            
             btnBack_Click(sender, e);
-
         }
 
         private void CreateAdvancedReminderProperties(long remId)
@@ -1285,18 +1282,28 @@ namespace RemindMe
                 if (c is PictureBox && c.Name != "pbEdit")
                     c.Visible = false;
             }
+
+            tbReminderName.ResetText();
+            rbNoRepeat.Checked = true;
+            rbCheckedChangeEvent(null, null);
+            AVRForm = new AdvancedReminderForm();
+            cbAdvancedReminder.Visible = false;
+            cbAdvancedReminder.Checked = false;
+            lblAdvancedReminders.Visible = false;
         }
 
         public void ResetReminderForm()
         {
             cbSound.SelectedItem = null;
             pnlDayCheckBoxes.Visible = false;
+            
+            cbMultipleDates.Visible = true;
+            cbEvery_VisibleChanged(null, null);
+
             //Reset the controls to their default values, empty text boxes etc            
             ResetControlValues();
 
-            rbNoRepeat.Checked = true;
-            cbMultipleDates.Visible = true;
-            cbEvery_VisibleChanged(null, null);
+            
 
             //There's no selected item, so it should not appear that way either
             cbSound.Text = "";
@@ -1339,8 +1346,7 @@ namespace RemindMe
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            BLIO.Log("User pressed back (UCNewReminder)");
-            shouldDispose = true;
+            BLIO.Log("User pressed back (UCNewReminder)");            
             btnPlaySound.Image = imgPlayResume;
                                     
             if(myPlayer.controls.currentPosition != 0)
@@ -1351,10 +1357,10 @@ namespace RemindMe
 
             //Refresh listview with the newly made reminder                        
             UCReminders.GetInstance().UpdateCurrentPage();
-
-
-            this.Parent.Controls.Add(callback);            
-            this.Parent.Controls.Remove(this);                                           
+            
+            callback.Visible = true;
+            this.Visible = false;
+            saveState = false;
         }
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)
@@ -1543,6 +1549,9 @@ namespace RemindMe
         private void UCNewReminder_VisibleChanged(object sender, EventArgs e)
         {
             btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
+
+            if(callback != null && !callback.Visible && !this.Visible)
+                saveState = true;
         }
 
         private void tbReminderName_Leave(object sender, EventArgs e)

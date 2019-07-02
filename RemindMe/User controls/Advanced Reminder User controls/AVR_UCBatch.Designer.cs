@@ -37,7 +37,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.25F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(34, 10);
+            this.label1.Location = new System.Drawing.Point(114, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(308, 32);
             this.label1.TabIndex = 3;
@@ -54,7 +54,7 @@
             this.tbBatch.Multiline = true;
             this.tbBatch.Name = "tbBatch";
             this.tbBatch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbBatch.Size = new System.Drawing.Size(395, 184);
+            this.tbBatch.Size = new System.Drawing.Size(545, 254);
             this.tbBatch.TabIndex = 92;
             this.tbBatch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbBatch_KeyDown);
             // 
@@ -66,7 +66,7 @@
             this.Controls.Add(this.tbBatch);
             this.Controls.Add(this.label1);
             this.Name = "AVR_UCBatch";
-            this.Size = new System.Drawing.Size(395, 246);
+            this.Size = new System.Drawing.Size(545, 316);
             this.ResumeLayout(false);
             this.PerformLayout();
 

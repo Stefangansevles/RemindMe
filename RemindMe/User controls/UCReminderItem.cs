@@ -166,6 +166,7 @@ namespace RemindMe
 
             BLReminder.EditReminder(rem);
             UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.GetInstance().RefreshPage();
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -181,9 +182,10 @@ namespace RemindMe
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
-        {
-            BLReminder.DeleteReminder(rem);            
+        {            
+            BLReminder.DeleteReminder(rem);                        
             UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.GetInstance().RefreshPage();
         }
 
         private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -293,9 +295,11 @@ namespace RemindMe
                 BLIO.Log("Marked reminder with id " + rem.Id + " as hidden");
                 BLReminder.EditReminder(rem);
                 UCReminders.GetInstance().UpdateCurrentPage();
+                UCReminders.GetInstance().RefreshPage();
             }
             else
                 BLIO.Log("Attempting to hide reminder(s) failed.");
+
         }
 
         private void enableWarningToolStripMenuItem_Click(object sender, EventArgs e)
@@ -358,11 +362,13 @@ namespace RemindMe
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {            
             if (RemindMeBox.Show("Are you really sure you wish to permanentely delete \"" + rem.Name + "\" ?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
-            {
+            {                
                 BLIO.Log("Permanentely deleting reminder with id " + rem.Id + " ...");
+                this.Visible = false;
                 BLReminder.PermanentelyDeleteReminder(rem);                
                 BLIO.Log("Reminder permanentely deleted.");
                 UCReminders.GetInstance().UpdateCurrentPage();
+                UCReminders.GetInstance().RefreshPage();
             }
         }
 

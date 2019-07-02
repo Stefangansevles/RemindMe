@@ -65,7 +65,7 @@
             this.Controls.Add(this.lblShowReminder);
             this.Controls.Add(this.cbShowReminder);
             this.Name = "AVR_UCGeneral";
-            this.Size = new System.Drawing.Size(395, 246);
+            this.Size = new System.Drawing.Size(545, 316);
             this.ResumeLayout(false);
             this.PerformLayout();
 

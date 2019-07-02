@@ -34,8 +34,11 @@
             this.lblNewReminder2 = new System.Windows.Forms.Label();
             this.lblDate2 = new System.Windows.Forms.Label();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.pnlPadding = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.lblTitle = new System.Windows.Forms.Label();
             this.bunifuDragControl4 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlMainGradient2 = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlText2 = new System.Windows.Forms.Panel();
             this.lblNoteText2 = new System.Windows.Forms.Label();
@@ -49,6 +52,11 @@
             this.pnlMainGradient = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlText = new System.Windows.Forms.Panel();
             this.lblNoteText = new System.Windows.Forms.Label();
+            this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.pnlHeader = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.pnlTitle = new System.Windows.Forms.Panel();
+            this.lblMinimize = new Bunifu.Framework.UI.BunifuCustomLabel();
+            this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.pnlDateRepeatInformation = new System.Windows.Forms.Panel();
             this.pbRepeat = new System.Windows.Forms.PictureBox();
             this.pbDate = new System.Windows.Forms.PictureBox();
@@ -61,16 +69,9 @@
             this.cbPostpone = new Bunifu.Framework.UI.BunifuCheckbox();
             this.btnOk = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
-            this.pnlPadding = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.pnlHeader = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblMinimize = new Bunifu.Framework.UI.BunifuCustomLabel();
-            this.lblExit = new Bunifu.Framework.UI.BunifuCustomLabel();
-            this.pnlTitle = new System.Windows.Forms.Panel();
-            this.bunifuGradientPanel1 = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlHeaderText2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlMainGradient2.SuspendLayout();
             this.pnlText2.SuspendLayout();
             this.pnlFooter.SuspendLayout();
@@ -79,14 +80,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.pnlMainGradient.SuspendLayout();
             this.pnlText.SuspendLayout();
+            this.pnlHeader.SuspendLayout();
+            this.pnlTitle.SuspendLayout();
             this.pnlDateRepeatInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepeat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDate)).BeginInit();
             this.pnlFooterButtons.SuspendLayout();
             this.pnlPostpone.SuspendLayout();
-            this.pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.pnlTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeaderText2
@@ -131,6 +131,21 @@
             this.bunifuDragControl2.TargetControl = this.pnlPadding;
             this.bunifuDragControl2.Vertical = true;
             // 
+            // pnlPadding
+            // 
+            this.pnlPadding.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlPadding.BackgroundImage")));
+            this.pnlPadding.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlPadding.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlPadding.GradientBottomLeft = System.Drawing.Color.Black;
+            this.pnlPadding.GradientBottomRight = System.Drawing.Color.Black;
+            this.pnlPadding.GradientTopLeft = System.Drawing.Color.DarkGray;
+            this.pnlPadding.GradientTopRight = System.Drawing.Color.DimGray;
+            this.pnlPadding.Location = new System.Drawing.Point(0, 0);
+            this.pnlPadding.Name = "pnlPadding";
+            this.pnlPadding.Quality = 10;
+            this.pnlPadding.Size = new System.Drawing.Size(412, 5);
+            this.pnlPadding.TabIndex = 4;
+            // 
             // bunifuDragControl3
             // 
             this.bunifuDragControl3.Fixed = true;
@@ -138,12 +153,37 @@
             this.bunifuDragControl3.TargetControl = this.lblTitle;
             this.bunifuDragControl3.Vertical = true;
             // 
+            // lblTitle
+            // 
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(311, 52);
+            this.lblTitle.TabIndex = 89;
+            this.lblTitle.Text = "title";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // bunifuDragControl4
             // 
             this.bunifuDragControl4.Fixed = true;
             this.bunifuDragControl4.Horizontal = true;
             this.bunifuDragControl4.TargetControl = this.pictureBox1;
             this.bunifuDragControl4.Vertical = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(58, 52);
+            this.pictureBox1.TabIndex = 90;
+            this.pictureBox1.TabStop = false;
             // 
             // pnlMainGradient2
             // 
@@ -300,6 +340,80 @@
             this.lblNoteText.TabIndex = 1;
             this.lblNoteText.Text = "label1";
             // 
+            // bunifuGradientPanel1
+            // 
+            this.bunifuGradientPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuGradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel1.BackgroundImage")));
+            this.bunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuGradientPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.bunifuGradientPanel1.GradientBottomLeft = System.Drawing.Color.Black;
+            this.bunifuGradientPanel1.GradientBottomRight = System.Drawing.Color.Black;
+            this.bunifuGradientPanel1.GradientTopLeft = System.Drawing.Color.DimGray;
+            this.bunifuGradientPanel1.GradientTopRight = System.Drawing.Color.DimGray;
+            this.bunifuGradientPanel1.Location = new System.Drawing.Point(0, 52);
+            this.bunifuGradientPanel1.Name = "bunifuGradientPanel1";
+            this.bunifuGradientPanel1.Quality = 10;
+            this.bunifuGradientPanel1.Size = new System.Drawing.Size(5, 177);
+            this.bunifuGradientPanel1.TabIndex = 5;
+            // 
+            // pnlHeader
+            // 
+            this.pnlHeader.BackColor = System.Drawing.Color.Transparent;
+            this.pnlHeader.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlHeader.BackgroundImage")));
+            this.pnlHeader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlHeader.Controls.Add(this.pnlTitle);
+            this.pnlHeader.Controls.Add(this.pictureBox1);
+            this.pnlHeader.Controls.Add(this.lblMinimize);
+            this.pnlHeader.Controls.Add(this.lblExit);
+            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeader.GradientBottomLeft = System.Drawing.Color.Black;
+            this.pnlHeader.GradientBottomRight = System.Drawing.Color.Black;
+            this.pnlHeader.GradientTopLeft = System.Drawing.Color.DarkGray;
+            this.pnlHeader.GradientTopRight = System.Drawing.Color.DimGray;
+            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeader.Name = "pnlHeader";
+            this.pnlHeader.Quality = 10;
+            this.pnlHeader.Size = new System.Drawing.Size(412, 52);
+            this.pnlHeader.TabIndex = 84;
+            // 
+            // pnlTitle
+            // 
+            this.pnlTitle.BackColor = System.Drawing.Color.Transparent;
+            this.pnlTitle.Controls.Add(this.lblTitle);
+            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTitle.Location = new System.Drawing.Point(58, 0);
+            this.pnlTitle.Name = "pnlTitle";
+            this.pnlTitle.Size = new System.Drawing.Size(311, 52);
+            this.pnlTitle.TabIndex = 2;
+            // 
+            // lblMinimize
+            // 
+            this.lblMinimize.AutoSize = true;
+            this.lblMinimize.BackColor = System.Drawing.Color.Transparent;
+            this.lblMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblMinimize.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblMinimize.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMinimize.ForeColor = System.Drawing.Color.Transparent;
+            this.lblMinimize.Location = new System.Drawing.Point(369, 0);
+            this.lblMinimize.Name = "lblMinimize";
+            this.lblMinimize.Size = new System.Drawing.Size(21, 22);
+            this.lblMinimize.TabIndex = 92;
+            this.lblMinimize.Text = "- ";
+            // 
+            // lblExit
+            // 
+            this.lblExit.AutoSize = true;
+            this.lblExit.BackColor = System.Drawing.Color.Transparent;
+            this.lblExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblExit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExit.ForeColor = System.Drawing.Color.Transparent;
+            this.lblExit.Location = new System.Drawing.Point(390, 0);
+            this.lblExit.Name = "lblExit";
+            this.lblExit.Size = new System.Drawing.Size(22, 22);
+            this.lblExit.TabIndex = 91;
+            this.lblExit.Text = "X";
+            // 
             // pnlDateRepeatInformation
             // 
             this.pnlDateRepeatInformation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
@@ -386,6 +500,7 @@
             this.tbtime.TabIndex = 8;
             this.tbtime.Text = "1h30m";
             this.tbtime.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbtime.Visible = false;
             this.tbtime.Enter += new System.EventHandler(this.tbtime_Enter);
             this.tbtime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbPrompt_KeyUp);
             this.tbtime.Leave += new System.EventHandler(this.tbtime_Leave);
@@ -424,6 +539,7 @@
             this.cbPostpone.Name = "cbPostpone";
             this.cbPostpone.Size = new System.Drawing.Size(20, 20);
             this.cbPostpone.TabIndex = 104;
+            this.cbPostpone.OnChange += new System.EventHandler(this.cbPostpone_OnChange_1);
             // 
             // btnOk
             // 
@@ -469,126 +585,12 @@
             this.bunifuElipse1.ElipseRadius = 5;
             this.bunifuElipse1.TargetControl = this;
             // 
-            // pnlPadding
-            // 
-            this.pnlPadding.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlPadding.BackgroundImage")));
-            this.pnlPadding.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlPadding.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlPadding.GradientBottomLeft = System.Drawing.Color.Black;
-            this.pnlPadding.GradientBottomRight = System.Drawing.Color.Black;
-            this.pnlPadding.GradientTopLeft = System.Drawing.Color.DarkGray;
-            this.pnlPadding.GradientTopRight = System.Drawing.Color.DimGray;
-            this.pnlPadding.Location = new System.Drawing.Point(0, 0);
-            this.pnlPadding.Name = "pnlPadding";
-            this.pnlPadding.Quality = 10;
-            this.pnlPadding.Size = new System.Drawing.Size(412, 5);
-            this.pnlPadding.TabIndex = 4;
-            // 
             // bunifuDragControl1
             // 
             this.bunifuDragControl1.Fixed = true;
             this.bunifuDragControl1.Horizontal = true;
             this.bunifuDragControl1.TargetControl = this.pnlTitle;
             this.bunifuDragControl1.Vertical = true;
-            // 
-            // pnlHeader
-            // 
-            this.pnlHeader.BackColor = System.Drawing.Color.Transparent;
-            this.pnlHeader.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlHeader.BackgroundImage")));
-            this.pnlHeader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlHeader.Controls.Add(this.pnlTitle);
-            this.pnlHeader.Controls.Add(this.pictureBox1);
-            this.pnlHeader.Controls.Add(this.lblMinimize);
-            this.pnlHeader.Controls.Add(this.lblExit);
-            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.GradientBottomLeft = System.Drawing.Color.Black;
-            this.pnlHeader.GradientBottomRight = System.Drawing.Color.Black;
-            this.pnlHeader.GradientTopLeft = System.Drawing.Color.DarkGray;
-            this.pnlHeader.GradientTopRight = System.Drawing.Color.DimGray;
-            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Quality = 10;
-            this.pnlHeader.Size = new System.Drawing.Size(412, 52);
-            this.pnlHeader.TabIndex = 84;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(58, 52);
-            this.pictureBox1.TabIndex = 90;
-            this.pictureBox1.TabStop = false;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(311, 52);
-            this.lblTitle.TabIndex = 89;
-            this.lblTitle.Text = "title";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblMinimize
-            // 
-            this.lblMinimize.AutoSize = true;
-            this.lblMinimize.BackColor = System.Drawing.Color.Transparent;
-            this.lblMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblMinimize.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblMinimize.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMinimize.ForeColor = System.Drawing.Color.Transparent;
-            this.lblMinimize.Location = new System.Drawing.Point(369, 0);
-            this.lblMinimize.Name = "lblMinimize";
-            this.lblMinimize.Size = new System.Drawing.Size(21, 22);
-            this.lblMinimize.TabIndex = 92;
-            this.lblMinimize.Text = "- ";
-            // 
-            // lblExit
-            // 
-            this.lblExit.AutoSize = true;
-            this.lblExit.BackColor = System.Drawing.Color.Transparent;
-            this.lblExit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblExit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblExit.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExit.ForeColor = System.Drawing.Color.Transparent;
-            this.lblExit.Location = new System.Drawing.Point(390, 0);
-            this.lblExit.Name = "lblExit";
-            this.lblExit.Size = new System.Drawing.Size(22, 22);
-            this.lblExit.TabIndex = 91;
-            this.lblExit.Text = "X";
-            // 
-            // pnlTitle
-            // 
-            this.pnlTitle.BackColor = System.Drawing.Color.Transparent;
-            this.pnlTitle.Controls.Add(this.lblTitle);
-            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTitle.Location = new System.Drawing.Point(58, 0);
-            this.pnlTitle.Name = "pnlTitle";
-            this.pnlTitle.Size = new System.Drawing.Size(311, 52);
-            this.pnlTitle.TabIndex = 2;
-            // 
-            // bunifuGradientPanel1
-            // 
-            this.bunifuGradientPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuGradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuGradientPanel1.BackgroundImage")));
-            this.bunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuGradientPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.bunifuGradientPanel1.GradientBottomLeft = System.Drawing.Color.Black;
-            this.bunifuGradientPanel1.GradientBottomRight = System.Drawing.Color.Black;
-            this.bunifuGradientPanel1.GradientTopLeft = System.Drawing.Color.DimGray;
-            this.bunifuGradientPanel1.GradientTopRight = System.Drawing.Color.DimGray;
-            this.bunifuGradientPanel1.Location = new System.Drawing.Point(0, 52);
-            this.bunifuGradientPanel1.Name = "bunifuGradientPanel1";
-            this.bunifuGradientPanel1.Quality = 10;
-            this.bunifuGradientPanel1.Size = new System.Drawing.Size(5, 177);
-            this.bunifuGradientPanel1.TabIndex = 5;
             // 
             // Popup
             // 
@@ -610,6 +612,7 @@
             this.SizeChanged += new System.EventHandler(this.Popup2_SizeChanged);
             this.pnlHeaderText2.ResumeLayout(false);
             this.pnlHeaderText2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlMainGradient2.ResumeLayout(false);
             this.pnlText2.ResumeLayout(false);
             this.pnlText2.PerformLayout();
@@ -620,6 +623,9 @@
             this.pnlMainGradient.ResumeLayout(false);
             this.pnlText.ResumeLayout(false);
             this.pnlText.PerformLayout();
+            this.pnlHeader.ResumeLayout(false);
+            this.pnlHeader.PerformLayout();
+            this.pnlTitle.ResumeLayout(false);
             this.pnlDateRepeatInformation.ResumeLayout(false);
             this.pnlDateRepeatInformation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepeat)).EndInit();
@@ -627,10 +633,6 @@
             this.pnlFooterButtons.ResumeLayout(false);
             this.pnlPostpone.ResumeLayout(false);
             this.pnlPostpone.PerformLayout();
-            this.pnlHeader.ResumeLayout(false);
-            this.pnlHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.pnlTitle.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

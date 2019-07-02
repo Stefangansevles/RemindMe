@@ -42,15 +42,14 @@ namespace RemindMe
         private UCSupport ucSupport;
         private UCDebugMode ucDebug;
         public UCTimer ucTimer;
-        public static UCNewReminder ucNewReminder; //Can be null
+        public UCNewReminder ucNewReminder; //Can be null
         //If the user presses the end key quickly 3 times, enable debug mode
         private int endKeyPressed = 0;
         private static Form1 instance;
 
         //Update variables
         private RemindMeUpdater updater;
-
-        //        private int r = 210, g = 210, b = 10;
+        
         private int r = 14, g = 130, b = 22;
         private bool increaseR = true;
         private bool increaseG = true;
@@ -77,6 +76,26 @@ namespace RemindMe
             ucSupport = new UCSupport();
             ucDebug = new UCDebugMode();
             ucTimer = new UCTimer();
+
+            //Turn them invisible
+            ucReminders.Visible = true;
+            ucImportExport.Visible = false;
+            ucSound.Visible = false;
+            ucOverlay.Visible = false;
+            ucResizePopup.Visible = false;
+            ucSupport.Visible = false;
+            ucDebug.Visible = false;
+            ucTimer.Visible = false;
+
+            //Add all of them(invisible) to the panel
+            pnlMain.Controls.Add(ucReminders);
+            pnlMain.Controls.Add(ucImportExport);
+            pnlMain.Controls.Add(ucSound);
+            pnlMain.Controls.Add(ucOverlay);
+            pnlMain.Controls.Add(ucResizePopup);
+            pnlMain.Controls.Add(ucSupport);
+            pnlMain.Controls.Add(ucDebug);
+            pnlMain.Controls.Add(ucTimer);
 
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.KeyUp += GlobalKeyPress;
@@ -199,6 +218,7 @@ namespace RemindMe
 
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
+            
 
             Settings set = BLSettings.GetSettings();
 
@@ -322,14 +342,15 @@ namespace RemindMe
 
         private void btnReminders_Click(object sender, EventArgs e)
         {
-            pnlMain.Controls.Clear();
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
 
-            if (ucNewReminder != null)
-                pnlMain.Controls.Add(ucNewReminder);
+            if (ucNewReminder != null && ucNewReminder.saveState)
+                ucNewReminder.Visible = true;            
             else
             {
-                UCReminders.GetInstance().UpdateCurrentPage();
-                pnlMain.Controls.Add(ucReminders);
+                ucReminders.Visible = true;
+                UCReminders.GetInstance().UpdateCurrentPage();                
             }
             ToggleButton(sender);
         }
@@ -351,36 +372,46 @@ namespace RemindMe
         private void btnBackupImport_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(ucImportExport);
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
+
+            ucImportExport.Visible = true;
         }
 
         private void btnSoundEffects_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(ucSound);
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
+
+            ucSound.Visible = true;
         }
 
         private void btnWindowOverlay_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(ucOverlay);
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
+
+            ucOverlay.Visible = true;
         }
 
         private void btnResizePopup_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(ucResizePopup);
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
+
+            ucResizePopup.Visible = true;
         }
 
         private void btnSupport_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(ucSupport);
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
+
+            ucSupport.Visible = true;
         }
 
         private void lblMinimize_MouseEnter(object sender, EventArgs e)
@@ -422,30 +453,15 @@ namespace RemindMe
 
         }
 
-        private async void pnlMain_ControlRemoved(object sender, ControlEventArgs e)
-        {
-            BLIO.Log("Control removed from pnlMain (" + e.Control.GetType() + ")");
-            //If the removed control is UCNewReminder, dispose it. Memory usage goes up and doesnt get cleaned
-            //When you edit multiple reminders without disposing them.
-            if (e.Control is UCNewReminder)
-            {
-                if (ucNewReminder != null && ucNewReminder.shouldDispose)
-                {
-                    BLIO.Log("ucNewReminder disposed");
-                    ucNewReminder = null;
-                    //For some reason this.parent(pnlMain) in UCNewReminder is null after this event.
-                    //Then you can't remove UCNewReminder from the panel, because it will throw a nullreference, this is a weird fix that works
-                    await Task.Delay(100);
-                    e.Control.Dispose();
-                }
-            }
-        }
+   
 
         private void btnDebugMode_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(ucDebug);
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
+
+            ucDebug.Visible = true;
 
         }
 
@@ -483,8 +499,11 @@ namespace RemindMe
         private void btnTimer_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(ucTimer);
+
+            foreach (Control c in pnlMain.Controls)
+                c.Visible = false;
+
+            ucTimer.Visible = true;
         }
 
         private void tmrUpdateRemindMe_Tick(object sender, EventArgs e)
