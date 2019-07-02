@@ -28,6 +28,7 @@ namespace RemindMe
             releaseNotes.Add("2.5.4", "Redesigned the RemindMe popup form that shows whenever a reminder pops up\r\nRemindMe will no longer crash when you try to send an e-mail without having an internet connection\r\nReworked the timer system.Running timers will now still have the correct date after the computer has been put to sleep for an x amount of time.");
             releaseNotes.Add("2.5.5", "Fixed a problem with the timers where it would pop up two messages when a timer pops up");
             ReleaseNotes.Add("2.5.6", "Reminder Popup now doesnt show the postpone textbox by default, only when selecting the postpone option\r\nIncreased the performance speed of loading the screen to edit or create a new reminder\r\nFixed an issue where the list of reminders would not be refreshed after being on a page where there's not 7 reminders\r\nFixed an issue where downloading a new version of RemindMe would crash the application if the form hasn't become visible yet");
+            ReleaseNotes.Add("2.5.7", "Fixed a bug where RemindMe wouldn't show after double clicking it's icon");
         }
 
         public static Dictionary<string,string> ReleaseNotes

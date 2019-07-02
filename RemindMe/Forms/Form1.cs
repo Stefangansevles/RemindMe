@@ -282,9 +282,11 @@ namespace RemindMe
             });
             tr.Start();
 
-            RemindMeIcon_MouseDoubleClick(null, null);
-            await Task.Delay(100);
-            lblExit_Click(null, null);
+
+            this.Opacity = 0;               
+            this.ShowInTaskbar = true;
+            this.Show();            
+            tmrInitialHide.Start();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -605,6 +607,13 @@ namespace RemindMe
             else            
                 tmrAnimateUpdateButton.Stop();                            
 
+        }
+
+        private void tmrInitialHide_Tick(object sender, EventArgs e)
+        {
+            this.Opacity = 0;
+            this.Hide();
+            tmrInitialHide.Stop();
         }
 
         private void pnlUpdateButton_VisibleChanged(object sender, EventArgs e)

@@ -780,3 +780,6 @@ Reminder Popup now doesnt show the postpone textbox by default, only when select
 Increased the performance speed of loading the screen to edit or create a new reminder
 Fixed an issue where the list of reminders would not be refreshed after being on a page where there's not 7 reminders
 Fixed an issue where downloading a new version of RemindMe would crash the application if the form hasn't become visible yet
+
+V2.5.7
+Fixed a bug where RemindMe wouldn't show after double clicking it's icon

@@ -58,6 +58,7 @@
             this.btnNewUpdate = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.pnlSide.SuspendLayout();
@@ -596,6 +597,11 @@
             this.lblVersion.TabIndex = 0;
             this.lblVersion.Text = "Version x.x.x";
             // 
+            // tmrInitialHide
+            // 
+            this.tmrInitialHide.Interval = 1000;
+            this.tmrInitialHide.Tick += new System.EventHandler(this.tmrInitialHide_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -653,6 +659,7 @@
         private Bunifu.Framework.UI.BunifuCustomLabel lblMinimize;
         private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
         private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
+        private System.Windows.Forms.Timer tmrInitialHide;
     }
 }
 
