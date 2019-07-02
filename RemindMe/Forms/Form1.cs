@@ -108,9 +108,11 @@ namespace RemindMe
             instance = this;
             UpdateInformation.Initialize();
             
-            formLoad();
+            formLoadAsync();
 
-            BLIO.Log("Form constructed");            
+            BLIO.Log("Form constructed");
+
+            
         }
 
         public static Form1 Instance
@@ -210,7 +212,7 @@ namespace RemindMe
         /// <summary>
         /// Alternative Form_load method since form_load doesnt get called until you first double-click the RemindMe icon due to override SetVisibleCore
         /// </summary>
-        private void formLoad()
+        private async Task formLoadAsync()
         {
             BLIO.Log("RemindMe_Load");
 
@@ -279,6 +281,10 @@ namespace RemindMe
                 tmrUpdateRemindMe_Tick(null, null);
             });
             tr.Start();
+
+            RemindMeIcon_MouseDoubleClick(null, null);
+            await Task.Delay(1000);
+            lblExit_Click(null, null);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -527,30 +533,37 @@ namespace RemindMe
                 BLIO.Log("No new version.");
         }
         private void DownloadMsi()
-        {
+        {            
             new Thread(() =>
             {
-                this.BeginInvoke((MethodInvoker)async delegate
+                try
                 {
-                    try
+                    this.BeginInvoke((MethodInvoker)async delegate
                     {
-                        BLIO.Log("New version on github! starting download...");
-                        updater = new RemindMeUpdater();
-                        updater.startDownload();
+                        try
+                        {
+                            BLIO.Log("New version on github! starting download...");
+                            updater = new RemindMeUpdater();
+                            updater.startDownload();
 
-                        while (!updater.Completed)
-                            await Task.Delay(500);
+                            while (!updater.Completed)
+                                await Task.Delay(500);
 
-                        MessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!", 10);
+                            MessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!", 10);
 
-                        btnNewUpdate.Visible = true;
-                        BLIO.Log("Completed downloading the new .msi from github!");
-                    }
-                    catch
-                    {
-                        BLIO.Log("Downloading new version of RemindMe failed! :(");
-                    }
-                });
+                            btnNewUpdate.Visible = true;
+                            BLIO.Log("Completed downloading the new .msi from github!");
+                        }
+                        catch
+                        {
+                            BLIO.Log("Downloading new version of RemindMe failed! :(");
+                        }
+                    });
+                }
+                catch(Exception ex)
+                {
+                    BLIO.Log("Failed downloading MSI. " + ex.ToString());
+                }
             }).Start();
         }
 
