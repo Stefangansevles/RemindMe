@@ -283,7 +283,7 @@ namespace RemindMe
             tr.Start();
 
             RemindMeIcon_MouseDoubleClick(null, null);
-            await Task.Delay(1000);
+            await Task.Delay(100);
             lblExit_Click(null, null);
         }
         private void Form1_Load(object sender, EventArgs e)
