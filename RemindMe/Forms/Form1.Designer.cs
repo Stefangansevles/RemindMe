@@ -59,6 +59,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
             this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
+            this.updateRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.pnlSide.SuspendLayout();
@@ -148,11 +149,12 @@
             // 
             this.RemindMeTrayIconMenuStrip.BackColor = System.Drawing.Color.DimGray;
             this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateRemindMeToolStripMenuItem,
             this.tsExit,
             this.showRemindMeToolStripMenuItem});
             this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
             this.RemindMeTrayIconMenuStrip.ShowImageMargin = false;
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(133, 48);
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(141, 92);
             this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
             // 
             // tsExit
@@ -162,7 +164,7 @@
             this.tsExit.Image = ((System.Drawing.Image)(resources.GetObject("tsExit.Image")));
             this.tsExit.ImageTransparentColor = System.Drawing.Color.Red;
             this.tsExit.Name = "tsExit";
-            this.tsExit.Size = new System.Drawing.Size(132, 22);
+            this.tsExit.Size = new System.Drawing.Size(140, 22);
             this.tsExit.Text = "Exit RemindMe";
             this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
             // 
@@ -173,7 +175,7 @@
             this.showRemindMeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showRemindMeToolStripMenuItem.Image")));
             this.showRemindMeToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.showRemindMeToolStripMenuItem.Name = "showRemindMeToolStripMenuItem";
-            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
             this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
             // 
@@ -602,6 +604,16 @@
             this.tmrInitialHide.Interval = 1000;
             this.tmrInitialHide.Tick += new System.EventHandler(this.tmrInitialHide_Tick);
             // 
+            // updateRemindMeToolStripMenuItem
+            // 
+            this.updateRemindMeToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.updateRemindMeToolStripMenuItem.ForeColor = System.Drawing.Color.YellowGreen;
+            this.updateRemindMeToolStripMenuItem.Name = "updateRemindMeToolStripMenuItem";
+            this.updateRemindMeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.updateRemindMeToolStripMenuItem.Text = "Update RemindMe";
+            this.updateRemindMeToolStripMenuItem.Visible = false;
+            this.updateRemindMeToolStripMenuItem.Click += new System.EventHandler(this.updateRemindMeToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -660,6 +672,7 @@
         private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
         private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
         private System.Windows.Forms.Timer tmrInitialHide;
+        private System.Windows.Forms.ToolStripMenuItem updateRemindMeToolStripMenuItem;
     }
 }
 

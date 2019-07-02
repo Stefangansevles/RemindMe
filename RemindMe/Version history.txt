@@ -783,3 +783,4 @@ Fixed an issue where downloading a new version of RemindMe would crash the appli
 
 V2.5.7
 Fixed a bug where RemindMe wouldn't show after double clicking it's icon
+RemindMe's tray icon now has an update function that's clickable if theres a new update available

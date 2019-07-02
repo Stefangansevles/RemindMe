@@ -602,9 +602,12 @@ namespace RemindMe
 
         private void btnNewUpdate_VisibleChanged(object sender, EventArgs e)
         {
-            if (btnNewUpdate.Visible)            
-                tmrAnimateUpdateButton.Start();                            
-            else            
+            if (btnNewUpdate.Visible)
+            {
+                tmrAnimateUpdateButton.Start();
+                updateRemindMeToolStripMenuItem.Visible = true;
+            }
+            else
                 tmrAnimateUpdateButton.Stop();                            
 
         }
@@ -614,6 +617,11 @@ namespace RemindMe
             this.Opacity = 0;
             this.Hide();
             tmrInitialHide.Stop();
+        }
+
+        private void updateRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnNewUpdate_Click(sender, e);
         }
 
         private void pnlUpdateButton_VisibleChanged(object sender, EventArgs e)
