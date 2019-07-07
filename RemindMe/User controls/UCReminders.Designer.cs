@@ -428,8 +428,7 @@
             this.Controls.Add(this.pnlReminders1);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "UCReminders";
-            this.Size = new System.Drawing.Size(666, 436);
-            this.Load += new System.EventHandler(this.UCReminders_Load);
+            this.Size = new System.Drawing.Size(666, 436);            
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragEnter);
             this.ReminderMenuStrip.ResumeLayout(false);

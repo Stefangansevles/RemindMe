@@ -61,6 +61,7 @@ namespace RemindMe
 
             BLIO.Log("Construct Form");            
             InitializeComponent();
+            instance = this;
 
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
@@ -77,8 +78,7 @@ namespace RemindMe
             ucDebug = new UCDebugMode();
             ucTimer = new UCTimer();
 
-            //Turn them invisible
-            ucReminders.Visible = true;
+            //Turn them invisible            
             ucImportExport.Visible = false;
             ucSound.Visible = false;
             ucOverlay.Visible = false;
@@ -87,8 +87,7 @@ namespace RemindMe
             ucDebug.Visible = false;
             ucTimer.Visible = false;
 
-            //Add all of them(invisible) to the panel
-            pnlMain.Controls.Add(ucReminders);
+            //Add all of them(invisible) to the panel            
             pnlMain.Controls.Add(ucImportExport);
             pnlMain.Controls.Add(ucSound);
             pnlMain.Controls.Add(ucOverlay);
@@ -96,6 +95,10 @@ namespace RemindMe
             pnlMain.Controls.Add(ucSupport);
             pnlMain.Controls.Add(ucDebug);
             pnlMain.Controls.Add(ucTimer);
+
+            pnlMain.Controls.Add(ucReminders);            
+            ucReminders.Visible = true;
+            ucReminders.Initialize();
 
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.KeyUp += GlobalKeyPress;
@@ -105,14 +108,13 @@ namespace RemindMe
             //toolstrip items white.
             RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
 
-            instance = this;
+            
             UpdateInformation.Initialize();
             
             formLoadAsync();
-
-            BLIO.Log("Form constructed");
-
-            
+            Thread.Sleep(2000);
+            RemindMeIcon.Visible = true;                 
+            BLIO.Log("Form constructed");            
         }
 
         public static Form1 Instance

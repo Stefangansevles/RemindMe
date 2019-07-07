@@ -46,6 +46,7 @@ namespace RemindMe
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
                                            
             instance = this;            
+            
         }
 
         public static UCReminders GetInstance()
@@ -63,15 +64,16 @@ namespace RemindMe
             }
         }
 
-      
-        private void UCReminders_Load(object sender, EventArgs e)
+              
+
+        public void Initialize()
         {
-            
             BLIO.Log("Loading reminders from database");
             //Give initial value to newReminderUc 
             newReminderUc = new UCNewReminder(this);
             newReminderUc.Visible = false;
             this.Parent.Controls.Add(newReminderUc);
+
 
             Form1.Instance.ucNewReminder = newReminderUc;
             //BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);   
@@ -79,13 +81,13 @@ namespace RemindMe
             BLIO.Log("Starting the reminder timer");
             tmrCheckReminder.Start();
 
-            pnlReminders.Visible = true;            
+            pnlReminders.Visible = true;
 
             pnlReminders.DragDrop += UCReminders_DragDrop;
             pnlReminders.DragEnter += UCReminders_DragEnter;
 
 
-            int counter = 0;           
+            int counter = 0;
             foreach (Reminder rem in BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0))
             {
                 if (pnlReminders.Controls.Count >= 7) break; //Only 7 reminders on 1 page
@@ -97,7 +99,7 @@ namespace RemindMe
 
                 counter++;
             }
-            
+
             foreach (Reminder rem in BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0))
             {
                 if (pnlReminders.Controls.Count >= 7) break;
@@ -111,7 +113,7 @@ namespace RemindMe
             }
 
             if (BLReminder.GetReminders().Count < 7) //Less than 7 reminders, let's fit in some invisible UCReminderItem 's
-            {                
+            {
                 for (int i = BLReminder.GetReminders().Count; i < 7; i++)
                 {
                     pnlReminders.Controls.Add(new UCReminderItem(null));
@@ -130,8 +132,7 @@ namespace RemindMe
                 btnNextPage.Iconimage = Properties.Resources.NextWhite;
                 Form1.Instance.UpdatePageNumber(pageNumber);
             }
-        }   
-
+        }
         
         
         private void AddRemindersToPanel()

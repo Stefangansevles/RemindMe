@@ -38,6 +38,7 @@
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.updateRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dragLogo = new Bunifu.Framework.UI.BunifuDragControl(this.components);
@@ -59,7 +60,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
             this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
-            this.updateRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.pnlSide.SuspendLayout();
@@ -142,7 +142,6 @@
             this.RemindMeIcon.ContextMenuStrip = this.RemindMeTrayIconMenuStrip;
             this.RemindMeIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("RemindMeIcon.Icon")));
             this.RemindMeIcon.Text = "RemindMe";
-            this.RemindMeIcon.Visible = true;
             this.RemindMeIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RemindMeIcon_MouseDoubleClick);
             // 
             // RemindMeTrayIconMenuStrip
@@ -154,8 +153,18 @@
             this.showRemindMeToolStripMenuItem});
             this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
             this.RemindMeTrayIconMenuStrip.ShowImageMargin = false;
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(141, 92);
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(141, 70);
             this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
+            // 
+            // updateRemindMeToolStripMenuItem
+            // 
+            this.updateRemindMeToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.updateRemindMeToolStripMenuItem.ForeColor = System.Drawing.Color.YellowGreen;
+            this.updateRemindMeToolStripMenuItem.Name = "updateRemindMeToolStripMenuItem";
+            this.updateRemindMeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.updateRemindMeToolStripMenuItem.Text = "Update RemindMe";
+            this.updateRemindMeToolStripMenuItem.Visible = false;
+            this.updateRemindMeToolStripMenuItem.Click += new System.EventHandler(this.updateRemindMeToolStripMenuItem_Click);
             // 
             // tsExit
             // 
@@ -603,16 +612,6 @@
             // 
             this.tmrInitialHide.Interval = 1000;
             this.tmrInitialHide.Tick += new System.EventHandler(this.tmrInitialHide_Tick);
-            // 
-            // updateRemindMeToolStripMenuItem
-            // 
-            this.updateRemindMeToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.updateRemindMeToolStripMenuItem.ForeColor = System.Drawing.Color.YellowGreen;
-            this.updateRemindMeToolStripMenuItem.Name = "updateRemindMeToolStripMenuItem";
-            this.updateRemindMeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.updateRemindMeToolStripMenuItem.Text = "Update RemindMe";
-            this.updateRemindMeToolStripMenuItem.Visible = false;
-            this.updateRemindMeToolStripMenuItem.Click += new System.EventHandler(this.updateRemindMeToolStripMenuItem_Click);
             // 
             // Form1
             // 

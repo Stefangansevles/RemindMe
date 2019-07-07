@@ -140,21 +140,24 @@ namespace RemindMe
                 if (ex is ReminderException)
                 {
                     ReminderException theException = (ReminderException)ex;
-                    theException.Reminder.Note = "Removed for privacy reasons";
-                    theException.Reminder.Name = "Removed for privacy reasons";
+                    if (theException.Reminder != null)
+                    {
+                        theException.Reminder.Note = "Removed for privacy reasons";
+                        theException.Reminder.Name = "Removed for privacy reasons";
 
-                    customMess += "\r\n\r\nThis exception is an ReminderException! Let's see if we can figure out what's wrong with it....\r\n";
-                    customMess += "ID:    " + theException.Reminder.Id + "\r\n";
-                    customMess += "Deleted:    " + theException.Reminder.Deleted + "\r\n";
-                    customMess += "Date:  " + theException.Reminder.Date + "\r\n";
-                    customMess += "RepeatType:    " + theException.Reminder.RepeatType + "\r\n";
-                    customMess += "Enabled:   " + theException.Reminder.Enabled + "\r\n";
-                    customMess += "DayOfMonth:    " + theException.Reminder.DayOfMonth + "\r\n";
-                    customMess += "EveryXCustom:  " + theException.Reminder.EveryXCustom + "\r\n";
-                    customMess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
-                    customMess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
-                    customMess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
-                    customMess += "Hide:  " + theException.Reminder.Hide + "\r\n";
+                        customMess += "\r\n\r\nThis exception is an ReminderException! Let's see if we can figure out what's wrong with it....\r\n";
+                        customMess += "ID:    " + theException.Reminder.Id + "\r\n";
+                        customMess += "Deleted:    " + theException.Reminder.Deleted + "\r\n";
+                        customMess += "Date:  " + theException.Reminder.Date + "\r\n";
+                        customMess += "RepeatType:    " + theException.Reminder.RepeatType + "\r\n";
+                        customMess += "Enabled:   " + theException.Reminder.Enabled + "\r\n";
+                        customMess += "DayOfMonth:    " + theException.Reminder.DayOfMonth + "\r\n";
+                        customMess += "EveryXCustom:  " + theException.Reminder.EveryXCustom + "\r\n";
+                        customMess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
+                        customMess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
+                        customMess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
+                        customMess += "Hide:  " + theException.Reminder.Hide + "\r\n";
+                    }
 
                 }
 
