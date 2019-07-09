@@ -30,6 +30,7 @@ namespace RemindMe
             releaseNotes.Add("2.5.6", "Reminder Popup now doesnt show the postpone textbox by default, only when selecting the postpone option\r\nIncreased the performance speed of loading the screen to edit or create a new reminder\r\nFixed an issue where the list of reminders would not be refreshed after being on a page where there's not 7 reminders\r\nFixed an issue where downloading a new version of RemindMe would crash the application if the form hasn't become visible yet");
             releaseNotes.Add("2.5.7", "Fixed a bug where RemindMe wouldn't show after double clicking it's icon\r\nRemindMe's tray icon now has an update function that's clickable if theres a new update available");
             releaseNotes.Add("2.5.8", "Fixed a issue where reminders weren't being checked on RemindMe startup.");
+            releaseNotes.Add("2.5.90", "Fixed an issue where using the \"Exit Remindme\" option on the icon didn't fully shut down RemindMe\r\nImproved the performance of loading the data of a reminder when editing a reminder a little bit.\r\nFixed a tiny bug where pressing the reminder tab would switch to the creating a new reminder window when navigating from another tab");
         }
 
         public static Dictionary<string,string> ReleaseNotes

@@ -343,6 +343,7 @@ namespace RemindMe
         {
             BLIO.Log("Closing RemindMe(through RemindMeIcon)");
             this.Close();
+            Application.Exit();
         }
 
         private void lblMinimize_Click(object sender, EventArgs e)

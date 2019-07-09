@@ -787,3 +787,12 @@ RemindMe's tray icon now has an update function that's clickable if theres a new
 
 V2.5.8
 Fixed a issue where reminders weren't being checken on RemindMe startup. 
+
+V2.5.90
+Fixed an issue where using the "Exit Remindme" option on the icon didn't fully shut down RemindMe
+Improved the performance of loading the data of a reminder when editing a reminder a little bit.
+Fixed a tiny bug where pressing the reminder tab would switch to the creating a new reminder window when navigating from another tab
+
+V2.5.91
+--
+

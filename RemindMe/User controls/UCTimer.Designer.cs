@@ -257,7 +257,6 @@
             this.btnTimerTemplate.Textcolor = System.Drawing.Color.White;
             this.btnTimerTemplate.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimerTemplate.Visible = false;
-            this.btnTimerTemplate.Click += new System.EventHandler(this.btnTimerTemplate_Click);
             // 
             // btnNewTimer
             // 
@@ -303,7 +302,7 @@
             this.TimerMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ucTimerDeleteToolstrip});
             this.TimerMenuStrip.Name = "ReminderMenuStrip";
-            this.TimerMenuStrip.Size = new System.Drawing.Size(170, 48);
+            this.TimerMenuStrip.Size = new System.Drawing.Size(170, 26);
             // 
             // ucTimerDeleteToolstrip
             // 

@@ -193,12 +193,6 @@ namespace RemindMe
         {            
             SetKeyCombinationLabel();            
         }
-
-        private void UCTimer_VisibleChanged(object sender, EventArgs e)
-        {
-            if(this.Visible)            
-                SetKeyCombinationLabel();            
-        }
         private void SetKeyCombinationLabel()
         {
             lblKeyCombination.Text = "protip: You can create a quick timer by pressing the key combination: ";
@@ -242,15 +236,7 @@ namespace RemindMe
             return btn;
         }
 
-        private void btnTimerTemplate_Click(object sender, EventArgs e)
-        {
-            BunifuFlatButton btn = CloneButton();
-            btn.Text = "Timer 2";
-            pnlRunningTimers.Controls.Add(btn);
-            btn = CloneButton();
-            btn.Text = "Timer 3";
-            pnlRunningTimers.Controls.Add(btn);
-        }
+     
 
         private void btnNewTimer_Click(object sender, EventArgs e)
         {
@@ -404,6 +390,18 @@ namespace RemindMe
                     if (Convert.ToInt32(button.Text.Replace("Timer", "").Replace(" ", "")) == currentTimerItem.ID)
                         button.Normalcolor = Color.Gray; //This is our button                    
                 }
+            }
+        }
+
+        private void UCTimer_VisibleChanged(object sender, EventArgs e)
+        {
+            if(currentTimerItem != null && this.Visible)
+            {
+                BLIO.Log("Setting values of (UCTimer) numericupdowns on UCTimer_VisibleChanged ("+this.Visible+")");
+                TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
+                numSeconds.Value = time.Seconds;
+                numMinutes.Value = time.Minutes;
+                numHours.Value = time.Hours;
             }
         }
     }

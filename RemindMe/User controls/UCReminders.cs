@@ -72,6 +72,7 @@ namespace RemindMe
             //Give initial value to newReminderUc 
             newReminderUc = new UCNewReminder(this);
             newReminderUc.Visible = false;
+            newReminderUc.saveState = false;
             this.Parent.Controls.Add(newReminderUc);
 
 
@@ -252,12 +253,12 @@ namespace RemindMe
             
         }
         public void EditReminder(Reminder rem)
-        {
-            newReminderUc.Visible = true;
+        {            
             newReminderUc.Reminder = BLReminder.GetReminderById(rem.Id);
             BLIO.Log("Filling form with details of reminder with id " + rem.Id + " to edit");
-            Form1.Instance.ucNewReminder = newReminderUc;            
+            Form1.Instance.ucNewReminder = newReminderUc;
             this.Visible = false;
+            newReminderUc.Visible = true;
         }
 
       
