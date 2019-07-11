@@ -398,10 +398,15 @@ namespace RemindMe
             if(currentTimerItem != null && this.Visible)
             {
                 BLIO.Log("Setting values of (UCTimer) numericupdowns on UCTimer_VisibleChanged ("+this.Visible+")");
+
+                if (currentTimerItem.SecondsRemaining <= 0)
+                    return;
+
                 TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
                 numSeconds.Value = time.Seconds;
                 numMinutes.Value = time.Minutes;
                 numHours.Value = time.Hours;
+                tmrCountdown.Start();
             }
         }
     }
