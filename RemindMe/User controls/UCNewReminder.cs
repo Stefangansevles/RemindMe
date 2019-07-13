@@ -1272,11 +1272,11 @@ namespace RemindMe
                 }
                 if (c is ComboBox)
                 {
-                    if (c.Name != "cbEveryXCustom")
+                    if (c.Name != "cbEveryXCustom" && c.Name != "cbSound")
                     {
                         ComboBox cb = (ComboBox)c;
                         cb.Items.Clear();
-                        cb.Text = "";
+                        cb.Text = "";                        
                     }
                 }
                 if (c is PictureBox && c.Name != "pbEdit")
@@ -1377,7 +1377,7 @@ namespace RemindMe
         }
 
         private void btnClear_Click(object sender, EventArgs e)
-        {
+        {            
             BLIO.Log("Clearing reminder form (UCNewReminder)");
             ResetReminderForm();
         }
@@ -1389,7 +1389,7 @@ namespace RemindMe
             btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
 
             if (editableReminder == null)
-                ResetReminderForm();                        
+                ResetReminderForm();            
         }
 
         private void cbEvery_KeyUp(object sender, KeyEventArgs e)

@@ -794,5 +794,5 @@ Improved the performance of loading the data of a reminder when editing a remind
 Fixed a tiny bug where pressing the reminder tab would switch to the creating a new reminder window when navigating from another tab
 
 V2.5.91
---
-
+Fixed a small bug where an error prompt would show up when navigating to the timer tab under certain conditions
+Fixed a bug where you couldn't select a sound effect when creating a new reminder
