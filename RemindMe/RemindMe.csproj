@@ -488,6 +488,9 @@
     <None Include="Resources\EditPenWhite.png" />
     <None Include="Resources\RedLoading.gif" />
     <None Include="Resources\RemindMe.gif" />
+    <None Include="Resources\NoReminders.png" />
+    <None Include="Resources\NoReminders2.png" />
+    <None Include="Resources\RemindMeGradient.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

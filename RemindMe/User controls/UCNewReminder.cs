@@ -551,7 +551,7 @@ namespace RemindMe
             else if (cbEvery.Visible || numEveryXDays.Visible) //if those are visible, place the textbox below them
                 tbNote.Location = new Point(cbEvery.Location.X, (cbEvery.Location.Y + cbEvery.Size.Height) + 3);
             else // if they're not, AND the pnlDaycheckBoxes isnt visible EITHER, place them below the groupbox of radio buttons
-                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
+                tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);                
         }
 
         private void cbEvery_VisibleChanged(object sender, EventArgs e)
@@ -1551,7 +1551,7 @@ namespace RemindMe
             btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
 
             if(callback != null && !callback.Visible && !this.Visible)
-                saveState = true;
+                saveState = true;            
         }
 
         private void tbReminderName_Leave(object sender, EventArgs e)
@@ -1570,6 +1570,12 @@ namespace RemindMe
                 lblAdvancedReminders.Text = "Disabled.";            
             else            
                 lblAdvancedReminders.Text = "Enabled!";           
+        }
+
+        private void groupRepeatRadiobuttons_LocationChanged(object sender, EventArgs e)
+        {
+            lblRepeat.Location = new Point(lblRepeat.Location.X, groupRepeatRadiobuttons.Location.Y + 3);
+            tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
         }
     }
 }

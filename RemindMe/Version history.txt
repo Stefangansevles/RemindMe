@@ -796,3 +796,9 @@ Fixed a tiny bug where pressing the reminder tab would switch to the creating a 
 V2.5.91
 Fixed a small bug where an error prompt would show up when navigating to the timer tab under certain conditions
 Fixed a bug where you couldn't select a sound effect when creating a new reminder
+
+V2.5.92
+The date of reminders in the list of reminders will now show as "Today <time>" instead of "<date> <time>" if the reminder is for today.
+Fixed an issue where deleting reminders when you have less than 7 reminders would sometimes create an error
+Fixed an interface issue where editing some reminders would cause some items to overlap
+Added a image to the screen where you see the list of reminders if you have no reminders. The image displays that you have no reminders yet.

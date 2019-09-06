@@ -50,7 +50,10 @@ namespace RemindMe
             tpInformation.SetToolTip(btnEdit, "Edit a reminder");
         }
 
-
+        public bool IsEmpty()
+        {
+            return rem == null;
+        }
        
         public void UpdateReminder(Reminder rem)
         {
@@ -98,7 +101,11 @@ namespace RemindMe
             lblRepeat.Location = new Point(195, 30);
 
             DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
-            lblDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
+
+            if(date.ToShortDateString() == DateTime.Now.ToShortDateString())
+                lblDate.Text = "Today  " + date.ToShortTimeString();
+            else
+                lblDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
 
             //Postpone logic
             if(rem.PostponeDate != null)
@@ -107,7 +114,12 @@ namespace RemindMe
                 Font font = new Font(lblRepeat.Font, FontStyle.Bold | FontStyle.Italic);
                 lblDate.Font = font;
 
-                lblDate.Text = Convert.ToDateTime(rem.PostponeDate) + " (Postponed)";
+                if (Convert.ToDateTime(rem.PostponeDate).ToShortDateString() == DateTime.Now.ToShortDateString())
+                    lblDate.Text = "Today " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString()  + " (Postponed)";
+                else
+                    lblDate.Text = Convert.ToDateTime(rem.PostponeDate) + " (Postponed)";
+
+
             }
             else
             {
@@ -183,7 +195,8 @@ namespace RemindMe
 
         private void btnDelete_Click(object sender, EventArgs e)
         {            
-            BLReminder.DeleteReminder(rem);                        
+            BLReminder.DeleteReminder(rem);
+            this.rem = null;
             UCReminders.GetInstance().UpdateCurrentPage();
             UCReminders.GetInstance().RefreshPage();
         }

@@ -77,5 +77,10 @@ namespace RemindMe
                 }
             }
         }
+
+        private void UCDebugMode_VisibleChanged(object sender, EventArgs e)
+        {
+            tbSystemLog.Text += "";
+        }
     }
 }

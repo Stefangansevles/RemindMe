@@ -47,12 +47,12 @@
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.tmrClearMessageCache = new System.Windows.Forms.Timer(this.components);
             this.pnlBackground = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.pnlReminders = new RemindMe.NonFlickerPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnUnhideReminders = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnNextPage = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnPreviousPage = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnAddReminder = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.pnlReminders = new RemindMe.NonFlickerPanel();
             this.pnlReminders1 = new RemindMe.NonFlickerPanel();
             this.ReminderMenuStrip.SuspendLayout();
             this.pnlBackground.SuspendLayout();
@@ -232,6 +232,17 @@
             this.pnlBackground.Size = new System.Drawing.Size(666, 436);
             this.pnlBackground.TabIndex = 5;
             // 
+            // pnlReminders
+            // 
+            this.pnlReminders.AllowDrop = true;
+            this.pnlReminders.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeGradient;
+            this.pnlReminders.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlReminders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlReminders.Location = new System.Drawing.Point(0, 0);
+            this.pnlReminders.Name = "pnlReminders";
+            this.pnlReminders.Size = new System.Drawing.Size(666, 394);
+            this.pnlReminders.TabIndex = 6;                        
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
@@ -399,15 +410,6 @@
             this.btnAddReminder.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddReminder.Click += new System.EventHandler(this.btnAddReminder_Click);
             // 
-            // pnlReminders
-            // 
-            this.pnlReminders.AllowDrop = true;
-            this.pnlReminders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlReminders.Location = new System.Drawing.Point(0, 0);
-            this.pnlReminders.Name = "pnlReminders";
-            this.pnlReminders.Size = new System.Drawing.Size(666, 394);
-            this.pnlReminders.TabIndex = 6;
-            // 
             // pnlReminders1
             // 
             this.pnlReminders1.AutoScroll = true;
@@ -428,7 +430,7 @@
             this.Controls.Add(this.pnlReminders1);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "UCReminders";
-            this.Size = new System.Drawing.Size(666, 436);            
+            this.Size = new System.Drawing.Size(666, 436);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragEnter);
             this.ReminderMenuStrip.ResumeLayout(false);

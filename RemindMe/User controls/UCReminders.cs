@@ -45,8 +45,10 @@ namespace RemindMe
             sizes = BLListviewColumnSizes.GetcolumnSizes();            
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
                                            
-            instance = this;            
-            
+            instance = this;
+
+            if (BLReminder.GetReminders().Count == 0)
+                pnlReminders.BackgroundImage = Properties.Resources.NoReminders2;            
         }
 
         public static UCReminders GetInstance()
@@ -125,7 +127,7 @@ namespace RemindMe
                     counter++;
                 }
             }
-
+            int test = pnlReminders.Controls.Count;
             if (BLReminder.GetReminders().Where(r => r.Hide == 0).ToList().Count <= 7)
                 Form1.Instance.UpdatePageNumber(-1); //Tell form1 that there are not more than 1 pages
             else
@@ -237,7 +239,7 @@ namespace RemindMe
 
         }
         private void btnAddReminder_Click(object sender, EventArgs e)
-        {
+        {                        
             newReminderUc.Visible = true;
             newReminderUc.Reminder = null;            
             this.Visible = false;
@@ -469,6 +471,9 @@ namespace RemindMe
             {
                 if (reminders.Count - 1 >= i) //Safely within index numbers
                 {
+                    if (reminderItemCounter >= pnlReminders.Controls.Count)
+                        return;
+
                     //Get the user control item from the panel. There's 7 user controls in the panel, so we have another counter for those
                     UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];
                     itm.Visible = true;
@@ -485,7 +490,10 @@ namespace RemindMe
                     }
 
                     for (int ii = i; ii < 7; ii++)
-                    {                        
+                    {
+                        if (ii >= pnlReminders.Controls.Count)
+                            break;
+
                         UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[ii];
                         itm.Visible = false;
                     }
@@ -505,6 +513,13 @@ namespace RemindMe
 
             if (GetInstance() != null)
                 GetInstance().tmrCheckReminder.Start();
+
+
+            //Change background if there are no reminders left                                        
+            if (BLReminder.GetReminders().Where(r => r.Hide == 0).ToList().Count == 0)
+                pnlReminders.BackgroundImage = Properties.Resources.NoReminders2;
+            else
+                pnlReminders.BackgroundImage = Properties.Resources.RemindMeGradient;
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
@@ -622,5 +637,8 @@ namespace RemindMe
             if (this.Visible)
                 SetPageButtonIcons(reminders);
         }
+
+       
+        
     }
 }

@@ -218,6 +218,7 @@
             this.Name = "UCDebugMode";
             this.Size = new System.Drawing.Size(666, 436);
             this.Load += new System.EventHandler(this.UCDebugMode_Load);
+            this.VisibleChanged += new System.EventHandler(this.UCDebugMode_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -723,6 +723,26 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NoReminders {
+            get {
+                object obj = ResourceManager.GetObject("NoReminders", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NoReminders2 {
+            get {
+                object obj = ResourceManager.GetObject("NoReminders2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pause_2x {
             get {
                 object obj = ResourceManager.GetObject("pause@2x", resourceCulture);
@@ -896,6 +916,16 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap RemindMe3 {
             get {
                 object obj = ResourceManager.GetObject("RemindMe3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemindMeGradient {
+            get {
+                object obj = ResourceManager.GetObject("RemindMeGradient", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

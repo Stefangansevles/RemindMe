@@ -446,6 +446,7 @@
             this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(366, 60);
             this.groupRepeatRadiobuttons.TabIndex = 79;
             this.groupRepeatRadiobuttons.TabStop = false;
+            this.groupRepeatRadiobuttons.LocationChanged += new System.EventHandler(this.groupRepeatRadiobuttons_LocationChanged);
             // 
             // rbMultipleDays
             // 
