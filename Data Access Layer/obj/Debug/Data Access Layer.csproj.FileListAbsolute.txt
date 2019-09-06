@@ -116,8 +116,8 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\EntityFram
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\EntityFramework.SqlServer.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.dll.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csprojAssemblyReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CoreCompileInputs.cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CopyComplete
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.pdb
-D:\users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csprojAssemblyReference.cache
-D:\users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CopyComplete

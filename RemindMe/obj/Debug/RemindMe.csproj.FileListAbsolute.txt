@@ -196,6 +196,7 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll.config
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csprojAssemblyReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\Interop.WMPLib.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.ResolveComReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AdvancedReminderForm.resources
@@ -224,9 +225,8 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSound.re
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSupport.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCTimer.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSettings.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.Cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CoreCompileInputs.cache
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csprojAssemblyReference.cache
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
