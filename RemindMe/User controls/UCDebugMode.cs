@@ -82,5 +82,10 @@ namespace RemindMe
         {
             tbSystemLog.Text += "";
         }
+
+        private void btnCheckUpdate_Click(object sender, EventArgs e)
+        {
+            Form1.Instance.CheckForUpdates();
+        }
     }
 }

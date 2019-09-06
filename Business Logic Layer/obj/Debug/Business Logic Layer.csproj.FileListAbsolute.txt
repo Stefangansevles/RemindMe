@@ -116,10 +116,11 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgi
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\EntityFramework.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csprojResolveAssemblyReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop.WindowsInstaller.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop.WMPLib.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CoreCompileInputs.cache
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csprojAssemblyReference.cache
+D:\users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CopyComplete

@@ -38,6 +38,7 @@
             this.tbSystemLog = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tmrLog = new System.Windows.Forms.Timer(this.components);
+            this.btnCheckUpdate = new Bunifu.Framework.UI.BunifuFlatButton();
             this.SuspendLayout();
             // 
             // btnConfirm
@@ -203,11 +204,49 @@
             // 
             this.tmrLog.Tick += new System.EventHandler(this.tmrLog_Tick);
             // 
+            // btnCheckUpdate
+            // 
+            this.btnCheckUpdate.Activecolor = System.Drawing.Color.DimGray;
+            this.btnCheckUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCheckUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCheckUpdate.BorderRadius = 5;
+            this.btnCheckUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnCheckUpdate.ButtonText = "Check for updates";
+            this.btnCheckUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCheckUpdate.DisabledColor = System.Drawing.Color.Gray;
+            this.btnCheckUpdate.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckUpdate.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnCheckUpdate.Iconimage = null;
+            this.btnCheckUpdate.Iconimage_right = null;
+            this.btnCheckUpdate.Iconimage_right_Selected = null;
+            this.btnCheckUpdate.Iconimage_Selected = null;
+            this.btnCheckUpdate.IconMarginLeft = 0;
+            this.btnCheckUpdate.IconMarginRight = 0;
+            this.btnCheckUpdate.IconRightVisible = true;
+            this.btnCheckUpdate.IconRightZoom = 0D;
+            this.btnCheckUpdate.IconVisible = true;
+            this.btnCheckUpdate.IconZoom = 50D;
+            this.btnCheckUpdate.IsTab = false;
+            this.btnCheckUpdate.Location = new System.Drawing.Point(485, 12);
+            this.btnCheckUpdate.Name = "btnCheckUpdate";
+            this.btnCheckUpdate.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCheckUpdate.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnCheckUpdate.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnCheckUpdate.selected = false;
+            this.btnCheckUpdate.Size = new System.Drawing.Size(150, 47);
+            this.btnCheckUpdate.TabIndex = 95;
+            this.btnCheckUpdate.Text = "Check for updates";
+            this.btnCheckUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnCheckUpdate.Textcolor = System.Drawing.Color.White;
+            this.btnCheckUpdate.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
+            // 
             // UCDebugMode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.btnCheckUpdate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbSystemLog);
             this.Controls.Add(this.bunifuFlatButton2);
@@ -235,5 +274,6 @@
         public System.Windows.Forms.TextBox tbSystemLog;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer tmrLog;
+        private Bunifu.Framework.UI.BunifuFlatButton btnCheckUpdate;
     }
 }

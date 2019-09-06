@@ -519,6 +519,10 @@ namespace RemindMe
 
         private void tmrUpdateRemindMe_Tick(object sender, EventArgs e)
         {
+            CheckForUpdates();
+        }
+        public void CheckForUpdates()
+        {
             Version localVersion = new Version(IOVariables.RemindMeVersion);
             Version newVersion = BLIO.GetGithubVersion();
 
@@ -528,7 +532,7 @@ namespace RemindMe
             {
                 BLIO.Log("New version detected!");
                 //SetupRemindMe exists? is the version of the msi the same as the github version? That means it is the one you downloaded. Let's not download it again!
-                if (File.Exists(IOVariables.rootFolder + "SetupRemindMe.msi") 
+                if (File.Exists(IOVariables.rootFolder + "SetupRemindMe.msi")
                     && new Version(BLIO.GetMsiVersion(IOVariables.rootFolder + "SetupRemindMe.msi")) == newVersion)
                     return;
 
@@ -542,7 +546,7 @@ namespace RemindMe
             new Thread(() =>
             {
                 try
-                {
+                {                    
                     this.BeginInvoke((MethodInvoker)async delegate
                     {
                         try
