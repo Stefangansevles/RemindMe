@@ -33,6 +33,7 @@ namespace RemindMe
             releaseNotes.Add("2.5.90", "Fixed an issue where using the \"Exit Remindme\" option on the icon didn't fully shut down RemindMe\r\nImproved the performance of loading the data of a reminder when editing a reminder a little bit.\r\nFixed a tiny bug where pressing the reminder tab would switch to the creating a new reminder window when navigating from another tab");
             releaseNotes.Add("2.5.91", "Fixed a small bug where an error prompt would show up when navigating to the timer tab under certain conditions\r\nFixed a bug where you couldn't select a sound effect when creating a new reminder");
             releaseNotes.Add("2.5.92", "The date of reminders in the list of reminders will now show as \"Today < time > \" instead of \" < date > < time > \" if the reminder is for today.\r\nFixed an issue where deleting reminders when you have less than 7 reminders would sometimes create an error\r\nFixed an interface issue where editing some reminders would cause some items to overlap\r\nAdded a image to the screen where you see the list of reminders if you have no reminders.The image displays that you have no reminders yet.");
+            releaseNotes.Add("V2.5.93", "RemindMe should now be able to send e - mails again for error reporting. This helps with fixing bugs");
         }
 
         public static Dictionary<string,string> ReleaseNotes

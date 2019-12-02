@@ -101,7 +101,7 @@ namespace RemindMe
             BunifuFlatButton timerButton = CloneButton();
             
 
-            timerButton.Text = " Timer " + timerIdCounter;
+            timerButton.Text = "[" + timerIdCounter + "] " + tmrItem.TimerText ;
 
             //Link every new button click to this event.            
             timerButton.Click += TimerButton_Click;
@@ -245,6 +245,12 @@ namespace RemindMe
             quickTimer.Show();
         }
 
+        public int GetTimerButtonId(BunifuFlatButton button)
+        {
+            int indexFirst = button.Text.IndexOf("[");
+            int indexLast = button.Text.IndexOf("]");            
+            return Convert.ToInt32(button.Text.Substring(indexFirst, indexLast).Remove(0, 1));
+        }
         private void TimerButton_Click(object sender, EventArgs e)
         {            
             //Right click delete
@@ -262,7 +268,10 @@ namespace RemindMe
             BunifuFlatButton clickedButton = (BunifuFlatButton)sender;
             BLIO.Log("^^^^ (" + clickedButton.Text + ")");
             //Remove all the text apart from the id and store it
-            int id = Convert.ToInt32(clickedButton.Text.Replace("Timer","").Replace(" ","")); 
+
+            int id = GetTimerButtonId(clickedButton);
+
+
 
             foreach (TimerItem itm in timers)
             {
@@ -294,7 +303,7 @@ namespace RemindMe
         }
 
         private void pnlRunningTimers_ControlAdded(object sender, ControlEventArgs e)
-        {
+        {            
             lblNoTimers.Visible = pnlRunningTimers.Controls.Count == 1;
 
             if (pnlRunningTimers.HorizontalScroll.Visible && pnlRunningTimers.Size.Height == 33)
@@ -307,6 +316,14 @@ namespace RemindMe
 
             if (!pnlRunningTimers.HorizontalScroll.Visible && pnlRunningTimers.Size.Height > 33)
                 pnlRunningTimers.Size = new Size(pnlRunningTimers.Size.Width, pnlRunningTimers.Height - 20);
+
+            //Reset the time indication if there are no running timers left
+            if(!lblNoTimers.Visible)
+            {
+                numHours.Value = 0;
+                numMinutes.Value = 0;
+                numSeconds.Value = 0;
+            }
         }
 
         private void btnPauseResumeTimer_Click(object sender, EventArgs e)
@@ -343,7 +360,7 @@ namespace RemindMe
 
             //Now that we have the selected button stored in the "button" variable, let's work with it
             //Get the id
-            int id = Convert.ToInt32(button.Text.Replace("Timer", "").Replace(" ", ""));
+            int id = GetTimerButtonId(button);
             //Use the id to get the correct TimerItem from the "timers" collection, and delete it
             TimerItem toRemoveItem = timers.Where(t => t.ID == id).ToList()[0];
             RemoveTimer(toRemoveItem);
@@ -387,7 +404,7 @@ namespace RemindMe
                 {
                     button = (BunifuFlatButton)c;
 
-                    if (Convert.ToInt32(button.Text.Replace("Timer", "").Replace(" ", "")) == currentTimerItem.ID)
+                    if (GetTimerButtonId(button) == currentTimerItem.ID)
                         button.Normalcolor = Color.Gray; //This is our button                    
                 }
             }

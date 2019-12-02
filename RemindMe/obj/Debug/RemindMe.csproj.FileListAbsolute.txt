@@ -206,6 +206,7 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup2.res
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBox.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeTimerMessageForm.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeMessageForm.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeOptionPrompt.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMePrompt.resources

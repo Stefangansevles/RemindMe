@@ -44,6 +44,14 @@ namespace RemindMe
             this.ResizeEnd += stopFlash_Event;
 
             BLIO.Log("Popup constructed");
+            
+            //Don't show postpone options if the reminder isn't real
+            if(rem.Id == -1)
+            {
+                cbPostpone.Visible = false;
+                lblPostpone.Visible = false;
+                tbPostpone.Visible = false;
+            }
         }
 
         private void lblExit_MouseEnter(object sender, EventArgs e)
@@ -276,9 +284,9 @@ namespace RemindMe
 
                     DateTime newReminderTime = new DateTime();
 
-                    if (cbPostpone.Checked && tbtime.ForeColor == Color.White && !string.IsNullOrWhiteSpace(tbtime.Text)) //postpone option is x minutes                
+                    if (cbPostpone.Checked && tbPostpone.ForeColor == Color.White && !string.IsNullOrWhiteSpace(tbPostpone.Text)) //postpone option is x minutes                
                     {
-                        newReminderTime = DateTime.Now.AddMinutes(BLFormLogic.GetTextboxMinutes(tbtime));
+                        newReminderTime = DateTime.Now.AddMinutes(BLFormLogic.GetTextboxMinutes(tbPostpone));
                         rem.PostponeDate = newReminderTime.ToString();
                     }
                     else
@@ -332,10 +340,10 @@ namespace RemindMe
         private void tbPrompt_KeyUp(object sender, KeyEventArgs e)
         {            
             //Show the user that whatever it is they are inputting is invalid
-            if (tbtime.Text == "" || BLFormLogic.GetTextboxMinutes(tbtime) != -1)
-                tbtime.BorderColorFocused = Color.FromArgb(64, 64, 64);
+            if (tbPostpone.Text == "" || BLFormLogic.GetTextboxMinutes(tbPostpone) != -1)
+                tbPostpone.BorderColorFocused = Color.FromArgb(64, 64, 64);
             else
-                tbtime.BorderColorFocused = Color.Red;
+                tbPostpone.BorderColorFocused = Color.Red;
         }
 
         private void label13_Click(object sender, EventArgs e)
@@ -347,24 +355,24 @@ namespace RemindMe
             else
                 btnOk.Text = "Ok";
 
-            tbtime.Visible = cbPostpone.Checked;
+            tbPostpone.Visible = cbPostpone.Checked;
         }
 
         private void tbtime_Enter(object sender, EventArgs e)
         {
-            if (tbtime.ForeColor == Color.Gray)
+            if (tbPostpone.ForeColor == Color.Gray)
             {
-                tbtime.Text = "";
-                tbtime.ForeColor = Color.White;                
+                tbPostpone.Text = "";
+                tbPostpone.ForeColor = Color.White;                
             }
         }
 
         private void tbtime_Leave(object sender, EventArgs e)
         {
-            if(String.IsNullOrEmpty(tbtime.Text))
+            if(String.IsNullOrEmpty(tbPostpone.Text))
             {
-                tbtime.ForeColor = Color.Gray;
-                tbtime.Text = "1h30m";
+                tbPostpone.ForeColor = Color.Gray;
+                tbPostpone.Text = "1h30m";
             }
         }
 
@@ -377,7 +385,7 @@ namespace RemindMe
             else
                 btnOk.Text = "Ok";
 
-            tbtime.Visible = cbPostpone.Checked;
+            tbPostpone.Visible = cbPostpone.Checked;
         }
     }
 }

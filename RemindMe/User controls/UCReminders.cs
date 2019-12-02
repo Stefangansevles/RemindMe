@@ -92,7 +92,7 @@ namespace RemindMe
 
             int counter = 0;
             foreach (Reminder rem in BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0))
-            {
+            {                                
                 if (pnlReminders.Controls.Count >= 7) break; //Only 7 reminders on 1 page
 
                 pnlReminders.Controls.Add(new UCReminderItem(rem));

@@ -802,3 +802,6 @@ The date of reminders in the list of reminders will now show as "Today <time>" i
 Fixed an issue where deleting reminders when you have less than 7 reminders would sometimes create an error
 Fixed an interface issue where editing some reminders would cause some items to overlap
 Added a image to the screen where you see the list of reminders if you have no reminders. The image displays that you have no reminders yet.
+
+V2.5.93
+RemindMe should now be able to send e-mails again for error reporting. This helps with fixing bugs

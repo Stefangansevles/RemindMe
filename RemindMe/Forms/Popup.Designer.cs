@@ -63,9 +63,9 @@
             this.lblRepeat = new System.Windows.Forms.Label();
             this.lblSmallDate = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
-            this.tbtime = new Bunifu.Framework.UI.BunifuMetroTextbox();
+            this.tbPostpone = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.pnlPostpone = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblPostpone = new System.Windows.Forms.Label();
             this.cbPostpone = new Bunifu.Framework.UI.BunifuCheckbox();
             this.btnOk = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
@@ -473,7 +473,7 @@
             // pnlFooterButtons
             // 
             this.pnlFooterButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.pnlFooterButtons.Controls.Add(this.tbtime);
+            this.pnlFooterButtons.Controls.Add(this.tbPostpone);
             this.pnlFooterButtons.Controls.Add(this.pnlPostpone);
             this.pnlFooterButtons.Controls.Add(this.btnOk);
             this.pnlFooterButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -482,32 +482,32 @@
             this.pnlFooterButtons.Size = new System.Drawing.Size(412, 37);
             this.pnlFooterButtons.TabIndex = 2;
             // 
-            // tbtime
+            // tbPostpone
             // 
-            this.tbtime.BorderColorFocused = System.Drawing.Color.Transparent;
-            this.tbtime.BorderColorIdle = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tbtime.BorderColorMouseHover = System.Drawing.Color.Transparent;
-            this.tbtime.BorderThickness = 3;
-            this.tbtime.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbtime.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tbtime.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbtime.ForeColor = System.Drawing.Color.Gray;
-            this.tbtime.isPassword = false;
-            this.tbtime.Location = new System.Drawing.Point(107, 0);
-            this.tbtime.Margin = new System.Windows.Forms.Padding(4);
-            this.tbtime.Name = "tbtime";
-            this.tbtime.Size = new System.Drawing.Size(81, 37);
-            this.tbtime.TabIndex = 8;
-            this.tbtime.Text = "1h30m";
-            this.tbtime.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.tbtime.Visible = false;
-            this.tbtime.Enter += new System.EventHandler(this.tbtime_Enter);
-            this.tbtime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbPrompt_KeyUp);
-            this.tbtime.Leave += new System.EventHandler(this.tbtime_Leave);
+            this.tbPostpone.BorderColorFocused = System.Drawing.Color.Transparent;
+            this.tbPostpone.BorderColorIdle = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tbPostpone.BorderColorMouseHover = System.Drawing.Color.Transparent;
+            this.tbPostpone.BorderThickness = 3;
+            this.tbPostpone.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbPostpone.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tbPostpone.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbPostpone.ForeColor = System.Drawing.Color.Gray;
+            this.tbPostpone.isPassword = false;
+            this.tbPostpone.Location = new System.Drawing.Point(107, 0);
+            this.tbPostpone.Margin = new System.Windows.Forms.Padding(4);
+            this.tbPostpone.Name = "tbPostpone";
+            this.tbPostpone.Size = new System.Drawing.Size(81, 37);
+            this.tbPostpone.TabIndex = 8;
+            this.tbPostpone.Text = "1h30m";
+            this.tbPostpone.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbPostpone.Visible = false;
+            this.tbPostpone.Enter += new System.EventHandler(this.tbtime_Enter);
+            this.tbPostpone.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbPrompt_KeyUp);
+            this.tbPostpone.Leave += new System.EventHandler(this.tbtime_Leave);
             // 
             // pnlPostpone
             // 
-            this.pnlPostpone.Controls.Add(this.label13);
+            this.pnlPostpone.Controls.Add(this.lblPostpone);
             this.pnlPostpone.Controls.Add(this.cbPostpone);
             this.pnlPostpone.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlPostpone.Location = new System.Drawing.Point(0, 0);
@@ -515,18 +515,18 @@
             this.pnlPostpone.Size = new System.Drawing.Size(107, 37);
             this.pnlPostpone.TabIndex = 7;
             // 
-            // label13
+            // lblPostpone
             // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(34, 9);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(62, 16);
-            this.label13.TabIndex = 105;
-            this.label13.Text = "Postpone";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
+            this.lblPostpone.AutoSize = true;
+            this.lblPostpone.BackColor = System.Drawing.Color.Transparent;
+            this.lblPostpone.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPostpone.ForeColor = System.Drawing.Color.White;
+            this.lblPostpone.Location = new System.Drawing.Point(34, 9);
+            this.lblPostpone.Name = "lblPostpone";
+            this.lblPostpone.Size = new System.Drawing.Size(62, 16);
+            this.lblPostpone.TabIndex = 105;
+            this.lblPostpone.Text = "Postpone";
+            this.lblPostpone.Click += new System.EventHandler(this.label13_Click);
             // 
             // cbPostpone
             // 
@@ -658,12 +658,12 @@
         private Bunifu.Framework.UI.BunifuGradientPanel pnlMainGradient;
         private System.Windows.Forms.Panel pnlFooterButtons;
         private System.Windows.Forms.Panel pnlPostpone;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblPostpone;
         private Bunifu.Framework.UI.BunifuCheckbox cbPostpone;
         private Bunifu.Framework.UI.BunifuFlatButton btnOk;
         private System.Windows.Forms.Panel pnlText;
         public System.Windows.Forms.Label lblNoteText;
-        private Bunifu.Framework.UI.BunifuMetroTextbox tbtime;
+        private Bunifu.Framework.UI.BunifuMetroTextbox tbPostpone;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private System.Windows.Forms.Panel pnlDateRepeatInformation;
         private System.Windows.Forms.PictureBox pbRepeat;

@@ -6,7 +6,9 @@ using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace Business_Logic_Layer
 {
@@ -15,99 +17,73 @@ namespace Business_Logic_Layer
     /// </summary>
     public class BLEmail
     {
-        private BLEmail() { }
+        private static List<string> smtpServers = new List<string>();
+
+        private BLEmail() {}
 
         /// <summary>
         /// Default SMTP Port.
         /// </summary>
         private static int SmtpPort = 25;
 
-      
 
-        public static Exception SendEmail(string subject, string message, bool includeLog = true)
+
+
+
+        public static Exception SendEmail(string subject, string message, string email = "", bool includeLog = true)
         {
-            BLIO.Log("Entered SendEmail()");
-            MailMessage mes = new MailMessage("RemindMeUser_" + Environment.UserName + "@gmail.com", "remindmehelp@gmail.com",subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
-            BLIO.Log("New MailMessage object created");
-
-            // Create the file attachment for this e-mail message.
-            if (includeLog)
+            try
             {
-                BLIO.Log("Include log = true. Creating attachment....");
-                string path = BLIO.GetLogTxtPath();
-                Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
+                BLIO.Log("Attempting to send an e-mail...");
+                MailMessage mes = new MailMessage();
+                mes.From = new MailAddress("remindmesmtp@hotmail.com");
+                mes.To.Add("remindmesmtp@gmail.com");
+                mes.Subject = subject;
+                mes.IsBodyHtml = false;
+                mes.Body = "RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message;
 
-                // Add time stamp information for the file.
-                ContentDisposition disposition = data.ContentDisposition;
-                disposition.CreationDate = System.IO.File.GetCreationTime(path);
-                disposition.ModificationDate = System.IO.File.GetLastWriteTime(path);
-                disposition.ReadDate = System.IO.File.GetLastAccessTime(path);
+                if (!string.IsNullOrWhiteSpace(email))
+                {
+                    //If the user left his e-mail
+                    mes.Body += "\r\nUser's e-mail: " + email;
+                }
+                BLIO.Log("MailMessage created");
 
-                // Add the file attachment to this e-mail message.
-                mes.Attachments.Add(data);
-                BLIO.Log("Attachment created and added to the MailMessage");
+                // Create the file attachment for this e-mail message.
+                if (includeLog)
+                {
+                    BLIO.Log("Include log = true. Creating attachment....");
+                    string path = BLIO.GetLogTxtPath();
+                    Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
+
+                    // Add time stamp information for the file.
+                    ContentDisposition disposition = data.ContentDisposition;
+                    disposition.CreationDate = System.IO.File.GetCreationTime(path);
+                    disposition.ModificationDate = System.IO.File.GetLastWriteTime(path);
+                    disposition.ReadDate = System.IO.File.GetLastAccessTime(path);
+
+                    // Add the file attachment to this e-mail message.
+                    mes.Attachments.Add(data);
+                    BLIO.Log("Attachment created and added to the MailMessage");
+                }
+
+                SmtpClient client = new SmtpClient("smtp.live.com", 587)
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("remindmesmtp@hotmail.com", "This is used for e-mails :)"),
+                    EnableSsl = true
+                };
+                BLIO.Log("SmtpClient created. Sending mail...");
+                client.Send(mes);
             }
-
-            
-
-            
-
-
-            Exception returnException = null;
-
-            BLIO.Log("Getting domain names/servers....");
-            string domainName = GetDomainName(mes.To[0].Address);
-            IPAddress[] servers = GetMailExchangeServer(domainName);
-
-            if (servers == null)
-                return new NullReferenceException();
-
-            int count = 0;
-            foreach (IPAddress server in servers)
+            catch(Exception ex)
             {
-                try
-                {
-                    count++;
-                    BLIO.Log(count + ": attempting to create SmtpClient....");
-                    SmtpClient client = new SmtpClient(server.ToString(), SmtpPort);
-                    BLIO.Log(count + ": SmtpClient created. Attempting to send the E-mail....");
-                    client.Send(mes);
-                    BLIO.Log(count + ": Success! E-mail sent.");
-                    return null;
-                }
-                catch(Exception ex)
-                {
-                    BLIO.Log(count + ": Could not send the e-mail :( an exception happened..... Exception type: " + ex.GetType().ToString() + "\r\n Message: \r\n" + ex.Message);
-                    returnException = ex;
-                    continue;
-                }
-                
-            }
-            return returnException;
+                BLIO.Log("Exception during SendEmail!");
+                return ex;
+            }            
+            return null;
         }
-        public static Exception SendEmail(string subject, string message,string email, bool includeLog = true)
-        {
-            MailMessage mes = new MailMessage(email, "remindmehelp@gmail.com", subject, ("RemindMe Version " + IOVariables.RemindMeVersion + "\r\n" + message));
-            Exception returnException = null;
-
-            string domainName = GetDomainName(mes.To[0].Address);
-            IPAddress[] servers = GetMailExchangeServer(domainName);
-            foreach (IPAddress server in servers)
-            {
-                try
-                {
-                    SmtpClient client = new SmtpClient(server.ToString(), SmtpPort);
-                    client.Send(mes);
-                    return null;
-                }
-                catch (Exception ex)
-                {
-                    returnException = ex;
-                    continue;
-                }
-            }
-            return returnException;
-        }
+        
 
 
         private static string GetDomainName(string emailAddress)
