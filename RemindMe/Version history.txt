@@ -805,3 +805,6 @@ Added a image to the screen where you see the list of reminders if you have no r
 
 V2.5.93
 RemindMe should now be able to send e-mails again for error reporting. This helps with fixing bugs
+
+V2.5.94
+Removed a test error

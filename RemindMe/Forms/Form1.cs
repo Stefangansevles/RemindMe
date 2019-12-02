@@ -292,7 +292,7 @@ namespace RemindMe
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            throw new ReminderException("chill, just a test", BLReminder.GetReminders()[0]);
+            
         }
 
         private void lblExit_Click(object sender, EventArgs e)
