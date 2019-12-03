@@ -36,7 +36,7 @@ namespace Business_Logic_Layer
             {
                 BLIO.Log("Attempting to send an e-mail...");
                 MailMessage mes = new MailMessage();
-                mes.From = new MailAddress("remindmesmtp@hotmail.com");
+                mes.From = new MailAddress("remindmesmtp@hotmail.com");                
                 mes.To.Add("remindmesmtp@gmail.com");
                 mes.Subject = subject;
                 mes.IsBodyHtml = false;

@@ -275,6 +275,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8C0FF3440AF32C548936E403C627B503"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0B60EAF1669B4DD19B2ED834F173C6AA"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -384,12 +390,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C0A104B7CE317FC331FFCE90C2E4226C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8C0FF3440AF32C548936E403C627B503"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1288,15 +1288,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{0A601A05-21B9-47A4-81F1-5186B99D689C}"
-        "PackageCode" = "8:{444A6901-2742-4F4F-93BC-A7E8DB944725}"
+        "ProductCode" = "8:{10DD5D8E-CE9E-4A0C-B6C9-A136F8BBE03B}"
+        "PackageCode" = "8:{F54278BE-A4A0-4FB3-B666-C079EA7841AD}"
         "UpgradeCode" = "8:{026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.5.94"
+        "ProductVersion" = "8:2.5.95"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

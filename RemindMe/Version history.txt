@@ -808,3 +808,7 @@ RemindMe should now be able to send e-mails again for error reporting. This help
 
 V2.5.94
 Removed a test error
+
+V2.5.95
+Fixed a problem where sending an e-mail would crash RemindMe
+added additional failsafes for when there is a problem in RemindMe

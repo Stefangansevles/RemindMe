@@ -45,13 +45,34 @@ namespace RemindMe
                     return;
                 }
 
+                // Set the unhandled exception mode to force all Windows Forms errors to go through our handler.                
+                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+
                 Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+
+                // Add the event handler for handling non-UI thread exceptions to the event. 
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+
                 Application.Run(new Form1());
             }
 
         }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = (Exception)e.ExceptionObject;
+            if (ex != null)
+            {                
+                BLIO.WriteError(ex, "Special CurrentDomain Error! " + ex.GetType());
+                ShowError(ex, "Unknown error!", ex.Message);
+                UCReminders.GetInstance().UpdateCurrentPage();
+            }
+        }
+
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             return EmbeddedAssembly.Get(args.Name);
