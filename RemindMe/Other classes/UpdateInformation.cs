@@ -36,6 +36,7 @@ namespace RemindMe
             releaseNotes.Add("2.5.93", "RemindMe should now be able to send e - mails again for error reporting. This helps with fixing bugs");
             releaseNotes.Add("2.5.94", "Removed a test error");
             releaseNotes.Add("2.5.95", "Fixed a problem where sending an e-mail would crash RemindMe\r\nAdded additional failsafes for when there is a problem in RemindMe");
+            releaseNotes.Add("2.5.96", "Added debug information to detect a problem");
         }
 
         public static Dictionary<string,string> ReleaseNotes

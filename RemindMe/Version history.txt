@@ -812,3 +812,6 @@ Removed a test error
 V2.5.95
 Fixed a problem where sending an e-mail would crash RemindMe
 added additional failsafes for when there is a problem in RemindMe
+
+V2.5.96
+Added debug information to detect a problem
