@@ -36,7 +36,8 @@ namespace Business_Logic_Layer
             {
                 BLIO.Log("Attempting to send an e-mail...");
                 MailMessage mes = new MailMessage();
-                mes.From = new MailAddress("remindmesmtp@hotmail.com");                
+                mes.From = new MailAddress("remindmesmtp@hotmail.com");
+                if (string.IsNullOrWhiteSpace(mes.From.ToString())) { BLIO.WriteError(new Exception(),"[DEBUG] .From empty?" + mes.From.ToString()); } else BLIO.WriteError(new Exception(), "[DEBUG] mes.From not empty! : " +mes.From.ToString());
                 mes.To.Add("remindmesmtp@gmail.com");
                 mes.Subject = subject;
                 mes.IsBodyHtml = false;
