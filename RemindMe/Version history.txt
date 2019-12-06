@@ -819,5 +819,8 @@ Added debug information to detect a problem
 V2.6.0
 RemindMe now uses an online database for various loggings. This database can also be used for other purposes in the future
 
-V2.6.01
+V2.6.1
 Fixed an issue where the the current version of RemindMe wouldn't be registered in the local database
+
+V2.6.101
+Added more logging to the database

@@ -26,9 +26,19 @@
           <Property Name="UpdateVersion" Type="varchar(max)" Nullable="false" />
           <Property Name="Username" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar(max)" Nullable="false" />
+          <Property Name="UniqueString" Type="varchar(max)" Nullable="false" />
+          <Property Name="LastOnline" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="remindmesqldbModelStoreContainer">
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -58,7 +68,17 @@
         <EntityContainer Name="remindmesqldbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" />
+          <EntitySet Name="Users" EntityType="remindmesqldbModel.Users" />
         </EntityContainer>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UniqueString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastOnline" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -85,6 +105,16 @@
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="UpdateVersion" ColumnName="UpdateVersion" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="remindmesqldbModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="LastOnline" ColumnName="LastOnline" />
+                <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

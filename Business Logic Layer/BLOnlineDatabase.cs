@@ -54,5 +54,24 @@ namespace Business_Logic_Layer
             }
 
         }
+
+        /// <summary>
+        /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
+        /// </summary>
+        /// <param name="uniqueString"></param>
+        public static void InsertOrUpdateUser(string uniqueString)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(uniqueString))
+                    DLOnlineDatabase.InsertOrUpdateUser(uniqueString);
+                else
+                    BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertUser(). String: " + uniqueString);
+            }
+            catch (Exception exc)
+            {
+                BLIO.Log("BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString());                
+            }
+        }
     }
 }

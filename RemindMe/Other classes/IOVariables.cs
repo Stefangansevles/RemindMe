@@ -36,6 +36,11 @@ namespace RemindMe
         public static readonly string errorLog = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\RemindMe\ErrorLog.txt";
 
         /// <summary>
+        /// Contains the path to the batch file for advanced reminders. Batch scripts will be written to this and executed
+        /// </summary>
+        public static readonly string uniqueString = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\string.txt";
+
+        /// <summary>
         /// Returns the version of RemindMe. Read from the assembly
         /// </summary>
         public static string RemindMeVersion

@@ -38,6 +38,7 @@ namespace RemindMe
             releaseNotes.Add("2.5.95", "Fixed a problem where sending an e-mail would crash RemindMe\r\nAdded additional failsafes for when there is a problem in RemindMe");
             releaseNotes.Add("2.5.96", "Added debug information to detect a problem");
             releaseNotes.Add("2.6.0", "RemindMe now uses an online database for various loggings. This database can also be used for other purposes in the future");
+            releaseNotes.Add("2.6.101", "Added more logging to the database");
         }
 
         public static Dictionary<string,string> ReleaseNotes

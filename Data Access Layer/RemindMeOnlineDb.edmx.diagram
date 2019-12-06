@@ -7,6 +7,7 @@
       <Diagram DiagramId="e3dffbc1fcc345beaa7160e99b365661" Name="Diagram1">
         <EntityTypeShape EntityType="remindmesqldbModel.ExceptionLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="remindmesqldbModel.UpdateLog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="remindmesqldbModel.Users" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -20,6 +20,28 @@ namespace Business_Logic_Layer
         private static System.Windows.Forms.Timer tmrAllowEmail = null;
         public static List<string> systemLog = new List<string>();
 
+        /// <summary>
+        /// Writes an unique string to string.txt in the RemindMe folder if it does not exists
+        /// </summary>
+        public static void WriteUniqueString()
+        {            
+            if(!File.Exists(IOVariables.uniqueString))
+            {
+                string uniqueString = "";
+                Random random = new Random();
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                uniqueString = new string(Enumerable.Repeat(chars, 200)
+                  .Select(s => s[random.Next(s.Length)]).ToArray());
+
+                File.WriteAllText(IOVariables.uniqueString, uniqueString.ToString());
+                File.SetAttributes(IOVariables.uniqueString, File.GetAttributes(IOVariables.uniqueString) | FileAttributes.Hidden); //Hide the file
+            }
+        }
+
+        /// <summary>
+        /// Log an entry to the system log
+        /// </summary>
+        /// <param name="entry"></param>
         public static void Log(string entry)
         {
             systemLog.Add("[" + DateTime.Now.ToString() + "]  " + entry);

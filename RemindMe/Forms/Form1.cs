@@ -219,6 +219,7 @@ namespace RemindMe
             BLIO.Log("RemindMe_Load");
 
             BLIO.WriteUpdateBatch(Application.StartupPath);
+            BLIO.WriteUniqueString();
 
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;                    
 
@@ -287,6 +288,7 @@ namespace RemindMe
             });
             tr.Start();
 
+            BLOnlineDatabase.InsertOrUpdateUser(System.IO.File.ReadAllText(IOVariables.uniqueString));
 
             this.Opacity = 0;               
             this.ShowInTaskbar = true;
