@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -21,15 +22,21 @@ namespace Data_Access_Layer
         /// <param name="exceptionDate">The date the exception is logged at</param>
         public static void AddException(Exception ex, DateTime exceptionDate)
         {
-            ExceptionLog log = new ExceptionLog();
-            log.ExceptionDate = exceptionDate;
-            log.ExceptionMessage = ex.Message;
-            log.ExceptionStackTrace = ex.ToString();
-            log.ExceptionType = ex.GetType().ToString();
-            log.Username = Environment.UserName;
+            try
+            {
+                ExceptionLog log = new ExceptionLog();
+                log.ExceptionDate = exceptionDate;
+                log.ExceptionMessage = ex.Message;
+                log.ExceptionStackTrace = ex.ToString();
+                log.ExceptionType = ex.GetType().ToString();
+                log.Username = Environment.UserName;
 
-            db.ExceptionLog.Add(log);
-            db.SaveChanges();
+                db.ExceptionLog.Add(log);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException exc) { }
+            catch (Exception exce) { }
+            
         }
         /// <summary>
         /// Adds a new entry to the database where a user updates their RemindMe version
@@ -39,14 +46,19 @@ namespace Data_Access_Layer
         /// <param name="updateVersion">The version the user updated to</param>
         public static void AddNewUpdate(DateTime updateDate, string previousVersion, string updateVersion)
         {
-            UpdateLog log = new UpdateLog();
-            log.UpdateDate = updateDate;
-            log.PreviousVersion = previousVersion;
-            log.UpdateVersion = updateVersion;
-            log.Username = Environment.UserName;
+            try
+            {
+                UpdateLog log = new UpdateLog();
+                log.UpdateDate = updateDate;
+                log.PreviousVersion = previousVersion;
+                log.UpdateVersion = updateVersion;
+                log.Username = Environment.UserName;
 
-            db.UpdateLog.Add(log);
-            db.SaveChanges();
+                db.UpdateLog.Add(log);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException exc) { }
+            catch (Exception exce) { }
         }
 
         /// <summary>
@@ -55,27 +67,32 @@ namespace Data_Access_Layer
         /// <param name="uniqueString"></param>
         public static void InsertOrUpdateUser(string uniqueString, string remindMeVersion)
         {
-            //If the user doesn't exist in the db yet...
-            if (db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
+            try
             {
-                Users usr = new Users();
-                usr.Username = Environment.UserName;
-                usr.UniqueString = uniqueString;
-                usr.LastOnline = DateTime.Now;
-                usr.RemindMeVersion = remindMeVersion;
+                //If the user doesn't exist in the db yet...
+                if (db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
+                {
+                    Users usr = new Users();
+                    usr.Username = Environment.UserName;
+                    usr.UniqueString = uniqueString;
+                    usr.LastOnline = DateTime.Now;
+                    usr.RemindMeVersion = remindMeVersion;
 
-                db.Users.Add(usr);
-                db.SaveChanges();
-            }
-            else
-            {
-                //Update the LastOnline attribute
-                Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
-                usr.LastOnline = DateTime.Now;
-                usr.RemindMeVersion = remindMeVersion;
-                db.SaveChanges();
+                    db.Users.Add(usr);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    //Update the LastOnline attribute
+                    Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
+                    usr.LastOnline = DateTime.Now;
+                    usr.RemindMeVersion = remindMeVersion;
+                    db.SaveChanges();
 
+                }
             }
+            catch (DbUpdateException exc) { }
+            catch (Exception exce) { }
         }
     }
 }
