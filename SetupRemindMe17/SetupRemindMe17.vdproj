@@ -613,7 +613,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Business Logic Layer, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Business Logic Layer, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_3E4AA059DDB08A4F127FB2C28A2B4480"
@@ -737,7 +737,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Data Access Layer, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Data Access Layer, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_66121076D0FEE0F9B389E0C2F4549842"
@@ -1288,15 +1288,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{2AAAAC52-16C4-4D4B-83B3-55765EBBC2A5}"
-        "PackageCode" = "8:{45165268-E969-41AA-BFDE-216080C636DE}"
+        "ProductCode" = "8:{05A98D59-92B1-49DC-A5F0-3954C0072BFD}"
+        "PackageCode" = "8:{DDC6BA65-BF1D-4778-A0C8-7BEB495D273D}"
         "UpgradeCode" = "8:{026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.6.2"
+        "ProductVersion" = "8:2.6.200"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
