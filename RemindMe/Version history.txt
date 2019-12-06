@@ -815,3 +815,6 @@ added additional failsafes for when there is a problem in RemindMe
 
 V2.5.96
 Added debug information to detect a problem
+
+V2.6.0
+RemindMe now uses an online database for various loggings. This database can also be used for other purposes in the future

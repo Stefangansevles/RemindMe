@@ -162,72 +162,72 @@ D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.dll.config
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.SqlServer.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Gma.System.MouseKeyHook.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.EF6.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.Linq.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EmailSender.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.xml
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.SqlServer.xml
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.xml
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.xml
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.xml
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csprojAssemblyReference.cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\Interop.WMPLib.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.ResolveComReference.cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AdvancedReminderForm.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.ErrorPopup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Form1.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup2.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBox.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeTimerMessageForm.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeMessageForm.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeOptionPrompt.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMePrompt.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.TimerPopup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.WhatsNew.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Properties.Resources.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCBatch.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCFiles.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCGeneral.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCDebugMode.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCImportExport.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCNewReminder.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminderItem.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminders.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCResizePopup.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSound.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSupport.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCTimer.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSettings.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CoreCompileInputs.cache
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.config
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.SqlServer.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Gma.System.MouseKeyHook.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.EF6.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.Linq.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EmailSender.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll.config
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll.config
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.xml
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.SqlServer.xml
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.xml
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.xml
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.xml
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll.config
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.pdb
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll.config
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csprojAssemblyReference.cache
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\Interop.WMPLib.dll
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.ResolveComReference.cache
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AdvancedReminderForm.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.ErrorPopup.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Form1.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup2.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBox.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeTimerMessageForm.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeMessageForm.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeOptionPrompt.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMePrompt.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.TimerPopup.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.WhatsNew.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Properties.Resources.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCBatch.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCFiles.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AVR_UCGeneral.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCDebugMode.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCImportExport.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCNewReminder.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminderItem.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCReminders.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCResizePopup.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSound.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSupport.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCTimer.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCSettings.resources
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.GenerateResource.cache
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CoreCompileInputs.cache
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb

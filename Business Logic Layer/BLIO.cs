@@ -214,7 +214,10 @@ namespace Business_Logic_Layer
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
-            }               
+            }
+
+            //Also attempt to write it to the database
+            BLOnlineDatabase.AddException(ex, DateTime.Now);
         }
 
         /// <summary>

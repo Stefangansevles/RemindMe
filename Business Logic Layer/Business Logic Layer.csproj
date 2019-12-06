@@ -64,6 +64,7 @@
     <Compile Include="BLHotkeys.cs" />
     <Compile Include="BLIO.cs" />
     <Compile Include="BLListviewColumnSizes.cs" />
+    <Compile Include="BLOnlineDatabase.cs" />
     <Compile Include="BLPopupDimensions.cs" />
     <Compile Include="BLReminder.cs" />
     <Compile Include="BLSettings.cs" />

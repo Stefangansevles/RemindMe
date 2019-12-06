@@ -80,6 +80,7 @@ namespace Business_Logic_Layer
             catch(Exception ex)
             {
                 BLIO.Log("Exception during SendEmail!");
+                BLIO.WriteError(ex, "Exception during SendEmail!");
                 return ex;
             }            
             return null;

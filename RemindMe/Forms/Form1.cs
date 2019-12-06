@@ -220,9 +220,7 @@ namespace RemindMe
 
             BLIO.WriteUpdateBatch(Application.StartupPath);
 
-            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
-
-            
+            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;                    
 
             Settings set = BLSettings.GetSettings();
 
@@ -241,7 +239,9 @@ namespace RemindMe
                 WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
                 wn.Show();
 
-                //Update lastVersion
+                //Before updating the lastVersion, log the update in the db
+                BLOnlineDatabase.AddNewUpdate(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
+                //Update lastVersion            
                 set.LastVersion = IOVariables.RemindMeVersion;
                 BLSettings.UpdateSettings(set);
 
