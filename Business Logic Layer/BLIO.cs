@@ -245,7 +245,8 @@ namespace Business_Logic_Layer
         /// <param name="ex">The occured exception</param>
         /// <param name="message">A short message i.e "Error while loading reminders"</param>
         /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
-        public static void WriteError(Exception ex, string message)
+        /// <param name="sendToOnlineDatabase">Determines wether WriteError() is allowed to send the error to the online database this is true by default</param>
+        public static void WriteError(Exception ex, string message,bool sendToOnlineDatabase = true)
         {
             //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
             //that has an bunifu control in it(like a button), while there shouldn't be an exception.
@@ -259,7 +260,8 @@ namespace Business_Logic_Layer
             }
 
             //Also attempt to write it to the database
-            BLOnlineDatabase.AddException(ex, DateTime.Now);
+            if(sendToOnlineDatabase)
+                BLOnlineDatabase.AddException(ex, DateTime.Now);
         }
 
         /// <summary>

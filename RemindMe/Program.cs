@@ -70,8 +70,7 @@ namespace RemindMe
                 BLIO.WriteError(ex, "Special CurrentDomain Error! " + ex.GetType());
                 ShowError(ex, "Unknown error!", ex.Message);
                 UCReminders.GetInstance().UpdateCurrentPage();
-            }
-            Application.Restart();
+            }            
         }
 
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

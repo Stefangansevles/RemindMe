@@ -23,8 +23,7 @@ namespace Business_Logic_Layer
             try
             {
                 new Thread(() =>
-                {
-
+                {                   
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
@@ -38,6 +37,7 @@ namespace Business_Logic_Layer
             catch (Exception exc)
             {
                 BLIO.Log("BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString());
+                BLIO.WriteError(exc, "BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString(), false);
             }
         }
 
@@ -66,6 +66,7 @@ namespace Business_Logic_Layer
             catch (Exception exc)
             {
                 BLIO.Log("BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.ToString());
+                BLIO.WriteError(exc, "BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.ToString(), false);
             }
         }
 
@@ -94,6 +95,7 @@ namespace Business_Logic_Layer
             catch (Exception exc)
             {
                 BLIO.Log("BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString());
+                BLIO.WriteError(exc, "BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString(),false);
             }
         }
     }

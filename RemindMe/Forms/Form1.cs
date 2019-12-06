@@ -290,10 +290,11 @@ namespace RemindMe
                 //wait a bit, then call the update timer once. It then runs every 5 minutes
                 Thread.Sleep(5000);
                 tmrUpdateRemindMe_Tick(null, null);
+                BLOnlineDatabase.InsertOrUpdateUser(System.IO.File.ReadAllText(IOVariables.uniqueString));
             });
             tr.Start();
 
-            BLOnlineDatabase.InsertOrUpdateUser(System.IO.File.ReadAllText(IOVariables.uniqueString));
+            
 
             this.Opacity = 0;               
             this.ShowInTaskbar = true;

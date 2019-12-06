@@ -23,7 +23,7 @@ namespace Data_Access_Layer
         public static void AddException(Exception ex, DateTime exceptionDate)
         {
             try
-            {
+            {                
                 ExceptionLog log = new ExceptionLog();
                 log.ExceptionDate = exceptionDate;
                 log.ExceptionMessage = ex.Message;

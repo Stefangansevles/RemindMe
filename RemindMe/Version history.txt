@@ -834,3 +834,6 @@ Added RemindMe version to the database logging
 
 V2.6.104
 Refactored threading in the business logic layer (where internet checks also happen) instead of the data access layer. Now, the checking for internet connectivity also happens in a thread
+
+V2.6.2
+Fixed some things, RemindMe would crash upon launch the first time after installing an new update
