@@ -224,7 +224,10 @@ namespace RemindMe
 
             Settings set = BLSettings.GetSettings();
 
-            if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
+            if (set.LastVersion == null)
+                set.LastVersion = IOVariables.RemindMeVersion;
+
+            if ((new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
                 //User has a new RemindMe version!                
                 string releaseNotesString = "";
@@ -246,7 +249,7 @@ namespace RemindMe
                 BLSettings.UpdateSettings(set);
 
 
-            }
+            }            
 
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
