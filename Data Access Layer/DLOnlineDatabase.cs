@@ -13,7 +13,7 @@ namespace Data_Access_Layer
         private static remindmesqldbEntities db = new remindmesqldbEntities();
 
         private DLOnlineDatabase() { }
-       
+
         /// <summary>
         /// Logs an exception to the online database
         /// </summary>
@@ -21,18 +21,15 @@ namespace Data_Access_Layer
         /// <param name="exceptionDate">The date the exception is logged at</param>
         public static void AddException(Exception ex, DateTime exceptionDate)
         {
-            new Thread(() =>
-            {
-                ExceptionLog log = new ExceptionLog();
-                log.ExceptionDate = exceptionDate;
-                log.ExceptionMessage = ex.Message;
-                log.ExceptionStackTrace = ex.ToString();
-                log.ExceptionType = ex.GetType().ToString();
-                log.Username = Environment.UserName;
+            ExceptionLog log = new ExceptionLog();
+            log.ExceptionDate = exceptionDate;
+            log.ExceptionMessage = ex.Message;
+            log.ExceptionStackTrace = ex.ToString();
+            log.ExceptionType = ex.GetType().ToString();
+            log.Username = Environment.UserName;
 
-                db.ExceptionLog.Add(log);
-                db.SaveChanges();
-            }).Start();
+            db.ExceptionLog.Add(log);
+            db.SaveChanges();
         }
         /// <summary>
         /// Adds a new entry to the database where a user updates their RemindMe version
@@ -40,19 +37,16 @@ namespace Data_Access_Layer
         /// <param name="updateDate">Date of update</param>
         /// <param name="previousVersion">The previously installed RemindMe version on his/her machine</param>
         /// <param name="updateVersion">The version the user updated to</param>
-        public static void AddNewUpdate(DateTime updateDate,string previousVersion,string updateVersion)
+        public static void AddNewUpdate(DateTime updateDate, string previousVersion, string updateVersion)
         {
-            new Thread(() =>
-            {
-                UpdateLog log = new UpdateLog();
-                log.UpdateDate = updateDate;
-                log.PreviousVersion = previousVersion;
-                log.UpdateVersion = updateVersion;
-                log.Username = Environment.UserName;
+            UpdateLog log = new UpdateLog();
+            log.UpdateDate = updateDate;
+            log.PreviousVersion = previousVersion;
+            log.UpdateVersion = updateVersion;
+            log.Username = Environment.UserName;
 
-                db.UpdateLog.Add(log);
-                db.SaveChanges();
-            }).Start();
+            db.UpdateLog.Add(log);
+            db.SaveChanges();
         }
 
         /// <summary>
@@ -61,31 +55,27 @@ namespace Data_Access_Layer
         /// <param name="uniqueString"></param>
         public static void InsertOrUpdateUser(string uniqueString, string remindMeVersion)
         {
-            new Thread(() =>
+            //If the user doesn't exist in the db yet...
+            if (db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
             {
-                //If the user doesn't exist in the db yet...
-                if(db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
-                {
-                    Users usr = new Users();
-                    usr.Username = Environment.UserName;
-                    usr.UniqueString = uniqueString;
-                    usr.LastOnline = DateTime.Now;
-                    usr.RemindMeVersion = remindMeVersion;
+                Users usr = new Users();
+                usr.Username = Environment.UserName;
+                usr.UniqueString = uniqueString;
+                usr.LastOnline = DateTime.Now;
+                usr.RemindMeVersion = remindMeVersion;
 
-                    db.Users.Add(usr);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    //Update the LastOnline attribute
-                    Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
-                    usr.LastOnline = DateTime.Now;
-                    usr.RemindMeVersion = remindMeVersion;
-                    db.SaveChanges();
-                    
-                }
-               
-            }).Start();
+                db.Users.Add(usr);
+                db.SaveChanges();
+            }
+            else
+            {
+                //Update the LastOnline attribute
+                Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
+                usr.LastOnline = DateTime.Now;
+                usr.RemindMeVersion = remindMeVersion;
+                db.SaveChanges();
+
+            }
         }
     }
 }

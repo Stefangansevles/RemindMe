@@ -41,6 +41,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.101", "Added more logging to the database");
             releaseNotes.Add("2.6.102", "RemindMe no longer crashes without internet access");
             releaseNotes.Add("2.6.103", "Added RemindMe version to the database logging");
+            releaseNotes.Add("2.6.104", "Performance improvement when checking for internet connectivity");
         }
 
         public static Dictionary<string,string> ReleaseNotes

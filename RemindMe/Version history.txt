@@ -830,3 +830,7 @@ RemindMe no longer crashes without internet access
 
 V2.6.103
 Added RemindMe version to the database logging
+
+
+V2.6.104
+Refactored threading in the business logic layer (where internet checks also happen) instead of the data access layer. Now, the checking for internet connectivity also happens in a thread

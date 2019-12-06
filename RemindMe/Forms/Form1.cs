@@ -230,6 +230,7 @@ namespace RemindMe
 
             if ((new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
+                BLIO.Log("[VERSION CHECK] New version! last version: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
                 //User has a new RemindMe version!                
                 string releaseNotesString = "";
 
@@ -245,12 +246,16 @@ namespace RemindMe
 
                 //Before updating the lastVersion, log the update in the db
                 BLOnlineDatabase.AddNewUpdate(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
-                //Update lastVersion            
-                set.LastVersion = IOVariables.RemindMeVersion;
-                BLSettings.UpdateSettings(set);
+            }
+            else
+            {
+                BLIO.Log("[VERSION CHECK] No new version! lastVersion: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
+            }
+            
 
-
-            }            
+            //Update lastVersion           
+            set.LastVersion = IOVariables.RemindMeVersion;
+            BLSettings.UpdateSettings(set);
 
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);

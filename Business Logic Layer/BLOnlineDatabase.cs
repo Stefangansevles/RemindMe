@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Business_Logic_Layer
@@ -21,20 +22,23 @@ namespace Business_Logic_Layer
         {
             try
             {
-                //Don't do anything without internet
-                if (!BLIO.HasInternetAccess())
-                    return;
+                new Thread(() =>
+                {
 
-                if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
-                    DLOnlineDatabase.AddException(ex, exceptionDate);
-                else
-                    BLIO.Log("BLOnlineDatabase.AddException() failed: parameter(s) null");
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return;
+
+                    if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
+                        DLOnlineDatabase.AddException(ex, exceptionDate);
+                    else
+                        BLIO.Log("BLOnlineDatabase.AddException() failed: parameter(s) null");
+                }).Start();
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 BLIO.Log("BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString());
             }
-            
         }
 
         /// <summary>
@@ -47,21 +51,24 @@ namespace Business_Logic_Layer
         {
             try
             {
-                //Don't do anything without internet
-                if (!BLIO.HasInternetAccess())
-                    return;
+                new Thread(() =>
+                {
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return;
 
-                if (!string.IsNullOrWhiteSpace(previousVersion) && !string.IsNullOrWhiteSpace(updateVersion))
-                    DLOnlineDatabase.AddNewUpdate(updateDate, previousVersion, updateVersion);
-                else
-                    BLIO.Log("Invalid previous/update version string parameter in BLOnlineDatabase.AddNewUpdate()");
+                    if (!string.IsNullOrWhiteSpace(previousVersion) && !string.IsNullOrWhiteSpace(updateVersion))
+                        DLOnlineDatabase.AddNewUpdate(updateDate, previousVersion, updateVersion);
+                    else
+                        BLIO.Log("Invalid previous/update version string parameter in BLOnlineDatabase.AddNewUpdate()");
+                }).Start();
             }
             catch (Exception exc)
             {
                 BLIO.Log("BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.ToString());
             }
-
         }
+
 
         /// <summary>
         /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
@@ -71,18 +78,22 @@ namespace Business_Logic_Layer
         {
             try
             {
-                //Don't do anything without internet
-                if (!BLIO.HasInternetAccess())
-                    return;
+                new Thread(() =>
+                {
 
-                if (!string.IsNullOrWhiteSpace(uniqueString))
-                    DLOnlineDatabase.InsertOrUpdateUser(uniqueString,IOVariables.RemindMeVersion);
-                else
-                    BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertUser(). String: " + uniqueString);
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return;
+
+                    if (!string.IsNullOrWhiteSpace(uniqueString))
+                        DLOnlineDatabase.InsertOrUpdateUser(uniqueString, IOVariables.RemindMeVersion);
+                    else
+                        BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertUser(). String: " + uniqueString);
+                }).Start();
             }
             catch (Exception exc)
             {
-                BLIO.Log("BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString());                
+                BLIO.Log("BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString());
             }
         }
     }
