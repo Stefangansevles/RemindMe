@@ -40,6 +40,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.0", "RemindMe now uses an online database for various loggings. This database can also be used for other purposes in the future");
             releaseNotes.Add("2.6.101", "Added more logging to the database");
             releaseNotes.Add("2.6.102", "RemindMe no longer crashes without internet access");
+            releaseNotes.Add("2.6.103", "Added RemindMe version to the database logging");
         }
 
         public static Dictionary<string,string> ReleaseNotes

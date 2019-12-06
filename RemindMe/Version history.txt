@@ -827,3 +827,6 @@ Added more logging to the database
 
 V2.6.102
 RemindMe no longer crashes without internet access
+
+V2.6.103
+Added RemindMe version to the database logging

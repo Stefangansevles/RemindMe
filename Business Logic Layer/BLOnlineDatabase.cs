@@ -76,7 +76,7 @@ namespace Business_Logic_Layer
                     return;
 
                 if (!string.IsNullOrWhiteSpace(uniqueString))
-                    DLOnlineDatabase.InsertOrUpdateUser(uniqueString);
+                    DLOnlineDatabase.InsertOrUpdateUser(uniqueString,IOVariables.RemindMeVersion);
                 else
                     BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertUser(). String: " + uniqueString);
             }

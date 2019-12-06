@@ -34,6 +34,7 @@
           <Property Name="Username" Type="varchar(max)" Nullable="false" />
           <Property Name="UniqueString" Type="varchar(max)" Nullable="false" />
           <Property Name="LastOnline" Type="datetime" Nullable="false" />
+          <Property Name="RemindMeVersion" Type="varchar(max)" />
         </EntityType>
         <EntityContainer Name="remindmesqldbModelStoreContainer">
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
@@ -78,6 +79,7 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UniqueString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LastOnline" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RemindMeVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -111,6 +113,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="remindmesqldbModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="RemindMeVersion" ColumnName="RemindMeVersion" />
                 <ScalarProperty Name="LastOnline" ColumnName="LastOnline" />
                 <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
                 <ScalarProperty Name="Username" ColumnName="Username" />

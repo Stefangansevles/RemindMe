@@ -59,7 +59,7 @@ namespace Data_Access_Layer
         /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
         /// </summary>
         /// <param name="uniqueString"></param>
-        public static void InsertOrUpdateUser(string uniqueString)
+        public static void InsertOrUpdateUser(string uniqueString, string remindMeVersion)
         {
             new Thread(() =>
             {
@@ -70,6 +70,7 @@ namespace Data_Access_Layer
                     usr.Username = Environment.UserName;
                     usr.UniqueString = uniqueString;
                     usr.LastOnline = DateTime.Now;
+                    usr.RemindMeVersion = remindMeVersion;
 
                     db.Users.Add(usr);
                     db.SaveChanges();
@@ -79,6 +80,7 @@ namespace Data_Access_Layer
                     //Update the LastOnline attribute
                     Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
                     usr.LastOnline = DateTime.Now;
+                    usr.RemindMeVersion = remindMeVersion;
                     db.SaveChanges();
                     
                 }
