@@ -51,6 +51,26 @@ namespace Business_Logic_Layer
             foreach (string entry in entries)
                 Log(entry);
         }
+
+        /// <summary>
+        /// Checks for internet connectivity
+        /// </summary>
+        /// <returns>True if you have internet access, false if not</returns>
+        public static bool HasInternetAccess()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (client.OpenRead("http://google.com/generate_204"))
+                    return true;
+            }
+            catch
+            {
+                Log("No internet access!");
+                return false;
+            }
+        }
+
         /// <summary>
         /// Saves the current log to a temporary path in .txt format and returns the path to the file
         /// </summary>

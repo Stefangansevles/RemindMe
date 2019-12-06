@@ -824,3 +824,6 @@ Fixed an issue where the the current version of RemindMe wouldn't be registered 
 
 V2.6.101
 Added more logging to the database
+
+V2.6.102
+RemindMe no longer crashes without internet access

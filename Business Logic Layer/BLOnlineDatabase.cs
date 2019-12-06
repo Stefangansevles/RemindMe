@@ -21,6 +21,10 @@ namespace Business_Logic_Layer
         {
             try
             {
+                //Don't do anything without internet
+                if (!BLIO.HasInternetAccess())
+                    return;
+
                 if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
                     DLOnlineDatabase.AddException(ex, exceptionDate);
                 else
@@ -43,6 +47,10 @@ namespace Business_Logic_Layer
         {
             try
             {
+                //Don't do anything without internet
+                if (!BLIO.HasInternetAccess())
+                    return;
+
                 if (!string.IsNullOrWhiteSpace(previousVersion) && !string.IsNullOrWhiteSpace(updateVersion))
                     DLOnlineDatabase.AddNewUpdate(updateDate, previousVersion, updateVersion);
                 else
@@ -63,6 +71,10 @@ namespace Business_Logic_Layer
         {
             try
             {
+                //Don't do anything without internet
+                if (!BLIO.HasInternetAccess())
+                    return;
+
                 if (!string.IsNullOrWhiteSpace(uniqueString))
                     DLOnlineDatabase.InsertOrUpdateUser(uniqueString);
                 else

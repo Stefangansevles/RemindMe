@@ -28,6 +28,13 @@ namespace RemindMe
         {
             try
             {
+                //Don't do anything without internet
+                if (!BLIO.HasInternetAccess())
+                {
+                    MessageFormManager.MakeMessagePopup("You do not currently have an active internet connection", 3);
+                    return;
+                }
+
                 string email = tbEmail.Text;
                 string subject = tbSubject.Text;
                 string note = tbNote.Text;

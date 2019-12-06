@@ -80,6 +80,7 @@ namespace Data_Access_Layer
                     Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
                     usr.LastOnline = DateTime.Now;
                     db.SaveChanges();
+                    
                 }
                
             }).Start();
