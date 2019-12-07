@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="remindmesqldbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EmailAttempts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="varchar(max)" Nullable="false" />
+          <Property Name="E-mail" Type="varchar(max)" />
+          <Property Name="Message" Type="varchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="varchar(max)" Nullable="false" />
+          <Property Name="Username" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="ExceptionLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -15,6 +26,16 @@
           <Property Name="ExceptionMessage" Type="varchar(max)" Nullable="false" />
           <Property Name="ExceptionStackTrace" Type="varchar(max)" Nullable="false" />
           <Property Name="Username" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="NewInstallations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar(max)" Nullable="false" />
+          <Property Name="UniqueString" Type="varchar(max)" Nullable="false" />
+          <Property Name="InstallDate" Type="datetime" Nullable="false" />
+          <Property Name="InstallVersion" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="UpdateLog">
           <Key>
@@ -37,7 +58,9 @@
           <Property Name="RemindMeVersion" Type="varchar(max)" />
         </EntityType>
         <EntityContainer Name="remindmesqldbModelStoreContainer">
+          <EntitySet Name="EmailAttempts" EntityType="Self.EmailAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewInstallations" EntityType="Self.NewInstallations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -70,6 +93,8 @@
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" />
           <EntitySet Name="Users" EntityType="remindmesqldbModel.Users" />
+          <EntitySet Name="EmailAttempts" EntityType="remindmesqldbModel.EmailAttempts" />
+          <EntitySet Name="NewInstallations" EntityType="remindmesqldbModel.NewInstallations" />
         </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -80,6 +105,27 @@
           <Property Name="UniqueString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LastOnline" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RemindMeVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="EmailAttempts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="E_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NewInstallations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UniqueString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InstallDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InstallVersion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -115,6 +161,29 @@
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="RemindMeVersion" ColumnName="RemindMeVersion" />
                 <ScalarProperty Name="LastOnline" ColumnName="LastOnline" />
+                <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailAttempts">
+            <EntityTypeMapping TypeName="remindmesqldbModel.EmailAttempts">
+              <MappingFragment StoreEntitySet="EmailAttempts">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="E_mail" ColumnName="E-mail" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewInstallations">
+            <EntityTypeMapping TypeName="remindmesqldbModel.NewInstallations">
+              <MappingFragment StoreEntitySet="NewInstallations">
+                <ScalarProperty Name="InstallVersion" ColumnName="InstallVersion" />
+                <ScalarProperty Name="InstallDate" ColumnName="InstallDate" />
                 <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using Business_Logic_Layer;
 using System.Net.Mail;
+using System.IO;
 
 namespace RemindMe
 {
@@ -38,6 +39,8 @@ namespace RemindMe
                 string email = tbEmail.Text;
                 string subject = tbSubject.Text;
                 string note = tbNote.Text;
+
+                BLOnlineDatabase.InsertEmailAttempt(File.ReadAllText(IOVariables.uniqueString), note, subject, email);
 
                 if (tmrAllowMail.Enabled)
                 {

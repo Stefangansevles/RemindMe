@@ -28,5 +28,7 @@ namespace Data_Access_Layer
         public virtual DbSet<ExceptionLog> ExceptionLog { get; set; }
         public virtual DbSet<UpdateLog> UpdateLog { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<EmailAttempts> EmailAttempts { get; set; }
+        public virtual DbSet<NewInstallations> NewInstallations { get; set; }
     }
 }

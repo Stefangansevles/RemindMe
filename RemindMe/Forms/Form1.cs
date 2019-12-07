@@ -224,11 +224,9 @@ namespace RemindMe
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;                    
 
             Settings set = BLSettings.GetSettings();
+           
 
-            if (set.LastVersion == null)
-                set.LastVersion = IOVariables.RemindMeVersion;
-
-            if ((new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
+            if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
                 BLIO.Log("[VERSION CHECK] New version! last version: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
                 //User has a new RemindMe version!                
@@ -245,7 +243,7 @@ namespace RemindMe
                 wn.Show();
 
                 //Before updating the lastVersion, log the update in the db
-                BLOnlineDatabase.AddNewUpdate(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
+                BLOnlineDatabase.AddNewUpgrade(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
             }
             else
             {
@@ -253,9 +251,7 @@ namespace RemindMe
             }
             
 
-            //Update lastVersion           
-            set.LastVersion = IOVariables.RemindMeVersion;
-            BLSettings.UpdateSettings(set);
+            
 
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
@@ -291,6 +287,14 @@ namespace RemindMe
                 Thread.Sleep(5000);
                 tmrUpdateRemindMe_Tick(null, null);
                 BLOnlineDatabase.InsertOrUpdateUser(System.IO.File.ReadAllText(IOVariables.uniqueString));
+                Thread.Sleep(1500);
+                if (set.LastVersion == null)
+                {
+                    //First time user! log it in the db
+                    BLOnlineDatabase.InsertFirstTimeUser(File.ReadAllText(IOVariables.uniqueString));
+                    set.LastVersion = IOVariables.RemindMeVersion;
+                }                
+                BLSettings.UpdateSettings(set);
             });
             tr.Start();
 

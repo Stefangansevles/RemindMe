@@ -88,7 +88,13 @@
     <Compile Include="DLReminders.cs" />
     <Compile Include="DLSettings.cs" />
     <Compile Include="DLSongs.cs" />
+    <Compile Include="EmailAttempts.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionLog.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewInstallations.cs">
       <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

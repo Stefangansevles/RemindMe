@@ -47,7 +47,7 @@ namespace Business_Logic_Layer
         /// <param name="updateDate">Date of update</param>
         /// <param name="previousVersion">The previously installed RemindMe version on his/her machine</param>
         /// <param name="updateVersion">The version the user updated to</param>
-        public static void AddNewUpdate(DateTime updateDate, string previousVersion, string updateVersion)
+        public static void AddNewUpgrade(DateTime updateDate, string previousVersion, string updateVersion)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Business_Logic_Layer
                         return;
 
                     if (!string.IsNullOrWhiteSpace(previousVersion) && !string.IsNullOrWhiteSpace(updateVersion))
-                        DLOnlineDatabase.AddNewUpdate(updateDate, previousVersion, updateVersion);
+                        DLOnlineDatabase.AddNewUpgrade(updateDate, previousVersion, updateVersion);
                     else
                         BLIO.Log("Invalid previous/update version string parameter in BLOnlineDatabase.AddNewUpdate()");
                 }).Start();
@@ -96,6 +96,63 @@ namespace Business_Logic_Layer
             {
                 BLIO.Log("BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString());
                 BLIO.WriteError(exc, "BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString(),false);
+            }
+        }
+
+        /// <summary>
+        /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
+        /// </summary>
+        /// <param name="uniqueString"></param>
+        public static void InsertFirstTimeUser(string uniqueString)
+        {
+            try
+            {
+                new Thread(() =>
+                {                    
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return;
+
+                    if (!string.IsNullOrWhiteSpace(uniqueString))
+                        DLOnlineDatabase.InsertFirstTimeUser(uniqueString, IOVariables.RemindMeVersion);
+                    else
+                        BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertFirstTimeUser(). String: " + uniqueString);
+                }).Start();
+            }
+            catch (Exception exc)
+            {
+                BLIO.Log("BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.ToString());
+                BLIO.WriteError(exc, "BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.ToString(), false);
+            }
+        }
+
+        /// <summary>
+        /// Inserts an e-mail into the database. In case sending the e-mail didn't work, it is still registered in the db
+        /// </summary>
+        /// <param name="uniqueString">The user's unique string</param>
+        /// <param name="emailMessage">The e-mail message</param>
+        /// <param name="emailSubject">The e-mail subject</param>
+        /// <param name="eMailAddress">The users e-mail address. This is optional</param>
+        public static void InsertEmailAttempt(string uniqueString, string emailMessage, string emailSubject, string eMailAddress = "")
+        {
+            try
+            {
+                new Thread(() =>
+                {
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return;
+
+                    if (!string.IsNullOrWhiteSpace(uniqueString))
+                        DLOnlineDatabase.InsertEmailAttempt(uniqueString,emailMessage,emailSubject,eMailAddress);
+                    else
+                        BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertEmailAttempt(). String: " + uniqueString);
+                }).Start();
+            }
+            catch (Exception exc)
+            {
+                BLIO.Log("BLOnlineDatabase.InsertEmailAttempt() failed: exception occured: " + exc.ToString());
+                BLIO.WriteError(exc, "BLOnlineDatabase.InsertEmailAttempt() failed: exception occured: " + exc.ToString(), false);
             }
         }
     }

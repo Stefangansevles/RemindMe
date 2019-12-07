@@ -44,7 +44,7 @@ namespace Data_Access_Layer
         /// <param name="updateDate">Date of update</param>
         /// <param name="previousVersion">The previously installed RemindMe version on his/her machine</param>
         /// <param name="updateVersion">The version the user updated to</param>
-        public static void AddNewUpdate(DateTime updateDate, string previousVersion, string updateVersion)
+        public static void AddNewUpgrade(DateTime updateDate, string previousVersion, string updateVersion)
         {
             try
             {
@@ -90,6 +90,58 @@ namespace Data_Access_Layer
                     db.SaveChanges();
 
                 }
+            }
+            catch (DbUpdateException exc) { }
+            catch (Exception exce) { }
+        }
+
+        /// <summary>
+        /// Inserts a user into the database for the first time (different database table)
+        /// </summary>
+        /// <param name="uniqueString"></param>
+        public static void InsertFirstTimeUser(string uniqueString, string remindMeVersion)
+        {
+            try
+            {
+                //If the user doesn't exist in the db yet (It shouldn't!)
+                if (db.NewInstallations.Where(u => u.UniqueString == uniqueString).Count() == 0)
+                {
+                    NewInstallations ni = new NewInstallations();
+                    ni.Username = Environment.UserName;
+                    ni.UniqueString = uniqueString;                    
+                    ni.InstallDate = DateTime.Now;
+                    ni.InstallVersion = remindMeVersion;
+
+                    db.NewInstallations.Add(ni);
+                    db.SaveChanges();
+                }                  
+            }
+            catch (DbUpdateException exc) { }
+            catch (Exception exce) { }
+        }
+
+        /// <summary>
+        /// Inserts an e-mail into the database. In case sending the e-mail didn't work, it is still registered in the db
+        /// </summary>
+        /// <param name="uniqueString">The user's unique string</param>
+        /// <param name="emailMessage">The e-mail message</param>
+        /// <param name="emailSubject">The e-mail subject</param>
+        /// <param name="eMailAddress">The users e-mail address. This is optional</param>
+        public static void InsertEmailAttempt(string uniqueString, string emailMessage,string emailSubject, string eMailAddress = "")
+        {
+            try
+            {
+                EmailAttempts ea = new EmailAttempts();
+                ea.Username = Environment.UserName;
+                ea.UserId = uniqueString;
+                ea.Message = emailMessage;
+                ea.Subject = emailSubject;
+
+                if (!string.IsNullOrWhiteSpace(eMailAddress))
+                    ea.E_mail = eMailAddress;
+
+                db.EmailAttempts.Add(ea);
+                db.SaveChanges();
             }
             catch (DbUpdateException exc) { }
             catch (Exception exce) { }

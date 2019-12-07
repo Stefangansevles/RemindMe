@@ -837,3 +837,6 @@ Refactored threading in the business logic layer (where internet checks also hap
 
 V2.6.2
 Fixed some things, RemindMe would crash upon launch the first time after installing an new update
+
+V2.6.202
+Added more logging
