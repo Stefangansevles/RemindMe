@@ -399,6 +399,9 @@
             this.lblMinimize.Size = new System.Drawing.Size(21, 22);
             this.lblMinimize.TabIndex = 92;
             this.lblMinimize.Text = "- ";
+            this.lblMinimize.Click += new System.EventHandler(this.lblMinimize_Click);
+            this.lblMinimize.MouseEnter += new System.EventHandler(this.lblMinimize_MouseEnter);
+            this.lblMinimize.MouseLeave += new System.EventHandler(this.lblMinimize_MouseLeave);
             // 
             // lblExit
             // 
@@ -413,6 +416,9 @@
             this.lblExit.Size = new System.Drawing.Size(22, 22);
             this.lblExit.TabIndex = 91;
             this.lblExit.Text = "X";
+            this.lblExit.Click += new System.EventHandler(this.lblExit_Click);
+            this.lblExit.MouseEnter += new System.EventHandler(this.lblExit_MouseEnter);
+            this.lblExit.MouseLeave += new System.EventHandler(this.lblExit_MouseLeave);
             // 
             // pnlDateRepeatInformation
             // 

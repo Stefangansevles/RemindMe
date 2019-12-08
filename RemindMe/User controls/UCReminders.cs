@@ -245,11 +245,6 @@ namespace RemindMe
             this.Visible = false;
         }
 
-        private void lvReminders_DoubleClick(object sender, EventArgs e)
-        {
-            btnEditReminder_Click(sender, e);
-        }
-
         private void btnEditReminder_Click(object sender, EventArgs e)
         {
             

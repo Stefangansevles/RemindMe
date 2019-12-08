@@ -93,15 +93,6 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
-        /// Gets all "Corrupted" reminders. Corrupted reminders are reminders that are marked as corrupted, because they caused an exception. They can't be processed
-        /// </summary>
-        /// <returns></returns>
-        public static List<Reminder> GetCorruptedReminders()
-        {
-            return DLReminders.GetCorruptedReminders();
-        }
-
-        /// <summary>
         /// Get all reminders that are marked as deleted
         /// </summary>
         /// <returns></returns>
@@ -122,26 +113,6 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
-        /// Permanentely deletes a single reminder from the database
-        /// </summary>
-        /// <param name="rem">The reminder you wish to remove</param>
-        public static void PermanentelyDeleteReminder(int reminderId)
-        {
-            if (GetReminderById(reminderId) != null)
-                DLReminders.PermanentelyDeleteReminder(reminderId);
-        }
-
-
-        /// <summary>
-        /// Deletes multiple reminders from the database. 
-        /// </summary>
-        /// <param name="rems"></param>
-        public static void PermanentelyDeleteReminders(List<Reminder> rems)
-        {
-            DLReminders.PermanentelyDeleteReminders(rems);
-        }
-
-        /// <summary>
         /// Marks a single reminder as archived
         /// </summary>
         /// <param name="rem">The reminder you wish to archive</param>
@@ -149,24 +120,7 @@ namespace Business_Logic_Layer
         {
             ArchiveReminder(rem);
         }
-        /// <summary>
-        /// Marks a single reminder as deleted
-        /// </summary>
-        /// <param name="reminderId">The id of the reminder you wish to remove</param>
-        public static void ArchiveReminder(int reminderId)
-        {
-            DLReminders.ArchiveReminder(reminderId);
-        }
 
-        /// <summary>
-        /// Deletes multiple reminders from the database. 
-        /// </summary>
-        /// <param name="rems"></param>
-        public static void ArchiveReminders(List<Reminder> rems)
-        {
-            if (rems != null)
-                DLReminders.ArchiveReminders(rems);
-        }
 
         /// <summary>
         /// forces the database to refresh the list
@@ -714,25 +668,6 @@ namespace Business_Logic_Layer
                 DLReminders.DeleteReminder(rem);
         }
 
-        /// <summary>
-        /// Deletes a single reminder from the database
-        /// </summary>
-        /// <param name="reminderId">The id of the reminder you wish to remove</param>
-        public static void DeleteReminder(int reminderId)
-        {
-            if (reminderId != -1)
-                DLReminders.DeleteReminder(reminderId);
-        }
-
-        /// <summary>
-        /// Deletes multiple reminders from the database. 
-        /// </summary>
-        /// <param name="rems"></param>
-        public static void DeleteReminders(List<Reminder> rems)
-        {
-            if (rems != null)
-                DLReminders.DeleteReminders(rems);
-        }
 
         public static string GetRepeatTypeText(Reminder rem)
         {

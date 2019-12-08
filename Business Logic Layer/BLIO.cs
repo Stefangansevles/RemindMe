@@ -19,6 +19,8 @@ namespace Business_Logic_Layer
         private static bool allowEmail = true;
         private static System.Windows.Forms.Timer tmrAllowEmail = null;
         public static List<string> systemLog = new List<string>();
+        
+        private BLIO() { }
 
         /// <summary>
         /// Writes an unique string to string.txt in the RemindMe folder if it does not exists
@@ -45,11 +47,6 @@ namespace Business_Logic_Layer
         public static void Log(string entry)
         {
             systemLog.Add("[" + DateTime.Now.ToString() + "]  " + entry);
-        }
-        public static void Log(List<string> entries)
-        {
-            foreach (string entry in entries)
-                Log(entry);
         }
 
         /// <summary>
@@ -90,30 +87,8 @@ namespace Business_Logic_Layer
             }
             return path;
         }
-        private static void StartTimer()
-        {
-            if (tmrAllowEmail == null)
-            {
-                tmrAllowEmail = new System.Windows.Forms.Timer();
-                tmrAllowEmail.Interval = 30000; //30 seconds
-                tmrAllowEmail.Tick += TmrAllowEmail_Tick; //subscribe to tick event
-            }
-
-
-            if(!tmrAllowEmail.Enabled) //Not running? run.
-                tmrAllowEmail.Start();
-        }
-
-
-        private static void TmrAllowEmail_Tick(object sender, EventArgs e)
-        {
-            if (!allowEmail) //Not allowed? allow.
-                allowEmail = true;
-
-            tmrAllowEmail.Stop();
-        }
-
-        private BLIO() { }
+        
+        
         /// <summary>
         /// Creates the folders and files needed by RemindMe. This should only occur once, during first use.
         /// </summary>
@@ -149,18 +124,6 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
-        /// Determines wether the .remindme file is valid.
-        /// </summary>
-        /// <returns></returns>
-        public static bool IsValidRemindMeFile(string path)
-        {
-            if (path == null || path == "")
-                return false;
-
-            return Path.GetExtension(path) == ".remindme";            
-        }
-
-        /// <summary>
         /// Creates a batch file, puts the batch script into the file and runs it.
         /// </summary>
         /// <param name="batch">The batch script you want to execute</param>
@@ -180,17 +143,6 @@ namespace Business_Logic_Layer
             System.Diagnostics.Process.Start(IOVariables.batchFile);
         }
 
-        
-        //Used in CheckRemindMeVersion
-        private static List<HtmlNode> GetTagsWithClass(string html, List<string> @class)
-        {            
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(html);
-
-            var result = doc.DocumentNode.Descendants()
-                .Where(x => x.Attributes.Contains("class") && @class.Contains(x.Attributes["class"].Value)).ToList();
-            return result;
-        }
         /// <summary>
         /// Look at RemindMe's github page(html) and check the version number of "SetupRemindMe.msi"
         /// </summary>
@@ -314,6 +266,11 @@ namespace Business_Logic_Layer
             return record.get_StringData(1).ToString();            
         }
 
+        /// <summary>
+        /// Gets the product code of the installed version of RemindMe on the target comuter. Will look something like this: {026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}
+        /// </summary>
+        /// <param name="productName">The product name</param>
+        /// <returns></returns>
         public static string GetProductCode(string productName)
         {
             string query = string.Format("select * from Win32_Product where Name='{0}'", productName);

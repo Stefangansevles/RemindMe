@@ -14,19 +14,7 @@ namespace Business_Logic_Layer
     {
         private BLFormLogic() { }
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        /// <summary>
-        /// Removes borders from buttons to make them look better with a background
-        /// </summary>
-        /// <param name="b"></param>
-        public static void RemovebuttonBorders(Button b)
-        {
-            b.TabStop = false;
-            b.FlatStyle = FlatStyle.Flat;
-            b.FlatAppearance.BorderSize = 0;
-        }
-
-
-
+        
         /// <summary>
         /// Adds an reminder to the listview, showing the details of that reminder.
         /// </summary>
@@ -137,13 +125,11 @@ namespace Business_Logic_Layer
                 AddReminderToListview(lv, rem);
         }
 
-        public static void RefreshListview(ListView lv)
-        {            
-            lv.Items.Clear();
-            AddRemindersToListview(lv, DLReminders.GetReminders().Where(rem => rem.Hide == 0).ToList());
-        }
-
-
+        /// <summary>
+        /// Gets the amount of minutes from a bunifu textbox string. Includes formats like h, for example 1h30 returns 90
+        /// </summary>
+        /// <param name="tb"></param>
+        /// <returns></returns>
         public static int GetTextboxMinutes(Bunifu.Framework.UI.BunifuMetroTextbox tb)
         {
             try
@@ -182,10 +168,5 @@ namespace Business_Logic_Layer
                 return -1;
             }
         }
-
-
-
-
-
     }
 }

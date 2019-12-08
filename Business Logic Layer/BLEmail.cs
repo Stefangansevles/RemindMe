@@ -16,20 +16,17 @@ namespace Business_Logic_Layer
     /// This class will for now, only contain one method to send the e-mail.
     /// </summary>
     public class BLEmail
-    {
-        private static List<string> smtpServers = new List<string>();
-
-        private BLEmail() {}
+    {       
+        private BLEmail() {}       
 
         /// <summary>
-        /// Default SMTP Port.
+        /// Sends an e-mail to the RemindMe support e-mail address
         /// </summary>
-        private static int SmtpPort = 25;
-
-
-
-
-
+        /// <param name="subject">Subject of the e-mail</param>
+        /// <param name="message">Message of the e-mail</param>
+        /// <param name="email">The e-mail address of the user. Can be empty</param>
+        /// <param name="includeLog">Include the system log or not</param>
+        /// <returns></returns>
         public static Exception SendEmail(string subject, string message, string email = "", bool includeLog = true)
         {
             try
@@ -85,50 +82,5 @@ namespace Business_Logic_Layer
             }            
             return null;
         }
-        
-
-
-        private static string GetDomainName(string emailAddress)
-        {
-            int atIndex = emailAddress.IndexOf('@');
-            if (atIndex == -1)
-            {
-                throw new ArgumentException("Not a valid email address",
-                                            "emailAddress");
-            }
-            if (emailAddress.IndexOf('<') > -1 &&
-                emailAddress.IndexOf('>') > -1)
-            {
-                return emailAddress.Substring(atIndex + 1,
-                       emailAddress.IndexOf('>') - atIndex);
-            }
-            else
-            {
-                return emailAddress.Substring(atIndex + 1);
-            }
-        }
-
-        private static IPAddress[] GetMailExchangeServer(string domainName)
-        {
-            IPHostEntry hostEntry = DomainNameUtil.GetIPHostEntryForMailExchange(domainName);
-
-            if (hostEntry == null)
-                return null;
-
-            if (hostEntry.AddressList.Length > 0)
-            {
-                return hostEntry.AddressList;
-            }
-            else if (hostEntry.Aliases.Length > 0)
-            {
-                return System.Net.Dns.GetHostAddresses(hostEntry.Aliases[0]);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-       
     }
 }

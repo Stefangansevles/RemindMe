@@ -54,10 +54,7 @@ namespace RemindMe
             }
         }
 
-        private void lblExit_MouseEnter(object sender, EventArgs e)
-        {
-            lblExit.ForeColor = Color.DarkRed;
-        }
+    
 
         /// <summary>
         /// Stops the flashing of the taskbar icon
@@ -69,10 +66,7 @@ namespace RemindMe
             this.Activate();
             FlashWindowHelper.Stop(this);
         }
-        private void lblExit_MouseLeave(object sender, EventArgs e)
-        {
-            lblExit.ForeColor = Color.Transparent;
-        }
+   
 
         private void Popup2_Load(object sender, EventArgs e)
         {
@@ -194,34 +188,12 @@ namespace RemindMe
         private void lblMinimize_MouseLeave(object sender, EventArgs e)
         {
             lblMinimize.ForeColor = Color.Transparent;
-        }
-
-      
-
-        private void lblPostpone_Click(object sender, EventArgs e)
-        {
-            cbPostpone.Checked = !cbPostpone.Checked;
-        }
+        }              
 
         private void lblExit_Click(object sender, EventArgs e)
         {
-            btnOk_Click(sender, e);
-            /*if (rem.Id != -1)
-            {
-                rem.PostponeDate = null;
-                BLReminder.UpdateReminder(rem);
-                //RefreshMainFormListView();
-            }
-            this.Close();
-            this.Dispose();*/
+            btnOk_Click(sender, e);        
         }
-
-        private void lblMinimize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-            this.ShowInTaskbar = true;
-        }
-
        
 
         private void RepositionControls()
@@ -231,21 +203,10 @@ namespace RemindMe
             //cbPostpone.Location = new Point(3, pnlFooter.Height - cbPostpone.Height - 3);
 
             //lblPostpone.Location = new Point(cbPostpone.Location.X + cbPostpone.Width + 3, cbPostpone.Location.Y);
-            // todo pnlPostpone.Location = new Point(lblPostpone.Location.X + lblPostpone.Width + 5, cbPostpone.Location.Y + 1);
+            // remi pnlPostpone.Location = new Point(lblPostpone.Location.X + lblPostpone.Width + 5, cbPostpone.Location.Y + 1);
             //todo tbtime.Location = new Point(numPostponeTime.Location.X + numPostponeTime.Width + 3, numPostponeTime.Location.Y - 7);
             btnOk.Location = new Point(pnlFooter.Width - btnOk.Width - 3, pnlFooter.Height - btnOk.Height - 3);
             
-        }
-
-
-        private void rbHours_CheckedChanged(object sender, EventArgs e)
-        {
-            cbPostpone.Checked = true;
-        }
-
-        private void rbMinutes_CheckedChanged(object sender, EventArgs e)
-        {
-            cbPostpone.Checked = true;
         }
 
         private void numPostponeTime_ValueChanged(object sender, EventArgs e)
@@ -386,6 +347,22 @@ namespace RemindMe
                 btnOk.Text = "Ok";
 
             tbPostpone.Visible = cbPostpone.Checked;
+        }
+
+        private void lblExit_MouseEnter(object sender, EventArgs e)
+        {
+            lblExit.ForeColor = Color.DarkRed;
+        }
+
+        private void lblMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+            this.ShowInTaskbar = true;
+        }
+
+        private void lblExit_MouseLeave(object sender, EventArgs e)
+        {
+            lblExit.ForeColor = Color.Transparent;
         }
     }
 }

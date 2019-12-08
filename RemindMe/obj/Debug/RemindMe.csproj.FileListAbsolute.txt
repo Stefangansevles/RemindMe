@@ -181,7 +181,6 @@ D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.EF6.dll
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.Linq.dll
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EmailSender.dll
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.pdb
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll.config
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.pdb
@@ -202,7 +201,6 @@ D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.Res
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.AdvancedReminderForm.resources
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.ErrorPopup.resources
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Form1.resources
-D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup2.resources
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup.resources
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBox.resources
 D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources

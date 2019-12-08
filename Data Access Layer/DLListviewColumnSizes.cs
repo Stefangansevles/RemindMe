@@ -12,12 +12,16 @@ namespace Data_Access_Layer
         private DLListviewColumnSizes() { }
         private static ListviewColumnSizes sizes;
         
+        //Default sizes
         private const int DEFAULT_TITLE_WIDTH = 300;
         private const int DEFAULT_DATE_WIDTH = 100;
         private const int DEFAULT_REPEAT_WIDTH = 135;
         private const int DEFAULT_ENABLED_WIDTH = 110;
 
-
+        /// <summary>
+        /// Get the column sizes in the database
+        /// </summary>
+        /// <returns></returns>
         public static ListviewColumnSizes GetColumnSizes()
         {
             if (sizes == null)
@@ -26,6 +30,10 @@ namespace Data_Access_Layer
             return sizes;
         }
 
+        /// <summary>
+        /// Save and close the database connection
+        /// </summary>
+        /// <param name="db"></param>
         private static void SaveAndCloseDataBase(RemindMeDbEntities db)
         {
             db.SaveChanges();
@@ -57,22 +65,7 @@ namespace Data_Access_Layer
             }
         }
 
-        public static void ResetToDefaults()
-        {
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-
-                sizes = new ListviewColumnSizes();
-                sizes.Title = DEFAULT_TITLE_WIDTH;
-                sizes.Date = DEFAULT_DATE_WIDTH;
-                sizes.Repeating = DEFAULT_REPEAT_WIDTH;
-                sizes.Enabled = DEFAULT_ENABLED_WIDTH;
-
-                UpdateListviewSizes(sizes);
-                db.Dispose();
-            }
-        }
-
+        
         public static void UpdateListviewSizes(ListviewColumnSizes sizes)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())

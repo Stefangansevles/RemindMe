@@ -12,20 +12,18 @@ namespace Business_Logic_Layer
     /// </summary>
     public class ReminderException : Exception
     {
-        private Reminder reminder;
         /// <summary>
-        /// 
+        /// An exception that is caused by a faulty reminder
         /// </summary>
         /// <param name="message">The message</param>
         /// <param name="rem">The reminder that caused an exception</param>       
         public ReminderException(string message, Reminder rem) : base(message)
         {
-            reminder = rem;
+            Reminder = rem;
         }
-
-        public Reminder Reminder
-        {
-            get { return reminder; }
-        }
+        /// <summary>
+        /// The Reminder object of this Exception
+        /// </summary>
+        public Reminder Reminder { get; private set; }
     }
 }

@@ -39,6 +39,10 @@ namespace Data_Access_Layer
             }      
         }
 
+        /// <summary>
+        /// Insert a hotkey combination into the SQLite database
+        /// </summary>
+        /// <param name="hotkey">The hotkey object</param>
         public static void InsertHotkey(Hotkeys hotkey)
         {            
             using (RemindMeDbEntities db = new RemindMeDbEntities())
@@ -51,6 +55,11 @@ namespace Data_Access_Layer
                 db.Dispose();
             }            
         }
+
+        /// <summary>
+        /// Update an existing hotkey combination in the SQLite database
+        /// </summary>
+        /// <param name="hotkey">The hotkey object</param>
         private static void UpdateHotkey(Hotkeys hotkey)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())

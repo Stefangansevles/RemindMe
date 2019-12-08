@@ -462,6 +462,11 @@ namespace Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// Gets the SQLite data type of a column in the LvColumnSizes table, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
         private static string GetLvColumnSizesColumnSqlType(string columnName)
         {
             switch (columnName)
@@ -475,6 +480,12 @@ namespace Data_Access_Layer
                 default: return "bigint NOT NULL";
             }
         }
+
+        /// <summary>
+        /// Gets the SQLite data type of a column in the Hotkeys table, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
         private static string GetHotkeysColumnSqlType(string columnName)
         {
             switch (columnName)
@@ -487,6 +498,11 @@ namespace Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// Gets the SQLite data type of a column in the AvrProperties table, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
         private static string GetAvrPropertiesColumnSqlType(string columnName)
         {
             switch (columnName)
@@ -499,6 +515,11 @@ namespace Data_Access_Layer
             }
         }
 
+        /// <summary>
+        /// Gets the SQLite data type of a column in the AvrFilesFolders table, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
         private static string GetAvrFilesFoldersColumnSqlType(string columnName)
         {
             switch (columnName)

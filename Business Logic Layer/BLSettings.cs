@@ -54,24 +54,18 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
-        /// Reads the settings from the database and checks if the controls should be cleared after making a new reminder.
+        /// Gets the settings table from the SQLite database
         /// </summary>
-        /// <returns>True to use sticky form, false if not</returns>
-        public static bool IsStickyForm()
-        {
-            return DLSettings.IsStickyForm();
-        }
-
+        /// <returns></returns>
         public static Settings GetSettings()
         {
             return DLSettings.GetSettings();            
         }
-        public static Settings Settings
-        {
-            get { return DLSettings.GetSettings(); }
-            set {  DLSettings.UpdateSettings(value); }
-        }
         
+        /// <summary>
+        /// Update the settings in the SQLite database
+        /// </summary>
+        /// <param name="set">The new settings object</param>
         public static void UpdateSettings(Settings set)
         {
             if (set != null)

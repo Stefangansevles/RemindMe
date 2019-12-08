@@ -147,7 +147,7 @@ namespace RemindMe
                 testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
                 testPop.Width = (int)trbWidth.Value;
                 testPop.Height = (int)trbHeight.Value;
-                testPop.lblNoteText2.Font = new Font(testPop.lblNoteText2.Font.FontFamily, (float)trbNoteFont.Value, FontStyle.Bold);
+                testPop.lblNoteText.Font = new Font(testPop.lblNoteText.Font.FontFamily, (float)trbNoteFont.Value, FontStyle.Bold);
                 testPop.lblTitle.Font = new Font(testPop.lblTitle.Font.FontFamily, (float)trbTitleFont.Value, FontStyle.Bold);
             }
         }

@@ -113,29 +113,6 @@ namespace Data_Access_Layer
             return notificationEnabled == 1;
         }
 
-        /// <summary>
-        /// Reads the settings from the database and checks if the controls should be cleared after making a new reminder.
-        /// </summary>
-        /// <returns>True to use sticky form, false if not</returns>
-        public static bool IsStickyForm()
-        {
-            int stickyForm = 1;
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                var count = db.Settings.Where(o => o.StickyForm >= 0).Count();
-                if (count > 0)
-                {
-                    stickyForm = Convert.ToInt32((from g in db.Settings select g.StickyForm).SingleOrDefault());
-                    db.Dispose();
-                }
-                else
-                {
-                    RefreshSettings();
-                }
-            }
-            return stickyForm == 1;
-        }
-
         public static Settings GetSettings()
         {            
             if (settings == null)

@@ -162,21 +162,7 @@ namespace Data_Access_Layer
             }
             return toReturnList;
         }
-
-        /// <summary>
-        /// Gets all "Corrupted" reminders. Corrupted reminders are reminders that are marked as corrupted, because they caused an exception. They can't be processed
-        /// </summary>
-        /// <returns>A list of reminders that are marked as corrupted</returns>
-        public static List<Reminder> GetCorruptedReminders()
-        {
-            List<Reminder> toReturnList = new List<Reminder>();
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                toReturnList = localReminders.Where(r => r.Corrupted == 1).ToList();
-                db.Dispose();
-            }
-            return toReturnList;
-        }
+      
         /// <summary>
         /// Gets all "deleted" reminders. Deleted reminders are reminders that are marked as deleted, but still exist.
         /// </summary>
@@ -234,42 +220,7 @@ namespace Data_Access_Layer
                 EditReminder(rem);
             }
         }
-        /// <summary>
-        /// Marks a single reminder as archived
-        /// </summary>
-        /// <param name="reminderId">The id of the reminder you wish to remove</param>
-        public static void ArchiveReminder(int reminderId)
-        {
-            if (GetReminderById(reminderId) != null) //Check if the reminder exists
-            {
-                Reminder toRemoveReminder = GetReminderById(reminderId);
-                toRemoveReminder.Deleted = 2;
-                EditReminder(toRemoveReminder);
-            }
-        }
 
-        /// <summary>
-        /// Archives multiple reminders. 
-        /// </summary>
-        /// <param name="rems"></param>
-        public static void ArchiveReminders(List<Reminder> rems)
-        {
-            //We use this method so we can attach and remove the reminders in a foreach loop, and save changes to the database after the loop.
-            //If you use the ArchiveReminders method in a foreach loop, it will open and close the database each time
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                foreach (Reminder rem in rems)
-                {
-                    rem.Deleted = 2;
-                    db.Reminder.Attach(rem);
-                    var entry = db.Entry(rem);
-                    entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                                                        
-                }
-                SaveAndCloseDataBase(db);
-            }
-
-
-        }
 
         /// <summary>
         /// Permanentely deletes a single reminder from the database
@@ -288,87 +239,6 @@ namespace Data_Access_Layer
                 SaveAndCloseDataBase(db);
             }
 
-        }
-
-        /// <summary>
-        /// Permanentely deletes a single reminder from the database
-        /// </summary>
-        /// <param name="rem">The reminder you wish to remove</param>
-        public static void PermanentelyDeleteReminder(int reminderId)
-        {
-            Reminder toRemoveReminder = GetReminderById(reminderId);
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                db.Reminder.Attach(toRemoveReminder);
-                db.Reminder.Remove(toRemoveReminder);
-                SaveAndCloseDataBase(db);
-            }
-        }
-
-
-        /// <summary>
-        /// Deletes multiple reminders from the database. 
-        /// </summary>
-        /// <param name="rems"></param>
-        public static void PermanentelyDeleteReminders(List<Reminder> rems)
-        {
-            //We use this method so we can attach and remove the reminders in a foreach loop, and save changes to the database after the loop.
-            //If you use the DeleteReminder method in a foreach loop, it will open and close the database each time
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                foreach (Reminder rem in rems)
-                {
-                    if (GetReminderById(rem.Id) != null) //Check if the reminder exists
-                    {
-                        db.Reminder.Attach(rem);
-                        db.Reminder.Remove(rem);                        
-                    }
-
-                    DLAVRProperties.DeleteAvrFilesFoldersById(rem.Id);
-                    DLAVRProperties.DeleteAvrProperties(rem.Id);
-                }
-                SaveAndCloseDataBase(db);
-            }                        
-        }
-
-        /// <summary>
-        /// Marks a single reminder as deleted
-        /// </summary>
-        /// <param name="reminderId">The id of the reminder you wish to remove</param>
-        public static void DeleteReminder(int reminderId)
-        {
-            if (GetReminderById(reminderId) != null) //Check if the reminder exists
-            {
-                Reminder toRemoveReminder = GetReminderById(reminderId);
-                toRemoveReminder.Deleted = 1;
-                EditReminder(toRemoveReminder);
-            }
-        }
-
-        
-
-        /// <summary>
-        /// Deletes multiple reminders from the database. 
-        /// </summary>
-        /// <param name="rems"></param>
-        public static void DeleteReminders(List<Reminder> rems)
-        {
-            //We use this method so we can attach and remove the reminders in a foreach loop, and save changes to the database after the loop.
-            //If you use the DeleteReminder method in a foreach loop, it will open and close the database each time
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-
-                foreach (Reminder rem in rems)
-                {
-                    rem.Deleted = 1;
-                    db.Reminder.Attach(rem);
-                    var entry = db.Entry(rem);
-                    entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                                                        
-                }
-                SaveAndCloseDataBase(db);
-            }
-                
-            
         }
 
         /// <summary>

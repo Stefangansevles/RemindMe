@@ -42,6 +42,11 @@ namespace Data_Access_Layer
             return avr;
         }
 
+        /// <summary>
+        /// Insert advanced Reminder properties into the database
+        /// </summary>
+        /// <param name="avr">The avr object</param>
+        /// <returns></returns>
         public static long InsertAVRProperties(AdvancedReminderProperties avr)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
@@ -69,6 +74,11 @@ namespace Data_Access_Layer
             return avr.Id;
         }
 
+        /// <summary>
+        /// Insert advanced reminder file(s)/folder(s) options (delete/open) for a specific reminder
+        /// </summary>
+        /// <param name="avr"></param>
+        /// <returns></returns>
         public static long InsertAVRFilesFolders(AdvancedReminderFilesFolders avr)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
@@ -94,7 +104,11 @@ namespace Data_Access_Layer
             }
             return avr.Id;
         }
-        
+
+        /// <summary>
+        /// Delete advanced reminder file(s)/folder(s) options (delete/open) for a specific reminder
+        /// </summary>
+        /// <param name="id">The ID of the avr record in the SQLite database</param>
         public static void DeleteAvrFilesFoldersById(long id)
         {
             using (RemindMeDbEntities db = new RemindMeDbEntities())
@@ -109,7 +123,10 @@ namespace Data_Access_Layer
                 db.Dispose();
             }
         }
-
+        /// <summary>
+        /// Delete Avr properties of a specific reminder
+        /// </summary>
+        /// <param name="id">Id of the avr properties record in the SQLite database</param>
         public static void DeleteAvrProperties(long id)
         {
             AdvancedReminderProperties prop = GetAVRProperties(id);
@@ -124,20 +141,6 @@ namespace Data_Access_Layer
                 db.SaveChanges();
                 db.Dispose();
             }
-        }
-
-        public static void DeleteAvrProperties(AdvancedReminderProperties prop)
-        {
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {                
-                db.AdvancedReminderProperties.Attach(prop);
-                db.AdvancedReminderProperties.Remove(prop);
-
-                db.SaveChanges();
-                db.Dispose();
-            }
-        }
-
-
+        }      
     }
 }

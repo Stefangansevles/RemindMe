@@ -71,24 +71,6 @@ namespace Data_Access_Layer
         }
 
         /// <summary>
-        /// Insert a song into the database
-        /// </summary>
-        /// <param name="song">The song</param>
-        public static void InsertSong(Songs song)
-        {
-            using (RemindMeDbEntities db = new RemindMeDbEntities())
-            {
-                if (db.Songs.Count() > 0)
-                    song.Id = db.Songs.Max(i => i.Id) + 1;
-                else
-                    song.Id = 0;
-
-                db.Songs.Add(song);
-                SaveAndCloseDataBase(db);
-            }
-        } 
-
-        /// <summary>
         /// Insert multiple songs into the database
         /// </summary>
         /// <param name="songs">List of songs</param>

@@ -41,20 +41,6 @@ namespace Business_Logic_Layer
             return DLSongs.GetSongs();
         }
 
-        
-
-        /// <summary>
-        /// Insert a song into the database
-        /// </summary>
-        /// <param name="song">The song</param>
-        public static void InsertSong(Songs song)
-        {
-            if (song != null && !DLSongs.SongExistsInDatabase(song.SongFilePath))
-            {
-                DLSongs.InsertSong(song);
-            }
-        }
-
         /// <summary>
         /// Insert multiple songs into the database
         /// </summary>
@@ -96,6 +82,9 @@ namespace Business_Logic_Layer
             return DLSongs.SongExistsInDatabase(pathToSong);
         }
 
+        /// <summary>
+        /// Insert the default Windows sound effects into the RemindMe SQLite database
+        /// </summary>
         public static void InsertWindowsSystemSounds()
         {
             GetSongs();

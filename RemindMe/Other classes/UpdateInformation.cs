@@ -44,6 +44,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.104", "Performance improvement when checking for internet connectivity");
             releaseNotes.Add("2.6.200", "Fixed some things, RemindMe would crash upon launch the first time after installing an new update");
             releaseNotes.Add("2.6.202", "Added more logging");
+            releaseNotes.Add("2.6.300", "- Fixed the RemindMe popup \"-\" and \"x\" (minimize and close) buttons. They weren't functioning\r\n- Fixed the resizing of the popup.The reminder text size did not increase in the preview\r\n- Fixed a problem where you kept getting the \"whats new since the previous version\" popup");
         }
 
         public static Dictionary<string,string> ReleaseNotes

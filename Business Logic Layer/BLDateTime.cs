@@ -281,6 +281,12 @@ namespace Business_Logic_Layer
             return returnList;
         }
 
+        /// <summary>
+        /// Returns a DateTime object with the date of the given day. Example: day = 15, date = 15-12-2019. If today would've been the 16th, the date would be 15-01-2020
+        /// </summary>
+        /// <param name="day">The day of next month</param>
+        /// <param name="givenTime"></param>
+        /// <returns></returns>
         public static DateTime GetDateForNextDayOfMonth(int day, DateTime givenTime)
         {
             if (day > 0 && day <= 31)

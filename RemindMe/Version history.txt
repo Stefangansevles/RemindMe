@@ -840,3 +840,9 @@ Fixed some things, RemindMe would crash upon launch the first time after install
 
 V2.6.202
 Added more logging
+
+V2.6.300
+Fixed the RemindMe popup "-" and "x" (minimize and close) buttons. They weren't functioning
+Fixed the resizing of the popup. The reminder text size did not increase in the preview
+Fixed a problem where you kept getting the "whats new since the previous version" popup
+Removed a lot of old, unused code

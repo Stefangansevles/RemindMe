@@ -242,8 +242,12 @@ namespace RemindMe
                 WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
                 wn.Show();
 
+                
                 //Before updating the lastVersion, log the update in the db
                 BLOnlineDatabase.AddNewUpgrade(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
+
+                //Update the lastVersion
+                set.LastVersion = IOVariables.RemindMeVersion;
             }
             else
             {
@@ -469,17 +473,6 @@ namespace RemindMe
         }
 
 
-        private void Form1_ResizeEnd(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_ResizeBegin(object sender, EventArgs e)
-        {
-
-        }
-
-   
 
         private void btnDebugMode_Click(object sender, EventArgs e)
         {
@@ -644,14 +637,6 @@ namespace RemindMe
         private void updateRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             btnNewUpdate_Click(sender, e);
-        }
-
-        private void pnlUpdateButton_VisibleChanged(object sender, EventArgs e)
-        {
-            if (btnNewUpdate.Visible)
-                lblVersion.Location = new Point(3, 107);
-            else
-                lblVersion.Location = new Point(3, 542);
         }
 
         private void tmrAnimateUpdateButton_Tick(object sender, EventArgs e)

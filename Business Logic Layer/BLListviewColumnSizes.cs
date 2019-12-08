@@ -11,20 +11,14 @@ namespace Business_Logic_Layer
     public class BLListviewColumnSizes
     {
         private BLListviewColumnSizes() { }
+
+        /// <summary>
+        /// Gets the column sizes of the Listview in the SQLite database 
+        /// </summary>
+        /// <returns></returns>
         public static ListviewColumnSizes GetcolumnSizes()
         {
             return DLListviewColumnSizes.GetColumnSizes();
-        }
-
-        public static void UpdateListviewSizes(ListviewColumnSizes dimensions)
-        {
-            if (dimensions != null)
-                DLListviewColumnSizes.UpdateListviewSizes(dimensions);
-        }
-
-        public static void ResetToDefaults()
-        {
-            DLListviewColumnSizes.ResetToDefaults();
         }
     }
 }
