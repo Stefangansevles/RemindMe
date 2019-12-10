@@ -71,7 +71,7 @@ namespace RemindMe.Other_classes
 
                 //Let's remove this timer. It's served its purpose
                 ucTimer.RemoveTimer(this);
-
+                
                 this.Dispose();
             }
         }

@@ -268,16 +268,11 @@ namespace RemindMe
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", System.Windows.Forms.Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
 
 
-            if (Debugger.IsAttached)
-            {//Debugging ? show extra option
-                btnDebugMode.Visible = true;
-            }
+            if (Debugger.IsAttached) //Debugging ? show extra option            
+                btnDebugMode.Visible = true;            
 
 
             BLSongs.InsertWindowsSystemSounds();
-
-            BLIO.Log("RemindMe loaded");
-            Cleanup();
 
             tmrUpdateRemindMe.Start();
 
@@ -290,7 +285,7 @@ namespace RemindMe
                 //wait a bit, then call the update timer once. It then runs every 5 minutes
                 Thread.Sleep(5000);
                 tmrUpdateRemindMe_Tick(null, null);
-                BLOnlineDatabase.InsertOrUpdateUser(System.IO.File.ReadAllText(IOVariables.uniqueString));
+                BLOnlineDatabase.InsertOrUpdateUser(File.ReadAllText(IOVariables.uniqueString));
                 Thread.Sleep(1500);
                 if (set.LastVersion == null)
                 {
@@ -308,6 +303,9 @@ namespace RemindMe
             this.ShowInTaskbar = true;
             this.Show();            
             tmrInitialHide.Start();
+
+            BLIO.Log("RemindMe loaded");
+            Cleanup();
         }
         private void Form1_Load(object sender, EventArgs e)
         {

@@ -75,7 +75,7 @@ namespace Data_Access_Layer
                     Users usr = new Users();
                     usr.Username = Environment.UserName;
                     usr.UniqueString = uniqueString;
-                    usr.LastOnline = DateTime.Now;
+                    usr.LastOnline = DateTime.UtcNow;
                     usr.RemindMeVersion = remindMeVersion;
 
                     db.Users.Add(usr);
@@ -85,7 +85,7 @@ namespace Data_Access_Layer
                 {
                     //Update the LastOnline attribute
                     Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
-                    usr.LastOnline = DateTime.Now;
+                    usr.LastOnline = DateTime.UtcNow;
                     usr.RemindMeVersion = remindMeVersion;
                     db.SaveChanges();
 
@@ -109,7 +109,7 @@ namespace Data_Access_Layer
                     NewInstallations ni = new NewInstallations();
                     ni.Username = Environment.UserName;
                     ni.UniqueString = uniqueString;                    
-                    ni.InstallDate = DateTime.Now;
+                    ni.InstallDate = DateTime.UtcNow;
                     ni.InstallVersion = remindMeVersion;
 
                     db.NewInstallations.Add(ni);

@@ -45,6 +45,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.200", "Fixed some things, RemindMe would crash upon launch the first time after installing an new update");
             releaseNotes.Add("2.6.202", "Added more logging");
             releaseNotes.Add("2.6.300", "- Fixed the RemindMe popup \"-\" and \"x\" (minimize and close) buttons. They weren't functioning\r\n- Fixed the resizing of the popup.The reminder text size did not increase in the preview\r\n- Fixed a problem where you kept getting the \"whats new since the previous version\" popup");
+            releaseNotes.Add("2.6.301", "Removed the limit on timers where the maximum time was 24 hours\r\nChanged logging timestampts to UTC time\r\nFixed an issue with timer buttons not clearing in the timer interface");
         }
 
         public static Dictionary<string,string> ReleaseNotes

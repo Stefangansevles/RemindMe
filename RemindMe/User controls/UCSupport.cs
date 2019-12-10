@@ -60,21 +60,23 @@ namespace RemindMe
 
                     // TimeSpan timeout = TimeSpan.FromSeconds(5);
                     if (string.IsNullOrWhiteSpace(email))
-                        sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, "",false));
+                    {
+                        sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, "", false));
+                    }
                     else
                     {
                         try
-                        {                            
-                            sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email,false));                            
+                        {
+                            sendMailThread = new Thread(() => sendMailException = BLEmail.SendEmail(subject, note, email, false));
                         }
                         catch (FormatException ex)
-                        {                            
+                        {
                             btnSend.Enabled = true;
                             lblSending.Visible = false;
                             pbSending.Visible = false;
                             RemindMeBox.Show("Please enter a valid e-mail address, or leave it empty");
                         }
-                        
+
                     }
 
                     if (sendMailThread != null)

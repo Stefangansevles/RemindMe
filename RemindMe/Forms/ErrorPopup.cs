@@ -97,9 +97,13 @@ namespace RemindMe
 
 
                     }
-
+                    
                     Thread sendMailThread = new Thread(() => BLEmail.SendEmail("Error Report: " + ex.GetType().ToString(), mess));
+                    BLIO.Log("Also submitting the exception into the database....");
+                    BLOnlineDatabase.AddException(ex, DateTime.Now);
+
                     sendMailThread.Start();
+                    BLOnlineDatabase.AddException(ex, DateTime.UtcNow);
                 }
                 catch { }
             }
@@ -164,6 +168,7 @@ namespace RemindMe
                 Thread sendMailThread = new Thread(() => BLEmail.SendEmail("[CUSTOM] | Error Report: " + ex.GetType().ToString(), customMess));
                 sendMailThread.Start();
                 MessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
+                BLOnlineDatabase.AddException(ex, DateTime.UtcNow);
                 this.Dispose();
             }
             catch { }

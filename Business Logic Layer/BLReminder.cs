@@ -137,6 +137,7 @@ namespace Business_Logic_Layer
         /// <returns>Reminder that matches the given id. null if no reminder was found</returns>
         public static Reminder GetReminderById(long id)
         {
+            BLIO.Log("BLReminder.GetReminderById("+ id +")");
             if (id != -1)
                 return DLReminders.GetReminderById(id);
             else

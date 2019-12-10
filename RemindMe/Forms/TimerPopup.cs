@@ -73,10 +73,10 @@ namespace RemindMe
                     else                    
                         timerMinutes = Convert.ToInt32(tbTime.Text);
 
-                    if (timerMinutes <= 0 || timerMinutes >= 1440) //<= 0 OR >= 24 hours(1 day), return. If you want to set a quick timer for more than a day, maybe set a reminder instead..
+                    if (timerMinutes <= 0)
                     {
                         lblErrorText.Visible = true;
-                        lblErrorText.Text = "Invalid input time. (up to 24 hours)";
+                        lblErrorText.Text = "Invalid input time";
                         return;
                     }
                 }

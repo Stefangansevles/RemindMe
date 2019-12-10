@@ -101,7 +101,11 @@ namespace RemindMe
             BunifuFlatButton timerButton = CloneButton();
             
 
-            timerButton.Text = "[" + timerIdCounter + "] " + tmrItem.TimerText ;
+            timerButton.Text = "[" + timerIdCounter + "] " + tmrItem.TimerText;
+
+            //Shorten text
+            if (timerButton.Text.Length > 11)
+                timerButton.Text = timerButton.Text.Remove(10,timerButton.Text.Length-10);
 
             //Link every new button click to this event.            
             timerButton.Click += TimerButton_Click;
@@ -150,7 +154,7 @@ namespace RemindMe
             foreach (TimerItem itm in timers)
                 if (itm.ID == tmrItem.ID)
                     itemToRemove = itm;
-
+            
             if (itemToRemove != null)
             {
                 timers.Remove(itemToRemove);
@@ -158,8 +162,8 @@ namespace RemindMe
                 foreach (Control c in pnlRunningTimers.Controls)
                 {
                     if (c is BunifuFlatButton)
-                    {
-                        if (c.Text == " Timer " + itemToRemove.ID) //Remove this button
+                    {              
+                        if (c.Text.StartsWith("[" + itemToRemove.ID + "] ")) //Remove this button
                             toRemovebutton = (BunifuFlatButton)c;
                     }
                 }

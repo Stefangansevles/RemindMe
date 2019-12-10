@@ -846,3 +846,8 @@ Fixed the RemindMe popup "-" and "x" (minimize and close) buttons. They weren't 
 Fixed the resizing of the popup. The reminder text size did not increase in the preview
 Fixed a problem where you kept getting the "whats new since the previous version" popup
 Removed a lot of old, unused code
+
+V2.6.301
+Removed the limit on timers where the maximum time was 24 hours
+Changed logging timestampts to UTC time
+Fixed an issue with timer buttons not clearing in the timer interface
