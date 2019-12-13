@@ -27,6 +27,17 @@
           <Property Name="ExceptionStackTrace" Type="varchar(max)" Nullable="false" />
           <Property Name="Username" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="LocalErrorLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="LogContents" Type="varchar(max)" Nullable="false" />
+          <Property Name="LogLineCount" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="NewInstallations">
           <Key>
             <PropertyRef Name="Id" />
@@ -56,10 +67,16 @@
           <Property Name="UniqueString" Type="varchar(max)" Nullable="false" />
           <Property Name="LastOnline" Type="datetime" Nullable="false" />
           <Property Name="RemindMeVersion" Type="varchar(max)" />
+          <Property Name="ActiveReminders" Type="int" />
+          <Property Name="DisabledReminders" Type="int" />
+          <Property Name="DeletedReminders" Type="int" />
+          <Property Name="ArchivedReminders" Type="int" />
+          <Property Name="TotalReminders" Type="int" />
         </EntityType>
         <EntityContainer Name="remindmesqldbModelStoreContainer">
           <EntitySet Name="EmailAttempts" EntityType="Self.EmailAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocalErrorLog" EntityType="Self.LocalErrorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewInstallations" EntityType="Self.NewInstallations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -95,6 +112,7 @@
           <EntitySet Name="Users" EntityType="remindmesqldbModel.Users" />
           <EntitySet Name="EmailAttempts" EntityType="remindmesqldbModel.EmailAttempts" />
           <EntitySet Name="NewInstallations" EntityType="remindmesqldbModel.NewInstallations" />
+          <EntitySet Name="LocalErrorLog" EntityType="remindmesqldbModel.LocalErrorLog" />
         </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -105,6 +123,11 @@
           <Property Name="UniqueString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LastOnline" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RemindMeVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActiveReminders" Type="Int32" />
+          <Property Name="DisabledReminders" Type="Int32" />
+          <Property Name="DeletedReminders" Type="Int32" />
+          <Property Name="ArchivedReminders" Type="Int32" />
+          <Property Name="TotalReminders" Type="Int32" />
         </EntityType>
         <EntityType Name="EmailAttempts">
           <Key>
@@ -126,6 +149,17 @@
           <Property Name="UniqueString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="InstallDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="InstallVersion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LocalErrorLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LogContents" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LogLineCount" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -159,6 +193,11 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="remindmesqldbModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="TotalReminders" ColumnName="TotalReminders" />
+                <ScalarProperty Name="ArchivedReminders" ColumnName="ArchivedReminders" />
+                <ScalarProperty Name="DeletedReminders" ColumnName="DeletedReminders" />
+                <ScalarProperty Name="DisabledReminders" ColumnName="DisabledReminders" />
+                <ScalarProperty Name="ActiveReminders" ColumnName="ActiveReminders" />
                 <ScalarProperty Name="RemindMeVersion" ColumnName="RemindMeVersion" />
                 <ScalarProperty Name="LastOnline" ColumnName="LastOnline" />
                 <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
@@ -186,6 +225,18 @@
                 <ScalarProperty Name="InstallDate" ColumnName="InstallDate" />
                 <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocalErrorLog">
+            <EntityTypeMapping TypeName="remindmesqldbModel.LocalErrorLog">
+              <MappingFragment StoreEntitySet="LocalErrorLog">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LogLineCount" ColumnName="LogLineCount" />
+                <ScalarProperty Name="LogContents" ColumnName="LogContents" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

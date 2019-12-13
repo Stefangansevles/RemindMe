@@ -19,6 +19,7 @@
     <Property Name="Hide" Type="Int64" />
     <Property Name="Corrupted" Type="Int64" />
     <Property Name="EnableAdvancedReminder" Type="Int64" Nullable="false" />
+    <Property Name="UpdateTime" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>

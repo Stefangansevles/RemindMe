@@ -123,6 +123,16 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>251, 19</value>
   </metadata>
+  <data name="pbUpdateTimeInformation.ToolTip" xml:space="preserve">
+    <value>OFF: Don't change the popup time (Default)
+ON: Update the popup time based on the time when you dismiss the reminder
+
+For example: Daily Reminder with time: 10-10-2019 12:00:00.
+You dismiss the reminder at 12:53:00. 
+The next popup date will be: 11-10-2019 12:53:00 instead of 12:00:00
+
+</value>
+  </data>
   <metadata name="AddDaysMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>109, 17</value>
   </metadata>

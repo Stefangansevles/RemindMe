@@ -69,27 +69,33 @@ namespace Data_Access_Layer
         {
             try
             {
+                Users usr;
                 //If the user doesn't exist in the db yet...
                 if (db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
                 {
-                    Users usr = new Users();
+                    usr = new Users();
                     usr.Username = Environment.UserName;
                     usr.UniqueString = uniqueString;
                     usr.LastOnline = DateTime.UtcNow;
-                    usr.RemindMeVersion = remindMeVersion;
+                    usr.RemindMeVersion = remindMeVersion;                   
 
-                    db.Users.Add(usr);
-                    db.SaveChanges();
+                    db.Users.Add(usr);                    
                 }
                 else
                 {
                     //Update the LastOnline attribute
-                    Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
+                    usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
                     usr.LastOnline = DateTime.UtcNow;
-                    usr.RemindMeVersion = remindMeVersion;
-                    db.SaveChanges();
-
+                    usr.RemindMeVersion = remindMeVersion;                    
                 }
+
+                usr.ActiveReminders = DLReminders.GetReminders().Where(r => r.Enabled == 1).Count();
+                usr.DisabledReminders = DLReminders.GetReminders().Where(r => r.Enabled == 0).Count();
+                usr.DeletedReminders = DLReminders.GetDeletedReminders().Count;
+                usr.ArchivedReminders = DLReminders.GetArchivedReminders().Count;
+                usr.TotalReminders = DLReminders.GetAllReminders().Count;
+
+                db.SaveChanges();
             }
             catch (DbUpdateException exc) { }
             catch (Exception exce) { }
@@ -141,6 +147,31 @@ namespace Data_Access_Layer
                     ea.E_mail = eMailAddress;
 
                 db.EmailAttempts.Add(ea);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException exc) { }
+            catch (Exception exce) { }
+        }
+
+        /// <summary>
+        /// Inserts the contents of the local errorlog.txt into the database
+        /// </summary>
+        /// <param name="uniqueString">The unique user identifier</param>
+        /// <param name="logContents">The contents of errorlog.txt</param>
+        /// <param name="lineCount">The amount of lines in errorlog.txt</param>
+        public static void InsertLocalErrorLog(string uniqueString, string logContents, int lineCount)
+        {
+            try
+            {
+                LocalErrorLog loc = new LocalErrorLog();
+                loc.TimeStamp = DateTime.UtcNow;
+                loc.LogContents = logContents;
+                loc.LogLineCount = lineCount;
+                loc.Username = Environment.UserName;
+                loc.UserId = uniqueString;
+
+
+                db.LocalErrorLog.Add(loc);
                 db.SaveChanges();
             }
             catch (DbUpdateException exc) { }

@@ -66,7 +66,7 @@ namespace RemindMe
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
-
+            
 
             //User controls that will be loaded into the "main" panel
             ucReminders = new UCReminders();
@@ -303,6 +303,14 @@ namespace RemindMe
             this.ShowInTaskbar = true;
             this.Show();            
             tmrInitialHide.Start();
+
+            //Insert the errorlog.txt into the DB if it is not empty
+            if (new FileInfo(IOVariables.errorLog).Length > 0)
+            {
+                BLOnlineDatabase.InsertLocalErrorLog(File.ReadAllText(IOVariables.uniqueString), File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
+                File.WriteAllText(IOVariables.errorLog, "");
+            }
+            
 
             BLIO.Log("RemindMe loaded");
             Cleanup();

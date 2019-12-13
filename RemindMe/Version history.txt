@@ -851,3 +851,13 @@ V2.6.301
 Removed the limit on timers where the maximum time was 24 hours
 Changed logging timestampts to UTC time
 Fixed an issue with timer buttons not clearing in the timer interface
+
+V2.6.400
+- Added a new customizable feature to reminders!
+You can now make it so that the time of the next day of a reminder will be equal to the time you dismiss the reminder.
+Example: A reminder that repeats Daily at 15:00. You turn on your computer at 16:05, remindme launches and the reminders pops up. 
+When you dismiss the reminder by pressing "OK", the next date will be tomorrow, like usual, but at 16:05 instead of 15:00. 
+
+This feature is disabled by default and can be enabled when editing a reminder
+
+- You can now see the text you set on a timer when you press the button in the timer interface.

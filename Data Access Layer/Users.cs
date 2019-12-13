@@ -19,5 +19,10 @@ namespace Data_Access_Layer
         public string UniqueString { get; set; }
         public System.DateTime LastOnline { get; set; }
         public string RemindMeVersion { get; set; }
+        public Nullable<int> ActiveReminders { get; set; }
+        public Nullable<int> DisabledReminders { get; set; }
+        public Nullable<int> DeletedReminders { get; set; }
+        public Nullable<int> ArchivedReminders { get; set; }
+        public Nullable<int> TotalReminders { get; set; }
     }
 }

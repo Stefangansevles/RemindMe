@@ -117,7 +117,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="rem">The reminder you wish to archive</param>
         public static void ArchiveReminder(Reminder rem)
-        {
+        {            
             ArchiveReminder(rem);
         }
 
@@ -151,120 +151,181 @@ namespace Business_Logic_Layer
         public static void SkipToNextReminderDate(Reminder rem)
         {
             if (!IsRepeatableReminder(rem))
-                return; //If the parameter is a reminder that doesn't have 2 or more dates, we can't continue.
-
+                return; //If the parameter is a reminder that doesn't have 2 or more dates, we can't continue.        
 
             switch (rem.RepeatType)
             {
-                case "NONE": //Remove the first element [0] from the string, and assign the new value to the reminder                        
-                    List<string> dates = rem.Date.Split(',').ToList();
-                    string newDateString = "";
-                    dates.RemoveAt(0);
-
-                    foreach (string dat in dates)
-                        newDateString += dat + ",";
-
-                    newDateString = newDateString.Remove(newDateString.Length - 1, 1);
-                    rem.Date = newDateString;
-
+                case "NONE": UpdateReminderDateWithoutRepeatType(rem);
                     break;
-                case "DAILY":
-                    rem.Date = Convert.ToDateTime(rem.Date).AddDays(1).ToString();
+                case "DAILY": UpdateReminderDateDaily(rem);
                     break;
-                case "MONTHLY":
-                    //Add 1 month to the first date of the month string, [0] and add it to the end
-                    List<string> monthDates = rem.Date.Split(',').ToList();
-                    string newMonthString = "";
-                    int monthDay = Convert.ToDateTime(monthDates[0]).Day;
-                    int monthsInAdvance = 1;
-                    string updatedDate = "";
-
-                    //If you add 1 month, and the day is not equal, then that means the next month doesnt have enough days. Keep adding months until we find the good month
-                    //Example: Day of month: 31. Add 1 month to january, thats february. It doesnt have 31 days, so it should go to the next month, etc etc
-                    if (Convert.ToDateTime(monthDates[0]).AddMonths(1).Day != monthDay)
-                    {
-                        while (Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).Day != monthDay)
-                        {
-                            monthsInAdvance++;
-                        }
-                        updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).ToString();
-                    }
-                    else
-                        updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(1).ToString(); //Just add 1 month
-
-
-                    //Remove the old date at index 0, and add the new date at the end.
-                    monthDates.RemoveAt(0);
-                    monthDates.Add(updatedDate);
-
-                    foreach (string monthDate in monthDates)
-                        newMonthString += monthDate + ",";
-
-                    newDateString = newMonthString.Remove(newMonthString.Length - 1, 1);
-                    rem.Date = newDateString;
+                case "MONTHLY": UpdateReminderDateMonthly(rem);
                     break;
-                case "WORKDAYS":
-                    if (Convert.ToDateTime(rem.Date).DayOfWeek == DayOfWeek.Friday)
-                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(3).ToString(); //Add 3 days, friday -> saturday -> sunday -> monday
-                    else if (Convert.ToDateTime(rem.Date).DayOfWeek == DayOfWeek.Saturday)
-                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(2).ToString(); //Add 2 days,  saturday -> sunday -> monday                        
-                    else
-                        rem.Date = Convert.ToDateTime(rem.Date).AddDays(1).ToString();
+                case "WORKDAYS": rem.Date = BLDateTime.GetNextReminderWorkDay(rem).ToString();  //UpdateReminderDateWorkDays(rem);
                     break;
-                case "MULTIPLE_DAYS":
-                    DayOfWeek dayOfWeekOfThisReminder = Convert.ToDateTime(rem.Date).DayOfWeek;
-                    List<string> days = BLDateTime.SortDayOfWeekStringList(rem.RepeatDays.Split(',').ToList()); //These are the days this reminder has. Example: monday,thursday,sunday
-
-                    int indexOfDay = 0;
-                    foreach (string day in days)
-                    {
-                        if (day.ToLower() != dayOfWeekOfThisReminder.ToString().ToLower())
-                            indexOfDay++;
-                        else
-                            break;
-                    }
-                    DayOfWeek nextDay;
-
-                    if (indexOfDay + 1 >= days.Count)
-                    {
-                        indexOfDay = 0;
-                        nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay]);
-                    }
-                    else
-                        nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay + 1]);
-
-
-                    int toAddDays = BLDateTime.GetAmountOfDaysBetween(dayOfWeekOfThisReminder, nextDay);
-                    if (toAddDays == 0)
-                        toAddDays = 7;
-                    //Days between monday and monday is 0, but in our case that means 1 week, so 7 days.
-                    rem.Date = Convert.ToDateTime(rem.Date).AddDays(toAddDays).ToString();
+                case "MULTIPLE_DAYS": UpdateReminderDateMultipleDays(rem);
                     break;
-                default:
-                    if (rem.EveryXCustom != null)
-                    {
-                        switch (rem.RepeatType.ToLower())
-                        {
-                            case "minutes":
-                                rem.Date = Convert.ToDateTime(rem.Date).AddMinutes((double)rem.EveryXCustom).ToString();
-                                break;
-                            case "hours":
-                                rem.Date = Convert.ToDateTime(rem.Date).AddHours((double)rem.EveryXCustom).ToString();
-                                break;
-                            case "days":
-                                rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom).ToString();
-                                break;
-                            case "weeks":
-                                rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom * 7).ToString();
-                                break;
-                            case "months":
-                                rem.Date = Convert.ToDateTime(rem.Date).AddMonths((int)rem.EveryXCustom).ToString();
-                                break;
-                        }
-                    }
+                default: if (rem.EveryXCustom != null) { UpdateReminderDateByRepeatType(rem); }
                     break;
             }
         }
+
+        /// <summary>
+        /// Update an reminder's date based on it's repeat type, ( every x: minutes,hours,days,weeks,months )
+        /// </summary>
+        /// <param name="rem"></param>
+        private static void UpdateReminderDateByRepeatType(Reminder rem)
+        {
+            switch (rem.RepeatType.ToLower())
+            {
+                case "minutes":
+                    rem.Date = Convert.ToDateTime(rem.Date).AddMinutes((double)rem.EveryXCustom).ToString();
+                    break;
+                case "hours":
+                    rem.Date = Convert.ToDateTime(rem.Date).AddHours((double)rem.EveryXCustom).ToString();
+                    break;
+                case "days":
+                    rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom).ToString();
+                    break;
+                case "weeks":
+                    rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom * 7).ToString();
+                    break;
+                case "months":
+                    rem.Date = Convert.ToDateTime(rem.Date).AddMonths((int)rem.EveryXCustom).ToString();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Update an reminder's date without a repeat type by picking the next date in sequence (This reminder's date consists of commma seperated dates: date1,date2 etc)
+        /// </summary>
+        /// <param name="rem"></param>
+        private static void UpdateReminderDateWithoutRepeatType(Reminder rem)
+        {
+            //Remove the first element [0] from the string, and assign the new value to the reminder                        
+            List<string> dates = rem.Date.Split(',').ToList();
+            string newDateString = "";
+            dates.RemoveAt(0);
+
+            foreach (string dat in dates)
+                newDateString += dat + ",";
+
+            newDateString = newDateString.Remove(newDateString.Length - 1, 1);
+            rem.Date = newDateString;
+        }
+
+        /// <summary>
+        /// Update an reminder's date with a daily repeat type.
+        /// </summary>
+        /// <param name="rem"></param>
+        /// <param name="allowUpdateTime">Determines if this method is allowed to update the TIME part of the datetime object</param>
+        private static void UpdateReminderDateDaily(Reminder rem, bool allowUpdateTime = false)
+        {
+            if (rem.UpdateTime == 0 || !allowUpdateTime) //Dont update the time? just add 1 day
+            {
+                //If the reminder pops up a few days late, but the time of the reminder is still in the future, do not add one day to the current day, but set it to the current day instead
+                if (Convert.ToDateTime("2010-10-10 " + Convert.ToDateTime(rem.Date).ToShortTimeString()) > Convert.ToDateTime("2010-10-10 " + DateTime.Now.ToShortTimeString()))
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();
+                else
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();
+            }
+            else //change the TIME part of the datetime to now 
+            {
+                if (Convert.ToDateTime("2010-10-10 " + Convert.ToDateTime(rem.Date).ToShortTimeString()) > Convert.ToDateTime("2010-10-10 " + DateTime.Now.ToShortTimeString()))
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString()).ToString();
+                else
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString()).AddDays(1).ToString();               
+            }
+        }
+
+        /// <summary>
+        /// Update an reminder's date with a monthly repeat type
+        /// </summary>
+        /// <param name="rem"></param>
+        /// <param name="allowUpdateTime">Determines if this method is allowed to update the TIME part of the datetime object</param>
+        private static void UpdateReminderDateMonthly(Reminder rem, bool allowUpdateTime = false)
+        {
+            //Add 1 month to the first date of the month string, [0] and add it to the end
+            List<string> monthDates = rem.Date.Split(',').ToList();
+            string newMonthString = "";
+            int monthDay = Convert.ToDateTime(monthDates[0]).Day;
+            int monthsInAdvance = 1;
+            string updatedDate = "";
+
+            //If you add 1 month, and the day is not equal, then that means the next month doesnt have enough days. Keep adding months until we find the good month
+            //Example: Day of month: 31. Add 1 month to january, thats february. It doesnt have 31 days, so it should go to the next month, etc etc
+            if (Convert.ToDateTime(monthDates[0]).AddMonths(1).Day != monthDay)
+            {
+                while (Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).Day != monthDay)
+                {
+                    monthsInAdvance++;
+                }
+                
+                if (rem.UpdateTime == 0 || !allowUpdateTime)
+                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).ToString();
+                else //Update time aswell
+                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
+            }
+            else
+            {
+                if(rem.UpdateTime == 0 || !allowUpdateTime)
+                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(1).ToString(); //Just add 1 month
+                else //Update time aswell
+                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(1).ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
+
+            }
+            
+
+            //Remove the old date at index 0, and add the new date at the end.
+            monthDates.RemoveAt(0);
+            monthDates.Add(updatedDate);
+
+            foreach (string monthDate in monthDates)
+                newMonthString += monthDate + ",";
+            
+            rem.Date = newMonthString.Remove(newMonthString.Length - 1, 1);
+        }
+
+        /// <summary>
+        /// Update an reminder's date with multiple days as repeat type
+        /// </summary>
+        /// <param name="rem"></param>
+        /// <param name="allowUpdateTime">Determines if this method is allowed to update the TIME part of the datetime object</param>
+        private static void UpdateReminderDateMultipleDays(Reminder rem, bool allowUpdateTime = false)
+        {
+            DayOfWeek dayOfWeekOfThisReminder = Convert.ToDateTime(rem.Date).DayOfWeek;
+            List<string> days = BLDateTime.SortDayOfWeekStringList(rem.RepeatDays.Split(',').ToList()); //These are the days this reminder has. Example: monday,thursday,sunday
+
+            int indexOfDay = 0;
+            foreach (string day in days)
+            {
+                if (day.ToLower() != dayOfWeekOfThisReminder.ToString().ToLower())
+                    indexOfDay++;
+                else
+                    break;
+            }
+            DayOfWeek nextDay;
+
+            if (indexOfDay + 1 >= days.Count)
+            {
+                indexOfDay = 0;
+                nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay]);
+            }
+            else
+                nextDay = BLDateTime.GetDayOfWeekFromString(days[indexOfDay + 1]);
+
+
+            int toAddDays = BLDateTime.GetAmountOfDaysBetween(dayOfWeekOfThisReminder, nextDay);
+            if (toAddDays == 0)
+                toAddDays = 7;
+            //Days between monday and monday is 0, but in our case that means 1 week, so 7 days.
+            if (rem.UpdateTime == 0 || !allowUpdateTime)
+                rem.Date = Convert.ToDateTime(rem.Date).AddDays(toAddDays).ToString();
+            else //Update time aswell
+                rem.Date = Convert.ToDateTime(rem.Date).AddDays(toAddDays).ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
+
+        }        
+
         /// <summary>
         /// Checks if a reminder has 2 or more dates
         /// </summary>
@@ -334,18 +395,12 @@ namespace Business_Logic_Layer
                 rem.Enabled = 1;
 
                 if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString()) //Add days to the reminder so that the next date will be a new workday      
-                    rem.Date = BLDateTime.GetNextReminderWorkDay(rem).ToString();
+                    rem.Date = BLDateTime.GetNextReminderWorkDay(rem,true).ToString();
+                
+                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder                                     
+                    UpdateReminderDateDaily(rem,true);
 
-                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder 
-                {
-                    //If the reminder pops up a few days late, but the time of the reminder is still in the future, do not add one day to the current day, but set it to the current day instead
-                    if (Convert.ToDateTime("2010-10-10 " + Convert.ToDateTime(rem.Date).ToShortTimeString()) > Convert.ToDateTime("2010-10-10 " + DateTime.Now.ToShortTimeString()))
-                        rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).ToString();
-                    else
-                        rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString()).AddDays(1).ToString();
-                }
-
-
+                
                 if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
                 {
                     if (rem.Date.Split(',').Length > 1)
@@ -360,8 +415,6 @@ namespace Business_Logic_Layer
                             else
                                 reminderDates.Add(Convert.ToDateTime(date)); //Date in the future? good! do nothing with it.   
 
-
-
                         }
                         //have to make sure the first date is in front.
                         reminderDates.Sort();
@@ -369,18 +422,32 @@ namespace Business_Logic_Layer
                         //Now, we're going to put the (sorted) dates in a string
                         string newDateString = "";
                         foreach (DateTime date in reminderDates)
-                            newDateString += date.ToString() + ",";
+                        {
+                            if(rem.UpdateTime == 0)
+                                newDateString += date.ToString() + ",";
+                            else
+                                newDateString += date.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + ",";
+                        }
+                            
 
                         rem.Date = newDateString.Remove(newDateString.Length - 1, 1);
                     }
                     else
-                    {//There's only one date in this string.                        
-                        rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date).Day).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();
+                    {//There's only one date in this string.  
+                        if (rem.UpdateTime == 0)
+                            rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date).Day).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();
+                        else
+                            rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date).Day).ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
                     }
                 }
 
                 if (rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
-                    rem.Date = Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(rem.RepeatDays)).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();
+                {
+                    if (rem.UpdateTime == 0)
+                        rem.Date = Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(rem.RepeatDays)).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();
+                    else
+                        rem.Date = Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(rem.RepeatDays)).ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+                }
 
                 if (rem.EveryXCustom != null)
                 {
@@ -397,12 +464,18 @@ namespace Business_Logic_Layer
                                 break;
                             case "days":
                                 rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom).ToString();
+                                if (rem.UpdateTime == 1)
+                                    rem.Date = Convert.ToDateTime(rem.Date).ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
                                 break;
                             case "weeks":
                                 rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom * 7).ToString();
+                                if (rem.UpdateTime == 1)
+                                    rem.Date = Convert.ToDateTime(rem.Date).ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
                                 break;
                             case "months":
                                 rem.Date = Convert.ToDateTime(rem.Date).AddMonths((int)rem.EveryXCustom).ToString();
+                                if (rem.UpdateTime == 1)
+                                    rem.Date = Convert.ToDateTime(rem.Date).ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
                                 break;
                         }
                     }
@@ -458,7 +531,7 @@ namespace Business_Logic_Layer
         /// <param name="enabled">Wether this reminder is enabled or not. 1 = enabled   0 = not enabled</param>
         /// <param name="soundPath">The path to the sound effect that should play when this reminder pops up</param>
         /// <returns>Returns the ID of the newly inserted reminder</returns>
-        public static long InsertReminder(string name, string date, string repeatingType, long? everyXDays, string commaSeperatedDays, string note, bool enabled, string soundPath)
+        public static long InsertReminder(string name, string date, string repeatingType, long? everyXDays, string commaSeperatedDays, string note, bool enabled, string soundPath, int updateTime = 0)
         {
             Reminder rem = new Reminder();
             rem.Name = name;
@@ -494,6 +567,8 @@ namespace Business_Logic_Layer
                 rem.Enabled = 1;
             else
                 rem.Enabled = 0;
+
+            rem.UpdateTime = updateTime;
 
             return DLReminders.PushReminderToDatabase(rem);
         }

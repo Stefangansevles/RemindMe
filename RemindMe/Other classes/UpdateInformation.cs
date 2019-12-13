@@ -46,6 +46,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.202", "Added more logging");
             releaseNotes.Add("2.6.300", "- Fixed the RemindMe popup \"-\" and \"x\" (minimize and close) buttons. They weren't functioning\r\n- Fixed the resizing of the popup.The reminder text size did not increase in the preview\r\n- Fixed a problem where you kept getting the \"whats new since the previous version\" popup");
             releaseNotes.Add("2.6.301", "Removed the limit on timers where the maximum time was 24 hours\r\nChanged logging timestampts to UTC time\r\nFixed an issue with timer buttons not clearing in the timer interface");
+            releaseNotes.Add("2.6.400", "- Added a new customizable feature to reminders!\r\nYou can now make it so that the time of the next day of a reminder will be equal to the time you dismiss the reminder.\r\nExample: A reminder that repeats Daily at 15:00.You turn on your computer at 16:05, remindme launches and the reminders pops up.\r\nWhen you dismiss the reminder by pressing \"OK\", the next date will be tomorrow, like usual, but at 16:05 instead of 15:00.\r\nThis feature is disabled by default and can be enabled when editing a reminder\r\n- You can now see the text you set on a timer when you press the button in the timer interface.");
         }
 
         public static Dictionary<string,string> ReleaseNotes

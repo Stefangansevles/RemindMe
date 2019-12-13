@@ -30,5 +30,6 @@ namespace Database.Entity
         public Nullable<long> Hide { get; set; }
         public Nullable<long> Corrupted { get; set; }
         public long EnableAdvancedReminder { get; set; }
+        public long UpdateTime { get; set; }
     }
 }

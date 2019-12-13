@@ -199,21 +199,31 @@ namespace Business_Logic_Layer
         /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
         /// <param name="sendToOnlineDatabase">Determines wether WriteError() is allowed to send the error to the online database this is true by default</param>
         public static void WriteError(Exception ex, string message,bool sendToOnlineDatabase = true)
-        {
-            //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
-            //that has an bunifu control in it(like a button), while there shouldn't be an exception.
-            if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
-                return;
-
-            using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
-            using (StreamWriter sw = new StreamWriter(fs))
+        {            
+            new Thread(() =>
             {
-                sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
-            }
+                //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
+                //that has an bunifu control in it(like a button), while there shouldn't be an exception.
+                if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
+                    return;
 
-            //Also attempt to write it to the database
-            if(sendToOnlineDatabase)
-                BLOnlineDatabase.AddException(ex, DateTime.Now);
+                if (sendToOnlineDatabase && HasInternetAccess())
+                {
+                    BLOnlineDatabase.AddException(ex, DateTime.Now);
+                }
+                else
+                {
+                    //Only write to the errorlog.txt if writing to the database failed, since we insert the errorlog into the database
+                    //at a different time when above doesn't fail
+                    using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
+                    }
+                }
+
+            }).Start();
+           
         }
 
         /// <summary>

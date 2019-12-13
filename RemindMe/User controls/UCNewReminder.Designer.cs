@@ -80,6 +80,7 @@
             this.btnAddMonthlyDay = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnRemoveMonthlyDay = new Bunifu.Framework.UI.BunifuFlatButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pbUpdateTimeInformation = new System.Windows.Forms.PictureBox();
             this.AddDaysMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addMinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,19 +92,24 @@
             this.tbReminderName = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.lblAdvancedReminders = new System.Windows.Forms.Label();
             this.cbAdvancedReminder = new Bunifu.Framework.UI.BunifuCheckbox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.swUpdateTime = new Bunifu.Framework.UI.BunifuSwitch();
             this.btnAdvancedReminder = new Bunifu.Framework.UI.BunifuTileButton();
             this.pbExclamationDate = new System.Windows.Forms.PictureBox();
             this.pbExclamationWorkday = new System.Windows.Forms.PictureBox();
             this.pbExclamationTitle = new System.Windows.Forms.PictureBox();
             this.btnPlaySound = new Bunifu.Framework.UI.BunifuTileButton();
+            this.pnlUpdateTime = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupRepeatRadiobuttons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).BeginInit();
             this.pnlDayCheckBoxes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUpdateTimeInformation)).BeginInit();
             this.AddDaysMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).BeginInit();
+            this.pnlUpdateTime.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -112,7 +118,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(43, 14);
+            this.label1.Location = new System.Drawing.Point(70, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 18);
             this.label1.TabIndex = 5;
@@ -249,7 +255,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(22, 46);
+            this.label2.Location = new System.Drawing.Point(49, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 18);
             this.label2.TabIndex = 8;
@@ -264,7 +270,7 @@
             this.cbSound.ItemHeight = 17;
             this.cbSound.Items.AddRange(new object[] {
             "Add files..."});
-            this.cbSound.Location = new System.Drawing.Point(120, 45);
+            this.cbSound.Location = new System.Drawing.Point(147, 45);
             this.cbSound.Name = "cbSound";
             this.cbSound.Size = new System.Drawing.Size(329, 25);
             this.cbSound.TabIndex = 66;
@@ -281,7 +287,7 @@
             this.dtpTime.CustomFormat = "HH:mm";
             this.dtpTime.Font = new System.Drawing.Font("Century Gothic", 10.5F);
             this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpTime.Location = new System.Drawing.Point(120, 109);
+            this.dtpTime.Location = new System.Drawing.Point(147, 109);
             this.dtpTime.Name = "dtpTime";
             this.dtpTime.ShowUpDown = true;
             this.dtpTime.Size = new System.Drawing.Size(329, 25);
@@ -295,7 +301,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(34, 80);
+            this.label3.Location = new System.Drawing.Point(61, 88);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 18);
             this.label3.TabIndex = 70;
@@ -307,7 +313,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(34, 111);
+            this.label4.Location = new System.Drawing.Point(61, 119);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 18);
             this.label4.TabIndex = 71;
@@ -319,7 +325,7 @@
             this.lblAddedDates.BackColor = System.Drawing.Color.Transparent;
             this.lblAddedDates.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.lblAddedDates.ForeColor = System.Drawing.Color.White;
-            this.lblAddedDates.Location = new System.Drawing.Point(26, 144);
+            this.lblAddedDates.Location = new System.Drawing.Point(53, 152);
             this.lblAddedDates.Name = "lblAddedDates";
             this.lblAddedDates.Size = new System.Drawing.Size(53, 18);
             this.lblAddedDates.TabIndex = 72;
@@ -332,7 +338,7 @@
             this.cbMultipleDates.ForeColor = System.Drawing.Color.White;
             this.cbMultipleDates.FormattingEnabled = true;
             this.cbMultipleDates.ItemHeight = 17;
-            this.cbMultipleDates.Location = new System.Drawing.Point(120, 141);
+            this.cbMultipleDates.Location = new System.Drawing.Point(147, 141);
             this.cbMultipleDates.Name = "cbMultipleDates";
             this.cbMultipleDates.Size = new System.Drawing.Size(329, 25);
             this.cbMultipleDates.TabIndex = 73;
@@ -351,7 +357,7 @@
             this.btnAddDays.ImageZoom = 80;
             this.btnAddDays.LabelPosition = 33;
             this.btnAddDays.LabelText = "...";
-            this.btnAddDays.Location = new System.Drawing.Point(456, 78);
+            this.btnAddDays.Location = new System.Drawing.Point(483, 78);
             this.btnAddDays.Margin = new System.Windows.Forms.Padding(6);
             this.btnAddDays.Name = "btnAddDays";
             this.btnAddDays.Size = new System.Drawing.Size(30, 26);
@@ -381,7 +387,7 @@
             this.btnRemoveDate.IconVisible = true;
             this.btnRemoveDate.IconZoom = 50D;
             this.btnRemoveDate.IsTab = false;
-            this.btnRemoveDate.Location = new System.Drawing.Point(456, 141);
+            this.btnRemoveDate.Location = new System.Drawing.Point(483, 141);
             this.btnRemoveDate.Name = "btnRemoveDate";
             this.btnRemoveDate.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnRemoveDate.OnHovercolor = System.Drawing.Color.DimGray;
@@ -418,7 +424,7 @@
             this.btnAddDate.IconVisible = true;
             this.btnAddDate.IconZoom = 50D;
             this.btnAddDate.IsTab = false;
-            this.btnAddDate.Location = new System.Drawing.Point(456, 109);
+            this.btnAddDate.Location = new System.Drawing.Point(483, 109);
             this.btnAddDate.Name = "btnAddDate";
             this.btnAddDate.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnAddDate.OnHovercolor = System.Drawing.Color.DimGray;
@@ -441,7 +447,7 @@
             this.groupRepeatRadiobuttons.Controls.Add(this.rbMonthly);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbDaily);
             this.groupRepeatRadiobuttons.Controls.Add(this.radioButton2);
-            this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(120, 165);
+            this.groupRepeatRadiobuttons.Location = new System.Drawing.Point(147, 165);
             this.groupRepeatRadiobuttons.Name = "groupRepeatRadiobuttons";
             this.groupRepeatRadiobuttons.Size = new System.Drawing.Size(366, 60);
             this.groupRepeatRadiobuttons.TabIndex = 79;
@@ -544,7 +550,7 @@
             this.lblRepeat.BackColor = System.Drawing.Color.Transparent;
             this.lblRepeat.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.lblRepeat.ForeColor = System.Drawing.Color.White;
-            this.lblRepeat.Location = new System.Drawing.Point(14, 176);
+            this.lblRepeat.Location = new System.Drawing.Point(41, 184);
             this.lblRepeat.Name = "lblRepeat";
             this.lblRepeat.Size = new System.Drawing.Size(65, 18);
             this.lblRepeat.TabIndex = 80;
@@ -556,7 +562,7 @@
             this.lblEvery.BackColor = System.Drawing.Color.Transparent;
             this.lblEvery.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.lblEvery.ForeColor = System.Drawing.Color.White;
-            this.lblEvery.Location = new System.Drawing.Point(26, 258);
+            this.lblEvery.Location = new System.Drawing.Point(53, 266);
             this.lblEvery.Name = "lblEvery";
             this.lblEvery.Size = new System.Drawing.Size(52, 18);
             this.lblEvery.TabIndex = 83;
@@ -569,7 +575,7 @@
             this.lblNote.BackColor = System.Drawing.Color.Transparent;
             this.lblNote.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
             this.lblNote.ForeColor = System.Drawing.Color.White;
-            this.lblNote.Location = new System.Drawing.Point(25, 243);
+            this.lblNote.Location = new System.Drawing.Point(52, 251);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(47, 18);
             this.lblNote.TabIndex = 82;
@@ -590,7 +596,7 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.cbMonthlyDays.Location = new System.Drawing.Point(285, 232);
+            this.cbMonthlyDays.Location = new System.Drawing.Point(312, 232);
             this.cbMonthlyDays.Name = "cbMonthlyDays";
             this.cbMonthlyDays.Size = new System.Drawing.Size(76, 21);
             this.cbMonthlyDays.TabIndex = 89;
@@ -608,11 +614,12 @@
             "Days",
             "Weeks",
             "Months"});
-            this.cbEveryXCustom.Location = new System.Drawing.Point(198, 233);
+            this.cbEveryXCustom.Location = new System.Drawing.Point(225, 233);
             this.cbEveryXCustom.Name = "cbEveryXCustom";
             this.cbEveryXCustom.Size = new System.Drawing.Size(156, 21);
             this.cbEveryXCustom.TabIndex = 86;
             this.cbEveryXCustom.Visible = false;
+            this.cbEveryXCustom.SelectedIndexChanged += new System.EventHandler(this.cbEveryXCustom_SelectedIndexChanged);
             this.cbEveryXCustom.TextChanged += new System.EventHandler(this.cbEveryXCustom_TextChanged);
             // 
             // numEveryXDays
@@ -620,7 +627,7 @@
             this.numEveryXDays.BackColor = System.Drawing.Color.DimGray;
             this.numEveryXDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.numEveryXDays.ForeColor = System.Drawing.Color.White;
-            this.numEveryXDays.Location = new System.Drawing.Point(121, 233);
+            this.numEveryXDays.Location = new System.Drawing.Point(148, 233);
             this.numEveryXDays.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -651,7 +658,7 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.cbEvery.Location = new System.Drawing.Point(121, 232);
+            this.cbEvery.Location = new System.Drawing.Point(148, 232);
             this.cbEvery.Name = "cbEvery";
             this.cbEvery.Size = new System.Drawing.Size(76, 21);
             this.cbEvery.TabIndex = 84;
@@ -676,7 +683,7 @@
             this.pnlDayCheckBoxes.Controls.Add(this.cbSunday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbThursday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
-            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(121, 233);
+            this.pnlDayCheckBoxes.Location = new System.Drawing.Point(148, 233);
             this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
             this.pnlDayCheckBoxes.Size = new System.Drawing.Size(366, 89);
             this.pnlDayCheckBoxes.TabIndex = 90;
@@ -863,7 +870,7 @@
             this.tbNote.BackColor = System.Drawing.Color.DimGray;
             this.tbNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tbNote.ForeColor = System.Drawing.Color.White;
-            this.tbNote.Location = new System.Drawing.Point(121, 233);
+            this.tbNote.Location = new System.Drawing.Point(148, 233);
             this.tbNote.Multiline = true;
             this.tbNote.Name = "tbNote";
             this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -893,7 +900,7 @@
             this.btnAddMonthlyDay.IconVisible = true;
             this.btnAddMonthlyDay.IconZoom = 90D;
             this.btnAddMonthlyDay.IsTab = false;
-            this.btnAddMonthlyDay.Location = new System.Drawing.Point(203, 232);
+            this.btnAddMonthlyDay.Location = new System.Drawing.Point(230, 232);
             this.btnAddMonthlyDay.Name = "btnAddMonthlyDay";
             this.btnAddMonthlyDay.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnAddMonthlyDay.OnHovercolor = System.Drawing.Color.DimGray;
@@ -929,7 +936,7 @@
             this.btnRemoveMonthlyDay.IconVisible = true;
             this.btnRemoveMonthlyDay.IconZoom = 90D;
             this.btnRemoveMonthlyDay.IsTab = false;
-            this.btnRemoveMonthlyDay.Location = new System.Drawing.Point(243, 232);
+            this.btnRemoveMonthlyDay.Location = new System.Drawing.Point(270, 232);
             this.btnRemoveMonthlyDay.Name = "btnRemoveMonthlyDay";
             this.btnRemoveMonthlyDay.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnRemoveMonthlyDay.OnHovercolor = System.Drawing.Color.DimGray;
@@ -947,9 +954,20 @@
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 0;
-            this.toolTip1.AutoPopDelay = 10000;
-            this.toolTip1.InitialDelay = 0;
-            this.toolTip1.ReshowDelay = 0;
+            this.toolTip1.AutoPopDelay = 20000;
+            this.toolTip1.InitialDelay = 1;
+            this.toolTip1.ReshowDelay = 100;
+            // 
+            // pbUpdateTimeInformation
+            // 
+            this.pbUpdateTimeInformation.BackgroundImage = global::RemindMe.Properties.Resources.information_icon_6;
+            this.pbUpdateTimeInformation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbUpdateTimeInformation.Location = new System.Drawing.Point(200, 9);
+            this.pbUpdateTimeInformation.Name = "pbUpdateTimeInformation";
+            this.pbUpdateTimeInformation.Size = new System.Drawing.Size(19, 19);
+            this.pbUpdateTimeInformation.TabIndex = 118;
+            this.pbUpdateTimeInformation.TabStop = false;
+            this.toolTip1.SetToolTip(this.pbUpdateTimeInformation, resources.GetString("pbUpdateTimeInformation.ToolTip"));
             // 
             // AddDaysMenuStrip
             // 
@@ -1018,7 +1036,7 @@
             // dtpDate
             // 
             this.dtpDate.Font = new System.Drawing.Font("Century Gothic", 10.5F);
-            this.dtpDate.Location = new System.Drawing.Point(120, 78);
+            this.dtpDate.Location = new System.Drawing.Point(147, 78);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(329, 25);
             this.dtpDate.TabIndex = 110;
@@ -1036,7 +1054,7 @@
             this.tbReminderName.LineIdleColor = System.Drawing.Color.Silver;
             this.tbReminderName.LineMouseHoverColor = System.Drawing.Color.White;
             this.tbReminderName.LineThickness = 3;
-            this.tbReminderName.Location = new System.Drawing.Point(118, 7);
+            this.tbReminderName.Location = new System.Drawing.Point(145, 7);
             this.tbReminderName.Margin = new System.Windows.Forms.Padding(4);
             this.tbReminderName.Name = "tbReminderName";
             this.tbReminderName.Size = new System.Drawing.Size(367, 33);
@@ -1073,6 +1091,33 @@
             this.cbAdvancedReminder.Visible = false;
             this.cbAdvancedReminder.OnChange += new System.EventHandler(this.cbAdvancedReminder_OnChange);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold);
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(1, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(102, 18);
+            this.label5.TabIndex = 115;
+            this.label5.Text = "Update time:";
+            // 
+            // swUpdateTime
+            // 
+            this.swUpdateTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.swUpdateTime.BorderRadius = 0;
+            this.swUpdateTime.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.swUpdateTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.swUpdateTime.Location = new System.Drawing.Point(143, 9);
+            this.swUpdateTime.Name = "swUpdateTime";
+            this.swUpdateTime.Oncolor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.swUpdateTime.Onoffcolor = System.Drawing.Color.DarkGray;
+            this.swUpdateTime.Size = new System.Drawing.Size(51, 19);
+            this.swUpdateTime.TabIndex = 116;
+            this.swUpdateTime.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.swUpdateTime.Value = false;
+            // 
             // btnAdvancedReminder
             // 
             this.btnAdvancedReminder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1097,7 +1142,7 @@
             // 
             this.pbExclamationDate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationDate.BackgroundImage")));
             this.pbExclamationDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationDate.Location = new System.Drawing.Point(495, 93);
+            this.pbExclamationDate.Location = new System.Drawing.Point(522, 93);
             this.pbExclamationDate.Name = "pbExclamationDate";
             this.pbExclamationDate.Size = new System.Drawing.Size(27, 24);
             this.pbExclamationDate.TabIndex = 109;
@@ -1108,7 +1153,7 @@
             // 
             this.pbExclamationWorkday.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationWorkday.BackgroundImage")));
             this.pbExclamationWorkday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationWorkday.Location = new System.Drawing.Point(495, 93);
+            this.pbExclamationWorkday.Location = new System.Drawing.Point(522, 93);
             this.pbExclamationWorkday.Name = "pbExclamationWorkday";
             this.pbExclamationWorkday.Size = new System.Drawing.Size(27, 24);
             this.pbExclamationWorkday.TabIndex = 106;
@@ -1119,7 +1164,7 @@
             // 
             this.pbExclamationTitle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbExclamationTitle.BackgroundImage")));
             this.pbExclamationTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbExclamationTitle.Location = new System.Drawing.Point(492, 14);
+            this.pbExclamationTitle.Location = new System.Drawing.Point(519, 14);
             this.pbExclamationTitle.Name = "pbExclamationTitle";
             this.pbExclamationTitle.Size = new System.Drawing.Size(27, 24);
             this.pbExclamationTitle.TabIndex = 105;
@@ -1139,18 +1184,31 @@
             this.btnPlaySound.ImageZoom = 90;
             this.btnPlaySound.LabelPosition = 0;
             this.btnPlaySound.LabelText = "";
-            this.btnPlaySound.Location = new System.Drawing.Point(456, 45);
+            this.btnPlaySound.Location = new System.Drawing.Point(483, 45);
             this.btnPlaySound.Margin = new System.Windows.Forms.Padding(6);
             this.btnPlaySound.Name = "btnPlaySound";
             this.btnPlaySound.Size = new System.Drawing.Size(30, 26);
             this.btnPlaySound.TabIndex = 67;
             this.btnPlaySound.Click += new System.EventHandler(this.bunifuTileButton1_Click);
             // 
+            // pnlUpdateTime
+            // 
+            this.pnlUpdateTime.Controls.Add(this.label5);
+            this.pnlUpdateTime.Controls.Add(this.swUpdateTime);
+            this.pnlUpdateTime.Controls.Add(this.pbUpdateTimeInformation);
+            this.pnlUpdateTime.Location = new System.Drawing.Point(5, 305);
+            this.pnlUpdateTime.Name = "pnlUpdateTime";
+            this.pnlUpdateTime.Size = new System.Drawing.Size(231, 35);
+            this.pnlUpdateTime.TabIndex = 119;
+            this.pnlUpdateTime.Visible = false;
+            this.pnlUpdateTime.VisibleChanged += new System.EventHandler(this.pnlUpdateTime_VisibleChanged);
+            // 
             // UCNewReminder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.pnlUpdateTime);
             this.Controls.Add(this.lblAdvancedReminders);
             this.Controls.Add(this.cbAdvancedReminder);
             this.Controls.Add(this.tbReminderName);
@@ -1194,10 +1252,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numEveryXDays)).EndInit();
             this.pnlDayCheckBoxes.ResumeLayout(false);
             this.pnlDayCheckBoxes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUpdateTimeInformation)).EndInit();
             this.AddDaysMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationWorkday)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbExclamationTitle)).EndInit();
+            this.pnlUpdateTime.ResumeLayout(false);
+            this.pnlUpdateTime.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1270,5 +1331,9 @@
         private Bunifu.Framework.UI.BunifuMaterialTextbox tbReminderName;
         private System.Windows.Forms.Label lblAdvancedReminders;
         private Bunifu.Framework.UI.BunifuCheckbox cbAdvancedReminder;
+        private System.Windows.Forms.Label label5;
+        private Bunifu.Framework.UI.BunifuSwitch swUpdateTime;
+        private System.Windows.Forms.PictureBox pbUpdateTimeInformation;
+        private System.Windows.Forms.Panel pnlUpdateTime;
     }
 }

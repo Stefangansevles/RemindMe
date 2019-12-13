@@ -37,10 +37,12 @@ namespace RemindMe
             numMinutes.Click += numericUpDown_ValueChange;
             numHours.Click += numericUpDown_ValueChange;
 
+            //The user can change the time of an timer with these numeric up-downs. When the user attempts to do that, link the event to the global numericUpDown_ValueChange
             numSeconds.KeyUp += numericUpDown_ValueChange;
             numMinutes.KeyUp += numericUpDown_ValueChange;
             numHours.KeyUp += numericUpDown_ValueChange;
-            //The user can change the time of an timer with these numeric up-downs. When the user attempts to do that, link the event to the global numericUpDown_ValueChange
+            
+            lblTimerTitle.MaximumSize = new Size(pnlTimerTitle.Width - 15, 0);
         }
 
         /// <summary>
@@ -273,15 +275,18 @@ namespace RemindMe
             BLIO.Log("^^^^ (" + clickedButton.Text + ")");
             //Remove all the text apart from the id and store it
 
+            
             int id = GetTimerButtonId(clickedButton);
-
-
+            
 
             foreach (TimerItem itm in timers)
             {
                 if (itm.ID == id)
                 {
-                    currentTimerItem = itm;  
+                    lblTimerTitle.Text = "Timer: " + itm.TimerText;
+
+                    currentTimerItem = itm;
+                    lblTimerTitle.Visible = true;
 
                     if(currentTimerItem.IsRunning())
                         tmrCountdown.Start();
@@ -374,7 +379,7 @@ namespace RemindMe
             if (timers.Count > 0)
             {
                 currentTimerItem = timers[0];
-                
+                lblTimerTitle.Visible = true;
 
                 BLIO.Log("Setting values of (UCTimer) numericupdowns");
                 TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
@@ -388,6 +393,7 @@ namespace RemindMe
                 numMinutes.Value = 0;
                 numHours.Value = 0;
                 btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;
+                lblTimerTitle.Visible = false;
             }
 
             //Set the pause/resume icon image depending on the current timer

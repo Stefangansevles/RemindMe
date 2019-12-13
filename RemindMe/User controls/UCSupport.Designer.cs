@@ -39,6 +39,7 @@
             this.lblSending = new System.Windows.Forms.Label();
             this.pbSending = new System.Windows.Forms.PictureBox();
             this.btnSend = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbSending)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             this.tbSubject.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbSubject.ForeColor = System.Drawing.Color.White;
             this.tbSubject.isPassword = false;
-            this.tbSubject.Location = new System.Drawing.Point(182, 45);
+            this.tbSubject.Location = new System.Drawing.Point(182, 75);
             this.tbSubject.Margin = new System.Windows.Forms.Padding(4);
             this.tbSubject.Name = "tbSubject";
             this.tbSubject.Size = new System.Drawing.Size(314, 28);
@@ -64,7 +65,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(88, 49);
+            this.label1.Location = new System.Drawing.Point(88, 79);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 19);
             this.label1.TabIndex = 2;
@@ -75,7 +76,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(15, 82);
+            this.label2.Location = new System.Drawing.Point(15, 112);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(146, 19);
             this.label2.TabIndex = 4;
@@ -91,7 +92,7 @@
             this.tbEmail.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbEmail.ForeColor = System.Drawing.Color.White;
             this.tbEmail.isPassword = false;
-            this.tbEmail.Location = new System.Drawing.Point(182, 77);
+            this.tbEmail.Location = new System.Drawing.Point(182, 107);
             this.tbEmail.Margin = new System.Windows.Forms.Padding(4);
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(314, 28);
@@ -103,7 +104,7 @@
             this.tbNote.BackColor = System.Drawing.Color.DimGray;
             this.tbNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tbNote.ForeColor = System.Drawing.Color.White;
-            this.tbNote.Location = new System.Drawing.Point(182, 124);
+            this.tbNote.Location = new System.Drawing.Point(182, 154);
             this.tbNote.Multiline = true;
             this.tbNote.Name = "tbNote";
             this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -167,7 +168,7 @@
             this.btnSend.IconVisible = true;
             this.btnSend.IconZoom = 50D;
             this.btnSend.IsTab = false;
-            this.btnSend.Location = new System.Drawing.Point(182, 232);
+            this.btnSend.Location = new System.Drawing.Point(182, 262);
             this.btnSend.Name = "btnSend";
             this.btnSend.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnSend.OnHovercolor = System.Drawing.Color.DimGray;
@@ -181,11 +182,25 @@
             this.btnSend.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(125, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(417, 32);
+            this.label3.TabIndex = 96;
+            this.label3.Text = "Did you discover a bug? Do you want to suggest an improvement?\r\nOr do you wish to" +
+    " submit something else? This is where you can do that.";
+            this.label3.Visible = false;
+            // 
             // UCSupport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lblSending);
             this.Controls.Add(this.pbSending);
             this.Controls.Add(this.btnSend);
@@ -214,5 +229,6 @@
         private System.Windows.Forms.Timer tmrAllowMail;
         private System.Windows.Forms.PictureBox pbSending;
         private System.Windows.Forms.Label lblSending;
+        private System.Windows.Forms.Label label3;
     }
 }

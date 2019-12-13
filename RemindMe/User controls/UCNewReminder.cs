@@ -124,7 +124,7 @@ namespace RemindMe
             {
                 editableReminder = value;                
                 ResetReminderForm();
-                FillControlsForEdit(editableReminder);
+                FillControlsForEdit(editableReminder);                
             }
         }
 
@@ -139,16 +139,16 @@ namespace RemindMe
         /// </summary>
         private void FillControlsForEdit(Reminder rem)
         {
-            pnlDayCheckBoxes.Visible = false;
-            //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
-            pnlDayCheckBoxes_VisibleChanged(null, null);
-
             if (rem == null)
             {
                 ResetControlValues();
                 return;
             }
 
+            pnlDayCheckBoxes.Visible = false;
+            //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
+            pnlDayCheckBoxes_VisibleChanged(null, null);
+            
             dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
             DateTime remDate = Convert.ToDateTime(rem.Date.Split(',')[0]);
 
@@ -273,6 +273,14 @@ namespace RemindMe
                 AVRForm.FilesFolders = filesFolders;
             }
 
+            //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
+            if (rbNoRepeat.Checked || rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" && cbEveryXCustom.SelectedItem.ToString() == "Hours")
+                pnlUpdateTime.Visible = false;
+            else
+                pnlUpdateTime.Visible = true;
+
+            swUpdateTime.Value = Convert.ToBoolean(rem.UpdateTime);
+            pnlUpdateTime.Visible = !(rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" || cbEveryXCustom.SelectedItem.ToString() == "Hours");
         }
 
 
@@ -753,6 +761,14 @@ namespace RemindMe
         private void tbNote_LocationChanged(object sender, EventArgs e)
         {
             lblNote.Location = new Point(lblNote.Location.X, tbNote.Location.Y);
+            pnlUpdateTime.Location = new Point(pnlUpdateTime.Location.X, (tbNote.Location.Y + tbNote.Height) );
+
+            //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
+            if (rbNoRepeat.Checked || rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" && cbEveryXCustom.SelectedItem.ToString() == "Hours")
+                pnlUpdateTime.Visible = false;
+            else
+                pnlUpdateTime.Visible = true;
+
         }
 
         private void label13_Click(object sender, EventArgs e)
@@ -949,13 +965,12 @@ namespace RemindMe
         }
 
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e) //Update: oof, messy method :(
         {            
             BLIO.Log("User pressed confirm at reminder user control. Attempting to create/edit a reminder (UCNewReminder)");
             //set it to empty at first, the user may not have this option selected            
             string commaSeperatedDays = "";
-            long remId = -1;
-
+            long remId = -1;            
             
             
             //Will be different based on what repeating method the user has selected
@@ -1001,7 +1016,7 @@ namespace RemindMe
                     if (repeat == ReminderRepeatType.MONTHLY)
                     {
                         if (cbMonthlyDays.Items.Count > 0)
-                            remId = BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                            remId = BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath, Convert.ToInt32(swUpdateTime.Value));
                         else
                         {
                             //MakeScrollingPopupMessage("Can not create an reminder with monthly day(s) if there are no days selected!");
@@ -1013,14 +1028,20 @@ namespace RemindMe
 
                     else if (repeat == ReminderRepeatType.MULTIPLE_DAYS)
                         if (IsAtLeastOneWeeklyCheckboxSelected())
-                            remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                            remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath, Convert.ToInt32(swUpdateTime.Value));
                         else
                         {
                             //MakeScrollingPopupMessage("You do not have any day(s) selected!");
                             return;
                         }
                     else if (repeat == ReminderRepeatType.CUSTOM)
-                        remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                    {
+                        int updateTime = 0;
+                        if (pnlUpdateTime.Visible)
+                            updateTime = Convert.ToInt32(swUpdateTime.Value);
+
+                        remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), cbEveryXCustom.SelectedItem.ToString(), Convert.ToInt32(numEveryXDays.Value), null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath,updateTime);
+                    }
                     else if (repeat == ReminderRepeatType.NONE)
                     {
                         DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
@@ -1036,7 +1057,7 @@ namespace RemindMe
                         }
                     }
                     else
-                        remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
+                        remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath, Convert.ToInt32(swUpdateTime.Value));
 
                     BLIO.Log("New reminder succesfully created! (UCNewReminder)");
                 }
@@ -1115,8 +1136,17 @@ namespace RemindMe
                     if (editableReminder.EveryXCustom != null)
                         editableReminder.EveryXCustom = Convert.ToInt32(numEveryXDays.Value);
 
+                    //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
+                    if (repeat != ReminderRepeatType.NONE)
+                    {
+                        //Don't update the TIME if the repeat type is every x minutes/hours, that might mess it up
+                        if(repeat == ReminderRepeatType.CUSTOM && cbEveryXCustom.SelectedItem.ToString() != "Minutes" && cbEveryXCustom.SelectedItem.ToString() != "Hours") { }
+                        else
+                            editableReminder.UpdateTime = Convert.ToInt32(swUpdateTime.Value);
 
-                    RemoveUnusedPropertiesFromReminders(editableReminder);
+                    }
+                    RemoveUnusedPropertiesFromReminders(editableReminder);                    
+
                     BLReminder.EditReminder(editableReminder);
                     BLIO.Log("Reminder with id " + editableReminder.Id + " edited! (UCNewReminder)");
                 }
@@ -1279,7 +1309,7 @@ namespace RemindMe
                         cb.Text = "";                        
                     }
                 }
-                if (c is PictureBox && c.Name != "pbEdit")
+                if (c is PictureBox && c.Name != "pbEdit" && c.Name != "pbUpdateTimeInformation")
                     c.Visible = false;
             }
 
@@ -1290,6 +1320,8 @@ namespace RemindMe
             cbAdvancedReminder.Visible = false;
             cbAdvancedReminder.Checked = false;
             lblAdvancedReminders.Visible = false;
+            swUpdateTime.Value = false;
+            pnlUpdateTime.Visible = false;
         }
 
         public void ResetReminderForm()
@@ -1551,7 +1583,7 @@ namespace RemindMe
             btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
 
             if(callback != null && !callback.Visible && !this.Visible)
-                saveState = true;            
+                saveState = true;           
         }
 
         private void tbReminderName_Leave(object sender, EventArgs e)
@@ -1576,6 +1608,16 @@ namespace RemindMe
         {
             lblRepeat.Location = new Point(lblRepeat.Location.X, groupRepeatRadiobuttons.Location.Y + 3);
             tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
+        }
+        private void cbEveryXCustom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pnlUpdateTime.Visible = !(rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" || cbEveryXCustom.SelectedItem.ToString() == "Hours");
+        }
+
+        private void pnlUpdateTime_VisibleChanged(object sender, EventArgs e)
+        {
+            if(pnlUpdateTime.Visible)
+                pnlUpdateTime.Visible = !(rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" || cbEveryXCustom.SelectedItem.ToString() == "Hours");
         }
     }
 }

@@ -175,7 +175,7 @@ namespace Business_Logic_Layer
         /// Adds day(s) to the reminder so that the next date will be a weekly day. If the day is friday, the next popup date of the reminder will be monday
         /// </summary>
         /// <param name="rem"></param>
-        public static DateTime? GetNextReminderWorkDay(Reminder rem)
+        public static DateTime? GetNextReminderWorkDay(Reminder rem, bool allowUpdateTime = false)
         {                        
             DateTime nextWorkDay = Convert.ToDateTime(rem.Date);
             if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString())
@@ -185,13 +185,22 @@ namespace Business_Logic_Layer
                     switch (nextWorkDay.DayOfWeek)
                     {
                         case DayOfWeek.Friday:
-                            nextWorkDay = nextWorkDay.AddDays(3);
+                            if (rem.UpdateTime == 0 || !allowUpdateTime) //Dont update the time? just add 1 day
+                                nextWorkDay = nextWorkDay.AddDays(3);
+                            else
+                                nextWorkDay = Convert.ToDateTime(nextWorkDay.ToShortDateString() + " " + DateTime.Now.ToLongTimeString()).AddDays(3);
                             break;
                         case DayOfWeek.Saturday:
-                            nextWorkDay = nextWorkDay.AddDays(2);
+                            if (rem.UpdateTime == 0 || !allowUpdateTime) //Dont update the time? just add 1 day
+                                nextWorkDay = nextWorkDay.AddDays(2);
+                            else 
+                                nextWorkDay = Convert.ToDateTime(nextWorkDay.ToShortDateString() + " " + DateTime.Now.ToLongTimeString()).AddDays(2);
                             break;
                         default:
-                            nextWorkDay = nextWorkDay.AddDays(1);
+                            if (rem.UpdateTime == 0 || !allowUpdateTime) //Dont update the time? just add 1 day
+                                nextWorkDay = nextWorkDay.AddDays(1);
+                            else
+                                nextWorkDay = Convert.ToDateTime(nextWorkDay.ToShortDateString() + " " + DateTime.Now.ToLongTimeString()).AddDays(1);
                             break;
 
                     }

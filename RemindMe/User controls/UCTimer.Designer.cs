@@ -46,11 +46,14 @@
             this.btnNewTimer = new Bunifu.Framework.UI.BunifuFlatButton();
             this.TimerMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ucTimerDeleteToolstrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblTimerTitle = new System.Windows.Forms.Label();
+            this.pnlTimerTitle = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSeconds)).BeginInit();
             this.pnlRunningTimers.SuspendLayout();
             this.TimerMenuStrip.SuspendLayout();
+            this.pnlTimerTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -316,11 +319,33 @@
             this.ucTimerDeleteToolstrip.Text = "Delete this timer";
             this.ucTimerDeleteToolstrip.Click += new System.EventHandler(this.ucTimerDeleteToolstrip_Click);
             // 
+            // lblTimerTitle
+            // 
+            this.lblTimerTitle.AutoSize = true;
+            this.lblTimerTitle.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimerTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTimerTitle.Location = new System.Drawing.Point(12, 13);
+            this.lblTimerTitle.Name = "lblTimerTitle";
+            this.lblTimerTitle.Size = new System.Drawing.Size(51, 16);
+            this.lblTimerTitle.TabIndex = 1;
+            this.lblTimerTitle.Text = "Timer: ";
+            this.lblTimerTitle.Visible = false;
+            // 
+            // pnlTimerTitle
+            // 
+            this.pnlTimerTitle.BackColor = System.Drawing.Color.Transparent;
+            this.pnlTimerTitle.Controls.Add(this.lblTimerTitle);
+            this.pnlTimerTitle.Location = new System.Drawing.Point(142, 265);
+            this.pnlTimerTitle.Name = "pnlTimerTitle";
+            this.pnlTimerTitle.Size = new System.Drawing.Size(330, 48);
+            this.pnlTimerTitle.TabIndex = 116;
+            // 
             // UCTimer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.pnlTimerTitle);
             this.Controls.Add(this.btnPauseResumeTimer);
             this.Controls.Add(this.btnTimerTemplate);
             this.Controls.Add(this.btnNewTimer);
@@ -343,6 +368,8 @@
             this.pnlRunningTimers.ResumeLayout(false);
             this.pnlRunningTimers.PerformLayout();
             this.TimerMenuStrip.ResumeLayout(false);
+            this.pnlTimerTitle.ResumeLayout(false);
+            this.pnlTimerTitle.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -365,5 +392,7 @@
         private Bunifu.Framework.UI.BunifuFlatButton btnPauseResumeTimer;
         private System.Windows.Forms.ContextMenuStrip TimerMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ucTimerDeleteToolstrip;
+        private System.Windows.Forms.Label lblTimerTitle;
+        private System.Windows.Forms.Panel pnlTimerTitle;
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdvancedReminderFilesFolders">
           <Key>
             <PropertyRef Name="Id" />
@@ -71,6 +71,7 @@
           <Property Name="Hide" Type="integer" />
           <Property Name="Corrupted" Type="integer" />
           <Property Name="EnableAdvancedReminder" Type="integer" Nullable="false" />
+          <Property Name="UpdateTime" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -127,7 +128,8 @@
           <Property Name="DayOfMonth" Type="Int64" />
           <Property Name="Hide" Type="Int64" />
           <Property Name="Corrupted" Type="Int64" />
-          <Property Name="EnableAdvancedReminder" Type="Int64" Nullable="false" />          
+          <Property Name="EnableAdvancedReminder" Type="Int64" Nullable="false" />
+          <Property Name="UpdateTime" Type="Int64" Nullable="false" />          
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -218,6 +220,7 @@
           <EntitySetMapping Name="Reminder">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
               <MappingFragment StoreEntitySet="Reminder">                                                                
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="EnableAdvancedReminder" ColumnName="EnableAdvancedReminder" />
                 <ScalarProperty Name="Corrupted" ColumnName="Corrupted" />
                 <ScalarProperty Name="Hide" ColumnName="Hide" />
