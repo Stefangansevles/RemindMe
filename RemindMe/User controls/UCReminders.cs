@@ -153,12 +153,15 @@ namespace RemindMe
         }
       
         public void EditReminder(Reminder rem)
-        {            
-            newReminderUc.Reminder = BLReminder.GetReminderById(rem.Id);
-            BLIO.Log("Filling form with details of reminder with id " + rem.Id + " to edit");
-            Form1.Instance.ucNewReminder = newReminderUc;
-            this.Visible = false;
-            newReminderUc.Visible = true;
+        {
+            if (rem != null)
+            {
+                newReminderUc.Reminder = BLReminder.GetReminderById(rem.Id);
+                BLIO.Log("Filling form with details of reminder with id " + rem.Id + " to edit");
+                Form1.Instance.ucNewReminder = newReminderUc;
+                this.Visible = false;
+                newReminderUc.Visible = true;
+            }
         }
 
       
