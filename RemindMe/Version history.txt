@@ -861,3 +861,6 @@ When you dismiss the reminder by pressing "OK", the next date will be tomorrow, 
 This feature is disabled by default and can be enabled when editing a reminder
 
 - You can now see the text you set on a timer when you press the button in the timer interface.
+
+V2.6.401
+Fixed a bug where editing an existing reminder wouldn't allow you to set the new feature "Update time" in certain situations

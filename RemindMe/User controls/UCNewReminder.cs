@@ -1140,7 +1140,7 @@ namespace RemindMe
                     if (repeat != ReminderRepeatType.NONE)
                     {
                         //Don't update the TIME if the repeat type is every x minutes/hours, that might mess it up
-                        if(repeat == ReminderRepeatType.CUSTOM && cbEveryXCustom.SelectedItem.ToString() != "Minutes" && cbEveryXCustom.SelectedItem.ToString() != "Hours") { }
+                        if(repeat == ReminderRepeatType.CUSTOM && cbEveryXCustom.SelectedItem.ToString() == "Minutes" && cbEveryXCustom.SelectedItem.ToString() == "Hours") { }
                         else
                             editableReminder.UpdateTime = Convert.ToInt32(swUpdateTime.Value);
 
