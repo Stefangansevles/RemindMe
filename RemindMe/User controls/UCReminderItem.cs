@@ -389,7 +389,7 @@ namespace RemindMe
         private void rightClick_Settings(object sender, MouseEventArgs e)
         {
             //Right-click settings
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && rem != null)
             {
                 HideOrShowRemovePostponeMenuItem(rem);
                 HideOrShowSkipForwardMenuItem(rem);
