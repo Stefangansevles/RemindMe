@@ -17,28 +17,11 @@ namespace RemindMe
     {
         //Fill this user control with the details of this reminder
         private Reminder rem;
-        //Determine if this control is "Selected"
-        private bool selected = false;
         
         public UCReminderItem(Reminder rem)
         {
             InitializeComponent();
-            this.rem = rem;
-
-            //Make it so that it doesn't matter where on the item you click, the click event gets fired
-           
-
-            btnDelete.MouseHover += btn_MouseHover;
-            btnDelete.MouseLeave += btn_MouseLeave;
-
-            btnEdit.MouseHover += btn_MouseHover;
-            btnEdit.MouseLeave += btn_MouseLeave;
-
-            btnDisable.MouseHover += btn_MouseHover;
-            btnDisable.MouseLeave += btn_MouseLeave;
-
-            btnSettings.MouseHover += btn_MouseHover;
-            btnSettings.MouseLeave += btn_MouseLeave;
+            this.Reminder = rem;
 
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
 
@@ -48,17 +31,48 @@ namespace RemindMe
             tpInformation.SetToolTip(btnDisable, "Enable/Disable the reminder");
             tpInformation.SetToolTip(btnDelete, "Delete a reminder");
             tpInformation.SetToolTip(btnEdit, "Edit a reminder");
+
+            //Assign right-click settings popup to these 2 panels
+            bunifuGradientPanel1.MouseClick += rightClick_Settings;
+            pnlActionButtons.MouseClick += rightClick_Settings;
         }
 
         public bool IsEmpty()
         {
             return rem == null;
         }
-       
-        public void UpdateReminder(Reminder rem)
+               
+        public Reminder Reminder
         {
-            this.rem = rem;          
-            LoadReminderData();
+            get { return rem; }
+            set
+            {
+                rem = value;
+                if(rem == null)                
+                    Disable();                
+                else                
+                    Enable();                                
+            }
+        }
+
+        /// <summary>
+        /// Disable this reminder item. This occurs when the Reminder object is null. Initially on load of RemindMe, each "page" has 7 disabled items, which can be filled.
+        /// </summary>
+        private void Disable()
+        {
+            lblDate.Text = "";
+            lblReminderName.Text = "Empty.";
+            lblRepeat.Text = "";
+
+            btnDelete.Image = Properties.Resources.Bin_Disabled;
+            btnEdit.Image = Properties.Resources.Edit_Disabled;
+            btnSettings.Image = Properties.Resources.gearDisabled;
+            btnDisable.Image = Properties.Resources.turnedOffTwo;
+
+            btnSettings.Enabled = false;
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = false;            
+            btnDisable.Enabled = false;
         }
         protected override CreateParams CreateParams
         {
@@ -80,22 +94,19 @@ namespace RemindMe
                 ControlStyles.UserPaint |
                 ControlStyles.DoubleBuffer,
                 true);
-            
-            LoadReminderData();
+
+            if (this.Reminder != null)
+                Enable();
+            else
+                Disable();
         }
 
         //Loads reminder data into the controls
-        private void LoadReminderData()
+        private void Enable()
         {
-            if(rem == null)
-            {
-                lblDate.Text = "x";
-                lblReminderName.Text = "None";
-                lblRepeat.Text = "x";
-                btnDisable.Image = Properties.Resources.turnedOffTwo;
-                this.Visible = false;
-                return;
-            }
+            btnDelete.Image = Properties.Resources.Bin_white;
+            btnEdit.Image = Properties.Resources.Edit_white;
+            btnSettings.Image = Properties.Resources.gearWhite;
 
             pbRepeat.Location = new Point(168, 26);
             lblRepeat.Location = new Point(195, 30);
@@ -142,27 +153,13 @@ namespace RemindMe
                 btnDisable.Image = Properties.Resources.turnedOn;
             else
                 btnDisable.Image = Properties.Resources.turnedOffTwo;
-        }
+
+            btnSettings.Enabled = true;
+            btnDelete.Enabled = true;
+            btnEdit.Enabled = true;
+            btnDisable.Enabled = true;
+        }        
         
-
-        private void UCReminderItem_MouseEnter(object sender, EventArgs e)
-        {
-            if(!selected)
-                this.BackColor = Color.FromArgb(150, 150, 150);
-        }
-
-        //2 collective events that both do the same "animation" by changing the zoom, for 2 different buttons
-        private void btn_MouseHover(object sender, EventArgs e)
-        {
-            BunifuImageButton btn = (BunifuImageButton)sender;
-            btn.Zoom = -15;
-        }
-        private void btn_MouseLeave(object sender, EventArgs e)
-        {
-            BunifuImageButton btn = (BunifuImageButton)sender;
-            btn.Zoom = -15;
-        }
-
         private void btnDisable_Click(object sender, EventArgs e)
         {
             if (rem.Enabled == 1)
@@ -177,12 +174,11 @@ namespace RemindMe
             }
 
             BLReminder.EditReminder(rem);
-            UCReminders.GetInstance().UpdateCurrentPage();
-            UCReminders.GetInstance().RefreshPage();
+            UCReminders.GetInstance().UpdateCurrentPage();            
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
-        {
+        {            
             HideOrShowRemovePostponeMenuItem(rem);
             HideOrShowSkipForwardMenuItem(rem);
             ReminderMenuStrip.Show(Cursor.Position);
@@ -196,9 +192,8 @@ namespace RemindMe
         private void btnDelete_Click(object sender, EventArgs e)
         {            
             BLReminder.DeleteReminder(rem);
-            this.rem = null;
-            UCReminders.GetInstance().UpdateCurrentPage();
-            UCReminders.GetInstance().RefreshPage();
+            this.Reminder = null;
+            UCReminders.GetInstance().UpdateCurrentPage();            
         }
 
         private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -307,8 +302,8 @@ namespace RemindMe
                 rem.Hide = 1;
                 BLIO.Log("Marked reminder with id " + rem.Id + " as hidden");
                 BLReminder.EditReminder(rem);
-                UCReminders.GetInstance().UpdateCurrentPage();
-                UCReminders.GetInstance().RefreshPage();
+                this.Reminder = null;
+                UCReminders.GetInstance().UpdateCurrentPage();                
             }
             else
                 BLIO.Log("Attempting to hide reminder(s) failed.");
@@ -356,7 +351,7 @@ namespace RemindMe
 
             pbRepeat.Location = new Point(168, 26);
             lblRepeat.Location = new Point(195, 30);
-            LoadReminderData();
+            Enable();
             UCReminders.GetInstance().UpdateCurrentPage();
         }
 
@@ -376,18 +371,30 @@ namespace RemindMe
         {            
             if (RemindMeBox.Show("Are you really sure you wish to permanentely delete \"" + rem.Name + "\" ?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
             {                
-                BLIO.Log("Permanentely deleting reminder with id " + rem.Id + " ...");
-                this.Visible = false;
+                BLIO.Log("Permanentely deleting reminder with id " + rem.Id + " ...");                
                 BLReminder.PermanentelyDeleteReminder(rem);                
                 BLIO.Log("Reminder permanentely deleted.");
-                UCReminders.GetInstance().UpdateCurrentPage();
-                UCReminders.GetInstance().RefreshPage();
+
+                this.Reminder = null;
+                UCReminders.GetInstance().UpdateCurrentPage();                
             }
         }
 
         private void bunifuGradientPanel1_DoubleClick(object sender, EventArgs e)
         {
             btnEdit_Click(sender, e);
+        }
+
+
+        private void rightClick_Settings(object sender, MouseEventArgs e)
+        {
+            //Right-click settings
+            if (e.Button == MouseButtons.Right)
+            {
+                HideOrShowRemovePostponeMenuItem(rem);
+                HideOrShowSkipForwardMenuItem(rem);
+                ReminderMenuStrip.Show(Cursor.Position);
+            }
         }
     }
 }

@@ -19,9 +19,8 @@ namespace RemindMe
     {
         private string message;        
         private Exception ex;
-        private bool sentCustomEmail;
-        private bool allowEmail = false;
-        public ErrorPopup(string message,Exception ex, bool allowEmail = true)
+        private bool sentCustomEmail;        
+        public ErrorPopup(string message,Exception ex)
         {
             BLIO.Log("Constructing ErrorPopup (" + ex.GetType().ToString() + ")");
             InitializeComponent();
@@ -41,8 +40,7 @@ namespace RemindMe
 
             this.ex = ex;
             this.message = message;
-            lblText.Text = message + "\r\nCould you report how this happened?";
-            this.allowEmail = allowEmail;
+            lblText.Text = message + "\r\nCould you report how this happened?";            
 
             while (pnlMainGradient.Height < (lblText.Location.Y + lblText.Height))
                 this.Height += 35;
@@ -57,59 +55,47 @@ namespace RemindMe
                 Process.Start(IOVariables.errorLog);
         }
 
-    
+
 
 
         private void ErrorPopup_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //!sendCustomEmail = If the user has not given a description of the exception and sent it.
-            //allowEmail determines if we are allowed to send an e-mail(it's only allowed once every 30 seconds to prevent spam)
-            if (!sentCustomEmail && allowEmail)
+        {            
+            try
             {
-                try
+                string mess = "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString();
+
+                if (ex is ReminderException)
                 {
-                    string mess = "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString();
+                    ReminderException theException = (ReminderException)ex;
+                    theException.Reminder.Note = "Removed for privacy reasons";
+                    theException.Reminder.Name = "Removed for privacy reasons";
 
-                    if(ex is ReminderException)
-                    {
-                        ReminderException theException = (ReminderException)ex;
-                        theException.Reminder.Note = "Removed for privacy reasons";
-                        theException.Reminder.Name = "Removed for privacy reasons";
+                    mess += "\r\n\r\nThis exception is an ReminderException! Let's see if we can figure out what's wrong with it....\r\n";
+                    mess += "ID:    " + theException.Reminder.Id + "\r\n";
+                    mess += "Deleted:    " + theException.Reminder.Deleted + "\r\n";
+                    mess += "Date:  " + theException.Reminder.Date + "\r\n";
+                    mess += "RepeatType:    " + theException.Reminder.RepeatType + "\r\n";
+                    mess += "Enabled:   " + theException.Reminder.Enabled + "\r\n";
+                    mess += "DayOfMonth:    " + theException.Reminder.DayOfMonth + "\r\n";
+                    mess += "EveryXCustom:  " + theException.Reminder.EveryXCustom + "\r\n";
+                    mess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
+                    mess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
+                    mess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
+                    mess += "Hide:  " + theException.Reminder.Hide + "\r\n\r\n";
 
-                        mess += "\r\n\r\nThis exception is an ReminderException! Let's see if we can figure out what's wrong with it....\r\n";
-                        mess += "ID:    " + theException.Reminder.Id + "\r\n";
-                        mess += "Deleted:    " + theException.Reminder.Deleted + "\r\n";
-                        mess += "Date:  " + theException.Reminder.Date + "\r\n";
-                        mess += "RepeatType:    " + theException.Reminder.RepeatType + "\r\n";
-                        mess += "Enabled:   " + theException.Reminder.Enabled + "\r\n";
-                        mess += "DayOfMonth:    " + theException.Reminder.DayOfMonth + "\r\n";
-                        mess += "EveryXCustom:  " + theException.Reminder.EveryXCustom + "\r\n";
-                        mess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
-                        mess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
-                        mess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
-                        mess += "Hide:  " + theException.Reminder.Hide + "\r\n\r\n";
-
-                        mess += "=== Displaying date culture info, so you might be able to re-create the reminder ===\r\n";
-                        mess += "Current culture DisplayName: " + CultureInfo.CurrentCulture.DisplayName + "\r\n";
-                        mess += "Current culture ShortTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern + "\r\n";
-                        mess += "Current culture ShortDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "\r\n";
-                        mess += "Current culture ToString(): " + CultureInfo.CurrentCulture.ToString() + "\r\n";
+                    mess += "=== Displaying date culture info, so you might be able to re-create the reminder ===\r\n";
+                    mess += "Current culture DisplayName: " + CultureInfo.CurrentCulture.DisplayName + "\r\n";
+                    mess += "Current culture ShortTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern + "\r\n";
+                    mess += "Current culture ShortDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "\r\n";
+                    mess += "Current culture ToString(): " + CultureInfo.CurrentCulture.ToString() + "\r\n";
 
 
-                    }
-                    
-                    Thread sendMailThread = new Thread(() => BLEmail.SendEmail("Error Report: " + ex.GetType().ToString(), mess));
-                    BLIO.Log("Also submitting the exception into the database....");
-                    BLOnlineDatabase.AddException(ex, DateTime.Now);
-
-                    sendMailThread.Start();
-                    BLOnlineDatabase.AddException(ex, DateTime.UtcNow);
                 }
-                catch { }
+                BLOnlineDatabase.AddException(ex, DateTime.UtcNow, BLIO.GetLogTxtPath());
             }
-        }
+            catch { }
 
-       
+        }
 
       
 
@@ -163,12 +149,9 @@ namespace RemindMe
                         customMess += "Hide:  " + theException.Reminder.Hide + "\r\n";
                     }
 
-                }
-
-                Thread sendMailThread = new Thread(() => BLEmail.SendEmail("[CUSTOM] | Error Report: " + ex.GetType().ToString(), customMess));
-                sendMailThread.Start();
+                }                
                 MessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
-                BLOnlineDatabase.AddException(ex, DateTime.UtcNow);
+                BLOnlineDatabase.AddException(ex, DateTime.UtcNow, BLIO.GetLogTxtPath());
                 this.Dispose();
             }
             catch { }

@@ -163,6 +163,16 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Bin_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("Bin_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bin_white {
             get {
                 object obj = ResourceManager.GetObject("Bin_white", resourceCulture);
@@ -323,6 +333,16 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Edit_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("Edit_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap edit_pen {
             get {
                 object obj = ResourceManager.GetObject("edit_pen", resourceCulture);
@@ -456,6 +476,16 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap FileFolder {
             get {
                 object obj = ResourceManager.GetObject("FileFolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gearDisabled {
+            get {
+                object obj = ResourceManager.GetObject("gearDisabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

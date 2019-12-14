@@ -864,3 +864,11 @@ This feature is disabled by default and can be enabled when editing a reminder
 
 V2.6.401
 Fixed a bug where editing an existing reminder wouldn't allow you to set the new feature "Update time" in certain situations
+
+V2.6.402
+- The reminder list interface now always contains 7 reminder items. Each item starts out empty initially. If you have reminders already, these items will be loaded with your reminder.
+This way you don't see a few reminders, and a different color under the reminders
+
+- Dragging a .remindme file into RemindMe will now import reminders again
+
+- Right clicking a reminder now does the same as clicking the settings button (hint: double clicking does the same as editing)

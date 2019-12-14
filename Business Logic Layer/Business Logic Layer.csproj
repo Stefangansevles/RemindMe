@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="BLAVRProperties.cs" />
     <Compile Include="BLDateTime.cs" />
-    <Compile Include="BLEmail.cs" />
     <Compile Include="BLFormLogic.cs" />
     <Compile Include="BLHotkeys.cs" />
     <Compile Include="BLIO.cs" />

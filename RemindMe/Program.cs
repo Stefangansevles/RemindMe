@@ -13,12 +13,7 @@ using System.Windows.Forms;
 namespace RemindMe
 {
     static class Program
-    {
-        //Checks if we can send an e-mail, when users come accross an error, they tend to try it multiple times. We don't want to spam e-mails.
-        private static bool allowEmail = true;
-        private static System.Windows.Forms.Timer tmrAllowEmail = null;
-
-       
+    { 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -83,45 +78,13 @@ namespace RemindMe
         {
             //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
             //that has an bunifu control in it(like a button), while there shouldn't be an exception.
-            if ( !(ex is System.Runtime.InteropServices.ExternalException) && ex.Source != "System.Drawing" && !ex.StackTrace.Contains("GDI+"))
+            if (!(ex is System.Runtime.InteropServices.ExternalException) && ex.Source != "System.Drawing" && !ex.StackTrace.Contains("GDI+"))
             {
-                BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");
-                ErrorPopup popup;
-                if (allowEmail)
-                {
-                    popup = new ErrorPopup(message + "\r\n" + description, ex);
-                    startTimer();
-                }
-                else
-                    popup = new ErrorPopup(message + "\r\n" + description, ex, false);
-
-                popup.Show();
+                BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");                
+                new ErrorPopup(message + "\r\n" + description, ex).Show();
             }
            
         }
-
-        private static void startTimer()
-        {
-            if (tmrAllowEmail == null)
-            {
-                tmrAllowEmail = new System.Windows.Forms.Timer();
-                tmrAllowEmail.Interval = 30000; //30 seconds
-                tmrAllowEmail.Tick += TmrAllowEmail_Tick; //subscribe to tick event
-            }
-
-
-            if (!tmrAllowEmail.Enabled) //Not running? run.
-                tmrAllowEmail.Start();
-        }
-
-        private static void TmrAllowEmail_Tick(object sender, EventArgs e)
-        {
-            if (!allowEmail) //Not allowed? allow.
-                allowEmail = true;
-
-            tmrAllowEmail.Stop();
-        }
-
 
         //All uncaught exceptions will go here instead. We will replace the default windows popup with our own custom one and filter out what kind of exception is being thrown
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)

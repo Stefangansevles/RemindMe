@@ -209,7 +209,7 @@ namespace Business_Logic_Layer
 
                 if (sendToOnlineDatabase && HasInternetAccess())
                 {
-                    BLOnlineDatabase.AddException(ex, DateTime.Now);
+                    BLOnlineDatabase.AddException(ex, DateTime.Now, GetLogTxtPath());
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,16 +21,22 @@ namespace Data_Access_Layer
         /// </summary>
         /// <param name="ex">The exception that is going to be logged</param>
         /// <param name="exceptionDate">The date the exception is logged at</param>
-        public static void AddException(Exception ex, DateTime exceptionDate)
+        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string message = null)
         {
             try
-            {                
+            {                                
                 ExceptionLog log = new ExceptionLog();
                 log.ExceptionDate = exceptionDate;
-                log.ExceptionMessage = ex.Message;
+
+                if (message == null)
+                    log.ExceptionMessage = ex.Message;
+                else
+                    log.ExceptionMessage = message;
+
                 log.ExceptionStackTrace = ex.ToString();
                 log.ExceptionType = ex.GetType().ToString();
                 log.Username = Environment.UserName;
+                log.SystemLog = File.ReadAllText(pathToSystemLog);
 
                 db.ExceptionLog.Add(log);
                 db.SaveChanges();

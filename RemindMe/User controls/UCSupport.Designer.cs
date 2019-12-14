@@ -28,14 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tbSubject = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbEmail = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.tbNote = new System.Windows.Forms.TextBox();
-            this.tmrSendMail = new System.Windows.Forms.Timer(this.components);
-            this.tmrAllowMail = new System.Windows.Forms.Timer(this.components);
             this.lblSending = new System.Windows.Forms.Label();
             this.pbSending = new System.Windows.Forms.PictureBox();
             this.btnSend = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -110,16 +107,6 @@
             this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbNote.Size = new System.Drawing.Size(314, 102);
             this.tbNote.TabIndex = 92;
-            // 
-            // tmrSendMail
-            // 
-            this.tmrSendMail.Interval = 1000;
-            this.tmrSendMail.Tick += new System.EventHandler(this.tmrSendMail_Tick);
-            // 
-            // tmrAllowMail
-            // 
-            this.tmrAllowMail.Interval = 10000;
-            this.tmrAllowMail.Tick += new System.EventHandler(this.tmrAllowMail_Tick);
             // 
             // lblSending
             // 
@@ -225,8 +212,6 @@
         private Bunifu.Framework.UI.BunifuMetroTextbox tbEmail;
         public System.Windows.Forms.TextBox tbNote;
         private Bunifu.Framework.UI.BunifuFlatButton btnSend;
-        private System.Windows.Forms.Timer tmrSendMail;
-        private System.Windows.Forms.Timer tmrAllowMail;
         private System.Windows.Forms.PictureBox pbSending;
         private System.Windows.Forms.Label lblSending;
         private System.Windows.Forms.Label label3;

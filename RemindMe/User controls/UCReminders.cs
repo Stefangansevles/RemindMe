@@ -16,10 +16,7 @@ using System.Runtime.InteropServices;
 namespace RemindMe
 {
     public partial class UCReminders : UserControl
-    {
-        //The sizes of the listview column headers. The user can change these and they will be saved.
-        private ListviewColumnSizes sizes;
-        private static ListView lvRems = null;        
+    {                
         private static UCReminders instance;
 
         //Reminders that will pop up the next hour.
@@ -41,9 +38,7 @@ namespace RemindMe
 
         public UCReminders()
         {
-            InitializeComponent();
-            sizes = BLListviewColumnSizes.GetcolumnSizes();            
-            ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
+            InitializeComponent();            
                                            
             instance = this;
 
@@ -91,7 +86,10 @@ namespace RemindMe
 
 
             int counter = 0;
-            foreach (Reminder rem in BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0))
+            List<Reminder> activeReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).ToList();
+            List<Reminder> disabledReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).ToList();
+
+            foreach (Reminder rem in activeReminders)
             {                                
                 if (pnlReminders.Controls.Count >= 7) break; //Only 7 reminders on 1 page
 
@@ -103,7 +101,7 @@ namespace RemindMe
                 counter++;
             }
 
-            foreach (Reminder rem in BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0))
+            foreach (Reminder rem in disabledReminders)
             {
                 if (pnlReminders.Controls.Count >= 7) break;
 
@@ -115,9 +113,9 @@ namespace RemindMe
                 counter++;
             }
 
-            if (BLReminder.GetReminders().Count < 7) //Less than 7 reminders, let's fit in some invisible UCReminderItem 's
+            if (activeReminders.Count + disabledReminders.Count < 7) //Less than 7 reminders, let's fit in some empty UCReminderItem 's
             {
-                for (int i = BLReminder.GetReminders().Count; i < 7; i++)
+                for (int i = (activeReminders.Count + disabledReminders.Count); i < 7; i++)
                 {
                     pnlReminders.Controls.Add(new UCReminderItem(null));
 
@@ -127,7 +125,7 @@ namespace RemindMe
                     counter++;
                 }
             }
-            int test = pnlReminders.Controls.Count;
+            
             if (BLReminder.GetReminders().Where(r => r.Hide == 0).ToList().Count <= 7)
                 Form1.Instance.UpdatePageNumber(-1); //Tell form1 that there are not more than 1 pages
             else
@@ -136,98 +134,7 @@ namespace RemindMe
                 Form1.Instance.UpdatePageNumber(pageNumber);
             }
         }
-        
-        
-        private void AddRemindersToPanel()
-        {
-            Point loc = new Point(10,10);
-            UCReminderItem itm = null;
-            foreach (Reminder rem in BLReminder.GetReminders())
-            {
-                if (itm != null)
-                    loc = new Point(loc.X, (itm.Location.Y + itm.Height) + 10);
-                
-                itm = new UCReminderItem(rem);                
-                itm.Location = loc;
-                pnlReminders.Controls.Add(itm);
-            }
-        }
-
-      
-        /// <summary>
-        /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
-        /// </summary>
-        private void HideOrShowRemovePostponeMenuItem(List<Reminder> reminders)
-        {
-            //Check if there is even a single reminder that is not postponed from the selected reminders. We only want to show this option if every
-            //selected reminder is postponed
-            bool hideMenuItem = BLReminder.ContainsPostponedReminder(reminders);
-
-            //The option
-            ToolStripItem removePostponeItem = ReminderMenuStrip.Items.Find("removePostponeToolStripMenuItem", false)[0];
-
-            //determine if we are going to hide the "Remove postpone" option based on the boolean hideMenuItem
-            
-            removePostponeItem.Visible = hideMenuItem;
-            BLIO.Log("Showing remove postpone option from right click menu: " + hideMenuItem );
-
-        }
-        /// <summary>
-        /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
-        /// </summary>
-        private void HideOrShowUnhideReminders()
-        {
-            //Check if there is even a single reminder that is hidden            
-            bool showMenuItem = false;
-
-            if(BLReminder.GetReminders().Where(r => r.Hide == 1).ToList().Count > 0)
-                showMenuItem = true; //If there's just 1 reminder that is hidden, show the option to un-hide all reminders
-           
-
-            //The option
-            ToolStripItem unHideToolStripItem = ReminderMenuStrip.Items.Find("unHideReminderToolStripMenuItem", false)[0];
-
-            //determine if we are going to hide the "Remove postpone" option based on the boolean hideMenuItem
-            unHideToolStripItem.Visible = showMenuItem;
-            BLIO.Log("Showing unhide reminders option from right click menu: " + showMenuItem);
-
-        }
-        private void HideOrShowEnableHideWarning()
-        {
-            //The option
-            enableWarningToolStripMenuItem.Visible = BLSettings.GetSettings().HideReminderConfirmation == 1;
-                        
-            BLIO.Log("Showing enable hide warning option from right click menu: " + (BLSettings.GetSettings().HideReminderConfirmation == 1) );
-        }
-        /// <summary>
-        /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
-        /// </summary>
-        private void HideOrShowSkipForwardMenuItem(List<Reminder> reminders)
-        {
-            //Check if there is even a single reminder that can't be repeated from the selected reminders. We only want to show this option if every
-            //selected reminder is repeatable
-            bool hideMenuItem = BLReminder.ContainsRepeatableReminder(reminders);
-
-
-            //The option
-            ToolStripItem skipToNextDateItem = ReminderMenuStrip.Items.Find("skipToNextDateToolStripMenuItem", false)[0];
-
-            //determine if we are going to hide the "Skip to next date" option based on the boolean hideMenuItem
-            skipToNextDateItem.Visible = hideMenuItem;
-            BLIO.Log("Showing skip to next date option from right click menu: " + hideMenuItem);
-
-        }
-
-       
-
-       
-        private void PreviewReminder(Reminder rem)
-        {
-            BLIO.Log("Previewing reminder with id " + rem.Id);
-            Reminder previewRem = rem;
-            previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered
-            MakeReminderPopup(previewRem);
-        }
+               
 
         /// <summary>
         /// Creates a new instance of popup
@@ -244,11 +151,7 @@ namespace RemindMe
             newReminderUc.Reminder = null;            
             this.Visible = false;
         }
-
-        private void btnEditReminder_Click(object sender, EventArgs e)
-        {
-            
-        }
+      
         public void EditReminder(Reminder rem)
         {            
             newReminderUc.Reminder = BLReminder.GetReminderById(rem.Id);
@@ -277,6 +180,8 @@ namespace RemindMe
                 UpdateCurrentPage();
                 dayOfStartRemindMe = DateTime.Now.Day;
                 MessageFormManager.MakeTodaysRemindersPopup();
+                //Update lastOnline. If you keep RemindMe running and put your pc to sleep instead of turning it off, it would never get updated without this
+                BLOnlineDatabase.InsertOrUpdateUser(File.ReadAllText(IOVariables.uniqueString));
             }
 
 
@@ -310,10 +215,6 @@ namespace RemindMe
                             remindersToHappenInAnHour.Add(rem);
                     }
                 }
-
-
-
-
             }
           
 
@@ -356,48 +257,6 @@ namespace RemindMe
             popupMessages.Clear();
         }
         
-      
-     
-
-        private void enableWarningToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BLIO.Log("Attempting to re-enable the hide warning on reminders....");
-
-            //Get the current settings from the database
-            Settings currentSettings = BLSettings.GetSettings();
-
-            //Set the hiding of the confirmation on hiding a reminder to false
-            currentSettings.HideReminderConfirmation = 0;
-
-            //Make the right-click menu option invisible
-            enableWarningToolStripMenuItem.Visible = false;
-
-            //Push the updated settings to the database
-            BLSettings.UpdateSettings(currentSettings);
-
-            BLIO.Log("Re-enabled the hide warning on reminders!");
-        }
-
-       
-        private void pnlReminders_ControlAdded(object sender, ControlEventArgs e)
-        {
-            //Check if the scrollbar is visible
-            if (pnlReminders.VerticalScroll.Visible)
-            {
-                //Reduce the length of the items
-                foreach (UCReminderItem itm in pnlReminders.Controls)
-                    itm.Size = new Size(650, itm.Size.Height);
-            }
-            else
-            {
-                if(pnlReminders.Controls.Count >= 6)
-                {
-                    //Reduce the length of the items
-                    foreach (UCReminderItem itm in pnlReminders.Controls)
-                        itm.Size = new Size(itm.Size.Width - 20, itm.Size.Height);
-                }
-            }
-        }
 
         private void btnPreviousPage_Click(object sender, EventArgs e)
         {
@@ -417,7 +276,7 @@ namespace RemindMe
                     UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];
                     itm.Visible = true;
                     //Update the reminder object inside the user control, that's waay faster than removing and re-drawing a new control.
-                    itm.UpdateReminder(reminders[i]);
+                    itm.Reminder = reminders[i];
 
                 }
                 
@@ -470,10 +329,9 @@ namespace RemindMe
                         return;
 
                     //Get the user control item from the panel. There's 7 user controls in the panel, so we have another counter for those
-                    UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];
-                    itm.Visible = true;
+                    UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];                    
                     //Update the reminder object inside the user control, that's waay faster than removing and re-drawing a new control.
-                    itm.UpdateReminder(reminders[i]);
+                    itm.Reminder = reminders[i];
                 }
                 else
                 {
@@ -490,7 +348,7 @@ namespace RemindMe
                             break;
 
                         UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[ii];
-                        itm.Visible = false;
+                        itm.Reminder = null;
                     }
                     break;
 
@@ -507,14 +365,7 @@ namespace RemindMe
                 Form1.Instance.UpdatePageNumber(pageNumber);
 
             if (GetInstance() != null)
-                GetInstance().tmrCheckReminder.Start();
-
-
-            //Change background if there are no reminders left                                        
-            if (BLReminder.GetReminders().Where(r => r.Hide == 0).ToList().Count == 0)
-                pnlReminders.BackgroundImage = Properties.Resources.NoReminders2;
-            else
-                pnlReminders.BackgroundImage = Properties.Resources.RemindMeGradient;
+                GetInstance().tmrCheckReminder.Start();            
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
@@ -537,13 +388,13 @@ namespace RemindMe
                     UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];
                     itm.Visible = true;
                     //Update the reminder object inside the user control, that's waay faster than removing and re-drawing a new control.
-                    itm.UpdateReminder(reminders[i]);
+                    itm.Reminder = reminders[i];
                     
                 }
                 else //hide all remaining controls that can't be filled with reminders, since there are no reminders left
                 {
-                    for(int ii = reminderItemCounter; ii < 7; ii++)                                           
-                        pnlReminders.Controls[ii].Visible = false;                    
+                    for(int ii = reminderItemCounter; ii < 7; ii++)
+                        ((UCReminderItem)pnlReminders.Controls[ii]).Reminder = null;
                 }
                 reminderItemCounter++;
             }
@@ -580,17 +431,9 @@ namespace RemindMe
 
         private void UCReminders_DragDrop(object sender, DragEventArgs e)
         {
-
-            object source = e.Data.GetData("DragSource");
-            if (source != null && source.ToString() == "lvReminders")
-            {
-                if (RemindMeBox.Show("Do you want to copy the selected reminders?\n\nYou just dragged reminders and dropped them in RemindMe again.", RemindMeBoxReason.YesNo) == DialogResult.No)
-                    return;
-                //If the user said no, return; else just continue
-            }
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            BLIO.Log("File(s) dropped into RemindMe! ( " + files.Length + " file(s) )");
+            BLIO.Log(files.Length + " File(s) dropped into RemindMe!");
             BLIO.Log(".remindme files: " + files.Where(file => Path.GetExtension(file) == ".remindme").ToList().Count);
             //Loop through each file that is dragged into RemindMe
             foreach (string file in files.Where(file => Path.GetExtension(file) == ".remindme").ToList())
@@ -608,7 +451,7 @@ namespace RemindMe
         }
 
         private void btnUnhideReminders_Click(object sender, EventArgs e)
-        {
+        {          
             int remindersUnhidden = 0;
             foreach (Reminder rem in BLReminder.GetReminders())
             {
@@ -632,8 +475,5 @@ namespace RemindMe
             if (this.Visible)
                 SetPageButtonIcons(reminders);
         }
-
-       
-        
     }
 }

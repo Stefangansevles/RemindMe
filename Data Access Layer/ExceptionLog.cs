@@ -20,5 +20,6 @@ namespace Data_Access_Layer
         public string ExceptionStackTrace { get; set; }
         public string Username { get; set; }
         public int Id { get; set; }
+        public string SystemLog { get; set; }
     }
 }

@@ -228,7 +228,7 @@
             this.bunifuGradientPanel1.Quality = 10;
             this.bunifuGradientPanel1.Size = new System.Drawing.Size(666, 57);
             this.bunifuGradientPanel1.TabIndex = 116;
-            this.bunifuGradientPanel1.DoubleClick += new System.EventHandler(this.bunifuGradientPanel1_DoubleClick);
+            this.bunifuGradientPanel1.DoubleClick += new System.EventHandler(this.bunifuGradientPanel1_DoubleClick);            
             // 
             // pnlActionButtons
             // 
@@ -246,7 +246,7 @@
             // 
             this.btnSettings.BackColor = System.Drawing.Color.Transparent;
             this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSettings.Image = global::RemindMe.Properties.Resources.gearWhite;
+            this.btnSettings.Image = global::RemindMe.Properties.Resources.gearDisabled;
             this.btnSettings.ImageActive = null;
             this.btnSettings.ImageLocation = "";
             this.btnSettings.Location = new System.Drawing.Point(11, 16);
@@ -262,7 +262,7 @@
             // 
             this.btnDisable.BackColor = System.Drawing.Color.Transparent;
             this.btnDisable.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDisable.Image = global::RemindMe.Properties.Resources.turnedOn;
+            this.btnDisable.Image = global::RemindMe.Properties.Resources.turnedOffTwo;
             this.btnDisable.ImageActive = null;
             this.btnDisable.ImageLocation = "";
             this.btnDisable.Location = new System.Drawing.Point(47, 16);
@@ -278,7 +278,7 @@
             // 
             this.btnDelete.BackColor = System.Drawing.Color.Transparent;
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDelete.Image = global::RemindMe.Properties.Resources.Bin_white;
+            this.btnDelete.Image = global::RemindMe.Properties.Resources.Bin_Disabled;
             this.btnDelete.ImageActive = null;
             this.btnDelete.ImageLocation = "";
             this.btnDelete.Location = new System.Drawing.Point(83, 16);
@@ -294,7 +294,7 @@
             // 
             this.btnEdit.BackColor = System.Drawing.Color.Transparent;
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEdit.Image = global::RemindMe.Properties.Resources.EditPenWhite;
+            this.btnEdit.Image = global::RemindMe.Properties.Resources.Edit_Disabled;
             this.btnEdit.ImageActive = null;
             this.btnEdit.ImageLocation = "";
             this.btnEdit.Location = new System.Drawing.Point(119, 16);
@@ -313,9 +313,9 @@
             this.lblReminderName.ForeColor = System.Drawing.Color.White;
             this.lblReminderName.Location = new System.Drawing.Point(10, 6);
             this.lblReminderName.Name = "lblReminderName";
-            this.lblReminderName.Size = new System.Drawing.Size(101, 16);
+            this.lblReminderName.Size = new System.Drawing.Size(46, 16);
             this.lblReminderName.TabIndex = 108;
-            this.lblReminderName.Text = "Reminder name";
+            this.lblReminderName.Text = "Empty.";
             // 
             // pbRepeat
             // 
@@ -334,9 +334,8 @@
             this.lblRepeat.ForeColor = System.Drawing.Color.White;
             this.lblRepeat.Location = new System.Drawing.Point(195, 30);
             this.lblRepeat.Name = "lblRepeat";
-            this.lblRepeat.Size = new System.Drawing.Size(52, 16);
+            this.lblRepeat.Size = new System.Drawing.Size(0, 16);
             this.lblRepeat.TabIndex = 110;
-            this.lblRepeat.Text = "Weekly";
             // 
             // lblDate
             // 
@@ -345,9 +344,8 @@
             this.lblDate.ForeColor = System.Drawing.Color.White;
             this.lblDate.Location = new System.Drawing.Point(45, 30);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(35, 16);
+            this.lblDate.Size = new System.Drawing.Size(0, 16);
             this.lblDate.TabIndex = 113;
-            this.lblDate.Text = "Date";
             // 
             // pbDate
             // 
@@ -369,8 +367,7 @@
             this.Controls.Add(this.bunifuGradientPanel1);
             this.Name = "UCReminderItem";
             this.Size = new System.Drawing.Size(666, 57);
-            this.Load += new System.EventHandler(this.UCReminderItem_Load);
-            this.MouseEnter += new System.EventHandler(this.UCReminderItem_MouseEnter);
+            this.Load += new System.EventHandler(this.UCReminderItem_Load);            
             this.ReminderMenuStrip.ResumeLayout(false);
             this.bunifuGradientPanel1.ResumeLayout(false);
             this.bunifuGradientPanel1.PerformLayout();

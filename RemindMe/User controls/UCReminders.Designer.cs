@@ -29,21 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCReminders));
-            this.ReminderMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.previewThisReminderNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.previewThisReminderIn5SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.previewThisReminderIn10SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportSelectedRemindersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enableWarningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unHideReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.postponeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removePostponeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.skipToNextDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.tmrClearMessageCache = new System.Windows.Forms.Timer(this.components);
             this.pnlBackground = new Bunifu.Framework.UI.BunifuGradientPanel();
@@ -53,156 +38,9 @@
             this.btnPreviousPage = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnAddReminder = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlReminders = new RemindMe.NonFlickerPanel();
-            this.ReminderMenuStrip.SuspendLayout();
             this.pnlBackground.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ReminderMenuStrip
-            // 
-            this.ReminderMenuStrip.BackColor = System.Drawing.Color.DimGray;
-            this.ReminderMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReminderMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.previewToolStripMenuItem,
-            this.exportSelectedRemindersToolStripMenuItem,
-            this.duplicateToolStripMenuItem,
-            this.hideReminderToolStripMenuItem,
-            this.unHideReminderToolStripMenuItem,
-            this.postponeToolStripMenuItem,
-            this.removePostponeToolStripMenuItem,
-            this.skipToNextDateToolStripMenuItem,
-            this.toolStripMenuItem1});
-            this.ReminderMenuStrip.Name = "ReminderMenuStrip";
-            this.ReminderMenuStrip.Size = new System.Drawing.Size(255, 202);
-            // 
-            // previewToolStripMenuItem
-            // 
-            this.previewToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.previewToolStripMenuItem.BackgroundImage = global::RemindMe.Properties.Resources.DimGray;
-            this.previewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.previewThisReminderNowToolStripMenuItem,
-            this.previewThisReminderIn5SecondsToolStripMenuItem,
-            this.previewThisReminderIn10SecondsToolStripMenuItem});
-            this.previewToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.previewToolStripMenuItem.Image = global::RemindMe.Properties.Resources.prev;
-            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
-            this.previewToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.previewToolStripMenuItem.Text = "Preview reminder";
-            // 
-            // previewThisReminderNowToolStripMenuItem
-            // 
-            this.previewThisReminderNowToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.previewThisReminderNowToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.previewThisReminderNowToolStripMenuItem.Name = "previewThisReminderNowToolStripMenuItem";
-            this.previewThisReminderNowToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
-            this.previewThisReminderNowToolStripMenuItem.Text = "Preview this reminder now";
-            // 
-            // previewThisReminderIn5SecondsToolStripMenuItem
-            // 
-            this.previewThisReminderIn5SecondsToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.previewThisReminderIn5SecondsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.previewThisReminderIn5SecondsToolStripMenuItem.Name = "previewThisReminderIn5SecondsToolStripMenuItem";
-            this.previewThisReminderIn5SecondsToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
-            this.previewThisReminderIn5SecondsToolStripMenuItem.Text = "Preview this reminder in 5 seconds";
-            // 
-            // previewThisReminderIn10SecondsToolStripMenuItem
-            // 
-            this.previewThisReminderIn10SecondsToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.previewThisReminderIn10SecondsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.previewThisReminderIn10SecondsToolStripMenuItem.Name = "previewThisReminderIn10SecondsToolStripMenuItem";
-            this.previewThisReminderIn10SecondsToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
-            this.previewThisReminderIn10SecondsToolStripMenuItem.Text = "Preview this reminder in 10 seconds";
-            // 
-            // exportSelectedRemindersToolStripMenuItem
-            // 
-            this.exportSelectedRemindersToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exportSelectedRemindersToolStripMenuItem.BackgroundImage")));
-            this.exportSelectedRemindersToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.exportSelectedRemindersToolStripMenuItem.Image = global::RemindMe.Properties.Resources.export_black;
-            this.exportSelectedRemindersToolStripMenuItem.Name = "exportSelectedRemindersToolStripMenuItem";
-            this.exportSelectedRemindersToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.exportSelectedRemindersToolStripMenuItem.Text = "Export selected reminders";
-            // 
-            // duplicateToolStripMenuItem
-            // 
-            this.duplicateToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duplicateToolStripMenuItem.BackgroundImage")));
-            this.duplicateToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.duplicateToolStripMenuItem.Image = global::RemindMe.Properties.Resources.duplicate;
-            this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.duplicateToolStripMenuItem.Text = "Duplicate";
-            // 
-            // hideReminderToolStripMenuItem
-            // 
-            this.hideReminderToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("hideReminderToolStripMenuItem.BackgroundImage")));
-            this.hideReminderToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.hideReminderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.enableWarningToolStripMenuItem});
-            this.hideReminderToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.hideReminderToolStripMenuItem.Image = global::RemindMe.Properties.Resources.hide;
-            this.hideReminderToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.hideReminderToolStripMenuItem.Name = "hideReminderToolStripMenuItem";
-            this.hideReminderToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.hideReminderToolStripMenuItem.Text = "Hide reminder";
-            // 
-            // enableWarningToolStripMenuItem
-            // 
-            this.enableWarningToolStripMenuItem.BackColor = System.Drawing.Color.DimGray;
-            this.enableWarningToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.enableWarningToolStripMenuItem.Image = global::RemindMe.Properties.Resources.err;
-            this.enableWarningToolStripMenuItem.Name = "enableWarningToolStripMenuItem";
-            this.enableWarningToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.enableWarningToolStripMenuItem.Text = "Enable warning";
-            this.enableWarningToolStripMenuItem.Visible = false;
-            this.enableWarningToolStripMenuItem.Click += new System.EventHandler(this.enableWarningToolStripMenuItem_Click);
-            // 
-            // unHideReminderToolStripMenuItem
-            // 
-            this.unHideReminderToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("unHideReminderToolStripMenuItem.BackgroundImage")));
-            this.unHideReminderToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.unHideReminderToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.unHideReminderToolStripMenuItem.Image = global::RemindMe.Properties.Resources.show;
-            this.unHideReminderToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.unHideReminderToolStripMenuItem.Name = "unHideReminderToolStripMenuItem";
-            this.unHideReminderToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.unHideReminderToolStripMenuItem.Text = "Unhide reminders";
-            // 
-            // postponeToolStripMenuItem
-            // 
-            this.postponeToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("postponeToolStripMenuItem.BackgroundImage")));
-            this.postponeToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.postponeToolStripMenuItem.Image = global::RemindMe.Properties.Resources.zzz;
-            this.postponeToolStripMenuItem.Name = "postponeToolStripMenuItem";
-            this.postponeToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.postponeToolStripMenuItem.Text = "Postpone";
-            // 
-            // removePostponeToolStripMenuItem
-            // 
-            this.removePostponeToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("removePostponeToolStripMenuItem.BackgroundImage")));
-            this.removePostponeToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.removePostponeToolStripMenuItem.Image = global::RemindMe.Properties.Resources.zzzCancel;
-            this.removePostponeToolStripMenuItem.Name = "removePostponeToolStripMenuItem";
-            this.removePostponeToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.removePostponeToolStripMenuItem.Text = "Remove Postpone";
-            // 
-            // skipToNextDateToolStripMenuItem
-            // 
-            this.skipToNextDateToolStripMenuItem.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("skipToNextDateToolStripMenuItem.BackgroundImage")));
-            this.skipToNextDateToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.skipToNextDateToolStripMenuItem.Image = global::RemindMe.Properties.Resources.skip_forward;
-            this.skipToNextDateToolStripMenuItem.Name = "skipToNextDateToolStripMenuItem";
-            this.skipToNextDateToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.skipToNextDateToolStripMenuItem.Text = "Skip to next date";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.BackgroundImage")));
-            this.toolStripMenuItem1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.toolStripMenuItem1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.toolStripMenuItem1.Image = global::RemindMe.Properties.Resources.Permanentely_bin;
-            this.toolStripMenuItem1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(254, 22);
-            this.toolStripMenuItem1.Text = "Permanentely remove reminder";
             // 
             // tmrCheckReminder
             // 
@@ -216,7 +54,6 @@
             // 
             // pnlBackground
             // 
-            this.pnlBackground.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlBackground.BackgroundImage")));
             this.pnlBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlBackground.Controls.Add(this.pnlReminders);
             this.pnlBackground.Controls.Add(this.panel1);
@@ -401,13 +238,12 @@
             // pnlReminders
             // 
             this.pnlReminders.AllowDrop = true;
-            this.pnlReminders.BackgroundImage = global::RemindMe.Properties.Resources.RemindMeGradient;
             this.pnlReminders.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlReminders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlReminders.Location = new System.Drawing.Point(0, 0);
             this.pnlReminders.Name = "pnlReminders";
             this.pnlReminders.Size = new System.Drawing.Size(666, 394);
-            this.pnlReminders.TabIndex = 6;
+            this.pnlReminders.TabIndex = 6;            
             // 
             // UCReminders
             // 
@@ -421,7 +257,6 @@
             this.Size = new System.Drawing.Size(666, 436);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragEnter);
-            this.ReminderMenuStrip.ResumeLayout(false);
             this.pnlBackground.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -430,22 +265,8 @@
 
         #endregion
         private Bunifu.Framework.UI.BunifuFlatButton btnAddReminder;
-        private System.Windows.Forms.ContextMenuStrip ReminderMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem previewThisReminderNowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem previewThisReminderIn5SecondsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem previewThisReminderIn10SecondsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportSelectedRemindersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem postponeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removePostponeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem skipToNextDateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unHideReminderToolStripMenuItem;
         private System.Windows.Forms.Timer tmrCheckReminder;
         private System.Windows.Forms.Timer tmrClearMessageCache;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem hideReminderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enableWarningToolStripMenuItem;
         private Bunifu.Framework.UI.BunifuGradientPanel pnlBackground;
         private NonFlickerPanel pnlReminders;
         private System.Windows.Forms.Panel panel1;

@@ -493,6 +493,9 @@
     <None Include="Resources\NoReminders2.png" />
     <None Include="Resources\RemindMeGradient.png" />
     <None Include="Resources\information-icon-6.jpg" />
+    <None Include="Resources\Edit_Disabled.png" />
+    <None Include="Resources\Bin_Disabled.png" />
+    <None Include="Resources\gearDisabled.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

@@ -18,7 +18,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="ex">The exception that is going to be logged</param>
         /// <param name="exceptionDate">The date the exception is logged at</param>
-        public static void AddException(Exception ex, DateTime exceptionDate)
+        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Business_Logic_Layer
                         return;
 
                     if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
-                        DLOnlineDatabase.AddException(ex, exceptionDate);
+                        DLOnlineDatabase.AddException(ex, exceptionDate, pathToSystemLog);
                     else
                         BLIO.Log("BLOnlineDatabase.AddException() failed: parameter(s) null");
                 }).Start();
