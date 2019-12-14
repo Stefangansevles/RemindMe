@@ -37,6 +37,10 @@ namespace RemindMe
                 string note = tbNote.Text;
 
                 BLOnlineDatabase.InsertEmailAttempt(File.ReadAllText(IOVariables.uniqueString), note, subject, email);
+                MessageFormManager.MakeMessagePopup("Feedback Sent. Thank you!", 5);
+                tbEmail.Text = "";
+                tbSubject.Text = "";
+                tbNote.Text = "";
             }
             catch (Exception ex)
             {

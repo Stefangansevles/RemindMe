@@ -180,7 +180,6 @@
             this.label3.TabIndex = 96;
             this.label3.Text = "Did you discover a bug? Do you want to suggest an improvement?\r\nOr do you wish to" +
     " submit something else? This is where you can do that.";
-            this.label3.Visible = false;
             // 
             // UCSupport
             // 
