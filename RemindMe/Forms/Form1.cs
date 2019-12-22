@@ -305,7 +305,7 @@ namespace RemindMe
                 if (set.LastVersion == null)
                 {
                     //First time user! log it in the db
-                    BLOnlineDatabase.InsertFirstTimeUser(File.ReadAllText(set.UniqueString));
+                    BLOnlineDatabase.InsertFirstTimeUser(set.UniqueString);
                     set.LastVersion = IOVariables.RemindMeVersion;
                 }                
                 BLSettings.UpdateSettings(set);

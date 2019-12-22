@@ -882,3 +882,7 @@ Made a lot of fixes all around.
 
 V2.6.411
 RemindMe now proplerly reloads the reminders after importing reminders from a .remindme file
+
+V2.6.412
+Fixed a small issue where RemindMe would crash when launching RemindMe when you never used RemindMe before
+
