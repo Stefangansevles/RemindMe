@@ -46,9 +46,13 @@ namespace RemindMe
                 pnlReminders.BackgroundImage = Properties.Resources.NoReminders2;            
         }
 
-        public static UCReminders GetInstance()
+        public static UCReminders Instance
         {
-            return instance;
+            get
+            {
+                return instance;
+            }
+            
         }
 
         protected override CreateParams CreateParams
@@ -320,8 +324,7 @@ namespace RemindMe
             if ((pageNumber * 7) + 1 > reminders.Count)           
                 btnNextPage.Iconimage = Properties.Resources.NextGray1;            
             else
-                btnNextPage.Iconimage = Properties.Resources.NextWhite;
-
+                btnNextPage.Iconimage = Properties.Resources.NextWhite;        
 
             int reminderItemCounter = 0;
             for (int i = (pageNumber - 1) * 7; i < ((pageNumber) * 7); i++)
@@ -352,9 +355,20 @@ namespace RemindMe
 
                         UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[ii];
                         itm.Reminder = null;
-                    }
-                    break;
+                    }                    
 
+                    //This happens when an reminder has been deleted, and there are less than 7 reminders on that page. Empty out the remaining reminder items. 
+                    while (reminderItemCounter <= 6)
+                    {
+                        //Get the user control item from the panel. There's 7 user controls in the panel, so we have another counter for those
+                        UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];
+                        //Update the reminder object inside the user control, that's waay faster than removing and re-drawing a new control.
+                        itm.Reminder = null;
+
+                        reminderItemCounter++;
+                    }
+
+                    break;
                 }
 
                 reminderItemCounter++;
@@ -362,13 +376,16 @@ namespace RemindMe
                 if (reminderItemCounter == 7)
                     break;
             }
+
+           
+
             if (reminders.Count <= 7)
                 Form1.Instance.UpdatePageNumber(-1);
             else
                 Form1.Instance.UpdatePageNumber(pageNumber);
 
-            if (GetInstance() != null)
-                GetInstance().tmrCheckReminder.Start();            
+            if (Instance != null)
+                Instance.tmrCheckReminder.Start();            
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)

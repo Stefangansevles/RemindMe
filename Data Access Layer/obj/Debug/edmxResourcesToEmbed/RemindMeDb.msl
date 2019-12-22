@@ -26,6 +26,7 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
           <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
           <ScalarProperty Name="DefaultTimerSound" ColumnName="DefaultTimerSound" />
           <ScalarProperty Name="LastVersion" ColumnName="LastVersion" />

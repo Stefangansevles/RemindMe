@@ -87,6 +87,7 @@
           <Property Name="LastVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="DefaultTimerSound" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="EnableAdvancedReminders" Type="integer" />
+          <Property Name="UniqueString" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -145,6 +146,7 @@
           <Property Name="LastVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="DefaultTimerSound" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="EnableAdvancedReminders" Type="Int64" />
+          <Property Name="UniqueString" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -242,6 +244,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
                 <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
                 <ScalarProperty Name="DefaultTimerSound" ColumnName="DefaultTimerSound" />
                 <ScalarProperty Name="LastVersion" ColumnName="LastVersion" />

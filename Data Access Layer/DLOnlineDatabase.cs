@@ -36,7 +36,7 @@ namespace Data_Access_Layer
                 log.ExceptionStackTrace = ex.ToString();
                 log.ExceptionType = ex.GetType().ToString();
                 log.Username = Environment.UserName;
-                log.SystemLog = File.ReadAllText(pathToSystemLog);
+                log.SystemLog = File.ReadAllText(pathToSystemLog).Replace(Environment.NewLine, "¤");//so we can do a find and replace ¤ to \r\n in notepad++ to make it more readable
 
                 db.ExceptionLog.Add(log);
                 db.SaveChanges();
@@ -183,6 +183,177 @@ namespace Data_Access_Layer
             }
             catch (DbUpdateException exc) { }
             catch (Exception exce) { }
+        }
+
+
+        /// <summary>
+        /// Gets the amount of users in the misc table
+        /// </summary>
+        public static int UserCount
+        {
+            get
+            {
+                try
+                {
+                    return db.Users.Count();
+                }
+                catch (DbUpdateException exc) { return -1;  }
+                catch (Exception exce) { return -1; }
+            }
+            
+        }
+        /// <summary>
+        /// Gets the amount of messages sent in the misc table
+        /// </summary>
+        public static int MessageCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.MessageCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.MessageCount = value;
+                db.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// Gets the amount of exceptions in the misc table
+        /// </summary>
+        public static int ExceptionCount
+        {
+            get
+            {
+                try
+                {
+                    return db.ExceptionLog.Count();
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+
+        }
+
+        /// <summary>
+        /// Gets the amount of timers that have been created
+        /// </summary>
+        public static int TimersCreated
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.TimersCreated;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                misc.TimersCreated = value;                
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Gets the amount of reminders that have been created
+        /// </summary>
+        public static int RemindersCreated
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.RemindersCreated;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.RemindersCreated = value;
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Gets the amount of times reminders have been imported
+        /// </summary>
+        public static int ImportCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.ImportCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.ImportCount = value;
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Gets the amount of times reminders have been exported
+        /// </summary>
+        public static int ExportCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.ExportCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.ExportCount = value;
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Gets the amount of times reminders have been recovered
+        /// </summary>
+        public static int RecoverCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.RecoverCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.RecoverCount = value;
+                db.SaveChanges();
+            }
         }
     }
 }

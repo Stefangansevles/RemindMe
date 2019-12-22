@@ -31,5 +31,6 @@ namespace Data_Access_Layer
         public virtual DbSet<EmailAttempts> EmailAttempts { get; set; }
         public virtual DbSet<NewInstallations> NewInstallations { get; set; }
         public virtual DbSet<LocalErrorLog> LocalErrorLog { get; set; }
+        public virtual DbSet<Misc> Misc { get; set; }
     }
 }

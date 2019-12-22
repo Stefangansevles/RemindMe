@@ -167,7 +167,7 @@ namespace RemindMe
             
             theReminder.Enabled = 0;                                   //Set the enabled flag of this reminder to false
             BLReminder.EditReminder(theReminder);                      //Push the edited reminder to the database
-            UCReminders.GetInstance().UpdateCurrentPage();             //Show the change in RemindMe's main listview
+            UCReminders.Instance.UpdateCurrentPage();             //Show the change in RemindMe's main listview
             BLIO.Log("Reminder with id" + theReminder.Id + " Disabled from the RemindMe message form");
             this.Dispose();
         }
@@ -181,7 +181,7 @@ namespace RemindMe
             BLReminder.EditReminder(theReminder);
             BLIO.Log("Edited reminder with id " + theReminder.Id);
             //Show the change in RemindMe's main listview
-            UCReminders.GetInstance().UpdateCurrentPage();             
+            UCReminders.Instance.UpdateCurrentPage();             
             //Finally, close this message
             this.Dispose();
         }

@@ -80,6 +80,9 @@
     <Reference Include="HtmlAgilityPack, Version=1.11.7.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.7\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller">
+      <HintPath>..\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack.1.1.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
       <Private>True</Private>
@@ -129,6 +132,12 @@
   <ItemGroup>
     <Compile Include="ComboboxItems\ComboBoxItem.cs" />
     <Compile Include="ComboboxItems\ComboBoxItemManager.cs" />
+    <Compile Include="Forms\RemindMeDbViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RemindMeDbViewer.Designer.cs">
+      <DependentUpon>RemindMeDbViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RemindMeTimerMessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +246,24 @@
     <Compile Include="User controls\Advanced Reminder User controls\AVR_UCGeneral.Designer.cs">
       <DependentUpon>AVR_UCGeneral.cs</DependentUpon>
     </Compile>
+    <Compile Include="User controls\DbViewer\UCExceptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\DbViewer\UCExceptions.Designer.cs">
+      <DependentUpon>UCExceptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\DbViewer\UCMessages.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\DbViewer\UCMessages.Designer.cs">
+      <DependentUpon>UCMessages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\DbViewer\UCUsers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\DbViewer\UCUsers.Designer.cs">
+      <DependentUpon>UCUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="User controls\UCDebugMode.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -312,6 +339,9 @@
     <EmbeddedResource Include="Forms\RemindMeBox.resx">
       <DependentUpon>RemindMeBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemindMeDbViewer.resx">
+      <DependentUpon>RemindMeDbViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemindMeImporter.resx">
       <DependentUpon>RemindMeImporter.cs</DependentUpon>
     </EmbeddedResource>
@@ -346,6 +376,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\Advanced Reminder User controls\AVR_UCGeneral.resx">
       <DependentUpon>AVR_UCGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User controls\DbViewer\UCExceptions.resx">
+      <DependentUpon>UCExceptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User controls\DbViewer\UCMessages.resx">
+      <DependentUpon>UCMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User controls\DbViewer\UCUsers.resx">
+      <DependentUpon>UCUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\UCDebugMode.resx">
       <DependentUpon>UCDebugMode.cs</DependentUpon>
@@ -496,6 +535,9 @@
     <None Include="Resources\Edit_Disabled.png" />
     <None Include="Resources\Bin_Disabled.png" />
     <None Include="Resources\gearDisabled.png" />
+    <None Include="Resources\RemindMeDb.png" />
+    <None Include="Resources\user.png" />
+    <None Include="Resources\error.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

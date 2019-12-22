@@ -272,7 +272,7 @@ namespace RemindMe
             }
 
             close:
-            UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.Instance.UpdateCurrentPage();
             BLIO.Log("Stopping media player & Closing popup");
             myPlayer.controls.stop();
             btnOk.Enabled = false;

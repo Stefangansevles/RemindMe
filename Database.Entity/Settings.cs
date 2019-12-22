@@ -25,5 +25,6 @@ namespace Database.Entity
         public string LastVersion { get; set; }
         public string DefaultTimerSound { get; set; }
         public Nullable<long> EnableAdvancedReminders { get; set; }
+        public string UniqueString { get; set; }
     }
 }

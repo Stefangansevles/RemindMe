@@ -112,7 +112,7 @@ namespace RemindMe
             UpdateInformation.Initialize();
             
             formLoadAsync();
-            Thread.Sleep(2000);
+            
             RemindMeIcon.Visible = true;                 
             BLIO.Log("Form constructed");            
         }
@@ -160,12 +160,21 @@ namespace RemindMe
                 int currentReminderCount = BLReminder.GetReminders().Count;
 
                 BLReminder.NotifyChange();
-                UCReminders.GetInstance().UpdateCurrentPage();
+                UCReminders.Instance.UpdateCurrentPage();
 
                 if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
                 {
                     MessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
                     BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
+                }
+
+                if ((BLReminder.GetReminders().Count - currentReminderCount) > 0)
+                {
+                    new Thread(() =>
+                    {
+                        //Log an entry to the database, for data!
+                        BLOnlineDatabase.ImportCount++;
+                    }).Start();
                 }
 
             }
@@ -219,12 +228,24 @@ namespace RemindMe
             BLIO.Log("RemindMe_Load");
 
             BLIO.WriteUpdateBatch(Application.StartupPath);
-            BLIO.WriteUniqueString();
+            
 
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;                    
 
             Settings set = BLSettings.GetSettings();
-           
+
+            //set unique user string
+            if (string.IsNullOrWhiteSpace(set.UniqueString))
+            {
+                if (File.Exists(IOVariables.uniqueString))
+                {
+                    set.UniqueString = File.ReadAllText(IOVariables.uniqueString);
+                    BLSettings.UpdateSettings(set);
+                }
+
+                File.Delete(IOVariables.uniqueString);
+            }
+            BLIO.WriteUniqueString();
 
             if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
@@ -285,12 +306,12 @@ namespace RemindMe
                 //wait a bit, then call the update timer once. It then runs every 5 minutes
                 Thread.Sleep(5000);
                 tmrUpdateRemindMe_Tick(null, null);
-                BLOnlineDatabase.InsertOrUpdateUser(File.ReadAllText(IOVariables.uniqueString));
+                BLOnlineDatabase.InsertOrUpdateUser(set.UniqueString);
                 Thread.Sleep(1500);
                 if (set.LastVersion == null)
                 {
                     //First time user! log it in the db
-                    BLOnlineDatabase.InsertFirstTimeUser(File.ReadAllText(IOVariables.uniqueString));
+                    BLOnlineDatabase.InsertFirstTimeUser(File.ReadAllText(set.UniqueString));
                     set.LastVersion = IOVariables.RemindMeVersion;
                 }                
                 BLSettings.UpdateSettings(set);
@@ -307,11 +328,11 @@ namespace RemindMe
             //Insert the errorlog.txt into the DB if it is not empty
             if (new FileInfo(IOVariables.errorLog).Length > 0)
             {
-                BLOnlineDatabase.InsertLocalErrorLog(File.ReadAllText(IOVariables.uniqueString), File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
+                BLOnlineDatabase.InsertLocalErrorLog(File.ReadAllText(set.UniqueString), File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
                 File.WriteAllText(IOVariables.errorLog, "");
             }
-            
 
+            
             BLIO.Log("RemindMe loaded");
             Cleanup();
         }
@@ -366,9 +387,23 @@ namespace RemindMe
 
         private void tsExit_Click(object sender, EventArgs e)
         {
-            BLIO.Log("Closing RemindMe(through RemindMeIcon)");
-            this.Close();
-            Application.Exit();
+            if (UCTimer.RunningTimers.Count > 0 && !this.Visible)
+            {
+                if(RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved",RemindMeBoxReason.YesNo) == DialogResult.Yes)
+                {
+                    BLIO.Log("User had running timers and closed RemindMe(through RemindMeIcon)");
+                    this.Close();
+                    Application.Exit();
+                }
+            }
+            else
+            {
+                BLIO.Log("Closing RemindMe(through RemindMeIcon)");
+                this.Close();
+                Application.Exit();
+            }
+            
+            
         }
 
         private void lblMinimize_Click(object sender, EventArgs e)
@@ -386,7 +421,7 @@ namespace RemindMe
             else
             {
                 ucReminders.Visible = true;
-                UCReminders.GetInstance().UpdateCurrentPage();                
+                UCReminders.Instance.UpdateCurrentPage();                
             }
             ToggleButton(sender);
         }
@@ -638,6 +673,13 @@ namespace RemindMe
             this.Opacity = 0;
             this.Hide();
             tmrInitialHide.Stop();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (UCTimer.RunningTimers.Count > 0)            
+                if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)                
+                    e.Cancel = true;                                                               
         }
 
         private void updateRemindMeToolStripMenuItem_Click(object sender, EventArgs e)

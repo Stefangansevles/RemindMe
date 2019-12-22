@@ -12,13 +12,14 @@ using Business_Logic_Layer;
 using System.IO;
 using RemindMe.Other_classes;
 using Bunifu.Framework.UI;
+using System.Threading;
 
 namespace RemindMe
 {
     public partial class UCTimer : UserControl
     {
-        public decimal timerDuration = 0;
-        public List<TimerItem> timers = new List<TimerItem>();
+        private static List<TimerItem> timers = new List<TimerItem>();
+        public decimal timerDuration = 0;        
         public string timerNote = "";
 
         //Contains the TimerItem the user is currently viewing/editing. This should change if the user clicks one of the timer buttons(if there are multiple timers)
@@ -43,6 +44,11 @@ namespace RemindMe
             numHours.KeyUp += numericUpDown_ValueChange;
             
             lblTimerTitle.MaximumSize = new Size(pnlTimerTitle.Width - 15, 0);
+        }
+
+        public static List<TimerItem> RunningTimers
+        {
+            get { return timers; }
         }
 
         /// <summary>
@@ -122,6 +128,13 @@ namespace RemindMe
             timerIdCounter++;
 
             EnableButton(timerButton);
+
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!
+                BLOnlineDatabase.TimersCreated++;
+            }).Start();
+            
             BLIO.Log("Timer added!");            
         }
 

@@ -68,6 +68,7 @@ namespace RemindMe
             btnEdit.Image = Properties.Resources.Edit_Disabled;
             btnSettings.Image = Properties.Resources.gearDisabled;
             btnDisable.Image = Properties.Resources.turnedOffTwo;
+            pbDate.BackgroundImage = Properties.Resources.RemindMe; 
 
             btnSettings.Enabled = false;
             btnDelete.Enabled = false;
@@ -174,7 +175,7 @@ namespace RemindMe
             }
 
             BLReminder.EditReminder(rem);
-            UCReminders.GetInstance().UpdateCurrentPage();            
+            UCReminders.Instance.UpdateCurrentPage();            
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -186,14 +187,14 @@ namespace RemindMe
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            UCReminders.GetInstance().EditReminder(rem);            
+            UCReminders.Instance.EditReminder(rem);            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {            
             BLReminder.DeleteReminder(rem);
             this.Reminder = null;
-            UCReminders.GetInstance().UpdateCurrentPage();            
+            UCReminders.Instance.UpdateCurrentPage();            
         }
 
         private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -248,7 +249,7 @@ namespace RemindMe
             BLIO.Log("duplicating reminder with id " + rem.Id);
             BLReminder.PushReminderToDatabase(rem);
             BLIO.Log("reminder duplicated.");
-            UCReminders.GetInstance().UpdateCurrentPage();            
+            UCReminders.Instance.UpdateCurrentPage();            
         }
         /// <summary>
         /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
@@ -303,7 +304,7 @@ namespace RemindMe
                 BLIO.Log("Marked reminder with id " + rem.Id + " as hidden");
                 BLReminder.EditReminder(rem);
                 this.Reminder = null;
-                UCReminders.GetInstance().UpdateCurrentPage();                
+                UCReminders.Instance.UpdateCurrentPage();                
             }
             else
                 BLIO.Log("Attempting to hide reminder(s) failed.");
@@ -340,7 +341,7 @@ namespace RemindMe
 
             BLReminder.EditReminder(rem);//Push changes
 
-            UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.Instance.UpdateCurrentPage();
         }
 
         private void removePostponeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -352,7 +353,7 @@ namespace RemindMe
             pbRepeat.Location = new Point(168, 26);
             lblRepeat.Location = new Point(195, 30);
             Enable();
-            UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.Instance.UpdateCurrentPage();
         }
 
         private void skipToNextDateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -364,7 +365,7 @@ namespace RemindMe
             BLReminder.EditReminder(rem);
 
             //Refresh to show changes
-            UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.Instance.UpdateCurrentPage();
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -376,7 +377,7 @@ namespace RemindMe
                 BLIO.Log("Reminder permanentely deleted.");
 
                 this.Reminder = null;
-                UCReminders.GetInstance().UpdateCurrentPage();                
+                UCReminders.Instance.UpdateCurrentPage();                
             }
         }
 

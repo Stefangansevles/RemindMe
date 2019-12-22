@@ -103,14 +103,12 @@ namespace RemindMe
                 ucTimer.timerNote = tbNote.Text;
 
                 BLIO.Log("Values set");
-
+                
                 ucTimer.AddTimer(timerMinutes*60, tbNote.Text);
 
-
                 //ucTimer.ToggleTimer();
-                                
+                
                 BLIO.Log("Timer started");
-
                 this.Dispose();
             }
         }

@@ -26,8 +26,9 @@ namespace Business_Logic_Layer
         /// Writes an unique string to string.txt in the RemindMe folder if it does not exists
         /// </summary>
         public static void WriteUniqueString()
-        {            
-            if(!File.Exists(IOVariables.uniqueString))
+        {
+            Settings set = BLSettings.GetSettings();
+            if (string.IsNullOrWhiteSpace(set.UniqueString))
             {
                 string uniqueString = "";
                 Random random = new Random();
@@ -35,8 +36,9 @@ namespace Business_Logic_Layer
                 uniqueString = new string(Enumerable.Repeat(chars, 200)
                   .Select(s => s[random.Next(s.Length)]).ToArray());
 
-                File.WriteAllText(IOVariables.uniqueString, uniqueString.ToString());
-                File.SetAttributes(IOVariables.uniqueString, File.GetAttributes(IOVariables.uniqueString) | FileAttributes.Hidden); //Hide the file
+                
+                set.UniqueString = uniqueString.ToString();
+                BLSettings.UpdateSettings(set);                
             }
         }
 
@@ -217,8 +219,8 @@ namespace Business_Logic_Layer
                     //at a different time when above doesn't fail
                     using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
                     using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        sw.WriteLine("[" + DateTime.Now + "] - " + message + "\r\n" + ex.ToString() + "\r\n\r\n");
+                    {                        
+                        sw.WriteLine("[" + DateTime.Now + "] - " + message + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine);
                     }
                 }
 

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -71,6 +72,12 @@ namespace Business_Logic_Layer
             {
                 if (!string.IsNullOrEmpty(path))
                     SerializeRemindersToFile(reminders, path + "\\Backup reminders " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");
+
+                new Thread(() =>
+                {
+                    //Log an entry to the database, for data!
+                    BLOnlineDatabase.ExportCount++;
+                }).Start();
 
                 return null;
             }
@@ -157,11 +164,11 @@ namespace Business_Logic_Layer
             {
                 case "NONE": UpdateReminderDateWithoutRepeatType(rem);
                     break;
-                case "DAILY": UpdateReminderDateDaily(rem);
+                case "DAILY": SkipDailyReminder(rem); 
                     break;
-                case "MONTHLY": UpdateReminderDateMonthly(rem);
+                case "MONTHLY": SkipMonthlyReminder(rem);
                     break;
-                case "WORKDAYS": rem.Date = BLDateTime.GetNextReminderWorkDay(rem).ToString();  //UpdateReminderDateWorkDays(rem);
+                case "WORKDAYS": SkipWorkdaysReminder(rem);
                     break;
                 case "MULTIPLE_DAYS": UpdateReminderDateMultipleDays(rem);
                     break;
@@ -169,6 +176,52 @@ namespace Business_Logic_Layer
                     break;
             }
         }
+
+        private static void SkipWorkdaysReminder(Reminder rem)
+        {
+            DateTime nextWorkDay = Convert.ToDateTime(rem.Date);
+
+            //If it's an old reminder, skip it to today. If there is an reminder from 2 months ago, you dont want it to keep popping up
+            if (nextWorkDay < DateTime.Now)
+                while (nextWorkDay < DateTime.Now.AddDays(-1))
+                    nextWorkDay = nextWorkDay.AddDays(1);
+
+            switch (nextWorkDay.DayOfWeek)
+            {
+                case DayOfWeek.Friday:
+                    nextWorkDay = nextWorkDay.AddDays(3);
+                    break;
+                case DayOfWeek.Saturday:
+                    nextWorkDay = nextWorkDay.AddDays(2);
+                    break;
+                default:
+                    nextWorkDay = nextWorkDay.AddDays(1);
+                    break;
+            }
+
+            rem.Date = nextWorkDay.ToString();
+
+        }
+
+        /// <summary>
+        /// Skips the date of a daily reminder to the next day
+        /// </summary>
+        /// <param name="rem"></param>
+        private static void SkipDailyReminder(Reminder rem)
+        {
+            DateTime date = Convert.ToDateTime(rem.Date);
+            date = date.AddDays(1);
+
+            //If the user skips a daily reminder that is let's say 10 days in the past, let's not let the user press skip 10 times
+            while (date < DateTime.Now)
+            {
+                date = date.AddDays(1);
+            }
+
+            rem.Date = date.ToString();
+        }
+
+
 
         /// <summary>
         /// Update an reminder's date based on it's repeat type, ( every x: minutes,hours,days,weeks,months )
@@ -239,51 +292,48 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
-        /// Update an reminder's date with a monthly repeat type
+        /// skips an reminder's date with a monthly repeat type to the next date in line
         /// </summary>
         /// <param name="rem"></param>
         /// <param name="allowUpdateTime">Determines if this method is allowed to update the TIME part of the datetime object</param>
-        private static void UpdateReminderDateMonthly(Reminder rem, bool allowUpdateTime = false)
+        private static void SkipMonthlyReminder(Reminder rem)
         {
-            //Add 1 month to the first date of the month string, [0] and add it to the end
-            List<string> monthDates = rem.Date.Split(',').ToList();
-            string newMonthString = "";
-            int monthDay = Convert.ToDateTime(monthDates[0]).Day;
-            int monthsInAdvance = 1;
-            string updatedDate = "";
-
-            //If you add 1 month, and the day is not equal, then that means the next month doesnt have enough days. Keep adding months until we find the good month
-            //Example: Day of month: 31. Add 1 month to january, thats february. It doesnt have 31 days, so it should go to the next month, etc etc
-            if (Convert.ToDateTime(monthDates[0]).AddMonths(1).Day != monthDay)
+            //Amount of months to add to the date. If the day of month is 31, you might need to add multiple months to get a month that has 31 days
+            int monthsToAdd = 1;
+            if (!string.IsNullOrWhiteSpace(rem.Date))
             {
-                while (Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).Day != monthDay)
+                List<DateTime> reminderDates = new List<DateTime>();
+
+                foreach (string date in rem.Date.Split(',')) //go through each date. with monthly reminders, it can have multiple dates, seperated by comma's                
                 {
-                    monthsInAdvance++;
+                    DateTime dateObj = Convert.ToDateTime(date);
+                    //if next month has the amount of days as the dateObj, add 1 month. else add possible more months
+                    if(DateTime.DaysInMonth(dateObj.AddMonths(1).Year, dateObj.AddMonths(1).Month) >= DateTime.DaysInMonth(dateObj.Year, dateObj.Month))
+                    {
+                        reminderDates.Add(dateObj.AddMonths(1));
+                    }
+                    else
+                    {
+                        while (DateTime.DaysInMonth(dateObj.AddMonths(monthsToAdd).Year, dateObj.AddMonths(monthsToAdd).Month) < dateObj.Day)
+                            monthsToAdd++;
+
+                        reminderDates.Add(dateObj.AddMonths(monthsToAdd));
+                    }
+
+                    //todo reminderDates.Add(Convert.ToDateTime(BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(date))));
                 }
-                
-                if (rem.UpdateTime == 0 || !allowUpdateTime)
-                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).ToString();
-                else //Update time aswell
-                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(monthsInAdvance).ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
-            }
-            else
-            {
-                if(rem.UpdateTime == 0 || !allowUpdateTime)
-                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(1).ToString(); //Just add 1 month
-                else //Update time aswell
-                    updatedDate = Convert.ToDateTime(monthDates[0]).AddMonths(1).ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
 
-            }
-            
+                //have to make sure the first date is in front.
+                reminderDates.Sort();
 
-            //Remove the old date at index 0, and add the new date at the end.
-            monthDates.RemoveAt(0);
-            monthDates.Add(updatedDate);
+                //Now, we're going to put the (sorted) dates in a string
+                string newDateString = "";
 
-            foreach (string monthDate in monthDates)
-                newMonthString += monthDate + ",";
-            
-            rem.Date = newMonthString.Remove(newMonthString.Length - 1, 1);
+                foreach (DateTime date in reminderDates)                
+                    newDateString += date.ToString() + ",";                
+
+                rem.Date = newDateString.Remove(newDateString.Length - 1, 1);
+            }           
         }
 
         /// <summary>
@@ -411,7 +461,7 @@ namespace Business_Logic_Layer
                         {
 
                             if (Convert.ToDateTime(date) < DateTime.Now)//get the next day of the monthly day of the date. example: 10-6-2017 -> 10-7-2017 BUT 31-1-2017 -> 31-3-2017, since february doesnt have 31 days                            
-                                reminderDates.Add(Convert.ToDateTime(BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(date).Day).ToShortDateString() + " " + Convert.ToDateTime(date).ToShortTimeString()));
+                                reminderDates.Add(Convert.ToDateTime(BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(date)).ToShortDateString() + " " + Convert.ToDateTime(date).ToShortTimeString()));
                             else
                                 reminderDates.Add(Convert.ToDateTime(date)); //Date in the future? good! do nothing with it.   
 
@@ -435,9 +485,9 @@ namespace Business_Logic_Layer
                     else
                     {//There's only one date in this string.  
                         if (rem.UpdateTime == 0)
-                            rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date).Day).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();
+                            rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date)).ToShortDateString() + " " + Convert.ToDateTime(rem.Date).ToShortTimeString();
                         else
-                            rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date).Day).ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+                            rem.Date = BLDateTime.GetDateForNextDayOfMonth(Convert.ToDateTime(rem.Date)).ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
                     }
                 }
 

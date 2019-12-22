@@ -831,10 +831,10 @@ namespace RemindMe
 
             foreach (var cbItem in cbMonthlyDays.Items)
             {
-                if (BLDateTime.GetDateForNextDayOfMonth(Convert.ToInt32(cbItem)).Day == DateTime.Now.Day)
+                if (BLDateTime.GetDateForNextDayOfMonth( new DateTime(DateTime.Now.Year, DateTime.Now.Month, Convert.ToInt32(cbItem))).Day == DateTime.Now.Day )
                     dates.Add(DateTime.Now);
                 else
-                    dates.Add(BLDateTime.GetDateForNextDayOfMonth(Convert.ToInt32(cbItem)));
+                    dates.Add(BLDateTime.GetDateForNextDayOfMonth(new DateTime(DateTime.Now.Year,DateTime.Now.Month, Convert.ToInt32(cbItem))));
             }
 
 
@@ -1015,6 +1015,10 @@ namespace RemindMe
                 {
                     if (repeat == ReminderRepeatType.MONTHLY)
                     {
+                        //If the user pressed confirm, but didnt "+" the monthly day yet, we'll do it for him/her(yes, there are 2 genders).                                              
+                        if (cbEvery.SelectedItem.ToString() != "1" && cbMonthlyDays.Items.Count == 0)
+                            cbMonthlyDays.Items.Add(cbEvery.SelectedItem);
+
                         if (cbMonthlyDays.Items.Count > 0)
                             remId = BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath, Convert.ToInt32(swUpdateTime.Value));
                         else
@@ -1046,7 +1050,7 @@ namespace RemindMe
                     {
                         DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
                         if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)
-                            cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him.                                              
+                            cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him/her(yes, there are 2 genders).                                              
 
                         if (cbMultipleDates.Items.Count > 0)
                             remId = BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMultipleDatesComboBox(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath);
@@ -1059,6 +1063,12 @@ namespace RemindMe
                     else
                         remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath, Convert.ToInt32(swUpdateTime.Value));
 
+
+                    new Thread(() =>
+                    {
+                        //Log an entry to the database, for data!
+                        BLOnlineDatabase.RemindersCreated++;
+                    }).Start();
                     BLIO.Log("New reminder succesfully created! (UCNewReminder)");
                 }
                 else
@@ -1388,7 +1398,7 @@ namespace RemindMe
             tmrMusic.Stop();
 
             //Refresh listview with the newly made reminder                        
-            UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.Instance.UpdateCurrentPage();
             
             callback.Visible = true;
             this.Visible = false;

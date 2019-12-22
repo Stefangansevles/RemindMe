@@ -39,6 +39,19 @@
           <Property Name="Username" Type="varchar(max)" Nullable="false" />
           <Property Name="UserId" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Misc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DbViewerPw" Type="varchar(max)" Nullable="false" />
+          <Property Name="TimersCreated" Type="int" Nullable="false" />
+          <Property Name="RemindersCreated" Type="int" Nullable="false" />
+          <Property Name="ExportCount" Type="int" Nullable="false" />
+          <Property Name="ImportCount" Type="int" Nullable="false" />
+          <Property Name="RecoverCount" Type="int" Nullable="false" />
+          <Property Name="MessageCount" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="NewInstallations">
           <Key>
             <PropertyRef Name="Id" />
@@ -78,6 +91,7 @@
           <EntitySet Name="EmailAttempts" EntityType="Self.EmailAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocalErrorLog" EntityType="Self.LocalErrorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Misc" EntityType="Self.Misc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewInstallations" EntityType="Self.NewInstallations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -115,6 +129,7 @@
           <EntitySet Name="EmailAttempts" EntityType="remindmesqldbModel.EmailAttempts" />
           <EntitySet Name="NewInstallations" EntityType="remindmesqldbModel.NewInstallations" />
           <EntitySet Name="LocalErrorLog" EntityType="remindmesqldbModel.LocalErrorLog" />
+          <EntitySet Name="Misc" EntityType="remindmesqldbModel.Misc" />
         </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -162,6 +177,19 @@
           <Property Name="LogLineCount" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Misc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DbViewerPw" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TimersCreated" Type="Int32" Nullable="false" />
+          <Property Name="RemindersCreated" Type="Int32" Nullable="false" />
+          <Property Name="ExportCount" Type="Int32" Nullable="false" />
+          <Property Name="ImportCount" Type="Int32" Nullable="false" />
+          <Property Name="MessageCount" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="RecoverCount" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -241,6 +269,20 @@
                 <ScalarProperty Name="LogContents" ColumnName="LogContents" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Misc">
+            <EntityTypeMapping TypeName="remindmesqldbModel.Misc">
+              <MappingFragment StoreEntitySet="Misc">
+                <ScalarProperty Name="RecoverCount" ColumnName="RecoverCount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MessageCount" ColumnName="MessageCount" />
+                <ScalarProperty Name="ImportCount" ColumnName="ImportCount" />
+                <ScalarProperty Name="ExportCount" ColumnName="ExportCount" />
+                <ScalarProperty Name="RemindersCreated" ColumnName="RemindersCreated" />
+                <ScalarProperty Name="TimersCreated" ColumnName="TimersCreated" />
+                <ScalarProperty Name="DbViewerPw" ColumnName="DbViewerPw" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

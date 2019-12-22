@@ -82,6 +82,7 @@
     <Property Name="LastVersion" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="DefaultTimerSound" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="EnableAdvancedReminders" Type="integer" />
+    <Property Name="UniqueString" Type="nvarchar" MaxLength="2147483647" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

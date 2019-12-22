@@ -64,7 +64,7 @@ namespace RemindMe
             {                
                 BLIO.WriteError(ex, "Special CurrentDomain Error! " + ex.GetType());
                 ShowError(ex, "Unknown error!", ex.Message);
-                UCReminders.GetInstance().UpdateCurrentPage();
+                UCReminders.Instance.UpdateCurrentPage();
             }            
         }
 
@@ -95,7 +95,7 @@ namespace RemindMe
                 ReminderException theException = (ReminderException)e.Exception;
                 BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !");
                 ShowError(e.Exception, "Reminder error!", theException.Message);
-                UCReminders.GetInstance().UpdateCurrentPage();
+                UCReminders.Instance.UpdateCurrentPage();
             }
             else if(e.Exception is DirectoryNotFoundException)
             {

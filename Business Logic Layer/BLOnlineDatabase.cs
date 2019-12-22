@@ -147,6 +147,8 @@ namespace Business_Logic_Layer
                         DLOnlineDatabase.InsertEmailAttempt(uniqueString,emailMessage,emailSubject,eMailAddress);
                     else
                         BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertEmailAttempt(). String: " + uniqueString);
+
+                    MessageCount++;
                 }).Start();
             }
             catch (Exception exc)
@@ -183,6 +185,211 @@ namespace Business_Logic_Layer
                 BLIO.Log("BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.ToString());
                 BLIO.WriteError(exc, "BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.ToString(), false);
             }
+        }
+
+        /// <summary>
+        /// Gets the amount of users in the misc table
+        /// </summary>
+        public static int UserCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.UserCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+        }
+        /// <summary>
+        /// Gets the amount of messages sent in the misc table
+        /// </summary>
+        public static int MessageCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.MessageCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.MessageCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.MessageCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.MessageCount = value; }
+
+        }
+   
+
+        /// <summary>
+        /// Gets the amount of timers that have been created
+        /// </summary>
+        public static int TimersCreated
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.TimersCreated;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.TimersCreated failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.TimersCreated failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.TimersCreated = value; }
+        }
+
+        /// <summary>
+        /// Gets the amount of reminders that have been created
+        /// </summary>
+        public static int RemindersCreated
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.RemindersCreated;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.RemindersCreated failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.RemindersCreated failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.RemindersCreated = value; }
+        }
+
+        /// <summary>
+        /// Gets the amount of times reminders have been imported
+        /// </summary>
+        public static int ImportCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.ImportCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.ImportCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.ImportCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.ImportCount = value; }
+        }
+
+        /// <summary>
+        /// Gets the amount of times reminders have been exported
+        /// </summary>
+        public static int ExportCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.ExportCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.ExportCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.ExportCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.ExportCount = value; }
+        }
+        /// <summary>
+        /// Gets the amount of times reminders have been recovered
+        /// </summary>
+        public static int RecoverCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.RecoverCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.RecoverCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.RecoverCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.RecoverCount = value; }
+        }
+        /// <summary>
+        /// Gets the amount of exceptions in the misc table
+        /// </summary>
+        public static int ExceptionCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.ExceptionCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.ExceptionCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.ExceptionCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }            
         }
     }
 }

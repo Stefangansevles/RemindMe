@@ -216,38 +216,34 @@ namespace Business_Logic_Layer
         /// Creates an datetime from a day number(1-31). It can return multiple months in the future if the current month does not have the number of days provided(example: 31).
         /// </summary>
         /// <returns></returns>
-        public static DateTime GetDateForNextDayOfMonth(int day)
+        public static DateTime GetDateForNextDayOfMonth(DateTime date)
         {
-            if (day > 0 && day <= 31)
+            int month = DateTime.Now.Month;
+
+            int amountOfDaysThisMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
+            if (date.Day > amountOfDaysThisMonth)
             {
-                int month = DateTime.Now.Month;
-
-                int amountOfDaysThisMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
-                if (day > amountOfDaysThisMonth)
+                while (date.Day > amountOfDaysThisMonth) //continue until we have found a month that has the appropriate amount of days
                 {
-                    while (day > amountOfDaysThisMonth) //continue until we have found a month that has the appropriate amount of days
-                    {
-                        month++;
-                        amountOfDaysThisMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
-                    }
-
-                    if (month >= 1 && month <= 12)
-                        return new DateTime(DateTime.Now.Year, month, day);
-                    else
-                        return new DateTime();
-
+                    month++;
+                    amountOfDaysThisMonth = DateTime.DaysInMonth(DateTime.Now.Year, month);
                 }
+
+                if (month >= 1 && month <= 12)
+                    return new DateTime(DateTime.Now.Year, month, date.Day);
                 else
-                {
-                    if(day > DateTime.Now.Day)
-                        return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day);
-                    else
-                        return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day).AddMonths(1);
-                }
+                    return new DateTime();
 
             }
             else
-                return new DateTime();
+            {
+                if (date.Day > DateTime.Now.Day)
+                    return new DateTime(DateTime.Now.Year, DateTime.Now.Month, date.Day,date.Hour,date.Minute,date.Second);
+                else
+                    return new DateTime(DateTime.Now.Year, DateTime.Now.Month, date.Day, date.Hour, date.Minute, date.Second).AddMonths(1);
+            }
+
+
         }
 
         public static int GetAmountOfDaysBetween(DayOfWeek day1, DayOfWeek day2)

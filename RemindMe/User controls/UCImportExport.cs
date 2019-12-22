@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Business_Logic_Layer;
 using Database.Entity;
 using System.IO;
+using System.Threading;
 
 namespace RemindMe
 {
@@ -139,7 +140,7 @@ namespace RemindMe
 
 
             ToggleButton(null);
-            UCReminders.GetInstance().UpdateCurrentPage();
+            UCReminders.Instance.UpdateCurrentPage();
         }
 
 
@@ -224,6 +225,13 @@ namespace RemindMe
                     BLIO.Log("Pushed reminder with id " + rem.Id + " to the database");
                     remindersInserted++;
                 }
+
+                new Thread(() =>
+                {
+                    //Log an entry to the database, for data!
+                    BLOnlineDatabase.ImportCount++;
+                }).Start();
+
                 BLIO.Log(remindersInserted + " Reminders inserted");
             }
             SetStatusTexts(remindersInserted, selectedReminders.Count);
@@ -254,6 +262,13 @@ namespace RemindMe
                 }
                 remindersRecovered++;
             }
+
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!
+                BLOnlineDatabase.ImportCount++;
+            }).Start();
+
             BLIO.Log(remindersRecovered + " Reminders recovered");
             SetStatusTexts(remindersRecovered, selectedReminders.Count);
             return true;
