@@ -189,7 +189,7 @@ namespace RemindMe
                 dayOfStartRemindMe = DateTime.Now.Day;
                 MessageFormManager.MakeTodaysRemindersPopup();
                 //Update lastOnline. If you keep RemindMe running and put your pc to sleep instead of turning it off, it would never get updated without this
-                BLOnlineDatabase.InsertOrUpdateUser(File.ReadAllText(IOVariables.uniqueString));
+                BLOnlineDatabase.InsertOrUpdateUser(IOVariables.uniqueString);
             }
 
 

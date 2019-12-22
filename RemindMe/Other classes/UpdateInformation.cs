@@ -52,6 +52,8 @@ namespace RemindMe
             releaseNotes.Add("2.6.410", "Made a lot of fixes all around.\r\n- The \"Skip to next date\" functionality now works properly again\r\n- When you attempt to close RemindMe with active timers running, you will get a prompt asking if you really want to close RemindMe\r\n- Fixed a bug where deleting a reminder on a page with less than 7 reminders would look like a reminder was being duplicated");
             releaseNotes.Add("2.6.411", "RemindMe now proplerly reloads the reminders after importing reminders from a.remindme file");
             releaseNotes.Add("2.6.412", "Fixed a small issue where RemindMe would crash when launching RemindMe when you never used RemindMe before");
+            releaseNotes.Add("2.6.413", "Fixed another small issue where RemindMe would throw an error at midnight");            
+
         }
 
         public static Dictionary<string,string> ReleaseNotes
