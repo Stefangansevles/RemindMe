@@ -12,6 +12,7 @@ using Business_Logic_Layer;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace RemindMe
 {
@@ -466,6 +467,13 @@ namespace RemindMe
                     BLIO.Log("Deserialized reminder and inserted it into RemindMe");
                 }
             }
+
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!
+                BLOnlineDatabase.ImportCount++;
+            }).Start();
+
             //finally, refresh the listview
             UpdateCurrentPage();
         }

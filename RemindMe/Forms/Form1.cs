@@ -151,35 +151,29 @@ namespace RemindMe
             catch (IOException ex) { BLIO.WriteError(ex, "Error in Cleanup()"); }
         }
 
-        protected override void WndProc(ref Message m)
+        //This is called by the RemindMeImporter
+        public void ReloadReminders()
         {
-            //This message will be sent when the RemindMeImporter imports reminders.
-            if (m.Msg == WM_RELOAD_REMINDERS)
+            BLIO.Log("Reloading reminders after import from .remindme file");
+            int currentReminderCount = BLReminder.GetReminders().Count;
+
+            BLReminder.NotifyChange();
+            UCReminders.Instance.UpdateCurrentPage();
+
+            if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
             {
-                BLIO.Log("Received message WM_RELOAD_REMINDERS");
-                int currentReminderCount = BLReminder.GetReminders().Count;
-
-                BLReminder.NotifyChange();
-                UCReminders.Instance.UpdateCurrentPage();
-
-                if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
-                {
-                    MessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
-                    BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
-                }
-
-                if ((BLReminder.GetReminders().Count - currentReminderCount) > 0)
-                {
-                    new Thread(() =>
-                    {
-                        //Log an entry to the database, for data!
-                        BLOnlineDatabase.ImportCount++;
-                    }).Start();
-                }
-
+                MessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
+                BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
             }
 
-            base.WndProc(ref m);
+            if ((BLReminder.GetReminders().Count - currentReminderCount) > 0)
+            {
+                new Thread(() =>
+                {
+                    //Log an entry to the database, for data!
+                    BLOnlineDatabase.ImportCount++;
+                }).Start();
+            }
         }
 
         public void UpdatePageNumber(int number)

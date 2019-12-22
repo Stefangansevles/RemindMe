@@ -16,20 +16,7 @@ namespace RemindMe
 {
     public partial class RemindMeImporter : Form
     {
-        //todo: maybe remove the BLIO.Log() methods since it doesnt work because a new instance of the importer is tricky that way
-
-        #region Dll Imports
-        private const int HWND_BROADCAST = 0xFFFF;
-
-        //tell remindme to reload reminders
-        private static readonly int WM_RELOAD_REMINDERS = RegisterWindowMessage("WM_RELOAD_REMINDERS");
-
-        [DllImport("user32")]
-        private static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
-
-        [DllImport("user32")]
-        private static extern int RegisterWindowMessage(string message);
-        #endregion Dll Imports
+        //todo: maybe remove the BLIO.Log() methods since it doesnt work because a new instance of the importer is tricky that way        
 
         private string remindmeFile;
         private List<Reminder> remindersFromRemindMeFile = new List<Reminder>();
@@ -109,7 +96,7 @@ namespace RemindMe
 
                     //Let remindme know that the listview should be refreshed
                     BLIO.Log("Sending message WM_RELOAD_REMINDERS ....");
-                    PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));                    
+                    Form1.Instance.ReloadReminders();                    
                     this.Close();
                 }
                 else
