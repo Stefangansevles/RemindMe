@@ -44,8 +44,10 @@ namespace RemindMe
         public static void MakeMessagePopup(string message, int popDelay)
         {
             RemindMeMessageForm popupForm = new RemindMeMessageForm(message, popDelay);
-            popupForm.Show();
-
+            popupForm.Invoke((MethodInvoker)(() =>
+            {
+                popupForm.Show();
+            }));            
             popupForms.Add(popupForm); //Add the popupform            
         }
 

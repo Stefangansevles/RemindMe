@@ -888,3 +888,6 @@ Fixed a small issue where RemindMe would crash when launching RemindMe when you 
 
 V2.6.413
 Fixed another small issue where RemindMe would throw an error at midnight
+
+V2.6.414
+Fixed an issue where you could not download a new version of RemindMe if you haven't opened it before

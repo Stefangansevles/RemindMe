@@ -600,10 +600,14 @@ namespace RemindMe
 
                             while (!updater.Completed)
                                 await Task.Delay(500);
-
+                            
                             MessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!", 10);
 
-                            btnNewUpdate.Visible = true;
+                            btnNewUpdate.Invoke((MethodInvoker)(() =>
+                            {
+                                btnNewUpdate.Visible = true;
+                            }));
+                            
                             BLIO.Log("Completed downloading the new .msi from github!");
                         }
                         catch

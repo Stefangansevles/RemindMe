@@ -68,7 +68,10 @@ namespace RemindMe
             btnEdit.Image = Properties.Resources.Edit_Disabled;
             btnSettings.Image = Properties.Resources.gearDisabled;
             btnDisable.Image = Properties.Resources.turnedOffTwo;
-            pbDate.BackgroundImage = Properties.Resources.RemindMe; 
+            pbDate.BackgroundImage = Properties.Resources.RemindMe;
+
+            pbRepeat.Location = new Point(168, 26);
+            lblRepeat.Location = new Point(195, 30);
 
             btnSettings.Enabled = false;
             btnDelete.Enabled = false;
