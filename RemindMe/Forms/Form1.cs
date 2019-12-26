@@ -49,7 +49,7 @@ namespace RemindMe
 
         //Update variables
         private RemindMeUpdater updater;
-        
+
         private int r = 14, g = 130, b = 22;
         private bool increaseR = true;
         private bool increaseG = true;
@@ -59,14 +59,14 @@ namespace RemindMe
         public Form1()
         {
 
-            BLIO.Log("Construct Form");            
+            BLIO.Log("Construct Form");
             InitializeComponent();
             instance = this;
 
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
-            
+
 
             //User controls that will be loaded into the "main" panel
             ucReminders = new UCReminders();
@@ -96,7 +96,7 @@ namespace RemindMe
             pnlMain.Controls.Add(ucDebug);
             pnlMain.Controls.Add(ucTimer);
 
-            pnlMain.Controls.Add(ucReminders);            
+            pnlMain.Controls.Add(ucReminders);
             ucReminders.Visible = true;
             ucReminders.Initialize();
 
@@ -108,12 +108,12 @@ namespace RemindMe
             //toolstrip items white.
             RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
 
-            
+
             UpdateInformation.Initialize();
-            
+
             formLoadAsync();
-            
-            RemindMeIcon.Visible = true;                 
+
+            RemindMeIcon.Visible = true;
             BLIO.Log("Form constructed");
 
             this.Opacity = 0;
@@ -227,9 +227,9 @@ namespace RemindMe
             BLIO.Log("RemindMe_Load");
 
             BLIO.WriteUpdateBatch(Application.StartupPath);
-            
 
-            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;                    
+
+            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
             Settings set = BLSettings.GetSettings();
 
@@ -262,7 +262,7 @@ namespace RemindMe
                 WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
                 wn.Show();
 
-                
+
                 //Before updating the lastVersion, log the update in the db
                 BLOnlineDatabase.AddNewUpgrade(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
 
@@ -273,15 +273,15 @@ namespace RemindMe
             {
                 BLIO.Log("[VERSION CHECK] No new version! lastVersion: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
             }
-            
 
-            
+
+
 
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
 
             MessageFormManager.MakeTodaysRemindersPopup();
-            BLIO.Log("Today's reminders popup created");            
+            BLIO.Log("Today's reminders popup created");
 
             //Create an shortcut in the windows startup folder if it doesn't already exist
             if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
@@ -289,7 +289,7 @@ namespace RemindMe
 
 
             if (Debugger.IsAttached) //Debugging ? show extra option            
-                btnDebugMode.Visible = true;            
+                btnDebugMode.Visible = true;
 
 
             BLSongs.InsertWindowsSystemSounds();
@@ -312,16 +312,15 @@ namespace RemindMe
                     //First time user! log it in the db
                     BLOnlineDatabase.InsertFirstTimeUser(set.UniqueString);
                     set.LastVersion = IOVariables.RemindMeVersion;
-                }                
+                }
                 BLSettings.UpdateSettings(set);
             });
             tr.Start();
 
-            
 
-            this.Opacity = 0;               
-            this.ShowInTaskbar = true;
-            this.Show();            
+            
+            this.ShowInTaskbar = false;
+            this.Show();
             tmrInitialHide.Start();
 
             //Insert the errorlog.txt into the DB if it is not empty
@@ -331,13 +330,13 @@ namespace RemindMe
                 File.WriteAllText(IOVariables.errorLog, "");
             }
 
-            
+
             BLIO.Log("RemindMe loaded");
             Cleanup();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -355,7 +354,7 @@ namespace RemindMe
             {
                 BLIO.Log("Remindme was already visible though..");
                 return;
-            }            
+            }
 
             //Instead of calling .Show() on a form with 100% opacity making it visible instantly, we call .Show() on the form with 0% opacity.
             //The form will be drawn invisibly, and then increase the opacity until it reaches 100%. This way RemindMe's form:
@@ -375,20 +374,18 @@ namespace RemindMe
             {
                 BLIO.Log("Remindme was already visible though..");
                 return;
-            }
-            allowshowdisplay = true;            
-            this.ShowInTaskbar = true;
-            this.Show();            
+            }                  
+            allowshowdisplay = true;
+            this.ShowInTaskbar = true;            
             tmrFadeIn.Start();
             BLIO.Log("Showing RemindMe");
-
         }
 
         private void tsExit_Click(object sender, EventArgs e)
         {
             if (UCTimer.RunningTimers.Count > 0 && !this.Visible)
             {
-                if(RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved",RemindMeBoxReason.YesNo) == DialogResult.Yes)
+                if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.Yes)
                 {
                     BLIO.Log("User had running timers and closed RemindMe(through RemindMeIcon)");
                     this.Close();
@@ -401,8 +398,8 @@ namespace RemindMe
                 this.Close();
                 Application.Exit();
             }
-            
-            
+
+
         }
 
         private void lblMinimize_Click(object sender, EventArgs e)
@@ -416,11 +413,11 @@ namespace RemindMe
                 c.Visible = false;
 
             if (ucNewReminder != null && ucNewReminder.saveState)
-                ucNewReminder.Visible = true;            
+                ucNewReminder.Visible = true;
             else
             {
                 ucReminders.Visible = true;
-                UCReminders.Instance.UpdateCurrentPage();                
+                UCReminders.Instance.UpdateCurrentPage();
             }
             ToggleButton(sender);
         }
@@ -496,7 +493,7 @@ namespace RemindMe
 
         private void lblExit_MouseLeave(object sender, EventArgs e)
         {
-           lblExit.ForeColor = Color.Transparent;
+            lblExit.ForeColor = Color.Transparent;
 
         }
 
@@ -507,6 +504,14 @@ namespace RemindMe
 
         private void tmrOpacity_Tick(object sender, EventArgs e)
         {
+            if (this.Opacity == 0)
+            {
+                this.WindowState = FormWindowState.Minimized;
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+                //this.Activate();
+            }
+
             this.Opacity += 0.15;
             if (this.Opacity >= 1)
                 tmrFadeIn.Stop();
@@ -590,11 +595,11 @@ namespace RemindMe
                 BLIO.Log("No new version.");
         }
         private void DownloadMsi()
-        {            
+        {
             new Thread(() =>
             {
                 try
-                {                    
+                {
                     this.BeginInvoke((MethodInvoker)async delegate
                     {
                         try
@@ -617,7 +622,7 @@ namespace RemindMe
                         }
                     });
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     BLIO.Log("Failed downloading MSI. " + ex.ToString());
                 }
@@ -629,24 +634,36 @@ namespace RemindMe
         {
             try
             {
-                BLIO.Log("Installing the new version from github!");
-
-                if (!File.Exists(IOVariables.rootFolder + "SetupRemindMe.msi"))
+                if (UCTimer.RunningTimers.Count > 0 && !this.Visible)
                 {
-                    RemindMeBox.Show("Could not update RemindMe. Please try again later");
-                    BLIO.Log("SetupRemindMe.msi was not found on the hard drive.. hmmmmm... suspicious.... ;)");
-                    return;
+                    if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to update and close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.Yes)
+                    {
+                        //make sure the popup wont happen when remindme gets closed by Application.Exit()
+                        UCTimer.RunningTimers.Clear();
+
+
+                        BLIO.Log("Installing the new version from github!");
+
+                        if (!File.Exists(IOVariables.rootFolder + "SetupRemindMe.msi"))
+                        {
+                            RemindMeBox.Show("Could not update RemindMe. Please try again later");
+                            BLIO.Log("SetupRemindMe.msi was not found on the hard drive.. hmmmmm... suspicious.... ;)");
+                            return;
+                        }
+
+
+                        ProcessStartInfo info = new ProcessStartInfo(IOVariables.rootFolder + "install.bat");
+                        info.Verb = "runas";
+
+                        Process process = new Process();
+                        process.StartInfo = info;
+                        process.Start();
+
+                        Application.Exit();
+                    }
                 }
-                
 
-                ProcessStartInfo info = new ProcessStartInfo(IOVariables.rootFolder + "install.bat");
-                info.Verb = "runas";
-
-                Process process = new Process();
-                process.StartInfo = info;
-                process.Start();
-                                              
-                Application.Exit();                
+               
             }
             catch (Exception ex)
             {
