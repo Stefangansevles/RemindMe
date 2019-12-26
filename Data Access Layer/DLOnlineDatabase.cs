@@ -355,5 +355,120 @@ namespace Data_Access_Layer
                 db.SaveChanges();
             }
         }
+        //--
+        public static int PreviewCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.PreviewCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.PreviewCount = value;
+                db.SaveChanges();
+            }
+        }
+        public static int DuplicateCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.DuplicateCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.DuplicateCount = value;
+                db.SaveChanges();
+            }
+        }
+        public static int HideCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.HideCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.HideCount = value;
+                db.SaveChanges();
+            }
+        }
+        public static int PostponeCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.PostponeCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.PostponeCount = value;
+                db.SaveChanges();
+            }
+        }
+        public static int SkipCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.SkipCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.SkipCount = value;
+                db.SaveChanges();
+            }
+        }
+        public static int PermanentelyDeleteCount
+        {
+            get
+            {
+                try
+                {
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.PermanentelyDeleteCount;
+                }
+                catch (DbUpdateException exc) { return -1; }
+                catch (Exception exce) { return -1; }
+            }
+            set
+            {
+                Misc misc = db.Misc.SingleOrDefault();
+                misc.PermanentelyDeleteCount = value;
+                db.SaveChanges();
+            }
+        }
     }
 }

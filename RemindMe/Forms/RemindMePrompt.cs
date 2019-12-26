@@ -66,7 +66,7 @@ namespace RemindMe
             return strReturnValue;
         }
         /// <summary>
-        /// Shows a prompt where the user can enter a string
+        /// Shows a prompt where the user can enter a number
         /// </summary>
         /// <param name="title">The title the user should see when this prompt shows up</param>
         /// <returns></returns>
@@ -75,10 +75,11 @@ namespace RemindMe
             newPrompt = new RemindMePrompt(title, PromptReason.NUMERIC);
             newPrompt.ShowDialog();
             BLIO.Log("RemindMePrompt closed and returned " + intReturnValue);
+            if (intReturnValue < 0) intReturnValue = 0;
             return intReturnValue;
         }
         /// <summary>
-        /// Shows a prompt where the user can enter a string
+        /// Shows a prompt where the user can enter a number
         /// </summary>
         /// <param name="title">The title the user should see when this prompt shows up</param>
         /// <returns></returns>
@@ -87,6 +88,7 @@ namespace RemindMe
             newPrompt = new RemindMePrompt(title, description,PromptReason.NUMERIC);
             newPrompt.ShowDialog();
             BLIO.Log("RemindMePrompt closed and returned " + intReturnValue);
+            if (intReturnValue < 0) intReturnValue = 0;
             return intReturnValue;
         }
 
@@ -94,6 +96,7 @@ namespace RemindMe
         {
             newPrompt = new RemindMePrompt(title, description, PromptReason.MINUTES);
             newPrompt.ShowDialog();
+            if (minutes < 0) minutes = 0;
             return minutes;
         }
         /// <summary>
@@ -195,7 +198,7 @@ namespace RemindMe
         }
 
         private void lblExit_Click(object sender, EventArgs e)
-        {
+        {            
             this.Close();
         }
     }

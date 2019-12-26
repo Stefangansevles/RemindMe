@@ -42,11 +42,10 @@ namespace RemindMe
         }
 
         private void UCDebugMode_Load(object sender, EventArgs e)
-        {
-            
+        {            
             tmrDetails.Start();
             tmrLog.Start();
-            localCacheList.AddRange(BLIO.systemLog);
+            localCacheList.AddRange(BLIO.systemLog);            
         }
 
         private long GetMemory()
@@ -80,12 +79,19 @@ namespace RemindMe
 
         private void UCDebugMode_VisibleChanged(object sender, EventArgs e)
         {
-            tbSystemLog.Text += "";
+            BLIO.Log("Showing debug mode");
         }
 
         private void btnCheckUpdate_Click(object sender, EventArgs e)
         {
             Form1.Instance.CheckForUpdates();
+        }
+
+        private void btnRequery_Click(object sender, EventArgs e)
+        {
+            //Copy the contents of the textbox to the system clipboard                  
+            Clipboard.SetText(tbSystemLog.Text);
+            BLIO.Log("Copied system log to clipboard");
         }
     }
 }

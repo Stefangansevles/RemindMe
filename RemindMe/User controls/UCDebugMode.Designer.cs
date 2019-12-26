@@ -39,6 +39,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tmrLog = new System.Windows.Forms.Timer(this.components);
             this.btnCheckUpdate = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnRequery = new Bunifu.Framework.UI.BunifuImageButton();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRequery)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConfirm
@@ -241,11 +243,26 @@
             this.btnCheckUpdate.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
             // 
+            // btnRequery
+            // 
+            this.btnRequery.BackColor = System.Drawing.Color.Transparent;
+            this.btnRequery.Image = global::RemindMe.Properties.Resources.copy1;
+            this.btnRequery.ImageActive = null;
+            this.btnRequery.Location = new System.Drawing.Point(613, 383);
+            this.btnRequery.Name = "btnRequery";
+            this.btnRequery.Size = new System.Drawing.Size(35, 35);
+            this.btnRequery.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRequery.TabIndex = 96;
+            this.btnRequery.TabStop = false;
+            this.btnRequery.Zoom = 2;
+            this.btnRequery.Click += new System.EventHandler(this.btnRequery_Click);
+            // 
             // UCDebugMode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.Controls.Add(this.btnRequery);
             this.Controls.Add(this.btnCheckUpdate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbSystemLog);
@@ -258,6 +275,7 @@
             this.Size = new System.Drawing.Size(666, 436);
             this.Load += new System.EventHandler(this.UCDebugMode_Load);
             this.VisibleChanged += new System.EventHandler(this.UCDebugMode_VisibleChanged);
+            ((System.ComponentModel.ISupportInitialize)(this.btnRequery)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,5 +293,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer tmrLog;
         private Bunifu.Framework.UI.BunifuFlatButton btnCheckUpdate;
+        private Bunifu.Framework.UI.BunifuImageButton btnRequery;
     }
 }

@@ -22,5 +22,11 @@ namespace Data_Access_Layer
         public int MessageCount { get; set; }
         public int Id { get; set; }
         public int RecoverCount { get; set; }
+        public int PreviewCount { get; set; }
+        public int DuplicateCount { get; set; }
+        public int HideCount { get; set; }
+        public int PostponeCount { get; set; }
+        public int SkipCount { get; set; }
+        public int PermanentelyDeleteCount { get; set; }
     }
 }

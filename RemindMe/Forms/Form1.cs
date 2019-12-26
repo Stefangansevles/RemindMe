@@ -114,7 +114,12 @@ namespace RemindMe
             formLoadAsync();
             
             RemindMeIcon.Visible = true;                 
-            BLIO.Log("Form constructed");            
+            BLIO.Log("Form constructed");
+
+            this.Opacity = 0;
+            RemindMeIcon_MouseDoubleClick(null, null);
+            lblExit_Click(null, null);
+            this.Opacity = 100;
         }
 
         public static Form1 Instance
@@ -600,14 +605,10 @@ namespace RemindMe
 
                             while (!updater.Completed)
                                 await Task.Delay(500);
-                            
+
                             MessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!", 10);
 
-                            btnNewUpdate.Invoke((MethodInvoker)(() =>
-                            {
-                                btnNewUpdate.Visible = true;
-                            }));
-                            
+                            btnNewUpdate.Visible = true;
                             BLIO.Log("Completed downloading the new .msi from github!");
                         }
                         catch

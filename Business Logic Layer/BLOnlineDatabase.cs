@@ -391,5 +391,137 @@ namespace Business_Logic_Layer
                 }
             }            
         }
+        public static int PreviewCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.PreviewCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.PreviewCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.PreviewCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.PreviewCount = value; }
+        }
+        public static int DuplicateCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.DuplicateCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.DuplicateCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.DuplicateCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.DuplicateCount = value; }
+        }
+        public static int HideCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.HideCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.HideCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.HideCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.HideCount = value; }
+        }
+        public static int PostponeCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.PostponeCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.PostponeCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.PostponeCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.PostponeCount = value; }
+        }
+        public static int SkipCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.SkipCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.SkipCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.SkipCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.SkipCount = value; }
+        }
+        public static int PermanentelyDeleteCount
+        {
+            get
+            {
+                try
+                {
+
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return -1;
+                    else
+                        return DLOnlineDatabase.PermanentelyDeleteCount;
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.PermanentelyDeleteCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.PermanentelyDeleteCount failed: exception occured: " + exc.ToString(), false);
+                    return -1;
+                }
+            }
+            set { DLOnlineDatabase.PermanentelyDeleteCount = value; }
+        }
     }
 }

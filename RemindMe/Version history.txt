@@ -890,4 +890,7 @@ V2.6.413
 Fixed another small issue where RemindMe would throw an error at midnight
 
 V2.6.414
-Fixed an issue where you could not download a new version of RemindMe if you haven't opened it before
+Fixed an issue where you could not download a new version of RemindMe if you haven't opened it before 
+
+V2.6.415
+Fixed an issue where you could not download a new version of RemindMe if you haven't opened it before (Previous fix did not work)

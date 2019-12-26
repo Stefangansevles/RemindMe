@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Database.Entity;
 using Business_Logic_Layer;
 using Bunifu.Framework.UI;
+using System.Threading;
 
 namespace RemindMe
 {
@@ -211,6 +212,11 @@ namespace RemindMe
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered
             Popup p = new Popup(previewRem);
             p.Show();
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!
+                BLOnlineDatabase.PreviewCount++;
+            }).Start();
         }
         private Reminder CopyReminder(Reminder rem)
         {
@@ -252,7 +258,13 @@ namespace RemindMe
             BLIO.Log("duplicating reminder with id " + rem.Id);
             BLReminder.PushReminderToDatabase(rem);
             BLIO.Log("reminder duplicated.");
-            UCReminders.Instance.UpdateCurrentPage();            
+            UCReminders.Instance.UpdateCurrentPage();
+
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!
+                BLOnlineDatabase.DuplicateCount++;
+            }).Start();
         }
         /// <summary>
         /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
@@ -307,7 +319,13 @@ namespace RemindMe
                 BLIO.Log("Marked reminder with id " + rem.Id + " as hidden");
                 BLReminder.EditReminder(rem);
                 this.Reminder = null;
-                UCReminders.Instance.UpdateCurrentPage();                
+                UCReminders.Instance.UpdateCurrentPage();
+
+                new Thread(() =>
+                {
+                    //Log an entry to the database, for data!
+                    BLOnlineDatabase.HideCount++;
+                }).Start();
             }
             else
                 BLIO.Log("Attempting to hide reminder(s) failed.");
@@ -345,6 +363,13 @@ namespace RemindMe
             BLReminder.EditReminder(rem);//Push changes
 
             UCReminders.Instance.UpdateCurrentPage();
+
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!
+                if(minutes > 0)
+                    BLOnlineDatabase.PostponeCount++;
+            }).Start();
         }
 
         private void removePostponeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -369,6 +394,12 @@ namespace RemindMe
 
             //Refresh to show changes
             UCReminders.Instance.UpdateCurrentPage();
+
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!
+                BLOnlineDatabase.SkipCount++;
+            }).Start();
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -380,7 +411,13 @@ namespace RemindMe
                 BLIO.Log("Reminder permanentely deleted.");
 
                 this.Reminder = null;
-                UCReminders.Instance.UpdateCurrentPage();                
+                UCReminders.Instance.UpdateCurrentPage();
+
+                new Thread(() =>
+                {
+                    //Log an entry to the database, for data!
+                    BLOnlineDatabase.PermanentelyDeleteCount++;
+                }).Start();
             }
         }
 

@@ -51,6 +51,12 @@
           <Property Name="ImportCount" Type="int" Nullable="false" />
           <Property Name="RecoverCount" Type="int" Nullable="false" />
           <Property Name="MessageCount" Type="int" Nullable="false" />
+          <Property Name="PreviewCount" Type="int" Nullable="false" />
+          <Property Name="DuplicateCount" Type="int" Nullable="false" />
+          <Property Name="HideCount" Type="int" Nullable="false" />
+          <Property Name="PostponeCount" Type="int" Nullable="false" />
+          <Property Name="SkipCount" Type="int" Nullable="false" />
+          <Property Name="PermanentelyDeleteCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="NewInstallations">
           <Key>
@@ -190,6 +196,12 @@
           <Property Name="MessageCount" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="RecoverCount" Type="Int32" Nullable="false" />
+          <Property Name="PreviewCount" Type="Int32" Nullable="false" />
+          <Property Name="DuplicateCount" Type="Int32" Nullable="false" />
+          <Property Name="HideCount" Type="Int32" Nullable="false" />
+          <Property Name="PostponeCount" Type="Int32" Nullable="false" />
+          <Property Name="SkipCount" Type="Int32" Nullable="false" />
+          <Property Name="PermanentelyDeleteCount" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -275,6 +287,12 @@
           <EntitySetMapping Name="Misc">
             <EntityTypeMapping TypeName="remindmesqldbModel.Misc">
               <MappingFragment StoreEntitySet="Misc">
+                <ScalarProperty Name="PermanentelyDeleteCount" ColumnName="PermanentelyDeleteCount" />
+                <ScalarProperty Name="SkipCount" ColumnName="SkipCount" />
+                <ScalarProperty Name="PostponeCount" ColumnName="PostponeCount" />
+                <ScalarProperty Name="HideCount" ColumnName="HideCount" />
+                <ScalarProperty Name="DuplicateCount" ColumnName="DuplicateCount" />
+                <ScalarProperty Name="PreviewCount" ColumnName="PreviewCount" />
                 <ScalarProperty Name="RecoverCount" ColumnName="RecoverCount" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MessageCount" ColumnName="MessageCount" />

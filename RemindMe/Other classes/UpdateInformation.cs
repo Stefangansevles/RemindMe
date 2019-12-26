@@ -53,7 +53,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.411", "RemindMe now proplerly reloads the reminders after importing reminders from a.remindme file");
             releaseNotes.Add("2.6.412", "Fixed a small issue where RemindMe would crash when launching RemindMe when you never used RemindMe before");
             releaseNotes.Add("2.6.413", "Fixed another small issue where RemindMe would throw an error at midnight");
-            releaseNotes.Add("2.6.414", "Fixed an issue where you could not download a new version of RemindMe if you haven't opened it before");
+            releaseNotes.Add("2.6.415", "Fixed an issue where you could not download a new version of RemindMe if you haven't opened it before (Previous fix did not work)");
 
         }
 
