@@ -120,6 +120,7 @@ namespace RemindMe
             RemindMeIcon_MouseDoubleClick(null, null);
             lblExit_Click(null, null);
             this.Opacity = 100;
+            
         }
 
         public static Form1 Instance
@@ -156,29 +157,37 @@ namespace RemindMe
             catch (IOException ex) { BLIO.WriteError(ex, "Error in Cleanup()"); }
         }
 
-        //This is called by the RemindMeImporter
-        public void ReloadReminders()
+        protected override void WndProc(ref Message m)
         {
-            BLIO.Log("Reloading reminders after import from .remindme file");
-            int currentReminderCount = BLReminder.GetReminders().Count;
-
-            BLReminder.NotifyChange();
-            UCReminders.Instance.UpdateCurrentPage();
-
-            if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
+            //This message will be sent when the RemindMeImporter imports reminders.
+            if (m.Msg == WM_RELOAD_REMINDERS)
             {
-                MessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
-                BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
-            }
+                BLIO.Log("Reloading reminders after import from .remindme file");
+                int currentReminderCount = BLReminder.GetReminders().Count;
 
-            if ((BLReminder.GetReminders().Count - currentReminderCount) > 0)
-            {
-                new Thread(() =>
+                BLReminder.NotifyChange();
+
+                if (UCReminders.Instance != null)
+                    UCReminders.Instance.UpdateCurrentPage();
+
+                if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
                 {
-                    //Log an entry to the database, for data!
-                    BLOnlineDatabase.ImportCount++;
-                }).Start();
+                    MessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
+                    BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
+                }
+
+                if ((BLReminder.GetReminders().Count - currentReminderCount) > 0)
+                {
+                    new Thread(() =>
+                    {
+                        //Log an entry to the database, for data!
+                        BLOnlineDatabase.ImportCount++;
+                    }).Start();
+                }
+
             }
+
+            base.WndProc(ref m);
         }
 
         public void UpdatePageNumber(int number)
@@ -268,14 +277,13 @@ namespace RemindMe
 
                 //Update the lastVersion
                 set.LastVersion = IOVariables.RemindMeVersion;
+
+                
             }
             else
             {
                 BLIO.Log("[VERSION CHECK] No new version! lastVersion: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
-            }
-
-
-
+            }            
 
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
@@ -326,17 +334,16 @@ namespace RemindMe
             //Insert the errorlog.txt into the DB if it is not empty
             if (new FileInfo(IOVariables.errorLog).Length > 0)
             {
-                BLOnlineDatabase.InsertLocalErrorLog(File.ReadAllText(set.UniqueString), File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
+                BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
                 File.WriteAllText(IOVariables.errorLog, "");
             }
-
-
+            
             BLIO.Log("RemindMe loaded");
             Cleanup();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void lblExit_Click(object sender, EventArgs e)

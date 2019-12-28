@@ -281,6 +281,7 @@
             this.btnShowDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShowDetails.Textcolor = System.Drawing.Color.White;
             this.btnShowDetails.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowDetails.Visible = false;
             this.btnShowDetails.Click += new System.EventHandler(this.btnShowDetails_Click);
             // 
             // bunifuDragControl2

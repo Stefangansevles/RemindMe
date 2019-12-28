@@ -172,6 +172,7 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.Sql
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Gma.System.MouseKeyHook.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.Deployment.WindowsInstaller.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
@@ -204,7 +205,6 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Form1.reso
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.Popup.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeBox.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeImporter.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeTimerMessageForm.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeMessageForm.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeOptionPrompt.resources
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMePrompt.resources
@@ -229,8 +229,3 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.Cor
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.Deployment.WindowsInstaller.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCExceptions.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCMessages.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.UCUsers.resources
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.RemindMeDbViewer.resources

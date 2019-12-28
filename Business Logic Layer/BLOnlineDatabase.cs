@@ -1,4 +1,5 @@
 ﻿using Data_Access_Layer;
+using Database.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -186,6 +187,7 @@ namespace Business_Logic_Layer
                 BLIO.WriteError(exc, "BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.ToString(), false);
             }
         }
+
 
         /// <summary>
         /// Gets the amount of users in the misc table

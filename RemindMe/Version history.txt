@@ -894,3 +894,7 @@ Fixed an issue where you could not download a new version of RemindMe if you hav
 
 V2.6.415
 Fixed an issue where you could not download a new version of RemindMe if you haven't opened it before (Previous fix did not work)
+
+V2.6.416
+Fixed importing reminders from a .remindme file
+Fixed a small issue where the local errorlog.txt contents werent being pushed to the db

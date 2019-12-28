@@ -188,7 +188,7 @@ namespace Business_Logic_Layer
             }
             catch(Exception ex)
             {
-                Log("BLIO.NewVersionOnGithub() failed: " + ex.ToString());
+                Log("BLIO.GetGithubVersion() failed: " + ex.ToString());
             }
             return null;
         }

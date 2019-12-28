@@ -18,6 +18,19 @@ namespace RemindMe
     {
         //todo: maybe remove the BLIO.Log() methods since it doesnt work because a new instance of the importer is tricky that way        
 
+        #region Dll Imports
+        private const int HWND_BROADCAST = 0xFFFF;
+
+        //tell remindme to reload reminders
+        private static readonly int WM_RELOAD_REMINDERS = RegisterWindowMessage("WM_RELOAD_REMINDERS");
+
+        [DllImport("user32")]
+        private static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
+
+        [DllImport("user32")]
+        private static extern int RegisterWindowMessage(string message);
+        #endregion Dll Imports
+
         private string remindmeFile;
         private List<Reminder> remindersFromRemindMeFile = new List<Reminder>();
 
@@ -30,12 +43,14 @@ namespace RemindMe
         public RemindMeImporter(string reminderFile)
         {
             BLIO.Log("Constructing RemindMeImporter");
+            BLIO.Log("Form1 null: " + (Form1.Instance == null).ToString());
+            BLIO.Log("Form1: " + Form1.Instance);
             InitializeComponent();
             this.Opacity = 0;
             this.remindmeFile = reminderFile;
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             tmrFadeIn.Start();
-            BLIO.Log("RemindMeImporter constructed");
+            BLIO.Log("RemindMeImporter constructed");           
         }
 
         private List<Reminder> GetSelectedRemindersFromListview()
@@ -82,7 +97,7 @@ namespace RemindMe
         private void btnImport_Click(object sender, EventArgs e)
         {
             try
-            {                
+            {                                
                 if (lvReminders.CheckedItems.Count > 0)
                 {
                     foreach (Reminder rem in GetSelectedRemindersFromListview())
@@ -94,9 +109,9 @@ namespace RemindMe
                         BLReminder.PushReminderToDatabase(rem);
                     }
 
-                    //Let remindme know that the listview should be refreshed
+                    //Let remindme know that the listview should be refreshed                                        
                     BLIO.Log("Sending message WM_RELOAD_REMINDERS ....");
-                    Form1.Instance.ReloadReminders();                    
+                    PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));
                     this.Close();
                 }
                 else
@@ -106,7 +121,7 @@ namespace RemindMe
 
             }
             catch (Exception ex)
-            {
+            {                
                 ErrorPopup pop = new ErrorPopup("Error inserting reminders", ex);
                 pop.Show();
                 BLIO.WriteError(ex, "Error inserting reminders");
@@ -209,5 +224,6 @@ namespace RemindMe
             if (this.Opacity >= 1)
                 tmrFadeIn.Stop();
         }
+       
     }
 }

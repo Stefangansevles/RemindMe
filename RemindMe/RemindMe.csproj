@@ -132,18 +132,6 @@
   <ItemGroup>
     <Compile Include="ComboboxItems\ComboBoxItem.cs" />
     <Compile Include="ComboboxItems\ComboBoxItemManager.cs" />
-    <Compile Include="Forms\RemindMeDbViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\RemindMeDbViewer.Designer.cs">
-      <DependentUpon>RemindMeDbViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\RemindMeTimerMessageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\RemindMeTimerMessageForm.Designer.cs">
-      <DependentUpon>RemindMeTimerMessageForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\WhatsNew.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,24 +234,6 @@
     <Compile Include="User controls\Advanced Reminder User controls\AVR_UCGeneral.Designer.cs">
       <DependentUpon>AVR_UCGeneral.cs</DependentUpon>
     </Compile>
-    <Compile Include="User controls\DbViewer\UCExceptions.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="User controls\DbViewer\UCExceptions.Designer.cs">
-      <DependentUpon>UCExceptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="User controls\DbViewer\UCMessages.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="User controls\DbViewer\UCMessages.Designer.cs">
-      <DependentUpon>UCMessages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="User controls\DbViewer\UCUsers.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="User controls\DbViewer\UCUsers.Designer.cs">
-      <DependentUpon>UCUsers.cs</DependentUpon>
-    </Compile>
     <Compile Include="User controls\UCDebugMode.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -339,14 +309,8 @@
     <EmbeddedResource Include="Forms\RemindMeBox.resx">
       <DependentUpon>RemindMeBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RemindMeDbViewer.resx">
-      <DependentUpon>RemindMeDbViewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemindMeImporter.resx">
       <DependentUpon>RemindMeImporter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RemindMeTimerMessageForm.resx">
-      <DependentUpon>RemindMeTimerMessageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemindMeMessageForm.resx">
       <DependentUpon>RemindMeMessageForm.cs</DependentUpon>
@@ -376,15 +340,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\Advanced Reminder User controls\AVR_UCGeneral.resx">
       <DependentUpon>AVR_UCGeneral.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User controls\DbViewer\UCExceptions.resx">
-      <DependentUpon>UCExceptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User controls\DbViewer\UCMessages.resx">
-      <DependentUpon>UCMessages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User controls\DbViewer\UCUsers.resx">
-      <DependentUpon>UCUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\UCDebugMode.resx">
       <DependentUpon>UCDebugMode.cs</DependentUpon>

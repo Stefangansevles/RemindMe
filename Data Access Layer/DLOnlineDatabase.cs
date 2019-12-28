@@ -184,7 +184,7 @@ namespace Data_Access_Layer
             catch (DbUpdateException exc) { }
             catch (Exception exce) { }
         }
-
+   
 
         /// <summary>
         /// Gets the amount of users in the misc table

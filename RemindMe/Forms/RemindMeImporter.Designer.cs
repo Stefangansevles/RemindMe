@@ -40,7 +40,6 @@
             this.lblAmountOfReminders = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
-            this.btnImport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnCancel = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
@@ -49,6 +48,7 @@
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl4 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.btnImport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlMainGradient.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlHeaderText.SuspendLayout();
@@ -173,44 +173,6 @@
             this.pnlFooterButtons.Size = new System.Drawing.Size(416, 63);
             this.pnlFooterButtons.TabIndex = 1;
             // 
-            // btnImport
-            // 
-            this.btnImport.Activecolor = System.Drawing.Color.DimGray;
-            this.btnImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.btnImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnImport.BorderRadius = 5;
-            this.btnImport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnImport.ButtonText = "    Import";
-            this.btnImport.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImport.DisabledColor = System.Drawing.Color.Gray;
-            this.btnImport.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.btnImport.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnImport.Iconimage = null;
-            this.btnImport.Iconimage_right = null;
-            this.btnImport.Iconimage_right_Selected = null;
-            this.btnImport.Iconimage_Selected = null;
-            this.btnImport.IconMarginLeft = 0;
-            this.btnImport.IconMarginRight = 0;
-            this.btnImport.IconRightVisible = true;
-            this.btnImport.IconRightZoom = 0D;
-            this.btnImport.IconVisible = true;
-            this.btnImport.IconZoom = 50D;
-            this.btnImport.IsTab = false;
-            this.btnImport.Location = new System.Drawing.Point(303, 15);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.btnImport.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnImport.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnImport.selected = false;
-            this.btnImport.Size = new System.Drawing.Size(79, 30);
-            this.btnImport.TabIndex = 8;
-            this.btnImport.Text = "    Import";
-            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImport.Textcolor = System.Drawing.Color.White;
-            this.btnImport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
             // btnCancel
             // 
             this.btnCancel.Activecolor = System.Drawing.Color.DimGray;
@@ -291,6 +253,44 @@
             this.bunifuDragControl4.TargetControl = this.lblTitle;
             this.bunifuDragControl4.Vertical = true;
             // 
+            // btnImport
+            // 
+            this.btnImport.Activecolor = System.Drawing.Color.DimGray;
+            this.btnImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnImport.BorderRadius = 5;
+            this.btnImport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnImport.ButtonText = "    Import";
+            this.btnImport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImport.DisabledColor = System.Drawing.Color.Gray;
+            this.btnImport.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.btnImport.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnImport.Iconimage = null;
+            this.btnImport.Iconimage_right = null;
+            this.btnImport.Iconimage_right_Selected = null;
+            this.btnImport.Iconimage_Selected = null;
+            this.btnImport.IconMarginLeft = 0;
+            this.btnImport.IconMarginRight = 0;
+            this.btnImport.IconRightVisible = true;
+            this.btnImport.IconRightZoom = 0D;
+            this.btnImport.IconVisible = true;
+            this.btnImport.IconZoom = 50D;
+            this.btnImport.IsTab = false;
+            this.btnImport.Location = new System.Drawing.Point(303, 15);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnImport.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnImport.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnImport.selected = false;
+            this.btnImport.Size = new System.Drawing.Size(79, 30);
+            this.btnImport.TabIndex = 9;
+            this.btnImport.Text = "    Import";
+            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnImport.Textcolor = System.Drawing.Color.White;
+            this.btnImport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
             // RemindMeImporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,7 +323,6 @@
         private System.Windows.Forms.Label lblAmountOfReminders;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel pnlFooterButtons;
-        private Bunifu.Framework.UI.BunifuFlatButton btnImport;
         private Bunifu.Framework.UI.BunifuFlatButton btnCancel;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private System.Windows.Forms.Timer tmrFadeIn;
@@ -335,5 +334,6 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl3;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl4;
+        private Bunifu.Framework.UI.BunifuFlatButton btnImport;
     }
 }
