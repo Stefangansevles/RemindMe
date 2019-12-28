@@ -639,11 +639,21 @@ namespace RemindMe
 
         private void btnNewUpdate_Click(object sender, EventArgs e)
         {
+            string allowUpdate = "";
             try
             {
                 if (UCTimer.RunningTimers.Count > 0 && !this.Visible)
                 {
                     if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to update and close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.Yes)
+                    {
+                        allowUpdate = "Y";
+                    }
+                    else
+                        allowUpdate = "N";
+                }
+                else
+                {
+                    if (allowUpdate == "" || allowUpdate == "Y")
                     {
                         //make sure the popup wont happen when remindme gets closed by Application.Exit()
                         UCTimer.RunningTimers.Clear();
