@@ -83,9 +83,9 @@
     <Compile Include="DLAVRProperties.cs" />
     <Compile Include="DLDatabase.cs" />
     <Compile Include="DLHotkeys.cs" />
-    <Compile Include="DLListviewColumnSizes.cs" />
     <Compile Include="DLOnlineDatabase.cs" />
     <Compile Include="DLPopupDimensions.cs" />
+    <Compile Include="DLReadMessages.cs" />
     <Compile Include="DLReminders.cs" />
     <Compile Include="DLSettings.cs" />
     <Compile Include="DLSongs.cs" />
@@ -115,6 +115,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RemindMeDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="RemindMeMessages.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
     </Compile>
     <Compile Include="RemindMeOnlineDb.Context.cs">
       <AutoGen>True</AutoGen>

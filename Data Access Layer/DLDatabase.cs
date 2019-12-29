@@ -38,6 +38,8 @@ namespace Data_Access_Layer
         //Contains the files/folders and their actions, example: delete folder x. open file x. Has a foreign key to TABLE_REMINDER
         private const string TABLE_AVR_FILES_FOLDERS = "CREATE TABLE [AdvancedReminderFilesFolders] ([Id] INTEGER NOT NULL, [Remid]bigint NOT NULL, [Path]text NOT NULL, [Action]text NOT NULL, CONSTRAINT[sqlite_master_PK_AdvancedReminderFilesFolders] PRIMARY KEY([Id]));";
 
+        //The neccesary query to execute to create the table ReadMessages
+        private const string TABLE_READ_MESSAGES = "CREATE TABLE [ReadMessages] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [ReadMessageId] bigint NOT NULL, [ReadDate] text NOT NULL, [MessageText] text NULL);";
         
 
         /// <summary>
@@ -57,7 +59,8 @@ namespace Data_Access_Layer
             SQLiteCommand tableHotkeys = new SQLiteCommand();
             SQLiteCommand tableAvrProperties = new SQLiteCommand();
             SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
-            
+            SQLiteCommand tableReadMessages = new SQLiteCommand();
+
 
             tableReminder.CommandText = TABLE_REMINDER;
             tableSettings.CommandText = TABLE_SETTINGS;
@@ -67,6 +70,7 @@ namespace Data_Access_Layer
             tableHotkeys.CommandText = TABLE_HOTKEYS;
             tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
             tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
+            tableReadMessages.CommandText = TABLE_READ_MESSAGES;
 
             tableReminder.Connection = conn;
             tableSettings.Connection = conn;
@@ -76,6 +80,7 @@ namespace Data_Access_Layer
             tableHotkeys.Connection = conn;
             tableAvrProperties.Connection = conn;
             tableAvrFilesFolders.Connection = conn;
+            tableReadMessages.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
             tableSettings.ExecuteNonQuery();
@@ -85,6 +90,7 @@ namespace Data_Access_Layer
             tableHotkeys.ExecuteNonQuery();
             tableAvrProperties.ExecuteNonQuery();
             tableAvrFilesFolders.ExecuteNonQuery();
+            tableReadMessages.ExecuteNonQuery();
 
             conn.Close();
             conn.Dispose();
@@ -173,7 +179,7 @@ namespace Data_Access_Layer
 
             var AVR_Properties = typeof(AdvancedReminderProperties).GetProperties().Select(property => property.Name).ToList();
 
-            foreach (string columnName in hotkeys)
+            foreach (string columnName in AVR_Properties)
             {
                 if (!HasColumn(columnName, "AdvancedReminderProperties"))
                     return false; //aww damn! the user has an outdated .db file!                
@@ -181,9 +187,17 @@ namespace Data_Access_Layer
 
             var AVR_Files_Folders = typeof(AdvancedReminderFilesFolders).GetProperties().Select(property => property.Name).ToList();
 
-            foreach (string columnName in hotkeys)
+            foreach (string columnName in AVR_Files_Folders)
             {
                 if (!HasColumn(columnName, "AdvancedReminderFilesFolders"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
+            var readMessages = typeof(ReadMessages).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in readMessages)
+            {
+                if (!HasColumn(columnName, "ReadMessages"))
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
@@ -219,7 +233,8 @@ namespace Data_Access_Layer
                 if (HasTable("reminder", db) && HasTable("settings", db) 
                     && HasTable("songs", db) && HasTable("popupdimensions", db) 
                     && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db)
-                    && HasTable("AdvancedReminderProperties", db) && HasTable("AdvancedReminderFilesFolders", db))
+                    && HasTable("AdvancedReminderProperties", db) && HasTable("AdvancedReminderFilesFolders", db)
+                    && HasTable("ReadMessages", db))
                     return true;
                 else
                     return false;                
@@ -246,6 +261,7 @@ namespace Data_Access_Layer
                 SQLiteCommand tableHotkeys = new SQLiteCommand();
                 SQLiteCommand tableAvrProperties = new SQLiteCommand();
                 SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
+                SQLiteCommand tableReadMessages = new SQLiteCommand();
 
 
                 tableReminder.CommandText = TABLE_REMINDER;
@@ -256,6 +272,7 @@ namespace Data_Access_Layer
                 tableHotkeys.CommandText = TABLE_HOTKEYS;
                 tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
                 tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
+                tableReadMessages.CommandText = TABLE_READ_MESSAGES;
 
                 tableReminder.Connection = conn;
                 tableSettings.Connection = conn;
@@ -265,6 +282,7 @@ namespace Data_Access_Layer
                 tableHotkeys.Connection = conn;
                 tableAvrProperties.Connection = conn;
                 tableAvrFilesFolders.Connection = conn;
+                tableReadMessages.Connection = conn;
 
                 if (!HasTable("Reminder", db))
                     tableReminder.ExecuteNonQuery();
@@ -285,11 +303,13 @@ namespace Data_Access_Layer
                     tableHotkeys.ExecuteNonQuery();
 
                 if (!HasTable("AdvancedReminderProperties", db))
-                    tableHotkeys.ExecuteNonQuery();
+                    tableAvrProperties.ExecuteNonQuery();
 
                 if (!HasTable("AdvancedReminderFilesFolders", db))
-                    tableHotkeys.ExecuteNonQuery();
+                    tableAvrFilesFolders.ExecuteNonQuery();
 
+                if (!HasTable("ReadMessages", db))
+                    tableReadMessages.ExecuteNonQuery();
 
                 conn.Close();
                 conn.Dispose();
@@ -313,6 +333,7 @@ namespace Data_Access_Layer
                 var hotkeys = typeof(Hotkeys).GetProperties().Select(property => property.Name).ToArray();
                 var avrProperties = typeof(AdvancedReminderProperties).GetProperties().Select(property => property.Name).ToArray();
                 var avrFilesFolders = typeof(AdvancedReminderFilesFolders).GetProperties().Select(property => property.Name).ToArray();
+                var readMessages = typeof(ReadMessages).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
                 {
@@ -360,6 +381,12 @@ namespace Data_Access_Layer
                 {
                     if (!HasColumn(column, "AdvancedReminderFilesFolders"))
                         db.Database.ExecuteSqlCommand("ALTER TABLE AdvancedReminderFilesFolders ADD COLUMN " + column + " " + GetAvrFilesFoldersColumnSqlType(column));
+                }
+
+                foreach (string column in readMessages)
+                {
+                    if (!HasColumn(column, "ReadMessages"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE ReadMessages ADD COLUMN " + column + " " + GetReadMessagesColumnSqlType(column));
                 }
 
 
@@ -530,6 +557,23 @@ namespace Data_Access_Layer
                 case "Remid": return "bigint NOT NULL";
                 case "Path": return "text NOT NULL";
                 case "Action": return "text NOT NULL";
+                default: return "text NOT NULL";
+            }
+        }
+
+        /// <summary>
+        /// Gets the SQLite data type of a column in the AvrFilesFolders table, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
+        private static string GetReadMessagesColumnSqlType(string columnName)
+        {            
+            switch (columnName)
+            {
+                case "Id": return "INTEGER NOT NULL";
+                case "ReadMessageId": return "INTEGER NOT NULL";
+                case "ReadDate": return "TEXT NOT NULL";
+                case "MessageText": return "text NULL";
                 default: return "text NOT NULL";
             }
         }

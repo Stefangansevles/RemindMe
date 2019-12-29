@@ -46,6 +46,7 @@
             this.tmrDebugMode = new System.Windows.Forms.Timer(this.components);
             this.tmrUpdateRemindMe = new System.Windows.Forms.Timer(this.components);
             this.tmrAnimateUpdateButton = new System.Windows.Forms.Timer(this.components);
+            this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
             this.pnlMain = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlSide = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.btnDebugMode = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -59,7 +60,8 @@
             this.btnNewUpdate = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
+            this.tmrCheckRemindMeMessages = new System.Windows.Forms.Timer(this.components);
+            this.tmrTest = new System.Windows.Forms.Timer(this.components);
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.pnlSide.SuspendLayout();
@@ -215,6 +217,11 @@
             this.tmrAnimateUpdateButton.Interval = 75;
             this.tmrAnimateUpdateButton.Tick += new System.EventHandler(this.tmrAnimateUpdateButton_Tick);
             // 
+            // tmrInitialHide
+            // 
+            this.tmrInitialHide.Interval = 1000;
+            this.tmrInitialHide.Tick += new System.EventHandler(this.tmrInitialHide_Tick);
+            // 
             // pnlMain
             // 
             this.pnlMain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMain.BackgroundImage")));
@@ -300,12 +307,12 @@
             this.btnSupport.BackColor = System.Drawing.Color.Transparent;
             this.btnSupport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSupport.BorderRadius = 0;
-            this.btnSupport.ButtonText = "     Support";
+            this.btnSupport.ButtonText = "     Message center";
             this.btnSupport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSupport.DisabledColor = System.Drawing.Color.White;
             this.btnSupport.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnSupport.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSupport.Iconimage = global::RemindMe.Properties.Resources.Emailwhite;
+            this.btnSupport.Iconimage = global::RemindMe.Properties.Resources.sendmessage;
             this.btnSupport.Iconimage_right = null;
             this.btnSupport.Iconimage_right_Selected = null;
             this.btnSupport.Iconimage_Selected = null;
@@ -324,7 +331,7 @@
             this.btnSupport.selected = false;
             this.btnSupport.Size = new System.Drawing.Size(200, 48);
             this.btnSupport.TabIndex = 13;
-            this.btnSupport.Text = "     Support";
+            this.btnSupport.Text = "     Message center";
             this.btnSupport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSupport.Textcolor = System.Drawing.Color.White;
             this.btnSupport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -608,10 +615,10 @@
             this.lblVersion.TabIndex = 0;
             this.lblVersion.Text = "Version x.x.x";
             // 
-            // tmrInitialHide
+            // tmrCheckRemindMeMessages
             // 
-            this.tmrInitialHide.Interval = 1000;
-            this.tmrInitialHide.Tick += new System.EventHandler(this.tmrInitialHide_Tick);
+            this.tmrCheckRemindMeMessages.Interval = 5000;
+            this.tmrCheckRemindMeMessages.Tick += new System.EventHandler(this.tmrCheckRemindMeMessages_Tick);
             // 
             // Form1
             // 
@@ -673,6 +680,8 @@
         private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
         private System.Windows.Forms.Timer tmrInitialHide;
         private System.Windows.Forms.ToolStripMenuItem updateRemindMeToolStripMenuItem;
+        private System.Windows.Forms.Timer tmrCheckRemindMeMessages;
+        private System.Windows.Forms.Timer tmrTest;
     }
 }
 

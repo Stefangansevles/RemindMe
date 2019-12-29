@@ -101,5 +101,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ReadMessages">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.ReadMessages">
+        <MappingFragment StoreEntitySet="ReadMessages">
+          <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+          <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
+          <ScalarProperty Name="ReadMessageId" ColumnName="ReadMessageId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

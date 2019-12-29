@@ -39,6 +39,7 @@
     <Reference Include="EmailSender">
       <HintPath>..\..\..\Downloads\test\EmailSender.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="HtmlAgilityPack, Version=1.11.7.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.7\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -61,7 +62,7 @@
     <Compile Include="BLFormLogic.cs" />
     <Compile Include="BLHotkeys.cs" />
     <Compile Include="BLIO.cs" />
-    <Compile Include="BLListviewColumnSizes.cs" />
+    <Compile Include="BLReadMessages.cs" />
     <Compile Include="BLOnlineDatabase.cs" />
     <Compile Include="BLPopupDimensions.cs" />
     <Compile Include="BLReminder.cs" />

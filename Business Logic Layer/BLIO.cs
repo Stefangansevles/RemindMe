@@ -48,6 +48,9 @@ namespace Business_Logic_Layer
         /// <param name="entry"></param>
         public static void Log(string entry)
         {
+            if (systemLog.Count > 0 && systemLog[systemLog.Count - 1] == "No internet access!") //Let's not spam "no internet access" if there is no internet access
+                return;
+
             systemLog.Add("[" + DateTime.Now.ToString() + "]  " + entry);
         }
 

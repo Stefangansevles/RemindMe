@@ -898,3 +898,14 @@ Fixed an issue where you could not download a new version of RemindMe if you hav
 V2.6.416
 Fixed importing reminders from a .remindme file
 Fixed a small issue where the local errorlog.txt contents werent being pushed to the db
+Fixed the update remindme button
+
+V2.6.417
+- Fixed an issue where you might not have been able to see RemindMe properly visually until you hover over RemindMe. This was fixed previously, but re-introduced when trying
+to fix something else. Regardless, it is now functioning correctly again.
+
+- RemindMe users can now receive messages from the RemindMe developer through RemindMe. This can be usefull if for example some functionality like the update remindme button
+stops working. You can then get notified about this instead of wondering why it has stopped working. This functionality can also be used for different purposes in the future. You
+can watch these messages again by going into the message center in the left panel of RemindMe
+
+- The right click on a reminder menu item icons now have a white color instead of black to match the overall design of RemindMe

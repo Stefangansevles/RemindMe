@@ -60,7 +60,7 @@ namespace RemindMe
 
             
             Form1 remindme = (Form1)Application.OpenForms["Form1"];
-            if (remindme != null)
+            if (remindme != null && remindme.Visible)
             {
                 //Place the message box in the middle of remindme
                 this.StartPosition = FormStartPosition.Manual;
@@ -123,6 +123,7 @@ namespace RemindMe
         {
             result = DialogResult.OK;
             newMessageBox.Close();
+            this.Close();
         }
 
         public static DialogResult Show(string text, bool showDontRemindOption = false)

@@ -47,6 +47,15 @@
     <Property Name="FontTitleSize" Type="integer" Nullable="false" />
     <Property Name="FontNoteSize" Type="integer" Nullable="false" />
   </EntityType>
+  <EntityType Name="ReadMessages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="integer" Nullable="false" />
+    <Property Name="ReadMessageId" Type="integer" Nullable="false" />
+    <Property Name="ReadDate" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="MessageText" Type="nvarchar" MaxLength="2147483647" />
+  </EntityType>
   <EntityType Name="Reminder">
     <Key>
       <PropertyRef Name="Id" />
@@ -98,6 +107,7 @@
     <EntitySet Name="Hotkeys" EntityType="Self.Hotkeys" store:Type="Tables" />
     <EntitySet Name="ListviewColumnSizes" EntityType="Self.ListviewColumnSizes" store:Type="Tables" />
     <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />
+    <EntitySet Name="ReadMessages" EntityType="Self.ReadMessages" store:Type="Tables" />
     <EntitySet Name="Reminder" EntityType="Self.Reminder" store:Type="Tables" />
     <EntitySet Name="Settings" EntityType="Self.Settings" store:Type="Tables" />
     <EntitySet Name="Songs" EntityType="Self.Songs" store:Type="Tables" />

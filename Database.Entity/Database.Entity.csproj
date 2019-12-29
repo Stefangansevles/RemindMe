@@ -51,16 +51,34 @@
     <Compile Include="AdvancedReminderProperties.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmailAttempts.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionLog.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Hotkeys.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
     <Compile Include="ListviewColumnSizes.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="LocalErrorLog.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Misc.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewInstallations.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="PopupDimensions.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadMessages.cs">
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reminder.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
@@ -74,11 +92,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="RemindMeMessages.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RemindMeOnlineDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RemindMeOnlineDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RemindMeOnlineDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Songs.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateLog.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +126,14 @@
     <Content Include="RemindmeDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RemindmeDb.cs</LastGenOutput>
+    </Content>
+    <Content Include="RemindMeOnlineDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RemindMeOnlineDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="RemindMeOnlineDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RemindMeOnlineDb.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

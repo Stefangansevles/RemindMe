@@ -52,6 +52,15 @@
           <Property Name="FontTitleSize" Type="integer" Nullable="false" />
           <Property Name="FontNoteSize" Type="integer" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReadMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="ReadMessageId" Type="integer" Nullable="false" />
+          <Property Name="ReadDate" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="MessageText" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
         <EntityType Name="Reminder">
           <Key>
             <PropertyRef Name="Id" />
@@ -103,6 +112,7 @@
           <EntitySet Name="Hotkeys" EntityType="Self.Hotkeys" store:Type="Tables" />
           <EntitySet Name="ListviewColumnSizes" EntityType="Self.ListviewColumnSizes" store:Type="Tables" />
           <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />
+          <EntitySet Name="ReadMessages" EntityType="Self.ReadMessages" store:Type="Tables" />
           <EntitySet Name="Reminder" EntityType="Self.Reminder" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" store:Type="Tables" />
           <EntitySet Name="Songs" EntityType="Self.Songs" store:Type="Tables" />
@@ -165,6 +175,7 @@
           <EntitySet Name="Hotkeys" EntityType="RemindMeDatabaseModel.Hotkeys" />
           <EntitySet Name="AdvancedReminderFilesFolders" EntityType="RemindMeDatabaseModel.AdvancedReminderFilesFolders" />
           <EntitySet Name="AdvancedReminderProperties" EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" />
+          <EntitySet Name="ReadMessages" EntityType="RemindMeDatabaseModel.ReadMessages" />
         </EntityContainer>
         <EntityType Name="PopupDimensions">
           <Key>
@@ -212,6 +223,15 @@
           <Property Name="Remid" Type="Int64" Nullable="false" />
           <Property Name="BatchScript" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="ShowReminder" Type="Int64" />
+        </EntityType>
+        <EntityType Name="ReadMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="ReadMessageId" Type="Int64" Nullable="false" />
+          <Property Name="ReadDate" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="MessageText" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -315,6 +335,16 @@
                 <ScalarProperty Name="ShowReminder" ColumnName="ShowReminder" />
                 <ScalarProperty Name="BatchScript" ColumnName="BatchScript" />
                 <ScalarProperty Name="Remid" ColumnName="Remid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReadMessages">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.ReadMessages">
+              <MappingFragment StoreEntitySet="ReadMessages">
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
+                <ScalarProperty Name="ReadMessageId" ColumnName="ReadMessageId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

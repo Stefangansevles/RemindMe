@@ -41,9 +41,13 @@ namespace RemindMe
         /// </summary>
         /// <param name="message">The message this form should display</param>
         /// <param name="popDelay">The time this form will be visible in seconds</param>
-        public static void MakeMessagePopup(string message, int popDelay)
+        public static void MakeMessagePopup(string message, int popDelay, string title = "")
         {
             RemindMeMessageForm popupForm = new RemindMeMessageForm(message, popDelay);
+
+            if (title != "")
+                popupForm.Title = title;
+
             popupForm.Invoke((MethodInvoker)(() =>
             {
                 popupForm.Show();
@@ -86,12 +90,18 @@ namespace RemindMe
             {
                 //Set the location to the bottom right corner of the user's screen and a little bit above the taskbar since there's only one left
                 RemindMeMessageForm form = GetPopupforms()[0];
-                form.Location = new Point(Screen.GetWorkingArea(form).Width - form.Width - 5, Screen.GetWorkingArea(form).Height - form.Height - 5);
+                form.Invoke((MethodInvoker)(() =>
+                {
+                    form.Location = new Point(Screen.GetWorkingArea(form).Width - form.Width - 5, Screen.GetWorkingArea(form).Height - form.Height - 5);
+                }));
+                
             }
             else
             {
                 foreach (RemindMeMessageForm form in GetPopupforms())
                 {
+                    form.Invoke((MethodInvoker)(() =>
+                    {
                     //Do NOT move the form down if it is the bottom one
                     if (form.Location.Y != Screen.GetWorkingArea(form).Height - form.Height - 5)
                     {
@@ -103,6 +113,8 @@ namespace RemindMe
                         }
 
                     }
+                    }));            
+                    
                 }
             }
 

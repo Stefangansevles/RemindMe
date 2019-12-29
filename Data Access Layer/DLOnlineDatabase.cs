@@ -184,7 +184,68 @@ namespace Data_Access_Layer
             catch (DbUpdateException exc) { }
             catch (Exception exce) { }
         }
-   
+
+
+        /// <summary>
+        /// Gets the RemindMe messages from the database, sent by the creator of RemindMe
+        /// </summary>
+        public static List<Database.Entity.RemindMeMessages> RemindMeMessages
+        {
+            get
+            {                
+                try
+                {
+                    List<Database.Entity.RemindMeMessages> list = new List<Database.Entity.RemindMeMessages>();
+                    Database.Entity.RemindMeMessages message;
+
+                    //Because it can't be converted, i guess we have to do it ourselves
+                    foreach (RemindMeMessages mess in db.RemindMeMessages)
+                    {
+                        message = new Database.Entity.RemindMeMessages();
+
+                        message.Id = mess.Id;
+                        message.MeantForSpecificVersion = mess.MeantForSpecificVersion;
+                        message.Message = mess.Message;
+                        message.NotificationDuration = mess.NotificationDuration;
+                        message.NotificationOnTop = mess.NotificationOnTop;
+                        message.NotificationType = mess.NotificationType;
+                        message.ReadByAmountOfUsers = mess.ReadByAmountOfUsers;
+                        message.DateOfCreation = mess.DateOfCreation;
+
+                        list.Add(message);
+                    }
+                    return list;
+                }
+                catch (DbUpdateException exc) { return new List<Database.Entity.RemindMeMessages>(); }
+                catch (Exception exce) { return new List<Database.Entity.RemindMeMessages>(); }
+            }
+
+        }
+
+        /// <summary>
+        /// Gets the RemindMe messages from the database, sent by the creator of RemindMe
+        /// </summary>
+        public static RemindMeMessages GetRemindMeMessageById(int id)
+        {
+
+            try
+            {
+                return db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();                
+            }
+            catch (DbUpdateException exc) { return null; }
+            catch (Exception exce) { return null; }
+        }
+
+        /// <summary>
+        /// Adds another count to the amount of times a message is read
+        /// </summary>
+        /// <param name="id"></param>
+        public static void UpdateRemindMeMessageCount(int id)
+        {
+            RemindMeMessages mess = db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
+            mess.ReadByAmountOfUsers++;
+            db.SaveChanges();
+        }
 
         /// <summary>
         /// Gets the amount of users in the misc table

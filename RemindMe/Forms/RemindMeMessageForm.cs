@@ -16,6 +16,7 @@ namespace RemindMe
     {
         int timeout = 0;
         int secondsPassed = 0;
+        bool disableFadeout = false;
         Reminder theReminder = null;
         public RemindMeMessageForm(string message, int timeout)
         {
@@ -46,6 +47,10 @@ namespace RemindMe
             }
 
             this.timeout = timeout;
+
+            //If the timeout in seconds is "0", don't make the form dissapear at all
+            disableFadeout = timeout == 0;
+
             //Start the timer that will "slowly" make the form more transparent
             tmrFadein.Start();
             BLIO.Log("RemindMeMessageForm constructed");
@@ -57,6 +62,12 @@ namespace RemindMe
 
             lblSkip.Visible = BLReminder.IsRepeatableReminder(rem);
             lblDisable.Visible = true;
+        }
+
+        public string Title
+        {
+            get { return label1.Text; }
+            set { label1.Text = value; }
         }
 
         private const int WS_EX_NOACTIVATE = 0x08000000;
@@ -104,12 +115,17 @@ namespace RemindMe
             if (this.Opacity >= 1)
             {
                 tmrFadein.Stop();
-                tmrTimeout.Start();
+
+                if(!disableFadeout)
+                    tmrTimeout.Start();
             }
             if (this.Bounds.Contains(MousePosition))
             {
                 tmrFadein.Stop();
-                tmrTimeout.Start();
+
+                if (!disableFadeout)
+                    tmrTimeout.Start();
+
                 this.Opacity = 1;
                 secondsPassed = 0;
             }
@@ -121,7 +137,9 @@ namespace RemindMe
             {
                 this.Opacity = 1;
                 secondsPassed = 0;
-                tmrTimeout.Start();
+
+                if (!disableFadeout)
+                    tmrTimeout.Start();
             }
             else //Cursor out of the message? safely reduce opacity "slowly"
             {

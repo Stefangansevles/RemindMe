@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="RemindMeDatabaseModel.Hotkeys" Width="1.5" PointX="7.375" PointY="3.75" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.AdvancedReminderFilesFolders" Width="1.5" PointX="10.625" PointY="3.375" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" Width="1.5" PointX="10.625" PointY="1.25" />
+        <EntityTypeShape EntityType="RemindMeDatabaseModel.ReadMessages" Width="1.5" PointX="0.75" PointY="5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

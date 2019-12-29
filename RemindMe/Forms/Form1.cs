@@ -114,13 +114,7 @@ namespace RemindMe
             formLoadAsync();
 
             RemindMeIcon.Visible = true;
-            BLIO.Log("Form constructed");
-
-            this.Opacity = 0;
-            RemindMeIcon_MouseDoubleClick(null, null);
-            lblExit_Click(null, null);
-            this.Opacity = 100;
-            
+            BLIO.Log("Form constructed");            
         }
 
         public static Form1 Instance
@@ -128,10 +122,7 @@ namespace RemindMe
             get { return instance; }
         }
 
-        protected override void SetVisibleCore(bool value)
-        {
-            base.SetVisibleCore(allowshowdisplay ? value : allowshowdisplay);
-        }
+       
 
         protected override CreateParams CreateParams
         {
@@ -234,10 +225,9 @@ namespace RemindMe
         private async Task formLoadAsync()
         {
             BLIO.Log("RemindMe_Load");
-
+            
             BLIO.WriteUpdateBatch(Application.StartupPath);
-
-
+            
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
             Settings set = BLSettings.GetSettings();
@@ -326,8 +316,9 @@ namespace RemindMe
             tr.Start();
 
 
-            
-            this.ShowInTaskbar = false;
+
+            this.Opacity = 0;
+            this.ShowInTaskbar = true;
             this.Show();
             tmrInitialHide.Start();
 
@@ -337,7 +328,10 @@ namespace RemindMe
                 BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
                 File.WriteAllText(IOVariables.errorLog, "");
             }
-            
+
+            Random r = new Random();            
+            //tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
+            tmrCheckRemindMeMessages.Start();
             BLIO.Log("RemindMe loaded");
             Cleanup();
         }
@@ -381,9 +375,10 @@ namespace RemindMe
             {
                 BLIO.Log("Remindme was already visible though..");
                 return;
-            }                  
+            }
             allowshowdisplay = true;
-            this.ShowInTaskbar = true;            
+            this.ShowInTaskbar = true;
+            this.Show();
             tmrFadeIn.Start();
             BLIO.Log("Showing RemindMe");
         }
@@ -511,14 +506,6 @@ namespace RemindMe
 
         private void tmrOpacity_Tick(object sender, EventArgs e)
         {
-            if (this.Opacity == 0)
-            {
-                this.WindowState = FormWindowState.Minimized;
-                this.Show();
-                this.WindowState = FormWindowState.Normal;
-                //this.Activate();
-            }
-
             this.Opacity += 0.15;
             if (this.Opacity >= 1)
                 tmrFadeIn.Stop();
@@ -579,7 +566,11 @@ namespace RemindMe
 
         private void tmrUpdateRemindMe_Tick(object sender, EventArgs e)
         {
-            CheckForUpdates();
+            new Thread(() =>
+            {
+                CheckForUpdates();
+            }).Start();
+            
         }
         public void CheckForUpdates()
         {
@@ -712,7 +703,66 @@ namespace RemindMe
         {
             if (UCTimer.RunningTimers.Count > 0)            
                 if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)                
-                    e.Cancel = true;                                                               
+                    e.Cancel = true;            
+        }
+
+        private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)
+        {
+            //Check for messages sent by me every minute
+            foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
+            {
+                //first, check if this user has already read this message.
+                if (BLReadMessages.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
+                {
+                    BLIO.Log("RemindMe detected an unread message!");
+                    //User hasn't read it yet. great! Mark the message as read
+                    BLReadMessages.MarkMessageRead(message);
+                    BLIO.Log("Message marked as read.");
+
+                    if (!string.IsNullOrWhiteSpace(message.MeantForSpecificUser))
+                    {
+                        BLIO.Log("This message is specifically for me!");
+                        //This message is meant for a specific user.
+                        if (BLSettings.GetSettings().UniqueString == message.MeantForSpecificUser)
+                            PopupRemindMeMessage(message);
+
+                    }
+                    else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
+                    {
+                        BLIO.Log("This message is specifically for the currently running RemindMe version (" + IOVariables.RemindMeVersion + ")");
+                        //This message is meant for a specific RemindMe version. Only show this message if the user: Hasn't read this message AND: has this RemindMe version
+                        if (IOVariables.RemindMeVersion == message.MeantForSpecificVersion)
+                        {
+                            //Show the message
+                            PopupRemindMeMessage(message);
+                        }
+                    }
+                    else
+                    {
+                        BLIO.Log("This is a global message. creating popup...");
+                        //A global message, not meant for a specific RemindMe version nor user
+                        PopupRemindMeMessage(message);
+                        BLIO.Log("popup created");
+                    }
+                }
+            }
+        }
+
+        private void PopupRemindMeMessage(RemindMeMessages mess)
+        {
+            //Update the counter on the message
+            BLIO.Log("Attempting to update an message with id " + mess.Id);
+            BLOnlineDatabase.UpdateRemindMeMessageCount(mess.Id);
+
+            switch (mess.NotificationType)
+            {
+                case "REMINDMEBOX":
+                    RemindMeBox.Show("RemindMe Developer", "This is a message from the developer of RemindMe.\r\n\r\n" + mess.Message.Replace("¤", Environment.NewLine), RemindMeBoxReason.OK);
+                    break;
+                case "REMINDMEMESSAGEFORM":
+                    MessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value, "RemindMe Developer");
+                    break;
+            }
         }
 
         private void updateRemindMeToolStripMenuItem_Click(object sender, EventArgs e)

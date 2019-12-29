@@ -68,6 +68,20 @@
           <Property Name="InstallDate" Type="datetime" Nullable="false" />
           <Property Name="InstallVersion" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="RemindMeMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="varchar(max)" Nullable="false" />
+          <Property Name="NotificationType" Type="varchar(max)" Nullable="false" />
+          <Property Name="NotificationDuration" Type="int" />
+          <Property Name="NotificationOnTop" Type="int" />
+          <Property Name="DateOfCreation" Type="datetime" />
+          <Property Name="MeantForSpecificVersion" Type="varchar(max)" />
+          <Property Name="MeantForSpecificUser" Type="varchar(max)" />
+          <Property Name="ReadByAmountOfUsers" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="UpdateLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -99,6 +113,7 @@
           <EntitySet Name="LocalErrorLog" EntityType="Self.LocalErrorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Misc" EntityType="Self.Misc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewInstallations" EntityType="Self.NewInstallations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RemindMeMessages" EntityType="Self.RemindMeMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -136,6 +151,7 @@
           <EntitySet Name="NewInstallations" EntityType="remindmesqldbModel.NewInstallations" />
           <EntitySet Name="LocalErrorLog" EntityType="remindmesqldbModel.LocalErrorLog" />
           <EntitySet Name="Misc" EntityType="remindmesqldbModel.Misc" />
+          <EntitySet Name="RemindMeMessages" EntityType="remindmesqldbModel.RemindMeMessages" />
         </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -202,6 +218,20 @@
           <Property Name="PostponeCount" Type="Int32" Nullable="false" />
           <Property Name="SkipCount" Type="Int32" Nullable="false" />
           <Property Name="PermanentelyDeleteCount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RemindMeMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NotificationType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NotificationDuration" Type="Int32" />
+          <Property Name="NotificationOnTop" Type="Int32" />
+          <Property Name="DateOfCreation" Type="DateTime" Precision="3" />
+          <Property Name="MeantForSpecificVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReadByAmountOfUsers" Type="Int32" Nullable="false" />
+          <Property Name="MeantForSpecificUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -301,6 +331,21 @@
                 <ScalarProperty Name="RemindersCreated" ColumnName="RemindersCreated" />
                 <ScalarProperty Name="TimersCreated" ColumnName="TimersCreated" />
                 <ScalarProperty Name="DbViewerPw" ColumnName="DbViewerPw" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RemindMeMessages">
+            <EntityTypeMapping TypeName="remindmesqldbModel.RemindMeMessages">
+              <MappingFragment StoreEntitySet="RemindMeMessages">
+                <ScalarProperty Name="MeantForSpecificUser" ColumnName="MeantForSpecificUser" />
+                <ScalarProperty Name="ReadByAmountOfUsers" ColumnName="ReadByAmountOfUsers" />
+                <ScalarProperty Name="MeantForSpecificVersion" ColumnName="MeantForSpecificVersion" />
+                <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
+                <ScalarProperty Name="NotificationOnTop" ColumnName="NotificationOnTop" />
+                <ScalarProperty Name="NotificationDuration" ColumnName="NotificationDuration" />
+                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

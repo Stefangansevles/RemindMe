@@ -12,8 +12,7 @@ namespace Business_Logic_Layer
     public class BLOnlineDatabase
     {
         private BLOnlineDatabase() {  }
-
-
+        
         /// <summary>
         /// Logs an exception to the online database
         /// </summary>
@@ -22,7 +21,7 @@ namespace Business_Logic_Layer
         public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog)
         {
             try
-            {
+            {                
                 new Thread(() =>
                 {                   
                     //Don't do anything without internet
@@ -188,6 +187,70 @@ namespace Business_Logic_Layer
             }
         }
 
+
+        /// <summary>
+        /// Gets the RemindMe messages from the database, sent by the creator of RemindMe
+        /// </summary>
+        public static List<Database.Entity.RemindMeMessages> RemindMeMessages
+        {
+            get
+            {
+                try
+                {
+                    //Don't do anything without internet
+                    if (!BLIO.HasInternetAccess())
+                        return new List<Database.Entity.RemindMeMessages>();
+                    else
+                        return DLOnlineDatabase.RemindMeMessages;                    
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
+                    return new List<Database.Entity.RemindMeMessages>();
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Adds another count to the amount of times a message is read
+        /// </summary>
+        /// <param name="id"></param>
+        public static void UpdateRemindMeMessageCount(int id)
+        {
+            if(id > -1)
+                DLOnlineDatabase.UpdateRemindMeMessageCount(id);
+        }
+
+
+        /// <summary>
+        /// Gets the RemindMe messages from the database, sent by the creator of RemindMe
+        /// </summary>
+        public static Database.Entity.RemindMeMessages GetRemindMeMessageById(int id)
+        {
+            //Don't do anything without internet
+            if (!BLIO.HasInternetAccess())
+                return null;
+
+            Data_Access_Layer.RemindMeMessages dbObject = DLOnlineDatabase.GetRemindMeMessageById(id);
+
+            if (dbObject == null)
+                return null;
+
+            Database.Entity.RemindMeMessages message = new Database.Entity.RemindMeMessages();
+
+            message.Id = dbObject.Id;
+            message.MeantForSpecificVersion = dbObject.MeantForSpecificVersion;
+            message.Message = dbObject.Message;
+            message.NotificationDuration = dbObject.NotificationDuration;
+            message.NotificationOnTop = dbObject.NotificationOnTop;
+            message.NotificationType = dbObject.NotificationType;
+            message.ReadByAmountOfUsers = dbObject.ReadByAmountOfUsers;
+            message.DateOfCreation = dbObject.DateOfCreation;
+
+            return message;            
+        }
 
         /// <summary>
         /// Gets the amount of users in the misc table

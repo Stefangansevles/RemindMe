@@ -48,6 +48,8 @@ public partial class RemindMeDbEntities : DbContext
 
     public DbSet<AdvancedReminderProperties> AdvancedReminderProperties { get; set; }
 
+    public DbSet<ReadMessages> ReadMessages { get; set; }
+
 }
 
 }
