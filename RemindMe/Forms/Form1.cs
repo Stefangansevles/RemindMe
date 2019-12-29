@@ -329,8 +329,8 @@ namespace RemindMe
                 File.WriteAllText(IOVariables.errorLog, "");
             }
 
-            Random r = new Random();            
-            //tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
+            Random r = new Random();
+            tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
             tmrCheckRemindMeMessages.Start();
             BLIO.Log("RemindMe loaded");
             Cleanup();
