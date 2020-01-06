@@ -66,7 +66,8 @@ namespace RemindMe
             }
         }
         private void AdvancedReminderForm_Load(object sender, EventArgs e)
-        {            
+        {
+            BLIO.Log("Advanced Reminder Form loaded");
             Form1 remindme = (Form1)Application.OpenForms["Form1"];
             if (remindme != null)
             {
@@ -101,12 +102,12 @@ namespace RemindMe
             lblTitle.Text = "File / folder control";
             pnlContent.Controls.Clear();
             pnlContent.Controls.Add(ucFiles);
-            BLIO.Log("(AVR) File / folder UC selected");
+            BLIO.Log("[AVR] File / folder UC selected");
         }
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
-            BLIO.Log("(AVR) hiding AVR form");
+            BLIO.Log("[AVR] Clear button pressed. hiding AVR form");
             ucBatch.BatchScript = "";
             ucFiles.FilesFolders.Clear();
             ucFiles.lvItems.Items.Clear();
@@ -116,8 +117,8 @@ namespace RemindMe
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            BLIO.Log("(AVR) Saving & hiding AVR form");            
-            MessageFormManager.MakeMessagePopup("Advanced settings applied to this reminder!", 5);
+            BLIO.Log("[AVR] Saving & hiding AVR form");
+            RemindMeMessageFormManager.MakeMessagePopup("Advanced settings applied to this reminder!", 5);
             Hide();
         }
 
@@ -128,7 +129,7 @@ namespace RemindMe
             lblTitle.Text = "Execute Windows batch (.bat)";
             pnlContent.Controls.Clear();
             pnlContent.Controls.Add(ucBatch);
-            BLIO.Log("(AVR) UC Batch selected");
+            BLIO.Log("[AVR] UC Batch selected");
         }
 
         public string GetBatch()
@@ -146,13 +147,18 @@ namespace RemindMe
             lblTitle.Text = "General settings";
             pnlContent.Controls.Clear();
             pnlContent.Controls.Add(ucGeneral);
-            BLIO.Log("(AVR) UC General selected");
+            BLIO.Log("[AVR] UC General selected");
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            BLIO.Log("(AVR) hiding AVR form");            
+            BLIO.Log("[AVR] hiding AVR form");            
             Hide();
+        }
+
+        private void pnlContent_ControlAdded(object sender, ControlEventArgs e)
+        {
+            BLIO.Log("[AVR] pnlContent_ControlAdded ( " + e.Control.GetType() + ")");
         }
     }
 }

@@ -106,6 +106,7 @@
           <Property Name="DeletedReminders" Type="int" />
           <Property Name="ArchivedReminders" Type="int" />
           <Property Name="TotalReminders" Type="int" />
+          <Property Name="SignIns" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="remindmesqldbModelStoreContainer">
           <EntitySet Name="EmailAttempts" EntityType="Self.EmailAttempts" Schema="dbo" store:Type="Tables" />
@@ -167,6 +168,7 @@
           <Property Name="DeletedReminders" Type="Int32" />
           <Property Name="ArchivedReminders" Type="Int32" />
           <Property Name="TotalReminders" Type="Int32" />
+          <Property Name="SignIns" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EmailAttempts">
           <Key>
@@ -266,6 +268,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="remindmesqldbModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="SignIns" ColumnName="SignIns" />
                 <ScalarProperty Name="TotalReminders" ColumnName="TotalReminders" />
                 <ScalarProperty Name="ArchivedReminders" ColumnName="ArchivedReminders" />
                 <ScalarProperty Name="DeletedReminders" ColumnName="DeletedReminders" />

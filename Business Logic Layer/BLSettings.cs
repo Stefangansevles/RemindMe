@@ -57,9 +57,9 @@ namespace Business_Logic_Layer
         /// Gets the settings table from the SQLite database
         /// </summary>
         /// <returns></returns>
-        public static Settings GetSettings()
+        public static Settings Settings
         {
-            return DLSettings.GetSettings();            
+            get { return DLSettings.Settings; }
         }
         
         /// <summary>
@@ -70,7 +70,7 @@ namespace Business_Logic_Layer
         {
             if (set != null)
                 DLSettings.UpdateSettings(set);
-        }
+        }    
 
     }
 }

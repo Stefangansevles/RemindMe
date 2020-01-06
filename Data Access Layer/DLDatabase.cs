@@ -18,7 +18,7 @@ namespace Data_Access_Layer
         private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [Deleted] bigint DEFAULT(0) NOT NULL, [Name] text NOT NULL, [Date] text NOT NULL, [RepeatType] text NOT NULL, [Note] text NOT NULL, [Enabled] bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT(0) NULL, [Corrupted] bigint DEFAULT(0) NULL, [EnableAdvancedReminder] bigint DEFAULT(1) NOT NULL, [UpdateTime] bigint DEFAULT(0) NOT NULL);";
 
         //The neccesary query to execute to create the table Settings
-        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [AlwaysOnTop] bigint NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup] bigint DEFAULT(1) NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT(1) NOT NULL, [HideReminderConfirmation] bigint DEFAULT(0) NULL, [EnableQuickTimer] bigint DEFAULT(1) NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, [EnableAdvancedReminders] bigint NULL, [UniqueString] text NULL);";
+        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [AlwaysOnTop] bigint NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup] bigint DEFAULT(1) NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT(1) NOT NULL, [HideReminderConfirmation] bigint DEFAULT(0) NULL, [EnableQuickTimer] bigint DEFAULT(1) NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, [EnableAdvancedReminders] bigint NULL, [UniqueString] text NULL, [RemindMeTheme] text DEFAULT('Default') NOT NULL);";
 
         //The neccesary query to execute to create the table Songs
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
@@ -40,6 +40,9 @@ namespace Data_Access_Layer
 
         //The neccesary query to execute to create the table ReadMessages
         private const string TABLE_READ_MESSAGES = "CREATE TABLE [ReadMessages] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [ReadMessageId] bigint NOT NULL, [ReadDate] text NOT NULL, [MessageText] text NULL);";
+
+        //The neccesary query to execute to create the table RemindMeColorThemes, used to give RemindMe multiple color scheme
+        //private const string TABLE_REMINDME_COLOR_SCHEMES = "CREATE TABLE [RemindMeColorScheme] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [ThemeName] text NOT NULL, [PrimaryBottomLeft] text NOT NULL, [PrimaryBottomRight] text NOT NULL, [PrimaryTopLeft] text NOT NULL, [PrimaryTopRight] text NOT NULL, [SecondaryBottomLeft] text NOT NULL, [SecondaryBottomRight] text NOT NULL, [SecondaryTopLeft] text NOT NULL, [SecondaryTopRight] text NOT NULL);";
         
 
         /// <summary>
@@ -60,6 +63,7 @@ namespace Data_Access_Layer
             SQLiteCommand tableAvrProperties = new SQLiteCommand();
             SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
             SQLiteCommand tableReadMessages = new SQLiteCommand();
+            //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
             tableReminder.CommandText = TABLE_REMINDER;
@@ -71,6 +75,7 @@ namespace Data_Access_Layer
             tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
             tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
             tableReadMessages.CommandText = TABLE_READ_MESSAGES;
+            //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
             tableReminder.Connection = conn;
             tableSettings.Connection = conn;
@@ -81,6 +86,7 @@ namespace Data_Access_Layer
             tableAvrProperties.Connection = conn;
             tableAvrFilesFolders.Connection = conn;
             tableReadMessages.Connection = conn;
+            //tableRemindMeColorSchemes.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
             tableSettings.ExecuteNonQuery();
@@ -91,6 +97,7 @@ namespace Data_Access_Layer
             tableAvrProperties.ExecuteNonQuery();
             tableAvrFilesFolders.ExecuteNonQuery();
             tableReadMessages.ExecuteNonQuery();
+            //tableRemindMeColorSchemes.ExecuteNonQuery();
 
             conn.Close();
             conn.Dispose();
@@ -112,7 +119,7 @@ namespace Data_Access_Layer
                     db.Dispose();
                     return true;
                 }
-                catch (SQLiteException ex)
+                catch (SQLiteException)
                 {
                     db.Dispose();
                     //if (ex.Message.ToLower().Contains("no such column"))
@@ -201,6 +208,15 @@ namespace Data_Access_Layer
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
+            /*This was testing a custom color scheme
+            var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in remindMeColorSchemes)
+            {
+                if (!HasColumn(columnName, "RemindMeColorScheme"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }*/
+
             return true;
         }
 
@@ -217,7 +233,7 @@ namespace Data_Access_Layer
                 var result = db.Database.ExecuteSqlCommand("select * from " + table);
                 return true;
             }
-            catch(SQLiteException ex)
+            catch(SQLiteException)
             {
                 return false;
             }
@@ -234,7 +250,7 @@ namespace Data_Access_Layer
                     && HasTable("songs", db) && HasTable("popupdimensions", db) 
                     && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db)
                     && HasTable("AdvancedReminderProperties", db) && HasTable("AdvancedReminderFilesFolders", db)
-                    && HasTable("ReadMessages", db))
+                    && HasTable("ReadMessages", db) /* && HasTable("RemindMeColorScheme", db)*/)
                     return true;
                 else
                     return false;                
@@ -262,6 +278,7 @@ namespace Data_Access_Layer
                 SQLiteCommand tableAvrProperties = new SQLiteCommand();
                 SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
                 SQLiteCommand tableReadMessages = new SQLiteCommand();
+                //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
                 tableReminder.CommandText = TABLE_REMINDER;
@@ -273,6 +290,7 @@ namespace Data_Access_Layer
                 tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
                 tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
                 tableReadMessages.CommandText = TABLE_READ_MESSAGES;
+                //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
                 tableReminder.Connection = conn;
                 tableSettings.Connection = conn;
@@ -283,6 +301,7 @@ namespace Data_Access_Layer
                 tableAvrProperties.Connection = conn;
                 tableAvrFilesFolders.Connection = conn;
                 tableReadMessages.Connection = conn;
+                //tableRemindMeColorSchemes.Connection = conn;
 
                 if (!HasTable("Reminder", db))
                     tableReminder.ExecuteNonQuery();
@@ -311,6 +330,10 @@ namespace Data_Access_Layer
                 if (!HasTable("ReadMessages", db))
                     tableReadMessages.ExecuteNonQuery();
 
+                /*This was testing a custom color scheme
+                if (!HasTable("RemindMeColorScheme", db))
+                    tableRemindMeColorSchemes.ExecuteNonQuery();*/
+
                 conn.Close();
                 conn.Dispose();
                 db.Dispose();
@@ -334,6 +357,7 @@ namespace Data_Access_Layer
                 var avrProperties = typeof(AdvancedReminderProperties).GetProperties().Select(property => property.Name).ToArray();
                 var avrFilesFolders = typeof(AdvancedReminderFilesFolders).GetProperties().Select(property => property.Name).ToArray();
                 var readMessages = typeof(ReadMessages).GetProperties().Select(property => property.Name).ToArray();
+                //var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
                 {
@@ -388,6 +412,13 @@ namespace Data_Access_Layer
                     if (!HasColumn(column, "ReadMessages"))
                         db.Database.ExecuteSqlCommand("ALTER TABLE ReadMessages ADD COLUMN " + column + " " + GetReadMessagesColumnSqlType(column));
                 }
+
+                /*This was testing a custom color scheme
+                foreach (string column in remindMeColorSchemes)
+                {
+                    if (!HasColumn(column, "RemindMeColorScheme"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE RemindMeColorScheme ADD COLUMN " + column + " " + GetRemindMeColorSchemesColumnSqlType(column));
+                }*/
 
 
                 db.SaveChanges();                
@@ -447,6 +478,7 @@ namespace Data_Access_Layer
                 case "DefaultTimerSound": return "text NULL";
                 case "EnableAdvancedReminders": return "bigint DEFAULT 0 NULL";
                 case "UniqueString": return "text NULL";
+                case "RemindMeTheme": return "text DEFAULT('Default') NOT NULL";                    
                 default: return "text NULL";
             }
         }
@@ -562,7 +594,7 @@ namespace Data_Access_Layer
         }
 
         /// <summary>
-        /// Gets the SQLite data type of a column in the AvrFilesFolders table, "text not null", "bigint null", etc
+        /// Gets the SQLite data type of a column in the ReadMessages table, "text not null", "bigint null", etc
         /// </summary>
         /// <param name="columnName">The column you want to know the data type of</param>
         /// <returns>Data type of the column</returns>
@@ -578,6 +610,29 @@ namespace Data_Access_Layer
             }
         }
 
+        /*This was testing a custom color scheme
+        /// <summary>
+        /// Gets the SQLite data type of a column in the RemindMeColorThemes table, "text not null", "bigint null", etc
+        /// </summary>
+        /// <param name="columnName">The column you want to know the data type of</param>
+        /// <returns>Data type of the column</returns>
+        private static string GetRemindMeColorSchemesColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {
+                case "Id": return "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL";
+                case "ThemeName": return "TEXT NOT NULL";
+                case "PrimaryBottomLeft": return "TEXT NOT NULL";
+                case "PrimaryBottomRight": return "TEXT NOT NULL";
+                case "PrimaryTopLeft": return "TEXT NOT NULL";
+                case "PrimaryTopRight": return "TEXT NOT NULL";
+                case "SecondaryBottomLeft": return "TEXT NOT NULL";
+                case "SecondaryBottomRight": return "TEXT NOT NULL";
+                case "SecondaryTopLeft": return "TEXT NOT NULL";
+                case "SecondaryTopRight": return "TEXT NOT NULL";
+                default: return "text NOT NULL";
+            }
+        }*/
 
     }
 }

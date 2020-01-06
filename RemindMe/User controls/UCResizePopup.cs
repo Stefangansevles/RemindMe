@@ -109,11 +109,11 @@ namespace RemindMe
                 BLPopupDimensions.UpdatePopupDimensions(dimension);
 
 
-                MessageFormManager.MakeMessagePopup("Succesfully changed settings.", 4);
+                RemindMeMessageFormManager.MakeMessagePopup("Succesfully changed settings.", 4);
             }
             catch
             {
-                MessageFormManager.MakeMessagePopup("Changing settings failed", 4);
+                RemindMeMessageFormManager.MakeMessagePopup("Changing settings failed", 4);
             }
         }
 
@@ -155,7 +155,7 @@ namespace RemindMe
         private void btnReset_Click(object sender, EventArgs e)
         {
             BLPopupDimensions.ResetToDefaults();            
-            MessageFormManager.MakeMessagePopup("Succesfully reset settings.",4);
+            RemindMeMessageFormManager.MakeMessagePopup("Succesfully reset settings.",4);
 
             FillValues();
             ApplyPreviewChanges();            
@@ -170,14 +170,15 @@ namespace RemindMe
         {
             if(e.KeyCode == Keys.Enter)
             {
+                BLIO.Log("tbWidth_KeyUp (Enter) with value: " + tbWidth.Text);
                 int size = 0;
                 bool success = int.TryParse(tbWidth.Text, out size);
                 if(success)
                 {
                     if (size > trbWidth.Maximum)
                         size = trbWidth.Maximum;
-                    if (size < 1)
-                        size = 1;
+                    if (size < trbWidth.Minimum)
+                        size = trbWidth.Minimum;
 
                     tbWidth.Text = size.ToString();
 
@@ -191,14 +192,15 @@ namespace RemindMe
         {
             if (e.KeyCode == Keys.Enter)
             {
+                BLIO.Log("tbHeight_KeyUp (Enter) with value: " + tbHeight.Text);
                 int size = 0;
                 bool success = int.TryParse(tbHeight.Text, out size);
                 if (success)
                 {
                     if (size > trbHeight.Maximum)
                         size = trbHeight.Maximum;
-                    if (size < 1)
-                        size = 1;
+                    if (size < trbHeight.Minimum)
+                        size = trbHeight.Minimum;
 
                     tbHeight.Text = size.ToString();
 
@@ -212,14 +214,15 @@ namespace RemindMe
         {
             if (e.KeyCode == Keys.Enter)
             {
+                BLIO.Log("tbTitleFont_KeyUp (Enter) with value: " + tbTitleFont.Text);
                 int size = 0;
                 bool success = int.TryParse(tbTitleFont.Text, out size);
                 if (success)
                 {
                     if (size > trbTitleFont.Maximum)
                         size = trbTitleFont.Maximum;
-                    if (size < 1)
-                        size = 1;
+                    if (size < trbTitleFont.Minimum)
+                        size = trbTitleFont.Minimum;
 
                     tbTitleFont.Text = size.ToString();
 
@@ -233,14 +236,15 @@ namespace RemindMe
         {
             if (e.KeyCode == Keys.Enter)
             {
+                BLIO.Log("tbNoteFont_KeyUp (Enter) with value: " + tbNoteFont.Text);
                 int size = 0;                
                 bool success = int.TryParse(tbNoteFont.Text, out size);
                 if (success)
                 {
                     if (size > trbNoteFont.Maximum)
                         size = trbNoteFont.Maximum;
-                    if (size < 1)
-                        size = 1;
+                    if (size < trbNoteFont.Minimum)
+                        size = trbNoteFont.Minimum;
 
                     tbNoteFont.Text = size.ToString();
 
@@ -248,6 +252,12 @@ namespace RemindMe
                     ApplyPreviewChanges();
                 }
             }
+        }
+
+        private void UCResizePopup_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                BLIO.Log("Control UCResizePopup now visible");
         }
     }
 }

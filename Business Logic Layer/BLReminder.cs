@@ -422,7 +422,7 @@ namespace Business_Logic_Layer
                         DateTime tryConv = Convert.ToDateTime(rem.PostponeDate);
                         contains = true;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         return false;
                     }
@@ -659,7 +659,7 @@ namespace Business_Logic_Layer
 
                 return true;
             }
-            catch (Exception ex)
+            catch 
             {
                 return false;
             }
@@ -740,7 +740,7 @@ namespace Business_Logic_Layer
                 // assign the reference to the local variable.
                 hashReminders = (Hashtable)formatter.Deserialize(fs);
             }
-            catch (SerializationException e)
+            catch (SerializationException)
             {
                 return null;
             }
@@ -817,9 +817,9 @@ namespace Business_Logic_Layer
                     string dayString = "";
                     foreach (string day in rem.RepeatDays.Split(','))
                     {
-                        dayString += day.Substring(0, 3) + ",";
+                        dayString += day.Substring(0, 3) + ", ";
                     }
-                    return dayString.Substring(0, dayString.Length - 1);
+                    return dayString.Substring(0, dayString.Length - 2); //-2 because of , and space
 
                 case "CUSTOM": return "Daily";
                 case "Months": return "Daily";

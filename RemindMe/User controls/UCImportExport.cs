@@ -74,9 +74,9 @@ namespace RemindMe
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
-                MessageFormManager.MakeMessagePopup("Error loading reminder(s)", 6);
+                RemindMeMessageFormManager.MakeMessagePopup("Error loading reminder(s)", 6);
             }
         }
 
@@ -185,7 +185,7 @@ namespace RemindMe
                     }
                     else
                     {
-                        MessageFormManager.MakeMessagePopup("Backup failed.", 6);
+                        RemindMeMessageFormManager.MakeMessagePopup("Backup failed.", 6);
                         return false;
                     }
                 }
@@ -197,7 +197,7 @@ namespace RemindMe
             }
             else
             {
-                MessageFormManager.MakeMessagePopup("Please select one or more reminder(s)", 6);
+                RemindMeMessageFormManager.MakeMessagePopup("Please select one or more reminder(s)", 6);
             }
             return true;
 
@@ -266,7 +266,7 @@ namespace RemindMe
             new Thread(() =>
             {
                 //Log an entry to the database, for data!
-                BLOnlineDatabase.ImportCount++;
+                BLOnlineDatabase.RecoverCount++;
             }).Start();
 
             BLIO.Log(remindersRecovered + " Reminders recovered");
@@ -293,7 +293,7 @@ namespace RemindMe
                 lvReminders.Items.Remove(item);
 
             if (completedReminders > 0)
-                MessageFormManager.MakeMessagePopup("Succesfully " + this.transferType.ToString().ToLower() + "ed " + completedReminders + " reminders.", 4);
+                RemindMeMessageFormManager.MakeMessagePopup("Succesfully " + this.transferType.ToString().ToLower() + "ed " + completedReminders + " reminders.", 4);
         }
 
 
@@ -350,6 +350,11 @@ namespace RemindMe
             BLIO.Log("Added old reminders to listview.");
         }
 
+        private void UCImportExport_VisibleChanged(object sender, EventArgs e)
+        {
+            if(this.Visible)
+                BLIO.Log("Control UCImportExport now visible");
+        }
     }
 
 

@@ -163,7 +163,7 @@ namespace Business_Logic_Layer
 
                 return timerMinutes;
             }
-            catch (Exception ex)
+            catch
             {
                 return -1;
             }

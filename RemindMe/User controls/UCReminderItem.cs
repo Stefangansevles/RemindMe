@@ -23,6 +23,13 @@ namespace RemindMe
         {
             InitializeComponent();
             this.Reminder = rem;
+            /*This was testing a custom color scheme
+            RemindMeColorScheme colorTheme = BLSettings.GetColorTheme(BLSettings.Settings.RemindMeTheme);
+            bunifuGradientPanel1.GradientBottomLeft = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[2]));
+            bunifuGradientPanel1.GradientBottomRight = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[2]));
+            bunifuGradientPanel1.GradientTopLeft = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[2]));
+            bunifuGradientPanel1.GradientTopRight = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryTopRight.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryTopRight.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryTopRight.Split(',')[2]));
+            */
 
             ReminderMenuStrip.Renderer = new MyToolStripMenuRenderer();
 
@@ -45,9 +52,9 @@ namespace RemindMe
                
         public Reminder Reminder
         {
-            get { return rem; }
+            get { BLIO.Log("GET UCReminderItem.Reminder ("+ rem.Id+")"); return rem; }
             set
-            {
+            {                
                 rem = value;
                 if(rem == null)                
                     Disable();                
@@ -131,9 +138,9 @@ namespace RemindMe
                 lblDate.Font = font;
 
                 if (Convert.ToDateTime(rem.PostponeDate).ToShortDateString() == DateTime.Now.ToShortDateString())
-                    lblDate.Text = "Today " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString()  + " (Postponed)";
+                    lblDate.Text = "Today " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString();
                 else
-                    lblDate.Text = Convert.ToDateTime(rem.PostponeDate) + " (Postponed)";
+                    lblDate.Text = Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString();
 
 
             }
@@ -167,6 +174,7 @@ namespace RemindMe
         
         private void btnDisable_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Disable button clicked on reminder item (" + rem.Id + ")");
             if (rem.Enabled == 1)
             {
                 btnDisable.Image = Properties.Resources.turnedOffTwo;
@@ -183,7 +191,8 @@ namespace RemindMe
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
-        {            
+        {
+            BLIO.Log("Settings button clicked on reminder item (" + rem.Id + ")");
             HideOrShowRemovePostponeMenuItem(rem);
             HideOrShowSkipForwardMenuItem(rem);
             ReminderMenuStrip.Show(Cursor.Position);
@@ -191,11 +200,13 @@ namespace RemindMe
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Edit button clicked on reminder item (" + rem.Id + ")");
             UCReminders.Instance.EditReminder(rem);            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
-        {            
+        {
+            BLIO.Log("Delete button clicked on reminder item (" + rem.Id + ")");
             BLReminder.DeleteReminder(rem);
             this.Reminder = null;
             UCReminders.Instance.UpdateCurrentPage();            
@@ -254,6 +265,7 @@ namespace RemindMe
 
         private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Toolstrip option clicked: Duplicate (" + rem.Id + ")");
             BLIO.Log("Setting up the duplicating process...");
             BLIO.Log("duplicating reminder with id " + rem.Id);
             BLReminder.PushReminderToDatabase(rem);
@@ -307,6 +319,7 @@ namespace RemindMe
 
         private void hideReminderToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Toolstrip option clicked: Hide (" + rem.Id + ")");
 
             string message = "You can hide reminders with this option. The reminder will not be deleted, you just won't be able to see it"
                  + " in the list of reminders. This creates a sense of surprise.\r\n\r\nDo you wish to hide this reminder?";                        
@@ -337,7 +350,7 @@ namespace RemindMe
             BLIO.Log("Attempting to re-enable the hide warning on reminders....");
 
             //Get the current settings from the database
-            Settings currentSettings = BLSettings.GetSettings();
+            Settings currentSettings = BLSettings.Settings;
 
             //Set the hiding of the confirmation on hiding a reminder to false
             currentSettings.HideReminderConfirmation = 0;
@@ -353,12 +366,19 @@ namespace RemindMe
 
         private void postponeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            BLIO.Log("Toolstrip option clicked: Postpone ("+rem.Id+")");
             int minutes = RemindMePrompt.ShowMinutes("Select your postpone time", "(in minutes or in xhxxm format (1h20m) )");
-           
+
+            if (minutes <= 0)
+            {
+                BLIO.Log("Postponing reminder with " + minutes + " minutes DENIED.");
+                return;
+            }
+            
             if (rem.PostponeDate == null)//No postpone yet, create it
-                rem.PostponeDate = Convert.ToDateTime(rem.Date.Split(',')[0]).AddMinutes(minutes).ToString();
+                rem.PostponeDate = Convert.ToDateTime(rem.Date.Split(',')[0]).AddMinutes(minutes).ToShortDateString() + " " + Convert.ToDateTime(rem.Date.Split(',')[0]).AddMinutes(minutes).ToShortTimeString();
             else//Already a postponedate, add the time to that date                
-                rem.PostponeDate = Convert.ToDateTime(rem.PostponeDate).AddMinutes(minutes).ToString();
+                rem.PostponeDate = Convert.ToDateTime(rem.PostponeDate).AddMinutes(minutes).ToShortDateString() + " " + Convert.ToDateTime(rem.PostponeDate).AddMinutes(minutes).ToShortTimeString();
 
             BLReminder.EditReminder(rem);//Push changes
 
@@ -366,15 +386,14 @@ namespace RemindMe
 
             new Thread(() =>
             {
-                //Log an entry to the database, for data!
-                if(minutes > 0)
-                    BLOnlineDatabase.PostponeCount++;
+                //Log an entry to the database, for data!                
+                BLOnlineDatabase.PostponeCount++;
             }).Start();
         }
 
         private void removePostponeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BLIO.Log("Removing postpone from reminder with id " + rem.Id);
+            BLIO.Log("Toolstrip option clicked: Remove postpone (" + rem.Id + ")");            
             rem.PostponeDate = null;
             BLReminder.EditReminder(rem);
 
@@ -386,7 +405,7 @@ namespace RemindMe
 
         private void skipToNextDateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BLIO.Log("Skipping reminder with id " + rem.Id + " to its next date");
+            BLIO.Log("Toolstrip option clicked: Skip (" + rem.Id + ")");            
             //The reminder object has now been altered. The first date has been removed and has been "skipped" to it's next date
             BLReminder.SkipToNextReminderDate(rem);
             //push the altered reminder to the database 
@@ -403,7 +422,8 @@ namespace RemindMe
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {            
+        {
+            BLIO.Log("Toolstrip option clicked: Permanentely delete (" + rem.Id + ")");
             if (RemindMeBox.Show("Are you really sure you wish to permanentely delete \"" + rem.Name + "\" ?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
             {                
                 BLIO.Log("Permanentely deleting reminder with id " + rem.Id + " ...");                
@@ -419,6 +439,8 @@ namespace RemindMe
                     BLOnlineDatabase.PermanentelyDeleteCount++;
                 }).Start();
             }
+            else
+                BLIO.Log("Permanent deletion of reminder " + rem.Id + " cancelled.");
         }
 
         private void bunifuGradientPanel1_DoubleClick(object sender, EventArgs e)
@@ -428,10 +450,11 @@ namespace RemindMe
 
 
         private void rightClick_Settings(object sender, MouseEventArgs e)
-        {
+        {            
             //Right-click settings
             if (e.Button == MouseButtons.Right && rem != null)
             {
+                BLIO.Log("Right mouse button click on reminder item (" + rem.Id +")");
                 HideOrShowRemovePostponeMenuItem(rem);
                 HideOrShowSkipForwardMenuItem(rem);
                 ReminderMenuStrip.Show(Cursor.Position);

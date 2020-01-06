@@ -113,16 +113,31 @@ namespace Data_Access_Layer
             return notificationEnabled == 1;
         }
 
-        public static Settings GetSettings()
-        {            
-            if (settings == null)
-                RefreshSettings();
+        public static Settings Settings
+        {
+            get
+            {
+                if (settings == null)
+                    RefreshSettings();
 
-            return settings;
+                return settings;
+            }
+            
         }
+        /*This was testing a custom color scheme
+
+        public static RemindMeColorScheme GetColorTheme(string themeName)
+        {
+            RemindMeColorScheme theme;
+            using (RemindMeDbEntities db = new RemindMeDbEntities())
+            {
+                theme = (from t in db.RemindMeColorScheme select t).Where(t => t.ThemeName == themeName).ToList().FirstOrDefault();
+                db.Dispose();
+            }
+            return theme;
+        }*/
         private static void RefreshSettings()
         {
-
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 int count = db.Settings.Where(o => o.Id >= 0).Count();
@@ -133,6 +148,8 @@ namespace Data_Access_Layer
                     settings.StickyForm = 0;
                     settings.EnableReminderCountPopup = 1;
                     settings.EnableHourBeforeReminder = 1;
+                    settings.HideReminderConfirmation = 0;
+                    settings.EnableQuickTimer = 1;                    
                     UpdateSettings(settings);                   
                 }
                 else

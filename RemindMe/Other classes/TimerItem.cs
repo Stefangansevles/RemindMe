@@ -54,6 +54,8 @@ namespace RemindMe.Other_classes
         {            
             if(popupDate <= DateTime.Now)//Let's make the popup
             {
+                BLIO.Log("Creating timer popup...");
+
                 timer.Stop();
 
                 Reminder rem = new Reminder();
@@ -63,7 +65,7 @@ namespace RemindMe.Other_classes
                 rem.Name = "Timer";
                 rem.Note = timerText;
 
-                Settings set = BLSettings.GetSettings();
+                Settings set = BLSettings.Settings;
                 rem.SoundFilePath = set.DefaultTimerSound;
 
                 Popup pop = new Popup(rem);
@@ -78,7 +80,7 @@ namespace RemindMe.Other_classes
         //Read-only ID
         public int ID
         {
-            get { return id; }
+            get { BLIO.Log("GET TimerItem.ID ("+id+")");  return id; }
         }
         //Read-only seconds left
         public int SecondsRemaining
@@ -93,9 +95,10 @@ namespace RemindMe.Other_classes
         /// Determines if the timer is currently running
         /// </summary>
         /// <returns></returns>
-        public bool IsRunning()
+        public bool Running
         {
-            return timer.Enabled;
+            get { BLIO.Log("GET TimerItem.Running ("+timer.Enabled+")"); return timer.Enabled; }
+            
         }
         /// <summary>
         /// Start the timer

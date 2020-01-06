@@ -59,6 +59,8 @@ namespace RemindMe
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            BLIO.Log("CurrentDomain_UnhandledException [ " + e.ExceptionObject.ToString() + " ]");
+
             Exception ex = (Exception)e.ExceptionObject;
             if (ex != null)
             {                
@@ -89,7 +91,7 @@ namespace RemindMe
         //All uncaught exceptions will go here instead. We will replace the default windows popup with our own custom one and filter out what kind of exception is being thrown
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            
+            BLIO.Log("Application_ThreadException [ " + e.Exception + " ]");
             if (e.Exception is ReminderException)
             {
                 ReminderException theException = (ReminderException)e.Exception;

@@ -13,11 +13,11 @@ namespace RemindMe
     /// <summary>
     /// Manages the RemindMeMessageForm. Keeps track of active message forms and has methods
     /// </summary>
-    public class MessageFormManager
+    public class RemindMeMessageFormManager
     {
         //Keep track of all popupforms. There should only be one at a time, but if two are visible, the second one should be on top of the other one
         private static List<RemindMeMessageForm> popupForms = new List<RemindMeMessageForm>();
-        private MessageFormManager() { }
+        private RemindMeMessageFormManager() { }
 
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace RemindMe
         /// Get all currently visible popupforms. Usually there will be none.
         /// </summary>
         /// <returns></returns>
-        public static List<RemindMeMessageForm> GetPopupforms()
+        public static List<RemindMeMessageForm> PopupForms
         {
-            return popupForms.Where(frm => !frm.IsDisposed).ToList();
+            get { return popupForms.Where(frm => !frm.IsDisposed).ToList(); }
         }
 
         /// <summary>
@@ -83,13 +83,13 @@ namespace RemindMe
         /// </summary>
         public static void RepositionActivePopups()
         {
-            int activeFormCount = GetPopupforms().Count;
+            int activeFormCount = PopupForms.Count;
 
             //No active popup forms? set it to default position
             if (activeFormCount == 1)
             {
                 //Set the location to the bottom right corner of the user's screen and a little bit above the taskbar since there's only one left
-                RemindMeMessageForm form = GetPopupforms()[0];
+                RemindMeMessageForm form = PopupForms[0];
                 form.Invoke((MethodInvoker)(() =>
                 {
                     form.Location = new Point(Screen.GetWorkingArea(form).Width - form.Width - 5, Screen.GetWorkingArea(form).Height - form.Height - 5);
@@ -98,7 +98,7 @@ namespace RemindMe
             }
             else
             {
-                foreach (RemindMeMessageForm form in GetPopupforms())
+                foreach (RemindMeMessageForm form in PopupForms)
                 {
                     form.Invoke((MethodInvoker)(() =>
                     {
@@ -135,7 +135,7 @@ namespace RemindMe
         /// <returns></returns>
         private static bool IsFormAt(Point p)
         {
-            return GetPopupforms().Where(frm => frm.Location == p).ToList().Count > 0;            
+            return PopupForms.Where(frm => frm.Location == p).ToList().Count > 0;            
         }
     }
 

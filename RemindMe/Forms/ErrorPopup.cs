@@ -150,7 +150,7 @@ namespace RemindMe
                     }
 
                 }                
-                MessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
+                RemindMeMessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
                 BLOnlineDatabase.AddException(ex, DateTime.UtcNow, BLIO.GetLogTxtPath());
                 this.Dispose();
             }

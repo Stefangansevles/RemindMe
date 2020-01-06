@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnConfirm = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.bunifuFlatButton1 = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnAppdataFolder = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnOpenErrorPrompt = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label1 = new System.Windows.Forms.Label();
             this.lblMemoryUsage = new System.Windows.Forms.Label();
             this.tmrDetails = new System.Windows.Forms.Timer(this.components);
@@ -43,79 +43,79 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRequery)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnConfirm
+            // btnAppdataFolder
             // 
-            this.btnConfirm.Activecolor = System.Drawing.Color.DimGray;
-            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnConfirm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnConfirm.BorderRadius = 5;
-            this.btnConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.btnConfirm.ButtonText = "Open appdata folder";
-            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfirm.DisabledColor = System.Drawing.Color.Gray;
-            this.btnConfirm.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnConfirm.Iconimage = null;
-            this.btnConfirm.Iconimage_right = null;
-            this.btnConfirm.Iconimage_right_Selected = null;
-            this.btnConfirm.Iconimage_Selected = null;
-            this.btnConfirm.IconMarginLeft = 0;
-            this.btnConfirm.IconMarginRight = 0;
-            this.btnConfirm.IconRightVisible = true;
-            this.btnConfirm.IconRightZoom = 0D;
-            this.btnConfirm.IconVisible = true;
-            this.btnConfirm.IconZoom = 50D;
-            this.btnConfirm.IsTab = false;
-            this.btnConfirm.Location = new System.Drawing.Point(17, 12);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnConfirm.OnHovercolor = System.Drawing.Color.DimGray;
-            this.btnConfirm.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnConfirm.selected = false;
-            this.btnConfirm.Size = new System.Drawing.Size(150, 47);
-            this.btnConfirm.TabIndex = 5;
-            this.btnConfirm.Text = "Open appdata folder";
-            this.btnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnConfirm.Textcolor = System.Drawing.Color.White;
-            this.btnConfirm.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            this.btnAppdataFolder.Activecolor = System.Drawing.Color.DimGray;
+            this.btnAppdataFolder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAppdataFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAppdataFolder.BorderRadius = 5;
+            this.btnAppdataFolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnAppdataFolder.ButtonText = "Open appdata folder";
+            this.btnAppdataFolder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAppdataFolder.DisabledColor = System.Drawing.Color.Gray;
+            this.btnAppdataFolder.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAppdataFolder.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnAppdataFolder.Iconimage = null;
+            this.btnAppdataFolder.Iconimage_right = null;
+            this.btnAppdataFolder.Iconimage_right_Selected = null;
+            this.btnAppdataFolder.Iconimage_Selected = null;
+            this.btnAppdataFolder.IconMarginLeft = 0;
+            this.btnAppdataFolder.IconMarginRight = 0;
+            this.btnAppdataFolder.IconRightVisible = true;
+            this.btnAppdataFolder.IconRightZoom = 0D;
+            this.btnAppdataFolder.IconVisible = true;
+            this.btnAppdataFolder.IconZoom = 50D;
+            this.btnAppdataFolder.IsTab = false;
+            this.btnAppdataFolder.Location = new System.Drawing.Point(17, 12);
+            this.btnAppdataFolder.Name = "btnAppdataFolder";
+            this.btnAppdataFolder.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAppdataFolder.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnAppdataFolder.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnAppdataFolder.selected = false;
+            this.btnAppdataFolder.Size = new System.Drawing.Size(150, 47);
+            this.btnAppdataFolder.TabIndex = 5;
+            this.btnAppdataFolder.Text = "Open appdata folder";
+            this.btnAppdataFolder.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnAppdataFolder.Textcolor = System.Drawing.Color.White;
+            this.btnAppdataFolder.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAppdataFolder.Click += new System.EventHandler(this.btnAppdataFolder_Click);
             // 
-            // bunifuFlatButton1
+            // btnOpenErrorPrompt
             // 
-            this.bunifuFlatButton1.Activecolor = System.Drawing.Color.DimGray;
-            this.bunifuFlatButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton1.BorderRadius = 5;
-            this.bunifuFlatButton1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.bunifuFlatButton1.ButtonText = "Open Error prompt";
-            this.bunifuFlatButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton1.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton1.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton1.Iconimage = null;
-            this.bunifuFlatButton1.Iconimage_right = null;
-            this.bunifuFlatButton1.Iconimage_right_Selected = null;
-            this.bunifuFlatButton1.Iconimage_Selected = null;
-            this.bunifuFlatButton1.IconMarginLeft = 0;
-            this.bunifuFlatButton1.IconMarginRight = 0;
-            this.bunifuFlatButton1.IconRightVisible = true;
-            this.bunifuFlatButton1.IconRightZoom = 0D;
-            this.bunifuFlatButton1.IconVisible = true;
-            this.bunifuFlatButton1.IconZoom = 50D;
-            this.bunifuFlatButton1.IsTab = false;
-            this.bunifuFlatButton1.Location = new System.Drawing.Point(173, 12);
-            this.bunifuFlatButton1.Name = "bunifuFlatButton1";
-            this.bunifuFlatButton1.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton1.OnHovercolor = System.Drawing.Color.DimGray;
-            this.bunifuFlatButton1.OnHoverTextColor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.selected = false;
-            this.bunifuFlatButton1.Size = new System.Drawing.Size(150, 47);
-            this.bunifuFlatButton1.TabIndex = 6;
-            this.bunifuFlatButton1.Text = "Open Error prompt";
-            this.bunifuFlatButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.bunifuFlatButton1.Textcolor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton1.Click += new System.EventHandler(this.bunifuFlatButton1_Click);
+            this.btnOpenErrorPrompt.Activecolor = System.Drawing.Color.DimGray;
+            this.btnOpenErrorPrompt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnOpenErrorPrompt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnOpenErrorPrompt.BorderRadius = 5;
+            this.btnOpenErrorPrompt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnOpenErrorPrompt.ButtonText = "Open Error prompt";
+            this.btnOpenErrorPrompt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOpenErrorPrompt.DisabledColor = System.Drawing.Color.Gray;
+            this.btnOpenErrorPrompt.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenErrorPrompt.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnOpenErrorPrompt.Iconimage = null;
+            this.btnOpenErrorPrompt.Iconimage_right = null;
+            this.btnOpenErrorPrompt.Iconimage_right_Selected = null;
+            this.btnOpenErrorPrompt.Iconimage_Selected = null;
+            this.btnOpenErrorPrompt.IconMarginLeft = 0;
+            this.btnOpenErrorPrompt.IconMarginRight = 0;
+            this.btnOpenErrorPrompt.IconRightVisible = true;
+            this.btnOpenErrorPrompt.IconRightZoom = 0D;
+            this.btnOpenErrorPrompt.IconVisible = true;
+            this.btnOpenErrorPrompt.IconZoom = 50D;
+            this.btnOpenErrorPrompt.IsTab = false;
+            this.btnOpenErrorPrompt.Location = new System.Drawing.Point(173, 12);
+            this.btnOpenErrorPrompt.Name = "btnOpenErrorPrompt";
+            this.btnOpenErrorPrompt.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnOpenErrorPrompt.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnOpenErrorPrompt.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnOpenErrorPrompt.selected = false;
+            this.btnOpenErrorPrompt.Size = new System.Drawing.Size(150, 47);
+            this.btnOpenErrorPrompt.TabIndex = 6;
+            this.btnOpenErrorPrompt.Text = "Open Error prompt";
+            this.btnOpenErrorPrompt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnOpenErrorPrompt.Textcolor = System.Drawing.Color.White;
+            this.btnOpenErrorPrompt.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenErrorPrompt.Click += new System.EventHandler(this.btnOpenErrorPrompt_Click);
             // 
             // label1
             // 
@@ -269,8 +269,8 @@
             this.Controls.Add(this.bunifuFlatButton2);
             this.Controls.Add(this.lblMemoryUsage);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.bunifuFlatButton1);
-            this.Controls.Add(this.btnConfirm);
+            this.Controls.Add(this.btnOpenErrorPrompt);
+            this.Controls.Add(this.btnAppdataFolder);
             this.Name = "UCDebugMode";
             this.Size = new System.Drawing.Size(666, 436);
             this.Load += new System.EventHandler(this.UCDebugMode_Load);
@@ -283,8 +283,8 @@
 
         #endregion
 
-        private Bunifu.Framework.UI.BunifuFlatButton btnConfirm;
-        private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton1;
+        private Bunifu.Framework.UI.BunifuFlatButton btnAppdataFolder;
+        private Bunifu.Framework.UI.BunifuFlatButton btnOpenErrorPrompt;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblMemoryUsage;
         private System.Windows.Forms.Timer tmrDetails;

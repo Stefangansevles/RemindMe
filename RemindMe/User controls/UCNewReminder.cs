@@ -249,7 +249,7 @@ namespace RemindMe
                     AVRForm.ShowReminder = (long)avrProps.ShowReminder;
 
                 AVRForm.BatchScript = avrProps.BatchScript;
-                if (BLSettings.GetSettings().EnableAdvancedReminders == 1)
+                if (BLSettings.Settings.EnableAdvancedReminders == 1)
                 {
                     cbAdvancedReminder.Visible = true;
                     lblAdvancedReminders.Visible = true;
@@ -913,13 +913,13 @@ namespace RemindMe
                     BLIO.Log("reminder doesnt have this date yet!");
                     cbMultipleDates.Items.Add(selectedDate);
                     BLIO.Log("Added date to cbMultipleDates combobox");
-                    MessageFormManager.MakeMessagePopup(selectedDate.ToString() + " Added to this reminder.", 1);
+                    RemindMeMessageFormManager.MakeMessagePopup(selectedDate.ToString() + " Added to this reminder.", 1);
                 }
                 else
-                    MessageFormManager.MakeMessagePopup("You have already added that date.", 1);
+                    RemindMeMessageFormManager.MakeMessagePopup("You have already added that date.", 1);
             }
             else
-                MessageFormManager.MakeMessagePopup("The date you selected is in the past! Cannot add this date.", 3);
+                RemindMeMessageFormManager.MakeMessagePopup("The date you selected is in the past! Cannot add this date.", 3);
         }
 
         private void btnRemoveDate_Click(object sender, EventArgs e)
@@ -1105,7 +1105,7 @@ namespace RemindMe
                             else
                             {
                                 if (selectedDate < DateTime.Now)
-                                    MessageFormManager.MakeMessagePopup("The selected date is in the past!", 4);
+                                    RemindMeMessageFormManager.MakeMessagePopup("The selected date is in the past!", 4);
                             }
 
                             if (cbMultipleDates.Items.Count > 0)
@@ -1428,7 +1428,7 @@ namespace RemindMe
         {
             cbEvery.LocationChanged += cbEvery_VisibleChanged;
             dtpTime.Format = DateTimePickerFormat.Custom;
-            btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
+            btnAdvancedReminder.Visible = BLSettings.Settings.EnableAdvancedReminders == 1;
 
             if (editableReminder == null)
                 ResetReminderForm();            
@@ -1451,7 +1451,7 @@ namespace RemindMe
                 }
                     
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+            catch (ArgumentOutOfRangeException) { RemindMeBox.Show("Entered number is too large."); }
 
         }
 
@@ -1463,7 +1463,7 @@ namespace RemindMe
                 dtpDate.Value = DateTime.Now.AddMinutes(toAddMinutes);
                 dtpTime.Value = DateTime.Now.AddMinutes(toAddMinutes);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large."); }
+            catch (ArgumentOutOfRangeException) { RemindMeBox.Show("Entered number is too large."); }
 
         }
 
@@ -1474,7 +1474,7 @@ namespace RemindMe
                 int toAddDays = RemindMePrompt.ShowNumber("Add days to the selected date");
                 dtpDate.Value = dtpDate.Value.AddDays(toAddDays);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
+            catch (ArgumentOutOfRangeException) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 
@@ -1485,7 +1485,7 @@ namespace RemindMe
                 int toAddMonths = RemindMePrompt.ShowNumber("Add months to the selected date");
                 dtpDate.Value = dtpDate.Value.AddMonths(toAddMonths);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
+            catch (ArgumentOutOfRangeException) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 
@@ -1496,7 +1496,7 @@ namespace RemindMe
                 int toSubtractDays = RemindMePrompt.ShowNumber("Subtract days to the selected date");
                 dtpDate.Value = dtpDate.Value.AddDays(-toSubtractDays);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
+            catch (ArgumentOutOfRangeException) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 
@@ -1507,7 +1507,7 @@ namespace RemindMe
                 int toSubtractMonths = RemindMePrompt.ShowNumber("Subtract months to the selected date");
                 dtpDate.Value = dtpDate.Value.AddMonths(-toSubtractMonths);
             }
-            catch (ArgumentOutOfRangeException ex) { RemindMeBox.Show("Entered number is too large.", false); }
+            catch (ArgumentOutOfRangeException) { RemindMeBox.Show("Entered number is too large.", false); }
 
         }
 
@@ -1590,10 +1590,13 @@ namespace RemindMe
 
         private void UCNewReminder_VisibleChanged(object sender, EventArgs e)
         {
-            btnAdvancedReminder.Visible = BLSettings.GetSettings().EnableAdvancedReminders == 1;
+            btnAdvancedReminder.Visible = BLSettings.Settings.EnableAdvancedReminders == 1;
 
             if(callback != null && !callback.Visible && !this.Visible)
-                saveState = true;           
+                saveState = true;
+
+            if (this.Visible)
+                BLIO.Log("Control UCNewReminder now visible");
         }
 
         private void tbReminderName_Leave(object sender, EventArgs e)

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCReminders));
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.tmrClearMessageCache = new System.Windows.Forms.Timer(this.components);
             this.pnlBackground = new Bunifu.Framework.UI.BunifuGradientPanel();
@@ -54,6 +55,7 @@
             // 
             // pnlBackground
             // 
+            this.pnlBackground.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlBackground.BackgroundImage")));
             this.pnlBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlBackground.Controls.Add(this.pnlReminders);
             this.pnlBackground.Controls.Add(this.panel1);
@@ -243,7 +245,7 @@
             this.pnlReminders.Location = new System.Drawing.Point(0, 0);
             this.pnlReminders.Name = "pnlReminders";
             this.pnlReminders.Size = new System.Drawing.Size(666, 394);
-            this.pnlReminders.TabIndex = 6;            
+            this.pnlReminders.TabIndex = 6;
             // 
             // UCReminders
             // 
@@ -255,6 +257,8 @@
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "UCReminders";
             this.Size = new System.Drawing.Size(666, 436);
+            this.Load += new System.EventHandler(this.UCReminders_Load);
+            this.VisibleChanged += new System.EventHandler(this.UCReminders_VisibleChanged);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UCReminders_DragEnter);
             this.pnlBackground.ResumeLayout(false);

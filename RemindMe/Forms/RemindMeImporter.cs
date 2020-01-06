@@ -77,7 +77,7 @@ namespace RemindMe
                 }
 
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
                 BLIO.Log("HasfileAccess from RemindMeImporter returned with false");
                 return false;
@@ -116,7 +116,7 @@ namespace RemindMe
                 }
                 else
                 {
-                    MessageFormManager.MakeMessagePopup("Please select at least one reminder.", 3);
+                    RemindMeMessageFormManager.MakeMessagePopup("Please select at least one reminder.", 3);
                 }
 
             }

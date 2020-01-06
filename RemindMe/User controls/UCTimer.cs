@@ -43,7 +43,7 @@ namespace RemindMe
             numMinutes.KeyUp += numericUpDown_ValueChange;
             numHours.KeyUp += numericUpDown_ValueChange;
             
-            lblTimerTitle.MaximumSize = new Size(pnlTimerTitle.Width - 15, 0);
+            lblTimerTitle.MaximumSize = new Size(pnlTimerTitle.Width - 15, 0);            
         }
 
         public static List<TimerItem> RunningTimers
@@ -281,14 +281,13 @@ namespace RemindMe
                     TimerMenuStrip.Show(Cursor.Position);
                 }
             }
-
-            BLIO.Log("TimerButton clicked!");
+            
             //Get selected TimerItem
             BunifuFlatButton clickedButton = (BunifuFlatButton)sender;
-            BLIO.Log("^^^^ (" + clickedButton.Text + ")");
+            BLIO.Log("TimerButton " + clickedButton.Text + " clicked!");
             //Remove all the text apart from the id and store it
 
-            
+
             int id = GetTimerButtonId(clickedButton);
             
 
@@ -301,7 +300,7 @@ namespace RemindMe
                     currentTimerItem = itm;
                     lblTimerTitle.Visible = true;
 
-                    if(currentTimerItem.IsRunning())
+                    if(currentTimerItem.Running)
                         tmrCountdown.Start();
                     else
                         tmrCountdown.Stop();
@@ -316,7 +315,7 @@ namespace RemindMe
             }            
 
             //Show play or pause depending on if the selected timer is running or not
-            if (currentTimerItem.IsRunning())            
+            if (currentTimerItem.Running)            
                 btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;                            
             else            
                 btnPauseResumeTimer.Iconimage = Properties.Resources.Play;
@@ -353,7 +352,7 @@ namespace RemindMe
             if (currentTimerItem == null || currentTimerItem.Disposed)
                 return;
 
-            if (currentTimerItem.IsRunning())
+            if (currentTimerItem.Running)
             {
                 btnPauseResumeTimer.Iconimage = Properties.Resources.Play;
                 currentTimerItem.StopTimer();
@@ -413,9 +412,9 @@ namespace RemindMe
             if (currentTimerItem.Disposed || currentTimerItem == null)
                 return;
 
-            tmrCountdown.Enabled = currentTimerItem.IsRunning();
+            tmrCountdown.Enabled = currentTimerItem.Running;
 
-            if (currentTimerItem.IsRunning())
+            if (currentTimerItem.Running)
                 btnPauseResumeTimer.Iconimage = Properties.Resources.pause_2x1;
             else
                 btnPauseResumeTimer.Iconimage = Properties.Resources.Play;
@@ -437,6 +436,7 @@ namespace RemindMe
         {
             if(currentTimerItem != null && this.Visible)
             {
+                BLIO.Log("Control UCImportExport now visible");
                 BLIO.Log("Setting values of (UCTimer) numericupdowns on UCTimer_VisibleChanged ("+this.Visible+")");
 
                 if (currentTimerItem.SecondsRemaining <= 0)

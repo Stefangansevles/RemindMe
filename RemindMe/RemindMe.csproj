@@ -511,6 +511,10 @@
     <None Include="Resources\whiteeye.png" />
     <None Include="Resources\back.png" />
     <None Include="Resources\Arrow_back1.png" />
+    <None Include="Resources\ColourPalletteWhite.png" />
+    <None Include="Resources\ColourPalette21.png" />
+    <None Include="Resources\ColourPallette2.png" />
+    <None Include="Resources\palette.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

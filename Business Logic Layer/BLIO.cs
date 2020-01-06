@@ -15,11 +15,8 @@ namespace Business_Logic_Layer
 {
     public class BLIO
     {
-        //Checks if we can send an e-mail, when users come accross an error, they tend to try it multiple times. We don't want to spam e-mails.
-        private static bool allowEmail = true;
-        private static System.Windows.Forms.Timer tmrAllowEmail = null;
-        public static List<string> systemLog = new List<string>();
-        
+        private static int noInternetNotLoggedCounter = 0;               
+        public static List<string> systemLog = new List<string>();                
         private BLIO() { }
 
         /// <summary>
@@ -27,7 +24,7 @@ namespace Business_Logic_Layer
         /// </summary>
         public static void WriteUniqueString()
         {
-            Settings set = BLSettings.GetSettings();
+            Settings set = BLSettings.Settings;
             if (string.IsNullOrWhiteSpace(set.UniqueString))
             {
                 string uniqueString = "";
@@ -36,7 +33,7 @@ namespace Business_Logic_Layer
                 uniqueString = new string(Enumerable.Repeat(chars, 200)
                   .Select(s => s[random.Next(s.Length)]).ToArray());
 
-                
+                Log("No unique string detected. Generated unique string.");
                 set.UniqueString = uniqueString.ToString();
                 BLSettings.UpdateSettings(set);                
             }
@@ -49,9 +46,25 @@ namespace Business_Logic_Layer
         public static void Log(string entry)
         {
             if (systemLog.Count > 0 && systemLog[systemLog.Count - 1] == "No internet access!") //Let's not spam "no internet access" if there is no internet access
+            {
+                noInternetNotLoggedCounter++;
                 return;
-
+            }
+            else
+            {
+                if (noInternetNotLoggedCounter > 0)
+                {
+                    Log(noInternetNotLoggedCounter + " \"No internet access\" messages blocked");
+                    noInternetNotLoggedCounter = 0; //reset
+                }
+            }
+                                              
             systemLog.Add("[" + DateTime.Now.ToString() + "]  " + entry);
+        }
+
+        public static string LastLogMessage
+        {
+            get { return systemLog[systemLog.Count - 1]; }
         }
 
         /// <summary>
@@ -154,8 +167,9 @@ namespace Business_Logic_Layer
         public static Version GetGithubVersion()
         {
             try
-            {
-                Log("Starting the process of checking the live version on github...");
+            {                
+                if(!LastLogMessage.Contains("No new version."))
+                    Log("Starting the process of checking the live version on github...");
                 //Lets thread this process. It has no priority and we dont want to slow RemindMe down.            
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -168,7 +182,7 @@ namespace Business_Logic_Layer
                     lines = html.Split(new[] { "\n" }, StringSplitOptions.None).ToList();
                 }
 
-                if (lines.Count > 0)
+                if (lines.Count > 0 && !LastLogMessage.Contains("No new version."))
                     Log("Sucessfully loaded raw SetupRemindMe17.vdproj from github");
 
                 foreach (string line in lines)
@@ -183,7 +197,7 @@ namespace Business_Logic_Layer
                         {                            
                             return new Version(splitLine.Substring(colonIndex + 1));
                         }
-                        catch (Exception ex) { Log("ERROR Could not get the raw version from SetupRemindMe17.vdproj from github..."); }
+                        catch { Log("ERROR Could not get the raw version from SetupRemindMe17.vdproj from github..."); }
 
 
                     }

@@ -187,9 +187,9 @@ namespace RemindMe
                 BLIO.Log("Dawn of a new day -24 hours remaining- ");
                 UpdateCurrentPage();
                 dayOfStartRemindMe = DateTime.Now.Day;
-                MessageFormManager.MakeTodaysRemindersPopup();
+                RemindMeMessageFormManager.MakeTodaysRemindersPopup();
                 //Update lastOnline. If you keep RemindMe running and put your pc to sleep instead of turning it off, it would never get updated without this                
-                BLOnlineDatabase.InsertOrUpdateUser(BLSettings.GetSettings().UniqueString);
+                BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
             }
 
 
@@ -244,14 +244,14 @@ namespace RemindMe
                 message = message.Remove(message.Length - 2, 2);
 
                 if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
-                    MessageFormManager.MakeMessagePopup(message, 8);
+                    RemindMeMessageFormManager.MakeMessagePopup(message, 6);
 
                 popupMessages.Add(message);
             }
             else if (remindersToHappenInAnHour.Count > 0)
             {
                 if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
-                    MessageFormManager.MakeMessagePopup(message, 8, remindersToHappenInAnHour[0]);
+                    RemindMeMessageFormManager.MakeMessagePopup(message, 6, remindersToHappenInAnHour[0]);
 
                 popupMessages.Add(message);
             }
@@ -502,6 +502,21 @@ namespace RemindMe
 
             if (this.Visible)
                 SetPageButtonIcons(reminders);
+        }
+
+        private void UCReminders_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                BLIO.Log("Control UCReminders now visible");
+        }
+
+        private void UCReminders_Load(object sender, EventArgs e)
+        {
+            /*This was testing a custom color scheme
+            btnAddReminder.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;
+            btnPreviousPage.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;
+            btnNextPage.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;
+            btnUnhideReminders.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;*/
         }
     }
 }

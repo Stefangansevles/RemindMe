@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
@@ -19,7 +20,6 @@ namespace RemindMe
         private Reminder rem;
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        private IWMPMedia mediaInfo;
         
         public Popup(Reminder rem)
         {
@@ -262,6 +262,11 @@ namespace RemindMe
                     BLIO.Log("Postpone date assigned to reminder");
                     rem.Enabled = 1;
                     BLReminder.EditReminder(rem);
+                    new Thread(() =>
+                    {
+                        //Log an entry to the database, for data!
+                        BLOnlineDatabase.PostponeCount++;
+                    }).Start();
                     BLIO.Log("Reminder postponed!");
                 }
                 else

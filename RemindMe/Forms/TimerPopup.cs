@@ -17,7 +17,6 @@ namespace RemindMe
         //The amount of minutes the timer is going to be set for    
         private int timerMinutes = 0;
 
-        private int forceFocusCount = 0;
 
         public TimerPopup()
         {            
@@ -80,7 +79,7 @@ namespace RemindMe
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     lblErrorText.Visible = true;
                     lblErrorText.Text = "Invalid input";

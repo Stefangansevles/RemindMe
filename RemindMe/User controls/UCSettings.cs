@@ -37,8 +37,8 @@ namespace RemindMe
 
         private void cbEnableRemindMeMessages_OnChange(object sender, EventArgs e)
         {
-            BLIO.Log("Checkbox change (todays reminder popup)");
-            Settings set = BLSettings.GetSettings();
+            BLIO.Log("cbEnableRemindMeMessages_OnChange");
+            Settings set = BLSettings.Settings;
 
             if (cbRemindMeMessages.Checked)
                 set.EnableReminderCountPopup = 1;
@@ -52,8 +52,8 @@ namespace RemindMe
 
         private void cbEnableOneHourBeforeNotification_OnChange(object sender, EventArgs e)
         {
-            BLIO.Log("Checkbox change (Enable 1h before)");
-            Settings set = BLSettings.GetSettings();
+            BLIO.Log("cbEnableOneHourBeforeNotification_OnChange");
+            Settings set = BLSettings.Settings;
 
             if (cbOneHourBeforeNotification.Checked)
                 set.EnableHourBeforeReminder = 1;
@@ -66,7 +66,7 @@ namespace RemindMe
 
         private void UCWindowOverlay_Load(object sender, EventArgs e)
         {
-            if (BLSettings.GetSettings() == null)
+            if (BLSettings.Settings == null)
             {
                 Settings set = new Settings();
                 set.AlwaysOnTop = alwaysOnTop;
@@ -85,8 +85,8 @@ namespace RemindMe
 
             cbRemindMeMessages.Checked = BLSettings.IsReminderCountPopupEnabled();
             cbOneHourBeforeNotification.Checked = BLSettings.IsHourBeforeNotificationEnabled();
-            cbQuicktimer.Checked = BLSettings.GetSettings().EnableQuickTimer == 1;
-            cbAdvancedReminders.Checked = BLSettings.GetSettings().EnableAdvancedReminders == 1;
+            cbQuicktimer.Checked = BLSettings.Settings.EnableQuickTimer == 1;
+            cbAdvancedReminders.Checked = BLSettings.Settings.EnableAdvancedReminders == 1;
 
             Hotkeys timerKey = BLHotkeys.TimerPopup;
             foreach(string m in timerKey.Modifiers.Split(','))
@@ -98,7 +98,7 @@ namespace RemindMe
             //Fill the combobox to select a timer popup sound with data
             FillSoundCombobox();
             //Set the item the user selected as text           
-            string def = BLSettings.GetSettings().DefaultTimerSound;
+            string def = BLSettings.Settings.DefaultTimerSound;
             if (def == null) //User has no default sound combobox
             {
                 foreach (ComboBoxItem itm in cbSound.Items)
@@ -106,17 +106,17 @@ namespace RemindMe
                     if (itm.Text.ToLower().Contains("unlock")) //Set the default timer sound to windows unlock 
                     {
                         Songs sng = (Songs)itm.Value;
-                        Settings set = BLSettings.GetSettings();
+                        Settings set = BLSettings.Settings;
                         set.DefaultTimerSound = sng.SongFilePath;
                         BLSettings.UpdateSettings(set);
                     }
                 }
             }
-            if (BLSettings.GetSettings().DefaultTimerSound == null)//Still null? well damn.
+            if (BLSettings.Settings.DefaultTimerSound == null)//Still null? well damn.
                 return;
             
-            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLSettings.GetSettings().DefaultTimerSound), BLSongs.GetSongByFullPath(BLSettings.GetSettings().DefaultTimerSound)));
-            cbSound.Text = Path.GetFileNameWithoutExtension(BLSettings.GetSettings().DefaultTimerSound);
+            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLSettings.Settings.DefaultTimerSound), BLSongs.GetSongByFullPath(BLSettings.Settings.DefaultTimerSound)));
+            cbSound.Text = Path.GetFileNameWithoutExtension(BLSettings.Settings.DefaultTimerSound);
         }
 
         private void cbPopupType_SelectedIndexChanged(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace RemindMe
                 BLIO.Log("Popup type selected index changed to minimized.");
             }
 
-            Settings set = BLSettings.GetSettings();
+            Settings set = BLSettings.Settings;
             set.AlwaysOnTop = alwaysOnTop;
 
             BLSettings.UpdateSettings(set);
@@ -161,6 +161,8 @@ namespace RemindMe
             if (e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey)
                 return;
 
+            BLIO.Log("tbTimerHotKey legal key combination pressed.");
+
 
             tbTimerHotkey.Text = "";            
 
@@ -170,12 +172,13 @@ namespace RemindMe
             }
             tbTimerHotkey.Text += e.KeyCode.ToString();
 
+            BLIO.Log("tbTimerHotKey key combination: " + tbTimerHotkey.Text);
                                                                                    //Get the current key combination for the Timer popup
             Hotkeys timerKey = BLHotkeys.TimerPopup;            
             timerKey.Key = e.KeyCode.ToString();                                   //Set the new key
             timerKey.Modifiers = e.Modifiers.ToString().Replace(" ", string.Empty); //Set the new modifier(remove whitespace)
             BLHotkeys.TimerPopup = timerKey;                                       //Assign the value
-
+            BLIO.Log("timerKey.Key=" + timerKey.Key + "   timerKey.Modifiers="+ timerKey.Modifiers);
         }
 
         private void FillSoundCombobox()
@@ -202,8 +205,8 @@ namespace RemindMe
 
         private void cbEnableQuicktimer_OnChange(object sender, EventArgs e)
         {
-            BLIO.Log("Checkbox change (Quick timer)");
-            Settings set = BLSettings.GetSettings();
+            BLIO.Log("cbEnableQuicktimer_OnChange");
+            Settings set = BLSettings.Settings;
 
             set.EnableQuickTimer = cbQuicktimer.Checked ? 1 : 0;
 
@@ -219,8 +222,8 @@ namespace RemindMe
 
         private void cbAdvancedReminders_OnChange(object sender, EventArgs e)
         {
-            BLIO.Log("Checkbox change (Advanced Reminder)");
-            Settings set = BLSettings.GetSettings();
+            BLIO.Log("cbAdvancedReminders_OnChange");
+            Settings set = BLSettings.Settings;
 
             set.EnableAdvancedReminders = cbAdvancedReminders.Checked ? 1 : 0;
 
@@ -238,7 +241,7 @@ namespace RemindMe
         {
             cbSound.SelectedItem = null;
             cbSound.Text = "";
-            Settings set = BLSettings.GetSettings();
+            Settings set = BLSettings.Settings;
             set.DefaultTimerSound = "";
             BLSettings.UpdateSettings(set);
         }
@@ -249,7 +252,7 @@ namespace RemindMe
             if (selectedItem != null)
             {
                 Songs selectedSong = (Songs)selectedItem.Value;
-                Settings set = BLSettings.GetSettings();
+                Settings set = BLSettings.Settings;
                 set.DefaultTimerSound = selectedSong.SongFilePath;
                 BLSettings.UpdateSettings(set);
             }
@@ -302,6 +305,12 @@ namespace RemindMe
         {
             btnPreviewSong.Image = imgPlayResume;
             tmrMusic.Stop();
+        }
+
+        private void UCSettings_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                BLIO.Log("Control UCSettings now visible");
         }
     }
 }

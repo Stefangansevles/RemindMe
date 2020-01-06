@@ -22,14 +22,16 @@ namespace RemindMe
         }
       
 
-        private void bunifuFlatButton1_Click(object sender, EventArgs e)
+        private void btnOpenErrorPrompt_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnOpenErrorPrompt_Click");
             ErrorPopup pop = new ErrorPopup("This is a test error in debug mode", new ReminderException("Test",null));
             pop.Show();
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void btnAppdataFolder_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnAppdataFolder_Click");
             Process.Start(Path.GetDirectoryName(IOVariables.errorLog));
         }
 
@@ -50,16 +52,16 @@ namespace RemindMe
 
         private long GetMemory()
         {            
-            PerformanceCounter PC = new PerformanceCounter();
-            PC.CategoryName = "Process";
-            PC.CounterName = "Working Set - Private";
-            PC.InstanceName = Process.GetCurrentProcess().ProcessName;
-            return Convert.ToInt32(PC.NextValue()) / (int)(1024);            
+            PerformanceCounter pc = new PerformanceCounter();
+            pc.CategoryName = "Process";
+            pc.CounterName = "Working Set - Private";
+            pc.InstanceName = Process.GetCurrentProcess().ProcessName;
+            return Convert.ToInt32(pc.NextValue()) / (int)(1024);            
         }
 
         private void bunifuFlatButton2_Click(object sender, EventArgs e)
         {
-            MessageFormManager.MakeMessagePopup("This is a test.", 4);
+            RemindMeMessageFormManager.MakeMessagePopup("This is a test.", 4);
         }
 
         private void tmrLog_Tick(object sender, EventArgs e)
@@ -69,7 +71,7 @@ namespace RemindMe
                 if(localCacheList.Count != BLIO.systemLog.Count)
                 {
                     tbSystemLog.Clear();                    
-                    tbSystemLog.AppendText(String.Join(Environment.NewLine, BLIO.systemLog));
+                    tbSystemLog.AppendText(string.Join(Environment.NewLine, BLIO.systemLog));
 
                     localCacheList.Clear();
                     localCacheList.AddRange(BLIO.systemLog);
@@ -84,6 +86,7 @@ namespace RemindMe
 
         private void btnCheckUpdate_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnCheckUpdate_Click");
             Form1.Instance.CheckForUpdates();
         }
 

@@ -24,5 +24,6 @@ namespace Data_Access_Layer
         public Nullable<int> DeletedReminders { get; set; }
         public Nullable<int> ArchivedReminders { get; set; }
         public Nullable<int> TotalReminders { get; set; }
+        public int SignIns { get; set; }
     }
 }

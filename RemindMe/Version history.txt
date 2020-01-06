@@ -909,3 +909,8 @@ stops working. You can then get notified about this instead of wondering why it 
 can watch these messages again by going into the message center in the left panel of RemindMe
 
 - The right click on a reminder menu item icons now have a white color instead of black to match the overall design of RemindMe
+
+V2.6.418
+- Improved the appearance of the RemindMe messages on the bottom right corner of your monitor to look more fancy
+- Removed the (postponed) text after the date of a reminder that indicates that it is postponed. The italic text and the ZzZ icon should be clear enough.
+- Fixed a small error that would occur when you resized the RemindMe popup to a size that is smaller than the minimum size

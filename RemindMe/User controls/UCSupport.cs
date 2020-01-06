@@ -26,10 +26,16 @@ namespace RemindMe
         {
             try
             {
+                BLIO.Log("Attempting to send a message to the RemindMe developer..");
+
+                //Don't do anything if there's no text
+                if (string.IsNullOrWhiteSpace(tbNote.Text))
+                    return;
+
                 //Don't do anything without internet
                 if (!BLIO.HasInternetAccess())
                 {
-                    MessageFormManager.MakeMessagePopup("You do not currently have an active internet connection", 3);
+                    RemindMeMessageFormManager.MakeMessagePopup("You do not currently have an active internet connection", 3);
                     return;
                 }
 
@@ -38,14 +44,15 @@ namespace RemindMe
                 string note = tbNote.Text;
 
                 BLOnlineDatabase.InsertEmailAttempt(File.ReadAllText(IOVariables.uniqueString), note, subject, email);
-                MessageFormManager.MakeMessagePopup("Feedback Sent. Thank you!", 5);
+                RemindMeMessageFormManager.MakeMessagePopup("Feedback Sent. Thank you!", 5);
                 tbEmail.Text = "";
                 tbSubject.Text = "";
                 tbNote.Text = "";
+                BLIO.Log("Message sent!");
             }
-            catch (Exception ex)
+            catch
             {
-                MessageFormManager.MakeMessagePopup("Something went wrong. Could not send the e-mail",3);
+                RemindMeMessageFormManager.MakeMessagePopup("Something went wrong. Could not send the e-mail",3);
             }
         }
 
@@ -63,14 +70,19 @@ namespace RemindMe
 
         private void UCSupport_VisibleChanged(object sender, EventArgs e)
         {
-            lvMessages.Items.Clear();
-
-            ListViewItem itm;
-            foreach (ReadMessages mes in BLReadMessages.Messages)
+            if (this.Visible)
             {
-                itm = new ListViewItem(mes.MessageText);
-                itm.Tag = mes.ReadMessageId;
-                lvMessages.Items.Add(itm);
+                BLIO.Log("Control UCSupport now visible");
+
+                lvMessages.Items.Clear();
+
+                ListViewItem itm;
+                foreach (ReadMessages mes in BLReadMessages.Messages) //Thread? maybe?
+                {
+                    itm = new ListViewItem(mes.MessageText);
+                    itm.Tag = mes.ReadMessageId;
+                    lvMessages.Items.Add(itm);
+                }
             }
         }
 
@@ -83,7 +95,7 @@ namespace RemindMe
                 RemindMeMessages mess = BLOnlineDatabase.GetRemindMeMessageById(Convert.ToInt32(itm.Tag));
                 if (mess == null)
                 {
-                    MessageFormManager.MakeMessagePopup("Could not show this message. It does not exist anymore", 4);
+                    RemindMeMessageFormManager.MakeMessagePopup("Could not show this message. It does not exist anymore", 4);
                     lvMessages.Items.Remove(itm);
                     BLReadMessages.DeleteMessage(Convert.ToInt32(itm.Tag));
                     return; //Doesn't exist in the database anymore
@@ -91,15 +103,18 @@ namespace RemindMe
 
                 if (mess.NotificationType == "REMINDMEBOX")
                 {
+                    BLIO.Log("Attempting to show the user a RemindMe message(REMINDMEBOX)...");
                     RemindMeBox.Show("A Message from the creator of RemindMe", mess.Message.Replace("¤", Environment.NewLine), RemindMeBoxReason.OK);
                 }
                 else if (mess.NotificationType == "REMINDMEMESSAGEFORM")
                 {
-                    MessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value);
+                    BLIO.Log("Attempting to show the user a RemindMe message(REMINDMEMESSAGEFORM)...");
+                    RemindMeMessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value);
                 }
                 else
                 {
-                    MessageFormManager.MakeMessagePopup("Could not preview this message. Unknown notification type", 4);
+                    BLIO.Log("Attempting to show the user a RemindMe message FAILED. Notificationtype="+mess.NotificationType + "  Message="+mess.Message + "  Id="+mess.Id);
+                    RemindMeMessageFormManager.MakeMessagePopup("Could not preview this message. Unknown notification type", 4);
                     lvMessages.Items.Remove(itm);                    
                     BLReadMessages.DeleteMessage(mess.Id);
                 }

@@ -347,6 +347,7 @@
             this.Name = "UCResizePopup";
             this.Size = new System.Drawing.Size(666, 436);
             this.Load += new System.EventHandler(this.UCResizePopup_Load);
+            this.VisibleChanged += new System.EventHandler(this.UCResizePopup_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.trbWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbTitleFont)).EndInit();

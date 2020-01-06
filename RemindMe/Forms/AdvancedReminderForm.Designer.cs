@@ -295,6 +295,7 @@
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(545, 316);
             this.pnlContent.TabIndex = 17;
+            this.pnlContent.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlContent_ControlAdded);
             // 
             // AdvancedReminderForm
             // 

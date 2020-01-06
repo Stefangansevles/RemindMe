@@ -100,7 +100,7 @@ namespace RemindMe
                 songs.Add(song);
             }
             BLSongs.InsertSongs(songs);
-            BLIO.Log("Inserted " + songs.Count + " sound files into RemindME");
+            BLIO.Log("Inserted " + songs.Count + " sound files into RemindMe");
 
             foreach (Songs song in songs)
             {
@@ -112,7 +112,7 @@ namespace RemindMe
                     lvSoundFiles.Items.Add(item);
                 }
             }
-            MessageFormManager.MakeMessagePopup(songsAdded + " Files added to RemindMe.", 4);
+            RemindMeMessageFormManager.MakeMessagePopup(songsAdded + " Files added to RemindMe.", 4);
 
             LoadSongs();
         }
@@ -130,7 +130,7 @@ namespace RemindMe
             BLSongs.RemoveSongs(toRemoveSongs);
 
             if(toRemoveSongs.Count > 0)
-                MessageFormManager.MakeMessagePopup(toRemoveSongs.Count + " Files removed from RemindMe.", 4);
+                RemindMeMessageFormManager.MakeMessagePopup(toRemoveSongs.Count + " Files removed from RemindMe.", 4);
         }
 
         private void btnPreview_Click(object sender, EventArgs e)
@@ -162,7 +162,7 @@ namespace RemindMe
                         BLIO.Log("Playing sound.");
                     }
                     else
-                        MessageFormManager.MakeMessagePopup("Could not preview the selected song. Does it still exist?", 4);
+                        RemindMeMessageFormManager.MakeMessagePopup("Could not preview the selected song. Does it still exist?", 4);
                 }
                 else
                 {
@@ -199,6 +199,12 @@ namespace RemindMe
             myPlayer.controls.stop();
             tmrMusic.Stop();
             btnPreview_Click(sender, e);
+        }
+
+        private void UCSound_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                BLIO.Log("Control UCSound now visible");
         }
     }
 }

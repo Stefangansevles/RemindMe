@@ -47,7 +47,7 @@ namespace Business_Logic_Layer
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }

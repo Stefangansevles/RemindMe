@@ -19,6 +19,7 @@ using System.Net;
 using HtmlAgilityPack;
 using System.Security.Permissions;
 using System.Management;
+using Microsoft.Win32;
 
 namespace RemindMe
 {
@@ -58,15 +59,15 @@ namespace RemindMe
 
         public Form1()
         {
-
-            BLIO.Log("Construct Form");
-            InitializeComponent();
-            instance = this;
-
+            BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");
+            BLIO.Log("Construct Form");           
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
+            InitializeComponent();
+            //--
 
+            instance = this;            
 
             //User controls that will be loaded into the "main" panel
             ucReminders = new UCReminders();
@@ -113,15 +114,31 @@ namespace RemindMe
 
             formLoadAsync();
 
+            SystemEvents.PowerModeChanged += OnPowerChange;
+
             RemindMeIcon.Visible = true;
             BLIO.Log("Form constructed");            
+        }
+
+        private void OnPowerChange(object sender, PowerModeChangedEventArgs e)
+        {            
+            switch (e.Mode)
+            {
+                //PC wakes up from sleep. If you're someone that always puts your pc to sleep instead of turning it off, RemindMe won't get "launched" again
+                //but instead, resumes.
+                case PowerModes.Resume:
+                    BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                    BLIO.Log("=== PC Woke up from sleep! ===");
+                    break;
+                case PowerModes.Suspend: BLIO.Log("=== PC Is going to sleep. ZzZzzzZzz... ===");
+                    break;
+            }
         }
 
         public static Form1 Instance
         {
             get { return instance; }
         }
-
        
 
         protected override CreateParams CreateParams
@@ -131,11 +148,11 @@ namespace RemindMe
                 CreateParams handleParam = base.CreateParams;
                 handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
                 return handleParam;
-            }
+            }            
         }
-
+       
         private void Cleanup()
-        {
+        {            
             //RemindMe loaded, if an old system log/temp reminders still exists, delete it
             string oldSystemLog = System.IO.Path.GetTempPath() + "SystemLog.txt";
             string oldTempReminders = System.IO.Path.GetTempPath() + "Exported Reminders.remindme";
@@ -147,6 +164,25 @@ namespace RemindMe
             }
             catch (IOException ex) { BLIO.WriteError(ex, "Error in Cleanup()"); }
         }
+
+        /*This was testing a custom color scheme
+        private void SetColorScheme()
+        {
+            
+            string t = BLSettings.Settings.RemindMeTheme;
+            RemindMeColorScheme colorTheme = BLSettings.GetColorTheme(BLSettings.Settings.RemindMeTheme);
+            BLIO.Log("Setting RemindMe Color scheme \"" + BLSettings.Settings.RemindMeTheme + "\"");
+            pnlSide.GradientBottomLeft = Color.FromArgb(Convert.ToInt16(colorTheme.PrimaryBottomLeft.Split(',')[0]), Convert.ToInt16(colorTheme.PrimaryBottomLeft.Split(',')[1]), Convert.ToInt16(colorTheme.PrimaryBottomLeft.Split(',')[2]));
+            pnlSide.GradientBottomRight = Color.FromArgb(Convert.ToInt16(colorTheme.PrimaryBottomRight.Split(',')[0]), Convert.ToInt16(colorTheme.PrimaryBottomRight.Split(',')[1]), Convert.ToInt16(colorTheme.PrimaryBottomRight.Split(',')[2]));
+            pnlSide.GradientTopLeft = Color.FromArgb(Convert.ToInt16(colorTheme.PrimaryTopLeft.Split(',')[0]), Convert.ToInt16(colorTheme.PrimaryTopLeft.Split(',')[1]), Convert.ToInt16(colorTheme.PrimaryTopLeft.Split(',')[2]));
+            pnlSide.GradientTopRight = Color.FromArgb(Convert.ToInt16(colorTheme.PrimaryTopRight.Split(',')[0]), Convert.ToInt16(colorTheme.PrimaryTopRight.Split(',')[1]), Convert.ToInt16(colorTheme.PrimaryTopRight.Split(',')[2]));
+
+
+            pnlMain.GradientBottomLeft = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[2]));
+            pnlMain.GradientBottomRight = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[2]));
+            pnlMain.GradientTopLeft = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[2]));
+            pnlMain.GradientTopRight = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryTopRight.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryTopRight.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryTopRight.Split(',')[2]));
+        }*/
 
         protected override void WndProc(ref Message m)
         {
@@ -163,7 +199,7 @@ namespace RemindMe
 
                 if (!this.Visible) //don't make this message if RemindMe is visible, the user will see the changes if it is visible.
                 {
-                    MessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
+                    RemindMeMessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
                     BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
                 }
 
@@ -198,14 +234,14 @@ namespace RemindMe
         /// <param name="sender"></param>
         /// <param name="e">The keyeventargs which contains the pressed keys</param>
         private void GlobalKeyPress(object sender, KeyEventArgs e)
-        {
-            if (BLSettings.GetSettings().EnableQuickTimer != 1) //Not enabled? don't do anything
-                return;
-
+        {                        
             if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
                 return;
 
-            //Good! now let's check if the KeyCode is not alt shift or ctr
+            if (BLSettings.Settings.EnableQuickTimer != 1) //Not enabled? don't do anything
+                return;
+
+            //Good! now let's check if the KeyCode is not alt shift or ctrl
             if (e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey)
                 return;
 
@@ -230,7 +266,7 @@ namespace RemindMe
             
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
-            Settings set = BLSettings.GetSettings();
+            Settings set = BLSettings.Settings;
 
             //set unique user string
             if (string.IsNullOrWhiteSpace(set.UniqueString))
@@ -278,7 +314,7 @@ namespace RemindMe
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
 
-            MessageFormManager.MakeTodaysRemindersPopup();
+            RemindMeMessageFormManager.MakeTodaysRemindersPopup();
             BLIO.Log("Today's reminders popup created");
 
             //Create an shortcut in the windows startup folder if it doesn't already exist
@@ -332,6 +368,7 @@ namespace RemindMe
             Random r = new Random();
             tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
             tmrCheckRemindMeMessages.Start();
+            BLIO.Log("tmrCheckRemindMeMessages.Interval = " + tmrCheckRemindMeMessages.Interval/1000 + " seconds.");
             BLIO.Log("RemindMe loaded");
             Cleanup();
         }
@@ -547,12 +584,7 @@ namespace RemindMe
         private void tmrDebugMode_Tick(object sender, EventArgs e)
         {
             endKeyPressed = 0;
-        }
-
-        private void pnlMain_ControlAdded(object sender, ControlEventArgs e)
-        {
-            BLIO.Log("Control added to pnlMain (" + e.Control.GetType() + ")");
-        }
+        }        
 
         private void btnTimer_Click(object sender, EventArgs e)
         {
@@ -567,7 +599,7 @@ namespace RemindMe
         private void tmrUpdateRemindMe_Tick(object sender, EventArgs e)
         {
             new Thread(() =>
-            {
+            {                
                 CheckForUpdates();
             }).Start();
             
@@ -577,11 +609,13 @@ namespace RemindMe
             Version localVersion = new Version(IOVariables.RemindMeVersion);
             Version newVersion = BLIO.GetGithubVersion();
 
-            BLIO.Log("localVersion: " + localVersion + " gitVersion: " + newVersion);
+            if (!BLIO.LastLogMessage.Contains("No new version."))
+                BLIO.Log("localVersion: " + localVersion + " gitVersion: " + newVersion);
 
             if (newVersion > localVersion) //New version!
             {
-                BLIO.Log("New version detected!");
+                if (!BLIO.LastLogMessage.Contains("No new version."))
+                    BLIO.Log("New version detected!");
                 //SetupRemindMe exists? is the version of the msi the same as the github version? That means it is the one you downloaded. Let's not download it again!
                 if (File.Exists(IOVariables.rootFolder + "SetupRemindMe.msi")
                     && new Version(BLIO.GetMsiVersion(IOVariables.rootFolder + "SetupRemindMe.msi")) == newVersion)
@@ -590,7 +624,8 @@ namespace RemindMe
                 DownloadMsi();
             }
             else
-                BLIO.Log("No new version.");
+                if (!BLIO.LastLogMessage.Contains("No new version."))
+                    BLIO.Log("No new version.");
         }
         private void DownloadMsi()
         {
@@ -609,7 +644,7 @@ namespace RemindMe
                             while (!updater.Completed)
                                 await Task.Delay(500);
 
-                            MessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!", 10);
+                            RemindMeMessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!", 10);
 
                             btnNewUpdate.Visible = true;
                             BLIO.Log("Completed downloading the new .msi from github!");
@@ -673,9 +708,9 @@ namespace RemindMe
 
                
             }
-            catch (Exception ex)
+            catch
             {
-                MessageFormManager.MakeMessagePopup("Cancelled installation.", 2);
+                RemindMeMessageFormManager.MakeMessagePopup("Cancelled installation.", 2);
                 BLIO.Log("Cancelled installation.");
             }
         }
@@ -707,7 +742,7 @@ namespace RemindMe
         }
 
         private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)
-        {
+        {            
             //Check for messages sent by me every minute
             foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
             {
@@ -723,7 +758,7 @@ namespace RemindMe
                     {
                         BLIO.Log("This message is specifically for me!");
                         //This message is meant for a specific user.
-                        if (BLSettings.GetSettings().UniqueString == message.MeantForSpecificUser)
+                        if (BLSettings.Settings.UniqueString == message.MeantForSpecificUser)
                             PopupRemindMeMessage(message);
 
                     }
@@ -760,7 +795,7 @@ namespace RemindMe
                     RemindMeBox.Show("RemindMe Developer", "This is a message from the developer of RemindMe.\r\n\r\n" + mess.Message.Replace("¤", Environment.NewLine), RemindMeBoxReason.OK);
                     break;
                 case "REMINDMEMESSAGEFORM":
-                    MessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value, "RemindMe Developer");
+                    RemindMeMessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value, "RemindMe Developer");
                     break;
             }
         }

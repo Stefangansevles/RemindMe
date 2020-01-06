@@ -41,8 +41,8 @@ namespace Data_Access_Layer
                 db.ExceptionLog.Add(log);
                 db.SaveChanges();
             }
-            catch (DbUpdateException exc) { }
-            catch (Exception exce) { }
+            catch (DbUpdateException) { }
+            catch  { }
             
         }
         /// <summary>
@@ -64,8 +64,8 @@ namespace Data_Access_Layer
                 db.UpdateLog.Add(log);
                 db.SaveChanges();
             }
-            catch (DbUpdateException exc) { }
-            catch (Exception exce) { }
+            catch (DbUpdateException) { }
+            catch { }
         }
 
         /// <summary>
@@ -93,6 +93,7 @@ namespace Data_Access_Layer
                     //Update the LastOnline attribute
                     usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
                     usr.LastOnline = DateTime.UtcNow;
+                    usr.SignIns++;
                     usr.RemindMeVersion = remindMeVersion;                    
                 }
 
@@ -104,9 +105,9 @@ namespace Data_Access_Layer
 
                 db.SaveChanges();
             }
-            catch (DbUpdateException exc) { }
-            catch (Exception exce) { }
-        }
+            catch (DbUpdateException) { }
+            catch  { }
+        }       
 
         /// <summary>
         /// Inserts a user into the database for the first time (different database table)
@@ -129,8 +130,8 @@ namespace Data_Access_Layer
                     db.SaveChanges();
                 }                  
             }
-            catch (DbUpdateException exc) { }
-            catch (Exception exce) { }
+            catch (DbUpdateException) { }
+            catch  { }
         }
 
         /// <summary>
@@ -156,8 +157,8 @@ namespace Data_Access_Layer
                 db.EmailAttempts.Add(ea);
                 db.SaveChanges();
             }
-            catch (DbUpdateException exc) { }
-            catch (Exception exce) { }
+            catch (DbUpdateException) { }
+            catch  { }
         }
 
         /// <summary>
@@ -181,8 +182,8 @@ namespace Data_Access_Layer
                 db.LocalErrorLog.Add(loc);
                 db.SaveChanges();
             }
-            catch (DbUpdateException exc) { }
-            catch (Exception exce) { }
+            catch (DbUpdateException) { }
+            catch { }
         }
 
 
@@ -216,8 +217,8 @@ namespace Data_Access_Layer
                     }
                     return list;
                 }
-                catch (DbUpdateException exc) { return new List<Database.Entity.RemindMeMessages>(); }
-                catch (Exception exce) { return new List<Database.Entity.RemindMeMessages>(); }
+                catch (DbUpdateException) { return new List<Database.Entity.RemindMeMessages>(); }
+                catch  { return new List<Database.Entity.RemindMeMessages>(); }
             }
 
         }
@@ -232,8 +233,8 @@ namespace Data_Access_Layer
             {
                 return db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();                
             }
-            catch (DbUpdateException exc) { return null; }
-            catch (Exception exce) { return null; }
+            catch (DbUpdateException) { return null; }
+            catch  { return null; }
         }
 
         /// <summary>
@@ -258,8 +259,8 @@ namespace Data_Access_Layer
                 {
                     return db.Users.Count();
                 }
-                catch (DbUpdateException exc) { return -1;  }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1;  }
+                catch  { return -1; }
             }
             
         }
@@ -275,8 +276,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.MessageCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -296,8 +297,8 @@ namespace Data_Access_Layer
                 {
                     return db.ExceptionLog.Count();
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
 
         }
@@ -314,8 +315,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.TimersCreated;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -337,8 +338,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.RemindersCreated;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -360,8 +361,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.ImportCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -383,8 +384,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.ExportCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -406,8 +407,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.RecoverCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -426,8 +427,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PreviewCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -445,8 +446,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.DuplicateCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -464,8 +465,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.HideCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -483,8 +484,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PostponeCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -502,8 +503,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.SkipCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {
@@ -521,8 +522,8 @@ namespace Data_Access_Layer
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PermanentelyDeleteCount;
                 }
-                catch (DbUpdateException exc) { return -1; }
-                catch (Exception exce) { return -1; }
+                catch (DbUpdateException) { return -1; }
+                catch { return -1; }
             }
             set
             {

@@ -34,14 +34,14 @@ namespace RemindMe
 
 
             //No active popup forms? set it to default position
-            if (MessageFormManager.GetPopupforms().Count == 0)
+            if (RemindMeMessageFormManager.PopupForms.Count == 0)
             {
                 //Set the location to the bottom right corner of the user's screen and a little bit above the taskbar    
                 this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - this.Height - 5);
             }
             else
             {
-                int alreadyActiveFormCount = MessageFormManager.GetPopupforms().Count;
+                int alreadyActiveFormCount = RemindMeMessageFormManager.PopupForms.Count;
                 //Set the location to the bottom right corner of the user's screen, and above all other active popups
                 this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - (this.Height * (alreadyActiveFormCount + 1)) - ((alreadyActiveFormCount + 1) * 5));
             }
@@ -57,11 +57,18 @@ namespace RemindMe
         }
         public RemindMeMessageForm(string message, int timeout, Reminder rem) : this(message, timeout)
         {
-            pnlDisable.Visible = true;
+            pnlReminderOptions.Visible = true;
             theReminder = rem;
 
-            lblSkip.Visible = BLReminder.IsRepeatableReminder(rem);
-            lblDisable.Visible = true;
+
+            if (!BLReminder.IsRepeatableReminder(rem))
+            {
+                btnSkip.Textcolor = Color.Gray;
+                btnSkip.Enabled = false;
+                btnSkip.Cursor = Cursors.Default;
+            }
+
+            btnDisable.Visible = true;
         }
 
         public string Title
@@ -153,7 +160,7 @@ namespace RemindMe
                     tmrTimeout.Dispose();
                     BLIO.Log("Message form (" + lblText.Text + ") disposed.");
                     this.Dispose();                    
-                    MessageFormManager.RepositionActivePopups();
+                    RemindMeMessageFormManager.RepositionActivePopups();
                 }
             }
 
@@ -182,7 +189,7 @@ namespace RemindMe
         private void lblExit_Click(object sender, EventArgs e)
         {
             this.Dispose();
-            MessageFormManager.RepositionActivePopups();
+            RemindMeMessageFormManager.RepositionActivePopups();
         }
 
         private void RemindMeMessageForm_Load(object sender, EventArgs e)
@@ -194,14 +201,14 @@ namespace RemindMe
         private void lblDisable_Click(object sender, EventArgs e)
         {
             
-            theReminder.Enabled = 0;                                   //Set the enabled flag of this reminder to false
-            BLReminder.EditReminder(theReminder);                      //Push the edited reminder to the database
-            UCReminders.Instance.UpdateCurrentPage();             //Show the change in RemindMe's main listview
-            BLIO.Log("Reminder with id" + theReminder.Id + " Disabled from the RemindMe message form");
-            this.Dispose();
         }
 
         private void lblSkip_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnSkip_Click(object sender, EventArgs e)
         {
             //The reminder object has now been altered. The first date has been removed and has been "skipped" to it's next date
             BLReminder.SkipToNextReminderDate(theReminder);
@@ -210,9 +217,22 @@ namespace RemindMe
             BLReminder.EditReminder(theReminder);
             BLIO.Log("Edited reminder with id " + theReminder.Id);
             //Show the change in RemindMe's main listview
-            UCReminders.Instance.UpdateCurrentPage();             
+            UCReminders.Instance.UpdateCurrentPage();
             //Finally, close this message
+            btnSkip.Enabled = false; //bypass bunifu bug
             this.Dispose();
         }
+
+        private void btnDisable_Click(object sender, EventArgs e)
+        {
+            theReminder.Enabled = 0;                                   //Set the enabled flag of this reminder to false
+            BLReminder.EditReminder(theReminder);                      //Push the edited reminder to the database                            
+            UCReminders.Instance.UpdateCurrentPage();             //Show the change in RemindMe's main listview
+            BLIO.Log("Reminder with id" + theReminder.Id + " Disabled from the RemindMe message form");
+            btnDisable.Enabled = false; //bypass bunifu bug
+            this.Dispose();
+        }
+
+        
     }
 }
