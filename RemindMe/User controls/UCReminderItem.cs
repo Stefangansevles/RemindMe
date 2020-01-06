@@ -52,7 +52,13 @@ namespace RemindMe
                
         public Reminder Reminder
         {
-            get { BLIO.Log("GET UCReminderItem.Reminder ("+ rem.Id+")"); return rem; }
+            get
+            {
+                if (rem != null)
+                    BLIO.Log("GET UCReminderItem.Reminder ("+ rem.Id+")");
+
+                return rem;
+            }
             set
             {                
                 rem = value;

@@ -914,3 +914,6 @@ V2.6.418
 - Improved the appearance of the RemindMe messages on the bottom right corner of your monitor to look more fancy
 - Removed the (postponed) text after the date of a reminder that indicates that it is postponed. The italic text and the ZzZ icon should be clear enough.
 - Fixed a small error that would occur when you resized the RemindMe popup to a size that is smaller than the minimum size
+
+V2.6.419
+- Fixed a small issue where RemindMe would throw an error when loading RemindMe without reminders
