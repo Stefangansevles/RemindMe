@@ -73,8 +73,8 @@ namespace RemindMe
 
         public string Title
         {
-            get { return label1.Text; }
-            set { label1.Text = value; }
+            get { return lblTitle.Text; }
+            set { lblTitle.Text = value; }
         }
 
         private const int WS_EX_NOACTIVATE = 0x08000000;
@@ -232,7 +232,11 @@ namespace RemindMe
             btnDisable.Enabled = false; //bypass bunifu bug
             this.Dispose();
         }
+       
 
-        
+        private void lblTitle_Resize(object sender, EventArgs e)
+        {
+            lblTitle.Location = new Point((pnlTop.Width / 2) - (lblTitle.Width / 2), lblTitle.Location.Y);
+        }
     }
 }

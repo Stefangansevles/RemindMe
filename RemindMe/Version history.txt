@@ -917,3 +917,7 @@ V2.6.418
 
 V2.6.419
 - Fixed a small issue where RemindMe would throw an error when loading RemindMe without reminders
+
+V2.6.420
+- The text on the RemindMe message form (bottom right corner) is now always centered
+- Fixed an issue where users could get a test RemindMe message not meant for them.

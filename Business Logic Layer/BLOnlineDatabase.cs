@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Business_Logic_Layer
 {
@@ -18,7 +19,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="ex">The exception that is going to be logged</param>
         /// <param name="exceptionDate">The date the exception is logged at</param>
-        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog)
+        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage = null)
         {
             try
             {                
@@ -29,7 +30,7 @@ namespace Business_Logic_Layer
                         return;
 
                     if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
-                        DLOnlineDatabase.AddException(ex, exceptionDate, pathToSystemLog);
+                        DLOnlineDatabase.AddException(ex, exceptionDate, pathToSystemLog, customMessage, GetAlternativeExceptionMessage(ex));
                     else
                         BLIO.Log("BLOnlineDatabase.AddException() failed: parameter(s) null");
                 }).Start();
@@ -39,6 +40,43 @@ namespace Business_Logic_Layer
                 BLIO.Log("BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString());
                 BLIO.WriteError(exc, "BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString(), false);
             }
+        }
+        private static string GetAlternativeExceptionMessage(Exception ex)
+        {
+            string mess = "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString();
+
+
+            if (ex != null && ex.GetType().ToString().Contains("ReminderException"))
+            {
+                ReminderException theException = (ReminderException)ex;
+                theException.Reminder.Note = "Removed for privacy reasons";
+                theException.Reminder.Name = "Removed for privacy reasons";
+
+                mess += "\r\n\r\nThis exception is an ReminderException! Let's see if we can figure out what's wrong with it....\r\n";
+                mess += "ID:    " + theException.Reminder.Id + "\r\n";
+                mess += "Corrupted:    " + theException.Reminder.Corrupted + "\r\n";
+                mess += "Deleted:    " + theException.Reminder.Deleted + "\r\n";
+                mess += "Date:  " + theException.Reminder.Date + "\r\n";
+                mess += "RepeatType:    " + theException.Reminder.RepeatType + "\r\n";
+                mess += "Enabled:   " + theException.Reminder.Enabled + "\r\n";
+                mess += "DayOfMonth:    " + theException.Reminder.DayOfMonth + "\r\n";
+                mess += "EveryXCustom:  " + theException.Reminder.EveryXCustom + "\r\n";
+                mess += "RepeatDays:    " + theException.Reminder.RepeatDays + "\r\n";
+                mess += "SoundFilePath: " + theException.Reminder.SoundFilePath + "\r\n";
+                mess += "PostponeDate:  " + theException.Reminder.PostponeDate + "\r\n";
+                mess += "Hide:  " + theException.Reminder.Hide + "\r\n";
+                mess += "UpdateTime:  " + theException.Reminder.UpdateTime + "\r\n\r\n";
+
+                mess += "=== Displaying date culture info, so you might be able to re-create the reminder ===\r\n";
+                mess += "Current culture DisplayName: " + CultureInfo.CurrentCulture.DisplayName + "\r\n";
+                mess += "Current culture ShortTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern + "\r\n";
+                mess += "Current culture ShortDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "\r\n";
+                mess += "Current culture ToString(): " + CultureInfo.CurrentCulture.ToString() + "\r\n";
+            }
+            else
+                return null;
+
+            return mess;
         }
 
         /// <summary>
@@ -204,9 +242,10 @@ namespace Business_Logic_Layer
                         return DLOnlineDatabase.RemindMeMessages;                    
                 }
                 catch (Exception exc)
-                {
+                {                    
                     BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
+                    AddException(exc, DateTime.Now, null,null);
                     return new List<Database.Entity.RemindMeMessages>();
                 }
             }

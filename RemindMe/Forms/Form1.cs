@@ -373,8 +373,7 @@ namespace RemindMe
             Cleanup();
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {            
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -644,7 +643,7 @@ namespace RemindMe
                             while (!updater.Completed)
                                 await Task.Delay(500);
 
-                            RemindMeMessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!", 10);
+                            RemindMeMessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!\r\n\r\nOr: Right click the RemindMe icon and update from there!", 10);
 
                             btnNewUpdate.Visible = true;
                             BLIO.Log("Completed downloading the new .msi from github!");
@@ -764,7 +763,7 @@ namespace RemindMe
                     }
                     else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
                     {
-                        BLIO.Log("This message is specifically for the currently running RemindMe version (" + IOVariables.RemindMeVersion + ")");
+                        BLIO.Log("This message is specifically for the currently running RemindMe version (" + message.MeantForSpecificVersion + ")");
                         //This message is meant for a specific RemindMe version. Only show this message if the user: Hasn't read this message AND: has this RemindMe version
                         if (IOVariables.RemindMeVersion == message.MeantForSpecificVersion)
                         {

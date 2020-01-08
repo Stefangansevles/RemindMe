@@ -25,8 +25,9 @@
           <Property Name="ExceptionType" Type="varchar(max)" Nullable="false" />
           <Property Name="ExceptionMessage" Type="varchar(max)" Nullable="false" />
           <Property Name="ExceptionStackTrace" Type="varchar(max)" Nullable="false" />
-          <Property Name="SystemLog" Type="varchar(max)" Nullable="false" />
+          <Property Name="SystemLog" Type="varchar(max)" />
           <Property Name="Username" Type="varchar(max)" Nullable="false" />
+          <Property Name="CustomMessage" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="LocalErrorLog">
           <Key>
@@ -132,7 +133,8 @@
           <Property Name="ExceptionStackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SystemLog" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SystemLog" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CustomMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UpdateLog">
           <Key>
@@ -244,6 +246,7 @@
           <EntitySetMapping Name="ExceptionLog">
             <EntityTypeMapping TypeName="remindmesqldbModel.ExceptionLog">
               <MappingFragment StoreEntitySet="ExceptionLog">
+                <ScalarProperty Name="CustomMessage" ColumnName="CustomMessage" />
                 <ScalarProperty Name="SystemLog" ColumnName="SystemLog" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ExceptionDate" ColumnName="ExceptionDate" />

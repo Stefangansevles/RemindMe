@@ -21,5 +21,6 @@ namespace Database.Entity
         public string Username { get; set; }
         public int Id { get; set; }
         public string SystemLog { get; set; }
+        public string CustomMessage { get; set; }
     }
 }

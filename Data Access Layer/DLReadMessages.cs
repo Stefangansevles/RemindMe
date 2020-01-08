@@ -27,8 +27,7 @@ namespace Data_Access_Layer
             get
             {
                 using (RemindMeDbEntities db = new RemindMeDbEntities())
-                {
-
+                {                    
                     var count = db.ReadMessages.Where(o => o.Id >= 0).Count();
 
                     if (count > 0)                    

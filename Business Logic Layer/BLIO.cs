@@ -252,6 +252,7 @@ namespace Business_Logic_Layer
         {
             new Thread(() =>
             {
+                Log("Writing batch script...");
                 string batchString = "@echo off\r\necho Installing the new version of RemindMe.... Please do not close this window\r\n@echo on" + Environment.NewLine;
                 string productCode = GetProductCode("RemindMe"); //This call really does take a pretty long time. Good thing we can thread that
                 
@@ -263,6 +264,7 @@ namespace Business_Logic_Layer
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     sw.WriteLine(batchString);
+                    Log("Writing batch script complete!");
                 }
             }).Start();
         }

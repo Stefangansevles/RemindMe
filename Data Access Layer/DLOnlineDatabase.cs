@@ -21,29 +21,34 @@ namespace Data_Access_Layer
         /// </summary>
         /// <param name="ex">The exception that is going to be logged</param>
         /// <param name="exceptionDate">The date the exception is logged at</param>
-        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string message = null)
+        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage, string alternativeExceptionMessage)
         {
             try
             {                                
                 ExceptionLog log = new ExceptionLog();
                 log.ExceptionDate = exceptionDate;
 
-                if (message == null)
-                    log.ExceptionMessage = ex.Message;
+                if (alternativeExceptionMessage == null)
+                    log.ExceptionMessage = ex.Message; 
                 else
-                    log.ExceptionMessage = message;
+                    log.ExceptionMessage = alternativeExceptionMessage;
+
+                if (customMessage != null)
+                    log.CustomMessage = customMessage;
+
+                if (pathToSystemLog != null)
+                    log.SystemLog = File.ReadAllText(pathToSystemLog).Replace(Environment.NewLine, "¤");//so we can do a find and replace ¤ to \r\n in notepad++ to make it more readable
 
                 log.ExceptionStackTrace = ex.ToString();
                 log.ExceptionType = ex.GetType().ToString();
                 log.Username = Environment.UserName;
-                log.SystemLog = File.ReadAllText(pathToSystemLog).Replace(Environment.NewLine, "¤");//so we can do a find and replace ¤ to \r\n in notepad++ to make it more readable
+                
 
                 db.ExceptionLog.Add(log);
                 db.SaveChanges();
             }
             catch (DbUpdateException) { }
-            catch  { }
-            
+            catch  { }            
         }
         /// <summary>
         /// Adds a new entry to the database where a user updates their RemindMe version
@@ -210,6 +215,7 @@ namespace Data_Access_Layer
                         message.NotificationDuration = mess.NotificationDuration;
                         message.NotificationOnTop = mess.NotificationOnTop;
                         message.NotificationType = mess.NotificationType;
+                        message.MeantForSpecificUser = mess.MeantForSpecificUser;                        
                         message.ReadByAmountOfUsers = mess.ReadByAmountOfUsers;
                         message.DateOfCreation = mess.DateOfCreation;
 
@@ -217,8 +223,8 @@ namespace Data_Access_Layer
                     }
                     return list;
                 }
-                catch (DbUpdateException) { return new List<Database.Entity.RemindMeMessages>(); }
-                catch  { return new List<Database.Entity.RemindMeMessages>(); }
+                catch (DbUpdateException ex) { AddException(ex, DateTime.Now, null, null, "!!!Something went wrong in DLOnlineDatabase.RemindMeMessages() ? :("); return new List<Database.Entity.RemindMeMessages>(); }
+                catch (Exception ex)  { AddException(ex,DateTime.Now,null,null, "!!!Something went wrong in DLOnlineDatabase.RemindMeMessages() ? :(");  return new List<Database.Entity.RemindMeMessages>(); }
             }
 
         }
