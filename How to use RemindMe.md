@@ -1,7 +1,7 @@
 # How do i use this program?
 
 When you launch RemindMe for the first time, you will see an empty list
-![](https://i.imgur.com/toXZw69.png)
+![](https://i.imgur.com/exf0F87.png)
 
 You can add a new reminder by pressing the "New Reminder" button
 
