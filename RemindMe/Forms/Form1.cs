@@ -653,6 +653,7 @@ namespace RemindMe
                             RemindMeMessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!\r\n\r\nOr: Right click the RemindMe icon and update from there!", 10);
 
                             btnNewUpdate.Visible = true;
+                            updateRemindMeToolStripMenuItem.Visible = true;
                             BLIO.Log("Completed downloading the new .msi from github!");
                         }
                         catch
