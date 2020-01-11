@@ -252,19 +252,26 @@ namespace Business_Logic_Layer
         {
             new Thread(() =>
             {
-                Log("Writing batch script...");
-                string batchString = "@echo off\r\necho Installing the new version of RemindMe.... Please do not close this window\r\n@echo on" + Environment.NewLine;
-                string productCode = GetProductCode("RemindMe"); //This call really does take a pretty long time. Good thing we can thread that
-                
-                batchString += "msiexec /qb /i \"" + IOVariables.rootFolder + "SetupRemindMe.msi\"" + Environment.NewLine;
-                batchString += "msiexec /x " + productCode + " /qn" + Environment.NewLine;                
-                batchString += "start /d \"" + remindMePath + "\" RemindMe.exe";
-
-                using (FileStream fs = new FileStream(IOVariables.rootFolder + "install.bat", FileMode.Create))
-                using (StreamWriter sw = new StreamWriter(fs))
+                try
                 {
-                    sw.WriteLine(batchString);
-                    Log("Writing batch script complete!");
+                    Log("Writing batch script...");
+                    string batchString = "@echo off\r\necho Installing the new version of RemindMe.... Please do not close this window\r\n@echo on" + Environment.NewLine;
+                    string productCode = GetProductCode("RemindMe"); //This call really does take a pretty long time. Good thing we can thread that
+
+                    batchString += "msiexec /qb /i \"" + IOVariables.rootFolder + "SetupRemindMe.msi\"" + Environment.NewLine;
+                    batchString += "msiexec /x " + productCode + " /qn" + Environment.NewLine;
+                    batchString += "start /d \"" + remindMePath + "\" RemindMe.exe";
+
+                    using (FileStream fs = new FileStream(IOVariables.rootFolder + "install.bat", FileMode.Create))
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(batchString);
+                        Log("Writing batch script: COMPLETE");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Log("Writing batch script: FAILURE  |  Exception: " + ex.GetType().ToString());
                 }
             }).Start();
         }

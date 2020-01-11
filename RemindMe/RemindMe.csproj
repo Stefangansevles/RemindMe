@@ -132,6 +132,12 @@
   <ItemGroup>
     <Compile Include="ComboboxItems\ComboBoxItem.cs" />
     <Compile Include="ComboboxItems\ComboBoxItemManager.cs" />
+    <Compile Include="Forms\ExceptionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExceptionPopup.Designer.cs">
+      <DependentUpon>ExceptionPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WhatsNew.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ErrorPopup.resx">
       <DependentUpon>ErrorPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExceptionPopup.resx">
+      <DependentUpon>ExceptionPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

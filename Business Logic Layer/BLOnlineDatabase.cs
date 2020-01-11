@@ -124,6 +124,8 @@ namespace Business_Logic_Layer
                     if (!BLIO.HasInternetAccess())
                         return;
 
+                    BLIO.Log("Updating user");
+
                     if (!string.IsNullOrWhiteSpace(uniqueString))
                         DLOnlineDatabase.InsertOrUpdateUser(uniqueString, IOVariables.RemindMeVersion);
                     else

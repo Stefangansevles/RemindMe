@@ -76,10 +76,17 @@ namespace RemindMe
             if (avrProps != null) //Not null? this reminder has advanced properties.
             {
                 BLIO.Log("Reminder " + rem.Id + " has advanced reminder properties!");
-                if (!string.IsNullOrWhiteSpace(avrProps.BatchScript))
-                    BLIO.ExecuteBatch(avrProps.BatchScript);
-
                 this.Visible = avrProps.ShowReminder == 1;
+
+                if (!string.IsNullOrWhiteSpace(avrProps.BatchScript))
+                {
+                    if (this.Visible)
+                        RemindMeMessageFormManager.MakeMessagePopup("Activating script of Reminder:\r\n \"" + rem.Name + "\"", 3);
+
+                    BLIO.ExecuteBatch(avrProps.BatchScript);                    
+                }
+
+                             
             }
 
             if(avrFF != null && avrFF.Count > 0)

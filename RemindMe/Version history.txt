@@ -921,3 +921,6 @@ V2.6.419
 V2.6.420
 - The text on the RemindMe message form (bottom right corner) is now always centered
 - Fixed an issue where users could get a test RemindMe message not meant for them.
+
+V2.6.421
+- The support feature (Sending an message to the RemindMe developer) now works again. Whoops!

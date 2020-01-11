@@ -61,7 +61,12 @@ namespace RemindMe
 
         private void bunifuFlatButton2_Click(object sender, EventArgs e)
         {
-            RemindMeMessageFormManager.MakeMessagePopup("This is a test.", 4);
+            string text = RemindMePrompt.ShowText("Enter a message");
+
+            if(!string.IsNullOrWhiteSpace(text))
+                RemindMeMessageFormManager.MakeMessagePopup(text, 4);
+            else
+                RemindMeMessageFormManager.MakeMessagePopup("This is a test.", 4);
         }
 
         private void tmrLog_Tick(object sender, EventArgs e)

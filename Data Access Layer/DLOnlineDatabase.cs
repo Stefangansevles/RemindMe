@@ -215,7 +215,7 @@ namespace Data_Access_Layer
                         message.NotificationDuration = mess.NotificationDuration;
                         message.NotificationOnTop = mess.NotificationOnTop;
                         message.NotificationType = mess.NotificationType;
-                        message.MeantForSpecificUser = mess.MeantForSpecificUser;                        
+                        message.MeantForSpecificPerson = mess.MeantForSpecificPerson;                        
                         message.ReadByAmountOfUsers = mess.ReadByAmountOfUsers;
                         message.DateOfCreation = mess.DateOfCreation;
 

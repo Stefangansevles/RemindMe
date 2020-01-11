@@ -23,5 +23,6 @@ namespace Data_Access_Layer
         public string MeantForSpecificVersion { get; set; }
         public int ReadByAmountOfUsers { get; set; }
         public string MeantForSpecificUser { get; set; }
+        public string MeantForSpecificPerson { get; set; }
     }
 }

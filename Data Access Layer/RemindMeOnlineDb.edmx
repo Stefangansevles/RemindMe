@@ -80,8 +80,9 @@
           <Property Name="NotificationOnTop" Type="int" />
           <Property Name="DateOfCreation" Type="datetime" />
           <Property Name="MeantForSpecificVersion" Type="varchar(max)" />
-          <Property Name="MeantForSpecificUser" Type="varchar(max)" />
+          <Property Name="MeantForSpecificPerson" Type="varchar(max)" />
           <Property Name="ReadByAmountOfUsers" Type="int" Nullable="false" />
+          <Property Name="MeantForSpecificUser" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="UpdateLog">
           <Key>
@@ -236,6 +237,7 @@
           <Property Name="MeantForSpecificVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ReadByAmountOfUsers" Type="Int32" Nullable="false" />
           <Property Name="MeantForSpecificUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MeantForSpecificPerson" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -343,6 +345,7 @@
           <EntitySetMapping Name="RemindMeMessages">
             <EntityTypeMapping TypeName="remindmesqldbModel.RemindMeMessages">
               <MappingFragment StoreEntitySet="RemindMeMessages">
+                <ScalarProperty Name="MeantForSpecificPerson" ColumnName="MeantForSpecificPerson" />
                 <ScalarProperty Name="MeantForSpecificUser" ColumnName="MeantForSpecificUser" />
                 <ScalarProperty Name="ReadByAmountOfUsers" ColumnName="ReadByAmountOfUsers" />
                 <ScalarProperty Name="MeantForSpecificVersion" ColumnName="MeantForSpecificVersion" />

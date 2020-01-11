@@ -42,16 +42,17 @@ namespace RemindMe
                 string email = tbEmail.Text;
                 string subject = tbSubject.Text;
                 string note = tbNote.Text;
-
-                BLOnlineDatabase.InsertEmailAttempt(File.ReadAllText(IOVariables.uniqueString), note, subject, email);
+                
+                BLOnlineDatabase.InsertEmailAttempt(BLSettings.Settings.UniqueString, note, subject, email);
                 RemindMeMessageFormManager.MakeMessagePopup("Feedback Sent. Thank you!", 5);
                 tbEmail.Text = "";
                 tbSubject.Text = "";
                 tbNote.Text = "";
                 BLIO.Log("Message sent!");
             }
-            catch
+            catch (Exception ex)
             {
+                BLIO.Log("Error in UCSUpport.btnSend_Click. Could not send the message! Exception type: " + ex.GetType().ToString() + "   Stacktrace:\r\n" + ex.StackTrace);
                 RemindMeMessageFormManager.MakeMessagePopup("Something went wrong. Could not send the e-mail",3);
             }
         }

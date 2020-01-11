@@ -126,9 +126,16 @@ namespace RemindMe
             {
                 //PC wakes up from sleep. If you're someone that always puts your pc to sleep instead of turning it off, RemindMe won't get "launched" again
                 //but instead, resumes.
-                case PowerModes.Resume:
-                    BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                case PowerModes.Resume:                    
                     BLIO.Log("=== PC Woke up from sleep! ===");
+                    Thread t = new Thread(() =>
+                    {
+                        Thread.Sleep(5000);
+                        BLIO.Log("Trying to update user after PC Sleep...");
+                        BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                        BLIO.Log("User updated.");
+                    });
+                    t.Start();                    
                     break;
                 case PowerModes.Suspend: BLIO.Log("=== PC Is going to sleep. ZzZzzzZzz... ===");
                     break;
@@ -753,11 +760,11 @@ namespace RemindMe
                     BLReadMessages.MarkMessageRead(message);
                     BLIO.Log("Message marked as read.");
 
-                    if (!string.IsNullOrWhiteSpace(message.MeantForSpecificUser))
+                    if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
                     {
                         BLIO.Log("This message is specifically for me!");
                         //This message is meant for a specific user.
-                        if (BLSettings.Settings.UniqueString == message.MeantForSpecificUser)
+                        if (BLSettings.Settings.UniqueString == message.MeantForSpecificPerson)
                             PopupRemindMeMessage(message);
 
                     }

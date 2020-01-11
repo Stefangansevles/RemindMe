@@ -59,6 +59,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.418", "Small update\r\n- Improved the appearance of the RemindMe messages on the bottom right corner of your monitor to look more fancy\r\n- Removed the(postponed) text after the date of a reminder that indicates that it is postponed.The italic text and the ZzZ icon should be clear enough.\r\n- Fixed a small error that would occur when you resized the RemindMe popup to a size that is smaller than the minimum size");
             releaseNotes.Add("2.6.419", "- Fixed a small issue where RemindMe would throw an error when loading RemindMe without reminders");
             releaseNotes.Add("2.6.420", "- The text on the RemindMe message form(bottom right corner) is now always centered\r\n- Fixed an issue where users could get a test RemindMe message not meant for them.");
+            releaseNotes.Add("2.6.421", "The support feature(Sending an message to the RemindMe developer) now works again.Whoops!");
 
         }
 
