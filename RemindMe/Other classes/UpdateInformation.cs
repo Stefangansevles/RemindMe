@@ -60,7 +60,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.419", "- Fixed a small issue where RemindMe would throw an error when loading RemindMe without reminders");
             releaseNotes.Add("2.6.420", "- The text on the RemindMe message form(bottom right corner) is now always centered\r\n- Fixed an issue where users could get a test RemindMe message not meant for them.");
             releaseNotes.Add("2.6.421", "The support feature(Sending an message to the RemindMe developer) now works again.Whoops!");
-
+            releaseNotes.Add("2.6.422", "Attempted to fix a issue where RemindMe would create an error on startup when trying to read the current RemindMe version");
         }
 
         public static Dictionary<string,string> ReleaseNotes

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,9 +49,28 @@ namespace RemindMe
         {
             get
             {
-                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                return fvi.FileVersion;
+                try
+                {
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);                    
+                    return fvi.FileVersion;
+                }
+                catch(FileNotFoundException) //For some reason this can throw a FileNotFoundException on RemindMe.exe , let's try the code below
+                {
+                    try
+                    {
+                        Assembly asm = Assembly.GetExecutingAssembly();
+                        AssemblyName asmName = asm.GetName();
+                        string versionString = asmName.Version.ToString();
+                        
+                        if (versionString[versionString.Length-2] == '.' && versionString[versionString.Length - 1] == '0')                        
+                            versionString = versionString.Substring(0, versionString.Length - 2);                        
+
+                        return versionString;
+                    }
+                    catch { return "1.0"; } //Failed AGAIN ? Welp
+                }
+                catch { return "1.0"; }
             }
         }
 

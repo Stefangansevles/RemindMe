@@ -247,7 +247,7 @@ namespace Business_Logic_Layer
                 {                    
                     BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
-                    AddException(exc, DateTime.Now, null,null);
+                    AddException(exc, DateTime.Now, BLIO.GetLogTxtPath(), null);
                     return new List<Database.Entity.RemindMeMessages>();
                 }
             }

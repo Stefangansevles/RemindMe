@@ -80,7 +80,7 @@ namespace RemindMe
 
                 if (!string.IsNullOrWhiteSpace(avrProps.BatchScript))
                 {
-                    if (this.Visible)
+                    if (!this.Visible)
                         RemindMeMessageFormManager.MakeMessagePopup("Activating script of Reminder:\r\n \"" + rem.Name + "\"", 3);
 
                     BLIO.ExecuteBatch(avrProps.BatchScript);                    
