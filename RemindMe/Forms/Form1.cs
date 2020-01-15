@@ -380,7 +380,8 @@ namespace RemindMe
             Cleanup();
         }
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {
+            
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -594,8 +595,7 @@ namespace RemindMe
 
         private void btnTimer_Click(object sender, EventArgs e)
         {
-            ToggleButton(sender);
-
+            ToggleButton(sender);            
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
 

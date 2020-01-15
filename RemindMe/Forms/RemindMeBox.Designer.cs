@@ -32,10 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemindMeBox));
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.pnlMainGradient = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.pbIcon = new System.Windows.Forms.PictureBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblText = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
             this.pnlRemind = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
@@ -43,10 +39,14 @@
             this.btnYes = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnNo = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnOk = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.pnlMainGradient.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
+            this.pnlMainGradient = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.pbIcon = new System.Windows.Forms.PictureBox();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblText = new System.Windows.Forms.Label();
             this.pnlFooterButtons.SuspendLayout();
             this.pnlRemind.SuspendLayout();
+            this.pnlMainGradient.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // tmrFadeIn
@@ -60,61 +60,6 @@
             this.bunifuDragControl1.Horizontal = true;
             this.bunifuDragControl1.TargetControl = this.pnlMainGradient;
             this.bunifuDragControl1.Vertical = true;
-            // 
-            // pnlMainGradient
-            // 
-            this.pnlMainGradient.AutoSize = true;
-            this.pnlMainGradient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.pnlMainGradient.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMainGradient.BackgroundImage")));
-            this.pnlMainGradient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlMainGradient.Controls.Add(this.pbIcon);
-            this.pnlMainGradient.Controls.Add(this.lblTitle);
-            this.pnlMainGradient.Controls.Add(this.lblText);
-            this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMainGradient.GradientBottomLeft = System.Drawing.Color.Black;
-            this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.Black;
-            this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.DimGray;
-            this.pnlMainGradient.GradientTopRight = System.Drawing.Color.DimGray;
-            this.pnlMainGradient.Location = new System.Drawing.Point(0, 0);
-            this.pnlMainGradient.Name = "pnlMainGradient";
-            this.pnlMainGradient.Quality = 10;
-            this.pnlMainGradient.Size = new System.Drawing.Size(374, 172);
-            this.pnlMainGradient.TabIndex = 0;
-            // 
-            // pbIcon
-            // 
-            this.pbIcon.BackColor = System.Drawing.Color.Transparent;
-            this.pbIcon.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
-            this.pbIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbIcon.Location = new System.Drawing.Point(12, 34);
-            this.pbIcon.Name = "pbIcon";
-            this.pbIcon.Size = new System.Drawing.Size(62, 58);
-            this.pbIcon.TabIndex = 3;
-            this.pbIcon.TabStop = false;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(103, 34);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(98, 23);
-            this.lblTitle.TabIndex = 2;
-            this.lblTitle.Text = "Attention!";
-            // 
-            // lblText
-            // 
-            this.lblText.AutoSize = true;
-            this.lblText.BackColor = System.Drawing.Color.Transparent;
-            this.lblText.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblText.ForeColor = System.Drawing.Color.White;
-            this.lblText.Location = new System.Drawing.Point(104, 75);
-            this.lblText.Name = "lblText";
-            this.lblText.Size = new System.Drawing.Size(32, 17);
-            this.lblText.TabIndex = 1;
-            this.lblText.Text = "Text";
             // 
             // pnlFooterButtons
             // 
@@ -154,7 +99,7 @@
             // 
             // cbDontRemind
             // 
-            this.cbDontRemind.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.cbDontRemind.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cbDontRemind.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
             this.cbDontRemind.Checked = false;
             this.cbDontRemind.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -281,6 +226,61 @@
             this.btnOk.Visible = false;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // pnlMainGradient
+            // 
+            this.pnlMainGradient.AutoSize = true;
+            this.pnlMainGradient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.pnlMainGradient.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMainGradient.BackgroundImage")));
+            this.pnlMainGradient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlMainGradient.Controls.Add(this.pbIcon);
+            this.pnlMainGradient.Controls.Add(this.lblTitle);
+            this.pnlMainGradient.Controls.Add(this.lblText);
+            this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMainGradient.GradientBottomLeft = System.Drawing.Color.Black;
+            this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.Black;
+            this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.DimGray;
+            this.pnlMainGradient.GradientTopRight = System.Drawing.Color.DimGray;
+            this.pnlMainGradient.Location = new System.Drawing.Point(0, 0);
+            this.pnlMainGradient.Name = "pnlMainGradient";
+            this.pnlMainGradient.Quality = 10;
+            this.pnlMainGradient.Size = new System.Drawing.Size(374, 172);
+            this.pnlMainGradient.TabIndex = 0;
+            // 
+            // pbIcon
+            // 
+            this.pbIcon.BackColor = System.Drawing.Color.Transparent;
+            this.pbIcon.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
+            this.pbIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbIcon.Location = new System.Drawing.Point(12, 34);
+            this.pbIcon.Name = "pbIcon";
+            this.pbIcon.Size = new System.Drawing.Size(62, 58);
+            this.pbIcon.TabIndex = 3;
+            this.pbIcon.TabStop = false;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(103, 34);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(98, 23);
+            this.lblTitle.TabIndex = 2;
+            this.lblTitle.Text = "Attention!";
+            // 
+            // lblText
+            // 
+            this.lblText.AutoSize = true;
+            this.lblText.BackColor = System.Drawing.Color.Transparent;
+            this.lblText.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblText.ForeColor = System.Drawing.Color.White;
+            this.lblText.Location = new System.Drawing.Point(104, 75);
+            this.lblText.Name = "lblText";
+            this.lblText.Size = new System.Drawing.Size(32, 17);
+            this.lblText.TabIndex = 1;
+            this.lblText.Text = "Text";
+            // 
             // RemindMeBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,12 +292,12 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemindMeBox";
             this.Text = "Attention!";
-            this.pnlMainGradient.ResumeLayout(false);
-            this.pnlMainGradient.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.pnlFooterButtons.ResumeLayout(false);
             this.pnlRemind.ResumeLayout(false);
             this.pnlRemind.PerformLayout();
+            this.pnlMainGradient.ResumeLayout(false);
+            this.pnlMainGradient.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

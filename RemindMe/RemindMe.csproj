@@ -155,12 +155,6 @@
     <Compile Include="Forms\AdvancedReminderForm.Designer.cs">
       <DependentUpon>AdvancedReminderForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ErrorPopup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ErrorPopup.Designer.cs">
-      <DependentUpon>ErrorPopup.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Popup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,9 +296,6 @@
     </Compile>
     <EmbeddedResource Include="Forms\AdvancedReminderForm.resx">
       <DependentUpon>AdvancedReminderForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ErrorPopup.resx">
-      <DependentUpon>ErrorPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExceptionPopup.resx">
       <DependentUpon>ExceptionPopup.cs</DependentUpon>

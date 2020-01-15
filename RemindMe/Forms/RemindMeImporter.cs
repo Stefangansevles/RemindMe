@@ -121,8 +121,8 @@ namespace RemindMe
 
             }
             catch (Exception ex)
-            {                
-                ErrorPopup pop = new ErrorPopup("Error inserting reminders", ex);
+            {
+                ExceptionPopup pop = new ExceptionPopup(ex, "Error inserting reminders");
                 pop.Show();
                 BLIO.WriteError(ex, "Error inserting reminders");
             }

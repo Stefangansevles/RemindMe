@@ -75,7 +75,12 @@ namespace RemindMe
             return EmbeddedAssembly.Get(args.Name);
         }
 
-
+        /// <summary>
+        /// Show an RemindMe error popup
+        /// </summary>
+        /// <param name="ex">The exception that happened</param>
+        /// <param name="message">An message that could decribe the error</param>
+        /// <param name="description">NO LONGER BEING USED</param>
         private static void ShowError(Exception ex, string message, string description)
         {
             //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
@@ -83,7 +88,7 @@ namespace RemindMe
             if (!(ex is System.Runtime.InteropServices.ExternalException) && ex.Source != "System.Drawing" && !ex.StackTrace.Contains("GDI+"))
             {
                 BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");                
-                new ErrorPopup(message + "\r\n" + description, ex).Show();
+                new ExceptionPopup(ex,message).Show();
             }
            
         }
@@ -95,14 +100,14 @@ namespace RemindMe
             if (e.Exception is ReminderException)
             {
                 ReminderException theException = (ReminderException)e.Exception;
-                BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !");
+                BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !", false);
                 ShowError(e.Exception, "Reminder error!", theException.Message);
                 UCReminders.Instance.UpdateCurrentPage();
             }
             else if(e.Exception is DirectoryNotFoundException)
             {
                 DirectoryNotFoundException theException = (DirectoryNotFoundException)e.Exception;
-                BLIO.WriteError(theException, "Folder not found.");
+                BLIO.WriteError(theException, "Folder not found.", false);
                 ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
             }
 
@@ -117,60 +122,60 @@ namespace RemindMe
             else if (e.Exception is FileNotFoundException)
             {
                 FileNotFoundException theException = (FileNotFoundException)e.Exception; //needs in instance to call .FileName
-                BLIO.WriteError(theException, "Could not find the file located at \"" + theException.FileName);
+                BLIO.WriteError(theException, "Could not find the file located at \"" + theException.FileName, false);
                 ShowError(e.Exception, "File not found.", "Could not find the file located at \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted the file?");
             }
 
             else if (e.Exception is System.Data.Entity.Core.EntityException)
             {
-                BLIO.WriteError(e.Exception, "System.Data.Entity.Core.EntityException");
+                BLIO.WriteError(e.Exception, "System.Data.Entity.Core.EntityException", false);
                 ShowError(e.Exception, "System.Data.Entity.Core.EntityException", "There was a problem executing SQL!");
             }
 
             else if (e.Exception is ArgumentNullException)
             {
-                BLIO.WriteError(e.Exception, "Null argument");
+                BLIO.WriteError(e.Exception, "Null argument", false);
                 ShowError(e.Exception, "Null argument", "Null argument exception! Whoops! this is not on your end!");
             }
 
             else if (e.Exception is NullReferenceException)
             {
-                BLIO.WriteError(e.Exception, "Null reference");
+                BLIO.WriteError(e.Exception, "Null reference",false);
                 ShowError(e.Exception, "Null reference", "Null reference exception! Whoops! this is not on your end!");
             }
 
             else if (e.Exception is SQLiteException)
             {
-                BLIO.WriteError(e.Exception, "SQLite Database exception");
+                BLIO.WriteError(e.Exception, "SQLite Database exception", false);
                 ShowError(e.Exception, "SQLite Database exception", "Remindme has encountered a database error!\r\nThis might or might not be on your end. It can be on your end if you modified the database file");
             }
 
             else if (e.Exception is PathTooLongException)
             {
-                BLIO.WriteError(e.Exception, "The path to the file is too long.");
+                BLIO.WriteError(e.Exception, "The path to the file is too long.", false);
                 ShowError(e.Exception, "File Path too long.", "The path to the file is too long!.");
             }
 
             else if (e.Exception is StackOverflowException)
             {
-                BLIO.WriteError(e.Exception, "StackOverFlowException");
+                BLIO.WriteError(e.Exception, "StackOverFlowException", false);
                 ShowError(e.Exception, "StackOverFlowException", "RemindMe has encountered a stackoverflow! This is probably not your fault. Sorry!");
             }
 
             else if (e.Exception is OutOfMemoryException)
             {
-                BLIO.WriteError(e.Exception, "Out of Memory");
+                BLIO.WriteError(e.Exception, "Out of Memory", false);
                 ShowError(e.Exception, "Out of Memory", "RemindMe is out of memory!");
             }
             else if (e.Exception is DbUpdateConcurrencyException)
             {
-                BLIO.WriteError(e.Exception, "Database error.");
+                BLIO.WriteError(e.Exception, "Database error.", false);
                 ShowError(e.Exception, "Database error!", "Database error encountered!");
             }
 
             else if (e.Exception is Exception)
             {
-                BLIO.WriteError(e.Exception, "Unknown exception in main.");
+                BLIO.WriteError(e.Exception, "Unknown exception in main.", false);
                 ShowError(e.Exception, "Unknown", "Unknown exception in main.");
             }
             

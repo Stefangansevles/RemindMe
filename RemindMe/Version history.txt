@@ -927,3 +927,6 @@ V2.6.421
 
 V2.6.422
 Attempted to fix a issue where RemindMe would create an error on startup when trying to read the current RemindMe version
+
+V2.6.430
+Redesigned RemindMe's error popup form. Whenever RemindMe crashes, you will see this screen. It is now better looking and easier to give input.

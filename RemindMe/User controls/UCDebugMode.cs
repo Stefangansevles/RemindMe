@@ -25,7 +25,7 @@ namespace RemindMe
         private void btnOpenErrorPrompt_Click(object sender, EventArgs e)
         {
             BLIO.Log("btnOpenErrorPrompt_Click");
-            ErrorPopup pop = new ErrorPopup("This is a test error in debug mode", new ReminderException("Test",null));
+            ExceptionPopup pop = new ExceptionPopup(new ReminderException("Test",null), "This is a test error in debug mode");
             pop.Show();
         }
 
