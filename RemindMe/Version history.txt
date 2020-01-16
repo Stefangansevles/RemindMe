@@ -938,3 +938,5 @@ Database update checks. If the number is <= 0, don't update the counter in the d
 V2.6.432
 Fixed some issues when using RemindMe without an active internet connection
 
+V2.6.433
+Fixed some issues when using RemindMe without an active internet connection (Again, sorry!)
