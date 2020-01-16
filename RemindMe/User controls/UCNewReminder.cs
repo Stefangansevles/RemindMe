@@ -1067,7 +1067,15 @@ namespace RemindMe
                     new Thread(() =>
                     {
                         //Log an entry to the database, for data!
-                        BLOnlineDatabase.RemindersCreated++;
+                        try
+                        {
+                            BLOnlineDatabase.RemindersCreated++;
+                        }
+                        catch(ArgumentException ex)
+                        {
+                            BLIO.Log("Exception at BLOnlineDatabase.RemindersCreated++. -> " + ex.Message);
+                            BLIO.WriteError(ex, ex.Message, true);
+                        }
                     }).Start();
                     BLIO.Log("New reminder succesfully created! (UCNewReminder)");
                 }

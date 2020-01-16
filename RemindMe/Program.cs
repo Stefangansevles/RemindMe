@@ -104,14 +104,20 @@ namespace RemindMe
                 ShowError(e.Exception, "Reminder error!", theException.Message);
                 UCReminders.Instance.UpdateCurrentPage();
             }
-            else if(e.Exception is DirectoryNotFoundException)
+            else if (e.Exception is ArgumentException)
+            {
+                ArgumentException theException = (ArgumentException)e.Exception;
+                BLIO.WriteError(theException, "Invalid argument.", false);
+                ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
+            }
+            else if (e.Exception is DirectoryNotFoundException)
             {
                 DirectoryNotFoundException theException = (DirectoryNotFoundException)e.Exception;
                 BLIO.WriteError(theException, "Folder not found.", false);
                 ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
             }
 
-            else if(e.Exception is UnauthorizedAccessException)
+            else if (e.Exception is UnauthorizedAccessException)
             {
                 UnauthorizedAccessException theException = (UnauthorizedAccessException)e.Exception;
                 BLIO.WriteError(e.Exception, "Unauthorized!");
@@ -140,7 +146,7 @@ namespace RemindMe
 
             else if (e.Exception is NullReferenceException)
             {
-                BLIO.WriteError(e.Exception, "Null reference",false);
+                BLIO.WriteError(e.Exception, "Null reference", false);
                 ShowError(e.Exception, "Null reference", "Null reference exception! Whoops! this is not on your end!");
             }
 

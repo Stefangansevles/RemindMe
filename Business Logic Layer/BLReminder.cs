@@ -75,8 +75,16 @@ namespace Business_Logic_Layer
 
                 new Thread(() =>
                 {
-                    //Log an entry to the database, for data!
-                    BLOnlineDatabase.ExportCount++;
+                    //Log an entry to the database, for data!                    
+                    try
+                    {
+                        BLOnlineDatabase.ExportCount++;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        BLIO.Log("Exception at BLOnlineDatabase.ExportCount++. -> " + ex.Message);
+                        BLIO.WriteError(ex, ex.Message, true);
+                    }
                 }).Start();
 
                 return null;

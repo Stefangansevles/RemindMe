@@ -473,8 +473,16 @@ namespace RemindMe
 
             new Thread(() =>
             {
-                //Log an entry to the database, for data!
-                BLOnlineDatabase.ImportCount++;
+                //Log an entry to the database, for data!                
+                try
+                {
+                    BLOnlineDatabase.ImportCount++;
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.ImportCount++ UCreminders.cs . -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
             }).Start();
 
             //finally, refresh the listview

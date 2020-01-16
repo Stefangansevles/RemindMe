@@ -228,9 +228,17 @@ namespace RemindMe
                 }
 
                 new Thread(() =>
-                {
-                    //Log an entry to the database, for data!
-                    BLOnlineDatabase.ImportCount++;
+                {                                        
+                    //Log an entry to the database, for data!                                                
+                    try
+                    {
+                        BLOnlineDatabase.ImportCount++;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        BLIO.Log("Exception at BLOnlineDatabase.ImportCount++ UCImportexport.cs . -> " + ex.Message);
+                        BLIO.WriteError(ex, ex.Message, true);
+                    }
                 }).Start();
 
                 BLIO.Log(remindersInserted + " Reminders inserted");
@@ -266,8 +274,16 @@ namespace RemindMe
 
             new Thread(() =>
             {
-                //Log an entry to the database, for data!
-                BLOnlineDatabase.RecoverCount++;
+                //Log an entry to the database, for data!                
+                try
+                {
+                    BLOnlineDatabase.RecoverCount++;
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.RecoverCount++. -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
             }).Start();
 
             BLIO.Log(remindersRecovered + " Reminders recovered");

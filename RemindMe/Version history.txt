@@ -934,3 +934,7 @@ Redesigned RemindMe's error popup form. Whenever RemindMe crashes, you will see 
 V2.6.431
 More logging
 Database update checks. If the number is <= 0, don't update the counter in the db. 
+
+V2.6.432
+Fixed some issues when using RemindMe without an active internet connection
+

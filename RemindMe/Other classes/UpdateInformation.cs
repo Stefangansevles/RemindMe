@@ -63,6 +63,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.422", "Attempted to fix a issue where RemindMe would create an error on startup when trying to read the current RemindMe version");
             releaseNotes.Add("2.6.430", "Redesigned RemindMe's error popup form. Whenever RemindMe crashes, you will see this screen. It is now better looking and easier to give input.");
             releaseNotes.Add("2.6.431", "Added some more logging to detect future bugs more easily");
+            releaseNotes.Add("2.6.432", "Fixed some issues when using RemindMe without an active internet connection");
         }
 
         public static Dictionary<string,string> ReleaseNotes

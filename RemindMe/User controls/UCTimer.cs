@@ -131,8 +131,16 @@ namespace RemindMe
 
             new Thread(() =>
             {
-                //Log an entry to the database, for data!
-                BLOnlineDatabase.TimersCreated++;
+                //Log an entry to the database, for data!                
+                try
+                {
+                    BLOnlineDatabase.TimersCreated++;
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.TimersCreated++ . -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
             }).Start();
             
             BLIO.Log("Timer added!");            

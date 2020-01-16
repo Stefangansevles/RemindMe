@@ -231,8 +231,24 @@ namespace RemindMe
             p.Show();
             new Thread(() =>
             {
-                //Log an entry to the database, for data!
-                BLOnlineDatabase.PreviewCount++;
+                //Log an entry to the database, for data!                
+                try
+                {                    
+                    try
+                    {
+                        BLOnlineDatabase.PreviewCount++;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        BLIO.Log("Exception at BLOnlineDatabase.PreviewCount++. -> " + ex.Message);
+                        BLIO.WriteError(ex, ex.Message, true);
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.PreviewCount++. -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
             }).Start();
         }
         private Reminder CopyReminder(Reminder rem)
@@ -280,8 +296,16 @@ namespace RemindMe
 
             new Thread(() =>
             {
-                //Log an entry to the database, for data!
-                BLOnlineDatabase.DuplicateCount++;
+                //Log an entry to the database, for data!                
+                try
+                {
+                    BLOnlineDatabase.PreviewCount++;
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.DuplicateCount++. -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
             }).Start();
         }
         /// <summary>
@@ -342,8 +366,16 @@ namespace RemindMe
 
                 new Thread(() =>
                 {
-                    //Log an entry to the database, for data!
-                    BLOnlineDatabase.HideCount++;
+                    //Log an entry to the database, for data!                    
+                    try
+                    {
+                        BLOnlineDatabase.HideCount++;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        BLIO.Log("Exception at BLOnlineDatabase.HideCount++. -> " + ex.Message);
+                        BLIO.WriteError(ex, ex.Message, true);
+                    }
                 }).Start();
             }
             else
@@ -392,8 +424,16 @@ namespace RemindMe
 
             new Thread(() =>
             {
-                //Log an entry to the database, for data!                
-                BLOnlineDatabase.PostponeCount++;
+                //Log an entry to the database, for data!                                
+                try
+                {
+                    BLOnlineDatabase.PostponeCount++;
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
             }).Start();
         }
 
@@ -422,8 +462,16 @@ namespace RemindMe
 
             new Thread(() =>
             {
-                //Log an entry to the database, for data!
-                BLOnlineDatabase.SkipCount++;
+                //Log an entry to the database, for data!                
+                try
+                {
+                    BLOnlineDatabase.SkipCount++;
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.SkipCount++. -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
             }).Start();
         }
 
@@ -441,8 +489,16 @@ namespace RemindMe
 
                 new Thread(() =>
                 {
-                    //Log an entry to the database, for data!
-                    BLOnlineDatabase.PermanentelyDeleteCount++;
+                    //Log an entry to the database, for data!                    
+                    try
+                    {
+                        BLOnlineDatabase.PermanentelyDeleteCount++;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        BLIO.Log("Exception at BLOnlineDatabase.PermanentelyDeleteCount++. -> " + ex.Message);
+                        BLIO.WriteError(ex, ex.Message, true);
+                    }
                 }).Start();
             }
             else
