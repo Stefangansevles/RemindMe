@@ -10,7 +10,7 @@ RemindMe lurks in the windows system tray and will not show itself until you dou
 
 ![](https://i.imgur.com/BZv2sSJ.png)
 
-You can also exit RemindMe this way, or go to the settings without opening RemindMe
+You can also exit RemindMe this way
 
 # How do i use RemindMe ?
 
