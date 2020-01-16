@@ -18,6 +18,8 @@ Want to know how to use this?
 
 [click here](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to%20use%20RemindMe.md)
 
+# Your input is welcomed
+Found a problem with RemindMe, or do you have a good idea? Feel free to [post this here](https://github.com/Stefangansevles/RemindMe/issues)
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
