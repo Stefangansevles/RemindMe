@@ -603,9 +603,7 @@ namespace RemindMe
         }        
 
         private void btnTimer_Click(object sender, EventArgs e)
-        {
-            BLOnlineDatabase.RemindersCreated = 0;
-
+        {            
             BLIO.Log("btnTimer_Click");
             ToggleButton(sender);            
             foreach (Control c in pnlMain.Controls)
