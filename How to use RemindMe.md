@@ -31,7 +31,7 @@ This is where it shows the list of your reminders
 # How will it look when it pops up?
 When an reminder pops up, it will always be on top. This is very effective because you will always notice it.
 
-![](https://i.imgur.com/S0ZWsxx.jpg)
+![](https://i.imgur.com/kt7xlou.png)
 
 If you want to be reminded of the same reminder a little bit later, click the postpone checkbox, fill in an amount and select minutes, or hours. Then simply press the button
 
