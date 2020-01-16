@@ -34,6 +34,7 @@ namespace RemindMe
         //The hotkey key-combination(customizable) to make a quick-timer popup
         Hotkeys timerHotkey;
 
+        #region User Controls
         //User controls that will be loaded into the "main" panel
         private UCReminders ucReminders;
         private UCImportExport ucImportExport;
@@ -47,6 +48,7 @@ namespace RemindMe
         //If the user presses the end key quickly 3 times, enable debug mode
         private int endKeyPressed = 0;
         private static Form1 instance;
+        #endregion
 
         //Update variables
         private RemindMeUpdater updater;
@@ -59,8 +61,7 @@ namespace RemindMe
 
         public Form1()
         {
-            BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");
-            BLIO.Log("Construct Form");           
+            BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");                       
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
@@ -117,7 +118,7 @@ namespace RemindMe
             SystemEvents.PowerModeChanged += OnPowerChange;
 
             RemindMeIcon.Visible = true;
-            BLIO.Log("Form constructed");            
+            BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
 
         private void OnPowerChange(object sender, PowerModeChangedEventArgs e)
@@ -386,6 +387,7 @@ namespace RemindMe
 
         private void lblExit_Click(object sender, EventArgs e)
         {
+            BLIO.Log("lblExit_Click (X)");
             this.Opacity = 0;
             this.Hide();
         }
@@ -450,11 +452,13 @@ namespace RemindMe
 
         private void lblMinimize_Click(object sender, EventArgs e)
         {
+            BLIO.Log("lblMinimize_Click (-)");
             this.WindowState = FormWindowState.Minimized;
         }
 
         private void btnReminders_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnReminders_Click");
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
 
@@ -484,6 +488,7 @@ namespace RemindMe
 
         private void btnBackupImport_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnBackupImport_Click");
             ToggleButton(sender);
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
@@ -493,6 +498,7 @@ namespace RemindMe
 
         private void btnSoundEffects_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnSoundEffects_Click");
             ToggleButton(sender);
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
@@ -502,6 +508,7 @@ namespace RemindMe
 
         private void btnWindowOverlay_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnWindowOverlay_Click");
             ToggleButton(sender);
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
@@ -511,6 +518,7 @@ namespace RemindMe
 
         private void btnResizePopup_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnResizePopup_Click");
             ToggleButton(sender);
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
@@ -520,6 +528,7 @@ namespace RemindMe
 
         private void btnSupport_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnSupport_Click");
             ToggleButton(sender);
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
@@ -595,6 +604,9 @@ namespace RemindMe
 
         private void btnTimer_Click(object sender, EventArgs e)
         {
+            BLOnlineDatabase.RemindersCreated = 0;
+
+            BLIO.Log("btnTimer_Click");
             ToggleButton(sender);            
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
@@ -672,6 +684,7 @@ namespace RemindMe
 
         private void btnNewUpdate_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnNewUpdate_Click");
             string allowUpdate = "";
             try
             {

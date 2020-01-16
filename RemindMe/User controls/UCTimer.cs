@@ -348,7 +348,8 @@ namespace RemindMe
         }
 
         private void btnPauseResumeTimer_Click(object sender, EventArgs e)
-        {            
+        {
+            BLIO.Log("(UCTimer)btnPauseResumeTimer_Click");
             if (currentTimerItem == null || currentTimerItem.Disposed)
                 return;
 

@@ -239,6 +239,7 @@ namespace RemindMe
 
         private void btnRemoveSong_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSetings)btnRemoveSong_Click");
             cbSound.SelectedItem = null;
             cbSound.Text = "";
             Settings set = BLSettings.Settings;
@@ -260,6 +261,7 @@ namespace RemindMe
 
         private void btnPreviewSong_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSetings)btnPreviewSong_Click");
             ComboBoxItem selectedItem = (ComboBoxItem)cbSound.SelectedItem;
             if (selectedItem == null)
                 return;

@@ -1574,7 +1574,8 @@ namespace RemindMe
         }
 
         private void btnAdvancedReminder_Click(object sender, EventArgs e)
-        {                        
+        {
+            BLIO.Log("(UCNewReminder)btnAdvancedReminder_Click");
             AVRForm.ShowDialog();
             if(AVRForm.FilesFolders.Count > 0 || !string.IsNullOrWhiteSpace(AVRForm.BatchScript))
             {

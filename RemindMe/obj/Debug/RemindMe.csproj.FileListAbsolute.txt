@@ -162,18 +162,15 @@ D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.dll.config
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.pdb
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.config
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\EntityFramework.SqlServer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\FSManager.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Gma.System.MouseKeyHook.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.EF6.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.config
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlAgilityPack.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.Deployment.WindowsInstaller.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.dll
@@ -181,7 +178,10 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAP
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.EF6.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Data Access Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll.config
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.pdb

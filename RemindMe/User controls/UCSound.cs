@@ -43,6 +43,7 @@ namespace RemindMe
 
         private void bunifuSwitch1_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSound)bunifuSwitch1_Click");
             if (bunifuSwitch1.Value)
                 ShowFilePath(true);
             else
@@ -82,6 +83,7 @@ namespace RemindMe
 
         private void btnAddFiles_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSound)btnAddFiles_Click");
             int songsAdded = 0;
             List<string> songPaths = FSManager.Files.GetSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
 
@@ -119,6 +121,7 @@ namespace RemindMe
 
         private void btnRemoveFiles_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSound)btnRemoveFiles_Click");
             List<Songs> toRemoveSongs = new List<Songs>();
 
             foreach (ListViewItem selectedItem in lvSoundFiles.SelectedItems)
@@ -135,6 +138,7 @@ namespace RemindMe
 
         private void btnPreview_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSound)btnPreview_Click");
             if (lvSoundFiles.SelectedItems.Count == 1)
             {
                 Songs selectedSong = BLSongs.GetSongById((long)lvSoundFiles.SelectedItems[0].Tag);

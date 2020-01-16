@@ -930,3 +930,7 @@ Attempted to fix a issue where RemindMe would create an error on startup when tr
 
 V2.6.430
 Redesigned RemindMe's error popup form. Whenever RemindMe crashes, you will see this screen. It is now better looking and easier to give input.
+
+V2.6.431
+More logging
+Database update checks. If the number is <= 0, don't update the counter in the db. 

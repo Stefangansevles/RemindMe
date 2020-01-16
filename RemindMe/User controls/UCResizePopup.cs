@@ -119,6 +119,7 @@ namespace RemindMe
 
         private void btnAddReminder_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCResizePopup)btnAddReminder_Click");
             if (testPop == null || testPop.IsDisposed)
             {
                 testPop = new Popup(testrem); //create a new instance                
@@ -154,6 +155,7 @@ namespace RemindMe
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCResizePopup)btnReset_Click");
             BLPopupDimensions.ResetToDefaults();            
             RemindMeMessageFormManager.MakeMessagePopup("Succesfully reset settings.",4);
 
@@ -163,6 +165,7 @@ namespace RemindMe
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCResizePopup)btnSave_Click");
             SaveChanges();
         }
 

@@ -38,8 +38,8 @@
             this.btnBack = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnSend = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlMessageOverview = new System.Windows.Forms.Panel();
-            this.bunifuFlatButton2 = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.bunifuFlatButton1 = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnSendMessage = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnView = new Bunifu.Framework.UI.BunifuFlatButton();
             this.lvMessages = new System.Windows.Forms.ListView();
             this.chMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label4 = new System.Windows.Forms.Label();
@@ -218,8 +218,8 @@
             // 
             // pnlMessageOverview
             // 
-            this.pnlMessageOverview.Controls.Add(this.bunifuFlatButton2);
-            this.pnlMessageOverview.Controls.Add(this.bunifuFlatButton1);
+            this.pnlMessageOverview.Controls.Add(this.btnSendMessage);
+            this.pnlMessageOverview.Controls.Add(this.btnView);
             this.pnlMessageOverview.Controls.Add(this.lvMessages);
             this.pnlMessageOverview.Controls.Add(this.label4);
             this.pnlMessageOverview.Location = new System.Drawing.Point(0, 0);
@@ -227,79 +227,79 @@
             this.pnlMessageOverview.Size = new System.Drawing.Size(666, 436);
             this.pnlMessageOverview.TabIndex = 98;
             // 
-            // bunifuFlatButton2
+            // btnSendMessage
             // 
-            this.bunifuFlatButton2.Activecolor = System.Drawing.Color.DimGray;
-            this.bunifuFlatButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton2.BorderRadius = 5;
-            this.bunifuFlatButton2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.bunifuFlatButton2.ButtonText = "    Send a message";
-            this.bunifuFlatButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton2.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton2.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton2.Iconimage = global::RemindMe.Properties.Resources.sendmessage;
-            this.bunifuFlatButton2.Iconimage_right = null;
-            this.bunifuFlatButton2.Iconimage_right_Selected = null;
-            this.bunifuFlatButton2.Iconimage_Selected = null;
-            this.bunifuFlatButton2.IconMarginLeft = 0;
-            this.bunifuFlatButton2.IconMarginRight = 0;
-            this.bunifuFlatButton2.IconRightVisible = true;
-            this.bunifuFlatButton2.IconRightZoom = 0D;
-            this.bunifuFlatButton2.IconVisible = true;
-            this.bunifuFlatButton2.IconZoom = 35D;
-            this.bunifuFlatButton2.IsTab = false;
-            this.bunifuFlatButton2.Location = new System.Drawing.Point(169, 348);
-            this.bunifuFlatButton2.Name = "bunifuFlatButton2";
-            this.bunifuFlatButton2.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton2.OnHovercolor = System.Drawing.Color.DimGray;
-            this.bunifuFlatButton2.OnHoverTextColor = System.Drawing.Color.White;
-            this.bunifuFlatButton2.selected = false;
-            this.bunifuFlatButton2.Size = new System.Drawing.Size(168, 39);
-            this.bunifuFlatButton2.TabIndex = 98;
-            this.bunifuFlatButton2.Text = "    Send a message";
-            this.bunifuFlatButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton2.Textcolor = System.Drawing.Color.White;
-            this.bunifuFlatButton2.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton2.Click += new System.EventHandler(this.bunifuFlatButton2_Click);
+            this.btnSendMessage.Activecolor = System.Drawing.Color.DimGray;
+            this.btnSendMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSendMessage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSendMessage.BorderRadius = 5;
+            this.btnSendMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnSendMessage.ButtonText = "    Send a message";
+            this.btnSendMessage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSendMessage.DisabledColor = System.Drawing.Color.Gray;
+            this.btnSendMessage.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSendMessage.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnSendMessage.Iconimage = global::RemindMe.Properties.Resources.sendmessage;
+            this.btnSendMessage.Iconimage_right = null;
+            this.btnSendMessage.Iconimage_right_Selected = null;
+            this.btnSendMessage.Iconimage_Selected = null;
+            this.btnSendMessage.IconMarginLeft = 0;
+            this.btnSendMessage.IconMarginRight = 0;
+            this.btnSendMessage.IconRightVisible = true;
+            this.btnSendMessage.IconRightZoom = 0D;
+            this.btnSendMessage.IconVisible = true;
+            this.btnSendMessage.IconZoom = 35D;
+            this.btnSendMessage.IsTab = false;
+            this.btnSendMessage.Location = new System.Drawing.Point(169, 348);
+            this.btnSendMessage.Name = "btnSendMessage";
+            this.btnSendMessage.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSendMessage.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnSendMessage.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnSendMessage.selected = false;
+            this.btnSendMessage.Size = new System.Drawing.Size(168, 39);
+            this.btnSendMessage.TabIndex = 98;
+            this.btnSendMessage.Text = "    Send a message";
+            this.btnSendMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSendMessage.Textcolor = System.Drawing.Color.White;
+            this.btnSendMessage.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSendMessage.Click += new System.EventHandler(this.bunifuFlatButton2_Click);
             // 
-            // bunifuFlatButton1
+            // btnView
             // 
-            this.bunifuFlatButton1.Activecolor = System.Drawing.Color.DimGray;
-            this.bunifuFlatButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton1.BorderRadius = 5;
-            this.bunifuFlatButton1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.bunifuFlatButton1.ButtonText = "    View";
-            this.bunifuFlatButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton1.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton1.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton1.Iconimage = global::RemindMe.Properties.Resources.whiteeye;
-            this.bunifuFlatButton1.Iconimage_right = null;
-            this.bunifuFlatButton1.Iconimage_right_Selected = null;
-            this.bunifuFlatButton1.Iconimage_Selected = null;
-            this.bunifuFlatButton1.IconMarginLeft = 0;
-            this.bunifuFlatButton1.IconMarginRight = 0;
-            this.bunifuFlatButton1.IconRightVisible = true;
-            this.bunifuFlatButton1.IconRightZoom = 0D;
-            this.bunifuFlatButton1.IconVisible = true;
-            this.bunifuFlatButton1.IconZoom = 50D;
-            this.bunifuFlatButton1.IsTab = false;
-            this.bunifuFlatButton1.Location = new System.Drawing.Point(23, 348);
-            this.bunifuFlatButton1.Name = "bunifuFlatButton1";
-            this.bunifuFlatButton1.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton1.OnHovercolor = System.Drawing.Color.DimGray;
-            this.bunifuFlatButton1.OnHoverTextColor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.selected = false;
-            this.bunifuFlatButton1.Size = new System.Drawing.Size(140, 39);
-            this.bunifuFlatButton1.TabIndex = 97;
-            this.bunifuFlatButton1.Text = "    View";
-            this.bunifuFlatButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton1.Textcolor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton1.Click += new System.EventHandler(this.bunifuFlatButton1_Click);
+            this.btnView.Activecolor = System.Drawing.Color.DimGray;
+            this.btnView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnView.BorderRadius = 5;
+            this.btnView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnView.ButtonText = "    View";
+            this.btnView.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnView.DisabledColor = System.Drawing.Color.Gray;
+            this.btnView.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnView.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnView.Iconimage = global::RemindMe.Properties.Resources.whiteeye;
+            this.btnView.Iconimage_right = null;
+            this.btnView.Iconimage_right_Selected = null;
+            this.btnView.Iconimage_Selected = null;
+            this.btnView.IconMarginLeft = 0;
+            this.btnView.IconMarginRight = 0;
+            this.btnView.IconRightVisible = true;
+            this.btnView.IconRightZoom = 0D;
+            this.btnView.IconVisible = true;
+            this.btnView.IconZoom = 50D;
+            this.btnView.IsTab = false;
+            this.btnView.Location = new System.Drawing.Point(23, 348);
+            this.btnView.Name = "btnView";
+            this.btnView.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnView.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnView.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnView.selected = false;
+            this.btnView.Size = new System.Drawing.Size(140, 39);
+            this.btnView.TabIndex = 97;
+            this.btnView.Text = "    View";
+            this.btnView.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnView.Textcolor = System.Drawing.Color.White;
+            this.btnView.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnView.Click += new System.EventHandler(this.bunifuFlatButton1_Click);
             // 
             // lvMessages
             // 
@@ -363,11 +363,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel pnlSendMessages;
         private System.Windows.Forms.Panel pnlMessageOverview;
-        private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton1;
+        private Bunifu.Framework.UI.BunifuFlatButton btnView;
         private System.Windows.Forms.ListView lvMessages;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ColumnHeader chMessage;
         private Bunifu.Framework.UI.BunifuFlatButton btnBack;
-        private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton2;
+        private Bunifu.Framework.UI.BunifuFlatButton btnSendMessage;
     }
 }

@@ -24,6 +24,7 @@ namespace RemindMe
 
         private void btnSend_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSupport)btnSend_Click");
             try
             {
                 BLIO.Log("Attempting to send a message to the RemindMe developer..");
@@ -58,13 +59,15 @@ namespace RemindMe
         }
 
         private void btnBack_Click(object sender, EventArgs e)
-        {            
+        {
+            BLIO.Log("(UCSupport)btnBack_Click");
             pnlMessageOverview.Location = new Point(0, 0);
             pnlSendMessages.Location = new Point(667, 0);
         }
 
         private void bunifuFlatButton2_Click(object sender, EventArgs e)
-        {            
+        {
+            BLIO.Log("(UCSupport)bunifuFlatButton2_Click [btnSendMessage]");
             pnlSendMessages.Location = new Point(0, 0);
             pnlMessageOverview.Location = new Point(667, 0);
         }
@@ -89,6 +92,7 @@ namespace RemindMe
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCSupport)bunifuFlatButton1_Click [btnView]");
             if (lvMessages.SelectedItems.Count > 0)
             {
                 ListViewItem itm = lvMessages.SelectedItems[0];                

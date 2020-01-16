@@ -340,7 +340,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.MessageCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to MessageCount.");
+
+                DLOnlineDatabase.MessageCount = value;
+            }
 
         }
    
@@ -368,7 +374,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.TimersCreated = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to TimersCreated.");
+
+                DLOnlineDatabase.TimersCreated = value;
+            }
         }
 
         /// <summary>
@@ -380,7 +392,6 @@ namespace Business_Logic_Layer
             {
                 try
                 {
-
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return -1;
@@ -394,7 +405,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.RemindersCreated = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to RemindersCreated.");
+
+                DLOnlineDatabase.RemindersCreated = value;
+            }
         }
 
         /// <summary>
@@ -406,7 +423,6 @@ namespace Business_Logic_Layer
             {
                 try
                 {
-
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return -1;
@@ -420,7 +436,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.ImportCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to ImportCount.");
+
+                DLOnlineDatabase.ImportCount = value;
+            }
         }
 
         /// <summary>
@@ -446,7 +468,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.ExportCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to ExportCount.");
+
+                DLOnlineDatabase.ExportCount = value;
+            }
         }
         /// <summary>
         /// Gets the amount of times reminders have been recovered
@@ -471,7 +499,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.RecoverCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to RecoverCount.");
+
+                DLOnlineDatabase.RecoverCount = value;
+            }
         }
         /// <summary>
         /// Gets the amount of exceptions in the misc table
@@ -517,7 +551,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.PreviewCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to PreviewCount.");
+
+                DLOnlineDatabase.PreviewCount = value;
+            }
         }
         public static int DuplicateCount
         {
@@ -539,7 +579,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.DuplicateCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to DuplicateCount.");
+
+                DLOnlineDatabase.DuplicateCount = value;
+            }
         }
         public static int HideCount
         {
@@ -561,7 +607,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.HideCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to HideCount.");
+
+                DLOnlineDatabase.HideCount = value;
+            }
         }
         public static int PostponeCount
         {
@@ -583,7 +635,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.PostponeCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to PostponeCount.");
+
+                DLOnlineDatabase.PostponeCount = value;
+            }
         }
         public static int SkipCount
         {
@@ -605,7 +663,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.SkipCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to SkipCount.");
+
+                DLOnlineDatabase.SkipCount = value;
+            }
         }
         public static int PermanentelyDeleteCount
         {
@@ -627,7 +691,13 @@ namespace Business_Logic_Layer
                     return -1;
                 }
             }
-            set { DLOnlineDatabase.PermanentelyDeleteCount = value; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Cannot assign value " + value + " to PermanentelyDeleteCount.");
+
+                DLOnlineDatabase.PermanentelyDeleteCount = value;
+            }
         }
     }
 }

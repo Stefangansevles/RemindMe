@@ -82,6 +82,7 @@ namespace RemindMe
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            BLIO.Log("(UCImportExport)btnExport_Click");
             ToggleButton(sender);
             lvReminders.Items.Clear();
 

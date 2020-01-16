@@ -151,7 +151,8 @@ namespace RemindMe
 
         }
         private void btnAddReminder_Click(object sender, EventArgs e)
-        {                        
+        {
+            BLIO.Log("btnAddReminder_Click");
             newReminderUc.Visible = true;
             newReminderUc.Reminder = null;            
             this.Visible = false;
@@ -268,6 +269,7 @@ namespace RemindMe
 
         private void btnPreviousPage_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnPreviousPage_Click");
             if (pageNumber <= 1) //Can't go to the previous page if we're on the first one
                 return;
 
@@ -391,6 +393,7 @@ namespace RemindMe
 
         private void btnNextPage_Click(object sender, EventArgs e)
         {
+            BLIO.Log("btnNextPage_Click");
             List<Reminder> reminders = BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList();
             reminders.AddRange(BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0));
             //^ All reminders in one list with the disabled ones at the end of the list
@@ -479,7 +482,8 @@ namespace RemindMe
         }
 
         private void btnUnhideReminders_Click(object sender, EventArgs e)
-        {          
+        {
+            BLIO.Log("btnUnhideReminders_Click");
             int remindersUnhidden = 0;
             foreach (Reminder rem in BLReminder.GetReminders())
             {
