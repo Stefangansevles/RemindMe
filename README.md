@@ -19,6 +19,9 @@ For a step-by-step guide with images, [click here](https://github.com/Stefangans
 # Your input is welcomed
 Found a problem with RemindMe, or do you have a good idea? Feel free to [post this here](https://github.com/Stefangansevles/RemindMe/issues)
 
+# Free!
+RemindMe is completely free! I have put a lot of love *and coffee* into this project and seeing people use it besides myself is already heartwarming. Thank you for using RemindMe and enjoy using RemindMe if you do!
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 Written in: C# - Windows Forms
