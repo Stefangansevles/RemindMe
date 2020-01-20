@@ -8,7 +8,7 @@ You can add a new reminder by pressing the "New Reminder" button
 You can then fill in the  details of your reminder. You can select the reminder to popup daily,during work days only, weekly, monthly, or just once
 
 
-![](https://i.imgur.com/WPgv1kp.png)
+![](https://i.imgur.com/EgrwAzo.png)
 
 If you want to add an sound when the reminder pops up, you can do so by clicking "Sound effects" on the left panel. Once you've done that you can press "Add file(s)" 
 
@@ -18,14 +18,14 @@ If you want to add an sound when the reminder pops up, you can do so by clicking
 You can now press Confirm, and you will see that it has been added to the list
 
 
-![](https://i.imgur.com/IcTVZHS.png)
+![](https://i.imgur.com/bQNj053.png)
 
 
 # Understanding the main page of RemindMe.
 
 This is where it shows the list of your reminders
 
-![](https://i.imgur.com/ITasMbp.png)
+![](https://i.imgur.com/I7xzq2F.png)
 
 
 # How will it look when it pops up?
@@ -47,7 +47,7 @@ There you can select it to be minimized. It will make a sound if you added it to
 
 If you want to see what the reminder would look like when it pops up, you can preview it by right clicking it like shown here
 
-![](https://i.imgur.com/6PmRSY5.png)
+![](https://i.imgur.com/JgOVBJG.png)
 
 
 # Exporting/Importing Reminders
@@ -86,5 +86,5 @@ Now that reminders are exported, we can import them. For this there are 2 method
 2. Select the reminders you want to export
 3. Click "Import"
 
-![](https://i.imgur.com/qzv382O.png)
+![](https://i.imgur.com/aoQOzr0.png)
 
