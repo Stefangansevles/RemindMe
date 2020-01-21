@@ -162,6 +162,7 @@ namespace RemindMe
         {
             if (rem != null)
             {
+                BLIO.Log("Edit button clicked on reminder item (" + rem.Id + ")");
                 newReminderUc.Reminder = BLReminder.GetReminderById(rem.Id);
                 BLIO.Log("Filling form with details of reminder with id " + rem.Id + " to edit");
                 Form1.Instance.ucNewReminder = newReminderUc;

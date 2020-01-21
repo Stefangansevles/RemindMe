@@ -1195,9 +1195,7 @@ namespace RemindMe
                 return;
             }
 
-
-            //If there is an scrolling popup, hide it.
-            //HideScrollingPopupMessage();            
+            BLReminder.NotifyChange();
             btnBack_Click(sender, e);
         }
 

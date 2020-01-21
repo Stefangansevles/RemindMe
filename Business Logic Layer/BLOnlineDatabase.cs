@@ -13,7 +13,7 @@ namespace Business_Logic_Layer
     public class BLOnlineDatabase
     {
         private BLOnlineDatabase() {  }
-        
+
         /// <summary>
         /// Logs an exception to the online database
         /// </summary>
@@ -21,10 +21,11 @@ namespace Business_Logic_Layer
         /// <param name="exceptionDate">The date the exception is logged at</param>
         public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage = null)
         {
-            try
-            {                
-                new Thread(() =>
-                {                   
+            new Thread(() =>
+            {
+                try
+                {
+
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
@@ -33,13 +34,14 @@ namespace Business_Logic_Layer
                         DLOnlineDatabase.AddException(ex, exceptionDate, pathToSystemLog, customMessage, GetAlternativeExceptionMessage(ex));
                     else
                         BLIO.Log("BLOnlineDatabase.AddException() failed: parameter(s) null");
-                }).Start();
-            }
-            catch (Exception exc)
-            {
-                BLIO.Log("BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString());
-                BLIO.WriteError(exc, "BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString(), false);
-            }
+
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.AddException() failed: exception occured: " + exc.GetType().ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.AddException() failed: exception occured: " + exc.ToString(), false);
+                }
+            }).Start();
         }
         private static string GetAlternativeExceptionMessage(Exception ex)
         {
@@ -87,10 +89,11 @@ namespace Business_Logic_Layer
         /// <param name="updateVersion">The version the user updated to</param>
         public static void AddNewUpgrade(DateTime updateDate, string previousVersion, string updateVersion)
         {
-            try
+            new Thread(() =>
             {
-                new Thread(() =>
+                try
                 {
+
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
@@ -99,13 +102,14 @@ namespace Business_Logic_Layer
                         DLOnlineDatabase.AddNewUpgrade(updateDate, previousVersion, updateVersion);
                     else
                         BLIO.Log("Invalid previous/update version string parameter in BLOnlineDatabase.AddNewUpdate()");
-                }).Start();
-            }
-            catch (Exception exc)
-            {
-                BLIO.Log("BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.ToString());
-                BLIO.WriteError(exc, "BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.ToString(), false);
-            }
+
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.GetType().ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.ToString(), false);
+                }
+            }).Start();
         }
 
 
@@ -115,10 +119,11 @@ namespace Business_Logic_Layer
         /// <param name="uniqueString"></param>
         public static void InsertOrUpdateUser(string uniqueString)
         {
-            try
+            new Thread(() =>
             {
-                new Thread(() =>
+                try
                 {
+
 
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
@@ -130,13 +135,14 @@ namespace Business_Logic_Layer
                         DLOnlineDatabase.InsertOrUpdateUser(uniqueString, IOVariables.RemindMeVersion);
                     else
                         BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertUser(). String: " + uniqueString);
-                }).Start();
-            }
-            catch (Exception exc)
-            {
-                BLIO.Log("BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString());
-                BLIO.WriteError(exc, "BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString(),false);
-            }
+
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.GetType().ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString(), false);
+                }
+            }).Start();
         }
 
         /// <summary>
@@ -145,10 +151,11 @@ namespace Business_Logic_Layer
         /// <param name="uniqueString"></param>
         public static void InsertFirstTimeUser(string uniqueString)
         {
-            try
+            new Thread(() =>
             {
-                new Thread(() =>
-                {                    
+                try
+                {
+
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
@@ -157,13 +164,13 @@ namespace Business_Logic_Layer
                         DLOnlineDatabase.InsertFirstTimeUser(uniqueString, IOVariables.RemindMeVersion);
                     else
                         BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertFirstTimeUser(). String: " + uniqueString);
-                }).Start();
-            }
-            catch (Exception exc)
-            {
-                BLIO.Log("BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.ToString());
-                BLIO.WriteError(exc, "BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.ToString(), false);
-            }
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.GetType().ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.ToString(), false);
+                }
+            }).Start();
         }
 
         /// <summary>
@@ -175,27 +182,29 @@ namespace Business_Logic_Layer
         /// <param name="eMailAddress">The users e-mail address. This is optional</param>
         public static void InsertEmailAttempt(string uniqueString, string emailMessage, string emailSubject, string eMailAddress = "")
         {
-            try
+            new Thread(() =>
             {
-                new Thread(() =>
+                try
                 {
+
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
 
                     if (!string.IsNullOrWhiteSpace(uniqueString))
-                        DLOnlineDatabase.InsertEmailAttempt(uniqueString,emailMessage,emailSubject,eMailAddress);
+                        DLOnlineDatabase.InsertEmailAttempt(uniqueString, emailMessage, emailSubject, eMailAddress);
                     else
                         BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertEmailAttempt(). String: " + uniqueString);
 
                     MessageCount++;
-                }).Start();
-            }
-            catch (Exception exc)
-            {
-                BLIO.Log("BLOnlineDatabase.InsertEmailAttempt() failed: exception occured: " + exc.ToString());
-                BLIO.WriteError(exc, "BLOnlineDatabase.InsertEmailAttempt() failed: exception occured: " + exc.ToString(), false);
-            }
+
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.InsertEmailAttempt() failed: exception occured: " + exc.GetType().ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.InsertEmailAttempt() failed: exception occured: " + exc.ToString(), false);
+                }
+            }).Start();
         }
 
         /// <summary>
@@ -206,27 +215,27 @@ namespace Business_Logic_Layer
         /// <param name="lineCount">The amount of lines in errorlog.txt</param>
         public static void InsertLocalErrorLog(string uniqueString, string logContents, int lineCount)
         {
-            try
+            new Thread(() =>
             {
-                new Thread(() =>
+                try
                 {
+
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
 
                     if (!string.IsNullOrWhiteSpace(uniqueString))
-                        DLOnlineDatabase.InsertLocalErrorLog(uniqueString, logContents,lineCount);
+                        DLOnlineDatabase.InsertLocalErrorLog(uniqueString, logContents, lineCount);
                     else
                         BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertLocalErrorLog(). String: " + uniqueString);
-                }).Start();
-            }
-            catch (Exception exc)
-            {
-                BLIO.Log("BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.ToString());
-                BLIO.WriteError(exc, "BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.ToString(), false);
-            }
+                }
+                catch (Exception exc)
+                {
+                    BLIO.Log("BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.GetType().ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.ToString(), false);
+                }
+            }).Start();
         }
-
 
         /// <summary>
         /// Gets the RemindMe messages from the database, sent by the creator of RemindMe
@@ -244,8 +253,8 @@ namespace Business_Logic_Layer
                         return DLOnlineDatabase.RemindMeMessages;                    
                 }
                 catch (Exception exc)
-                {                    
-                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString());
+                {                                      
+                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
                     AddException(exc, DateTime.Now, BLIO.GetLogTxtPath(), null);
                     return new List<Database.Entity.RemindMeMessages>();
@@ -311,7 +320,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -335,7 +344,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.MessageCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.MessageCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.MessageCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -369,7 +378,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.TimersCreated failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.TimersCreated failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.TimersCreated failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -400,7 +409,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.RemindersCreated failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.RemindersCreated failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.RemindersCreated failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -431,7 +440,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.ImportCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.ImportCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.ImportCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -463,7 +472,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.ExportCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.ExportCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.ExportCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -494,7 +503,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.RecoverCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.RecoverCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.RecoverCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -525,7 +534,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.ExceptionCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.ExceptionCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.ExceptionCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -546,7 +555,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.PreviewCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.PreviewCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.PreviewCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -574,7 +583,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.DuplicateCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.DuplicateCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.DuplicateCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -602,7 +611,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.HideCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.HideCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.HideCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -630,7 +639,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.PostponeCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.PostponeCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.PostponeCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -658,7 +667,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.SkipCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.SkipCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.SkipCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }
@@ -686,7 +695,7 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {
-                    BLIO.Log("BLOnlineDatabase.PermanentelyDeleteCount failed: exception occured: " + exc.ToString());
+                    BLIO.Log("BLOnlineDatabase.PermanentelyDeleteCount failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.PermanentelyDeleteCount failed: exception occured: " + exc.ToString(), false);
                     return -1;
                 }

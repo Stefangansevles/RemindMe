@@ -65,6 +65,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.431", "Added some more logging to detect future bugs more easily");
             releaseNotes.Add("2.6.432", "Fixed some issues when using RemindMe without an active internet connection");
             releaseNotes.Add("2.6.433", "Fixed some issues when using RemindMe without an active internet connection (again, sorry!)");
+            releaseNotes.Add("2.6.440", "- If you get an reminder notification of an reminder that is happening in 1 hour, you can now choose to postpone that reminder from that message in the bottom right corner of your monitor.\r\n- Double clicking an empty reminder no longer gives an error.");
         }
 
         public static Dictionary<string,string> ReleaseNotes

@@ -206,7 +206,6 @@ namespace RemindMe
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            BLIO.Log("Edit button clicked on reminder item (" + rem.Id + ")");
             UCReminders.Instance.EditReminder(rem);            
         }
 
@@ -507,6 +506,7 @@ namespace RemindMe
 
         private void bunifuGradientPanel1_DoubleClick(object sender, EventArgs e)
         {
+            BLIO.Log("Reminder item double clicked");
             btnEdit_Click(sender, e);
         }
 

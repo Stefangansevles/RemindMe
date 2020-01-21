@@ -271,8 +271,16 @@ namespace RemindMe
                     BLReminder.EditReminder(rem);
                     new Thread(() =>
                     {
-                        //Log an entry to the database, for data!
-                        BLOnlineDatabase.PostponeCount++;
+                        //Log an entry to the database, for data!                                                    
+                        try
+                        {
+                            BLOnlineDatabase.PostponeCount++;
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
+                            BLIO.WriteError(ex, ex.Message, true);
+                        }
                     }).Start();
                     BLIO.Log("Reminder postponed!");
                 }

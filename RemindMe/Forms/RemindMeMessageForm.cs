@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -57,6 +58,7 @@ namespace RemindMe
         }
         public RemindMeMessageForm(string message, int timeout, Reminder rem) : this(message, timeout)
         {
+            //If this RemindMeMessageForm is created with an Reminder object, supply reminder options
             pnlReminderOptions.Visible = true;
             theReminder = rem;
 
@@ -66,9 +68,9 @@ namespace RemindMe
                 btnSkip.Textcolor = Color.Gray;
                 btnSkip.Enabled = false;
                 btnSkip.Cursor = Cursors.Default;
-            }
-
-            btnDisable.Visible = true;
+            }        
+            
+            
         }
 
         public string Title
@@ -237,6 +239,44 @@ namespace RemindMe
         private void lblTitle_Resize(object sender, EventArgs e)
         {
             lblTitle.Location = new Point((pnlTop.Width / 2) - (lblTitle.Width / 2), lblTitle.Location.Y);
+        }
+
+        private void btnPostpone_Click(object sender, EventArgs e)
+        {
+            BLIO.Log("RemindMeMessageForm option clicked: Postpone (" + theReminder.Id + ")");
+            int minutes = RemindMePrompt.ShowMinutes("Select your postpone time", "(in minutes or in xhxxm format (1h20m) )");
+
+            if (minutes <= 0)
+            {
+                BLIO.Log("Postponing reminder with " + minutes + " minutes DENIED.");
+                return;
+            }
+
+            if (theReminder.PostponeDate == null)//No postpone yet, create it
+                theReminder.PostponeDate = Convert.ToDateTime(theReminder.Date.Split(',')[0]).AddMinutes(minutes).ToShortDateString() + " " + Convert.ToDateTime(theReminder.Date.Split(',')[0]).AddMinutes(minutes).ToShortTimeString();
+            else//Already a postponedate, add the time to that date                
+                theReminder.PostponeDate = Convert.ToDateTime(theReminder.PostponeDate).AddMinutes(minutes).ToShortDateString() + " " + Convert.ToDateTime(theReminder.PostponeDate).AddMinutes(minutes).ToShortTimeString();
+
+            BLReminder.EditReminder(theReminder);//Push changes
+
+            UCReminders.Instance.UpdateCurrentPage();
+
+            new Thread(() =>
+            {
+                //Log an entry to the database, for data!                                
+                try
+                {
+                    BLOnlineDatabase.PostponeCount++;
+                }
+                catch (ArgumentException ex)
+                {
+                    BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
+                    BLIO.WriteError(ex, ex.Message, true);
+                }
+            }).Start();
+
+            btnPostpone.Enabled = false; //bypass bunifu bug            
+            this.Dispose();
         }
     }
 }

@@ -45,6 +45,7 @@
             this.tmrTimeout = new System.Windows.Forms.Timer(this.components);
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnPostpone = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuGradientPanel1.SuspendLayout();
             this.pnlText.SuspendLayout();
             this.pnlReminderOptions.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             this.pnlReminderOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.pnlReminderOptions.Controls.Add(this.btnSkip);
+            this.pnlReminderOptions.Controls.Add(this.btnPostpone);
             this.pnlReminderOptions.Controls.Add(this.btnDisable);
             this.pnlReminderOptions.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlReminderOptions.Location = new System.Drawing.Point(0, 112);
@@ -109,7 +111,7 @@
             this.btnSkip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnSkip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSkip.BorderRadius = 0;
-            this.btnSkip.ButtonText = "Skip to the next date";
+            this.btnSkip.ButtonText = "Skip";
             this.btnSkip.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSkip.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnSkip.Dock = System.Windows.Forms.DockStyle.Left;
@@ -126,15 +128,15 @@
             this.btnSkip.IconVisible = true;
             this.btnSkip.IconZoom = 50D;
             this.btnSkip.IsTab = false;
-            this.btnSkip.Location = new System.Drawing.Point(178, 0);
+            this.btnSkip.Location = new System.Drawing.Point(236, 0);
             this.btnSkip.Name = "btnSkip";
             this.btnSkip.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnSkip.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(58)))));
             this.btnSkip.OnHoverTextColor = System.Drawing.Color.White;
             this.btnSkip.selected = false;
-            this.btnSkip.Size = new System.Drawing.Size(178, 24);
+            this.btnSkip.Size = new System.Drawing.Size(118, 24);
             this.btnSkip.TabIndex = 117;
-            this.btnSkip.Text = "Skip to the next date";
+            this.btnSkip.Text = "Skip";
             this.btnSkip.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnSkip.Textcolor = System.Drawing.Color.White;
             this.btnSkip.TextFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -146,7 +148,7 @@
             this.btnDisable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnDisable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDisable.BorderRadius = 0;
-            this.btnDisable.ButtonText = "Disable this Reminder";
+            this.btnDisable.ButtonText = "Disable";
             this.btnDisable.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDisable.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.btnDisable.Dock = System.Windows.Forms.DockStyle.Left;
@@ -169,13 +171,12 @@
             this.btnDisable.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(58)))));
             this.btnDisable.OnHoverTextColor = System.Drawing.Color.White;
             this.btnDisable.selected = false;
-            this.btnDisable.Size = new System.Drawing.Size(178, 24);
+            this.btnDisable.Size = new System.Drawing.Size(118, 24);
             this.btnDisable.TabIndex = 7;
-            this.btnDisable.Text = "Disable this Reminder";
+            this.btnDisable.Text = "Disable";
             this.btnDisable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnDisable.Textcolor = System.Drawing.Color.White;
             this.btnDisable.TextFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisable.Visible = false;
             this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
             // 
             // pnlTop
@@ -254,6 +255,43 @@
             this.toolTip1.InitialDelay = 1;
             this.toolTip1.ReshowDelay = 100;
             // 
+            // btnPostpone
+            // 
+            this.btnPostpone.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnPostpone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnPostpone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPostpone.BorderRadius = 0;
+            this.btnPostpone.ButtonText = "Postpone";
+            this.btnPostpone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPostpone.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnPostpone.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnPostpone.Font = new System.Drawing.Font("Century Gothic", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPostpone.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnPostpone.Iconimage = null;
+            this.btnPostpone.Iconimage_right = null;
+            this.btnPostpone.Iconimage_right_Selected = null;
+            this.btnPostpone.Iconimage_Selected = null;
+            this.btnPostpone.IconMarginLeft = 0;
+            this.btnPostpone.IconMarginRight = 0;
+            this.btnPostpone.IconRightVisible = true;
+            this.btnPostpone.IconRightZoom = 0D;
+            this.btnPostpone.IconVisible = true;
+            this.btnPostpone.IconZoom = 50D;
+            this.btnPostpone.IsTab = false;
+            this.btnPostpone.Location = new System.Drawing.Point(118, 0);
+            this.btnPostpone.Name = "btnPostpone";
+            this.btnPostpone.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnPostpone.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(58)))));
+            this.btnPostpone.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnPostpone.selected = false;
+            this.btnPostpone.Size = new System.Drawing.Size(118, 24);
+            this.btnPostpone.TabIndex = 118;
+            this.btnPostpone.Text = "Postpone";
+            this.btnPostpone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnPostpone.Textcolor = System.Drawing.Color.White;
+            this.btnPostpone.TextFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPostpone.Click += new System.EventHandler(this.btnPostpone_Click);
+            // 
             // RemindMeMessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,5 +331,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private Bunifu.Framework.UI.BunifuFlatButton btnSkip;
         private Bunifu.Framework.UI.BunifuFlatButton btnDisable;
+        private Bunifu.Framework.UI.BunifuFlatButton btnPostpone;
     }
 }
