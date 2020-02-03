@@ -291,39 +291,7 @@ namespace RemindMe
 
             //set unique user string            
             BLIO.WriteUniqueString();
-
-            Settings set = BLSettings.Settings;           
-
-            if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
-            {
-                BLIO.Log("[VERSION CHECK] New version! last version: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
-                //User has a new RemindMe version!                
-                string releaseNotesString = "";
-
-                foreach (KeyValuePair<string, string> entry in UpdateInformation.ReleaseNotes)
-                {
-                    if (new Version(entry.Key) > new Version(set.LastVersion))
-                    {
-                        releaseNotesString += "Version " + entry.Key + "\r\n" + entry.Value + "\r\n\r\n\r\n";
-                    }
-                }
-                WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
-                wn.Show();
-
-
-                //Before updating the lastVersion, log the update in the db
-                BLOnlineDatabase.AddNewUpgrade(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
-
-                //Update the lastVersion
-                set.LastVersion = IOVariables.RemindMeVersion;
-
-                
-            }
-            else
-            {
-                BLIO.Log("[VERSION CHECK] No new version! lastVersion: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
-            }            
-
+            
             //Default view should be reminders
             pnlMain.Controls.Add(ucReminders);
 
@@ -346,12 +314,14 @@ namespace RemindMe
             //If the setup still exists, delete it
             File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");
 
+            Settings set = null;
             //Call the timer once
             Thread tr = new Thread(() =>
             {
                 //wait a bit, then call the update timer once. It then runs every 5 minutes
                 Thread.Sleep(5000);
                 tmrUpdateRemindMe_Tick(null, null);
+                set = BLSettings.Settings;
                 BLOnlineDatabase.InsertOrUpdateUser(set.UniqueString);
                 Thread.Sleep(1500);
                 if (set.LastVersion == null)
@@ -402,6 +372,7 @@ namespace RemindMe
         private void showRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BLIO.Log("showRemindMeToolStripMenuItem_Click");
+            ShowWhatsNew();
             if (this.Visible)
             {
                 BLIO.Log("Remindme was already visible though..");
@@ -422,6 +393,7 @@ namespace RemindMe
         private void RemindMeIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             BLIO.Log("Remindme icon double clicked");
+            ShowWhatsNew();
             if (this.Visible)
             {
                 BLIO.Log("Remindme was already visible though..");
@@ -432,6 +404,41 @@ namespace RemindMe
             this.Show();
             tmrFadeIn.Start();
             BLIO.Log("Showing RemindMe");
+        }
+
+        private void ShowWhatsNew()
+        {
+            Settings set = BLSettings.Settings;
+            if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
+            {
+                BLIO.Log("[VERSION CHECK] New version! last version: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
+                //User has a new RemindMe version!                
+                string releaseNotesString = "";
+
+                foreach (KeyValuePair<string, string> entry in UpdateInformation.ReleaseNotes)
+                {
+                    if (new Version(entry.Key) > new Version(set.LastVersion))
+                    {
+                        releaseNotesString += "Version " + entry.Key + "\r\n" + entry.Value + "\r\n\r\n\r\n";
+                    }
+                }
+                WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
+                wn.Location = this.Location;
+                wn.Show();
+
+
+                //Before updating the lastVersion, log the update in the db
+                BLOnlineDatabase.AddNewUpgrade(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
+
+                //Update the lastVersion
+                set.LastVersion = IOVariables.RemindMeVersion;
+
+
+            }
+            else
+            {
+                BLIO.Log("[VERSION CHECK] No new version! lastVersion: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
+            }
         }
 
         private void tsExit_Click(object sender, EventArgs e)
