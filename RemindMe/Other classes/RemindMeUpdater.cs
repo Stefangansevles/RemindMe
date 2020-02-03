@@ -20,12 +20,7 @@ namespace RemindMe
     class RemindMeUpdater
     {
         private bool extractCompleted = false;
-          
-        public bool NewVersionExists()
-        {
-            return GetGithubVersion() > new Version(IOVariables.RemindMeVersion);
-        }
-      
+        
         public void UpdateRemindMe() //This is called within a Thread
         {
             try

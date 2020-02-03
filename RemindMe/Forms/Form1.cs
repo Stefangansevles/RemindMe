@@ -289,20 +289,10 @@ namespace RemindMe
             
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
-            Settings set = BLSettings.Settings;
-
-            //set unique user string
-            if (string.IsNullOrWhiteSpace(set.UniqueString))
-            {
-                if (File.Exists(IOVariables.uniqueString))
-                {
-                    set.UniqueString = File.ReadAllText(IOVariables.uniqueString);
-                    BLSettings.UpdateSettings(set);
-                }
-
-                File.Delete(IOVariables.uniqueString);
-            }
+            //set unique user string            
             BLIO.WriteUniqueString();
+
+            Settings set = BLSettings.Settings;           
 
             if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
