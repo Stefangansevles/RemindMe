@@ -24,21 +24,58 @@ namespace Business_Logic_Layer
         /// </summary>
         public static void WriteUniqueString()
         {
-            Settings set = BLSettings.Settings;
-            if (string.IsNullOrWhiteSpace(set.UniqueString))
+            new Thread(() =>
             {
-                string uniqueString = "";
-                Random random = new Random();
-                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                uniqueString = new string(Enumerable.Repeat(chars, 200)
-                  .Select(s => s[random.Next(s.Length)]).ToArray());
+                Settings set = BLSettings.Settings;
+                try
+                {
+                    //Change a 200-character string to a 10 character string. saves db space and 200 is just unnecesary
+                    if (set.UniqueString != null && set.UniqueString.Length == 200)
+                    {
+                        string uniqueStringOld = set.UniqueString;
 
-                Log("No unique string detected. Generated unique string.");
-                set.UniqueString = uniqueString.ToString();
-                BLSettings.UpdateSettings(set);                
-            }
+                        set.UniqueString = GenerateString();
+
+                        while (!BLOnlineDatabase.IsUniqueString(set.UniqueString))
+                        {
+                            set.UniqueString = GenerateString();
+                        }
+                        
+                        DLOnlineDatabase.TransformUniqueString(uniqueStringOld, set.UniqueString, IOVariables.RemindMeVersion);
+                    }
+                    else if (string.IsNullOrWhiteSpace(set.UniqueString))
+                    {
+                        string uniqueString = GenerateString();
+
+                        Log("No unique string detected. Generated unique string.");
+
+
+                        while (!BLOnlineDatabase.IsUniqueString(uniqueString))
+                        {
+                            //This shouldn't even happen, because the likelihood is insanely small, but hey, if it does happen, generate a new ID
+                            Log("unique string NOT unique. generating new id...");
+                            uniqueString = GenerateString();
+                        }
+                        set.UniqueString = uniqueString;
+                    }
+                    else
+                        Log("WriteUniqueString() ignored.");
+                }
+                catch (Exception ex)
+                {
+                    Log("WriteUniqueString failed -> " + ex.GetType().ToString());
+                    WriteError(ex, "WriteUniqueString failed -> " + ex.GetType().ToString(), true);
+                }
+
+                BLSettings.UpdateSettings(set);
+            }).Start();
         }
-
+        private static string GenerateString()
+        {            
+            Random random = new Random();
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
         /// <summary>
         /// Log an entry to the system log
         /// </summary>
@@ -161,55 +198,7 @@ namespace Business_Logic_Layer
             System.Diagnostics.Process.Start(IOVariables.batchFile);
         }
 
-        /// <summary>
-        /// Look at RemindMe's github page(html) and check the version number of "SetupRemindMe.msi"
-        /// </summary>
-        public static Version GetGithubVersion()
-        {
-            try
-            {                
-                if(!LastLogMessage.Contains("No new version."))
-                    Log("Starting the process of checking the live version on github...");
-                //Lets thread this process. It has no priority and we dont want to slow RemindMe down.            
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                List<string> lines = new List<string>();
-
-                string html;
-                using (var client = new WebClient())
-                {
-                    html = client.DownloadString("https://raw.githubusercontent.com/Stefangansevles/RemindMe/master/SetupRemindMe17/SetupRemindMe17.vdproj");
-                    lines = html.Split(new[] { "\n" }, StringSplitOptions.None).ToList();
-                }
-
-                if (lines.Count > 0 && !LastLogMessage.Contains("No new version."))
-                    Log("Sucessfully loaded raw SetupRemindMe17.vdproj from github");
-
-                foreach (string line in lines)
-                {
-                    if (line.Contains("\"ProductVersion\""))
-                    {
-                        string splitLine = line.Replace(" ", "").Replace("\"", "");
-                        int colonIndex = splitLine.IndexOf(':');
-
-                        //Get version
-                        try
-                        {                            
-                            return new Version(splitLine.Substring(colonIndex + 1));
-                        }
-                        catch { Log("ERROR Could not get the raw version from SetupRemindMe17.vdproj from github..."); }
-
-
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                Log("BLIO.GetGithubVersion() failed: " + ex.ToString());
-            }
-            return null;
-        }
-
+      
         /// <summary>
         ///  Writes an error to the errorlog.txt
         /// </summary>
@@ -243,85 +232,7 @@ namespace Business_Logic_Layer
 
             }).Start();
            
-        }
-
-        /// <summary>
-        /// Creates the .bat file neccesary to install the new update of RemindMe, uninstall the old one and re-run RemindMe
-        /// </summary>
-        public static void WriteUpdateBatch(string remindMePath)
-        {
-            new Thread(() =>
-            {
-                try
-                {
-                    Log("Writing batch script...");
-                    string batchString = "@echo off\r\necho Installing the new version of RemindMe.... Please do not close this window\r\n@echo on" + Environment.NewLine;
-                    string productCode = GetProductCode("RemindMe"); //This call really does take a pretty long time. Good thing we can thread that
-
-                    batchString += "msiexec /qb /i \"" + IOVariables.rootFolder + "SetupRemindMe.msi\"" + Environment.NewLine;
-                    batchString += "msiexec /x " + productCode + " /qn" + Environment.NewLine;
-                    batchString += "start /d \"" + remindMePath + "\" RemindMe.exe";
-
-                    using (FileStream fs = new FileStream(IOVariables.rootFolder + "install.bat", FileMode.Create))
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        sw.WriteLine(batchString);
-                        Log("Writing batch script: COMPLETE");
-                    }
-                }
-                catch(Exception ex)
-                {
-                    Log("Writing batch script: FAILURE  |  Exception: " + ex.GetType().ToString());
-                }
-            }).Start();
-        }
-
-        /// <summary>
-        /// Gets the MSI file version that is to be installed from the msi, before installing it.
-        /// source: https://www.codeproject.com/Articles/31021/Getting-version-from-MSI-without-installing-it
-        /// </summary>
-        /// <param name="msi"></param>
-        /// <returns></returns>
-        public static string GetMsiVersion(string msi)
-        {
-            Type type = Type.GetTypeFromProgID("WindowsInstaller.Installer");
-
-            WindowsInstaller.Installer installer = (WindowsInstaller.Installer)
-
-            Activator.CreateInstance(type);
-
-            WindowsInstaller.Database db = installer.OpenDatabase(msi, 0);
-
-            WindowsInstaller.View dv = db.OpenView(
-                 "SELECT `Value` FROM `Property` WHERE `Property`='ProductVersion'");
-
-            WindowsInstaller.Record record = null;
-
-            dv.Execute(record);
-
-            record = dv.Fetch();
-
-            return record.get_StringData(1).ToString();            
-        }
-
-        /// <summary>
-        /// Gets the product code of the installed version of RemindMe on the target comuter. Will look something like this: {026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}
-        /// </summary>
-        /// <param name="productName">The product name</param>
-        /// <returns></returns>
-        public static string GetProductCode(string productName)
-        {
-            string query = string.Format("select * from Win32_Product where Name='{0}'", productName);
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
-            {
-                foreach (ManagementObject product in searcher.Get())
-                    return product["IdentifyingNumber"].ToString();
-            }
-            return null;
-        }
-
-
-
-
+        }     
+       
     }
 }

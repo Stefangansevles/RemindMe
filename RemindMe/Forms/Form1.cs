@@ -16,10 +16,10 @@ using System.Reflection;
 using Gma.System.MouseKeyHook;
 using System.Threading;
 using System.Net;
-using HtmlAgilityPack;
 using System.Security.Permissions;
 using System.Management;
 using Microsoft.Win32;
+using Ionic.Zip;
 
 namespace RemindMe
 {
@@ -33,6 +33,8 @@ namespace RemindMe
 
         //The hotkey key-combination(customizable) to make a quick-timer popup
         Hotkeys timerHotkey;
+
+        RemindMeUpdater updater = new RemindMeUpdater();
 
         #region User Controls
         //User controls that will be loaded into the "main" panel
@@ -49,14 +51,7 @@ namespace RemindMe
         private int endKeyPressed = 0;
         private static Form1 instance;
         #endregion
-
-        //Update variables
-        private RemindMeUpdater updater;
-
-        private int r = 14, g = 130, b = 22;
-        private bool increaseR = true;
-        private bool increaseG = true;
-        private bool increaseB = true;
+        
         private bool allowshowdisplay = false;
 
         public Form1()
@@ -120,9 +115,12 @@ namespace RemindMe
             RemindMeIcon.Visible = true;
             BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
+        
 
         private void OnPowerChange(object sender, PowerModeChangedEventArgs e)
-        {            
+        {
+            BLIO.Log("=== OnPowerChange() ===");
+
             switch (e.Mode)
             {
                 //PC wakes up from sleep. If you're someone that always puts your pc to sleep instead of turning it off, RemindMe won't get "launched" again
@@ -164,11 +162,22 @@ namespace RemindMe
             //RemindMe loaded, if an old system log/temp reminders still exists, delete it
             string oldSystemLog = System.IO.Path.GetTempPath() + "SystemLog.txt";
             string oldTempReminders = System.IO.Path.GetTempPath() + "Exported Reminders.remindme";
+            string oldUpdateFilesZip = IOVariables.rootFolder + "UpdateFiles.zip";            
 
             try
             {
                 if (File.Exists(oldSystemLog)) File.Delete(oldSystemLog);
                 if (File.Exists(oldTempReminders)) File.Delete(oldTempReminders);
+                if (File.Exists(oldUpdateFilesZip)) File.Delete(oldUpdateFilesZip);
+                if (Directory.Exists(IOVariables.applicationFilesFolder + "\\old")) Directory.Delete(IOVariables.applicationFilesFolder + "\\old", true);
+
+                //If the errorlog is >= 5mb , clear it. That's a bit big..                                
+                if (new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 >= 5000)
+                {
+                    BLIO.Log("= = = CLEARING ERROR LOG = = =");
+                    File.WriteAllText(IOVariables.errorLog, "");
+                }
+
             }
             catch (IOException ex) { BLIO.WriteError(ex, "Error in Cleanup()"); }
         }
@@ -275,10 +284,8 @@ namespace RemindMe
         /// Alternative Form_load method since form_load doesnt get called until you first double-click the RemindMe icon due to override SetVisibleCore
         /// </summary>
         private async Task formLoadAsync()
-        {
-            BLIO.Log("RemindMe_Load");
-            
-            BLIO.WriteUpdateBatch(Application.StartupPath);
+        {           
+            BLIO.Log("RemindMe_Load");                        
             
             lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
@@ -375,7 +382,7 @@ namespace RemindMe
             tmrInitialHide.Start();
 
             //Insert the errorlog.txt into the DB if it is not empty
-            if (new FileInfo(IOVariables.errorLog).Length > 0)
+            if (new FileInfo(IOVariables.errorLog).Length > 0 && new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 < 5000)
             {
                 BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
                 File.WriteAllText(IOVariables.errorLog, "");
@@ -386,11 +393,11 @@ namespace RemindMe
             tmrCheckRemindMeMessages.Start();
             BLIO.Log("tmrCheckRemindMeMessages.Interval = " + tmrCheckRemindMeMessages.Interval/1000 + " seconds.");
             BLIO.Log("RemindMe loaded");
-            Cleanup();
+            Cleanup();            
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {            
+                       
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -621,137 +628,15 @@ namespace RemindMe
         }
 
         private void tmrUpdateRemindMe_Tick(object sender, EventArgs e)
-        {
+        {    
             new Thread(() =>
-            {                
-                CheckForUpdates();
+            {                                
+                updater.UpdateRemindMe();
             }).Start();
             
         }
-        public void CheckForUpdates()
-        {
-            Version localVersion = new Version(IOVariables.RemindMeVersion);
-            Version newVersion = BLIO.GetGithubVersion();
-
-            if (!BLIO.LastLogMessage.Contains("No new version."))
-                BLIO.Log("localVersion: " + localVersion + " gitVersion: " + newVersion);
-
-            if (newVersion > localVersion) //New version!
-            {
-                if (!BLIO.LastLogMessage.Contains("No new version."))
-                    BLIO.Log("New version detected!");
-                //SetupRemindMe exists? is the version of the msi the same as the github version? That means it is the one you downloaded. Let's not download it again!
-                if (File.Exists(IOVariables.rootFolder + "SetupRemindMe.msi")
-                    && new Version(BLIO.GetMsiVersion(IOVariables.rootFolder + "SetupRemindMe.msi")) == newVersion)
-                    return;
-
-                DownloadMsi();
-            }
-            else
-                if (!BLIO.LastLogMessage.Contains("No new version."))
-                    BLIO.Log("No new version.");
-        }
-        private void DownloadMsi()
-        {
-            new Thread(() =>
-            {
-                try
-                {
-                    this.BeginInvoke((MethodInvoker)async delegate
-                    {
-                        try
-                        {
-                            BLIO.Log("New version on github! starting download...");
-                            updater = new RemindMeUpdater();
-                            updater.startDownload();
-
-                            while (!updater.Completed)
-                                await Task.Delay(500);
-
-                            RemindMeMessageFormManager.MakeMessagePopup("RemindMe has a new version available to update!\r\nClick the update button on RemindMe on the left panel!\r\n\r\nOr: Right click the RemindMe icon and update from there!", 10);
-
-                            btnNewUpdate.Visible = true;
-                            updateRemindMeToolStripMenuItem.Visible = true;
-                            BLIO.Log("Completed downloading the new .msi from github!");
-                        }
-                        catch
-                        {
-                            BLIO.Log("Downloading new version of RemindMe failed! :(");
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    BLIO.Log("Failed downloading MSI. " + ex.ToString());
-                }
-            }).Start();
-        }
-
-
-        private void btnNewUpdate_Click(object sender, EventArgs e)
-        {
-            BLIO.Log("btnNewUpdate_Click");
-            string allowUpdate = "";
-            try
-            {
-                if (UCTimer.RunningTimers.Count > 0 && !this.Visible)
-                {
-                    if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to update and close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.Yes)
-                    {
-                        allowUpdate = "Y";
-                    }
-                    else
-                        allowUpdate = "N";
-                }
-                else
-                {
-                    if (allowUpdate == "" || allowUpdate == "Y")
-                    {
-                        //make sure the popup wont happen when remindme gets closed by Application.Exit()
-                        UCTimer.RunningTimers.Clear();
-
-
-                        BLIO.Log("Installing the new version from github!");
-
-                        if (!File.Exists(IOVariables.rootFolder + "SetupRemindMe.msi"))
-                        {
-                            RemindMeBox.Show("Could not update RemindMe. Please try again later");
-                            BLIO.Log("SetupRemindMe.msi was not found on the hard drive.. hmmmmm... suspicious.... ;)");
-                            return;
-                        }
-
-
-                        ProcessStartInfo info = new ProcessStartInfo(IOVariables.rootFolder + "install.bat");
-                        info.Verb = "runas";
-
-                        Process process = new Process();
-                        process.StartInfo = info;
-                        process.Start();
-
-                        Application.Exit();
-                    }
-                }
-
-               
-            }
-            catch
-            {
-                RemindMeMessageFormManager.MakeMessagePopup("Cancelled installation.", 2);
-                BLIO.Log("Cancelled installation.");
-            }
-        }
-
-        private void btnNewUpdate_VisibleChanged(object sender, EventArgs e)
-        {
-            if (btnNewUpdate.Visible)
-            {
-                tmrAnimateUpdateButton.Start();
-                updateRemindMeToolStripMenuItem.Visible = true;
-            }
-            else
-                tmrAnimateUpdateButton.Stop();                            
-
-        }
+     
+        
 
         private void tmrInitialHide_Tick(object sender, EventArgs e)
         {
@@ -766,7 +651,7 @@ namespace RemindMe
                 if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)                
                     e.Cancel = true;            
         }
-
+        
         private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)
         {            
             //Check for messages sent by me every minute
@@ -824,52 +709,6 @@ namespace RemindMe
                     RemindMeMessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value, "RemindMe Developer");
                     break;
             }
-        }
-
-        private void updateRemindMeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            btnNewUpdate_Click(sender, e);
-        }
-
-        private void tmrAnimateUpdateButton_Tick(object sender, EventArgs e)
-        {
-            btnNewUpdate.BackColor = Color.FromArgb(r, g, b);
-            btnNewUpdate.OnHovercolor = btnNewUpdate.BackColor;
-            btnNewUpdate.Normalcolor = btnNewUpdate.BackColor;
-            btnNewUpdate.Activecolor = btnNewUpdate.BackColor;
-
-            if (increaseR)
-                r += 1;
-            else
-                r -= 1;
-
-            if (increaseG)            
-                g += 3;            
-            else            
-                g -= 3;           
-
-            if (increaseB)                         
-                b += 1;            
-            else                           
-                b -= 1;            
-
-
-
-            if (r >= 40)
-                increaseR = false;
-            if (r <= 11)
-                increaseR = true;
-
-            if (g >= 170)
-                increaseG = false;
-            if (g <= 130)
-                increaseG = true;
-
-            if (b >= 50)
-                increaseB = false;
-            if (b <= 20)
-                increaseB = true;
-
-        }
+        }          
     }
 }

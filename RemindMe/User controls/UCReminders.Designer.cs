@@ -39,6 +39,7 @@
             this.btnPreviousPage = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnAddReminder = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlReminders = new RemindMe.NonFlickerPanel();
+            this.tmrCheckForUpdates = new System.Windows.Forms.Timer(this.components);
             this.pnlBackground.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -247,6 +248,11 @@
             this.pnlReminders.Size = new System.Drawing.Size(666, 394);
             this.pnlReminders.TabIndex = 6;
             // 
+            // tmrCheckForUpdates
+            // 
+            this.tmrCheckForUpdates.Interval = 5000;
+            this.tmrCheckForUpdates.Tick += new System.EventHandler(this.tmrCheckForUpdates_Tick);
+            // 
             // UCReminders
             // 
             this.AllowDrop = true;
@@ -277,5 +283,6 @@
         private Bunifu.Framework.UI.BunifuFlatButton btnNextPage;
         private Bunifu.Framework.UI.BunifuFlatButton btnPreviousPage;
         private Bunifu.Framework.UI.BunifuFlatButton btnUnhideReminders;
+        private System.Windows.Forms.Timer tmrCheckForUpdates;
     }
 }

@@ -92,7 +92,7 @@ namespace RemindMe
         private void btnCheckUpdate_Click(object sender, EventArgs e)
         {
             BLIO.Log("btnCheckUpdate_Click");
-            Form1.Instance.CheckForUpdates();
+            new RemindMeUpdater().UpdateRemindMe();
         }
 
         private void btnRequery_Click(object sender, EventArgs e)

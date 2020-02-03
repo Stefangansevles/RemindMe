@@ -525,11 +525,22 @@ namespace RemindMe
 
         private void UCReminders_Load(object sender, EventArgs e)
         {
+            tmrCheckForUpdates.Start();            
             /*This was testing a custom color scheme
             btnAddReminder.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;
             btnPreviousPage.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;
             btnNextPage.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;
             btnUnhideReminders.BackgroundImage = Form1.Instance.pnlSideBackgroundImage;*/
+        }
+
+        private void tmrCheckForUpdates_Tick(object sender, EventArgs e)
+        {
+            if(Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
+            {
+                RemindMeMessageFormManager.MakeMessagePopup("RemindMe has updated.\r\nRestart RemindMe to load these changes directly.", 15);
+                tmrCheckForUpdates.Stop();
+            }
+            
         }
     }
 }

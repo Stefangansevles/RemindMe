@@ -38,14 +38,12 @@
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.updateRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dragLogo = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.tmrDebugMode = new System.Windows.Forms.Timer(this.components);
             this.tmrUpdateRemindMe = new System.Windows.Forms.Timer(this.components);
-            this.tmrAnimateUpdateButton = new System.Windows.Forms.Timer(this.components);
             this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
             this.tmrCheckRemindMeMessages = new System.Windows.Forms.Timer(this.components);
             this.tmrTest = new System.Windows.Forms.Timer(this.components);
@@ -59,7 +57,6 @@
             this.btnBackupImport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnTimer = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnReminders = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnNewUpdate = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
             this.pnlBanner.SuspendLayout();
@@ -150,23 +147,12 @@
             // 
             this.RemindMeTrayIconMenuStrip.BackColor = System.Drawing.Color.DimGray;
             this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateRemindMeToolStripMenuItem,
             this.tsExit,
             this.showRemindMeToolStripMenuItem});
             this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
             this.RemindMeTrayIconMenuStrip.ShowImageMargin = false;
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(141, 70);
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(133, 48);
             this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
-            // 
-            // updateRemindMeToolStripMenuItem
-            // 
-            this.updateRemindMeToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
-            this.updateRemindMeToolStripMenuItem.ForeColor = System.Drawing.Color.YellowGreen;
-            this.updateRemindMeToolStripMenuItem.Name = "updateRemindMeToolStripMenuItem";
-            this.updateRemindMeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.updateRemindMeToolStripMenuItem.Text = "Update RemindMe";
-            this.updateRemindMeToolStripMenuItem.Visible = false;
-            this.updateRemindMeToolStripMenuItem.Click += new System.EventHandler(this.updateRemindMeToolStripMenuItem_Click);
             // 
             // tsExit
             // 
@@ -175,7 +161,7 @@
             this.tsExit.Image = ((System.Drawing.Image)(resources.GetObject("tsExit.Image")));
             this.tsExit.ImageTransparentColor = System.Drawing.Color.Red;
             this.tsExit.Name = "tsExit";
-            this.tsExit.Size = new System.Drawing.Size(140, 22);
+            this.tsExit.Size = new System.Drawing.Size(132, 22);
             this.tsExit.Text = "Exit RemindMe";
             this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
             // 
@@ -186,7 +172,7 @@
             this.showRemindMeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showRemindMeToolStripMenuItem.Image")));
             this.showRemindMeToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.showRemindMeToolStripMenuItem.Name = "showRemindMeToolStripMenuItem";
-            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
             this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
             // 
@@ -211,11 +197,6 @@
             // 
             this.tmrUpdateRemindMe.Interval = 300000;
             this.tmrUpdateRemindMe.Tick += new System.EventHandler(this.tmrUpdateRemindMe_Tick);
-            // 
-            // tmrAnimateUpdateButton
-            // 
-            this.tmrAnimateUpdateButton.Interval = 75;
-            this.tmrAnimateUpdateButton.Tick += new System.EventHandler(this.tmrAnimateUpdateButton_Tick);
             // 
             // tmrInitialHide
             // 
@@ -264,7 +245,7 @@
             this.btnDebugMode.IconVisible = true;
             this.btnDebugMode.IconZoom = 50D;
             this.btnDebugMode.IsTab = true;
-            this.btnDebugMode.Location = new System.Drawing.Point(0, 510);
+            this.btnDebugMode.Location = new System.Drawing.Point(0, 462);
             this.btnDebugMode.Name = "btnDebugMode";
             this.btnDebugMode.Normalcolor = System.Drawing.Color.Transparent;
             this.btnDebugMode.OnHovercolor = System.Drawing.Color.DimGray;
@@ -291,7 +272,6 @@
             this.pnlSide.Controls.Add(this.btnBackupImport);
             this.pnlSide.Controls.Add(this.btnTimer);
             this.pnlSide.Controls.Add(this.btnReminders);
-            this.pnlSide.Controls.Add(this.btnNewUpdate);
             this.pnlSide.Controls.Add(this.pictureBox1);
             this.pnlSide.Controls.Add(this.lblVersion);
             this.pnlSide.Dock = System.Windows.Forms.DockStyle.Left;
@@ -327,7 +307,7 @@
             this.btnSupport.IconVisible = true;
             this.btnSupport.IconZoom = 50D;
             this.btnSupport.IsTab = true;
-            this.btnSupport.Location = new System.Drawing.Point(0, 462);
+            this.btnSupport.Location = new System.Drawing.Point(0, 414);
             this.btnSupport.Name = "btnSupport";
             this.btnSupport.Normalcolor = System.Drawing.Color.Transparent;
             this.btnSupport.OnHovercolor = System.Drawing.Color.DimGray;
@@ -363,7 +343,7 @@
             this.btnResizePopup.IconVisible = true;
             this.btnResizePopup.IconZoom = 50D;
             this.btnResizePopup.IsTab = true;
-            this.btnResizePopup.Location = new System.Drawing.Point(0, 414);
+            this.btnResizePopup.Location = new System.Drawing.Point(0, 366);
             this.btnResizePopup.Name = "btnResizePopup";
             this.btnResizePopup.Normalcolor = System.Drawing.Color.Transparent;
             this.btnResizePopup.OnHovercolor = System.Drawing.Color.DimGray;
@@ -399,7 +379,7 @@
             this.btnSoundEffects.IconVisible = true;
             this.btnSoundEffects.IconZoom = 50D;
             this.btnSoundEffects.IsTab = true;
-            this.btnSoundEffects.Location = new System.Drawing.Point(0, 366);
+            this.btnSoundEffects.Location = new System.Drawing.Point(0, 318);
             this.btnSoundEffects.Name = "btnSoundEffects";
             this.btnSoundEffects.Normalcolor = System.Drawing.Color.Transparent;
             this.btnSoundEffects.OnHovercolor = System.Drawing.Color.DimGray;
@@ -435,7 +415,7 @@
             this.btnWindowOverlay.IconVisible = true;
             this.btnWindowOverlay.IconZoom = 50D;
             this.btnWindowOverlay.IsTab = true;
-            this.btnWindowOverlay.Location = new System.Drawing.Point(0, 318);
+            this.btnWindowOverlay.Location = new System.Drawing.Point(0, 270);
             this.btnWindowOverlay.Name = "btnWindowOverlay";
             this.btnWindowOverlay.Normalcolor = System.Drawing.Color.Transparent;
             this.btnWindowOverlay.OnHovercolor = System.Drawing.Color.DimGray;
@@ -471,7 +451,7 @@
             this.btnBackupImport.IconVisible = true;
             this.btnBackupImport.IconZoom = 50D;
             this.btnBackupImport.IsTab = true;
-            this.btnBackupImport.Location = new System.Drawing.Point(0, 270);
+            this.btnBackupImport.Location = new System.Drawing.Point(0, 222);
             this.btnBackupImport.Name = "btnBackupImport";
             this.btnBackupImport.Normalcolor = System.Drawing.Color.Transparent;
             this.btnBackupImport.OnHovercolor = System.Drawing.Color.DimGray;
@@ -507,7 +487,7 @@
             this.btnTimer.IconVisible = true;
             this.btnTimer.IconZoom = 50D;
             this.btnTimer.IsTab = true;
-            this.btnTimer.Location = new System.Drawing.Point(0, 222);
+            this.btnTimer.Location = new System.Drawing.Point(0, 174);
             this.btnTimer.Name = "btnTimer";
             this.btnTimer.Normalcolor = System.Drawing.Color.Transparent;
             this.btnTimer.OnHovercolor = System.Drawing.Color.DimGray;
@@ -543,7 +523,7 @@
             this.btnReminders.IconVisible = true;
             this.btnReminders.IconZoom = 50D;
             this.btnReminders.IsTab = true;
-            this.btnReminders.Location = new System.Drawing.Point(0, 174);
+            this.btnReminders.Location = new System.Drawing.Point(0, 126);
             this.btnReminders.Name = "btnReminders";
             this.btnReminders.Normalcolor = System.Drawing.Color.Transparent;
             this.btnReminders.OnHovercolor = System.Drawing.Color.DimGray;
@@ -556,45 +536,6 @@
             this.btnReminders.Textcolor = System.Drawing.Color.White;
             this.btnReminders.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReminders.Click += new System.EventHandler(this.btnReminders_Click);
-            // 
-            // btnNewUpdate
-            // 
-            this.btnNewUpdate.Activecolor = System.Drawing.Color.Transparent;
-            this.btnNewUpdate.BackColor = System.Drawing.Color.Transparent;
-            this.btnNewUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnNewUpdate.BorderRadius = 0;
-            this.btnNewUpdate.ButtonText = "     New Update!";
-            this.btnNewUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNewUpdate.DisabledColor = System.Drawing.Color.Transparent;
-            this.btnNewUpdate.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnNewUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewUpdate.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnNewUpdate.Iconimage = global::RemindMe.Properties.Resources.RemindMeSettingsNew;
-            this.btnNewUpdate.Iconimage_right = null;
-            this.btnNewUpdate.Iconimage_right_Selected = null;
-            this.btnNewUpdate.Iconimage_Selected = null;
-            this.btnNewUpdate.IconMarginLeft = 0;
-            this.btnNewUpdate.IconMarginRight = 0;
-            this.btnNewUpdate.IconRightVisible = true;
-            this.btnNewUpdate.IconRightZoom = 0D;
-            this.btnNewUpdate.IconVisible = true;
-            this.btnNewUpdate.IconZoom = 50D;
-            this.btnNewUpdate.IsTab = true;
-            this.btnNewUpdate.Location = new System.Drawing.Point(0, 126);
-            this.btnNewUpdate.Name = "btnNewUpdate";
-            this.btnNewUpdate.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnNewUpdate.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnNewUpdate.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnNewUpdate.selected = false;
-            this.btnNewUpdate.Size = new System.Drawing.Size(200, 48);
-            this.btnNewUpdate.TabIndex = 18;
-            this.btnNewUpdate.Text = "     New Update!";
-            this.btnNewUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewUpdate.Textcolor = System.Drawing.Color.White;
-            this.btnNewUpdate.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewUpdate.Visible = false;
-            this.btnNewUpdate.VisibleChanged += new System.EventHandler(this.btnNewUpdate_VisibleChanged);
-            this.btnNewUpdate.Click += new System.EventHandler(this.btnNewUpdate_Click);
             // 
             // pictureBox1
             // 
@@ -670,15 +611,12 @@
         private System.Windows.Forms.Timer tmrUpdateRemindMe;
         private Bunifu.Framework.UI.BunifuFlatButton btnTimer;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Bunifu.Framework.UI.BunifuFlatButton btnNewUpdate;
-        private System.Windows.Forms.Timer tmrAnimateUpdateButton;
         private System.Windows.Forms.Panel pnlBanner;
         private System.Windows.Forms.Label lblPageNumber;
         private Bunifu.Framework.UI.BunifuCustomLabel lblMinimize;
         private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
         private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
         private System.Windows.Forms.Timer tmrInitialHide;
-        private System.Windows.Forms.ToolStripMenuItem updateRemindMeToolStripMenuItem;
         private System.Windows.Forms.Timer tmrCheckRemindMeMessages;
         private System.Windows.Forms.Timer tmrTest;
     }

@@ -43,6 +43,12 @@ namespace Business_Logic_Layer
                 }
             }).Start();
         }
+
+        public static bool IsUniqueString(string uniqueString)
+        {
+            return DLOnlineDatabase.IsUniqueString(uniqueString);                        
+        }
+
         private static string GetAlternativeExceptionMessage(Exception ex)
         {
             string mess = "Oops! An error has occured. Here's the details:\r\n\r\n" + ex.ToString();
@@ -93,7 +99,6 @@ namespace Business_Logic_Layer
             {
                 try
                 {
-
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
@@ -123,8 +128,6 @@ namespace Business_Logic_Layer
             {
                 try
                 {
-
-
                     //Don't do anything without internet
                     if (!BLIO.HasInternetAccess())
                         return;
@@ -254,8 +257,8 @@ namespace Business_Logic_Layer
                 }
                 catch (Exception exc)
                 {                                      
-                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.GetType().ToString());
-                    BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
+                    BLIO.Log("BLOnlineDatabase.RemindMeMessages failed: exception occured: " + exc.GetType().ToString());
+                    BLIO.WriteError(exc, "BLOnlineDatabase.RemindMeMessages failed: exception occured: " + exc.ToString(), false);
                     AddException(exc, DateTime.Now, BLIO.GetLogTxtPath(), null);
                     return new List<Database.Entity.RemindMeMessages>();
                 }

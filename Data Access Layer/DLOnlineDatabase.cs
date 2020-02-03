@@ -10,10 +10,7 @@ using System.Threading.Tasks;
 namespace Data_Access_Layer
 {
     public class DLOnlineDatabase
-    {
-        //The entities for the online database
-        private static remindmesqldbEntities db = new remindmesqldbEntities();
-
+    {                
         private DLOnlineDatabase() { }
 
         /// <summary>
@@ -23,28 +20,43 @@ namespace Data_Access_Layer
         /// <param name="exceptionDate">The date the exception is logged at</param>
         public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage, string alternativeExceptionMessage)
         {
-            ExceptionLog log = new ExceptionLog();
-            log.ExceptionDate = exceptionDate;
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
+            {
+                db.Database.Connection.Open();
+                ExceptionLog log = new ExceptionLog();
+                log.ExceptionDate = exceptionDate;
 
-            if (alternativeExceptionMessage == null)
-                log.ExceptionMessage = ex.Message;
-            else
-                log.ExceptionMessage = alternativeExceptionMessage;
+                if (alternativeExceptionMessage == null)
+                    log.ExceptionMessage = ex.Message;
+                else
+                    log.ExceptionMessage = alternativeExceptionMessage;
 
-            if (customMessage != null)
-                log.CustomMessage = customMessage;
+                if (customMessage != null)
+                    log.CustomMessage = customMessage;
 
-            if (pathToSystemLog != null)
-                log.SystemLog = File.ReadAllText(pathToSystemLog).Replace(Environment.NewLine, "¤");//so we can do a find and replace ¤ to \r\n in notepad++ to make it more readable
+                if (pathToSystemLog != null)
+                    log.SystemLog = File.ReadAllText(pathToSystemLog).Replace(Environment.NewLine, "¤");//so we can do a find and replace ¤ to \r\n in notepad++ to make it more readable
 
-            log.ExceptionStackTrace = ex.ToString();
-            log.ExceptionType = ex.GetType().ToString();
-            log.Username = Environment.UserName;
+                log.ExceptionStackTrace = ex.ToString();
+                log.ExceptionType = ex.GetType().ToString();
+                log.Username = Environment.UserName;
 
 
-            db.ExceptionLog.Add(log);
-            db.SaveChanges();
+                db.ExceptionLog.Add(log);
+                db.SaveChanges();
+            }
         }
+
+        public static bool IsUniqueString(string uniqueString)
+        {
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
+            {
+                db.Database.Connection.Open();
+                Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
+                return usr == null;
+            }
+        }
+
         /// <summary>
         /// Adds a new entry to the database where a user updates their RemindMe version
         /// </summary>
@@ -53,14 +65,18 @@ namespace Data_Access_Layer
         /// <param name="updateVersion">The version the user updated to</param>
         public static void AddNewUpgrade(DateTime updateDate, string previousVersion, string updateVersion)
         {
-            UpdateLog log = new UpdateLog();
-            log.UpdateDate = updateDate;
-            log.PreviousVersion = previousVersion;
-            log.UpdateVersion = updateVersion;
-            log.Username = Environment.UserName;
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
+            {
+                db.Database.Connection.Open();
+                UpdateLog log = new UpdateLog();
+                log.UpdateDate = updateDate;
+                log.PreviousVersion = previousVersion;
+                log.UpdateVersion = updateVersion;
+                log.Username = Environment.UserName;
 
-            db.UpdateLog.Add(log);
-            db.SaveChanges();
+                db.UpdateLog.Add(log);
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -69,34 +85,59 @@ namespace Data_Access_Layer
         /// <param name="uniqueString"></param>
         public static void InsertOrUpdateUser(string uniqueString, string remindMeVersion)
         {
-            Users usr;
-            //If the user doesn't exist in the db yet...
-            if (db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
-                usr = new Users();
-                usr.Username = Environment.UserName;
-                usr.UniqueString = uniqueString;
-                usr.LastOnline = DateTime.UtcNow;
-                usr.RemindMeVersion = remindMeVersion;
+                db.Database.Connection.Open();
+                Users usr;
+                //If the user doesn't exist in the db yet...
+                if (db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
+                {
+                    usr = new Users();
+                    usr.Username = Environment.UserName;
+                    usr.UniqueString = uniqueString;
+                    usr.LastOnline = DateTime.UtcNow;
+                    usr.RemindMeVersion = remindMeVersion;
 
-                db.Users.Add(usr);
+                    db.Users.Add(usr);
+                }
+                else
+                {
+                    //Update the LastOnline attribute
+                    usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
+                    usr.UniqueString = uniqueString;
+                    usr.LastOnline = DateTime.UtcNow;
+                    usr.SignIns++;
+                    usr.RemindMeVersion = remindMeVersion;
+                }
+
+                usr.ActiveReminders = DLReminders.GetReminders().Where(r => r.Enabled == 1).Count();
+                usr.DisabledReminders = DLReminders.GetReminders().Where(r => r.Enabled == 0).Count();
+                usr.DeletedReminders = DLReminders.GetDeletedReminders().Count;
+                usr.ArchivedReminders = DLReminders.GetArchivedReminders().Count;
+                usr.TotalReminders = DLReminders.GetAllReminders().Count;
+
+                db.SaveChanges();
             }
-            else
+        }
+
+        public static void TransformUniqueString(string uniqueStringOld, string uniqueStringNew, string remindMeVersion)
+        {
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
-                //Update the LastOnline attribute
-                usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
-                usr.LastOnline = DateTime.UtcNow;
-                usr.SignIns++;
-                usr.RemindMeVersion = remindMeVersion;
+                db.Database.Connection.Open();
+                Users usr;
+                //If the user doesn't exist in the db yet...
+                if (db.Users.Where(u => u.UniqueString == uniqueStringOld).Count() > 0)
+                {
+                    //Update the LastOnline attribute
+                    usr = db.Users.Where(u => u.UniqueString == uniqueStringOld).SingleOrDefault();
+                    usr.UniqueString = uniqueStringNew;
+                    usr.LastOnline = DateTime.UtcNow;
+                    usr.SignIns++;
+                    usr.RemindMeVersion = remindMeVersion;
+                }               
+                db.SaveChanges();
             }
-
-            usr.ActiveReminders = DLReminders.GetReminders().Where(r => r.Enabled == 1).Count();
-            usr.DisabledReminders = DLReminders.GetReminders().Where(r => r.Enabled == 0).Count();
-            usr.DeletedReminders = DLReminders.GetDeletedReminders().Count;
-            usr.ArchivedReminders = DLReminders.GetArchivedReminders().Count;
-            usr.TotalReminders = DLReminders.GetAllReminders().Count;            
-
-            db.SaveChanges();
         }
 
         /// <summary>
@@ -105,17 +146,21 @@ namespace Data_Access_Layer
         /// <param name="uniqueString"></param>
         public static void InsertFirstTimeUser(string uniqueString, string remindMeVersion)
         {
-            //If the user doesn't exist in the db yet (It shouldn't!)
-            if (db.NewInstallations.Where(u => u.UniqueString == uniqueString).Count() == 0)
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
-                NewInstallations ni = new NewInstallations();
-                ni.Username = Environment.UserName;
-                ni.UniqueString = uniqueString;
-                ni.InstallDate = DateTime.UtcNow;
-                ni.InstallVersion = remindMeVersion;
+                db.Database.Connection.Open();
+                //If the user doesn't exist in the db yet (It shouldn't!)
+                if (db.NewInstallations.Where(u => u.UniqueString == uniqueString).Count() == 0)
+                {
+                    NewInstallations ni = new NewInstallations();
+                    ni.Username = Environment.UserName;
+                    ni.UniqueString = uniqueString;
+                    ni.InstallDate = DateTime.UtcNow;
+                    ni.InstallVersion = remindMeVersion;
 
-                db.NewInstallations.Add(ni);
-                db.SaveChanges();
+                    db.NewInstallations.Add(ni);
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -128,17 +173,21 @@ namespace Data_Access_Layer
         /// <param name="eMailAddress">The users e-mail address. This is optional</param>
         public static void InsertEmailAttempt(string uniqueString, string emailMessage, string emailSubject, string eMailAddress = "")
         {
-            EmailAttempts ea = new EmailAttempts();
-            ea.Username = Environment.UserName;
-            ea.UserId = uniqueString;
-            ea.Message = emailMessage;
-            ea.Subject = emailSubject;
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
+            {
+                db.Database.Connection.Open();
+                EmailAttempts ea = new EmailAttempts();
+                ea.Username = Environment.UserName;
+                ea.UserId = uniqueString;
+                ea.Message = emailMessage;
+                ea.Subject = emailSubject;
 
-            if (!string.IsNullOrWhiteSpace(eMailAddress))
-                ea.E_mail = eMailAddress;
+                if (!string.IsNullOrWhiteSpace(eMailAddress))
+                    ea.E_mail = eMailAddress;
 
-            db.EmailAttempts.Add(ea);
-            db.SaveChanges();
+                db.EmailAttempts.Add(ea);
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -149,16 +198,20 @@ namespace Data_Access_Layer
         /// <param name="lineCount">The amount of lines in errorlog.txt</param>
         public static void InsertLocalErrorLog(string uniqueString, string logContents, int lineCount)
         {
-            LocalErrorLog loc = new LocalErrorLog();
-            loc.TimeStamp = DateTime.UtcNow;
-            loc.LogContents = logContents;
-            loc.LogLineCount = lineCount;
-            loc.Username = Environment.UserName;
-            loc.UserId = uniqueString;
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
+            {
+                db.Database.Connection.Open();
+                LocalErrorLog loc = new LocalErrorLog();
+                loc.TimeStamp = DateTime.UtcNow;
+                loc.LogContents = logContents;
+                loc.LogLineCount = lineCount;
+                loc.Username = Environment.UserName;
+                loc.UserId = uniqueString;
 
 
-            db.LocalErrorLog.Add(loc);
-            db.SaveChanges();
+                db.LocalErrorLog.Add(loc);
+                db.SaveChanges();
+            }
         }
 
 
@@ -169,29 +222,31 @@ namespace Data_Access_Layer
         {
             get
             {
-
-                List<Database.Entity.RemindMeMessages> list = new List<Database.Entity.RemindMeMessages>();
-                Database.Entity.RemindMeMessages message;
-
-
-                //Because it can't be converted, i guess we have to do it ourselves
-                foreach (RemindMeMessages mess in db.RemindMeMessages)
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
-                    message = new Database.Entity.RemindMeMessages();
+                    db.Database.Connection.Open();
+                    List<Database.Entity.RemindMeMessages> list = new List<Database.Entity.RemindMeMessages>();
+                    Database.Entity.RemindMeMessages message;
 
-                    message.Id = mess.Id;
-                    message.MeantForSpecificVersion = mess.MeantForSpecificVersion;
-                    message.Message = mess.Message;
-                    message.NotificationDuration = mess.NotificationDuration;
-                    message.NotificationOnTop = mess.NotificationOnTop;
-                    message.NotificationType = mess.NotificationType;
-                    message.MeantForSpecificPerson = mess.MeantForSpecificPerson;
-                    message.ReadByAmountOfUsers = mess.ReadByAmountOfUsers;
-                    message.DateOfCreation = mess.DateOfCreation;
 
-                    list.Add(message);
+                    //Because it can't be converted, i guess we have to do it ourselves
+                    foreach (RemindMeMessages mess in db.RemindMeMessages)
+                    {
+                        message = new Database.Entity.RemindMeMessages();
+                        message.Id = mess.Id;
+                        message.MeantForSpecificVersion = mess.MeantForSpecificVersion;
+                        message.Message = mess.Message;
+                        message.NotificationDuration = mess.NotificationDuration;
+                        message.NotificationOnTop = mess.NotificationOnTop;
+                        message.NotificationType = mess.NotificationType;
+                        message.MeantForSpecificPerson = mess.MeantForSpecificPerson;
+                        message.ReadByAmountOfUsers = mess.ReadByAmountOfUsers;
+                        message.DateOfCreation = mess.DateOfCreation;
+
+                        list.Add(message);
+                    }
+                    return list;
                 }
-                return list;
             }
         }
 
@@ -203,7 +258,11 @@ namespace Data_Access_Layer
 
             try
             {
-                return db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    return db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
+                }
             }
             catch (DbUpdateException) { return null; }
             catch { return null; }
@@ -215,9 +274,13 @@ namespace Data_Access_Layer
         /// <param name="id"></param>
         public static void UpdateRemindMeMessageCount(int id)
         {
-            RemindMeMessages mess = db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
-            mess.ReadByAmountOfUsers++;
-            db.SaveChanges();
+            using (remindmesqldbEntities db = new remindmesqldbEntities())
+            {
+                db.Database.Connection.Open();
+                RemindMeMessages mess = db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
+                mess.ReadByAmountOfUsers++;
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -227,7 +290,11 @@ namespace Data_Access_Layer
         {
             get
             {
-                return db.Users.Count();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    return db.Users.Count();
+                }
             }
         }
         /// <summary>
@@ -237,16 +304,22 @@ namespace Data_Access_Layer
         {
             get
             {
-
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.MessageCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.MessageCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.MessageCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.MessageCount = value;
+                    db.SaveChanges();
+                }
             }
         }
         /// <summary>
@@ -256,7 +329,11 @@ namespace Data_Access_Layer
         {
             get
             {
-                return db.ExceptionLog.Count();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    return db.ExceptionLog.Count();
+                }
             }
 
         }
@@ -268,15 +345,22 @@ namespace Data_Access_Layer
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.TimersCreated;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.TimersCreated;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                misc.TimersCreated = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    misc.TimersCreated = value;
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -287,14 +371,22 @@ namespace Data_Access_Layer
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.RemindersCreated;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.RemindersCreated;
+                }
             }
             set
             {
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.RemindersCreated = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.RemindersCreated = value;
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -305,15 +397,22 @@ namespace Data_Access_Layer
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.ImportCount;                
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.ImportCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.ImportCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.ImportCount = value;
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -324,15 +423,22 @@ namespace Data_Access_Layer
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.ExportCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.ExportCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.ExportCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.ExportCount = value;
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -343,15 +449,22 @@ namespace Data_Access_Layer
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.RecoverCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.RecoverCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.RecoverCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.RecoverCount = value;
+                    db.SaveChanges();
+                }
             }
         }
         //--
@@ -359,90 +472,132 @@ namespace Data_Access_Layer
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.PreviewCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.PreviewCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.PreviewCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.PreviewCount = value;
+                    db.SaveChanges();
+                }
             }
         }
         public static int DuplicateCount
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.DuplicateCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.DuplicateCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.DuplicateCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.DuplicateCount = value;
+                    db.SaveChanges();
+                }
             }
         }
         public static int HideCount
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.HideCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.HideCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.HideCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.HideCount = value;
+                    db.SaveChanges();
+                }
             }
         }
         public static int PostponeCount
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.PostponeCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.PostponeCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.PostponeCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.PostponeCount = value;
+                    db.SaveChanges();
+                }
             }
         }
         public static int SkipCount
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.SkipCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.SkipCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.SkipCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.SkipCount = value;
+                    db.SaveChanges();
+                }
             }
         }
         public static int PermanentelyDeleteCount
         {
             get
             {
-                Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
-                return misc.PermanentelyDeleteCount;
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
+                    return misc.PermanentelyDeleteCount;
+                }
             }
             set
             {
-
-                Misc misc = db.Misc.SingleOrDefault();
-                misc.PermanentelyDeleteCount = value;
-                db.SaveChanges();
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    db.Database.Connection.Open();
+                    Misc misc = db.Misc.SingleOrDefault();
+                    misc.PermanentelyDeleteCount = value;
+                    db.SaveChanges();
+                }
             }
         }
     }
