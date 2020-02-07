@@ -10,17 +10,19 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 
 namespace RemindMe
 {
     /// <summary>
     /// This class will handle updating RemindMe.
     /// </summary>
+    ///     
     class RemindMeUpdater
     {
         private bool extractCompleted = false;
-        
+        private bool restartRemindMe = false;
+
         public void UpdateRemindMe() //This is called within a Thread
         {
             try
@@ -58,6 +60,9 @@ namespace RemindMe
 
                         while (!extractCompleted) { } //Busy waiting, but we're in a thread anyway
                         BLIO.Log("UpdateRemindMe() took: " + (long)(DateTime.UtcNow - dateNow).TotalMilliseconds + " ms");
+
+                        if (restartRemindMe)
+                            Application.Restart();
                     }
                     catch (Exception ex) //do rollback
                     {
@@ -87,7 +92,7 @@ namespace RemindMe
             extractCompleted = (e.BytesTransferred == e.TotalBytesToTransfer);
 
             if (extractCompleted)
-                BLIO.Log("Zip extract completed.");
+                BLIO.Log("[Zip_ExtractProgress]   Zip extract completed.");
         }
 
         /// <summary>
@@ -129,6 +134,9 @@ namespace RemindMe
                 if (lines.Count > 0)
                     BLIO.Log("Sucessfully loaded raw version.txt from github");
 
+                if (lines.Count >= 2 && lines[1].Contains("major")) //Minor = dont need to restart RemindMe immediately, Major = restart.
+                    restartRemindMe = true;
+
                 return new Version(lines[0]);                
             }
             catch (Exception ex)
@@ -161,9 +169,6 @@ namespace RemindMe
 
         private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            // print progress of download.
-            if (e.ProgressPercentage >= 100)
-                BLIO.Log("[Downloader_DownloadProgressChanged]   DOWNLOAD COMPLETE");
         }
 
         private void Downloader_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)

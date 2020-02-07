@@ -135,8 +135,9 @@ namespace Data_Access_Layer
                     usr.LastOnline = DateTime.UtcNow;
                     usr.SignIns++;
                     usr.RemindMeVersion = remindMeVersion;
+                    db.SaveChanges();
                 }               
-                db.SaveChanges();
+                
             }
         }
 
@@ -282,21 +283,7 @@ namespace Data_Access_Layer
                 db.SaveChanges();
             }
         }
-
-        /// <summary>
-        /// Gets the amount of users in the misc table
-        /// </summary>
-        public static int UserCount
-        {
-            get
-            {
-                using (remindmesqldbEntities db = new remindmesqldbEntities())
-                {
-                    db.Database.Connection.Open();
-                    return db.Users.Count();
-                }
-            }
-        }
+       
         /// <summary>
         /// Gets the amount of messages sent in the misc table
         /// </summary>
@@ -305,7 +292,7 @@ namespace Data_Access_Layer
             get
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
-                {
+                {                    
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.MessageCount;

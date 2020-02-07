@@ -20,6 +20,7 @@ using System.Security.Permissions;
 using System.Management;
 using Microsoft.Win32;
 using Ionic.Zip;
+using IWshRuntimeLibrary;
 
 namespace RemindMe
 {
@@ -166,16 +167,16 @@ namespace RemindMe
 
             try
             {
-                if (File.Exists(oldSystemLog)) File.Delete(oldSystemLog);
-                if (File.Exists(oldTempReminders)) File.Delete(oldTempReminders);
-                if (File.Exists(oldUpdateFilesZip)) File.Delete(oldUpdateFilesZip);
+                if (System.IO.File.Exists(oldSystemLog)) System.IO.File.Delete(oldSystemLog);
+                if (System.IO.File.Exists(oldTempReminders)) System.IO.File.Delete(oldTempReminders);
+                if (System.IO.File.Exists(oldUpdateFilesZip)) System.IO.File.Delete(oldUpdateFilesZip);
                 if (Directory.Exists(IOVariables.applicationFilesFolder + "\\old")) Directory.Delete(IOVariables.applicationFilesFolder + "\\old", true);
 
                 //If the errorlog is >= 5mb , clear it. That's a bit big..                                
                 if (new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 >= 5000)
                 {
                     BLIO.Log("= = = CLEARING ERROR LOG = = =");
-                    File.WriteAllText(IOVariables.errorLog, "");
+                    System.IO.File.WriteAllText(IOVariables.errorLog, "");
                 }
 
             }
@@ -299,8 +300,21 @@ namespace RemindMe
             BLIO.Log("Today's reminders popup created");
 
             //Create an shortcut in the windows startup folder if it doesn't already exist
-            if (!File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
+            if (!System.IO.File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
                 FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", System.Windows.Forms.Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
+            else
+            {
+                //shortcut does exist, let's see if the target of that shortcut isn't the old RemindMe in the programs files
+                WshShell shell = new WshShell(); //Create a new WshShell Interface
+                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(IOVariables.startupFolderPath + "\\RemindMe.lnk"); //Link the interface to our shortcut
+
+                if (link.TargetPath.ToString().Contains("StefanGansevlesPrograms") || link.TargetPath.ToString().Contains("Program Files"))
+                {
+                    BLIO.Log("Deleting old .lnk shortcut of RemindMe");
+                    System.IO.File.Delete(IOVariables.startupFolderPath + "\\RemindMe.lnk");
+                    FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", IOVariables.applicationFilesFolder + "RemindMe.exe", "Shortcut of RemindMe");
+                }
+            }
 
 
             if (Debugger.IsAttached) //Debugging ? show extra option            
@@ -312,7 +326,7 @@ namespace RemindMe
             tmrUpdateRemindMe.Start();
 
             //If the setup still exists, delete it
-            File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");
+            System.IO.File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");
 
             Settings set = null;
             //Call the timer once
@@ -344,8 +358,8 @@ namespace RemindMe
             //Insert the errorlog.txt into the DB if it is not empty
             if (new FileInfo(IOVariables.errorLog).Length > 0 && new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 < 5000)
             {
-                BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, File.ReadAllText(IOVariables.errorLog), File.ReadLines(IOVariables.errorLog).Count());
-                File.WriteAllText(IOVariables.errorLog, "");
+                BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, System.IO.File.ReadAllText(IOVariables.errorLog), System.IO.File.ReadLines(IOVariables.errorLog).Count());
+                System.IO.File.WriteAllText(IOVariables.errorLog, "");
             }
 
             Random r = new Random();

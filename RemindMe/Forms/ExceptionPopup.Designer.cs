@@ -31,11 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExceptionPopup));
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.pnlMainGradient = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.tbFeedback = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pbIcon = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.pnlMainGradient = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.tbDummy = new System.Windows.Forms.TextBox();
+            this.lblMessage = new System.Windows.Forms.Label();
+            this.tbFeedback = new System.Windows.Forms.TextBox();
             this.lblText = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -44,11 +46,9 @@
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.lblMessage = new System.Windows.Forms.Label();
-            this.tbDummy = new System.Windows.Forms.TextBox();
-            this.pnlMainGradient.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
+            this.pnlMainGradient.SuspendLayout();
             this.pnlFooterButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -59,44 +59,6 @@
             this.bunifuDragControl1.Horizontal = true;
             this.bunifuDragControl1.TargetControl = this.panel1;
             this.bunifuDragControl1.Vertical = true;
-            // 
-            // pnlMainGradient
-            // 
-            this.pnlMainGradient.AutoSize = true;
-            this.pnlMainGradient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.pnlMainGradient.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMainGradient.BackgroundImage")));
-            this.pnlMainGradient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlMainGradient.Controls.Add(this.tbDummy);
-            this.pnlMainGradient.Controls.Add(this.lblMessage);
-            this.pnlMainGradient.Controls.Add(this.tbFeedback);
-            this.pnlMainGradient.Controls.Add(this.panel1);
-            this.pnlMainGradient.Controls.Add(this.lblText);
-            this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMainGradient.GradientBottomLeft = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.pnlMainGradient.GradientTopRight = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.pnlMainGradient.Location = new System.Drawing.Point(0, 0);
-            this.pnlMainGradient.Name = "pnlMainGradient";
-            this.pnlMainGradient.Quality = 10;
-            this.pnlMainGradient.Size = new System.Drawing.Size(531, 213);
-            this.pnlMainGradient.TabIndex = 1;
-            // 
-            // tbFeedback
-            // 
-            this.tbFeedback.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.tbFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbFeedback.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbFeedback.ForeColor = System.Drawing.Color.Gray;
-            this.tbFeedback.Location = new System.Drawing.Point(16, 136);
-            this.tbFeedback.Multiline = true;
-            this.tbFeedback.Name = "tbFeedback";
-            this.tbFeedback.Size = new System.Drawing.Size(449, 68);
-            this.tbFeedback.TabIndex = 5;
-            this.tbFeedback.Text = "If you can, please describe how this happened here...";
-            this.tbFeedback.Enter += new System.EventHandler(this.tbFeedback_Enter);
-            this.tbFeedback.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbFeedback_KeyUp);
-            this.tbFeedback.Leave += new System.EventHandler(this.tbFeedback_Leave);
             // 
             // panel1
             // 
@@ -131,6 +93,63 @@
             this.lblTitle.Size = new System.Drawing.Size(337, 23);
             this.lblTitle.TabIndex = 2;
             this.lblTitle.Text = "Oops! RemindMe didn\'t expect that";
+            // 
+            // pnlMainGradient
+            // 
+            this.pnlMainGradient.AutoSize = true;
+            this.pnlMainGradient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.pnlMainGradient.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMainGradient.BackgroundImage")));
+            this.pnlMainGradient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlMainGradient.Controls.Add(this.tbDummy);
+            this.pnlMainGradient.Controls.Add(this.lblMessage);
+            this.pnlMainGradient.Controls.Add(this.tbFeedback);
+            this.pnlMainGradient.Controls.Add(this.panel1);
+            this.pnlMainGradient.Controls.Add(this.lblText);
+            this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMainGradient.GradientBottomLeft = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.pnlMainGradient.GradientTopRight = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.pnlMainGradient.Location = new System.Drawing.Point(0, 0);
+            this.pnlMainGradient.Name = "pnlMainGradient";
+            this.pnlMainGradient.Quality = 10;
+            this.pnlMainGradient.Size = new System.Drawing.Size(531, 213);
+            this.pnlMainGradient.TabIndex = 1;
+            // 
+            // tbDummy
+            // 
+            this.tbDummy.Location = new System.Drawing.Point(535, 103);
+            this.tbDummy.Name = "tbDummy";
+            this.tbDummy.Size = new System.Drawing.Size(100, 20);
+            this.tbDummy.TabIndex = 4;
+            // 
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.BackColor = System.Drawing.Color.Transparent;
+            this.lblMessage.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.ForeColor = System.Drawing.Color.White;
+            this.lblMessage.Location = new System.Drawing.Point(14, 111);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(61, 16);
+            this.lblMessage.TabIndex = 2;
+            this.lblMessage.Text = "Extra info";
+            // 
+            // tbFeedback
+            // 
+            this.tbFeedback.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.tbFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbFeedback.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbFeedback.ForeColor = System.Drawing.Color.Gray;
+            this.tbFeedback.Location = new System.Drawing.Point(16, 136);
+            this.tbFeedback.Multiline = true;
+            this.tbFeedback.Name = "tbFeedback";
+            this.tbFeedback.Size = new System.Drawing.Size(449, 68);
+            this.tbFeedback.TabIndex = 5;
+            this.tbFeedback.Text = "If you can, please describe how this happened here...";
+            this.tbFeedback.Enter += new System.EventHandler(this.tbFeedback_Enter);
+            this.tbFeedback.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbFeedback_KeyUp);
+            this.tbFeedback.Leave += new System.EventHandler(this.tbFeedback_Leave);
             // 
             // lblText
             // 
@@ -172,12 +191,11 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 8F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(43, 15);
+            this.label1.Location = new System.Drawing.Point(37, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(285, 32);
+            this.label1.Size = new System.Drawing.Size(291, 16);
             this.label1.TabIndex = 3;
-            this.label1.Text = "If you\'re not running the latest version of RemindMe,\r\nUpdating to the latest ver" +
-    "sion might fix this.\r\n";
+            this.label1.Text = "Running the latest version of RemindMe might fix this.\r\n";
             // 
             // btnOk
             // 
@@ -236,25 +254,6 @@
             this.bunifuDragControl3.TargetControl = this.pbIcon;
             this.bunifuDragControl3.Vertical = true;
             // 
-            // lblMessage
-            // 
-            this.lblMessage.AutoSize = true;
-            this.lblMessage.BackColor = System.Drawing.Color.Transparent;
-            this.lblMessage.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage.ForeColor = System.Drawing.Color.White;
-            this.lblMessage.Location = new System.Drawing.Point(14, 111);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(61, 16);
-            this.lblMessage.TabIndex = 2;
-            this.lblMessage.Text = "Extra info";
-            // 
-            // tbDummy
-            // 
-            this.tbDummy.Location = new System.Drawing.Point(535, 103);
-            this.tbDummy.Name = "tbDummy";
-            this.tbDummy.Size = new System.Drawing.Size(100, 20);
-            this.tbDummy.TabIndex = 4;
-            // 
             // ExceptionPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,11 +267,11 @@
             this.Text = "ExceptionPopup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExceptionPopup_FormClosing);
             this.Load += new System.EventHandler(this.ExceptionPopup_Load);
-            this.pnlMainGradient.ResumeLayout(false);
-            this.pnlMainGradient.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
+            this.pnlMainGradient.ResumeLayout(false);
+            this.pnlMainGradient.PerformLayout();
             this.pnlFooterButtons.ResumeLayout(false);
             this.pnlFooterButtons.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

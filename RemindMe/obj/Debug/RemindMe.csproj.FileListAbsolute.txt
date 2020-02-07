@@ -229,3 +229,4 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\DotNetZip.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\DotNetZip.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\DotNetZip.xml
+D:\users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\Interop.IWshRuntimeLibrary.dll

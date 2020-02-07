@@ -39,7 +39,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
             this.btnOk = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.pnlMainGradient.SuspendLayout();
             this.pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
@@ -125,7 +124,6 @@
             // pnlFooterButtons
             // 
             this.pnlFooterButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.pnlFooterButtons.Controls.Add(this.label1);
             this.pnlFooterButtons.Controls.Add(this.btnOk);
             this.pnlFooterButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooterButtons.Location = new System.Drawing.Point(0, 298);
@@ -171,18 +169,6 @@
             this.btnOk.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(13, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(338, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Thank you for taking the time to update RemindMe";
-            // 
             // WhatsNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,7 +187,6 @@
             this.pnlContent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.pnlFooterButtons.ResumeLayout(false);
-            this.pnlFooterButtons.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,6 +203,5 @@
         private System.Windows.Forms.Panel pnlFooterButtons;
         private Bunifu.Framework.UI.BunifuFlatButton btnOk;
         private System.Windows.Forms.Panel pnlContent;
-        private System.Windows.Forms.Label label1;
     }
 }

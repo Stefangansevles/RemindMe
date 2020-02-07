@@ -26,6 +26,9 @@ namespace Business_Logic_Layer
         {
             new Thread(() =>
             {
+                if (!HasInternetAccess())
+                    return;
+
                 Settings set = BLSettings.Settings;
                 try
                 {

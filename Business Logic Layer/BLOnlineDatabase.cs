@@ -305,30 +305,7 @@ namespace Business_Logic_Layer
             return message;            
         }
 
-        /// <summary>
-        /// Gets the amount of users in the misc table
-        /// </summary>
-        public static int UserCount
-        {
-            get
-            {
-                try
-                {
-
-                    //Don't do anything without internet
-                    if (!BLIO.HasInternetAccess())
-                        return -1;
-                    else
-                        return DLOnlineDatabase.UserCount;
-                }
-                catch (Exception exc)
-                {
-                    BLIO.Log("BLOnlineDatabase.UserCount failed: exception occured: " + exc.GetType().ToString());
-                    BLIO.WriteError(exc, "BLOnlineDatabase.UserCount failed: exception occured: " + exc.ToString(), false);
-                    return -1;
-                }
-            }
-        }
+       
         /// <summary>
         /// Gets the amount of messages sent in the misc table
         /// </summary>
