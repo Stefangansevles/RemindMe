@@ -59,16 +59,6 @@
           <Property Name="SkipCount" Type="int" Nullable="false" />
           <Property Name="PermanentelyDeleteCount" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="NewInstallations">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="varchar(max)" Nullable="false" />
-          <Property Name="UniqueString" Type="varchar(max)" Nullable="false" />
-          <Property Name="InstallDate" Type="datetime" Nullable="false" />
-          <Property Name="InstallVersion" Type="varchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="RemindMeMessages">
           <Key>
             <PropertyRef Name="Id" />
@@ -115,7 +105,6 @@
           <EntitySet Name="ExceptionLog" EntityType="Self.ExceptionLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocalErrorLog" EntityType="Self.LocalErrorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Misc" EntityType="Self.Misc" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="NewInstallations" EntityType="Self.NewInstallations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RemindMeMessages" EntityType="Self.RemindMeMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -152,7 +141,6 @@
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" />
           <EntitySet Name="Users" EntityType="remindmesqldbModel.Users" />
           <EntitySet Name="EmailAttempts" EntityType="remindmesqldbModel.EmailAttempts" />
-          <EntitySet Name="NewInstallations" EntityType="remindmesqldbModel.NewInstallations" />
           <EntitySet Name="LocalErrorLog" EntityType="remindmesqldbModel.LocalErrorLog" />
           <EntitySet Name="Misc" EntityType="remindmesqldbModel.Misc" />
           <EntitySet Name="RemindMeMessages" EntityType="remindmesqldbModel.RemindMeMessages" />
@@ -183,16 +171,6 @@
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="NewInstallations">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UniqueString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="InstallDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="InstallVersion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="LocalErrorLog">
           <Key>
@@ -295,17 +273,6 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="E_mail" ColumnName="E-mail" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NewInstallations">
-            <EntityTypeMapping TypeName="remindmesqldbModel.NewInstallations">
-              <MappingFragment StoreEntitySet="NewInstallations">
-                <ScalarProperty Name="InstallVersion" ColumnName="InstallVersion" />
-                <ScalarProperty Name="InstallDate" ColumnName="InstallDate" />
-                <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -114,6 +114,12 @@ namespace RemindMe
             SystemEvents.PowerModeChanged += OnPowerChange;
 
             RemindMeIcon.Visible = true;
+
+            //Update LastOnline every 5 minutes
+            tmrPingActivity.Start();
+
+           
+            
             BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
         
@@ -285,89 +291,97 @@ namespace RemindMe
         /// Alternative Form_load method since form_load doesnt get called until you first double-click the RemindMe icon due to override SetVisibleCore
         /// </summary>
         private async Task formLoadAsync()
-        {           
-            BLIO.Log("RemindMe_Load");                        
-            
-            lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
-
-            //set unique user string            
-            BLIO.WriteUniqueString();
-            
-            //Default view should be reminders
-            pnlMain.Controls.Add(ucReminders);
-
-            RemindMeMessageFormManager.MakeTodaysRemindersPopup();
-            BLIO.Log("Today's reminders popup created");
-
-            //Create an shortcut in the windows startup folder if it doesn't already exist
-            if (!System.IO.File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
-                FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", System.Windows.Forms.Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
-            else
+        {
+            try
             {
-                //shortcut does exist, let's see if the target of that shortcut isn't the old RemindMe in the programs files
-                WshShell shell = new WshShell(); //Create a new WshShell Interface
-                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(IOVariables.startupFolderPath + "\\RemindMe.lnk"); //Link the interface to our shortcut
+                BLIO.Log("RemindMe_Load");
 
-                if (link.TargetPath.ToString().Contains("StefanGansevlesPrograms") || link.TargetPath.ToString().Contains("Program Files"))
+                lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
+
+                //set unique user string            
+                BLIO.WriteUniqueString();
+
+                //Default view should be reminders
+                pnlMain.Controls.Add(ucReminders);
+
+                RemindMeMessageFormManager.MakeTodaysRemindersPopup();
+                BLIO.Log("Today's reminders popup created");
+
+                //Create an shortcut in the windows startup folder if it doesn't already exist
+                if (!System.IO.File.Exists(IOVariables.startupFolderPath + "\\RemindMe" + ".lnk"))
+                    FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", System.Windows.Forms.Application.StartupPath + "\\" + "RemindMe.exe", "Shortcut of RemindMe");
+                else
                 {
-                    BLIO.Log("Deleting old .lnk shortcut of RemindMe");
-                    System.IO.File.Delete(IOVariables.startupFolderPath + "\\RemindMe.lnk");
-                    FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", IOVariables.applicationFilesFolder + "RemindMe.exe", "Shortcut of RemindMe");
+
+                    WshShell shell = new WshShell(); //Create a new WshShell Interface
+                    IWshShortcut link = (IWshShortcut)shell.CreateShortcut(IOVariables.startupFolderPath + "\\RemindMe.lnk"); //Link the interface to our shortcut
+
+                    //shortcut does exist, let's see if the target of that shortcut isn't the old RemindMe in the programs files
+                    if (link.TargetPath.ToString().Contains("StefanGansevlesPrograms") || link.TargetPath.ToString().Contains("Program Files"))
+                    {
+                        BLIO.Log("Deleting old .lnk shortcut of RemindMe");
+                        System.IO.File.Delete(IOVariables.startupFolderPath + "\\RemindMe.lnk");
+                        FSManager.Shortcuts.CreateShortcut(IOVariables.startupFolderPath, "RemindMe", IOVariables.applicationFilesFolder + "RemindMe.exe", "Shortcut of RemindMe");
+                    }
                 }
-            }
 
 
-            if (Debugger.IsAttached) //Debugging ? show extra option            
-                btnDebugMode.Visible = true;
+                if (Debugger.IsAttached) //Debugging ? show extra option            
+                    btnDebugMode.Visible = true;
 
 
-            BLSongs.InsertWindowsSystemSounds();
+                BLSongs.InsertWindowsSystemSounds();
 
-            tmrUpdateRemindMe.Start();
+                tmrUpdateRemindMe.Start();
 
-            //If the setup still exists, delete it
-            System.IO.File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");
+                //If the setup still exists, delete it
+                System.IO.File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");
 
-            Settings set = null;
-            //Call the timer once
-            Thread tr = new Thread(() =>
-            {
+                Settings set = BLSettings.Settings;
+                //Call the timer once
+                Thread tr = new Thread(() =>
+                {
                 //wait a bit, then call the update timer once. It then runs every 5 minutes
                 Thread.Sleep(5000);
-                tmrUpdateRemindMe_Tick(null, null);
-                set = BLSettings.Settings;
-                BLOnlineDatabase.InsertOrUpdateUser(set.UniqueString);
-                Thread.Sleep(1500);
-                if (set.LastVersion == null)
+                    tmrUpdateRemindMe_Tick(null, null);                    
+                    BLOnlineDatabase.InsertOrUpdateUser(set.UniqueString);
+
+                    if (set.LastVersion == null)
+                        set.LastVersion = IOVariables.RemindMeVersion;
+
+                    BLSettings.UpdateSettings(set);
+                });
+                tr.Start();
+
+
+                this.Opacity = 0;
+                this.ShowInTaskbar = true;
+                this.Show();
+                tmrInitialHide.Start();
+
+                //Insert the errorlog.txt into the DB if it is not empty
+                if (new FileInfo(IOVariables.errorLog).Length > 0 && new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 < 5000)
                 {
-                    //First time user! log it in the db
-                    BLOnlineDatabase.InsertFirstTimeUser(set.UniqueString);
-                    set.LastVersion = IOVariables.RemindMeVersion;
+                    string logContents = System.IO.File.ReadAllText(IOVariables.errorLog);
+                    int lineCount = System.IO.File.ReadLines(IOVariables.errorLog).Count();
+
+                    BLIO.Log("Inserting local error log with " + lineCount + " lines");
+                    BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, logContents, lineCount);
+                    System.IO.File.WriteAllText(IOVariables.errorLog, "");
                 }
-                BLSettings.UpdateSettings(set);
-            });
-            tr.Start();
 
-
-
-            this.Opacity = 0;
-            this.ShowInTaskbar = true;
-            this.Show();
-            tmrInitialHide.Start();
-
-            //Insert the errorlog.txt into the DB if it is not empty
-            if (new FileInfo(IOVariables.errorLog).Length > 0 && new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 < 5000)
-            {
-                BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, System.IO.File.ReadAllText(IOVariables.errorLog), System.IO.File.ReadLines(IOVariables.errorLog).Count());
-                System.IO.File.WriteAllText(IOVariables.errorLog, "");
+                Random r = new Random();
+                tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
+                tmrCheckRemindMeMessages.Start();
+                BLIO.Log("tmrCheckRemindMeMessages.Interval = " + tmrCheckRemindMeMessages.Interval / 1000 + " seconds.");
+                BLIO.Log("RemindMe loaded");
+                Cleanup();
             }
-
-            Random r = new Random();
-            tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
-            tmrCheckRemindMeMessages.Start();
-            BLIO.Log("tmrCheckRemindMeMessages.Interval = " + tmrCheckRemindMeMessages.Interval/1000 + " seconds.");
-            BLIO.Log("RemindMe loaded");
-            Cleanup();            
+            catch (Exception ex)
+            {
+                BLIO.Log("Exception in formLoadAsync() -> " + ex.GetType().ToString());
+                BLOnlineDatabase.AddException(ex, DateTime.Now, System.IO.Path.GetTempPath() + "SystemLog.txt");
+            }
         }
         private void Form1_Load(object sender, EventArgs e)
         {            
@@ -436,18 +450,15 @@ namespace RemindMe
                         releaseNotesString += "Version " + entry.Key + "\r\n" + entry.Value + "\r\n\r\n\r\n";
                     }
                 }
-                WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
-                wn.Location = this.Location;
-                wn.Show();
-
-
-                //Before updating the lastVersion, log the update in the db
-                BLOnlineDatabase.AddNewUpgrade(DateTime.Now, set.LastVersion, IOVariables.RemindMeVersion);
+                if (releaseNotesString.Length > 0)
+                {
+                    WhatsNew wn = new WhatsNew(set.LastVersion, releaseNotesString);
+                    wn.Location = this.Location;
+                    wn.Show();
+                }                
 
                 //Update the lastVersion
                 set.LastVersion = IOVariables.RemindMeVersion;
-
-
             }
             else
             {
@@ -720,6 +731,13 @@ namespace RemindMe
                     RemindMeMessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value, "RemindMe Developer");
                     break;
             }
-        }          
+        }
+
+        private void tmrPingActivity_Tick(object sender, EventArgs e)
+        {            
+            BLIO.Log("Pinging online status");
+            //Update LastOnline
+            BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+        }
     }
 }

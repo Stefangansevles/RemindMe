@@ -87,36 +87,6 @@ namespace Business_Logic_Layer
             return mess;
         }
 
-        /// <summary>
-        /// Adds a new entry to the database where a user updates their RemindMe version
-        /// </summary>
-        /// <param name="updateDate">Date of update</param>
-        /// <param name="previousVersion">The previously installed RemindMe version on his/her machine</param>
-        /// <param name="updateVersion">The version the user updated to</param>
-        public static void AddNewUpgrade(DateTime updateDate, string previousVersion, string updateVersion)
-        {
-            new Thread(() =>
-            {
-                try
-                {
-                    //Don't do anything without internet
-                    if (!BLIO.HasInternetAccess())
-                        return;
-
-                    if (!string.IsNullOrWhiteSpace(previousVersion) && !string.IsNullOrWhiteSpace(updateVersion))
-                        DLOnlineDatabase.AddNewUpgrade(updateDate, previousVersion, updateVersion);
-                    else
-                        BLIO.Log("Invalid previous/update version string parameter in BLOnlineDatabase.AddNewUpdate()");
-
-                }
-                catch (Exception exc)
-                {
-                    BLIO.Log("BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.GetType().ToString());
-                    BLIO.WriteError(exc, "BLOnlineDatabase.AddNewUpdate() failed: exception occured: " + exc.ToString(), false);
-                }
-            }).Start();
-        }
-
 
         /// <summary>
         /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
@@ -146,35 +116,7 @@ namespace Business_Logic_Layer
                     BLIO.WriteError(exc, "BLOnlineDatabase.InsertUser() failed: exception occured: " + exc.ToString(), false);
                 }
             }).Start();
-        }
-
-        /// <summary>
-        /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
-        /// </summary>
-        /// <param name="uniqueString"></param>
-        public static void InsertFirstTimeUser(string uniqueString)
-        {
-            new Thread(() =>
-            {
-                try
-                {
-
-                    //Don't do anything without internet
-                    if (!BLIO.HasInternetAccess())
-                        return;
-
-                    if (!string.IsNullOrWhiteSpace(uniqueString))
-                        DLOnlineDatabase.InsertFirstTimeUser(uniqueString, IOVariables.RemindMeVersion);
-                    else
-                        BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertFirstTimeUser(). String: " + uniqueString);
-                }
-                catch (Exception exc)
-                {
-                    BLIO.Log("BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.GetType().ToString());
-                    BLIO.WriteError(exc, "BLOnlineDatabase.InsertFirstTimeUser() failed: exception occured: " + exc.ToString(), false);
-                }
-            }).Start();
-        }
+        }       
 
         /// <summary>
         /// Inserts an e-mail into the database. In case sending the e-mail didn't work, it is still registered in the db

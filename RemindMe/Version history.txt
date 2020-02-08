@@ -952,3 +952,8 @@ right corner of your monitor.
 
 2.6.501
 - Fixed an issue where RemindMe wouldn't start on windows startup anymore since 2.6.500
+
+2.6.502
+- Removed database logging table
+- LastOnline is now being pinged every 5 minutes
+- Small bugfix with NPE in formloadasync

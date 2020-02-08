@@ -1,2 +1,3 @@
-2.6.501
-minor
+2.6.502
+update: minor
+silentUpdate: true

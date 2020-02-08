@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="remindmesqldbModel.UpdateLog" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="remindmesqldbModel.Users" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="remindmesqldbModel.EmailAttempts" Width="1.5" PointX="3.375" PointY="3.75" />
-        <EntityTypeShape EntityType="remindmesqldbModel.NewInstallations" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="remindmesqldbModel.LocalErrorLog" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="remindmesqldbModel.Misc" Width="1.5" PointX="3.375" PointY="6.75" />
         <EntityTypeShape EntityType="remindmesqldbModel.RemindMeMessages" Width="1.5" PointX="5.375" PointY="6.75" />

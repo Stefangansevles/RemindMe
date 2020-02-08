@@ -36,6 +36,7 @@ namespace RemindMe
         //The instance of the user control that lets an user alter a reminder.
         private static UCNewReminder newReminderUc;
 
+        public bool showUpdateMessage = true;
 
         public UCReminders()
         {
@@ -535,7 +536,7 @@ namespace RemindMe
 
         private void tmrCheckForUpdates_Tick(object sender, EventArgs e)
         {
-            if(Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
+            if(showUpdateMessage && Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
             {
                 RemindMeMessageFormManager.MakeMessagePopup("RemindMe has updated.\r\nRestart RemindMe to load these changes directly.", 15);
                 tmrCheckForUpdates.Stop();

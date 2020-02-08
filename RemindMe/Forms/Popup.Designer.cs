@@ -437,7 +437,7 @@
             // 
             this.pbRepeat.BackgroundImage = global::RemindMe.Properties.Resources.Repeatwhite;
             this.pbRepeat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbRepeat.Location = new System.Drawing.Point(10, 1);
+            this.pbRepeat.Location = new System.Drawing.Point(10, 27);
             this.pbRepeat.Name = "pbRepeat";
             this.pbRepeat.Size = new System.Drawing.Size(23, 23);
             this.pbRepeat.TabIndex = 114;
@@ -448,7 +448,7 @@
             this.pbDate.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
             this.pbDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbDate.ImageLocation = "";
-            this.pbDate.Location = new System.Drawing.Point(10, 27);
+            this.pbDate.Location = new System.Drawing.Point(10, 1);
             this.pbDate.Name = "pbDate";
             this.pbDate.Size = new System.Drawing.Size(23, 23);
             this.pbDate.TabIndex = 116;
@@ -459,7 +459,7 @@
             this.lblRepeat.AutoSize = true;
             this.lblRepeat.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
             this.lblRepeat.ForeColor = System.Drawing.Color.White;
-            this.lblRepeat.Location = new System.Drawing.Point(40, 5);
+            this.lblRepeat.Location = new System.Drawing.Point(40, 29);
             this.lblRepeat.Name = "lblRepeat";
             this.lblRepeat.Size = new System.Drawing.Size(52, 16);
             this.lblRepeat.TabIndex = 115;
@@ -470,7 +470,7 @@
             this.lblSmallDate.AutoSize = true;
             this.lblSmallDate.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
             this.lblSmallDate.ForeColor = System.Drawing.Color.White;
-            this.lblSmallDate.Location = new System.Drawing.Point(40, 29);
+            this.lblSmallDate.Location = new System.Drawing.Point(40, 5);
             this.lblSmallDate.Name = "lblSmallDate";
             this.lblSmallDate.Size = new System.Drawing.Size(35, 16);
             this.lblSmallDate.TabIndex = 117;

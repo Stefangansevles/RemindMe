@@ -46,10 +46,10 @@
             this.tmrUpdateRemindMe = new System.Windows.Forms.Timer(this.components);
             this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
             this.tmrCheckRemindMeMessages = new System.Windows.Forms.Timer(this.components);
-            this.tmrTest = new System.Windows.Forms.Timer(this.components);
+            this.tmrPingActivity = new System.Windows.Forms.Timer(this.components);
             this.pnlMain = new Bunifu.Framework.UI.BunifuGradientPanel();
-            this.btnDebugMode = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlSide = new Bunifu.Framework.UI.BunifuGradientPanel();
+            this.btnDebugMode = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnSupport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnResizePopup = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnSoundEffects = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -208,6 +208,11 @@
             this.tmrCheckRemindMeMessages.Interval = 5000;
             this.tmrCheckRemindMeMessages.Tick += new System.EventHandler(this.tmrCheckRemindMeMessages_Tick);
             // 
+            // tmrPingActivity
+            // 
+            this.tmrPingActivity.Interval = 300000;
+            this.tmrPingActivity.Tick += new System.EventHandler(this.tmrPingActivity_Tick);
+            // 
             // pnlMain
             // 
             this.pnlMain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlMain.BackgroundImage")));
@@ -222,6 +227,31 @@
             this.pnlMain.Quality = 10;
             this.pnlMain.Size = new System.Drawing.Size(666, 436);
             this.pnlMain.TabIndex = 2;
+            // 
+            // pnlSide
+            // 
+            this.pnlSide.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSide.BackgroundImage")));
+            this.pnlSide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSide.Controls.Add(this.btnDebugMode);
+            this.pnlSide.Controls.Add(this.btnSupport);
+            this.pnlSide.Controls.Add(this.btnResizePopup);
+            this.pnlSide.Controls.Add(this.btnSoundEffects);
+            this.pnlSide.Controls.Add(this.btnWindowOverlay);
+            this.pnlSide.Controls.Add(this.btnBackupImport);
+            this.pnlSide.Controls.Add(this.btnTimer);
+            this.pnlSide.Controls.Add(this.btnReminders);
+            this.pnlSide.Controls.Add(this.pictureBox1);
+            this.pnlSide.Controls.Add(this.lblVersion);
+            this.pnlSide.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlSide.GradientBottomLeft = System.Drawing.Color.DimGray;
+            this.pnlSide.GradientBottomRight = System.Drawing.Color.Gray;
+            this.pnlSide.GradientTopLeft = System.Drawing.Color.Silver;
+            this.pnlSide.GradientTopRight = System.Drawing.Color.DimGray;
+            this.pnlSide.Location = new System.Drawing.Point(0, 0);
+            this.pnlSide.Name = "pnlSide";
+            this.pnlSide.Quality = 10;
+            this.pnlSide.Size = new System.Drawing.Size(200, 562);
+            this.pnlSide.TabIndex = 0;
             // 
             // btnDebugMode
             // 
@@ -259,31 +289,6 @@
             this.btnDebugMode.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDebugMode.Visible = false;
             this.btnDebugMode.Click += new System.EventHandler(this.btnDebugMode_Click);
-            // 
-            // pnlSide
-            // 
-            this.pnlSide.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlSide.BackgroundImage")));
-            this.pnlSide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlSide.Controls.Add(this.btnDebugMode);
-            this.pnlSide.Controls.Add(this.btnSupport);
-            this.pnlSide.Controls.Add(this.btnResizePopup);
-            this.pnlSide.Controls.Add(this.btnSoundEffects);
-            this.pnlSide.Controls.Add(this.btnWindowOverlay);
-            this.pnlSide.Controls.Add(this.btnBackupImport);
-            this.pnlSide.Controls.Add(this.btnTimer);
-            this.pnlSide.Controls.Add(this.btnReminders);
-            this.pnlSide.Controls.Add(this.pictureBox1);
-            this.pnlSide.Controls.Add(this.lblVersion);
-            this.pnlSide.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlSide.GradientBottomLeft = System.Drawing.Color.DimGray;
-            this.pnlSide.GradientBottomRight = System.Drawing.Color.Gray;
-            this.pnlSide.GradientTopLeft = System.Drawing.Color.Silver;
-            this.pnlSide.GradientTopRight = System.Drawing.Color.DimGray;
-            this.pnlSide.Location = new System.Drawing.Point(0, 0);
-            this.pnlSide.Name = "pnlSide";
-            this.pnlSide.Quality = 10;
-            this.pnlSide.Size = new System.Drawing.Size(200, 562);
-            this.pnlSide.TabIndex = 0;
             // 
             // btnSupport
             // 
@@ -618,7 +623,7 @@
         private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
         private System.Windows.Forms.Timer tmrInitialHide;
         private System.Windows.Forms.Timer tmrCheckRemindMeMessages;
-        private System.Windows.Forms.Timer tmrTest;
+        private System.Windows.Forms.Timer tmrPingActivity;
     }
 }
 

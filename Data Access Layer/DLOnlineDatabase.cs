@@ -56,28 +56,7 @@ namespace Data_Access_Layer
                 return usr == null;
             }
         }
-
-        /// <summary>
-        /// Adds a new entry to the database where a user updates their RemindMe version
-        /// </summary>
-        /// <param name="updateDate">Date of update</param>
-        /// <param name="previousVersion">The previously installed RemindMe version on his/her machine</param>
-        /// <param name="updateVersion">The version the user updated to</param>
-        public static void AddNewUpgrade(DateTime updateDate, string previousVersion, string updateVersion)
-        {
-            using (remindmesqldbEntities db = new remindmesqldbEntities())
-            {
-                db.Database.Connection.Open();
-                UpdateLog log = new UpdateLog();
-                log.UpdateDate = updateDate;
-                log.PreviousVersion = previousVersion;
-                log.UpdateVersion = updateVersion;
-                log.Username = Environment.UserName;
-
-                db.UpdateLog.Add(log);
-                db.SaveChanges();
-            }
-        }
+       
 
         /// <summary>
         /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
@@ -139,31 +118,7 @@ namespace Data_Access_Layer
                 }               
                 
             }
-        }
-
-        /// <summary>
-        /// Inserts a user into the database for the first time (different database table)
-        /// </summary>
-        /// <param name="uniqueString"></param>
-        public static void InsertFirstTimeUser(string uniqueString, string remindMeVersion)
-        {
-            using (remindmesqldbEntities db = new remindmesqldbEntities())
-            {
-                db.Database.Connection.Open();
-                //If the user doesn't exist in the db yet (It shouldn't!)
-                if (db.NewInstallations.Where(u => u.UniqueString == uniqueString).Count() == 0)
-                {
-                    NewInstallations ni = new NewInstallations();
-                    ni.Username = Environment.UserName;
-                    ni.UniqueString = uniqueString;
-                    ni.InstallDate = DateTime.UtcNow;
-                    ni.InstallVersion = remindMeVersion;
-
-                    db.NewInstallations.Add(ni);
-                    db.SaveChanges();
-                }
-            }
-        }
+        }       
 
         /// <summary>
         /// Inserts an e-mail into the database. In case sending the e-mail didn't work, it is still registered in the db
