@@ -30,13 +30,13 @@ namespace Business_Logic_Layer
                     if (!BLIO.HasInternetAccess())
                         return;
 
-                    //Don't log these kind of exceptions
+                    /*Don't log these kind of exceptions
                     if (ex is System.Data.Entity.Core.EntityException || ex is System.Data.Entity.Core.EntityCommandExecutionException
                      || ex is System.Data.SqlClient.SqlException)
                     {
                         BLIO.Log("AddException() Skipped. Exception is " + ex.GetType().ToString());
                         return;
-                    }
+                    }*/ //Temporary disabled to see if the change in 2.6.503 fixed this
 
                     if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
                         DLOnlineDatabase.AddException(ex, exceptionDate, pathToSystemLog, customMessage, GetAlternativeExceptionMessage(ex));

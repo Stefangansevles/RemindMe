@@ -960,3 +960,6 @@ right corner of your monitor.
 
 2.6.503
 Database retry on failure (opening db connection)
+
+2.6.504
+Re-added database exception logging
