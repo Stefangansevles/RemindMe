@@ -12,6 +12,18 @@ namespace Data_Access_Layer
     public class DLOnlineDatabase
     {                
         private DLOnlineDatabase() { }
+        private const int MAX_ATTEMPTS = 10;
+        private static bool CanConnect(remindmesqldbEntities db)
+        {
+            try
+            {
+                db.Database.Connection.Open();
+                db.Database.Connection.Close();
+            }
+            catch { return false; }
+
+            return true;
+        }
 
         /// <summary>
         /// Logs an exception to the online database
@@ -20,8 +32,16 @@ namespace Data_Access_Layer
         /// <param name="exceptionDate">The date the exception is logged at</param>
         public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage, string alternativeExceptionMessage)
         {
+            int attemptCount = 0;
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
+                while(!CanConnect(db))
+                {
+                    Thread.Sleep(500);
+                    if (attemptCount > MAX_ATTEMPTS)
+                        break;
+                }
+
                 db.Database.Connection.Open();
                 ExceptionLog log = new ExceptionLog();
                 log.ExceptionDate = exceptionDate;
@@ -51,6 +71,13 @@ namespace Data_Access_Layer
         {
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
+                int attemptCount = 0;
+                while (!CanConnect(db))
+                {
+                    Thread.Sleep(500);
+                    if (attemptCount > MAX_ATTEMPTS)
+                        break;
+                }
                 db.Database.Connection.Open();
                 Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
                 return usr == null;
@@ -66,6 +93,13 @@ namespace Data_Access_Layer
         {
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
+                int attemptCount = 0;
+                while (!CanConnect(db))
+                {
+                    Thread.Sleep(500);
+                    if (attemptCount > MAX_ATTEMPTS)
+                        break;
+                }
                 db.Database.Connection.Open();
                 Users usr;
                 //If the user doesn't exist in the db yet...
@@ -103,6 +137,13 @@ namespace Data_Access_Layer
         {
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
+                int attemptCount = 0;
+                while (!CanConnect(db))
+                {
+                    Thread.Sleep(500);
+                    if (attemptCount > MAX_ATTEMPTS)
+                        break;
+                }
                 db.Database.Connection.Open();
                 Users usr;
                 //If the user doesn't exist in the db yet...
@@ -131,6 +172,13 @@ namespace Data_Access_Layer
         {
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
+                int attemptCount = 0;
+                while (!CanConnect(db))
+                {
+                    Thread.Sleep(500);
+                    if (attemptCount > MAX_ATTEMPTS)
+                        break;
+                }
                 db.Database.Connection.Open();
                 EmailAttempts ea = new EmailAttempts();
                 ea.Username = Environment.UserName;
@@ -156,6 +204,13 @@ namespace Data_Access_Layer
         {
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
+                int attemptCount = 0;
+                while (!CanConnect(db))
+                {
+                    Thread.Sleep(500);
+                    if (attemptCount > MAX_ATTEMPTS)
+                        break;
+                }
                 db.Database.Connection.Open();
                 LocalErrorLog loc = new LocalErrorLog();
                 loc.TimeStamp = DateTime.UtcNow;
@@ -180,6 +235,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     List<Database.Entity.RemindMeMessages> list = new List<Database.Entity.RemindMeMessages>();
                     Database.Entity.RemindMeMessages message;
@@ -216,6 +278,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     return db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
                 }
@@ -232,6 +301,13 @@ namespace Data_Access_Layer
         {
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
+                int attemptCount = 0;
+                while (!CanConnect(db))
+                {
+                    Thread.Sleep(500);
+                    if (attemptCount > MAX_ATTEMPTS)
+                        break;
+                }
                 db.Database.Connection.Open();
                 RemindMeMessages mess = db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
                 mess.ReadByAmountOfUsers++;
@@ -247,7 +323,14 @@ namespace Data_Access_Layer
             get
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
-                {                    
+                {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.MessageCount;
@@ -257,6 +340,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.MessageCount = value;
@@ -273,6 +363,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     return db.ExceptionLog.Count();
                 }
@@ -289,6 +386,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.TimersCreated;
@@ -298,6 +402,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     misc.TimersCreated = value;
@@ -315,6 +426,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.RemindersCreated;
@@ -324,6 +442,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.RemindersCreated = value;
@@ -341,6 +466,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.ImportCount;
@@ -350,6 +482,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.ImportCount = value;
@@ -367,6 +506,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.ExportCount;
@@ -376,6 +522,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.ExportCount = value;
@@ -393,6 +546,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.RecoverCount;
@@ -402,6 +562,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.RecoverCount = value;
@@ -416,6 +583,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PreviewCount;
@@ -425,6 +599,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.PreviewCount = value;
@@ -438,6 +619,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.DuplicateCount;
@@ -447,6 +635,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.DuplicateCount = value;
@@ -460,6 +655,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.HideCount;
@@ -469,6 +671,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.HideCount = value;
@@ -482,6 +691,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PostponeCount;
@@ -491,6 +707,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.PostponeCount = value;
@@ -504,6 +727,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.SkipCount;
@@ -513,6 +743,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.SkipCount = value;
@@ -526,6 +763,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PermanentelyDeleteCount;
@@ -535,6 +779,13 @@ namespace Data_Access_Layer
             {
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
+                    int attemptCount = 0;
+                    while (!CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
                     db.Database.Connection.Open();
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.PermanentelyDeleteCount = value;

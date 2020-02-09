@@ -30,6 +30,14 @@ namespace Business_Logic_Layer
                     if (!BLIO.HasInternetAccess())
                         return;
 
+                    //Don't log these kind of exceptions
+                    if (ex is System.Data.Entity.Core.EntityException || ex is System.Data.Entity.Core.EntityCommandExecutionException
+                     || ex is System.Data.SqlClient.SqlException)
+                    {
+                        BLIO.Log("AddException() Skipped. Exception is " + ex.GetType().ToString());
+                        return;
+                    }
+
                     if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
                         DLOnlineDatabase.AddException(ex, exceptionDate, pathToSystemLog, customMessage, GetAlternativeExceptionMessage(ex));
                     else
@@ -214,8 +222,11 @@ namespace Business_Logic_Layer
         /// <param name="id"></param>
         public static void UpdateRemindMeMessageCount(int id)
         {
-            if(id > -1)
-                DLOnlineDatabase.UpdateRemindMeMessageCount(id);
+            new Thread(() =>
+            {
+                if (id > -1)
+                    DLOnlineDatabase.UpdateRemindMeMessageCount(id);
+            });
         }
 
 

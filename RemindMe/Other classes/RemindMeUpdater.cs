@@ -60,8 +60,8 @@ namespace RemindMe
 
                         while (!extractCompleted) { } //Busy waiting, but we're in a thread anyway
                         BLIO.Log("UpdateRemindMe() took: " + (long)(DateTime.UtcNow - dateNow).TotalMilliseconds + " ms");
-
-                        if (restartRemindMe)
+                        
+                        if (restartRemindMe && !Form1.Instance.Visible)
                             Application.Restart();
                     }
                     catch (Exception ex) //do rollback

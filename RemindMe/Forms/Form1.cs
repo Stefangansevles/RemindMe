@@ -384,8 +384,8 @@ namespace RemindMe
             }
         }
         private void Form1_Load(object sender, EventArgs e)
-        {            
-                       
+        {
+            
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -738,6 +738,6 @@ namespace RemindMe
             BLIO.Log("Pinging online status");
             //Update LastOnline
             BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
-        }
+        }       
     }
 }

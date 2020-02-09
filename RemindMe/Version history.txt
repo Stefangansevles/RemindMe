@@ -957,3 +957,6 @@ right corner of your monitor.
 - Removed database logging table
 - LastOnline is now being pinged every 5 minutes
 - Small bugfix with NPE in formloadasync
+
+2.6.503
+Database retry on failure (opening db connection)
