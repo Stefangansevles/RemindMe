@@ -30,13 +30,13 @@ namespace Business_Logic_Layer
                     if (!BLIO.HasInternetAccess())
                         return;
 
-                    /*Don't log these kind of exceptions
+                    //Don't log these kind of exceptions
                     if (ex is System.Data.Entity.Core.EntityException || ex is System.Data.Entity.Core.EntityCommandExecutionException
                      || ex is System.Data.SqlClient.SqlException)
                     {
                         BLIO.Log("AddException() Skipped. Exception is " + ex.GetType().ToString());
                         return;
-                    }*/ //Temporary disabled to see if the change in 2.6.503 fixed this
+                    }
 
                     if (ex != null && ex.Message != null && ex.StackTrace != null && exceptionDate != null)
                         DLOnlineDatabase.AddException(ex, exceptionDate, pathToSystemLog, customMessage, GetAlternativeExceptionMessage(ex));
@@ -110,7 +110,8 @@ namespace Business_Logic_Layer
                     if (!BLIO.HasInternetAccess())
                         return;
 
-                    BLIO.Log("Updating user");
+                    if (BLIO.LastLogMessage != null && !BLIO.LastLogMessage.Contains("Updating user"))
+                        BLIO.Log("Updating user");
 
                     if (!string.IsNullOrWhiteSpace(uniqueString))
                         DLOnlineDatabase.InsertOrUpdateUser(uniqueString, IOVariables.RemindMeVersion);
@@ -190,6 +191,10 @@ namespace Business_Logic_Layer
             }).Start();
         }
 
+        public static void ReAllowDatabaseAccess()
+        {
+            DLOnlineDatabase.ReAllowDatabaseAccess();
+        }
         /// <summary>
         /// Gets the RemindMe messages from the database, sent by the creator of RemindMe
         /// </summary>
@@ -206,10 +211,11 @@ namespace Business_Logic_Layer
                         return DLOnlineDatabase.RemindMeMessages;                    
                 }
                 catch (Exception exc)
-                {                                      
+                {
+                    string logTxtPath = IOVariables.systemLog;
                     BLIO.Log("BLOnlineDatabase.RemindMeMessages failed: exception occured: " + exc.GetType().ToString());
                     BLIO.WriteError(exc, "BLOnlineDatabase.RemindMeMessages failed: exception occured: " + exc.ToString(), false);
-                    AddException(exc, DateTime.Now, BLIO.GetLogTxtPath(), null);
+                    AddException(exc, DateTime.Now, logTxtPath, null);
                     return new List<Database.Entity.RemindMeMessages>();
                 }
             }

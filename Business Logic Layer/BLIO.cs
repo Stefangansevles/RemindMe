@@ -126,24 +126,19 @@ namespace Business_Logic_Layer
             }
         }
 
-        /// <summary>
-        /// Saves the current log to a temporary path in .txt format and returns the path to the file
-        /// </summary>
-        /// <returns>The path to the .txt log file</returns>
-        public static string GetLogTxtPath()
+       
+        public static int DumpLogTxt()
         {
-            string path = System.IO.Path.GetTempPath() + "SystemLog.txt";
+            if (File.Exists(IOVariables.systemLog)) File.Delete(IOVariables.systemLog);
 
-            if (File.Exists(path)) File.Delete(path);
-
-            using (FileStream fs = new FileStream(path, FileMode.Append))
+            using (FileStream fs = new FileStream(IOVariables.systemLog, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                foreach(string line in systemLog)                
-                    sw.WriteLine(line);                
-                
+                foreach (string line in systemLog)
+                    sw.WriteLine(line);
+
             }
-            return path;
+            return systemLog.Count;
         }
         
         
@@ -213,25 +208,29 @@ namespace Business_Logic_Layer
         {            
             new Thread(() =>
             {
-                //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
-                //that has an bunifu control in it(like a button), while there shouldn't be an exception.
-                if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
-                    return;
+                try
+                {
+                    //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
+                    //that has an bunifu control in it(like a button), while there shouldn't be an exception.
+                    if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
+                        return;
 
-                if (sendToOnlineDatabase && HasInternetAccess())
-                {
-                    BLOnlineDatabase.AddException(ex, DateTime.Now, GetLogTxtPath());
-                }
-                else
-                {
-                    //Only write to the errorlog.txt if writing to the database failed, since we insert the errorlog into the database
-                    //at a different time when above doesn't fail
-                    using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {                        
-                        sw.WriteLine("[" + DateTime.Now + "] - " + message + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine);
+                    if (sendToOnlineDatabase && HasInternetAccess())
+                    {
+                        BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
+                    }
+                    else
+                    {
+                        //Only write to the errorlog.txt if writing to the database failed, since we insert the errorlog into the database
+                        //at a different time when above doesn't fail
+                        using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
+                        using (StreamWriter sw = new StreamWriter(fs))
+                        {
+                            sw.WriteLine("[" + DateTime.Now + "] - " + message + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine);
+                        }
                     }
                 }
+                catch { }
 
             }).Start();
            

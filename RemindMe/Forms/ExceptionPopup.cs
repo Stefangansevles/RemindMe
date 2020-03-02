@@ -48,9 +48,10 @@ namespace RemindMe
         {
             try
             {
+                string logTxtPath = IOVariables.systemLog;
                 BLIO.Log("Closing ExceptionPopup...");
                 if (!customFeedback) //If the user didn't leave instructions of how this problem happened, just log the exception / stacktrace and logfile
-                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, BLIO.GetLogTxtPath());
+                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath);
             }
             catch { }
         }
@@ -60,12 +61,13 @@ namespace RemindMe
             try
             {
                 BLIO.Log("btnOk pressed on ExceptionPopup. textbox text = " + tbFeedback.Text);
+                string logTxtPath = IOVariables.systemLog;
                 string textBoxText = tbFeedback.Text; //Cant access tbNote in a thread. save the text in a variable instead
 
                 if (string.IsNullOrWhiteSpace(textBoxText) || tbFeedback.ForeColor == Color.Gray)
                     textBoxText = null;
                 
-                BLOnlineDatabase.AddException(exception, DateTime.UtcNow, BLIO.GetLogTxtPath(), textBoxText);
+                BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, textBoxText);
 
                 if(textBoxText != null && tbFeedback.ForeColor != Color.Gray)
                     RemindMeMessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);

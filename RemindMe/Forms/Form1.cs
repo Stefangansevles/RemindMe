@@ -56,8 +56,9 @@ namespace RemindMe
         private bool allowshowdisplay = false;
 
         public Form1()
-        {
-            BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");                       
+        {            
+            BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");
+            Cleanup();
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
@@ -99,7 +100,7 @@ namespace RemindMe
             ucReminders.Initialize();
 
             m_GlobalHook = Hook.GlobalEvents();
-            m_GlobalHook.KeyUp += GlobalKeyPress;
+            m_GlobalHook.KeyDown += GlobalKeyPress;
 
             //Set the Renderer of the menustrip to our custom renderer, which sets the highlight and border collor to DimGray, which is the same
             //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
@@ -118,8 +119,10 @@ namespace RemindMe
             //Update LastOnline every 5 minutes
             tmrPingActivity.Start();
 
-           
-            
+            tmrDumpLogTxtContents.Start();
+
+            tmrEnableDatabaseAccess.Start();
+
             BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
         
@@ -165,28 +168,50 @@ namespace RemindMe
         }
        
         private void Cleanup()
-        {            
+        {
+            BLIO.Log("Starting Cleanup...");
             //RemindMe loaded, if an old system log/temp reminders still exists, delete it
-            string oldSystemLog = System.IO.Path.GetTempPath() + "SystemLog.txt";
+            string oldSystemLog = IOVariables.systemLog;
             string oldTempReminders = System.IO.Path.GetTempPath() + "Exported Reminders.remindme";
             string oldUpdateFilesZip = IOVariables.rootFolder + "UpdateFiles.zip";            
-
+            
             try
             {
-                if (System.IO.File.Exists(oldSystemLog)) System.IO.File.Delete(oldSystemLog);
-                if (System.IO.File.Exists(oldTempReminders)) System.IO.File.Delete(oldTempReminders);
-                if (System.IO.File.Exists(oldUpdateFilesZip)) System.IO.File.Delete(oldUpdateFilesZip);
-                if (Directory.Exists(IOVariables.applicationFilesFolder + "\\old")) Directory.Delete(IOVariables.applicationFilesFolder + "\\old", true);
+                if (System.IO.File.Exists(oldSystemLog))
+                {
+                    System.IO.File.Delete(oldSystemLog);
+                    BLIO.Log("- Deleted   " + Path.GetFileName(oldSystemLog));
+                }
+                if (System.IO.File.Exists(oldTempReminders))
+                {
+                    System.IO.File.Delete(oldTempReminders);
+                    BLIO.Log("- Deleted   " + Path.GetFileName(oldTempReminders));
+                }
+                if (System.IO.File.Exists(oldUpdateFilesZip))
+                {
+                    System.IO.File.Delete(oldUpdateFilesZip);
+                    BLIO.Log("- Deleted   " + Path.GetFileName(oldUpdateFilesZip));
+                }
+                if (Directory.Exists(IOVariables.applicationFilesFolder + "\\old"))
+                {
+                    Directory.Delete(IOVariables.applicationFilesFolder + "\\old", true);
+                    BLIO.Log("- Deleted   \\old Folder");
+                }
 
                 //If the errorlog is >= 5mb , clear it. That's a bit big..                                
                 if (new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 >= 5000)
                 {
-                    BLIO.Log("= = = CLEARING ERROR LOG = = =");
+                    BLIO.Log("Clearing error log that is too large... ["+ new System.IO.FileInfo(IOVariables.errorLog).Length/1024+".mb ]");
                     System.IO.File.WriteAllText(IOVariables.errorLog, "");
                 }
 
+                BLIO.Log("Cleanup complete.");
             }
-            catch (IOException ex) { BLIO.WriteError(ex, "Error in Cleanup()"); }
+            catch (IOException ex)
+            {
+                BLIO.Log("Cleanup() FAILED.");
+                BLIO.WriteError(ex, "Error in Cleanup()");
+            }
         }
 
         /*This was testing a custom color scheme
@@ -266,7 +291,7 @@ namespace RemindMe
         /// <param name="sender"></param>
         /// <param name="e">The keyeventargs which contains the pressed keys</param>
         private void GlobalKeyPress(object sender, KeyEventArgs e)
-        {                        
+        {            
             if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
                 return;
 
@@ -281,6 +306,9 @@ namespace RemindMe
 
             if (e.Modifiers.ToString().Replace(" ", string.Empty) == timerHotkey.Modifiers && e.KeyCode.ToString() == timerHotkey.Key)
             {
+                //Don't allow other applications to also fire this key combination, ctrl+shift+r would for example reload the page at the same time
+                e.Handled = true;
+
                 BLIO.Log("Timer hotkey combination pressed!");
                 TimerPopup quickTimer = new TimerPopup();
                 quickTimer.Show();
@@ -374,18 +402,16 @@ namespace RemindMe
                 tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
                 tmrCheckRemindMeMessages.Start();
                 BLIO.Log("tmrCheckRemindMeMessages.Interval = " + tmrCheckRemindMeMessages.Interval / 1000 + " seconds.");
-                BLIO.Log("RemindMe loaded");
-                Cleanup();
+                BLIO.Log("RemindMe loaded");                
             }
             catch (Exception ex)
             {
                 BLIO.Log("Exception in formLoadAsync() -> " + ex.GetType().ToString());
-                BLOnlineDatabase.AddException(ex, DateTime.Now, System.IO.Path.GetTempPath() + "SystemLog.txt");
+                BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
             }
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {            
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -410,7 +436,7 @@ namespace RemindMe
             //Instead of calling .Show() on a form with 100% opacity making it visible instantly, we call .Show() on the form with 0% opacity.
             //The form will be drawn invisibly, and then increase the opacity until it reaches 100%. This way RemindMe's form:
             //1. Has a fade-in like animation when showing
-            //2. No longer shows flickery that occurs when drawing the form(windows-forms issue)
+            //2. No longer shows flickery that occurs when drawing the form(windows-forms drawing issue)
             allowshowdisplay = true;
             this.ShowInTaskbar = true;
             this.Show();
@@ -434,6 +460,7 @@ namespace RemindMe
             BLIO.Log("Showing RemindMe");
         }
 
+        //launch a form showing the user what is new since the last version(s)
         private void ShowWhatsNew()
         {
             Settings set = BLSettings.Settings;
@@ -606,6 +633,7 @@ namespace RemindMe
         private void btnDebugMode_Click(object sender, EventArgs e)
         {
             ToggleButton(sender);
+
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
 
@@ -656,9 +684,7 @@ namespace RemindMe
                 updater.UpdateRemindMe();
             }).Start();
             
-        }
-     
-        
+        }             
 
         private void tmrInitialHide_Tick(object sender, EventArgs e)
         {
@@ -669,51 +695,63 @@ namespace RemindMe
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            BLIO.Log("Form1_FormClosing   ["+e.CloseReason+"]");
+            BLIO.DumpLogTxt();
+
             if (UCTimer.RunningTimers.Count > 0)            
                 if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)                
                     e.Cancel = true;            
         }
         
         private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)
-        {            
-            //Check for messages sent by me every minute
-            foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
-            {
-                //first, check if this user has already read this message.
-                if (BLReadMessages.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
-                {
-                    BLIO.Log("RemindMe detected an unread message!");
-                    //User hasn't read it yet. great! Mark the message as read
-                    BLReadMessages.MarkMessageRead(message);
-                    BLIO.Log("Message marked as read.");
-
-                    if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
+        {
+            new Thread(() =>
+            {                
+                //Check for messages sent by me every minute
+                foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
+                {                    
+                    //first, check if this user has already read this message.
+                    if (BLReadMessages.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
                     {
-                        BLIO.Log("This message is specifically for me!");
-                        //This message is meant for a specific user.
-                        if (BLSettings.Settings.UniqueString == message.MeantForSpecificPerson)
-                            PopupRemindMeMessage(message);
-
-                    }
-                    else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
-                    {
-                        BLIO.Log("This message is specifically for the currently running RemindMe version (" + message.MeantForSpecificVersion + ")");
-                        //This message is meant for a specific RemindMe version. Only show this message if the user: Hasn't read this message AND: has this RemindMe version
-                        if (IOVariables.RemindMeVersion == message.MeantForSpecificVersion)
+                        this.BeginInvoke(new MethodInvoker(delegate //This is required to show windows forms (the messages) on a new thread
                         {
-                            //Show the message
-                            PopupRemindMeMessage(message);
-                        }
-                    }
-                    else
-                    {
-                        BLIO.Log("This is a global message. creating popup...");
-                        //A global message, not meant for a specific RemindMe version nor user
-                        PopupRemindMeMessage(message);
-                        BLIO.Log("popup created");
+                            BLIO.Log("RemindMe detected an unread message!");
+                            //User hasn't read it yet. great! Mark the message as read
+                            BLReadMessages.MarkMessageRead(message);
+                            BLIO.Log("Message marked as read.");
+
+                            if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
+                            {
+                                BLIO.Log("This message is specifically for me!");
+                                //This message is meant for a specific user.
+
+                                if (BLSettings.Settings.UniqueString == message.MeantForSpecificPerson)
+                                    PopupRemindMeMessage(message);
+
+                            }
+                            else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
+                            {
+                                BLIO.Log("This message is specifically for the currently running RemindMe version (" + message.MeantForSpecificVersion + ")");
+                                //This message is meant for a specific RemindMe version. Only show this message if the user: Hasn't read this message AND: has this RemindMe version
+                                if (IOVariables.RemindMeVersion == message.MeantForSpecificVersion)
+                                {
+                                    //Show the message
+                                    PopupRemindMeMessage(message);
+                                }
+                            }
+                            else
+                            {
+                                BLIO.Log("This is a global message. creating popup...");
+                                //A global message, not meant for a specific RemindMe version nor user
+                                PopupRemindMeMessage(message);
+                                BLIO.Log("popup created");
+                            }
+
+                        }));
                     }
                 }
-            }
+            }).Start();
+            
         }
 
         private void PopupRemindMeMessage(RemindMeMessages mess)
@@ -734,10 +772,31 @@ namespace RemindMe
         }
 
         private void tmrPingActivity_Tick(object sender, EventArgs e)
-        {            
-            BLIO.Log("Pinging online status");
+        {
+            if (BLIO.LastLogMessage != null && !BLIO.LastLogMessage.Contains("Updating user"))
+                BLIO.Log("Pinging online status");
+
             //Update LastOnline
             BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
-        }       
+        }
+
+        private void tmrWriteLogContents_Tick(object sender, EventArgs e)
+        {
+            
+        }
+
+        int currentLogCount = 0;
+        private void tmrDumpLogTxtContents_Tick(object sender, EventArgs e)
+        {
+            if(BLIO.systemLog.Count != currentLogCount)
+                currentLogCount = BLIO.DumpLogTxt();
+        }
+
+        private void tmrEnableDatabaseAccess_Tick(object sender, EventArgs e)
+        {
+            //If we could not connect to the database, the Data Access Layer will no longer try to connect to the database again. 
+            //This timer will re-enable this every 10 minutes, just in case the database is no longer available. Then, if it is available again, continue as usual.
+            BLOnlineDatabase.ReAllowDatabaseAccess();
+        }
     }
 }

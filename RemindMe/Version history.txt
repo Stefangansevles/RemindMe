@@ -961,5 +961,8 @@ right corner of your monitor.
 2.6.503
 Database retry on failure (opening db connection)
 
-2.6.504
+2.6.510
 Re-added database exception logging
+- When RemindMe can't connect to the database, it no longer lags or hangs
+- When you use the RemindMe Timer shortcut key, it no longer also activates shortcuts from other applications. 
+For example, creating a new timer with ctrl + shift + R  will no longer refresh your browser webpage if it is focused.

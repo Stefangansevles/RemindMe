@@ -51,10 +51,9 @@ namespace RemindMe
                         BLIO.Log("UpdateFiles.zip contains files for a new RemindMe version!");
 
                         //First, move the running files into an /old/ directory
-                        MoveOldFiles();
+                        MoveOldFiles();                        
 
                         //Now, move those updates files into the application directory, so that when the program starts the next time, RemindMe is updated! :)
-
                         zip.ExtractProgress += Zip_ExtractProgress;
                         zip.ExtractAll(IOVariables.applicationFilesFolder, ExtractExistingFileAction.OverwriteSilently);
 
@@ -76,9 +75,11 @@ namespace RemindMe
 
                             File.Move(fl, IOVariables.applicationFilesFolder + Path.GetFileName(fl));
                         }
+                        //Delete the /old
+                        Directory.Delete(IOVariables.applicationFilesFolder + "\\old");
                     }                    
                 }
-                else
+                else if (BLIO.LastLogMessage != null && !BLIO.LastLogMessage.Contains("Updating user"))
                     BLIO.Log("No new version of RemindMe on Github.");
             }
             catch (Exception ex)
@@ -120,7 +121,8 @@ namespace RemindMe
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                BLIO.Log("Starting the process of checking the live version on github...");
+                if (BLIO.LastLogMessage != null && !BLIO.LastLogMessage.Contains("Updating user"))
+                    BLIO.Log("Starting the process of checking the live version on github...");
 
                 List<string> lines = new List<string>();
 
@@ -131,7 +133,7 @@ namespace RemindMe
                     lines = html.Split(new[] { "\n" }, StringSplitOptions.None).ToList();
                 }
 
-                if (lines.Count > 0)
+                if (lines.Count > 0 && (BLIO.LastLogMessage != null &&  !BLIO.LastLogMessage.Contains("Updating user")) )
                     BLIO.Log("Sucessfully loaded raw version.txt from github");
 
                 if (lines.Count >= 2 && lines[1].ToLower().Contains("major")) //Minor = dont need to restart RemindMe immediately, Major = restart.

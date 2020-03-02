@@ -12,11 +12,21 @@ namespace Data_Access_Layer
     public class DLOnlineDatabase
     {                
         private DLOnlineDatabase() { }
-        private const int MAX_ATTEMPTS = 10;
+        private const int MAX_ATTEMPTS = 15;
+        //If the db is unreachable, stop trying to connect to it.
+        private static bool terminateDatabaseAccess = false;
         private static bool CanConnect(remindmesqldbEntities db)
         {
+            if (terminateDatabaseAccess)
+                return false;
+
             try
             {
+                terminateDatabaseAccess = !db.Database.Exists();
+
+                if (terminateDatabaseAccess)
+                    return false;
+
                 db.Database.Connection.Open();
                 db.Database.Connection.Close();
             }
@@ -24,7 +34,11 @@ namespace Data_Access_Layer
 
             return true;
         }
-
+        public static void ReAllowDatabaseAccess()
+        {
+            if (terminateDatabaseAccess)
+                terminateDatabaseAccess = false;
+        }
         /// <summary>
         /// Logs an exception to the online database
         /// </summary>
@@ -35,7 +49,7 @@ namespace Data_Access_Layer
             int attemptCount = 0;
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
-                while(!CanConnect(db))
+                while(!terminateDatabaseAccess && !terminateDatabaseAccess && !CanConnect(db))
                 {
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
@@ -72,7 +86,7 @@ namespace Data_Access_Layer
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
                 int attemptCount = 0;
-                while (!CanConnect(db))
+                while (!terminateDatabaseAccess && !CanConnect(db))
                 {
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
@@ -94,7 +108,7 @@ namespace Data_Access_Layer
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
                 int attemptCount = 0;
-                while (!CanConnect(db))
+                while (!terminateDatabaseAccess && !CanConnect(db))
                 {
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
@@ -138,7 +152,7 @@ namespace Data_Access_Layer
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
                 int attemptCount = 0;
-                while (!CanConnect(db))
+                while (!terminateDatabaseAccess && !CanConnect(db))
                 {
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
@@ -173,7 +187,7 @@ namespace Data_Access_Layer
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
                 int attemptCount = 0;
-                while (!CanConnect(db))
+                while (!terminateDatabaseAccess && !CanConnect(db))
                 {
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
@@ -205,7 +219,7 @@ namespace Data_Access_Layer
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
                 int attemptCount = 0;
-                while (!CanConnect(db))
+                while (!terminateDatabaseAccess && !CanConnect(db))
                 {
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
@@ -236,7 +250,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -279,7 +293,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -290,7 +304,7 @@ namespace Data_Access_Layer
                 }
             }
             catch (DbUpdateException) { return null; }
-            catch { return null; }
+            catch { return null; }            
         }
 
         /// <summary>
@@ -302,7 +316,7 @@ namespace Data_Access_Layer
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
                 int attemptCount = 0;
-                while (!CanConnect(db))
+                while (!terminateDatabaseAccess && !CanConnect(db))
                 {
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
@@ -325,7 +339,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -341,7 +355,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -364,7 +378,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -387,7 +401,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -403,7 +417,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -427,7 +441,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -443,7 +457,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -467,7 +481,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -483,7 +497,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -507,7 +521,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -523,7 +537,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -547,7 +561,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -563,7 +577,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -584,7 +598,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -600,7 +614,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -620,7 +634,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -636,7 +650,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -656,7 +670,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -672,7 +686,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -692,7 +706,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -708,7 +722,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -728,7 +742,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -744,7 +758,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -764,7 +778,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
@@ -780,7 +794,7 @@ namespace Data_Access_Layer
                 using (remindmesqldbEntities db = new remindmesqldbEntities())
                 {
                     int attemptCount = 0;
-                    while (!CanConnect(db))
+                    while (!terminateDatabaseAccess && !CanConnect(db))
                     {
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)

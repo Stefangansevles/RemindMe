@@ -42,6 +42,11 @@ namespace Business_Logic_Layer
         public static readonly string uniqueString = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\RemindMe\\string.txt";
 
         /// <summary>
+        /// Contains the path to the system log of RemindMe. Contains a log of what happened within RemindMe
+        /// </summary>
+        public static readonly string systemLog = System.IO.Path.GetTempPath() + "\\RemindMe\\SystemLog.txt";
+
+        /// <summary>
         /// Returns the version of RemindMe. Read from the assembly
         /// </summary>
         public static string RemindMeVersion

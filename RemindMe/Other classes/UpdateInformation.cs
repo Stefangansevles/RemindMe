@@ -68,6 +68,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.440", "- If you get an reminder notification of an reminder that is happening in 1 hour, you can now choose to postpone that reminder from that message in the bottom right corner of your monitor.\r\n- Double clicking an empty reminder no longer gives an error.");
             releaseNotes.Add("2.6.500", "- RemindMe now stays up-to-date automatically\r\n- Attempted to fix some logging errors");
             releaseNotes.Add("2.6.501", "- Fixed an issue where RemindMe wouldn't start on windows startup anymore since 2.6.500");
+            releaseNotes.Add("2.6.510", "- When RemindMe can't connect to the database, it no longer lags or hangs\r\n- When you use the RemindMe Timer shortcut key, it no longer also activates shortcuts from other applications.\r\nFor example, creating a new timer with ctrl + shift + R  will no longer refresh your browser webpage if it is focused.");
         }
 
         public static Dictionary<string,string> ReleaseNotes
