@@ -131,6 +131,8 @@ namespace Business_Logic_Layer
         {
             if (File.Exists(IOVariables.systemLog)) File.Delete(IOVariables.systemLog);
 
+            if (!Directory.Exists(Path.GetDirectoryName(IOVariables.systemLog)))
+                Directory.CreateDirectory(Path.GetDirectoryName(IOVariables.systemLog));
             using (FileStream fs = new FileStream(IOVariables.systemLog, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {
