@@ -969,3 +969,7 @@ For example, creating a new timer with ctrl + shift + R  will no longer refresh 
 
 2.6.511
 small bugfix directory didnt exist
+
+2.6.512
+Another small bugfix
+

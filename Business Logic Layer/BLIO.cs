@@ -128,11 +128,11 @@ namespace Business_Logic_Layer
 
        
         public static int DumpLogTxt()
-        {
-            if (File.Exists(IOVariables.systemLog)) File.Delete(IOVariables.systemLog);
+        {            
+            Directory.CreateDirectory(Path.GetDirectoryName(IOVariables.systemLog));
 
-            if (!Directory.Exists(Path.GetDirectoryName(IOVariables.systemLog)))
-                Directory.CreateDirectory(Path.GetDirectoryName(IOVariables.systemLog));
+            if (File.Exists(IOVariables.systemLog)) File.Delete(IOVariables.systemLog);
+            
             using (FileStream fs = new FileStream(IOVariables.systemLog, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {
