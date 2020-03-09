@@ -62,10 +62,13 @@ namespace RemindMe
             set
             {                
                 rem = value;
-                if(rem == null)                
-                    Disable();                
-                else                
-                    Enable();                                
+                if (rem == null)
+                    Disable();
+                else
+                {
+                    Enable();
+                    BLIO.Log("SET UCReminderItem.Reminder (" + rem.Id + ")");
+                }
             }
         }
 

@@ -973,3 +973,6 @@ small bugfix directory didnt exist
 2.6.512
 Another small bugfix
 
+2.6.513
+RemindMe will no longer create error popups if there are already 2 active popups. This makes sure that the bug in 2.6.510 doesn't happen again
+(It was a simple problem, but the exception happened in a timer and created multiple popups on each timer tick)

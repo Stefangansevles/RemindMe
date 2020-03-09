@@ -266,6 +266,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ExceptionPopup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExceptionPopup_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ExceptionPopup_FormClosed);
             this.Load += new System.EventHandler(this.ExceptionPopup_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

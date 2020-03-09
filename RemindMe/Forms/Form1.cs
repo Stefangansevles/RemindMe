@@ -121,7 +121,7 @@ namespace RemindMe
 
             tmrDumpLogTxtContents.Start();
 
-            tmrEnableDatabaseAccess.Start();
+            tmrEnableDatabaseAccess.Start();            
 
             BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
@@ -320,9 +320,10 @@ namespace RemindMe
         /// </summary>
         private async Task formLoadAsync()
         {
+           
             try
             {
-                BLIO.Log("RemindMe_Load");
+                BLIO.Log("RemindMe_Load");                
 
                 lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
@@ -409,9 +410,12 @@ namespace RemindMe
                 BLIO.Log("Exception in formLoadAsync() -> " + ex.GetType().ToString());
                 BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
             }
+
+            
         }
         private void Form1_Load(object sender, EventArgs e)
-        {            
+        {     
+            
         }
 
         private void lblExit_Click(object sender, EventArgs e)
@@ -778,12 +782,7 @@ namespace RemindMe
 
             //Update LastOnline
             BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
-        }
-
-        private void tmrWriteLogContents_Tick(object sender, EventArgs e)
-        {
-            
-        }
+        }     
 
         int currentLogCount = 0;
         private void tmrDumpLogTxtContents_Tick(object sender, EventArgs e)
@@ -797,6 +796,6 @@ namespace RemindMe
             //If we could not connect to the database, the Data Access Layer will no longer try to connect to the database again. 
             //This timer will re-enable this every 10 minutes, just in case the database is no longer available. Then, if it is available again, continue as usual.
             BLOnlineDatabase.ReAllowDatabaseAccess();
-        }
+        }     
     }
 }

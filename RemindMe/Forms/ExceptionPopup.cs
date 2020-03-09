@@ -15,33 +15,50 @@ namespace RemindMe
     {        
         private Exception exception;
         private bool customFeedback;
+        private static int activePopups = 0;
         public ExceptionPopup(Exception ex, string message = null)
         {
-            BLIO.Log("Constructing ExceptionPopup ( " + ex.GetType().ToString() + " )");
-            InitializeComponent();
-            this.exception = ex;
-
-            //Set the location within the remindme window. 
-            //This prompt can be moved, but inititally will be set to the middle of the location of RemindMe
-            Form1 remindme = (Form1)Application.OpenForms["Form1"];
-            if (remindme != null)
+            activePopups++;
+            if (activePopups < 3)
             {
-                this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                BLIO.Log("Constructing ExceptionPopup ( " + ex.GetType().ToString() + " )");
+                InitializeComponent();
+
+                this.exception = ex;
+
+                //Set the location within the remindme window. 
+                //This prompt can be moved, but inititally will be set to the middle of the location of RemindMe
+                Form1 remindme = (Form1)Application.OpenForms["Form1"];
+                if (remindme != null)
+                {
+                    this.StartPosition = FormStartPosition.Manual;
+                    this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                }
+
+                if (!string.IsNullOrWhiteSpace(message))
+                    lblMessage.Text = "Problem description: " + message;
+
+                tbDummy.Focus();
+                this.Click += FocusDummy;
+                pnlMainGradient.Click += FocusDummy;
+                pnlFooterButtons.Click += FocusDummy;
+                lblText.Click += FocusDummy;
+                lblMessage.Click += FocusDummy;
+                lblTitle.Click += FocusDummy;
+                
+                BLIO.Log("Constructing ExceptionPopup complete");
             }
+            else
+            {
+                //There are 2 active popups already. Do not show another one! 
+                
+                this.Opacity = 0;
+                this.ShowInTaskbar = false;
 
-            if (!string.IsNullOrWhiteSpace(message))
-                lblMessage.Text = "Problem description: " + message;
+                InitializeComponent(); //so we can call the timer that disposes this form. Closing/disposing from the constructor is not possible
 
-            tbDummy.Focus();
-            this.Click += FocusDummy;
-            pnlMainGradient.Click += FocusDummy;
-            pnlFooterButtons.Click += FocusDummy;
-            lblText.Click += FocusDummy;
-            lblMessage.Click += FocusDummy;
-            lblTitle.Click += FocusDummy;
-
-            BLIO.Log("Constructing ExceptionPopup complete");
+                BLIO.Log("IGNORE Popup(" + ex.GetType().ToString() + "). " + activePopups + " Popups active!");                                
+            }
         }
 
         private void ExceptionPopup_FormClosing(object sender, FormClosingEventArgs e)
@@ -74,7 +91,9 @@ namespace RemindMe
 
                 //Set this boolean to true so that when this popup closes, we won't try to add another db entry
                 customFeedback = true;
-                btnOk.Enabled = false;                
+                btnOk.Enabled = false;
+
+                this.Close();
                 this.Dispose();
             }
             catch { }                        
@@ -108,7 +127,13 @@ namespace RemindMe
         }
 
         private void ExceptionPopup_Load(object sender, EventArgs e)
-        {
+        {             
+            if(activePopups > 2)
+            {
+                BLIO.Log("[ExceptionPopup " + activePopups + "] ExceptionPopup_Load   closing form...");
+                this.Close();
+            }
+
             tbDummy.Focus();
         }
 
@@ -116,6 +141,16 @@ namespace RemindMe
         {
             if (e.KeyCode == Keys.Escape)
                 tbDummy.Focus();
+        }
+
+        private void ExceptionPopup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            activePopups--;
+        }
+
+        private void tmrDispose_Tick(object sender, EventArgs e)
+        {
+            
         }
     }
 }

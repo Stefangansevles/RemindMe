@@ -94,7 +94,7 @@ namespace Business_Logic_Layer
             {
                 if (noInternetNotLoggedCounter > 0)
                 {
-                    Log(noInternetNotLoggedCounter + " \"No internet access\" messages blocked");
+                    systemLog.Add(noInternetNotLoggedCounter + " \"No internet access\" messages blocked");                    
                     noInternetNotLoggedCounter = 0; //reset
                 }
             }
