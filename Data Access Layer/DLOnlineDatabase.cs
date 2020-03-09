@@ -68,7 +68,7 @@ namespace Data_Access_Layer
                 if (customMessage != null)
                     log.CustomMessage = customMessage;
 
-                if (pathToSystemLog != null)
+                if (pathToSystemLog != null && File.Exists(pathToSystemLog))
                     log.SystemLog = File.ReadAllText(pathToSystemLog).Replace(Environment.NewLine, "¤");//so we can do a find and replace ¤ to \r\n in notepad++ to make it more readable
 
                 log.ExceptionStackTrace = ex.ToString();

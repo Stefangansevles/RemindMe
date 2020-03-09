@@ -168,15 +168,15 @@ namespace RemindMe
         }
        
         private void Cleanup()
-        {
-            BLIO.Log("Starting Cleanup...");
-            //RemindMe loaded, if an old system log/temp reminders still exists, delete it
-            string oldSystemLog = IOVariables.systemLog;
-            string oldTempReminders = System.IO.Path.GetTempPath() + "Exported Reminders.remindme";
-            string oldUpdateFilesZip = IOVariables.rootFolder + "UpdateFiles.zip";            
-            
+        {                                   
             try
             {
+                BLIO.Log("Starting Cleanup...");
+                //RemindMe loaded, if an old system log/temp reminders still exists, delete it
+                string oldSystemLog = IOVariables.systemLog;
+                string oldTempReminders = System.IO.Path.GetTempPath() + "Exported Reminders.remindme";
+                string oldUpdateFilesZip = IOVariables.rootFolder + "UpdateFiles.zip";
+
                 if (System.IO.File.Exists(oldSystemLog))
                 {
                     System.IO.File.Delete(oldSystemLog);
@@ -207,9 +207,19 @@ namespace RemindMe
 
                 BLIO.Log("Cleanup complete.");
             }
+            catch(UnauthorizedAccessException ex)
+            {
+                BLIO.Log("Cleanup() FAILED. Unauthorized");
+                BLIO.WriteError(ex, "Error in Cleanup()");
+            }
             catch (IOException ex)
             {
-                BLIO.Log("Cleanup() FAILED.");
+                BLIO.Log("Cleanup() FAILED. IOException");
+                BLIO.WriteError(ex, "Error in Cleanup()");
+            }
+            catch (Exception ex)
+            {
+                BLIO.Log("Cleanup() FAILED. Global exception");
                 BLIO.WriteError(ex, "Error in Cleanup()");
             }
         }
@@ -414,8 +424,7 @@ namespace RemindMe
             
         }
         private void Form1_Load(object sender, EventArgs e)
-        {     
-            
+        {            
         }
 
         private void lblExit_Click(object sender, EventArgs e)

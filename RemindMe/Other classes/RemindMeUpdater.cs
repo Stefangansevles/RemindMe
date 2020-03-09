@@ -58,8 +58,8 @@ namespace RemindMe
                         zip.ExtractAll(IOVariables.applicationFilesFolder, ExtractExistingFileAction.OverwriteSilently);
 
                         while (!extractCompleted) { } //Busy waiting, but we're in a thread anyway
-                        BLIO.Log("UpdateRemindMe() took: " + (long)(DateTime.UtcNow - dateNow).TotalMilliseconds + " ms");
-                        
+                        BLIO.Log("UpdateRemindMe() took: " + (long)(DateTime.UtcNow - dateNow).TotalMilliseconds + " ms");                        
+
                         if (restartRemindMe && !Form1.Instance.Visible)
                             Application.Restart();
                     }
@@ -140,9 +140,7 @@ namespace RemindMe
                     restartRemindMe = true;
 
                 if (lines.Count >= 3 && lines[2].ToLower().Contains("true")) //true = silent update, the user won't be aware of an update
-                    UCReminders.Instance.showUpdateMessage = false;
-
-
+                    UCReminders.Instance.showUpdateMessage = false;                
 
                 return new Version(lines[0]);                
             }
