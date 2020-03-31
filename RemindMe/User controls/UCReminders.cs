@@ -535,9 +535,9 @@ namespace RemindMe
         }
 
         private void tmrCheckForUpdates_Tick(object sender, EventArgs e)
-        {
+        {            
             if(showUpdateMessage && Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
-            {
+            {                
                 RemindMeMessageFormManager.MakeMessagePopup("RemindMe has updated.\r\nRestart RemindMe to load these changes directly.", 15);
                 tmrCheckForUpdates.Stop();
             }

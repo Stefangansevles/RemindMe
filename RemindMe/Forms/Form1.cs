@@ -199,10 +199,12 @@ namespace RemindMe
                 }
 
                 //If the errorlog is >= 5mb , clear it. That's a bit big..                                
-                if (new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 >= 5000)
+                if (new FileInfo(IOVariables.errorLog).Length / 1024 >= 5000)
                 {
-                    BLIO.Log("Clearing error log that is too large... ["+ new System.IO.FileInfo(IOVariables.errorLog).Length/1024+".mb ]");
-                    System.IO.File.WriteAllText(IOVariables.errorLog, "");
+                    BLIO.Log("Clearing error log that is too large... ["+ new FileInfo(IOVariables.errorLog).Length/1024+".mb ]");
+
+                    if(System.IO.File.Exists(IOVariables.errorLog))
+                        System.IO.File.WriteAllText(IOVariables.errorLog, "");
                 }
 
                 BLIO.Log("Cleanup complete.");
@@ -210,7 +212,7 @@ namespace RemindMe
             catch(UnauthorizedAccessException ex)
             {
                 BLIO.Log("Cleanup() FAILED. Unauthorized");
-                BLIO.WriteError(ex, "Error in Cleanup()");
+                //BLIO.WriteError(ex, "Error in Cleanup()"); //don't write this one to the db
             }
             catch (IOException ex)
             {
@@ -329,8 +331,7 @@ namespace RemindMe
         /// Alternative Form_load method since form_load doesnt get called until you first double-click the RemindMe icon due to override SetVisibleCore
         /// </summary>
         private async Task formLoadAsync()
-        {
-           
+        {           
             try
             {
                 BLIO.Log("RemindMe_Load");                
@@ -380,9 +381,9 @@ namespace RemindMe
                 //Call the timer once
                 Thread tr = new Thread(() =>
                 {
-                //wait a bit, then call the update timer once. It then runs every 5 minutes
-                Thread.Sleep(5000);
-                    tmrUpdateRemindMe_Tick(null, null);                    
+                    //wait a bit, then call the update timer once. It then runs every 5 minutes
+                    Thread.Sleep(5000);
+                    tmrUpdateRemindMe_Tick(null, null);
                     BLOnlineDatabase.InsertOrUpdateUser(set.UniqueString);
 
                     if (set.LastVersion == null)
@@ -399,7 +400,7 @@ namespace RemindMe
                 tmrInitialHide.Start();
 
                 //Insert the errorlog.txt into the DB if it is not empty
-                if (new FileInfo(IOVariables.errorLog).Length > 0 && new System.IO.FileInfo(IOVariables.errorLog).Length / 1024 < 5000)
+                if (System.IO.File.Exists(IOVariables.errorLog) && new FileInfo(IOVariables.errorLog).Length > 0 && new FileInfo(IOVariables.errorLog).Length / 1024 < 5000)
                 {
                     string logContents = System.IO.File.ReadAllText(IOVariables.errorLog);
                     int lineCount = System.IO.File.ReadLines(IOVariables.errorLog).Count();
@@ -425,6 +426,11 @@ namespace RemindMe
         }
         private void Form1_Load(object sender, EventArgs e)
         {            
+            if(ucDebug.tbSystemLog.Text.Contains("Cleanup() FAILED. Unauthorized"))
+            {
+                //deleting folder of /old didnt work correctly
+                ucReminders.showUpdateMessage = false;
+            }
         }
 
         private void lblExit_Click(object sender, EventArgs e)

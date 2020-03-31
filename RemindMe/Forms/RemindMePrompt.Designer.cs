@@ -210,7 +210,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemindMePrompt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RemindMePrompt";
+            this.Load += new System.EventHandler(this.RemindMePrompt_Load);
             this.pnlMainGradient.ResumeLayout(false);
             this.pnlMainGradient.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();

@@ -69,6 +69,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.500", "- RemindMe now stays up-to-date automatically\r\n- Attempted to fix some logging errors");
             releaseNotes.Add("2.6.501", "- Fixed an issue where RemindMe wouldn't start on windows startup anymore since 2.6.500");
             releaseNotes.Add("2.6.510", "- When RemindMe can't connect to the database, it no longer lags or hangs\r\n- When you use the RemindMe Timer shortcut key, it no longer also activates shortcuts from other applications.\r\nFor example, creating a new timer with ctrl + shift + R  will no longer refresh your browser webpage if it is focused.");
+            releaseNotes.Add("2.6.514", "Postponing an reminder from the message form on the bottom right corner of your screen(which shows up 1 hour before the reminder shows) will now work again. It caused an error when you did not put in an value before the message screen dissapeared");
         }
 
         public static Dictionary<string,string> ReleaseNotes

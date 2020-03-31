@@ -15,10 +15,13 @@ namespace RemindMe
 {
     public partial class RemindMeMessageForm : Form
     {
-        int timeout = 0;
-        int secondsPassed = 0;
-        bool disableFadeout = false;
-        Reminder theReminder = null;
+        private int timeout = 0;
+        private int secondsPassed = 0;
+        private bool disableFadeout = false;
+        //If this message form created a .showDialog(), the showdialog will return after this form disposes. So, Don't dispose after timeout
+        private bool isDialog = false;
+
+        private Reminder theReminder = null;        
         public RemindMeMessageForm(string message, int timeout)
         {
             BLIO.Log("Constructing RemindMeMessageForm (" + message + ")");
@@ -160,9 +163,18 @@ namespace RemindMe
                     tmrFadein.Dispose();
                     tmrFadeout.Dispose();
                     tmrTimeout.Dispose();
-                    BLIO.Log("Message form (" + lblText.Text + ") disposed.");
-                    this.Dispose();                    
-                    RemindMeMessageFormManager.RepositionActivePopups();
+                    
+
+                    if (!isDialog)
+                    {                        
+                        this.Dispose();
+                        BLIO.Log("Message form (" + lblText.Text + ") disposed.");
+                        RemindMeMessageFormManager.RepositionActivePopups();
+                    }
+                    else
+                        BLIO.Log("Message form (" + lblText.Text + ") NOT disposed. Form created dialog.");
+
+
                 }
             }
 
@@ -244,6 +256,7 @@ namespace RemindMe
         private void btnPostpone_Click(object sender, EventArgs e)
         {
             BLIO.Log("RemindMeMessageForm option clicked: Postpone (" + theReminder.Id + ")");
+            isDialog = true;
             int minutes = RemindMePrompt.ShowMinutes("Select your postpone time", "(in minutes or in xhxxm format (1h20m) )");
 
             if (minutes <= 0)

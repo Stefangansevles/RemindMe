@@ -976,3 +976,7 @@ Another small bugfix
 2.6.513
 RemindMe will no longer create error popups if there are already 2 active popups. This makes sure that the bug in 2.6.510 doesn't happen again
 (It was a simple problem, but the exception happened in a timer and created multiple popups on each timer tick)
+
+2.6.514
+Postponing an reminder from the message form on the bottom right corner of your screen(which shows up 1 hour before the reminder shows)
+will now work again. It caused an error when you did not put in an value before the message screen dissapeared

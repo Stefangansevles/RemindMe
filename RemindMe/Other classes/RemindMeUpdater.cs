@@ -21,7 +21,7 @@ namespace RemindMe
     class RemindMeUpdater
     {
         private bool extractCompleted = false;
-        private bool restartRemindMe = false;
+        private static bool restartRemindMe = false;
 
         public void UpdateRemindMe() //This is called within a Thread
         {
@@ -114,7 +114,7 @@ namespace RemindMe
             }            
         }
 
-        private Version GetGithubVersion()
+        public static Version GetGithubVersion()
         {
             try
             {                                        

@@ -33,11 +33,13 @@ namespace RemindMe
             //Set the location within the remindme window. 
             //This prompt can be moved, but inititally will be set to the middle of the location of RemindMe
             Form1 remindme = (Form1)Application.OpenForms["Form1"];
-            if (remindme != null)
+            if (remindme != null && remindme.Visible)
             {
                 this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));                
             }
+            else
+                this.StartPosition = FormStartPosition.CenterScreen;
 
             tmrFadeIn.Start();
 
@@ -200,6 +202,12 @@ namespace RemindMe
         private void lblExit_Click(object sender, EventArgs e)
         {            
             this.Close();
+        }
+
+        private void RemindMePrompt_Load(object sender, EventArgs e)
+        {
+            this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
+            this.TopLevel = true;            
         }
     }
     public enum PromptReason

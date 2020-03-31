@@ -61,6 +61,22 @@ namespace RemindMe
             }
         }
 
+        private void SetUpdateText()
+        {
+            if (RemindMeUpdater.GetGithubVersion() > new Version(IOVariables.RemindMeVersion))
+            {
+                //The user is not up-to-date.
+                lblLatestVersion.Text += "\r\nYou are not running the latest version of RemindMe ( " + RemindMeUpdater.GetGithubVersion().ToString() + " )";
+            }
+            else
+                lblLatestVersion.Text += "\r\nYou are already running the latest version of RemindMe.";
+            
+            pictureBox1.Location = new Point(16, 30);
+
+            lblLatestVersion.Location = new Point(lblLatestVersion.Location.X, lblLatestVersion.Location.Y -10);
+            pictureBox1.Location = new Point(pictureBox1.Location.X, pictureBox1.Location.Y -10);
+        }
+
         private void ExceptionPopup_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -127,7 +143,9 @@ namespace RemindMe
         }
 
         private void ExceptionPopup_Load(object sender, EventArgs e)
-        {             
+        {
+            tmrCheckForVersion.Start();
+
             if(activePopups > 2)
             {
                 BLIO.Log("[ExceptionPopup " + activePopups + "] ExceptionPopup_Load   closing form...");
@@ -151,6 +169,12 @@ namespace RemindMe
         private void tmrDispose_Tick(object sender, EventArgs e)
         {
             
+        }
+
+        private void tmrCheckForVersion_Tick(object sender, EventArgs e)
+        {
+            SetUpdateText();
+            tmrCheckForVersion.Stop();
         }
     }
 }

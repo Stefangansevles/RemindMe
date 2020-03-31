@@ -41,11 +41,12 @@
             this.lblText = new System.Windows.Forms.Label();
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblLatestVersion = new System.Windows.Forms.Label();
             this.btnOk = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.tmrCheckForVersion = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.pnlMainGradient.SuspendLayout();
@@ -168,7 +169,7 @@
             // 
             this.pnlFooterButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.pnlFooterButtons.Controls.Add(this.pictureBox1);
-            this.pnlFooterButtons.Controls.Add(this.label1);
+            this.pnlFooterButtons.Controls.Add(this.lblLatestVersion);
             this.pnlFooterButtons.Controls.Add(this.btnOk);
             this.pnlFooterButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooterButtons.Location = new System.Drawing.Point(0, 213);
@@ -185,17 +186,17 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
-            // label1
+            // lblLatestVersion
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 8F);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(37, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(291, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Running the latest version of RemindMe might fix this.\r\n";
+            this.lblLatestVersion.AutoSize = true;
+            this.lblLatestVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblLatestVersion.Font = new System.Drawing.Font("Century Gothic", 8F);
+            this.lblLatestVersion.ForeColor = System.Drawing.Color.White;
+            this.lblLatestVersion.Location = new System.Drawing.Point(37, 22);
+            this.lblLatestVersion.Name = "lblLatestVersion";
+            this.lblLatestVersion.Size = new System.Drawing.Size(291, 16);
+            this.lblLatestVersion.TabIndex = 3;
+            this.lblLatestVersion.Text = "Running the latest version of RemindMe might fix this.";
             // 
             // btnOk
             // 
@@ -254,6 +255,11 @@
             this.bunifuDragControl3.TargetControl = this.pbIcon;
             this.bunifuDragControl3.Vertical = true;
             // 
+            // tmrCheckForVersion
+            // 
+            this.tmrCheckForVersion.Interval = 10;
+            this.tmrCheckForVersion.Tick += new System.EventHandler(this.tmrCheckForVersion_Tick);
+            // 
             // ExceptionPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,6 +268,7 @@
             this.Controls.Add(this.pnlMainGradient);
             this.Controls.Add(this.pnlFooterButtons);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ExceptionPopup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ExceptionPopup";
@@ -291,12 +298,13 @@
         private Bunifu.Framework.UI.BunifuFlatButton btnOk;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblLatestVersion;
         public System.Windows.Forms.TextBox tbFeedback;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl3;
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.TextBox tbDummy;
+        private System.Windows.Forms.Timer tmrCheckForVersion;
     }
 }
