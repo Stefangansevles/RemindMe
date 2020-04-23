@@ -980,3 +980,13 @@ RemindMe will no longer create error popups if there are already 2 active popups
 2.6.514
 Postponing an reminder from the message form on the bottom right corner of your screen(which shows up 1 hour before the reminder shows)
 will now work again. It caused an error when you did not put in an value before the message screen dissapeared
+
+2.6.515
+- Reminders in your list of reminders will now have grayed out text if the reminder is disabled.
+- Removed InsertLocalErrorLog(). Local .txt error logs will no longer be inserted into the database.
+- typing 'm' in the timer popup will now work when you haven't typed a 'h'. For example: 15m instead of just '15'. 1h15m has always worked where as 1h15 also did.
+- When you close RemindMe when you have timer's active, you no longer get the same popup twice
+- You can now launch the RemindMe Importer (double clicking a .remindme file) seperately from RemindMe. Previously, double clicking a .remindme file would
+first launch RemindMe. Then, if RemindMe was active, you could open the RemindMe importer by double clicking the file
+- Advanced reminders that have disabled the "show" option (an invisible reminder, can be used to execute a script) will no longer show 
+in the bottom right corner of your screen as "<..> in 60 minutes!"

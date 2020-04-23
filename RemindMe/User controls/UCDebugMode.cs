@@ -50,6 +50,10 @@ namespace RemindMe
             localCacheList.AddRange(BLIO.systemLog);            
         }
 
+        /// <summary>
+        /// Returns memory usage
+        /// </summary>
+        /// <returns></returns>
         private long GetMemory()
         {            
             PerformanceCounter pc = new PerformanceCounter();

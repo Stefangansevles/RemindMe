@@ -124,7 +124,11 @@ namespace RemindMe
             {
                 editableReminder = value;                
                 ResetReminderForm();
-                FillControlsForEdit(editableReminder);                
+                FillControlsForEdit(editableReminder);
+
+                //Don't show a warning saying the date is in the past. The user is editing an existing reminder made previously
+                //The chances of the date being in the past are pretty high if the reminder has been disabled
+                pbExclamationDate.Visible = false;
             }
         }
 

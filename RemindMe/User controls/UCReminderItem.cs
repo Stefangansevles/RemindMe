@@ -64,11 +64,8 @@ namespace RemindMe
                 rem = value;
                 if (rem == null)
                     Disable();
-                else
-                {
-                    Enable();
-                    BLIO.Log("SET UCReminderItem.Reminder (" + rem.Id + ")");
-                }
+                else                
+                    Enable();                                    
             }
         }
 
@@ -77,19 +74,28 @@ namespace RemindMe
         /// </summary>
         private void Disable()
         {
+            //Empty text
             lblDate.Text = "";
             lblReminderName.Text = "Empty.";
             lblRepeat.Text = "";
 
+            //Grayed out text
+            lblReminderName.ForeColor = Color.Silver;
+            lblDate.ForeColor = Color.Silver;
+            lblRepeat.ForeColor = Color.Silver;
+
+            //Grayed out icons
             btnDelete.Image = Properties.Resources.Bin_Disabled;
             btnEdit.Image = Properties.Resources.Edit_Disabled;
             btnSettings.Image = Properties.Resources.gearDisabled;
             btnDisable.Image = Properties.Resources.turnedOffTwo;
             pbDate.BackgroundImage = Properties.Resources.RemindMe;
 
+            //Reset location
             pbRepeat.Location = new Point(168, 26);
             lblRepeat.Location = new Point(195, 30);
 
+            //Disable button click functionality
             btnSettings.Enabled = false;
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;            
@@ -125,10 +131,12 @@ namespace RemindMe
         //Loads reminder data into the controls
         private void Enable()
         {
+            //Enabled icons
             btnDelete.Image = Properties.Resources.Bin_white;
             btnEdit.Image = Properties.Resources.Edit_white;
             btnSettings.Image = Properties.Resources.gearWhite;
 
+            //Reset location
             pbRepeat.Location = new Point(168, 26);
             lblRepeat.Location = new Point(195, 30);
 
@@ -171,9 +179,20 @@ namespace RemindMe
             lblRepeat.Text = BLReminder.GetRepeatTypeText(rem);
 
             if (rem.Enabled == 1)
+            {
                 btnDisable.Image = Properties.Resources.turnedOn;
+                lblReminderName.ForeColor = Color.White;
+                lblDate.ForeColor = Color.White;
+                lblRepeat.ForeColor = Color.White;
+            }
             else
+            {
+                //Disabled reminder, make text gray
                 btnDisable.Image = Properties.Resources.turnedOffTwo;
+                lblReminderName.ForeColor = Color.Silver;
+                lblDate.ForeColor = Color.Silver;
+                lblRepeat.ForeColor = Color.Silver;
+            }
 
             btnSettings.Enabled = true;
             btnDelete.Enabled = true;

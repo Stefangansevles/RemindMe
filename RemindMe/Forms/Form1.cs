@@ -110,7 +110,7 @@ namespace RemindMe
 
             UpdateInformation.Initialize();
 
-            formLoadAsync();
+            formLoad();
 
             SystemEvents.PowerModeChanged += OnPowerChange;
 
@@ -330,13 +330,16 @@ namespace RemindMe
         /// <summary>
         /// Alternative Form_load method since form_load doesnt get called until you first double-click the RemindMe icon due to override SetVisibleCore
         /// </summary>
-        private async Task formLoadAsync()
+        private void formLoad()
         {           
             try
             {
                 BLIO.Log("RemindMe_Load");                
 
                 lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
+
+                if (Path.GetDirectoryName(Application.ExecutablePath).EndsWith("\\Debug"))
+                    lblVersion.Text += " - DEV BUILD";
 
                 //set unique user string            
                 BLIO.WriteUniqueString();
@@ -398,18 +401,7 @@ namespace RemindMe
                 this.ShowInTaskbar = true;
                 this.Show();
                 tmrInitialHide.Start();
-
-                //Insert the errorlog.txt into the DB if it is not empty
-                if (System.IO.File.Exists(IOVariables.errorLog) && new FileInfo(IOVariables.errorLog).Length > 0 && new FileInfo(IOVariables.errorLog).Length / 1024 < 5000)
-                {
-                    string logContents = System.IO.File.ReadAllText(IOVariables.errorLog);
-                    int lineCount = System.IO.File.ReadLines(IOVariables.errorLog).Count();
-
-                    BLIO.Log("Inserting local error log with " + lineCount + " lines");
-                    BLOnlineDatabase.InsertLocalErrorLog(set.UniqueString, logContents, lineCount);
-                    System.IO.File.WriteAllText(IOVariables.errorLog, "");
-                }
-
+              
                 Random r = new Random();
                 tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
                 tmrCheckRemindMeMessages.Start();
@@ -514,23 +506,7 @@ namespace RemindMe
 
         private void tsExit_Click(object sender, EventArgs e)
         {
-            if (UCTimer.RunningTimers.Count > 0 && !this.Visible)
-            {
-                if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.Yes)
-                {
-                    BLIO.Log("User had running timers and closed RemindMe(through RemindMeIcon)");
-                    this.Close();
-                    Application.Exit();
-                }
-            }
-            else
-            {
-                BLIO.Log("Closing RemindMe(through RemindMeIcon)");
-                this.Close();
-                Application.Exit();
-            }
-
-
+            this.Close(); //Calls form_closing.
         }
 
         private void lblMinimize_Click(object sender, EventArgs e)

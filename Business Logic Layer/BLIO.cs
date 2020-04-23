@@ -126,21 +126,33 @@ namespace Business_Logic_Layer
             }
         }
 
-       
+
         public static int DumpLogTxt()
-        {            
-            Directory.CreateDirectory(Path.GetDirectoryName(IOVariables.systemLog));
-
-            if (File.Exists(IOVariables.systemLog)) File.Delete(IOVariables.systemLog);
-            
-            using (FileStream fs = new FileStream(IOVariables.systemLog, FileMode.Append))
-            using (StreamWriter sw = new StreamWriter(fs))
+        {
+            try
             {
-                foreach (string line in systemLog)
-                    sw.WriteLine(line);
 
+                Directory.CreateDirectory(Path.GetDirectoryName(IOVariables.systemLog));
+
+                File.WriteAllText(IOVariables.systemLog, ""); //Clear log
+
+                using (FileStream fs = new FileStream(IOVariables.systemLog, FileMode.Append))
+                {
+
+
+                    using (StreamWriter sw = new StreamWriter(fs)) //Write log
+                    {
+                        foreach (string line in systemLog)
+                            sw.WriteLine(line);
+                    }
+                }
+                return systemLog.Count;
             }
-            return systemLog.Count;
+            catch (Exception ex)
+            {
+                systemLog.Add("[" + DateTime.Now.ToString() + "]  BLIO.DumpLogTxt() FAILED  -> " + ex.GetType().ToString());
+                return -1;
+            }
         }
         
         

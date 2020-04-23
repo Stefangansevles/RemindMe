@@ -24,34 +24,27 @@ namespace RemindMe
             EmbeddedAssembly.Load(resource1, "Bunifu_UI_v1.5.3.dll");
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 
+            if (args.Length > 0)
+            {//The user double-clicked an .remindme file! 
+                BLIO.Log("Detected the double clicking of a .remindme file!");
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new RemindMeImporter(args[0]));
+            }
+
             using (Mutex mutex = new Mutex(false, "Global\\" + "RemindMe"))
             {
-                if (!mutex.WaitOne(0, false))
-                {
-                    //one instance of remindme already running                                                                                                
-                    if (args.Length > 0)
-                    {//The user double-clicked an .remindme file! 
-                        BLIO.Log("Detected the double clicking of a .remindme file!");
-                        Application.EnableVisualStyles();
-                        Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new RemindMeImporter(args[0]));
-                    }                    
-
-                    return;
-                }
+                if (!mutex.WaitOne(0, false)) //one instance of remindme already running                                 
+                    return;                
 
                 // Set the unhandled exception mode to force all Windows Forms errors to go through our handler.                
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-
                 Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
 
                 // Add the event handler for handling non-UI thread exceptions to the event. 
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-
-
                 Application.Run(new Form1());
             }
 

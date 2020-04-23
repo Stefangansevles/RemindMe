@@ -233,6 +233,9 @@ namespace RemindMe
             int count = 1;
             foreach (Reminder rem in remindersToHappenInAnHour)
             {
+                //Don't show "reminderName in 60 minutes!" if the reminder doesn't "Show" when popped up, silent reminders.
+                if (BLAVRProperties.GetAVRProperties(rem.Id) != null && BLAVRProperties.GetAVRProperties(rem.Id).ShowReminder != 1)
+                    continue;
 
                 if (remindersToHappenInAnHour.Count > 1)
                     message += count + ") " + rem.Name + Environment.NewLine;
@@ -242,7 +245,7 @@ namespace RemindMe
                 count++;
             }
 
-            if (remindersToHappenInAnHour.Count > 1) //cut off the last \n
+            if (remindersToHappenInAnHour.Count > 1 && count > 1) //cut off the last \n
             {
                 message = message.Remove(message.Length - 2, 2);
 
@@ -251,7 +254,7 @@ namespace RemindMe
 
                 popupMessages.Add(message);
             }
-            else if (remindersToHappenInAnHour.Count > 0)
+            else if (remindersToHappenInAnHour.Count > 0 && count > 1)
             {
                 if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
                     RemindMeMessageFormManager.MakeMessagePopup(message, 6, remindersToHappenInAnHour[0]);

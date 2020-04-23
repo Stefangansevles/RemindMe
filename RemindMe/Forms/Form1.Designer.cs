@@ -47,6 +47,8 @@
             this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
             this.tmrCheckRemindMeMessages = new System.Windows.Forms.Timer(this.components);
             this.tmrPingActivity = new System.Windows.Forms.Timer(this.components);
+            this.tmrDumpLogTxtContents = new System.Windows.Forms.Timer(this.components);
+            this.tmrEnableDatabaseAccess = new System.Windows.Forms.Timer(this.components);
             this.pnlMain = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.pnlSide = new Bunifu.Framework.UI.BunifuGradientPanel();
             this.btnDebugMode = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -59,8 +61,6 @@
             this.btnReminders = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.tmrDumpLogTxtContents = new System.Windows.Forms.Timer(this.components);
-            this.tmrEnableDatabaseAccess = new System.Windows.Forms.Timer(this.components);
             this.pnlBanner.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.pnlSide.SuspendLayout();
@@ -214,6 +214,16 @@
             // 
             this.tmrPingActivity.Interval = 300000;
             this.tmrPingActivity.Tick += new System.EventHandler(this.tmrPingActivity_Tick);
+            // 
+            // tmrDumpLogTxtContents
+            // 
+            this.tmrDumpLogTxtContents.Interval = 2000;
+            this.tmrDumpLogTxtContents.Tick += new System.EventHandler(this.tmrDumpLogTxtContents_Tick);
+            // 
+            // tmrEnableDatabaseAccess
+            // 
+            this.tmrEnableDatabaseAccess.Interval = 600000;
+            this.tmrEnableDatabaseAccess.Tick += new System.EventHandler(this.tmrEnableDatabaseAccess_Tick);
             // 
             // pnlMain
             // 
@@ -566,16 +576,6 @@
             this.lblVersion.Size = new System.Drawing.Size(81, 16);
             this.lblVersion.TabIndex = 0;
             this.lblVersion.Text = "Version x.x.x";
-            // 
-            // tmrDumpLogTxtContents
-            // 
-            this.tmrDumpLogTxtContents.Interval = 1000;
-            this.tmrDumpLogTxtContents.Tick += new System.EventHandler(this.tmrDumpLogTxtContents_Tick);
-            // 
-            // tmrEnableDatabaseAccess
-            // 
-            this.tmrEnableDatabaseAccess.Interval = 600000;
-            this.tmrEnableDatabaseAccess.Tick += new System.EventHandler(this.tmrEnableDatabaseAccess_Tick);
             // 
             // Form1
             // 

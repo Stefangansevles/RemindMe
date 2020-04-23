@@ -208,36 +208,6 @@ namespace Data_Access_Layer
             }
         }
 
-        /// <summary>
-        /// Inserts the contents of the local errorlog.txt into the database
-        /// </summary>
-        /// <param name="uniqueString">The unique user identifier</param>
-        /// <param name="logContents">The contents of errorlog.txt</param>
-        /// <param name="lineCount">The amount of lines in errorlog.txt</param>
-        public static void InsertLocalErrorLog(string uniqueString, string logContents, int lineCount)
-        {
-            using (remindmesqldbEntities db = new remindmesqldbEntities())
-            {
-                int attemptCount = 0;
-                while (!terminateDatabaseAccess && !CanConnect(db))
-                {
-                    Thread.Sleep(500);
-                    if (attemptCount > MAX_ATTEMPTS)
-                        break;
-                }
-                db.Database.Connection.Open();
-                LocalErrorLog loc = new LocalErrorLog();
-                loc.TimeStamp = DateTime.UtcNow;
-                loc.LogContents = logContents;
-                loc.LogLineCount = lineCount;
-                loc.Username = Environment.UserName;
-                loc.UserId = uniqueString;
-
-
-                db.LocalErrorLog.Add(loc);
-                db.SaveChanges();
-            }
-        }
 
 
         /// <summary>

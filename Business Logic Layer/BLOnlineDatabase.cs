@@ -159,37 +159,7 @@ namespace Business_Logic_Layer
                     BLIO.WriteError(exc, "BLOnlineDatabase.InsertEmailAttempt() failed: exception occured: " + exc.ToString(), false);
                 }
             }).Start();
-        }
-
-        /// <summary>
-        /// Inserts the contents of the local errorlog.txt into the database
-        /// </summary>
-        /// <param name="uniqueString">The unique user identifier</param>
-        /// <param name="logContents">The contents of errorlog.txt</param>
-        /// <param name="lineCount">The amount of lines in errorlog.txt</param>
-        public static void InsertLocalErrorLog(string uniqueString, string logContents, int lineCount)
-        {
-            new Thread(() =>
-            {
-                try
-                {
-
-                    //Don't do anything without internet
-                    if (!BLIO.HasInternetAccess())
-                        return;
-
-                    if (!string.IsNullOrWhiteSpace(uniqueString))
-                        DLOnlineDatabase.InsertLocalErrorLog(uniqueString, logContents, lineCount);
-                    else
-                        BLIO.Log("Invalid uniqueString version string parameter in BLOnlineDatabase.InsertLocalErrorLog(). String: " + uniqueString);
-                }
-                catch (Exception exc)
-                {
-                    BLIO.Log("BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.GetType().ToString());
-                    BLIO.WriteError(exc, "BLOnlineDatabase.InsertLocalErrorLog() failed: exception occured: " + exc.ToString(), false);
-                }
-            }).Start();
-        }
+        }       
 
         public static void ReAllowDatabaseAccess()
         {
