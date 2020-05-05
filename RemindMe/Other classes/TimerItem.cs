@@ -36,6 +36,11 @@ namespace RemindMe.Other_classes
         //The date this timer is set for
         private DateTime popupDate;
 
+        //If the timer is being paused, record the time. Then, when the timer is being started again, add the difference to popupDate
+        private TimeSpan pauseDate;
+
+        private int pauseSeconds, pauseMinutes, pauseHours;
+
         /// <summary>
         /// Create a new TimerItem to create multiple running timers.
         /// </summary>
@@ -87,7 +92,10 @@ namespace RemindMe.Other_classes
         {
             get
             {
-                return ((popupDate - DateTime.Now).Hours * 60 * 60) + (popupDate - DateTime.Now).Minutes * 60 + (popupDate - DateTime.Now).Seconds;
+                if (pauseDate.Seconds == 0)
+                    return ((popupDate - DateTime.Now).Hours * 60 * 60) + (popupDate - DateTime.Now).Minutes * 60 + (popupDate - DateTime.Now).Seconds;
+                else                                  
+                    return (pauseHours * 60 * 60) + (pauseMinutes * 60) + pauseSeconds;
             }
             set { popupDate = DateTime.Now.AddSeconds(value); }
         }      
@@ -107,6 +115,16 @@ namespace RemindMe.Other_classes
         {
             timer.Start();
 
+            //If the pausedate is set, add time to the popupdate.
+            if(pauseDate.Seconds > 1)
+                popupDate = popupDate.Add(DateTime.Now.TimeOfDay - pauseDate);
+
+            pauseDate = new TimeSpan();
+            pauseSeconds = 0;
+            pauseMinutes = 0;
+            pauseHours = 0;
+            
+
             if (updateAllowed)
             {
                 ucTimer.timerDuration = (popupDate-DateTime.Now).Seconds;
@@ -117,10 +135,15 @@ namespace RemindMe.Other_classes
         /// <summary>
         /// Stop the timer
         /// </summary>
-        public void StopTimer()
+        public void StopTimer(int seconds, int minutes, int hours)
         {
             timer.Stop();
 
+            pauseDate = DateTime.Now.TimeOfDay;
+
+            pauseSeconds = seconds;
+            pauseMinutes = minutes;
+            pauseHours = hours;
 
             if (updateAllowed)
             {

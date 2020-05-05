@@ -990,3 +990,10 @@ will now work again. It caused an error when you did not put in an value before 
 first launch RemindMe. Then, if RemindMe was active, you could open the RemindMe importer by double clicking the file
 - Advanced reminders that have disabled the "show" option (an invisible reminder, can be used to execute a script) will no longer show 
 in the bottom right corner of your screen as "<..> in 60 minutes!"
+
+2.6.516
+- Pausing anrunning timers will now work correctly again.
+- Redesigned the custom message form a little bit
+- RemindMe will attempt to remove/hide reminders that can not be loaded (corrupt reminders)
+
+//OnPowerDown, re-enable the popup reminder

@@ -138,8 +138,6 @@ namespace Business_Logic_Layer
 
                 using (FileStream fs = new FileStream(IOVariables.systemLog, FileMode.Append))
                 {
-
-
                     using (StreamWriter sw = new StreamWriter(fs)) //Write log
                     {
                         foreach (string line in systemLog)

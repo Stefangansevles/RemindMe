@@ -50,6 +50,9 @@ namespace RemindMe
 
         }
 
+        /// <summary>
+        /// Application_ThreadException handles most exceptions. However, some exceptions do not get handled there, and will still crash RemindMe. This prevents most of it.
+        /// </summary>        
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             BLIO.Log("CurrentDomain_UnhandledException [ " + e.ExceptionObject.ToString() + " ]");
@@ -170,6 +173,13 @@ namespace RemindMe
             {
                 BLIO.WriteError(e.Exception, "Database error.", false);
                 ShowError(e.Exception, "Database error!", "Database error encountered!");
+            }
+            else if (e.Exception is IOException)
+            {
+                BLIO.WriteError(e.Exception, "IO Exception.");
+
+                if(!e.Exception.StackTrace.Contains("UpdateFiles.zip"))
+                    ShowError(e.Exception, "File error!", "RemindMe has encountered an IO issue.");
             }
 
             else if (e.Exception is Exception)

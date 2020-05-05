@@ -132,7 +132,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="rem">The reminder you wish to archive</param>
         public static void ArchiveReminder(Reminder rem)
-        {            
+        {
             ArchiveReminder(rem);
         }
 
@@ -152,7 +152,7 @@ namespace Business_Logic_Layer
         /// <returns>Reminder that matches the given id. null if no reminder was found</returns>
         public static Reminder GetReminderById(long id)
         {
-            BLIO.Log("BLReminder.GetReminderById("+ id +")");
+            BLIO.Log("BLReminder.GetReminderById(" + id + ")");
             if (id != -1)
                 return DLReminders.GetReminderById(id);
             else
@@ -172,7 +172,7 @@ namespace Business_Logic_Layer
             {
                 case "NONE": UpdateReminderDateWithoutRepeatType(rem);
                     break;
-                case "DAILY": SkipDailyReminder(rem); 
+                case "DAILY": SkipDailyReminder(rem);
                     break;
                 case "MONTHLY": SkipMonthlyReminder(rem);
                     break;
@@ -295,7 +295,7 @@ namespace Business_Logic_Layer
                 if (Convert.ToDateTime("2010-10-10 " + Convert.ToDateTime(rem.Date).ToShortTimeString()) > Convert.ToDateTime("2010-10-10 " + DateTime.Now.ToShortTimeString()))
                     rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString()).ToString();
                 else
-                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString()).AddDays(1).ToString();               
+                    rem.Date = Convert.ToDateTime(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToShortTimeString()).AddDays(1).ToString();
             }
         }
 
@@ -316,7 +316,7 @@ namespace Business_Logic_Layer
                 {
                     DateTime dateObj = Convert.ToDateTime(date);
                     //if next month has the amount of days as the dateObj, add 1 month. else add possible more months
-                    if(DateTime.DaysInMonth(dateObj.AddMonths(1).Year, dateObj.AddMonths(1).Month) >= DateTime.DaysInMonth(dateObj.Year, dateObj.Month))
+                    if (DateTime.DaysInMonth(dateObj.AddMonths(1).Year, dateObj.AddMonths(1).Month) >= DateTime.DaysInMonth(dateObj.Year, dateObj.Month))
                     {
                         reminderDates.Add(dateObj.AddMonths(1));
                     }
@@ -337,11 +337,11 @@ namespace Business_Logic_Layer
                 //Now, we're going to put the (sorted) dates in a string
                 string newDateString = "";
 
-                foreach (DateTime date in reminderDates)                
-                    newDateString += date.ToString() + ",";                
+                foreach (DateTime date in reminderDates)
+                    newDateString += date.ToString() + ",";
 
                 rem.Date = newDateString.Remove(newDateString.Length - 1, 1);
-            }           
+            }
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace Business_Logic_Layer
             else //Update time aswell
                 rem.Date = Convert.ToDateTime(rem.Date).AddDays(toAddDays).ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
 
-        }        
+        }
 
         /// <summary>
         /// Checks if a reminder has 2 or more dates
@@ -453,12 +453,12 @@ namespace Business_Logic_Layer
                 rem.Enabled = 1;
 
                 if (rem.RepeatType == ReminderRepeatType.WORKDAYS.ToString()) //Add days to the reminder so that the next date will be a new workday      
-                    rem.Date = BLDateTime.GetNextReminderWorkDay(rem,true).ToString();
-                
-                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder                                     
-                    UpdateReminderDateDaily(rem,true);
+                    rem.Date = BLDateTime.GetNextReminderWorkDay(rem, true).ToString();
 
-                
+                if (rem.RepeatType == ReminderRepeatType.DAILY.ToString())    //Add a day to the reminder                                     
+                    UpdateReminderDateDaily(rem, true);
+
+
                 if (rem.RepeatType == ReminderRepeatType.MONTHLY.ToString())
                 {
                     if (rem.Date.Split(',').Length > 1)
@@ -481,12 +481,12 @@ namespace Business_Logic_Layer
                         string newDateString = "";
                         foreach (DateTime date in reminderDates)
                         {
-                            if(rem.UpdateTime == 0)
+                            if (rem.UpdateTime == 0)
                                 newDateString += date.ToString() + ",";
                             else
                                 newDateString += date.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + ",";
                         }
-                            
+
 
                         rem.Date = newDateString.Remove(newDateString.Length - 1, 1);
                     }
@@ -596,7 +596,7 @@ namespace Business_Logic_Layer
 
             DateTime test;
             //If split by comma [1] (second value) is not a datetime, it means the date is a single date WITH a comma in it. we gotta fix that
-            if (date.Split(',').Length > 1 && !DateTime.TryParse(date.Split(',')[1],out test))
+            if (date.Split(',').Length > 1 && !DateTime.TryParse(date.Split(',')[1], out test))
             {
                 //The date contains a ',' , no good! Try and convert it to en-us
                 date = DateTime.Parse(date.ToString(), CultureInfo.CurrentCulture).ToString();
@@ -605,7 +605,7 @@ namespace Business_Logic_Layer
                     date = DateTime.Parse(date.ToString(), new CultureInfo("en-US")).ToString();
 
             }
-            
+
             rem.Date = date;
 
 
@@ -636,20 +636,37 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="rem">The reminder you want to check on</param>
         /// <returns>True if this reminder could cause an exception, false if not</returns>
-        public static bool IsValidReminder(Reminder rem)
+        public static Exception IsValidReminder(Reminder rem)
         {
             try
             {
-                DateTime date;                
+                DateTime date;
+
                 //Check all possible dates
                 foreach (string stringDate in rem.Date.Split(','))
-                {
                     date = Convert.ToDateTime(stringDate);
-                }
-
 
                 if (rem.PostponeDate != null)
                     date = Convert.ToDateTime(rem.PostponeDate.Split(',')[0]);
+
+
+                if (rem.Enabled > 1 || rem.Enabled < 0)
+                    throw new Exception("Enabled is not 0 or 1");
+
+                if (rem.Deleted > 2 || rem.Deleted < 0)
+                    throw new Exception("Deleted is not between 0 and 2");
+
+                if (rem.Hide > 1 || rem.Hide < 0)
+                    throw new Exception("Hide is not 0 or 1");
+
+                if (rem.Corrupted > 1 || rem.Corrupted < 0)
+                    throw new Exception("Corrupted is not 0 or 1");
+
+                if (rem.EnableAdvancedReminder > 1 || rem.EnableAdvancedReminder < 0)
+                    throw new Exception("EnableAdvancedReminder is not 0 or 1");
+
+                if (rem.UpdateTime > 1 || rem.UpdateTime < 0)
+                    throw new Exception("UpdateTime is not 0 or 1");
 
                 //If the reminder is weekdays, check if there are more than 0 days 
                 if (rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
@@ -657,20 +674,26 @@ namespace Business_Logic_Layer
                     string[] days = rem.RepeatDays.Split(',');
 
                     if (days.Length <= 0)
-                        return false;
-                }
-                if (rem.RepeatType == ReminderRepeatType.CUSTOM.ToString())
-                {
-                    if (rem.EveryXCustom <= 0)
-                        return false;
+                        throw new Exception("RepeatType is MULTIPLE_DAYS and there are are no RepeatDays");
                 }
 
-                return true;
+                if (rem.RepeatType == ReminderRepeatType.CUSTOM.ToString())
+                    if (rem.EveryXCustom <= 0)
+                        throw new Exception("RepeatType is CUSTOM and EveryXCustom is not set");
+
+
+                string test = GetRepeatTypeText(rem);
+
+                AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
+                List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+
             }
-            catch 
-            {
-                return false;
+            catch (Exception ex)
+            {                
+                return ex;
             }
+
+            return null;
         }
 
         /// <summary>
@@ -778,7 +801,72 @@ namespace Business_Logic_Layer
         }
 
 
+        /// <summary>
+        /// Prints an reminder in string format
+        /// </summary>
+        /// <param name="rem">The reminder</param>
+        /// <returns>Details of the reminder in string format</returns>
+        public static string ToString(Reminder rem)
+        {
+            string mess = "Reminder with ID " + rem.Id + ":\r\n";              
+           
+            mess += "Deleted:    "      + rem.Deleted + "\r\n";
+            mess += "Date:    "         + rem.Date + "\r\n";
+            mess += "RepeatType:    "   + rem.RepeatType + "\r\n";
+            mess += "Enabled:    "      + rem.Enabled + "\r\n";
+            mess += "DayOfMonth:    "   + rem.DayOfMonth + "\r\n";
+            mess += "EveryXCustom:    " + rem.EveryXCustom + "\r\n";
+            mess += "RepeatDays:    "   + rem.RepeatDays + "\r\n";
+            mess += "SoundFilePath:    "+ rem.SoundFilePath + "\r\n";
+            mess += "PostponeDate:    " + rem.PostponeDate + "\r\n";
+            mess += "Hide:    "         + rem.Hide + "\r\n";
+            mess += "Corrupted:    "    + rem.Corrupted + "\r\n";
+            mess += "UpdateTime:    "   + rem.UpdateTime + "\r\n";
+            mess += "EnableAdvancedReminder:" + rem.EnableAdvancedReminder + "\r\n\r\n";            
 
+            mess += "=== Displaying date culture info of the user's PC, so you might be able to re-create the reminder ===\r\n";
+            mess += "Current culture DisplayName: " + CultureInfo.CurrentCulture.DisplayName + "\r\n";
+            mess += "Current culture ShortTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern + "\r\n";
+            mess += "Current culture ShortDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "\r\n";
+            mess += "Current culture ToString(): " + CultureInfo.CurrentCulture.ToString() + "\r\n";
+
+            return mess;
+
+        }
+
+        /// <summary>
+        /// Checks if all reminders are functioning and not causing problems
+        /// </summary>
+        /// <returns>A list of corrupt reminders. null if none are found</returns>
+        public static List<Reminder> CheckForCorruptedReminders()
+        {
+            BLIO.Log("Checking for corrupted reminders...");
+
+            List<Reminder> corruptReminders = new List<Reminder>();
+
+            foreach (Reminder rem in GetReminders())
+            {
+                Exception ex = IsValidReminder(rem);
+
+                if (ex != null)
+                {
+                    BLIO.Log("Reminder with ID " + rem.Id + " Caused an exception: " + ex.Message + ". \r\nMarking this reminder as corrupted.");
+                    rem.Corrupted = 1;
+
+                    BLIO.Log("Pushing corrupted reminder to the db.");
+                    EditReminder(rem);
+
+                    corruptReminders.Add(rem);
+                }
+            }
+
+            BLIO.Log("Checking for corrupted reminders complete.");
+
+            if (corruptReminders.Count > 0)
+                return corruptReminders;
+            else
+                return null;            
+        }
 
         /// <summary>
         /// Update an existing reminder.
@@ -790,7 +878,7 @@ namespace Business_Logic_Layer
                 DLReminders.EditReminder(rem);
             // else
             ///throw new ReminderException("Could not edit that reminder, it doesn't exist.");
-        }
+        }      
 
         /// <summary>
         /// Deletes a single reminder from the database

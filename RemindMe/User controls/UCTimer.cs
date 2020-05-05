@@ -308,7 +308,8 @@ namespace RemindMe
                     currentTimerItem = itm;
                     lblTimerTitle.Visible = true;
 
-                    if(currentTimerItem.Running)
+
+                    if (currentTimerItem.Running)
                         tmrCountdown.Start();
                     else
                         tmrCountdown.Stop();
@@ -319,6 +320,7 @@ namespace RemindMe
                     numSeconds.Value = time.Seconds;
                     numMinutes.Value = time.Minutes;
                     numHours.Value = time.Hours;
+
                 }
             }            
 
@@ -364,7 +366,7 @@ namespace RemindMe
             if (currentTimerItem.Running)
             {
                 btnPauseResumeTimer.Iconimage = Properties.Resources.Play;
-                currentTimerItem.StopTimer();
+                currentTimerItem.StopTimer((int)numSeconds.Value, (int)numMinutes.Value, (int)numHours.Value);
             }
             else
             {

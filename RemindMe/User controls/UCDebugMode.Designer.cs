@@ -140,6 +140,7 @@
             // 
             // tmrDetails
             // 
+            this.tmrDetails.Interval = 1000;
             this.tmrDetails.Tick += new System.EventHandler(this.tmrDetails_Tick);
             // 
             // bunifuFlatButton2

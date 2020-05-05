@@ -70,121 +70,143 @@ namespace RemindMe
 
         private void Popup2_Load(object sender, EventArgs e)
         {
-            BLIO.Log("Popup_load");
-            AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
-            List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
-            if (avrProps != null) //Not null? this reminder has advanced properties.
+            try
             {
-                BLIO.Log("Reminder " + rem.Id + " has advanced reminder properties!");
-                this.Visible = avrProps.ShowReminder == 1;
-
-                if (!string.IsNullOrWhiteSpace(avrProps.BatchScript))
+                BLIO.Log("Popup_load");
+                AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
+                List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+                if (avrProps != null) //Not null? this reminder has advanced properties.
                 {
-                    if (!this.Visible)
-                        RemindMeMessageFormManager.MakeMessagePopup("Activating script of Reminder:\r\n \"" + rem.Name + "\"", 3);
+                    BLIO.Log("Reminder " + rem.Id + " has advanced reminder properties!");
+                    this.Visible = avrProps.ShowReminder == 1;
 
-                    BLIO.ExecuteBatch(avrProps.BatchScript);                    
+                    if (!string.IsNullOrWhiteSpace(avrProps.BatchScript))
+                    {
+                        if (!this.Visible)
+                            RemindMeMessageFormManager.MakeMessagePopup("Activating script of Reminder:\r\n \"" + rem.Name + "\"", 3);
+
+                        BLIO.ExecuteBatch(avrProps.BatchScript);
+                    }
+
+
+                }
+                else
+                    BLIO.Log("Reminder " + rem.Id + " does not have advanced reminder properties");
+
+                if (avrFF != null && avrFF.Count > 0)
+                {
+                    //Go through each action, for example c:\test , delete. c:\sometest\testFile.txt , open
+                    foreach (AdvancedReminderFilesFolders avr in avrFF)
+                    {
+                        if (avr.Action.ToString() == "Open")
+                        {
+                            BLIO.Log("Executing advanced reminder action \"Open\"");
+
+                            if (File.Exists(avr.Path) || Directory.Exists(avr.Path))
+                                System.Diagnostics.Process.Start(avr.Path);
+                        }
+                        else if (avr.Action.ToString() == "Delete")
+                        {
+                            BLIO.Log("Executing advanced reminder action \"Delete\"");
+
+                            FileAttributes attr = File.GetAttributes(avr.Path);
+                            //Check if it's a file or a directory
+                            if (File.Exists(avr.Path))
+                                File.Delete(avr.Path);
+                            else if (Directory.Exists(avr.Path))
+                                Directory.Delete(avr.Path, true);
+                        }
+                    }
                 }
 
-                             
-            }
-
-            if(avrFF != null && avrFF.Count > 0)
-            {
-                //Go through each action, for example c:\test , delete. c:\sometest\testFile.txt , open
-                foreach(AdvancedReminderFilesFolders avr in avrFF)
+                if (this.Visible)
+                    tmrFadeIn.Start();
+                else
                 {
-                    if (avr.Action.ToString() == "Open")
+                    btnOk_Click(sender, e);
+                    return;
+                }
+
+                BLIO.Log("Attempting to parse date...");
+                DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
+                BLIO.Log("Date succesfully converted (" + date + ")");
+
+                lblSmallDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
+                lblRepeat.Text = BLReminder.GetRepeatTypeText(rem);
+
+                if (!string.IsNullOrWhiteSpace(rem.PostponeDate))
+                {
+                    BLIO.Log("Reminder has a postpone date.");
+
+                    pbDate.BackgroundImage = Properties.Resources.RemindMeZzz;
+                    lblSmallDate.Text = Convert.ToDateTime(rem.PostponeDate) + " (Postponed)";
+                }
+
+                //If some country has a longer date string, move the repeat icon/text more to the right so it doesnt overlap
+                while (lblSmallDate.Bounds.IntersectsWith(pbRepeat.Bounds))
+                {
+                    pbRepeat.Location = new Point(pbRepeat.Location.X + 5, pbRepeat.Location.Y);
+                    lblRepeat.Location = new Point(lblRepeat.Location.X + 5, lblRepeat.Location.Y);
+                }
+
+                //Play the sound
+                if (rem.SoundFilePath != null && rem.SoundFilePath != "")
+                {
+
+                    if (System.IO.File.Exists(rem.SoundFilePath))
                     {
-                        if(File.Exists(avr.Path) || Directory.Exists(avr.Path))
-                            System.Diagnostics.Process.Start(avr.Path);
+                        BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
+                        myPlayer.URL = rem.SoundFilePath;
+                        myPlayer.controls.play();
+                        BLIO.Log("Playing sound");
                     }
-                    else if (avr.Action.ToString() == "Delete")
+                    else
                     {
-                        FileAttributes attr = File.GetAttributes(avr.Path);
-                        //Check if it's a file or a directory
-                        if (File.Exists(avr.Path))
-                            File.Delete(avr.Path);
-                        else if (Directory.Exists(avr.Path))                        
-                            Directory.Delete(avr.Path,true);                       
+                        BLIO.Log("SoundFilePath not null / empty but doesn't exist on the hard drive!");
+                        RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxReason.OK);
+                        //make sure its removed from the reminder
+                        rem.SoundFilePath = "";
                     }
                 }
-            }            
 
-            if (this.Visible)
-                tmrFadeIn.Start();
-            else
-            {
-                btnOk_Click(sender,e);
-                return;
-            }
+                FlashWindowHelper.Start(this);
+                //this.MaximumSize = this.Size;
 
-            DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
-            lblSmallDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
-            lblRepeat.Text = BLReminder.GetRepeatTypeText(rem);
-
-            if(!String.IsNullOrWhiteSpace(rem.PostponeDate))
-            {
-                pbDate.BackgroundImage = Properties.Resources.RemindMeZzz;                
-                lblSmallDate.Text = Convert.ToDateTime(rem.PostponeDate) + " (Postponed)";
-            }
-
-            //If some country has a longer date string, move the repeat icon/text more to the right so it doesnt overlap
-            while (lblSmallDate.Bounds.IntersectsWith(pbRepeat.Bounds))
-            {
-                pbRepeat.Location = new Point(pbRepeat.Location.X + 5, pbRepeat.Location.Y);
-                lblRepeat.Location = new Point(lblRepeat.Location.X + 5, lblRepeat.Location.Y);
-            }
-
-            //Play the sound
-            if (rem.SoundFilePath != null && rem.SoundFilePath != "")
-            {
-
-                if (System.IO.File.Exists(rem.SoundFilePath))
+                if (BLSettings.IsAlwaysOnTop())
                 {
-                    BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
-                    myPlayer.URL = rem.SoundFilePath;
-                    myPlayer.controls.play();
-                    BLIO.Log("Playing sound");
+                    this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
+                    this.TopLevel = true;
                 }
                 else
                 {
-                    BLIO.Log("SoundFilePath not null / empty but doesn't exist on the hard drive!");
-                    RemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxReason.OK);
-                    //make sure its removed from the reminder
-                    rem.SoundFilePath = "";
+                    this.TopMost = false;
+                    this.WindowState = FormWindowState.Minimized;
                 }
+
+
+                lblTitle.Text = rem.Name;
+
+                if (rem.Note != null)
+                    lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
+
+                if (rem.Note == "")
+                    lblNoteText.Text = "( No text set )";
+
+                lblNoteText.Text = Environment.NewLine + Environment.NewLine + lblNoteText.Text;
+
+
+
+                if (rem.Date == null)
+                    rem.Date = DateTime.Now.ToString();
             }
+            catch(Exception ex)
+            {
+                ReminderException remEx = new ReminderException(BLReminder.ToString(rem), rem);
+                remEx.StackTrace = ex.StackTrace; //Copy the stacktrace                
 
-            FlashWindowHelper.Start(this);
-            //this.MaximumSize = this.Size;
-
-            if (BLSettings.IsAlwaysOnTop())
-            {                
-                this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
-                this.TopLevel = true;
+                BLIO.WriteError(remEx, "Error loading reminder popup");
+                BLIO.Log("Popup_load FAILED. Exception -> " + ex.Message);
             }
-            else
-            {                
-                this.TopMost = false;
-                this.WindowState = FormWindowState.Minimized;
-            }
-            
-
-            lblTitle.Text = rem.Name;
-
-            if(rem.Note != null)
-                lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
-
-            if (rem.Note == "")
-                lblNoteText.Text = "( No text set )";
-
-            lblNoteText.Text = Environment.NewLine + Environment.NewLine + lblNoteText.Text;              
-
-            
-
-            if (rem.Date == null)
-                rem.Date = DateTime.Now.ToString();            
         }
 
         private void lblMinimize_MouseEnter(object sender, EventArgs e)

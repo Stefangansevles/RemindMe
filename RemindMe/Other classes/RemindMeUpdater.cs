@@ -39,10 +39,10 @@ namespace RemindMe
                     DownloadFile("https://github.com/Stefangansevles/RemindMe/raw/master/Update/UpdateFiles.zip", IOVariables.rootFolder + "UpdateFiles.zip");
 
                     ZipFile zip = new ZipFile(IOVariables.rootFolder + "UpdateFiles.zip");
-
-                    if (zip == null)
+                    
+                    if (zip == null || !ZipFile.IsZipFile(IOVariables.rootFolder + "UpdateFiles.zip"))
                     {
-                        BLIO.Log("UpdateRemindMe ABORTED. Zip is null.");
+                        BLIO.Log("UpdateRemindMe ABORTED. Zip is null or invalid.");
                         return;
                     }
 
@@ -55,27 +55,38 @@ namespace RemindMe
 
                         //Now, move those updates files into the application directory, so that when the program starts the next time, RemindMe is updated! :)
                         zip.ExtractProgress += Zip_ExtractProgress;
+                        BLIO.Log("Extracting zip...");
                         zip.ExtractAll(IOVariables.applicationFilesFolder, ExtractExistingFileAction.OverwriteSilently);
 
                         while (!extractCompleted) { } //Busy waiting, but we're in a thread anyway
-                        BLIO.Log("UpdateRemindMe() took: " + (long)(DateTime.UtcNow - dateNow).TotalMilliseconds + " ms");                        
+                        BLIO.Log("UpdateRemindMe() took: " + (long)(DateTime.UtcNow - dateNow).TotalMilliseconds + " ms");
 
                         if (restartRemindMe && !Form1.Instance.Visible)
+                        {
+                            BLIO.Log("Restarting RemindMe...");
                             Application.Restart();
+                        }
+                        else
+                            BLIO.Log("Installation complete! restartRemindMe = " + restartRemindMe);
                     }
                     catch (Exception ex) //do rollback
                     {
-                        BLIO.Log("Something went wrong during extraction in UpdateRemindMe(). Exception: " + ex.GetType().ToString());
+                        BLIO.Log("Something went wrong during extraction in UpdateRemindMe(). Exception: " + ex.GetType().ToString()+ "\r\nDoing rollback...");
 
                         //Roll the files in /old/ back to the original folder
                         foreach (string fl in Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old"))
                         {
                             if (File.Exists(IOVariables.applicationFilesFolder + Path.GetFileName(fl)))
+                            {
+                                BLIO.Log(" - Deleting file: " + Path.GetFileName(fl));
                                 File.Delete(IOVariables.applicationFilesFolder + Path.GetFileName(fl));
+                            }
 
+                            BLIO.Log(" - Restoring /old file: " + Path.GetFileName(fl));
                             File.Move(fl, IOVariables.applicationFilesFolder + Path.GetFileName(fl));
                         }
                         //Delete the /old
+                        BLIO.Log("Deleting directory /old");
                         Directory.Delete(IOVariables.applicationFilesFolder + "\\old");
                     }                    
                 }
@@ -101,6 +112,8 @@ namespace RemindMe
         /// </summary>
         private void MoveOldFiles()
         {
+            BLIO.Log("Moving old installation files...");
+
             //Create the old folder if it doesnt exist
             Directory.CreateDirectory(IOVariables.applicationFilesFolder + "\\old");
 
@@ -109,9 +122,12 @@ namespace RemindMe
             {
                 if (Path.GetExtension(fl) != ".config") //Don't do anything with the config
                 {
-                    File.Move(fl, IOVariables.applicationFilesFolder + "\\old\\" + Path.GetFileName(fl));
+                    BLIO.Log(" - Moving file: " + Path.GetFileName(fl));
+                    File.Move(fl, IOVariables.applicationFilesFolder + "\\old\\" + Path.GetFileName(fl));                    
                 }
-            }            
+            }
+
+            BLIO.Log("Done moving old files!");
         }
 
         public static Version GetGithubVersion()
@@ -140,7 +156,7 @@ namespace RemindMe
                     restartRemindMe = true;
 
                 if (lines.Count >= 3 && lines[2].ToLower().Contains("true")) //true = silent update, the user won't be aware of an update
-                    UCReminders.Instance.showUpdateMessage = false;                
+                    UCReminders.Instance.showUpdateMessage = false;
 
                 return new Version(lines[0]);                
             }

@@ -44,7 +44,7 @@ namespace Data_Access_Layer
         /// </summary>
         /// <param name="ex">The exception that is going to be logged</param>
         /// <param name="exceptionDate">The date the exception is logged at</param>
-        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage, string alternativeExceptionMessage)
+        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage)
         {
             int attemptCount = 0;
             using (remindmesqldbEntities db = new remindmesqldbEntities())
@@ -60,10 +60,7 @@ namespace Data_Access_Layer
                 ExceptionLog log = new ExceptionLog();
                 log.ExceptionDate = exceptionDate;
 
-                if (alternativeExceptionMessage == null)
-                    log.ExceptionMessage = ex.Message;
-                else
-                    log.ExceptionMessage = alternativeExceptionMessage;
+                log.ExceptionMessage = ex.Message;               
 
                 if (customMessage != null)
                     log.CustomMessage = customMessage;
@@ -93,8 +90,8 @@ namespace Data_Access_Layer
                         break;
                 }
                 db.Database.Connection.Open();
-                Users usr = db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault();
-                return usr == null;
+
+                return db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault() == null;                 
             }
         }
        

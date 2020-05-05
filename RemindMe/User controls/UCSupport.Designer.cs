@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbSubject = new Bunifu.Framework.UI.BunifuMetroTextbox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbEmail = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.tbNote = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.pnlSendMessages = new System.Windows.Forms.Panel();
@@ -43,84 +39,33 @@
             this.lvMessages = new System.Windows.Forms.ListView();
             this.chMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label4 = new System.Windows.Forms.Label();
+            this.tbSubject = new Bunifu.Framework.UI.BunifuMaterialTextbox();
+            this.tbEmail = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.pnlSendMessages.SuspendLayout();
             this.pnlMessageOverview.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tbSubject
-            // 
-            this.tbSubject.BorderColorFocused = System.Drawing.Color.DarkGray;
-            this.tbSubject.BorderColorIdle = System.Drawing.Color.White;
-            this.tbSubject.BorderColorMouseHover = System.Drawing.Color.DarkGray;
-            this.tbSubject.BorderThickness = 3;
-            this.tbSubject.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbSubject.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSubject.ForeColor = System.Drawing.Color.White;
-            this.tbSubject.isPassword = false;
-            this.tbSubject.Location = new System.Drawing.Point(203, 75);
-            this.tbSubject.Margin = new System.Windows.Forms.Padding(4);
-            this.tbSubject.Name = "tbSubject";
-            this.tbSubject.Size = new System.Drawing.Size(314, 28);
-            this.tbSubject.TabIndex = 0;
-            this.tbSubject.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(109, 79);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 19);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Subject:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(36, 112);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(146, 19);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "(Optional) E-mail:";
-            // 
-            // tbEmail
-            // 
-            this.tbEmail.BorderColorFocused = System.Drawing.Color.DarkGray;
-            this.tbEmail.BorderColorIdle = System.Drawing.Color.White;
-            this.tbEmail.BorderColorMouseHover = System.Drawing.Color.DarkGray;
-            this.tbEmail.BorderThickness = 3;
-            this.tbEmail.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbEmail.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEmail.ForeColor = System.Drawing.Color.White;
-            this.tbEmail.isPassword = false;
-            this.tbEmail.Location = new System.Drawing.Point(203, 107);
-            this.tbEmail.Margin = new System.Windows.Forms.Padding(4);
-            this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(314, 28);
-            this.tbEmail.TabIndex = 3;
-            this.tbEmail.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
             // tbNote
             // 
-            this.tbNote.BackColor = System.Drawing.Color.DimGray;
+            this.tbNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(108)))), ((int)(((byte)(108)))));
+            this.tbNote.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.tbNote.ForeColor = System.Drawing.Color.White;
-            this.tbNote.Location = new System.Drawing.Point(203, 154);
+            this.tbNote.ForeColor = System.Drawing.Color.Silver;
+            this.tbNote.Location = new System.Drawing.Point(176, 210);
             this.tbNote.Multiline = true;
             this.tbNote.Name = "tbNote";
-            this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbNote.Size = new System.Drawing.Size(314, 102);
             this.tbNote.TabIndex = 92;
+            this.tbNote.Text = "Type your message here...";
+            this.tbNote.Enter += new System.EventHandler(this.tbNote_Enter);
+            this.tbNote.Leave += new System.EventHandler(this.tbNote_Leave);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(146, 11);
+            this.label3.Location = new System.Drawing.Point(132, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(417, 32);
             this.label3.TabIndex = 96;
@@ -129,15 +74,13 @@
             // 
             // pnlSendMessages
             // 
+            this.pnlSendMessages.Controls.Add(this.tbEmail);
+            this.pnlSendMessages.Controls.Add(this.tbSubject);
             this.pnlSendMessages.Controls.Add(this.btnBack);
             this.pnlSendMessages.Controls.Add(this.label3);
-            this.pnlSendMessages.Controls.Add(this.tbSubject);
-            this.pnlSendMessages.Controls.Add(this.label1);
-            this.pnlSendMessages.Controls.Add(this.tbEmail);
             this.pnlSendMessages.Controls.Add(this.btnSend);
-            this.pnlSendMessages.Controls.Add(this.label2);
             this.pnlSendMessages.Controls.Add(this.tbNote);
-            this.pnlSendMessages.Location = new System.Drawing.Point(667, 0);
+            this.pnlSendMessages.Location = new System.Drawing.Point(0, 0);
             this.pnlSendMessages.Name = "pnlSendMessages";
             this.pnlSendMessages.Size = new System.Drawing.Size(666, 436);
             this.pnlSendMessages.TabIndex = 97;
@@ -165,7 +108,7 @@
             this.btnBack.IconVisible = true;
             this.btnBack.IconZoom = 50D;
             this.btnBack.IsTab = false;
-            this.btnBack.Location = new System.Drawing.Point(336, 262);
+            this.btnBack.Location = new System.Drawing.Point(309, 318);
             this.btnBack.Name = "btnBack";
             this.btnBack.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnBack.OnHovercolor = System.Drawing.Color.DimGray;
@@ -177,6 +120,7 @@
             this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBack.Textcolor = System.Drawing.Color.White;
             this.btnBack.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Visible = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // btnSend
@@ -202,7 +146,7 @@
             this.btnSend.IconVisible = true;
             this.btnSend.IconZoom = 35D;
             this.btnSend.IsTab = false;
-            this.btnSend.Location = new System.Drawing.Point(203, 262);
+            this.btnSend.Location = new System.Drawing.Point(176, 318);
             this.btnSend.Name = "btnSend";
             this.btnSend.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnSend.OnHovercolor = System.Drawing.Color.DimGray;
@@ -222,7 +166,7 @@
             this.pnlMessageOverview.Controls.Add(this.btnView);
             this.pnlMessageOverview.Controls.Add(this.lvMessages);
             this.pnlMessageOverview.Controls.Add(this.label4);
-            this.pnlMessageOverview.Location = new System.Drawing.Point(0, 0);
+            this.pnlMessageOverview.Location = new System.Drawing.Point(667, 0);
             this.pnlMessageOverview.Name = "pnlMessageOverview";
             this.pnlMessageOverview.Size = new System.Drawing.Size(666, 436);
             this.pnlMessageOverview.TabIndex = 98;
@@ -309,6 +253,7 @@
             this.lvMessages.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvMessages.ForeColor = System.Drawing.Color.White;
             this.lvMessages.FullRowSelect = true;
+            this.lvMessages.HideSelection = false;
             this.lvMessages.Location = new System.Drawing.Point(23, 62);
             this.lvMessages.MultiSelect = false;
             this.lvMessages.Name = "lvMessages";
@@ -334,6 +279,48 @@
             this.label4.Text = "Here you can revisit the messages sent by the RemindMe developer\r\n               " +
     "                In case you want to read them again";
             // 
+            // tbSubject
+            // 
+            this.tbSubject.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbSubject.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSubject.ForeColor = System.Drawing.Color.White;
+            this.tbSubject.HintForeColor = System.Drawing.Color.DarkGray;
+            this.tbSubject.HintText = "Subject";
+            this.tbSubject.isPassword = false;
+            this.tbSubject.LineFocusedColor = System.Drawing.Color.White;
+            this.tbSubject.LineIdleColor = System.Drawing.Color.Silver;
+            this.tbSubject.LineMouseHoverColor = System.Drawing.Color.White;
+            this.tbSubject.LineThickness = 3;
+            this.tbSubject.Location = new System.Drawing.Point(176, 112);
+            this.tbSubject.Margin = new System.Windows.Forms.Padding(4);
+            this.tbSubject.Name = "tbSubject";
+            this.tbSubject.Size = new System.Drawing.Size(314, 33);
+            this.tbSubject.TabIndex = 113;
+            this.tbSubject.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbSubject.Enter += new System.EventHandler(this.tbSubject_Enter);
+            this.tbSubject.Leave += new System.EventHandler(this.tbSubject_Leave);
+            // 
+            // tbEmail
+            // 
+            this.tbEmail.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbEmail.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbEmail.ForeColor = System.Drawing.Color.White;
+            this.tbEmail.HintForeColor = System.Drawing.Color.DarkGray;
+            this.tbEmail.HintText = "(Optional) E-mail";
+            this.tbEmail.isPassword = false;
+            this.tbEmail.LineFocusedColor = System.Drawing.Color.White;
+            this.tbEmail.LineIdleColor = System.Drawing.Color.Silver;
+            this.tbEmail.LineMouseHoverColor = System.Drawing.Color.White;
+            this.tbEmail.LineThickness = 3;
+            this.tbEmail.Location = new System.Drawing.Point(176, 157);
+            this.tbEmail.Margin = new System.Windows.Forms.Padding(4);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.Size = new System.Drawing.Size(313, 33);
+            this.tbEmail.TabIndex = 114;
+            this.tbEmail.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbEmail.Enter += new System.EventHandler(this.tbEmail_Enter);
+            this.tbEmail.Leave += new System.EventHandler(this.tbEmail_Leave);
+            // 
             // UCSupport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -353,11 +340,6 @@
         }
 
         #endregion
-
-        private Bunifu.Framework.UI.BunifuMetroTextbox tbSubject;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private Bunifu.Framework.UI.BunifuMetroTextbox tbEmail;
         public System.Windows.Forms.TextBox tbNote;
         private Bunifu.Framework.UI.BunifuFlatButton btnSend;
         private System.Windows.Forms.Label label3;
@@ -369,5 +351,7 @@
         private System.Windows.Forms.ColumnHeader chMessage;
         private Bunifu.Framework.UI.BunifuFlatButton btnBack;
         private Bunifu.Framework.UI.BunifuFlatButton btnSendMessage;
+        private Bunifu.Framework.UI.BunifuMaterialTextbox tbEmail;
+        private Bunifu.Framework.UI.BunifuMaterialTextbox tbSubject;
     }
 }

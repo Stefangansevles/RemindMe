@@ -305,17 +305,17 @@
             this.TimerMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ucTimerDeleteToolstrip});
             this.TimerMenuStrip.Name = "ReminderMenuStrip";
-            this.TimerMenuStrip.Size = new System.Drawing.Size(170, 26);
+            this.TimerMenuStrip.Size = new System.Drawing.Size(181, 48);
             // 
             // ucTimerDeleteToolstrip
             // 
             this.ucTimerDeleteToolstrip.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ucTimerDeleteToolstrip.BackgroundImage")));
             this.ucTimerDeleteToolstrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ucTimerDeleteToolstrip.ForeColor = System.Drawing.Color.Gainsboro;
-            this.ucTimerDeleteToolstrip.Image = global::RemindMe.Properties.Resources.bin;
+            this.ucTimerDeleteToolstrip.Image = global::RemindMe.Properties.Resources.Bin_white;
             this.ucTimerDeleteToolstrip.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ucTimerDeleteToolstrip.Name = "ucTimerDeleteToolstrip";
-            this.ucTimerDeleteToolstrip.Size = new System.Drawing.Size(169, 22);
+            this.ucTimerDeleteToolstrip.Size = new System.Drawing.Size(180, 22);
             this.ucTimerDeleteToolstrip.Text = "Delete this timer";
             this.ucTimerDeleteToolstrip.Click += new System.EventHandler(this.ucTimerDeleteToolstrip_Click);
             // 

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using Business_Logic_Layer;
+using System.Threading;
 
 namespace RemindMe
 {
@@ -37,10 +38,8 @@ namespace RemindMe
 
         private void tmrDetails_Tick(object sender, EventArgs e)
         {                        
-            if (this.Visible)
-            {
-                lblMemoryUsage.Text = GetMemory() / 1000 + " Mb";// Process.GetCurrentProcess().VirtualMemorySize64 / 1024 / 1024 + "Mb";               
-            }
+            if (this.Visible)            
+                SetMemory();            
         }
 
         private void UCDebugMode_Load(object sender, EventArgs e)
@@ -54,13 +53,21 @@ namespace RemindMe
         /// Returns memory usage
         /// </summary>
         /// <returns></returns>
-        private long GetMemory()
-        {            
-            PerformanceCounter pc = new PerformanceCounter();
-            pc.CategoryName = "Process";
-            pc.CounterName = "Working Set - Private";
-            pc.InstanceName = Process.GetCurrentProcess().ProcessName;
-            return Convert.ToInt32(pc.NextValue()) / (int)(1024);            
+        private void SetMemory()
+        {
+            new Thread(() =>
+            {
+                PerformanceCounter pc = new PerformanceCounter();
+                pc.CategoryName = "Process";
+                pc.CounterName = "Working Set - Private";
+                pc.InstanceName = Process.GetCurrentProcess().ProcessName;
+
+                lblMemoryUsage.Invoke((MethodInvoker)(() =>
+                {
+                    lblMemoryUsage.Text = (Convert.ToInt32(pc.NextValue()) / (int)(1024)) / 1000 + " Mb";
+                }));
+
+            }).Start();            
         }
 
         private void bunifuFlatButton2_Click(object sender, EventArgs e)

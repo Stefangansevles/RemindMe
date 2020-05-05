@@ -71,73 +71,103 @@ namespace RemindMe
 
         public void Initialize()
         {
-            BLIO.Log("Loading reminders from database");
-            //Give initial value to newReminderUc 
-            newReminderUc = new UCNewReminder(this);
-            newReminderUc.Visible = false;
-            newReminderUc.saveState = false;
-            this.Parent.Controls.Add(newReminderUc);
-
-
-            Form1.Instance.ucNewReminder = newReminderUc;
-            //BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);   
-
-            BLIO.Log("Starting the reminder timer");
-            tmrCheckReminder.Start();
-
-            pnlReminders.Visible = true;
-
-            pnlReminders.DragDrop += UCReminders_DragDrop;
-            pnlReminders.DragEnter += UCReminders_DragEnter;
-
-
-            int counter = 0;
-            List<Reminder> activeReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).ToList();
-            List<Reminder> disabledReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).ToList();
-
-            foreach (Reminder rem in activeReminders)
-            {                                
-                if (pnlReminders.Controls.Count >= 7) break; //Only 7 reminders on 1 page
-
-                pnlReminders.Controls.Add(new UCReminderItem(rem));
-
-                if (counter > 0)
-                    pnlReminders.Controls[counter].Location = new Point(0, pnlReminders.Controls[counter - 1].Location.Y + pnlReminders.Controls[counter - 1].Size.Height);
-
-                counter++;
-            }
-
-            foreach (Reminder rem in disabledReminders)
+            try
             {
-                if (pnlReminders.Controls.Count >= 7) break;
+                List<Reminder> corruptedReminders = BLReminder.CheckForCorruptedReminders();
 
-                pnlReminders.Controls.Add(new UCReminderItem(rem));
-
-                if (counter > 0)
-                    pnlReminders.Controls[counter].Location = new Point(0, pnlReminders.Controls[counter - 1].Location.Y + pnlReminders.Controls[counter - 1].Size.Height);
-
-                counter++;
-            }
-
-            if (activeReminders.Count + disabledReminders.Count < 7) //Less than 7 reminders, let's fit in some empty UCReminderItem 's
-            {
-                for (int i = (activeReminders.Count + disabledReminders.Count); i < 7; i++)
+                if(corruptedReminders != null)
                 {
-                    pnlReminders.Controls.Add(new UCReminderItem(null));
+                    string message = "RemindMe has detected";
+                    if (corruptedReminders.Count > 1)
+                    {
+                        message += " problems with the following reminders: \r\n";
+
+                        foreach (Reminder rem in corruptedReminders)
+                            message += "- " + rem.Name + "\r\n";
+
+                        message += "\r\nThey have been removed from your list of reminders.";
+                    }
+                    else
+                    {
+                        message += " a problem with the reminder:\r\n\"" + corruptedReminders[0].Name + "\". \r\nIt has been removed from your list of reminders.";
+                    }
+
+                    RemindMeMessageFormManager.MakeMessagePopup(message, 0);
+                }
+
+                BLIO.Log("Loading reminders from database");
+                //Give initial value to newReminderUc 
+                newReminderUc = new UCNewReminder(this);
+                newReminderUc.Visible = false;
+                newReminderUc.saveState = false;
+                this.Parent.Controls.Add(newReminderUc);
+
+
+                Form1.Instance.ucNewReminder = newReminderUc;
+                //BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders().Where(r => r.Hide == 0).ToList()); //Get all "active" reminders);   
+
+                BLIO.Log("Starting the reminder timer");
+                tmrCheckReminder.Start();
+
+                pnlReminders.Visible = true;
+
+                pnlReminders.DragDrop += UCReminders_DragDrop;
+                pnlReminders.DragEnter += UCReminders_DragEnter;
+
+
+                int counter = 0;
+                List<Reminder> activeReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).ToList();
+                List<Reminder> disabledReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).ToList();
+
+                foreach (Reminder rem in activeReminders)
+                {
+                    if (pnlReminders.Controls.Count >= 7) break; //Only 7 reminders on 1 page
+
+                    pnlReminders.Controls.Add(new UCReminderItem(rem));
 
                     if (counter > 0)
                         pnlReminders.Controls[counter].Location = new Point(0, pnlReminders.Controls[counter - 1].Location.Y + pnlReminders.Controls[counter - 1].Size.Height);
 
                     counter++;
                 }
+
+                foreach (Reminder rem in disabledReminders)
+                {
+                    if (pnlReminders.Controls.Count >= 7) break;
+
+                    pnlReminders.Controls.Add(new UCReminderItem(rem));
+
+                    if (counter > 0)
+                        pnlReminders.Controls[counter].Location = new Point(0, pnlReminders.Controls[counter - 1].Location.Y + pnlReminders.Controls[counter - 1].Size.Height);
+
+                    counter++;
+                }
+
+                if (activeReminders.Count + disabledReminders.Count < 7) //Less than 7 reminders, let's fit in some empty UCReminderItem 's
+                {
+                    for (int i = (activeReminders.Count + disabledReminders.Count); i < 7; i++)
+                    {
+                        pnlReminders.Controls.Add(new UCReminderItem(null));
+
+                        if (counter > 0)
+                            pnlReminders.Controls[counter].Location = new Point(0, pnlReminders.Controls[counter - 1].Location.Y + pnlReminders.Controls[counter - 1].Size.Height);
+
+                        counter++;
+                    }
+                }
+
+                if (BLReminder.GetReminders().Where(r => r.Hide == 0).ToList().Count <= 7)
+                    Form1.Instance.UpdatePageNumber(-1); //Tell form1 that there are not more than 1 pages
+                else
+                {
+                    btnNextPage.Iconimage = Properties.Resources.NextWhite;
+                    Form1.Instance.UpdatePageNumber(pageNumber);
+                }
             }
-            
-            if (BLReminder.GetReminders().Where(r => r.Hide == 0).ToList().Count <= 7)
-                Form1.Instance.UpdatePageNumber(-1); //Tell form1 that there are not more than 1 pages
-            else
+            catch(Exception ex)
             {
-                btnNextPage.Iconimage = Properties.Resources.NextWhite;
-                Form1.Instance.UpdatePageNumber(pageNumber);
+                BLIO.Log("UCReminders.Initialize() FAILED. Type -> " + ex.GetType().ToString());
+                BLIO.Log("Message -> " + ex.Message);
             }
         }
                

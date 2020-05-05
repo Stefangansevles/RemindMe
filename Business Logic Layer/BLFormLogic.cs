@@ -22,7 +22,7 @@ namespace Business_Logic_Layer
         /// <param name="rem">The reminder</param>
         public static void AddReminderToListview(ListView lv, Reminder rem)
         {
-            if (!BLReminder.IsValidReminder(rem))
+            if (BLReminder.IsValidReminder(rem) != null)
             {
                 //This reminder isn't valid! Set the "Corrupted" tag to 1 and throw exception
                 rem.Corrupted = 1;
@@ -102,7 +102,7 @@ namespace Business_Logic_Layer
             //First, lets check if this list is correct
             foreach(Reminder checkRem in reminderList)
             {
-                if (!BLReminder.IsValidReminder(checkRem))
+                if (BLReminder.IsValidReminder(checkRem) != null)
                 {
                     //This reminder isn't valid! Set the "Corrupted" tag to 1 and throw exception
                     checkRem.Corrupted = 1;

@@ -19,11 +19,13 @@ namespace Business_Logic_Layer
         /// <param name="rem">The reminder that caused an exception</param>       
         public ReminderException(string message, Reminder rem) : base(message)
         {
-            Reminder = rem;
+            Reminder = rem;                        
         }
         /// <summary>
         /// The Reminder object of this Exception
         /// </summary>
         public Reminder Reminder { get; private set; }
+
+        public string StackTrace { get; set; }
     }
 }

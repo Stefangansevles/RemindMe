@@ -30,7 +30,7 @@ namespace RemindMe
                 BLIO.Log("Attempting to send a message to the RemindMe developer..");
 
                 //Don't do anything if there's no text
-                if (string.IsNullOrWhiteSpace(tbNote.Text))
+                if (string.IsNullOrWhiteSpace(tbNote.Text) || tbNote.Text == "Type your message here...")
                     return;
 
                 //Don't do anything without internet
@@ -49,6 +49,7 @@ namespace RemindMe
                 tbEmail.Text = "";
                 tbSubject.Text = "";
                 tbNote.Text = "";
+                label3.Focus();
                 BLIO.Log("Message sent!");
             }
             catch (Exception ex)
@@ -124,6 +125,45 @@ namespace RemindMe
                     BLReadMessages.DeleteMessage(mess.Id);
                 }
                 
+            }
+        }
+
+        private void tbSubject_Enter(object sender, EventArgs e)
+        {
+            tbSubject.LineIdleColor = Color.Silver;
+            tbSubject.HintForeColor = Color.White;
+        }
+
+        private void tbSubject_Leave(object sender, EventArgs e)
+        {
+            tbSubject.HintForeColor = Color.DarkGray;
+        }
+
+        private void tbEmail_Enter(object sender, EventArgs e)
+        {
+            tbEmail.LineIdleColor = Color.Silver;
+            tbEmail.HintForeColor = Color.White;
+        }
+
+        private void tbEmail_Leave(object sender, EventArgs e)
+        {
+            tbEmail.HintForeColor = Color.DarkGray;
+        }
+
+        private void tbNote_Enter(object sender, EventArgs e)
+        {
+            tbNote.ForeColor = Color.White;
+
+            if (tbNote.Text == "Type your message here...")
+                tbNote.Text = "";
+        }
+
+        private void tbNote_Leave(object sender, EventArgs e)
+        {
+            if (tbNote.Text == "")
+            {
+                tbNote.ForeColor = Color.Silver;
+                tbNote.Text = "Type your message here...";
             }
         }
     }
