@@ -1000,4 +1000,7 @@ in the bottom right corner of your screen as "<..> in 60 minutes!"
 - you will no longer get the what's new since last version(s) popup multiple times
 - Added more logging information to help fix future bugs
 
+2.6.518
+- RemindMe will no longer try to update again after RemindMe has already updated but not restarted
+
 //OnPowerDown, re-enable the popup reminder

@@ -22,13 +22,14 @@ namespace RemindMe
     {
         private bool extractCompleted = false;
         private static bool restartRemindMe = false;
+        private bool hasUpdated = false;
 
         public void UpdateRemindMe() //This is called within a Thread
         {
             try
             {
                 //Don't do anything without internet
-                if (!BLIO.HasInternetAccess())
+                if (hasUpdated || !BLIO.HasInternetAccess())
                     return;
 
                 if (GetGithubVersion() > new Version(IOVariables.RemindMeVersion))
@@ -70,7 +71,9 @@ namespace RemindMe
                             Application.Restart();
                         }
                         else
-                            BLIO.Log("Installation complete! restartRemindMe = " + restartRemindMe);                        
+                            BLIO.Log("Installation complete! restartRemindMe = " + restartRemindMe);
+
+                        hasUpdated = true;
                     }
                     catch (Exception ex) //do rollback
                     {
