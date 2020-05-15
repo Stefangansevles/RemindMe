@@ -21,6 +21,8 @@ using System.Management;
 using Microsoft.Win32;
 using Ionic.Zip;
 using IWshRuntimeLibrary;
+using JCS;
+using System.Globalization;
 
 namespace RemindMe
 {
@@ -58,7 +60,9 @@ namespace RemindMe
         public Form1()
         {            
             BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");
-            Cleanup();
+            LogWindowsInfo(); //Windows version info etc
+            LogCultureInfo(); //Datetime info in their country
+            Cleanup();            
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             BLIO.CreateSettings();
             BLIO.CreateDatabaseIfNotExist();
@@ -125,7 +129,35 @@ namespace RemindMe
 
             BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
-        
+
+        /// <summary>
+        /// Logs windows version info
+        /// </summary>
+        private void LogWindowsInfo()
+        {
+            BLIO.Log("Windows information:");
+            BLIO.Log("- Version: " + OSVersionInfo.Name);
+            BLIO.Log("- Edition:  " + OSVersionInfo.Edition);
+            BLIO.Log("- Service pack:  " + OSVersionInfo.ServicePack);
+            BLIO.Log("- Specific version:  " + OSVersionInfo.VersionString);
+        }
+
+        /// <summary>
+        /// Logs information about the user's datetime information in their country
+        /// </summary>
+        private void LogCultureInfo()
+        {
+            BLIO.Log("CultureInfo information:");
+            BLIO.Log("- Culture DisplayName: " + CultureInfo.CurrentCulture.DisplayName);
+            BLIO.Log("- Culture ShortDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "  [" + DateTime.Now.ToShortDateString() + "]");
+            BLIO.Log("- Culture LongDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.LongDatePattern + "  [" + DateTime.Now.ToLongDateString() + "]");
+            BLIO.Log("- Culture FullDateTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern + "  [" + DateTime.Now.ToString() + "]");
+            BLIO.Log("- Culture ShortTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern + "  [" + DateTime.Now.ToShortTimeString() + "]");
+            BLIO.Log("- Culture LongTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern + "  [" + DateTime.Now.ToLongTimeString() + "]");
+            BLIO.Log("- Culture DateSeparator: " + CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator);
+            BLIO.Log("- Culture TimeSeparator: " + CultureInfo.CurrentCulture.DateTimeFormat.TimeSeparator);
+            BLIO.Log("- Culture ToString(): " + CultureInfo.CurrentCulture.ToString());
+        }
 
         private void OnPowerChange(object sender, PowerModeChangedEventArgs e)
         {
@@ -199,7 +231,7 @@ namespace RemindMe
                 }
 
                 //If the errorlog is >= 5mb , clear it. That's a bit big..                                
-                if (new FileInfo(IOVariables.errorLog).Length / 1024 >= 5000)
+                if (System.IO.File.Exists(IOVariables.errorLog) && new FileInfo(IOVariables.errorLog).Length / 1024 >= 5000)
                 {
                     BLIO.Log("Clearing error log that is too large... ["+ new FileInfo(IOVariables.errorLog).Length/1024+".mb ]");
 
@@ -497,6 +529,7 @@ namespace RemindMe
 
                 //Update the lastVersion
                 set.LastVersion = IOVariables.RemindMeVersion;
+                BLSettings.UpdateSettings(set);
             }
             else
             {

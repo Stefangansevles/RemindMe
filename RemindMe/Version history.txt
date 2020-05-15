@@ -992,8 +992,12 @@ first launch RemindMe. Then, if RemindMe was active, you could open the RemindMe
 in the bottom right corner of your screen as "<..> in 60 minutes!"
 
 2.6.516
-- Pausing anrunning timers will now work correctly again.
+- Pausing running timers will now work correctly again.
 - Redesigned the custom message form a little bit
 - RemindMe will attempt to remove/hide reminders that can not be loaded (corrupt reminders)
+
+2.6.517
+- you will no longer get the what's new since last version(s) popup multiple times
+- Added more logging information to help fix future bugs
 
 //OnPowerDown, re-enable the popup reminder

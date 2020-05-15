@@ -61,13 +61,16 @@ namespace RemindMe
                         while (!extractCompleted) { } //Busy waiting, but we're in a thread anyway
                         BLIO.Log("UpdateRemindMe() took: " + (long)(DateTime.UtcNow - dateNow).TotalMilliseconds + " ms");
 
+                        BLIO.Log("Attempting to remove UpdateFiles.zip...");
+                        try { File.Delete(IOVariables.rootFolder + "UpdateFiles.zip"); } catch { }
+
                         if (restartRemindMe && !Form1.Instance.Visible)
                         {
                             BLIO.Log("Restarting RemindMe...");
                             Application.Restart();
                         }
                         else
-                            BLIO.Log("Installation complete! restartRemindMe = " + restartRemindMe);
+                            BLIO.Log("Installation complete! restartRemindMe = " + restartRemindMe);                        
                     }
                     catch (Exception ex) //do rollback
                     {

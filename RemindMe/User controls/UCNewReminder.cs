@@ -1052,7 +1052,9 @@ namespace RemindMe
                     }
                     else if (repeat == ReminderRepeatType.NONE)
                     {
+                        BLIO.Log("Attempting to read the selected date for the new reminder...");
                         DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
+                        BLIO.Log("Success! Date -> " + selectedDate.ToString());
                         if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)
                             cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him/her(yes, there are 2 genders).                                              
 
