@@ -374,21 +374,18 @@ namespace RemindMe
 
         private void GlobalKeyPressUp(object sender, KeyEventArgs e)
         {
-            if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
-                return;
-
             if (BLSettings.Settings.EnableQuickTimer != 1) //Not enabled? don't do anything
                 return;
 
-            //Good! now let's check if the KeyCode is not alt shift or ctrl
-            if (e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey)
-                return;
-
             timerCheckHotKey = BLHotkeys.TimerCheck;
-            if (TimerCheck.Instance != null && e.Modifiers.ToString().Replace(" ", string.Empty) == timerCheckHotKey.Modifiers && e.KeyCode.ToString() == timerCheckHotKey.Key)
+
+            if (TimerCheck.Instance != null && (e.Modifiers.ToString().Replace(" ", string.Empty) == timerCheckHotKey.Modifiers || e.KeyCode.ToString() == timerCheckHotKey.Key) )
             {
                 TimerCheck.Instance.Close();
-            }
+            }            
+
+            
+            
         }
 
 
@@ -402,6 +399,7 @@ namespace RemindMe
                 BLIO.Log("RemindMe_Load");                                
 
                 lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
+                RemindMeIcon.Text = "RemindMe " + IOVariables.RemindMeVersion;
 
                 if (Path.GetDirectoryName(Application.ExecutablePath).EndsWith("\\Debug"))
                     lblVersion.Text += " - DEV BUILD";

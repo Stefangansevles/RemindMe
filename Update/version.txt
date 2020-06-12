@@ -1,3 +1,3 @@
-2.6.600
-update: minor //min = don't restart. maj = restart
-silentUpdate: false
+2.6.601
+update: major //min = don't restart. maj = restart
+silentUpdate: true

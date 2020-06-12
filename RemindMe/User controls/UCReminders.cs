@@ -404,7 +404,9 @@ namespace RemindMe
                         BLIO.Log("Detected the deletion of an reminder on the current page.");
                         //Get the user control item from the panel. There's 7 user controls in the panel, so we have another counter for those
                         UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];
-                        BLIO.Log("Emptying ReminderItem with ID " + itm.Reminder.Id);
+
+                        if(itm.Reminder != null)
+                            BLIO.Log("Emptying ReminderItem with ID " + itm.Reminder.Id);
                         //Update the reminder object inside the user control, that's waay faster than removing and re-drawing a new control.
                         itm.Reminder = null;
                         

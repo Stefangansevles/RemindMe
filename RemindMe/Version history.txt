@@ -1008,4 +1008,8 @@ in the bottom right corner of your screen as "<..> in 60 minutes!"
 If you have created 1 or more timers, either through the RemindMe interface or through a quick-timer shortcut (check the SETTINGS tab on RemindMe)
 You will now be able to quickly see (and add or subtract minutes from) running timers by holding the specified key combination (Default: ctrl+shift+E after visiting the SETTINGS tab on RemindMe)
 
+2.6.601
+Tiny fix where the new TimerCheck popup could stay up (even though there is a close button)
+Tiny fix where RemindMe would throw an NPE when loading the reminder page when there are less than 7 reminders
+
 //OnPowerDown, re-enable the popup reminder
