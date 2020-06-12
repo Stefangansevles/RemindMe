@@ -17,17 +17,19 @@ namespace RemindMe
         //The amount of minutes the timer is going to be set for    
         private int timerMinutes = 0;
 
-
+        //Only allow one TimerCheck to be open        
+        private static TimerPopup instance = null;
         public TimerPopup()
         {            
-            InitializeComponent();            
+            InitializeComponent();
+            instance = this;
             this.Opacity = 0;            
             tmrFadeIn.Start();
 
             tbTime.KeyUp += TimerPopup_KeyUp;
             tbNote.KeyUp += TimerPopup_KeyUp;
-            this.KeyUp += TimerPopup_KeyUp;            
-
+            this.KeyUp += TimerPopup_KeyUp;
+            
             BLIO.Log("TimerPopup created");
         }
 
@@ -107,7 +109,7 @@ namespace RemindMe
                 //ucTimer.ToggleTimer();
                 
                 BLIO.Log("Timer started");
-                this.Dispose();
+                this.Close();
             }
         }
 
@@ -147,6 +149,14 @@ namespace RemindMe
             this.Dispose();            
         }
 
-       
+        public static TimerPopup Instance
+        {
+            get { return instance; }
+        }
+
+        private void TimerPopup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            instance = null;
+        }
     }
 }

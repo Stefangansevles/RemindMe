@@ -36,6 +36,7 @@ namespace RemindMe
 
         //The hotkey key-combination(customizable) to make a quick-timer popup
         Hotkeys timerHotkey;
+        Hotkeys timerCheckHotKey;
 
         RemindMeUpdater updater = new RemindMeUpdater();
 
@@ -104,7 +105,8 @@ namespace RemindMe
             ucReminders.Initialize();
 
             m_GlobalHook = Hook.GlobalEvents();
-            m_GlobalHook.KeyDown += GlobalKeyPress;
+            m_GlobalHook.KeyDown += GlobalKeyPressDown;
+            m_GlobalHook.KeyUp += GlobalKeyPressUp;
 
             //Set the Renderer of the menustrip to our custom renderer, which sets the highlight and border collor to DimGray, which is the same
             //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
@@ -130,6 +132,7 @@ namespace RemindMe
             BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
 
+        
         /// <summary>
         /// Logs windows version info
         /// </summary>
@@ -148,7 +151,7 @@ namespace RemindMe
         private void LogCultureInfo()
         {
             BLIO.Log("CultureInfo information:");
-            BLIO.Log("- Culture DisplayName: " + CultureInfo.CurrentCulture.DisplayName);
+            BLIO.Log("- Culture NativeName: " + CultureInfo.CurrentCulture.NativeName);
             BLIO.Log("- Culture ShortDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + "  [" + DateTime.Now.ToShortDateString() + "]");
             BLIO.Log("- Culture LongDatePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.LongDatePattern + "  [" + DateTime.Now.ToLongDateString() + "]");
             BLIO.Log("- Culture FullDateTimePattern: " + CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern + "  [" + DateTime.Now.ToString() + "]");
@@ -334,7 +337,7 @@ namespace RemindMe
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e">The keyeventargs which contains the pressed keys</param>
-        private void GlobalKeyPress(object sender, KeyEventArgs e)
+        private void GlobalKeyPressDown(object sender, KeyEventArgs e)
         {            
             if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
                 return;
@@ -347,8 +350,9 @@ namespace RemindMe
                 return;
 
             timerHotkey = BLHotkeys.TimerPopup;
+            timerCheckHotKey = BLHotkeys.TimerCheck;
 
-            if (e.Modifiers.ToString().Replace(" ", string.Empty) == timerHotkey.Modifiers && e.KeyCode.ToString() == timerHotkey.Key)
+            if (TimerPopup.Instance == null && e.Modifiers.ToString().Replace(" ", string.Empty) == timerHotkey.Modifiers && e.KeyCode.ToString() == timerHotkey.Key)
             {
                 //Don't allow other applications to also fire this key combination, ctrl+shift+r would for example reload the page at the same time
                 e.Handled = true;
@@ -357,7 +361,36 @@ namespace RemindMe
                 TimerPopup quickTimer = new TimerPopup();
                 quickTimer.Show();
             }
+            if (TimerCheck.Instance == null && UCTimer.RunningTimers.Count > 0 && e.Modifiers.ToString().Replace(" ", string.Empty) == timerCheckHotKey.Modifiers && e.KeyCode.ToString() == timerCheckHotKey.Key)
+            {
+                //Don't allow other applications to also fire this key combination, ctrl+shift+r would for example reload the page at the same time
+                e.Handled = true;
+
+                BLIO.Log("Timer check hotkey combination pressed!");
+                TimerCheck check = new TimerCheck();
+                check.Show();
+            }
         }
+
+        private void GlobalKeyPressUp(object sender, KeyEventArgs e)
+        {
+            if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
+                return;
+
+            if (BLSettings.Settings.EnableQuickTimer != 1) //Not enabled? don't do anything
+                return;
+
+            //Good! now let's check if the KeyCode is not alt shift or ctrl
+            if (e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey)
+                return;
+
+            timerCheckHotKey = BLHotkeys.TimerCheck;
+            if (TimerCheck.Instance != null && e.Modifiers.ToString().Replace(" ", string.Empty) == timerCheckHotKey.Modifiers && e.KeyCode.ToString() == timerCheckHotKey.Key)
+            {
+                TimerCheck.Instance.Close();
+            }
+        }
+
 
         /// <summary>
         /// Alternative Form_load method since form_load doesnt get called until you first double-click the RemindMe icon due to override SetVisibleCore
@@ -366,7 +399,7 @@ namespace RemindMe
         {           
             try
             {
-                BLIO.Log("RemindMe_Load");                
+                BLIO.Log("RemindMe_Load");                                
 
                 lblVersion.Text = "Version " + IOVariables.RemindMeVersion;
 
@@ -415,7 +448,7 @@ namespace RemindMe
                 Settings set = BLSettings.Settings;
                 //Call the timer once
                 Thread tr = new Thread(() =>
-                {
+                {                    
                     //wait a bit, then call the update timer once. It then runs every 5 minutes
                     Thread.Sleep(5000);
                     tmrUpdateRemindMe_Tick(null, null);

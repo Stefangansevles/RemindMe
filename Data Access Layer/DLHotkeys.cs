@@ -38,6 +38,32 @@ namespace Data_Access_Layer
                 UpdateHotkey(value);
             }      
         }
+        /// <summary>
+        /// Reads the settings from the database and checks if reminders should be set to always on top.
+        /// </summary>
+        /// <returns>True if reminders are set to be always on top, false if not</returns>
+        public static Hotkeys TimerCheck
+        {
+            get
+            {
+                Hotkeys hotKey = null;
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    var count = db.Hotkeys.Where(o => o.Id >= 0).Count();
+                    if (count > 0)
+                    {
+
+                        hotKey = (from g in db.Hotkeys select g).Where(i => i.Name == "TimerCheck").SingleOrDefault();
+                        db.Dispose();
+                    }
+                }
+                return hotKey;
+            }
+            set
+            {
+                UpdateHotkey(value);
+            }
+        }
 
         /// <summary>
         /// Insert a hotkey combination into the SQLite database
@@ -48,7 +74,7 @@ namespace Data_Access_Layer
             using (RemindMeDbEntities db = new RemindMeDbEntities())
             {
                 if (db.Hotkeys.Count() > 0)
-                    hotkey.Id = db.Reminder.Max(i => i.Id) + 1;
+                    hotkey.Id = db.Hotkeys.Max(i => i.Id) + 1;
 
                 db.Hotkeys.Add(hotkey);
                 db.SaveChanges();                

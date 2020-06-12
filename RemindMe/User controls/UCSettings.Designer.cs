@@ -51,6 +51,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tbTimerHotkey = new System.Windows.Forms.TextBox();
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbCheckTimerHotKey = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -207,6 +209,8 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.tbCheckTimerHotKey);
             this.panel1.Controls.Add(this.btnPreviewSong);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.btnRemoveSong);
@@ -245,7 +249,7 @@
             this.btnPreviewSong.ImageZoom = 100;
             this.btnPreviewSong.LabelPosition = 0;
             this.btnPreviewSong.LabelText = "";
-            this.btnPreviewSong.Location = new System.Drawing.Point(256, 395);
+            this.btnPreviewSong.Location = new System.Drawing.Point(256, 457);
             this.btnPreviewSong.Margin = new System.Windows.Forms.Padding(6);
             this.btnPreviewSong.Name = "btnPreviewSong";
             this.btnPreviewSong.Size = new System.Drawing.Size(24, 24);
@@ -257,7 +261,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(20, 373);
+            this.label11.Location = new System.Drawing.Point(20, 435);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(296, 17);
             this.label11.TabIndex = 113;
@@ -276,7 +280,7 @@
             this.btnRemoveSong.ImageZoom = 100;
             this.btnRemoveSong.LabelPosition = 0;
             this.btnRemoveSong.LabelText = "";
-            this.btnRemoveSong.Location = new System.Drawing.Point(285, 395);
+            this.btnRemoveSong.Location = new System.Drawing.Point(285, 457);
             this.btnRemoveSong.Margin = new System.Windows.Forms.Padding(6);
             this.btnRemoveSong.Name = "btnRemoveSong";
             this.btnRemoveSong.Size = new System.Drawing.Size(24, 24);
@@ -290,7 +294,7 @@
             this.cbSound.ForeColor = System.Drawing.Color.White;
             this.cbSound.FormattingEnabled = true;
             this.cbSound.ItemHeight = 16;
-            this.cbSound.Location = new System.Drawing.Point(22, 395);
+            this.cbSound.Location = new System.Drawing.Point(22, 457);
             this.cbSound.Name = "cbSound";
             this.cbSound.Size = new System.Drawing.Size(225, 24);
             this.cbSound.TabIndex = 111;
@@ -326,7 +330,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(20, 327);
+            this.label9.Location = new System.Drawing.Point(20, 337);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(284, 17);
             this.label9.TabIndex = 106;
@@ -337,7 +341,7 @@
             this.tbTimerHotkey.BackColor = System.Drawing.Color.DimGray;
             this.tbTimerHotkey.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
             this.tbTimerHotkey.ForeColor = System.Drawing.Color.White;
-            this.tbTimerHotkey.Location = new System.Drawing.Point(22, 347);
+            this.tbTimerHotkey.Location = new System.Drawing.Point(22, 357);
             this.tbTimerHotkey.Name = "tbTimerHotkey";
             this.tbTimerHotkey.ReadOnly = true;
             this.tbTimerHotkey.Size = new System.Drawing.Size(227, 22);
@@ -347,6 +351,29 @@
             // tmrMusic
             // 
             this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(21, 387);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(373, 17);
+            this.label12.TabIndex = 116;
+            this.label12.Text = "Hotkey combination to check currently running timers:";
+            // 
+            // tbCheckTimerHotKey
+            // 
+            this.tbCheckTimerHotKey.BackColor = System.Drawing.Color.DimGray;
+            this.tbCheckTimerHotKey.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.tbCheckTimerHotKey.ForeColor = System.Drawing.Color.White;
+            this.tbCheckTimerHotKey.Location = new System.Drawing.Point(23, 407);
+            this.tbCheckTimerHotKey.Name = "tbCheckTimerHotKey";
+            this.tbCheckTimerHotKey.ReadOnly = true;
+            this.tbCheckTimerHotKey.Size = new System.Drawing.Size(227, 22);
+            this.tbCheckTimerHotKey.TabIndex = 115;
+            this.tbCheckTimerHotKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbCheckTimerHotKey_KeyUp);
             // 
             // UCSettings
             // 
@@ -388,5 +415,7 @@
         public System.Windows.Forms.ComboBox cbSound;
         private Bunifu.Framework.UI.BunifuTileButton btnPreviewSong;
         private System.Windows.Forms.Timer tmrMusic;
+        private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.TextBox tbCheckTimerHotKey;
     }
 }

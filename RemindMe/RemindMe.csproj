@@ -145,6 +145,12 @@
     <Compile Include="Forms\ExceptionPopup.Designer.cs">
       <DependentUpon>ExceptionPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TimerCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TimerCheck.Designer.cs">
+      <DependentUpon>TimerCheck.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WhatsNew.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +247,12 @@
     <Compile Include="User controls\Advanced Reminder User controls\AVR_UCGeneral.Designer.cs">
       <DependentUpon>AVR_UCGeneral.cs</DependentUpon>
     </Compile>
+    <Compile Include="User controls\RunningTimer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\RunningTimer.Designer.cs">
+      <DependentUpon>RunningTimer.cs</DependentUpon>
+    </Compile>
     <Compile Include="User controls\UCDebugMode.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -328,6 +340,9 @@
     <EmbeddedResource Include="Forms\RemindMePrompt.resx">
       <DependentUpon>RemindMePrompt.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TimerCheck.resx">
+      <DependentUpon>TimerCheck.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\TimerPopup.resx">
       <DependentUpon>TimerPopup.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\Advanced Reminder User controls\AVR_UCGeneral.resx">
       <DependentUpon>AVR_UCGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User controls\RunningTimer.resx">
+      <DependentUpon>RunningTimer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User controls\UCDebugMode.resx">
       <DependentUpon>UCDebugMode.cs</DependentUpon>
@@ -532,6 +550,8 @@
     <None Include="Resources\ColourPallette2.png" />
     <None Include="Resources\palette.png" />
     <None Include="Resources\write.png" />
+    <None Include="Resources\speed.png" />
+    <None Include="Resources\Minus_white.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

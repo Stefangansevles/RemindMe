@@ -89,11 +89,14 @@ namespace RemindMe
             cbAdvancedReminders.Checked = BLSettings.Settings.EnableAdvancedReminders == 1;
 
             Hotkeys timerKey = BLHotkeys.TimerPopup;
-            foreach(string m in timerKey.Modifiers.Split(','))
-            {
+            Hotkeys timerCheck = BLHotkeys.TimerCheck;
+            foreach (string m in timerKey.Modifiers.Split(','))
                 tbTimerHotkey.Text += m + " + ";
-            }
             tbTimerHotkey.Text += timerKey.Key;
+
+            foreach (string m in timerCheck.Modifiers.Split(','))
+                tbCheckTimerHotKey.Text += m + " + ";
+            tbCheckTimerHotKey.Text += timerCheck.Key;
 
             //Fill the combobox to select a timer popup sound with data
             FillSoundCombobox();
@@ -114,7 +117,7 @@ namespace RemindMe
             }
             if (BLSettings.Settings.DefaultTimerSound == null)//Still null? well damn.
                 return;
-            
+
             cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLSettings.Settings.DefaultTimerSound), BLSongs.GetSongByFullPath(BLSettings.Settings.DefaultTimerSound)));
             cbSound.Text = Path.GetFileNameWithoutExtension(BLSettings.Settings.DefaultTimerSound);
         }
@@ -313,6 +316,36 @@ namespace RemindMe
         {
             if (this.Visible)
                 BLIO.Log("Control UCSettings now visible");
+        }
+
+        private void tbCheckTimerHotKey_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
+                return;
+
+            //Good! now let's check if the KeyCode is not alt shift or ctr
+            if (e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey)
+                return;
+
+            BLIO.Log("tbCheckTimerHotKey legal key combination pressed.");
+
+
+            tbCheckTimerHotKey.Text = "";
+
+            foreach (string m in e.Modifiers.ToString().Split(','))
+            {
+                tbCheckTimerHotKey.Text += m + " + ";
+            }
+            tbCheckTimerHotKey.Text += e.KeyCode.ToString();
+
+            BLIO.Log("tbCheckTimerHotKey key combination: " + tbCheckTimerHotKey.Text);
+
+            //Get the current key combination for the Timer popup
+            Hotkeys timerCheckKey = BLHotkeys.TimerCheck;
+            timerCheckKey.Key = e.KeyCode.ToString();                                   //Set the new key
+            timerCheckKey.Modifiers = e.Modifiers.ToString().Replace(" ", string.Empty); //Set the new modifier(remove whitespace)
+            BLHotkeys.TimerCheck = timerCheckKey;                                       //Assign the value
+            BLIO.Log("TimerCheck.Key=" + timerCheckKey.Key + "   TimerCheck.Modifiers=" + timerCheckKey.Modifiers);
         }
     }
 }

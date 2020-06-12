@@ -353,10 +353,12 @@ namespace RemindMe
         }
         //Display changes on the current page. (For example a deleted or enabled/disabled reminder)
         public void UpdateCurrentPage()
-        {            
+        {
+            BLIO.Log("Starting UpdateCurrentPage()...");
             List<Reminder> reminders = BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList();
             reminders.AddRange(BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0));
             //^ All reminders in one list with the disabled ones at the end of the list
+            BLIO.Log(reminders.Count + " reminders loaded");
 
             startMethod:
             if ((pageNumber * 7) + 1 > reminders.Count)           
@@ -382,6 +384,7 @@ namespace RemindMe
                     //User deleted a reminder, which was the last one out of the list from that page. Navigate to the previous page.
                     if (i % 7 == 0 && pageNumber > 1)
                     {
+                        BLIO.Log("navigating to the previous page after deletion of an reminder...");
                         pageNumber--;
                         goto startMethod;
                     }
@@ -398,11 +401,13 @@ namespace RemindMe
                     //This happens when an reminder has been deleted, and there are less than 7 reminders on that page. Empty out the remaining reminder items. 
                     while (reminderItemCounter <= 6)
                     {
+                        BLIO.Log("Detected the deletion of an reminder on the current page.");
                         //Get the user control item from the panel. There's 7 user controls in the panel, so we have another counter for those
                         UCReminderItem itm = (UCReminderItem)pnlReminders.Controls[reminderItemCounter];
+                        BLIO.Log("Emptying ReminderItem with ID " + itm.Reminder.Id);
                         //Update the reminder object inside the user control, that's waay faster than removing and re-drawing a new control.
                         itm.Reminder = null;
-
+                        
                         reminderItemCounter++;
                     }
 
@@ -423,7 +428,9 @@ namespace RemindMe
                 Form1.Instance.UpdatePageNumber(pageNumber);
 
             if (Instance != null)
-                Instance.tmrCheckReminder.Start();            
+                Instance.tmrCheckReminder.Start();
+
+            BLIO.Log("UpdateCurrentPage() completed.");
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
@@ -450,7 +457,7 @@ namespace RemindMe
                     itm.Reminder = reminders[i];
                     
                 }
-                else //hide all remaining controls that can't be filled with reminders, since there are no reminders left
+                else //Fill all remaining controls that can't be filled with reminders with "empty", since there are no reminders left
                 {
                     for(int ii = reminderItemCounter; ii < 7; ii++)
                         ((UCReminderItem)pnlReminders.Controls[ii]).Reminder = null;

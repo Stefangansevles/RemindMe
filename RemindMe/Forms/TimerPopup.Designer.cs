@@ -217,6 +217,7 @@
             this.Name = "TimerPopup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Set a quick timer";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TimerPopup_FormClosed);
             this.Load += new System.EventHandler(this.TimerPopup_Load);
             this.bunifuGradientPanel1.ResumeLayout(false);
             this.bunifuGradientPanel1.PerformLayout();

@@ -60,11 +60,11 @@ namespace RemindMe
         /// <returns>A comboboxitem with the given text and value. null if it doesnt exist</returns>
         public static ComboBoxItem GetComboBoxItem(string text, object value)
         {
-            Songs paramSong = (Songs)value;
+            Songs paramSong = (Songs)value;                        
             if (paramSong != null)
             {
                 foreach (ComboBoxItem cbItem in items)
-                {
+                {                    
                     Songs cbItemSong = (Songs)cbItem.Value;
                     if (cbItem.Text == text && cbItemSong.SongFilePath == paramSong.SongFilePath)
                         return cbItem;

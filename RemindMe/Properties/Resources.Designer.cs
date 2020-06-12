@@ -833,6 +833,16 @@ namespace RemindMe.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Minus_white {
+            get {
+                object obj = ResourceManager.GetObject("Minus_white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NextGray {
             get {
                 object obj = ResourceManager.GetObject("NextGray", resourceCulture);
@@ -1366,6 +1376,16 @@ namespace RemindMe.Properties {
         internal static System.Drawing.Bitmap sound2 {
             get {
                 object obj = ResourceManager.GetObject("sound2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap speed {
+            get {
+                object obj = ResourceManager.GetObject("speed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
