@@ -1012,4 +1012,6 @@ You will now be able to quickly see (and add or subtract minutes from) running t
 Tiny fix where the new TimerCheck popup could stay up (even though there is a close button)
 Tiny fix where RemindMe would throw an NPE when loading the reminder page when there are less than 7 reminders
 
+2.6.602
+Small fix where editing an reminder that doesn't have a sound linked would throw an error
 //OnPowerDown, re-enable the popup reminder

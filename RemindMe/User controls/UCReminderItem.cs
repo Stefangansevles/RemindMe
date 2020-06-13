@@ -320,7 +320,7 @@ namespace RemindMe
                 //Log an entry to the database, for data!                
                 try
                 {
-                    BLOnlineDatabase.PreviewCount++;
+                    BLOnlineDatabase.DuplicateCount++;
                 }
                 catch (ArgumentException ex)
                 {

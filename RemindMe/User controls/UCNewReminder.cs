@@ -170,16 +170,21 @@ namespace RemindMe
             {
                 string song = Path.GetFileNameWithoutExtension(rem.SoundFilePath);
                 Songs songObj = BLSongs.GetSongByFullPath(rem.SoundFilePath);
+                if(songObj != null)
+                {
+                    if (songObj.SongFilePath.Contains("C:\\Windows\\Media") && !song.Contains("Windows"))
+                        song = "(Windows) " + song;
+                    else if (song.Contains("Windows"))
+                        song = song.Replace("Windows", "(Windows)");
 
-                if (songObj.SongFilePath.Contains("C:\\Windows\\Media") && !song.Contains("Windows"))
-                    song = "(Windows) " + song;
-                else if (song.Contains("Windows"))
-                    song = song.Replace("Windows", "(Windows)");
+                    ComboBoxItem reminderItem = ComboBoxItemManager.GetComboBoxItem(song, songObj);
 
-                ComboBoxItem reminderItem = ComboBoxItemManager.GetComboBoxItem(song, songObj);
+                    if (reminderItem != null)
+                        cbSound.SelectedItem = reminderItem;
+                }
+                
 
-                if (reminderItem != null)
-                    cbSound.SelectedItem = reminderItem;
+                
             }
 
 
