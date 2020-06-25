@@ -1014,4 +1014,12 @@ Tiny fix where RemindMe would throw an NPE when loading the reminder page when t
 
 2.6.602
 Small fix where editing an reminder that doesn't have a sound linked would throw an error
+
+
+2.6.603
+Added support for multiple music file types. Before you could only add .mp3 and .wav
+RemindMe should no longer show error popups for errors that happen on a timer, again and again
+
+
+
 //OnPowerDown, re-enable the popup reminder

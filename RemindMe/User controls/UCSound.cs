@@ -85,17 +85,24 @@ namespace RemindMe
         {
             BLIO.Log("(UCSound)btnAddFiles_Click");
             int songsAdded = 0;
-            List<string> songPaths = FSManager.Files.GetSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+            List<string> songPaths = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.ogg; *.3gp; *.aac; *.flac; *.webm; *.aiff; *.wma; *.alac;").ToList();
 
             if (songPaths.Count == 1 && songPaths[0] == "")//The user canceled out
                 return;
 
-            BLIO.Log("user selected " + songPaths.Count + " mp3 / wav files.");
+            BLIO.Log("user selected " + songPaths.Count + " sound files.");
+
+            
 
             List<Songs> songs = new List<Songs>();
 
             foreach (string songPath in songPaths)
             {
+                myPlayer.URL = songPath;
+                mediaInfo = myPlayer.newMedia(myPlayer.URL);
+                myPlayer.controls.play();
+                myPlayer.controls.stop();
+
                 Songs song = new Songs();
                 song.SongFileName = Path.GetFileName(songPath);
                 song.SongFilePath = songPath;
@@ -115,7 +122,7 @@ namespace RemindMe
                 }
             }
             RemindMeMessageFormManager.MakeMessagePopup(songsAdded + " Files added to RemindMe.", 4);
-
+            Form1.Instance.ucSettings.FillSoundCombobox();
             LoadSongs();
         }
 
@@ -132,8 +139,11 @@ namespace RemindMe
 
             BLSongs.RemoveSongs(toRemoveSongs);
 
-            if(toRemoveSongs.Count > 0)
+            if (toRemoveSongs.Count > 0)
+            {
                 RemindMeMessageFormManager.MakeMessagePopup(toRemoveSongs.Count + " Files removed from RemindMe.", 4);
+                Form1.Instance.ucSettings.FillSoundCombobox();
+            }
         }
 
         private void btnPreview_Click(object sender, EventArgs e)

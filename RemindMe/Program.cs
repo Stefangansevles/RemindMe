@@ -127,10 +127,16 @@ namespace RemindMe
                 BLIO.WriteError(theException, "Could not find the file located at \"" + theException.FileName, false);
                 ShowError(e.Exception, "File not found.", "Could not find the file located at \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted the file?");
             }
-
-            else if (e.Exception is System.Data.Entity.Core.EntityException)
+          
+            else if (e.Exception is System.Data.Entity.Core.EntityException || e.Exception is System.Data.Entity.Core.EntityCommandExecutionException)
             {
-                BLIO.WriteError(e.Exception, "System.Data.Entity.Core.EntityException", false);
+                BLIO.WriteError(e.Exception, "System.Data.Entity.Core exception", false);
+                ShowError(e.Exception, "System.Data.Entity.Core.EntityException", "There was a problem executing SQL!");
+            }
+
+            else if (e.Exception is System.Runtime.InteropServices.COMException && e.Exception.Message.ToLower().Contains("database"))
+            {
+                BLIO.WriteError(e.Exception, "Database error.");
                 ShowError(e.Exception, "System.Data.Entity.Core.EntityException", "There was a problem executing SQL!");
             }
 

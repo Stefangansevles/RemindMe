@@ -44,11 +44,11 @@ namespace RemindMe
         //User controls that will be loaded into the "main" panel
         private UCReminders ucReminders;
         private UCImportExport ucImportExport;
-        private UCSound ucSound;
-        private UCSettings ucOverlay;
+        private UCSound ucSound;        
         private UCResizePopup ucResizePopup;
         private UCSupport ucSupport;
         private UCDebugMode ucDebug;
+        public UCSettings ucSettings;
         public UCTimer ucTimer;
         public UCNewReminder ucNewReminder; //Can be null
         //If the user presses the end key quickly 3 times, enable debug mode
@@ -76,7 +76,7 @@ namespace RemindMe
             ucReminders = new UCReminders();
             ucImportExport = new UCImportExport();
             ucSound = new UCSound();
-            ucOverlay = new UCSettings();
+            ucSettings = new UCSettings();
             ucResizePopup = new UCResizePopup();
             ucSupport = new UCSupport();
             ucDebug = new UCDebugMode();
@@ -85,7 +85,7 @@ namespace RemindMe
             //Turn them invisible            
             ucImportExport.Visible = false;
             ucSound.Visible = false;
-            ucOverlay.Visible = false;
+            ucSettings.Visible = false;
             ucResizePopup.Visible = false;
             ucSupport.Visible = false;
             ucDebug.Visible = false;
@@ -94,7 +94,7 @@ namespace RemindMe
             //Add all of them(invisible) to the panel            
             pnlMain.Controls.Add(ucImportExport);
             pnlMain.Controls.Add(ucSound);
-            pnlMain.Controls.Add(ucOverlay);
+            pnlMain.Controls.Add(ucSettings);
             pnlMain.Controls.Add(ucResizePopup);
             pnlMain.Controls.Add(ucSupport);
             pnlMain.Controls.Add(ucDebug);
@@ -636,7 +636,7 @@ namespace RemindMe
             foreach (Control c in pnlMain.Controls)
                 c.Visible = false;
 
-            ucOverlay.Visible = true;
+            ucSettings.Visible = true;
         }
 
         private void btnResizePopup_Click(object sender, EventArgs e)
@@ -739,8 +739,16 @@ namespace RemindMe
         private void tmrUpdateRemindMe_Tick(object sender, EventArgs e)
         {    
             new Thread(() =>
-            {                                
-                updater.UpdateRemindMe();
+            {
+                try
+                {
+                    updater.UpdateRemindMe();
+                }
+                catch (Exception ex)
+                {
+                    BLIO.Log("UpdateRemindMe FAILED. " + ex.GetType().ToString());
+                    BLIO.WriteError(ex, "Error in tmrUpdateRemindMe_Tick");
+                }
             }).Start();
             
         }             
@@ -765,49 +773,58 @@ namespace RemindMe
         private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)
         {
             new Thread(() =>
-            {                
-                //Check for messages sent by me every minute
-                foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
+            {
+                try
                 {                    
-                    //first, check if this user has already read this message.
-                    if (BLReadMessages.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
+                    //Check for messages sent by me every minute
+                    foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
                     {
-                        this.BeginInvoke(new MethodInvoker(delegate //This is required to show windows forms (the messages) on a new thread
+                        //first, check if this user has already read this message.
+                        if (BLReadMessages.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
                         {
-                            BLIO.Log("RemindMe detected an unread message!");
+                            this.BeginInvoke(new MethodInvoker(delegate //This is required to show windows forms (the messages) on a new thread
+                            {
+                                BLIO.Log("RemindMe detected an unread message!");
                             //User hasn't read it yet. great! Mark the message as read
                             BLReadMessages.MarkMessageRead(message);
-                            BLIO.Log("Message marked as read.");
+                                BLIO.Log("Message marked as read.");
 
-                            if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
-                            {
-                                BLIO.Log("This message is specifically for me!");
+                                if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
+                                {
+                                    BLIO.Log("This message is specifically for me!");
                                 //This message is meant for a specific user.
 
                                 if (BLSettings.Settings.UniqueString == message.MeantForSpecificPerson)
-                                    PopupRemindMeMessage(message);
+                                        PopupRemindMeMessage(message);
 
-                            }
-                            else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
-                            {
-                                BLIO.Log("This message is specifically for the currently running RemindMe version (" + message.MeantForSpecificVersion + ")");
+                                }
+                                else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
+                                {
+                                    BLIO.Log("This message is specifically for the currently running RemindMe version (" + message.MeantForSpecificVersion + ")");
                                 //This message is meant for a specific RemindMe version. Only show this message if the user: Hasn't read this message AND: has this RemindMe version
                                 if (IOVariables.RemindMeVersion == message.MeantForSpecificVersion)
-                                {
+                                    {
                                     //Show the message
                                     PopupRemindMeMessage(message);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                BLIO.Log("This is a global message. creating popup...");
+                                else
+                                {
+                                    BLIO.Log("This is a global message. creating popup...");
                                 //A global message, not meant for a specific RemindMe version nor user
                                 PopupRemindMeMessage(message);
-                                BLIO.Log("popup created");
-                            }
+                                    BLIO.Log("popup created");
+                                }
 
-                        }));
+                            }));
+                        }
+
                     }
+                }
+                catch (Exception ex)
+                {
+                    BLIO.Log("CheckRemindMeMessages FAILED. " + ex.GetType().ToString());
+                    BLIO.WriteError(ex, "Error in tmrCheckRemindMeMessages_Tick");
                 }
             }).Start();
             
@@ -832,25 +849,49 @@ namespace RemindMe
 
         private void tmrPingActivity_Tick(object sender, EventArgs e)
         {
-            if (BLIO.LastLogMessage != null && !BLIO.LastLogMessage.Contains("Updating user"))
-                BLIO.Log("Pinging online status");
+            try
+            {
+                if (BLIO.LastLogMessage != null && !BLIO.LastLogMessage.Contains("Updating user"))
+                    BLIO.Log("Pinging online status");
 
-            //Update LastOnline
-            BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                //Update LastOnline
+                BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+            }
+            catch (Exception ex)
+            {
+                BLIO.Log("PingActivity FAILED. " + ex.GetType().ToString());
+                BLIO.WriteError(ex, "Error in tmrPingActivity_Tick");
+            }
         }     
 
         int currentLogCount = 0;
         private void tmrDumpLogTxtContents_Tick(object sender, EventArgs e)
         {
-            if(BLIO.systemLog.Count != currentLogCount)
-                currentLogCount = BLIO.DumpLogTxt();
+            try
+            {
+                if (BLIO.systemLog.Count != currentLogCount)
+                    currentLogCount = BLIO.DumpLogTxt();
+            }
+            catch (Exception ex)
+            {
+                BLIO.Log("DumpLogTxT FAILED. " + ex.GetType().ToString());
+                BLIO.WriteError(ex, "Error in tmrDumpLogTxtContents_Tick");
+            }
         }
 
         private void tmrEnableDatabaseAccess_Tick(object sender, EventArgs e)
         {
-            //If we could not connect to the database, the Data Access Layer will no longer try to connect to the database again. 
-            //This timer will re-enable this every 10 minutes, just in case the database is no longer available. Then, if it is available again, continue as usual.
-            BLOnlineDatabase.ReAllowDatabaseAccess();
+            try
+            {
+                //If we could not connect to the database, the Data Access Layer will no longer try to connect to the database again. 
+                //This timer will re-enable this every 10 minutes, just in case the database is no longer available. Then, if it is available again, continue as usual.
+                BLOnlineDatabase.ReAllowDatabaseAccess();
+            }
+            catch (Exception ex)
+            {
+                BLIO.Log("EnableDatabaseAccess FAILED. " + ex.GetType().ToString());
+                BLIO.WriteError(ex, "Error in tmrEnableDatabaseAccess_Tick");
+            }
         }     
     }
 }

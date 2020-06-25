@@ -1545,7 +1545,7 @@ namespace RemindMe
                     //Fill selectedFiles with the selected files AND the current files, 
                     //and check if it is not already in the list
 
-                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("", "*.mp3; *.wav;").ToList();
+                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.ogg; *.3gp; *.aac; *.flac; *.webm; *.aiff; *.wma; *.alac;").ToList();
 
                     if (selectedFiles.Count == 1 && selectedFiles[0] == "")
                         return;

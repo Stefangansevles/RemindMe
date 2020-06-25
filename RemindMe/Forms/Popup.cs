@@ -192,7 +192,7 @@ namespace RemindMe
                 if (rem.Note == "")
                     lblNoteText.Text = "( No text set )";
 
-                lblNoteText.Text = Environment.NewLine + Environment.NewLine + lblNoteText.Text;
+                lblNoteText.Text = Environment.NewLine + lblNoteText.Text;
 
 
 

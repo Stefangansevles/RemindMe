@@ -173,8 +173,16 @@ namespace RemindMe
 
         private void tmrCheckForVersion_Tick(object sender, EventArgs e)
         {
-            SetUpdateText();
-            tmrCheckForVersion.Stop();
+            try
+            {
+                SetUpdateText();
+                tmrCheckForVersion.Stop();
+            }
+            catch (Exception ex)
+            {
+                BLIO.Log("CheckForVersion FAILED. " + ex.GetType().ToString());
+                BLIO.WriteError(ex, "Error in tmrCheckForVersion_Tick");
+            }
         }
     }
 }

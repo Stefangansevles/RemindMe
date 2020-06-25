@@ -205,94 +205,102 @@ namespace RemindMe
       
 
         private void tmrCheckReminder_Tick(object sender, EventArgs e)
-        {            
-            if (BLReminder.GetReminders().Where(r => r.Enabled == 1).ToList().Count <= 0)
+        {
+            try
             {
-                tmrCheckReminder.Stop(); //No existing reminders? no enabled reminders? stop timer.
-                BLIO.Log("Stopping the reminder checking timer, because there are no more (enabled) reminders");
-                return;
-            }            
-
-            //If a day has passed since the start of RemindMe, we may want to refresh the listview. 
-            //There might be reminders happening on this day, if so, we show the time of the reminder, instead of the day
-            if (dayOfStartRemindMe < DateTime.Now.Day)
-            {
-                BLIO.Log("Dawn of a new day -24 hours remaining- ");
-                UpdateCurrentPage();
-                dayOfStartRemindMe = DateTime.Now.Day;
-                RemindMeMessageFormManager.MakeTodaysRemindersPopup();
-                //Update lastOnline. If you keep RemindMe running and put your pc to sleep instead of turning it off, it would never get updated without this                
-                BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
-            }
-
-
-            //We will check for reminders here every 5 seconds.
-            foreach (Reminder rem in BLReminder.GetReminders())
-            {
-                //Create the popup. Do the other stuff afterwards.
-                if ((rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1) || (Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1))
-                {                    
-                    //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
-                    rem.Enabled = 0;
-                    BLReminder.EditReminder(rem);
-                    MakeReminderPopup(rem);
-                    UpdateCurrentPage();
-                }
-                else
+                if (BLReminder.GetReminders().Where(r => r.Enabled == 1).ToList().Count <= 0)
                 {
-                    // -- In this part we will create popups at the users right bottom corner of the screen saying x reminder is happening in 1 hour or x minutes -- \\
-                    if (BLSettings.IsHourBeforeNotificationEnabled() && rem.Enabled == 1)
+                    tmrCheckReminder.Stop(); //No existing reminders? no enabled reminders? stop timer.
+                    BLIO.Log("Stopping the reminder checking timer, because there are no more (enabled) reminders");
+                    return;
+                }
+
+                //If a day has passed since the start of RemindMe, we may want to refresh the listview. 
+                //There might be reminders happening on this day, if so, we show the time of the reminder, instead of the day
+                if (dayOfStartRemindMe < DateTime.Now.Day)
+                {
+                    BLIO.Log("Dawn of a new day -24 hours remaining- ");
+                    UpdateCurrentPage();
+                    dayOfStartRemindMe = DateTime.Now.Day;
+                    RemindMeMessageFormManager.MakeTodaysRemindersPopup();
+                    //Update lastOnline. If you keep RemindMe running and put your pc to sleep instead of turning it off, it would never get updated without this                
+                    BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                }
+
+
+                //We will check for reminders here every 5 seconds.
+                foreach (Reminder rem in BLReminder.GetReminders())
+                {
+                    //Create the popup. Do the other stuff afterwards.
+                    if ((rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1) || (Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1))
                     {
-                        DateTime theDateToCheckOn; //Like this we dont need an if ánd an else with the same code
-                        if (rem.PostponeDate != null)
-                            theDateToCheckOn = Convert.ToDateTime(rem.PostponeDate);
-                        else
-                            theDateToCheckOn = Convert.ToDateTime(rem.Date.Split(',')[0]);
+                        //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
+                        rem.Enabled = 0;
+                        BLReminder.EditReminder(rem);
+                        MakeReminderPopup(rem);
+                        UpdateCurrentPage();
+                    }
+                    else
+                    {
+                        // -- In this part we will create popups at the users right bottom corner of the screen saying x reminder is happening in 1 hour or x minutes -- \\
+                        if (BLSettings.IsHourBeforeNotificationEnabled() && rem.Enabled == 1)
+                        {
+                            DateTime theDateToCheckOn; //Like this we dont need an if ánd an else with the same code
+                            if (rem.PostponeDate != null)
+                                theDateToCheckOn = Convert.ToDateTime(rem.PostponeDate);
+                            else
+                                theDateToCheckOn = Convert.ToDateTime(rem.Date.Split(',')[0]);
 
 
-                        //The timespan between the date and now.
-                        TimeSpan timeSpan = Convert.ToDateTime(theDateToCheckOn) - DateTime.Now;
-                        if (timeSpan.TotalMinutes >= 59.50 && timeSpan.TotalMinutes <= 60)
-                            remindersToHappenInAnHour.Add(rem);
+                            //The timespan between the date and now.
+                            TimeSpan timeSpan = Convert.ToDateTime(theDateToCheckOn) - DateTime.Now;
+                            if (timeSpan.TotalMinutes >= 59.50 && timeSpan.TotalMinutes <= 60)
+                                remindersToHappenInAnHour.Add(rem);
+                        }
                     }
                 }
-            }
-          
 
-            string message = "You have " + remindersToHappenInAnHour.Count + " reminders set in 60 minutes:\r\n";
-            int count = 1;
-            foreach (Reminder rem in remindersToHappenInAnHour)
+
+                string message = "You have " + remindersToHappenInAnHour.Count + " reminders set in 60 minutes:\r\n";
+                int count = 1;
+                foreach (Reminder rem in remindersToHappenInAnHour)
+                {
+                    //Don't show "reminderName in 60 minutes!" if the reminder doesn't "Show" when popped up, silent reminders.
+                    if (BLAVRProperties.GetAVRProperties(rem.Id) != null && BLAVRProperties.GetAVRProperties(rem.Id).ShowReminder != 1)
+                        continue;
+
+                    if (remindersToHappenInAnHour.Count > 1)
+                        message += count + ") " + rem.Name + Environment.NewLine;
+                    else
+                        message = rem.Name + " in 60 minutes!";
+
+                    count++;
+                }
+
+                if (remindersToHappenInAnHour.Count > 1 && count > 1) //cut off the last \n
+                {
+                    message = message.Remove(message.Length - 2, 2);
+
+                    if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
+                        RemindMeMessageFormManager.MakeMessagePopup(message, 6);
+
+                    popupMessages.Add(message);
+                }
+                else if (remindersToHappenInAnHour.Count > 0 && count > 1)
+                {
+                    if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
+                        RemindMeMessageFormManager.MakeMessagePopup(message, 6, remindersToHappenInAnHour[0]);
+
+                    popupMessages.Add(message);
+                }
+
+                remindersToHappenInAnHour.Clear();
+            }
+            catch (Exception ex)
             {
-                //Don't show "reminderName in 60 minutes!" if the reminder doesn't "Show" when popped up, silent reminders.
-                if (BLAVRProperties.GetAVRProperties(rem.Id) != null && BLAVRProperties.GetAVRProperties(rem.Id).ShowReminder != 1)
-                    continue;
-
-                if (remindersToHappenInAnHour.Count > 1)
-                    message += count + ") " + rem.Name + Environment.NewLine;
-                else
-                    message = rem.Name + " in 60 minutes!";
-
-                count++;
+                BLIO.Log("CheckReminder FAILED!!! " + ex.GetType().ToString());
+                BLIO.WriteError(ex, "!!! Error in tmrCheckReminder_Tick");
             }
-
-            if (remindersToHappenInAnHour.Count > 1 && count > 1) //cut off the last \n
-            {
-                message = message.Remove(message.Length - 2, 2);
-
-                if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
-                    RemindMeMessageFormManager.MakeMessagePopup(message, 6);
-
-                popupMessages.Add(message);
-            }
-            else if (remindersToHappenInAnHour.Count > 0 && count > 1)
-            {
-                if (!popupMessages.Contains(message)) //Don't create this popup if we have already created it once before
-                    RemindMeMessageFormManager.MakeMessagePopup(message, 6, remindersToHappenInAnHour[0]);
-
-                popupMessages.Add(message);
-            }
-
-            remindersToHappenInAnHour.Clear();
         }
 
         private void tmrClearMessageCache_Tick(object sender, EventArgs e)
@@ -577,13 +585,21 @@ namespace RemindMe
         }
 
         private void tmrCheckForUpdates_Tick(object sender, EventArgs e)
-        {            
-            if(showUpdateMessage && Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
-            {                
-                RemindMeMessageFormManager.MakeMessagePopup("RemindMe has updated.\r\nRestart RemindMe to load these changes directly.", 15);
-                tmrCheckForUpdates.Stop();
+        {
+            try
+            {
+                if (showUpdateMessage && Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
+                {
+                    RemindMeMessageFormManager.MakeMessagePopup("RemindMe has updated.\r\nRestart RemindMe to load these changes directly.", 15);
+                    tmrCheckForUpdates.Stop();
+                }
             }
-            
+            catch (Exception ex)
+            {
+                BLIO.Log("CheckForUpdates FAILED. " + ex.GetType().ToString());
+                BLIO.WriteError(ex, "Error in tmrCheckForUpdates_Tick");
+            }
+
         }
     }
 }

@@ -143,7 +143,7 @@
             this.pnlPadding.Location = new System.Drawing.Point(0, 0);
             this.pnlPadding.Name = "pnlPadding";
             this.pnlPadding.Quality = 10;
-            this.pnlPadding.Size = new System.Drawing.Size(412, 5);
+            this.pnlPadding.Size = new System.Drawing.Size(412, 3);
             this.pnlPadding.TabIndex = 4;
             // 
             // bunifuDragControl3
@@ -312,10 +312,10 @@
             this.pnlMainGradient.GradientBottomRight = System.Drawing.Color.Black;
             this.pnlMainGradient.GradientTopLeft = System.Drawing.Color.DimGray;
             this.pnlMainGradient.GradientTopRight = System.Drawing.Color.DimGray;
-            this.pnlMainGradient.Location = new System.Drawing.Point(0, 5);
+            this.pnlMainGradient.Location = new System.Drawing.Point(0, 3);
             this.pnlMainGradient.Name = "pnlMainGradient";
             this.pnlMainGradient.Quality = 10;
-            this.pnlMainGradient.Size = new System.Drawing.Size(412, 279);
+            this.pnlMainGradient.Size = new System.Drawing.Size(412, 281);
             this.pnlMainGradient.TabIndex = 3;
             // 
             // pnlText
@@ -326,7 +326,7 @@
             this.pnlText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlText.Location = new System.Drawing.Point(5, 52);
             this.pnlText.Name = "pnlText";
-            this.pnlText.Size = new System.Drawing.Size(407, 177);
+            this.pnlText.Size = new System.Drawing.Size(407, 179);
             this.pnlText.TabIndex = 87;
             // 
             // lblNoteText
@@ -353,7 +353,7 @@
             this.bunifuGradientPanel1.Location = new System.Drawing.Point(0, 52);
             this.bunifuGradientPanel1.Name = "bunifuGradientPanel1";
             this.bunifuGradientPanel1.Quality = 10;
-            this.bunifuGradientPanel1.Size = new System.Drawing.Size(5, 177);
+            this.bunifuGradientPanel1.Size = new System.Drawing.Size(5, 179);
             this.bunifuGradientPanel1.TabIndex = 5;
             // 
             // pnlHeader
@@ -428,7 +428,7 @@
             this.pnlDateRepeatInformation.Controls.Add(this.lblRepeat);
             this.pnlDateRepeatInformation.Controls.Add(this.lblSmallDate);
             this.pnlDateRepeatInformation.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlDateRepeatInformation.Location = new System.Drawing.Point(0, 229);
+            this.pnlDateRepeatInformation.Location = new System.Drawing.Point(0, 231);
             this.pnlDateRepeatInformation.Name = "pnlDateRepeatInformation";
             this.pnlDateRepeatInformation.Size = new System.Drawing.Size(412, 50);
             this.pnlDateRepeatInformation.TabIndex = 88;

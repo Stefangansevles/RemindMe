@@ -184,7 +184,7 @@ namespace RemindMe
             BLIO.Log("timerKey.Key=" + timerKey.Key + "   timerKey.Modifiers="+ timerKey.Modifiers);
         }
 
-        private void FillSoundCombobox()
+        public void FillSoundCombobox()
         {
             //Fill the list with all the sounds from the Database(non default windows ones)
             List<Songs> sounds = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();
