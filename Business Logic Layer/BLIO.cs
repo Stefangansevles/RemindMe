@@ -29,7 +29,8 @@ namespace Business_Logic_Layer
                 if (!HasInternetAccess())
                     return;
 
-                Settings set = BLSettings.Settings;
+                
+                Settings set = BLLocalDatabase.Setting.Settings;
                 try
                 {
                     //Change a 200-character string to a 10 character string. saves db space and 200 is just unnecesary
@@ -70,7 +71,7 @@ namespace Business_Logic_Layer
                     WriteError(ex, "WriteUniqueString failed -> " + ex.GetType().ToString(), true);
                 }
 
-                BLSettings.UpdateSettings(set);
+                BLLocalDatabase.Setting.UpdateSettings(set);
             }).Start();
         }
         private static string GenerateString()
@@ -240,6 +241,8 @@ namespace Business_Logic_Layer
                         {
                             sw.WriteLine("[" + DateTime.Now + "] - " + message + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine);
                         }
+
+                    Log("EXCEPTION -> " + ex.GetType().ToString() + " -> \"" + message + "\"" + "\r\n" + ex.ToString());
                     }
                 }
                 catch { }

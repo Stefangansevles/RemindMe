@@ -75,6 +75,7 @@ namespace RemindMe
             releaseNotes.Add("2.6.600", "- New feature! RemindMe now allows you to quickly check the currently running timers. If you have created 1 or more timers, either through the RemindMe interface or through a quick-timer shortcut(check the SETTINGS tab on RemindMe) You will now be able to quickly see(and add or subtract minutes from) running timers by holding the specified key combination(Default: ctrl+shift+E after visiting the SETTINGS tab on RemindMe)");
             releaseNotes.Add("2.6.602", "- Small fix where editing an reminder that doesn't have a sound linked would throw an error");
             releaseNotes.Add("2.6.603", "- Added support for multiple music file types. Before you could only add .mp3 and .wav\r\n- RemindMe should no longer show multiple error messages in a row when you are not doing something within RemindMe ");
+            releaseNotes.Add("2.6.604", "- You can now adjust the spacing of the text on the buttons on the left panel. ( Settings -> Scroll down )\r\n- Fixed a small issue where the timer popup wouldn't pop up after pressing the key combination when you have closed the timerpopup with the X in the top right corner\r\n- RemindMeMessages now no longer overlap if a message is bigger than the other(the message forms)");
         }
 
         public static Dictionary<string,string> ReleaseNotes

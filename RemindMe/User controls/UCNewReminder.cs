@@ -169,7 +169,7 @@ namespace RemindMe
             if (rem.SoundFilePath != null)
             {
                 string song = Path.GetFileNameWithoutExtension(rem.SoundFilePath);
-                Songs songObj = BLSongs.GetSongByFullPath(rem.SoundFilePath);
+                Songs songObj = BLLocalDatabase.Song.GetSongByFullPath(rem.SoundFilePath);
                 if(songObj != null)
                 {
                     if (songObj.SongFilePath.Contains("C:\\Windows\\Media") && !song.Contains("Windows"))
@@ -257,20 +257,20 @@ namespace RemindMe
             
 
             //Now, let's see if this reminder has any advanced properties
-            AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
-            List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+            AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+            List<AdvancedReminderFilesFolders> avrFF = BLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);
             if (avrProps != null)
             {
                 if (avrProps.ShowReminder.HasValue)
                     AVRForm.ShowReminder = (long)avrProps.ShowReminder;
 
                 AVRForm.BatchScript = avrProps.BatchScript;
-                if (BLSettings.Settings.EnableAdvancedReminders == 1)
+                if (BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1)
                 {
                     cbAdvancedReminder.Visible = true;
                     lblAdvancedReminders.Visible = true;
                 }
-                cbAdvancedReminder.Checked = rem.EnableAdvancedReminder == 1 && (BLAVRProperties.GetAVRProperties(rem.Id) != null || BLAVRProperties.GetAVRFilesFolders(rem.Id) != null);
+                cbAdvancedReminder.Checked = rem.EnableAdvancedReminder == 1 && (BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id) != null || BLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id) != null);
 
 
                 if (!cbAdvancedReminder.Checked)
@@ -346,7 +346,7 @@ namespace RemindMe
         private void FillSoundComboboxFromDatabase(ComboBox cbSound)
         {
             //Fill the list with all the sounds from the Database(non default windows ones)
-            List<Songs> sounds = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();            
+            List<Songs> sounds = BLLocalDatabase.Song.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();            
 
             cbSound.Items.Clear();
             ComboBoxItemManager.ClearComboboxItems();
@@ -357,7 +357,7 @@ namespace RemindMe
                         cbSound.Items.Add(new ComboBoxItem(System.IO.Path.GetFileNameWithoutExtension(item.SongFileName), item));            
 
             //Let's make sure the default windows System sounds are placed at the bottom
-            List<Songs> windowsDefaultSongs = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() == "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();            
+            List<Songs> windowsDefaultSongs = BLLocalDatabase.Song.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() == "c:\\windows\\media").OrderBy(s => s.SongFileName).ToList();            
 
             if (windowsDefaultSongs != null)
                 foreach (Songs item in windowsDefaultSongs)
@@ -414,7 +414,7 @@ namespace RemindMe
                             if (song != null)
                             {
                                 //Remove the song from the SQLite Database
-                                BLSongs.RemoveSong(BLSongs.GetSongByFullPath(song.SongFilePath));
+                                BLLocalDatabase.Song.RemoveSong(BLLocalDatabase.Song.GetSongByFullPath(song.SongFilePath));
 
                                 //Remove the song from the combobox
                                 cbSound.Items.Remove(ComboBoxItemManager.GetComboBoxItem(Path.GetFileNameWithoutExtension(song.SongFileName), song));
@@ -1224,19 +1224,19 @@ namespace RemindMe
             BLReminder.EditReminder(rem);
 
             //Create AVR properties and insert them into the database
-            AdvancedReminderProperties avr = BLAVRProperties.GetAVRProperties(remId);
+            AdvancedReminderProperties avr = BLLocalDatabase.AVRProperty.GetAVRProperties(remId);
             if (avr == null) { avr = new AdvancedReminderProperties(); }
 
             avr.ShowReminder = AVRForm.ShowReminder;
             avr.BatchScript = AVRForm.BatchScript;
             avr.Remid = remId; //Link this reminder to it
-            BLAVRProperties.InsertAVRProperties(avr);
+            BLLocalDatabase.AVRProperty.InsertAVRProperties(avr);
 
             //Create AVR properties for file/folder actions and insert them into the database
             AdvancedReminderFilesFolders avrFF = new AdvancedReminderFilesFolders();
 
             //Delete all the files/folders with this id. Then insert the ones we have now in case the user deleted some
-            BLAVRProperties.DeleteAvrFilesFoldersById(remId);
+            BLLocalDatabase.AVRProperty.DeleteAvrFilesFoldersById(remId);
 
             foreach (KeyValuePair<string, string> entry in AVRForm.FilesFolders)
             {
@@ -1244,7 +1244,7 @@ namespace RemindMe
                 avrFF.Id = -1;
                 avrFF.Action = entry.Value;
                 avrFF.Remid = remId; //Link this reminder to it
-                BLAVRProperties.InsertAVRFilesFolders(avrFF);
+                BLLocalDatabase.AVRProperty.InsertAVRFilesFolders(avrFF);
             }
         }
 
@@ -1452,7 +1452,7 @@ namespace RemindMe
         {
             cbEvery.LocationChanged += cbEvery_VisibleChanged;
             dtpTime.Format = DateTimePickerFormat.Custom;
-            btnAdvancedReminder.Visible = BLSettings.Settings.EnableAdvancedReminders == 1;
+            btnAdvancedReminder.Visible = BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1;
 
             if (editableReminder == null)
                 ResetReminderForm();            
@@ -1552,7 +1552,7 @@ namespace RemindMe
 
                     List<Songs> toInsertSongs = new List<Songs>();
 
-                    foreach (string sound in selectedFiles.Where(song => !BLSongs.SongExistsInDatabase(song) && song != "").ToList())
+                    foreach (string sound in selectedFiles.Where(song => !BLLocalDatabase.Song.SongExistsInDatabase(song) && song != "").ToList())
                     {
                         Songs song = new Songs();
                         song.SongFilePath = sound;
@@ -1560,11 +1560,11 @@ namespace RemindMe
                         toInsertSongs.Add(song);
                     }
 
-                    BLSongs.InsertSongs(toInsertSongs);
+                    BLLocalDatabase.Song.InsertSongs(toInsertSongs);
 
                     //already inserted, but iterating through them to add to the combobox
                     foreach (Songs item in toInsertSongs.Where(itm => itm.SongFileName != "").ToList()) 
-                            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), BLSongs.GetSongByFullPath(item.SongFilePath)));
+                            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(item.SongFileName), BLLocalDatabase.Song.GetSongByFullPath(item.SongFilePath)));
 
                     
                     //Make sure that Add files... is in the combobox
@@ -1615,7 +1615,7 @@ namespace RemindMe
 
         private void UCNewReminder_VisibleChanged(object sender, EventArgs e)
         {
-            btnAdvancedReminder.Visible = BLSettings.Settings.EnableAdvancedReminders == 1;
+            btnAdvancedReminder.Visible = BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1;
 
             if(callback != null && !callback.Visible && !this.Visible)
                 saveState = true;

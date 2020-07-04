@@ -26,5 +26,6 @@ namespace Database.Entity
         public string DefaultTimerSound { get; set; }
         public Nullable<long> EnableAdvancedReminders { get; set; }
         public string UniqueString { get; set; }
+        public string RemindMeTheme { get; set; }
     }
 }

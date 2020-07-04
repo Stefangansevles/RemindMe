@@ -36,6 +36,7 @@
     <Property Name="DefaultTimerSound" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="EnableAdvancedReminders" Type="Int64" />
     <Property Name="UniqueString" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="RemindMeTheme" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>
@@ -55,6 +56,7 @@
     <EntitySet Name="AdvancedReminderFilesFolders" EntityType="RemindMeDatabaseModel.AdvancedReminderFilesFolders" />
     <EntitySet Name="AdvancedReminderProperties" EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" />
     <EntitySet Name="ReadMessages" EntityType="RemindMeDatabaseModel.ReadMessages" />
+    <EntitySet Name="ButtonSpaces" EntityType="RemindMeDatabaseModel.ButtonSpaces" />
   </EntityContainer>
   <EntityType Name="PopupDimensions">
     <Key>
@@ -111,5 +113,19 @@
     <Property Name="ReadMessageId" Type="Int64" Nullable="false" />
     <Property Name="ReadDate" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="MessageText" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ButtonSpaces">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Reminders" Type="Int64" Nullable="false" />
+    <Property Name="Timer" Type="Int64" Nullable="false" />
+    <Property Name="BackupImport" Type="Int64" Nullable="false" />
+    <Property Name="Settings" Type="Int64" Nullable="false" />
+    <Property Name="SoundEffects" Type="Int64" Nullable="false" />
+    <Property Name="ResizePopup" Type="Int64" Nullable="false" />
+    <Property Name="MessageCenter" Type="Int64" Nullable="false" />
+    <Property Name="DebugMode" Type="Int64" Nullable="false" />
   </EntityType>
 </Schema>

@@ -127,12 +127,25 @@ namespace RemindMe
 
             tmrDumpLogTxtContents.Start();
 
-            tmrEnableDatabaseAccess.Start();            
+            tmrEnableDatabaseAccess.Start();
+
+            SetButtonSpacing();
 
             BLIO.Log("===  Initializing RemindMe Complete  ===");            
         }
 
-        
+        private void SetButtonSpacing()
+        {
+            int spacing = BLLocalDatabase.ButtonSpacing.GetButtonSpacing();
+
+            string space = "";
+            for(int i = 0; i < spacing; i++)            
+                space += " ";
+
+            foreach (Control b in pnlSide.Controls)
+                if (b is Bunifu.Framework.UI.BunifuFlatButton)
+                    b.Text = space + b.Text;            
+        }
         /// <summary>
         /// Logs windows version info
         /// </summary>
@@ -176,7 +189,7 @@ namespace RemindMe
                     {
                         Thread.Sleep(5000);
                         BLIO.Log("Trying to update user after PC Sleep...");
-                        BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                        BLOnlineDatabase.InsertOrUpdateUser(BLLocalDatabase.Setting.Settings.UniqueString);
                         BLIO.Log("User updated.");
                     });
                     t.Start();                    
@@ -265,9 +278,9 @@ namespace RemindMe
         private void SetColorScheme()
         {
             
-            string t = BLSettings.Settings.RemindMeTheme;
-            RemindMeColorScheme colorTheme = BLSettings.GetColorTheme(BLSettings.Settings.RemindMeTheme);
-            BLIO.Log("Setting RemindMe Color scheme \"" + BLSettings.Settings.RemindMeTheme + "\"");
+            string t = BLLocalDatabase.Setting.Settings.RemindMeTheme;
+            RemindMeColorScheme colorTheme = BLLocalDatabase.Setting.GetColorTheme(BLLocalDatabase.Setting.Settings.RemindMeTheme);
+            BLIO.Log("Setting RemindMe Color scheme \"" + BLLocalDatabase.Setting.Settings.RemindMeTheme + "\"");
             pnlSide.GradientBottomLeft = Color.FromArgb(Convert.ToInt16(colorTheme.PrimaryBottomLeft.Split(',')[0]), Convert.ToInt16(colorTheme.PrimaryBottomLeft.Split(',')[1]), Convert.ToInt16(colorTheme.PrimaryBottomLeft.Split(',')[2]));
             pnlSide.GradientBottomRight = Color.FromArgb(Convert.ToInt16(colorTheme.PrimaryBottomRight.Split(',')[0]), Convert.ToInt16(colorTheme.PrimaryBottomRight.Split(',')[1]), Convert.ToInt16(colorTheme.PrimaryBottomRight.Split(',')[2]));
             pnlSide.GradientTopLeft = Color.FromArgb(Convert.ToInt16(colorTheme.PrimaryTopLeft.Split(',')[0]), Convert.ToInt16(colorTheme.PrimaryTopLeft.Split(',')[1]), Convert.ToInt16(colorTheme.PrimaryTopLeft.Split(',')[2]));
@@ -342,15 +355,15 @@ namespace RemindMe
             if (!e.Shift && !e.Control && !e.Alt) //None of the key key's (get it?) pressed? return.
                 return;
 
-            if (BLSettings.Settings.EnableQuickTimer != 1) //Not enabled? don't do anything
+            if (BLLocalDatabase.Setting.Settings.EnableQuickTimer != 1) //Not enabled? don't do anything
                 return;
 
             //Good! now let's check if the KeyCode is not alt shift or ctrl
             if (e.KeyCode == Keys.Alt || e.KeyCode == Keys.ControlKey || e.KeyCode == Keys.ShiftKey)
                 return;
 
-            timerHotkey = BLHotkeys.TimerPopup;
-            timerCheckHotKey = BLHotkeys.TimerCheck;
+            timerHotkey = BLLocalDatabase.Hotkey.TimerPopup;
+            timerCheckHotKey = BLLocalDatabase.Hotkey.TimerCheck;
 
             if (TimerPopup.Instance == null && e.Modifiers.ToString().Replace(" ", string.Empty) == timerHotkey.Modifiers && e.KeyCode.ToString() == timerHotkey.Key)
             {
@@ -374,10 +387,10 @@ namespace RemindMe
 
         private void GlobalKeyPressUp(object sender, KeyEventArgs e)
         {
-            if (BLSettings.Settings.EnableQuickTimer != 1) //Not enabled? don't do anything
+            if (BLLocalDatabase.Setting.Settings.EnableQuickTimer != 1) //Not enabled? don't do anything
                 return;
-
-            timerCheckHotKey = BLHotkeys.TimerCheck;
+            
+            timerCheckHotKey = BLLocalDatabase.Hotkey.TimerCheck;
 
             if (TimerCheck.Instance != null && (e.Modifiers.ToString().Replace(" ", string.Empty) == timerCheckHotKey.Modifiers || e.KeyCode.ToString() == timerCheckHotKey.Key) )
             {
@@ -436,14 +449,14 @@ namespace RemindMe
                     btnDebugMode.Visible = true;
 
 
-                BLSongs.InsertWindowsSystemSounds();
+                BLLocalDatabase.Song.InsertWindowsSystemSounds();
 
                 tmrUpdateRemindMe.Start();
 
                 //If the setup still exists, delete it
                 System.IO.File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");
 
-                Settings set = BLSettings.Settings;
+                Settings set = BLLocalDatabase.Setting.Settings;
                 //Call the timer once
                 Thread tr = new Thread(() =>
                 {                    
@@ -455,7 +468,7 @@ namespace RemindMe
                     if (set.LastVersion == null)
                         set.LastVersion = IOVariables.RemindMeVersion;
 
-                    BLSettings.UpdateSettings(set);
+                    BLLocalDatabase.Setting.UpdateSettings(set);
                 });
                 tr.Start();
 
@@ -537,7 +550,7 @@ namespace RemindMe
         //launch a form showing the user what is new since the last version(s)
         private void ShowWhatsNew()
         {
-            Settings set = BLSettings.Settings;
+            Settings set = BLLocalDatabase.Setting.Settings;
             if (set.LastVersion != null && (new Version(set.LastVersion) < new Version(IOVariables.RemindMeVersion)))
             {
                 BLIO.Log("[VERSION CHECK] New version! last version: " + set.LastVersion + "  New version: " + IOVariables.RemindMeVersion);
@@ -560,7 +573,7 @@ namespace RemindMe
 
                 //Update the lastVersion
                 set.LastVersion = IOVariables.RemindMeVersion;
-                BLSettings.UpdateSettings(set);
+                BLLocalDatabase.Setting.UpdateSettings(set);
             }
             else
             {
@@ -780,21 +793,21 @@ namespace RemindMe
                     foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
                     {
                         //first, check if this user has already read this message.
-                        if (BLReadMessages.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
+                        if (BLLocalDatabase.ReadMessage.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
                         {
                             this.BeginInvoke(new MethodInvoker(delegate //This is required to show windows forms (the messages) on a new thread
                             {
                                 BLIO.Log("RemindMe detected an unread message!");
                             //User hasn't read it yet. great! Mark the message as read
-                            BLReadMessages.MarkMessageRead(message);
+                            BLLocalDatabase.ReadMessage.MarkMessageRead(message);
                                 BLIO.Log("Message marked as read.");
-
+                                
                                 if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
                                 {
                                     BLIO.Log("This message is specifically for me!");
                                 //This message is meant for a specific user.
 
-                                if (BLSettings.Settings.UniqueString == message.MeantForSpecificPerson)
+                                if (BLLocalDatabase.Setting.Settings.UniqueString == message.MeantForSpecificPerson)
                                         PopupRemindMeMessage(message);
 
                                 }
@@ -855,7 +868,7 @@ namespace RemindMe
                     BLIO.Log("Pinging online status");
 
                 //Update LastOnline
-                BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                BLOnlineDatabase.InsertOrUpdateUser(BLLocalDatabase.Setting.Settings.UniqueString);
             }
             catch (Exception ex)
             {

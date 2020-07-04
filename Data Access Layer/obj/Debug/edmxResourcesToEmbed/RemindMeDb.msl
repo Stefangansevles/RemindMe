@@ -26,6 +26,7 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="RemindMeTheme" ColumnName="RemindMeTheme" />
           <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
           <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
           <ScalarProperty Name="DefaultTimerSound" ColumnName="DefaultTimerSound" />
@@ -107,6 +108,21 @@
           <ScalarProperty Name="MessageText" ColumnName="MessageText" />
           <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
           <ScalarProperty Name="ReadMessageId" ColumnName="ReadMessageId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ButtonSpaces">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.ButtonSpaces">
+        <MappingFragment StoreEntitySet="ButtonSpaces">
+          <ScalarProperty Name="DebugMode" ColumnName="DebugMode" />
+          <ScalarProperty Name="MessageCenter" ColumnName="MessageCenter" />
+          <ScalarProperty Name="ResizePopup" ColumnName="ResizePopup" />
+          <ScalarProperty Name="SoundEffects" ColumnName="SoundEffects" />
+          <ScalarProperty Name="Settings" ColumnName="Settings" />
+          <ScalarProperty Name="BackupImport" ColumnName="BackupImport" />
+          <ScalarProperty Name="Timer" ColumnName="Timer" />
+          <ScalarProperty Name="Reminders" ColumnName="Reminders" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

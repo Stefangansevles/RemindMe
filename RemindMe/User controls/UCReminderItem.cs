@@ -24,7 +24,7 @@ namespace RemindMe
             InitializeComponent();
             this.Reminder = rem;
             /*This was testing a custom color scheme
-            RemindMeColorScheme colorTheme = BLSettings.GetColorTheme(BLSettings.Settings.RemindMeTheme);
+            RemindMeColorScheme colorTheme = BLLocalDatabase.Setting.GetColorTheme(BLLocalDatabase.Setting.RemindMeTheme);
             bunifuGradientPanel1.GradientBottomLeft = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryBottomLeft.Split(',')[2]));
             bunifuGradientPanel1.GradientBottomRight = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryBottomRight.Split(',')[2]));
             bunifuGradientPanel1.GradientTopLeft = Color.FromArgb(Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[0]), Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[1]), Convert.ToInt16(colorTheme.SecondaryTopLeft.Split(',')[2]));
@@ -376,7 +376,7 @@ namespace RemindMe
                  + " in the list of reminders. This creates a sense of surprise.\r\n\r\nDo you wish to hide this reminder?";                        
 
             BLIO.Log("Attempting to hide reminder(s)");
-            if (BLSettings.HideReminderOptionEnabled || RemindMeBox.Show(message, RemindMeBoxReason.YesNo, true) == DialogResult.Yes)
+            if (BLLocalDatabase.Setting.HideReminderOptionEnabled || RemindMeBox.Show(message, RemindMeBoxReason.YesNo, true) == DialogResult.Yes)
             {
                 //Enable the hide flag here                                
                 rem.Hide = 1;
@@ -409,8 +409,8 @@ namespace RemindMe
             BLIO.Log("Attempting to re-enable the hide warning on reminders....");
 
             //Get the current settings from the database
-            Settings currentSettings = BLSettings.Settings;
-
+            Settings currentSettings = BLLocalDatabase.Setting.Settings;
+            
             //Set the hiding of the confirmation on hiding a reminder to false
             currentSettings.HideReminderConfirmation = 0;
 
@@ -418,7 +418,7 @@ namespace RemindMe
             enableWarningToolStripMenuItem.Visible = false;
 
             //Push the updated settings to the database
-            BLSettings.UpdateSettings(currentSettings);
+            BLLocalDatabase.Setting.UpdateSettings(currentSettings);
 
             BLIO.Log("Re-enabled the hide warning on reminders!");
         }

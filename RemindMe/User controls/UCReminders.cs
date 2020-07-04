@@ -224,7 +224,7 @@ namespace RemindMe
                     dayOfStartRemindMe = DateTime.Now.Day;
                     RemindMeMessageFormManager.MakeTodaysRemindersPopup();
                     //Update lastOnline. If you keep RemindMe running and put your pc to sleep instead of turning it off, it would never get updated without this                
-                    BLOnlineDatabase.InsertOrUpdateUser(BLSettings.Settings.UniqueString);
+                    BLOnlineDatabase.InsertOrUpdateUser(BLLocalDatabase.Setting.Settings.UniqueString);
                 }
 
 
@@ -243,7 +243,7 @@ namespace RemindMe
                     else
                     {
                         // -- In this part we will create popups at the users right bottom corner of the screen saying x reminder is happening in 1 hour or x minutes -- \\
-                        if (BLSettings.IsHourBeforeNotificationEnabled() && rem.Enabled == 1)
+                        if (BLLocalDatabase.Setting.IsHourBeforeNotificationEnabled() && rem.Enabled == 1)
                         {
                             DateTime theDateToCheckOn; //Like this we dont need an if ánd an else with the same code
                             if (rem.PostponeDate != null)
@@ -266,7 +266,7 @@ namespace RemindMe
                 foreach (Reminder rem in remindersToHappenInAnHour)
                 {
                     //Don't show "reminderName in 60 minutes!" if the reminder doesn't "Show" when popped up, silent reminders.
-                    if (BLAVRProperties.GetAVRProperties(rem.Id) != null && BLAVRProperties.GetAVRProperties(rem.Id).ShowReminder != 1)
+                    if (BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id) != null && BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id).ShowReminder != 1)
                         continue;
 
                     if (remindersToHappenInAnHour.Count > 1)

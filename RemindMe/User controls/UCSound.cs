@@ -32,7 +32,7 @@ namespace RemindMe
         {
             foreach(ListViewItem item in lvSoundFiles.Items)
             {
-                Songs theSong = BLSongs.GetSongById((long)item.Tag);
+                Songs theSong = BLLocalDatabase.Song.GetSongById((long)item.Tag);
 
                 if(showPath)
                     item.Text = theSong.SongFilePath;
@@ -52,7 +52,7 @@ namespace RemindMe
         private void LoadSongs()
         {
             lvSoundFiles.Items.Clear();
-            List<Songs> songs = BLSongs.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").ToList();
+            List<Songs> songs = BLLocalDatabase.Song.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").ToList();
             songs = songs.OrderBy(s => s.SongFilePath).ToList();
             if (songs != null && songs.Count > 0)
             {
@@ -108,7 +108,7 @@ namespace RemindMe
                 song.SongFilePath = songPath;
                 songs.Add(song);
             }
-            BLSongs.InsertSongs(songs);
+            BLLocalDatabase.Song.InsertSongs(songs);
             BLIO.Log("Inserted " + songs.Count + " sound files into RemindMe");
 
             foreach (Songs song in songs)
@@ -133,11 +133,11 @@ namespace RemindMe
 
             foreach (ListViewItem selectedItem in lvSoundFiles.SelectedItems)
             {
-                toRemoveSongs.Add(BLSongs.GetSongById(Convert.ToInt32(selectedItem.Tag)));
+                toRemoveSongs.Add(BLLocalDatabase.Song.GetSongById(Convert.ToInt32(selectedItem.Tag)));
                 lvSoundFiles.Items.Remove(selectedItem);
             }
 
-            BLSongs.RemoveSongs(toRemoveSongs);
+            BLLocalDatabase.Song.RemoveSongs(toRemoveSongs);
 
             if (toRemoveSongs.Count > 0)
             {
@@ -151,7 +151,7 @@ namespace RemindMe
             BLIO.Log("(UCSound)btnPreview_Click");
             if (lvSoundFiles.SelectedItems.Count == 1)
             {
-                Songs selectedSong = BLSongs.GetSongById((long)lvSoundFiles.SelectedItems[0].Tag);
+                Songs selectedSong = BLLocalDatabase.Song.GetSongById((long)lvSoundFiles.SelectedItems[0].Tag);
                 BLIO.Log("Attempting to preview sound file with id " + selectedSong.Id);
 
                 if (btnPreview.Iconimage == imgPlay)

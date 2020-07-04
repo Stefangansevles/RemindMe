@@ -42,6 +42,12 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cbAdvancedReminders = new Bunifu.Framework.UI.BunifuCheckbox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblInvisible = new System.Windows.Forms.Label();
+            this.btnMin = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnPlus = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbCheckTimerHotKey = new System.Windows.Forms.TextBox();
             this.btnPreviewSong = new Bunifu.Framework.UI.BunifuTileButton();
             this.label11 = new System.Windows.Forms.Label();
             this.btnRemoveSong = new Bunifu.Framework.UI.BunifuTileButton();
@@ -51,8 +57,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tbTimerHotkey = new System.Windows.Forms.TextBox();
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
-            this.label12 = new System.Windows.Forms.Label();
-            this.tbCheckTimerHotKey = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -209,6 +213,10 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.lblInvisible);
+            this.panel1.Controls.Add(this.btnMin);
+            this.panel1.Controls.Add(this.btnPlus);
+            this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.tbCheckTimerHotKey);
             this.panel1.Controls.Add(this.btnPreviewSong);
@@ -235,6 +243,125 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(656, 436);
             this.panel1.TabIndex = 102;
+            // 
+            // lblInvisible
+            // 
+            this.lblInvisible.AutoSize = true;
+            this.lblInvisible.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.lblInvisible.ForeColor = System.Drawing.Color.White;
+            this.lblInvisible.Location = new System.Drawing.Point(573, 503);
+            this.lblInvisible.Name = "lblInvisible";
+            this.lblInvisible.Size = new System.Drawing.Size(63, 17);
+            this.lblInvisible.TabIndex = 120;
+            this.lblInvisible.Text = "invisible";
+            // 
+            // btnMin
+            // 
+            this.btnMin.Activecolor = System.Drawing.Color.DimGray;
+            this.btnMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnMin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnMin.BorderRadius = 5;
+            this.btnMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnMin.ButtonText = " -";
+            this.btnMin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMin.DisabledColor = System.Drawing.Color.Gray;
+            this.btnMin.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMin.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnMin.Iconimage = null;
+            this.btnMin.Iconimage_right = null;
+            this.btnMin.Iconimage_right_Selected = null;
+            this.btnMin.Iconimage_Selected = null;
+            this.btnMin.IconMarginLeft = 0;
+            this.btnMin.IconMarginRight = 0;
+            this.btnMin.IconRightVisible = true;
+            this.btnMin.IconRightZoom = 0D;
+            this.btnMin.IconVisible = true;
+            this.btnMin.IconZoom = 50D;
+            this.btnMin.IsTab = false;
+            this.btnMin.Location = new System.Drawing.Point(180, 491);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnMin.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnMin.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnMin.selected = false;
+            this.btnMin.Size = new System.Drawing.Size(25, 18);
+            this.btnMin.TabIndex = 119;
+            this.btnMin.Text = " -";
+            this.btnMin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnMin.Textcolor = System.Drawing.Color.White;
+            this.btnMin.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
+            // 
+            // btnPlus
+            // 
+            this.btnPlus.Activecolor = System.Drawing.Color.DimGray;
+            this.btnPlus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnPlus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPlus.BorderRadius = 5;
+            this.btnPlus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.btnPlus.ButtonText = "+";
+            this.btnPlus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPlus.DisabledColor = System.Drawing.Color.Gray;
+            this.btnPlus.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlus.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnPlus.Iconimage = null;
+            this.btnPlus.Iconimage_right = null;
+            this.btnPlus.Iconimage_right_Selected = null;
+            this.btnPlus.Iconimage_Selected = null;
+            this.btnPlus.IconMarginLeft = 0;
+            this.btnPlus.IconMarginRight = 0;
+            this.btnPlus.IconRightVisible = true;
+            this.btnPlus.IconRightZoom = 0D;
+            this.btnPlus.IconVisible = true;
+            this.btnPlus.IconZoom = 50D;
+            this.btnPlus.IsTab = false;
+            this.btnPlus.Location = new System.Drawing.Point(207, 491);
+            this.btnPlus.Name = "btnPlus";
+            this.btnPlus.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnPlus.OnHovercolor = System.Drawing.Color.DimGray;
+            this.btnPlus.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnPlus.selected = false;
+            this.btnPlus.Size = new System.Drawing.Size(25, 18);
+            this.btnPlus.TabIndex = 118;
+            this.btnPlus.Text = "+";
+            this.btnPlus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnPlus.Textcolor = System.Drawing.Color.White;
+            this.btnPlus.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlus.Click += new System.EventHandler(this.btnPlus_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(23, 492);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(153, 17);
+            this.label13.TabIndex = 117;
+            this.label13.Text = "Adjust side panel text";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(21, 387);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(373, 17);
+            this.label12.TabIndex = 116;
+            this.label12.Text = "Hotkey combination to check currently running timers:";
+            // 
+            // tbCheckTimerHotKey
+            // 
+            this.tbCheckTimerHotKey.BackColor = System.Drawing.Color.DimGray;
+            this.tbCheckTimerHotKey.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.tbCheckTimerHotKey.ForeColor = System.Drawing.Color.White;
+            this.tbCheckTimerHotKey.Location = new System.Drawing.Point(23, 407);
+            this.tbCheckTimerHotKey.Name = "tbCheckTimerHotKey";
+            this.tbCheckTimerHotKey.ReadOnly = true;
+            this.tbCheckTimerHotKey.Size = new System.Drawing.Size(227, 22);
+            this.tbCheckTimerHotKey.TabIndex = 115;
+            this.tbCheckTimerHotKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbCheckTimerHotKey_KeyUp);
             // 
             // btnPreviewSong
             // 
@@ -352,29 +479,6 @@
             // 
             this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(21, 387);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(373, 17);
-            this.label12.TabIndex = 116;
-            this.label12.Text = "Hotkey combination to check currently running timers:";
-            // 
-            // tbCheckTimerHotKey
-            // 
-            this.tbCheckTimerHotKey.BackColor = System.Drawing.Color.DimGray;
-            this.tbCheckTimerHotKey.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
-            this.tbCheckTimerHotKey.ForeColor = System.Drawing.Color.White;
-            this.tbCheckTimerHotKey.Location = new System.Drawing.Point(23, 407);
-            this.tbCheckTimerHotKey.Name = "tbCheckTimerHotKey";
-            this.tbCheckTimerHotKey.ReadOnly = true;
-            this.tbCheckTimerHotKey.Size = new System.Drawing.Size(227, 22);
-            this.tbCheckTimerHotKey.TabIndex = 115;
-            this.tbCheckTimerHotKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbCheckTimerHotKey_KeyUp);
-            // 
             // UCSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,5 +521,9 @@
         private System.Windows.Forms.Timer tmrMusic;
         private System.Windows.Forms.Label label12;
         public System.Windows.Forms.TextBox tbCheckTimerHotKey;
+        private System.Windows.Forms.Label label13;
+        private Bunifu.Framework.UI.BunifuFlatButton btnMin;
+        private Bunifu.Framework.UI.BunifuFlatButton btnPlus;
+        private System.Windows.Forms.Label lblInvisible;
     }
 }

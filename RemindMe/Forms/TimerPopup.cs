@@ -146,7 +146,7 @@ namespace RemindMe
 
         private void lblExit_Click(object sender, EventArgs e)
         {
-            this.Dispose();            
+            this.Close();            
         }
 
         public static TimerPopup Instance

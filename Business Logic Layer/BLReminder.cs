@@ -684,8 +684,8 @@ namespace Business_Logic_Layer
 
                 string test = GetRepeatTypeText(rem);
 
-                AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
-                List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+                AdvancedReminderProperties avrProps = DLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+                List<AdvancedReminderFilesFolders> avrFF = DLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);
 
             }
             catch (Exception ex)

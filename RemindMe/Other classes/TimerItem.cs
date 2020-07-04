@@ -70,7 +70,7 @@ namespace RemindMe.Other_classes
                 rem.Name = "Timer";
                 rem.Note = timerText;
 
-                Settings set = BLSettings.Settings;
+                Settings set = BLLocalDatabase.Setting.Settings;
                 rem.SoundFilePath = set.DefaultTimerSound;
 
                 Popup pop = new Popup(rem);

@@ -113,9 +113,9 @@ namespace RemindMe
             result = DialogResult.Yes;
             if(cbDontRemind.Checked)
             {
-                Settings settingsObject = BLSettings.Settings;
+                Settings settingsObject = BLLocalDatabase.Setting.Settings;
                 settingsObject.HideReminderConfirmation = 1;
-                BLSettings.UpdateSettings(settingsObject);                
+                BLLocalDatabase.Setting.UpdateSettings(settingsObject);                
             }
             newMessageBox.Close();
         }

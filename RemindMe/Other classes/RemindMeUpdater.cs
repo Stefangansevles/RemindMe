@@ -158,8 +158,8 @@ namespace RemindMe
                 if (lines.Count > 0 && (BLIO.LastLogMessage != null &&  !BLIO.LastLogMessage.Contains("Updating user")) )
                     BLIO.Log("Sucessfully loaded raw version.txt from github");
 
-                if (lines.Count >= 2 && lines[1].ToLower().Contains("major")) //Minor = dont need to restart RemindMe immediately, Major = restart.
-                    restartRemindMe = true;
+                //Minor = dont need to restart RemindMe immediately, Major = restart.                    
+                restartRemindMe = (lines.Count >= 2 && lines[1].ToLower().Contains("major")); 
 
                 if (lines.Count >= 3 && lines[2].ToLower().Contains("true")) //true = silent update, the user won't be aware of an update
                     UCReminders.Instance.showUpdateMessage = false;

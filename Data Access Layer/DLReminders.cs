@@ -233,9 +233,9 @@ namespace Data_Access_Layer
                 db.Reminder.Attach(rem);
                 db.Reminder.Remove(rem);
 
-                DLAVRProperties.DeleteAvrFilesFoldersById(rem.Id);
-                DLAVRProperties.DeleteAvrProperties(rem.Id);
-
+                DLLocalDatabase.AVRProperty.DeleteAvrFilesFoldersById(rem.Id);
+                DLLocalDatabase.AVRProperty.DeleteAvrProperties(rem.Id);
+                
                 SaveAndCloseDataBase(db);
             }
 

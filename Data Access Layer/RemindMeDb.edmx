@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindmeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdvancedReminderFilesFolders">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,6 +22,20 @@
           <Property Name="Remid" Type="integer" Nullable="false" />
           <Property Name="BatchScript" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="ShowReminder" Type="integer" />
+        </EntityType>
+        <EntityType Name="ButtonSpaces">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="Reminders" Type="integer" Nullable="false" />
+          <Property Name="Timer" Type="integer" Nullable="false" />
+          <Property Name="BackupImport" Type="integer" Nullable="false" />
+          <Property Name="Settings" Type="integer" Nullable="false" />
+          <Property Name="SoundEffects" Type="integer" Nullable="false" />
+          <Property Name="ResizePopup" Type="integer" Nullable="false" />
+          <Property Name="MessageCenter" Type="integer" Nullable="false" />
+          <Property Name="DebugMode" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Hotkeys">
           <Key>
@@ -97,6 +111,7 @@
           <Property Name="DefaultTimerSound" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="EnableAdvancedReminders" Type="integer" />
           <Property Name="UniqueString" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="RemindMeTheme" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -109,6 +124,7 @@
         <EntityContainer Name="RemindMeDatabaseModelStoreContainer">
           <EntitySet Name="AdvancedReminderFilesFolders" EntityType="Self.AdvancedReminderFilesFolders" store:Type="Tables" />
           <EntitySet Name="AdvancedReminderProperties" EntityType="Self.AdvancedReminderProperties" store:Type="Tables" />
+          <EntitySet Name="ButtonSpaces" EntityType="Self.ButtonSpaces" store:Type="Tables" />
           <EntitySet Name="Hotkeys" EntityType="Self.Hotkeys" store:Type="Tables" />
           <EntitySet Name="ListviewColumnSizes" EntityType="Self.ListviewColumnSizes" store:Type="Tables" />
           <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />
@@ -157,6 +173,7 @@
           <Property Name="DefaultTimerSound" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="EnableAdvancedReminders" Type="Int64" />
           <Property Name="UniqueString" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RemindMeTheme" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -176,6 +193,7 @@
           <EntitySet Name="AdvancedReminderFilesFolders" EntityType="RemindMeDatabaseModel.AdvancedReminderFilesFolders" />
           <EntitySet Name="AdvancedReminderProperties" EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" />
           <EntitySet Name="ReadMessages" EntityType="RemindMeDatabaseModel.ReadMessages" />
+          <EntitySet Name="ButtonSpaces" EntityType="RemindMeDatabaseModel.ButtonSpaces" />
         </EntityContainer>
         <EntityType Name="PopupDimensions">
           <Key>
@@ -233,6 +251,20 @@
           <Property Name="ReadDate" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="MessageText" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ButtonSpaces">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Reminders" Type="Int64" Nullable="false" />
+          <Property Name="Timer" Type="Int64" Nullable="false" />
+          <Property Name="BackupImport" Type="Int64" Nullable="false" />
+          <Property Name="Settings" Type="Int64" Nullable="false" />
+          <Property Name="SoundEffects" Type="Int64" Nullable="false" />
+          <Property Name="ResizePopup" Type="Int64" Nullable="false" />
+          <Property Name="MessageCenter" Type="Int64" Nullable="false" />
+          <Property Name="DebugMode" Type="Int64" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -264,6 +296,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="RemindMeTheme" ColumnName="RemindMeTheme" />
                 <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
                 <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
                 <ScalarProperty Name="DefaultTimerSound" ColumnName="DefaultTimerSound" />
@@ -345,6 +378,21 @@
                 <ScalarProperty Name="MessageText" ColumnName="MessageText" />
                 <ScalarProperty Name="ReadDate" ColumnName="ReadDate" />
                 <ScalarProperty Name="ReadMessageId" ColumnName="ReadMessageId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ButtonSpaces">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.ButtonSpaces">
+              <MappingFragment StoreEntitySet="ButtonSpaces">
+                <ScalarProperty Name="DebugMode" ColumnName="DebugMode" />
+                <ScalarProperty Name="MessageCenter" ColumnName="MessageCenter" />
+                <ScalarProperty Name="ResizePopup" ColumnName="ResizePopup" />
+                <ScalarProperty Name="SoundEffects" ColumnName="SoundEffects" />
+                <ScalarProperty Name="Settings" ColumnName="Settings" />
+                <ScalarProperty Name="BackupImport" ColumnName="BackupImport" />
+                <ScalarProperty Name="Timer" ColumnName="Timer" />
+                <ScalarProperty Name="Reminders" ColumnName="Reminders" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

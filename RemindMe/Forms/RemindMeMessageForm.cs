@@ -47,7 +47,8 @@ namespace RemindMe
             {
                 int alreadyActiveFormCount = RemindMeMessageFormManager.PopupForms.Count;
                 //Set the location to the bottom right corner of the user's screen, and above all other active popups
-                this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - (this.Height * (alreadyActiveFormCount + 1)) - ((alreadyActiveFormCount + 1) * 5));
+                //this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - (this.Height * (alreadyActiveFormCount + 1)) - ((alreadyActiveFormCount + 1) * 5));
+                this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, (RemindMeMessageFormManager.NextAvailableSpace.Value.Y- this.Height) -5 );
             }
 
             this.timeout = timeout;

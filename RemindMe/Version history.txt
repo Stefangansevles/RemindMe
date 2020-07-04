@@ -1020,6 +1020,19 @@ Small fix where editing an reminder that doesn't have a sound linked would throw
 Added support for multiple music file types. Before you could only add .mp3 and .wav
 RemindMe should no longer show error popups for errors that happen on a timer, again and again
 
+2.6.604
+- You can now adjust the spacing of the text on the buttons on the left panel. ( Settings -> Scroll down )
+- Fixed a small issue where the timer popup wouldn't pop up after pressing the key combination when you have closed the timerpopup with the X in the top right corner
+- RemindMeMessages now no longer overlap if a message is bigger than the other (the message forms)
+
+
+
+
+
+
+
+
+
 
 
 //OnPowerDown, re-enable the popup reminder

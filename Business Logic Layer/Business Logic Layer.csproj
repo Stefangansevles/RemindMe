@@ -57,17 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLAVRProperties.cs" />
     <Compile Include="BLDateTime.cs" />
     <Compile Include="BLFormLogic.cs" />
-    <Compile Include="BLHotkeys.cs" />
     <Compile Include="BLIO.cs" />
-    <Compile Include="BLReadMessages.cs" />
+    <Compile Include="BLLocalDatabase.cs" />
     <Compile Include="BLOnlineDatabase.cs" />
-    <Compile Include="BLPopupDimensions.cs" />
     <Compile Include="BLReminder.cs" />
-    <Compile Include="BLSettings.cs" />
-    <Compile Include="BLSongs.cs" />
     <Compile Include="IOVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReminderException.cs" />

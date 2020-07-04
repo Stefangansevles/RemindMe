@@ -1,13 +1,9 @@
 ﻿using Business_Logic_Layer;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Data.SQLite;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RemindMe
@@ -152,8 +148,9 @@ namespace RemindMe
                 ShowError(e.Exception, "Null reference", "Null reference exception! Whoops! this is not on your end!");
             }
 
-            else if (e.Exception is SQLiteException)
+            else if (e.Exception.GetType().ToString() == "SQLiteException") //SQLiteException could not be found error, fkin weird
             {
+                
                 BLIO.WriteError(e.Exception, "SQLite Database exception", false);
                 ShowError(e.Exception, "SQLite Database exception", "Remindme has encountered a database error!\r\nThis might or might not be on your end. It can be on your end if you modified the database file");
             }

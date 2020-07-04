@@ -42,8 +42,8 @@ namespace RemindMe
 
         private void FillValues()
         {
-            dimensions = BLPopupDimensions.GetPopupDimensions();
-
+            dimensions = BLLocalDatabase.PopupDimension.GetPopupDimensions();
+            
             tbWidth.Text = dimensions.FormWidth.ToString();
             trbWidth.Value = (int)dimensions.FormWidth;
 
@@ -106,7 +106,7 @@ namespace RemindMe
                 dimension.FontTitleSize = (long)trbTitleFont.Value;
                 dimension.FormWidth = (long)trbWidth.Value;
                 dimension.FormHeight = (long)trbHeight.Value;
-                BLPopupDimensions.UpdatePopupDimensions(dimension);
+                BLLocalDatabase.PopupDimension.UpdatePopupDimensions(dimension);
 
 
                 RemindMeMessageFormManager.MakeMessagePopup("Succesfully changed settings.", 4);
@@ -156,7 +156,7 @@ namespace RemindMe
         private void btnReset_Click(object sender, EventArgs e)
         {
             BLIO.Log("(UCResizePopup)btnReset_Click");
-            BLPopupDimensions.ResetToDefaults();            
+            BLLocalDatabase.PopupDimension.ResetToDefaults();            
             RemindMeMessageFormManager.MakeMessagePopup("Succesfully reset settings.",4);
 
             FillValues();

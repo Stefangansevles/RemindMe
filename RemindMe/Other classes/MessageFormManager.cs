@@ -26,7 +26,7 @@ namespace RemindMe
         public static void MakeTodaysRemindersPopup()
         {
             int reminderCount = BLReminder.GetTodaysReminders().Count;
-            if (BLSettings.IsReminderCountPopupEnabled())
+            if (BLLocalDatabase.Setting.IsReminderCountPopupEnabled())
             {
                 if (reminderCount > 0)
                     MakeMessagePopup("You have " + reminderCount + " Reminder(s) set for today.", 3);
@@ -35,7 +35,16 @@ namespace RemindMe
             }
 
         }
-
+        public static Point? NextAvailableSpace
+        {
+            get
+            {
+                if (popupForms.Count > 0)
+                    return new Point(popupForms[popupForms.Count - 1].Location.X, popupForms[popupForms.Count - 1].Location.Y);
+                else
+                    return null;
+            }
+        }
         /// <summary>
         /// Creates an animated message popup at the bottom-right corner of the screen
         /// </summary>
@@ -85,7 +94,7 @@ namespace RemindMe
         {
             int activeFormCount = PopupForms.Count;
 
-            //No active popup forms? set it to default position
+            //One active popup form? set it to default position
             if (activeFormCount == 1)
             {
                 //Set the location to the bottom right corner of the user's screen and a little bit above the taskbar since there's only one left
@@ -98,23 +107,19 @@ namespace RemindMe
             }
             else
             {
-                foreach (RemindMeMessageForm form in PopupForms)
-                {
-                    form.Invoke((MethodInvoker)(() =>
-                    {
-                    //Do NOT move the form down if it is the bottom one
-                    if (form.Location.Y != Screen.GetWorkingArea(form).Height - form.Height - 5)
-                    {
-                        //Check if there is one below you
-                        if (!IsFormAt(new Point(form.Location.X, (form.Location.Y + form.Height) + 5)))
-                        {
-                            //Put all messageforms one down.
-                            form.Location = new Point(form.Location.X, (form.Location.Y + form.Height) + 5);
-                        }
+                List<RemindMeMessageForm> forms = popupForms.Where(f => !f.IsDisposed).ToList();
 
-                    }
-                    }));            
-                    
+                //Reset all forms to the bottom right corner
+                foreach (RemindMeMessageForm frm in forms)                    
+                        frm.Location = new Point(Screen.GetWorkingArea(frm).Width - frm.Width - 5, Screen.GetWorkingArea(frm).Height - frm.Height - 5);                
+                                
+                RemindMeMessageForm form;                
+                //Now work our way up
+                for (int i = 0; i < forms.Count; i++) 
+                {
+                    form = forms[i];
+                    if (i > 0)
+                        form.Location = new Point(form.Location.X, (forms[i - 1].Location.Y - form.Height) - 5);
                 }
             }
 
@@ -123,20 +128,9 @@ namespace RemindMe
             List<RemindMeMessageForm> toRemoveForms = popupForms.Where(form => form.IsDisposed).ToList();
 
             foreach (RemindMeMessageForm form in toRemoveForms)
-                popupForms.Remove(form);
-
-            toRemoveForms.Clear();
+                popupForms.Remove(form);        
         }
-
-        /// <summary>
-        /// Check if there is a message form at the given position
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        private static bool IsFormAt(Point p)
-        {
-            return PopupForms.Where(frm => frm.Location == p).ToList().Count > 0;            
-        }
+      
     }
 
 

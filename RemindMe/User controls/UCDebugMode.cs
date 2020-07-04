@@ -75,7 +75,7 @@ namespace RemindMe
             string text = RemindMePrompt.ShowText("Enter a message");
 
             if(!string.IsNullOrWhiteSpace(text))
-                RemindMeMessageFormManager.MakeMessagePopup(text, 4);
+                RemindMeMessageFormManager.MakeMessagePopup(text, 11);
             else
                 RemindMeMessageFormManager.MakeMessagePopup("This is a test.", 4);
         }

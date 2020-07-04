@@ -41,9 +41,12 @@ namespace Data_Access_Layer
         //The neccesary query to execute to create the table ReadMessages
         private const string TABLE_READ_MESSAGES = "CREATE TABLE [ReadMessages] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [ReadMessageId] bigint NOT NULL, [ReadDate] text NOT NULL, [MessageText] text NULL);";
 
+        //The neccesary query to execute to create the table ButtonSpaces
+        private const string TABLE_BUTTONSPACES = "CREATE TABLE [ButtonSpaces] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [Reminders] bigint DEFAULT(5) NOT NULL, [Timer] bigint DEFAULT(5) NOT NULL, [BackupImport] bigint DEFAULT(5) NOT NULL, [Settings] bigint DEFAULT(5) NOT NULL, [SoundEffects] bigint DEFAULT(5) NOT NULL, [ResizePopup] bigint DEFAULT(5) NOT NULL, [MessageCenter] bigint DEFAULT(5) NOT NULL, [DebugMode] bigint DEFAULT(5) NOT NULL);";
+
         //The neccesary query to execute to create the table RemindMeColorThemes, used to give RemindMe multiple color scheme
         //private const string TABLE_REMINDME_COLOR_SCHEMES = "CREATE TABLE [RemindMeColorScheme] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [ThemeName] text NOT NULL, [PrimaryBottomLeft] text NOT NULL, [PrimaryBottomRight] text NOT NULL, [PrimaryTopLeft] text NOT NULL, [PrimaryTopRight] text NOT NULL, [SecondaryBottomLeft] text NOT NULL, [SecondaryBottomRight] text NOT NULL, [SecondaryTopLeft] text NOT NULL, [SecondaryTopRight] text NOT NULL);";
-        
+
 
         /// <summary>
         /// Creates the database with associated tables
@@ -63,6 +66,7 @@ namespace Data_Access_Layer
             SQLiteCommand tableAvrProperties = new SQLiteCommand();
             SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
             SQLiteCommand tableReadMessages = new SQLiteCommand();
+            SQLiteCommand tableButtonSpaces = new SQLiteCommand();
             //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
@@ -75,6 +79,7 @@ namespace Data_Access_Layer
             tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
             tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
             tableReadMessages.CommandText = TABLE_READ_MESSAGES;
+            tableButtonSpaces.CommandText = TABLE_BUTTONSPACES;
             //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
             tableReminder.Connection = conn;
@@ -86,6 +91,7 @@ namespace Data_Access_Layer
             tableAvrProperties.Connection = conn;
             tableAvrFilesFolders.Connection = conn;
             tableReadMessages.Connection = conn;
+            tableButtonSpaces.Connection = conn;
             //tableRemindMeColorSchemes.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
@@ -97,11 +103,11 @@ namespace Data_Access_Layer
             tableAvrProperties.ExecuteNonQuery();
             tableAvrFilesFolders.ExecuteNonQuery();
             tableReadMessages.ExecuteNonQuery();
+            tableButtonSpaces.ExecuteNonQuery();
             //tableRemindMeColorSchemes.ExecuteNonQuery();
 
             conn.Close();
             conn.Dispose();
-
         }
         /// <summary>
         /// Checks wether the table x has column x
@@ -208,6 +214,14 @@ namespace Data_Access_Layer
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
+            var buttonSpaces = typeof(ButtonSpaces).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in buttonSpaces)
+            {
+                if (!HasColumn(columnName, "ButtonSpaces"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
             /*This was testing a custom color scheme
             var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToList();
 
@@ -250,7 +264,7 @@ namespace Data_Access_Layer
                     && HasTable("songs", db) && HasTable("popupdimensions", db) 
                     && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db)
                     && HasTable("AdvancedReminderProperties", db) && HasTable("AdvancedReminderFilesFolders", db)
-                    && HasTable("ReadMessages", db) /* && HasTable("RemindMeColorScheme", db)*/)
+                    && HasTable("ReadMessages", db) && HasTable("ButtonSpaces", db)/* && HasTable("RemindMeColorScheme", db)*/)
                     return true;
                 else
                     return false;                
@@ -278,6 +292,7 @@ namespace Data_Access_Layer
                 SQLiteCommand tableAvrProperties = new SQLiteCommand();
                 SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
                 SQLiteCommand tableReadMessages = new SQLiteCommand();
+                SQLiteCommand tableButtonSpaces = new SQLiteCommand();
                 //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
@@ -290,6 +305,7 @@ namespace Data_Access_Layer
                 tableAvrProperties.CommandText = TABLE_AVR_PROPERTIES;
                 tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
                 tableReadMessages.CommandText = TABLE_READ_MESSAGES;
+                tableButtonSpaces.CommandText = TABLE_BUTTONSPACES;
                 //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
                 tableReminder.Connection = conn;
@@ -301,6 +317,7 @@ namespace Data_Access_Layer
                 tableAvrProperties.Connection = conn;
                 tableAvrFilesFolders.Connection = conn;
                 tableReadMessages.Connection = conn;
+                tableButtonSpaces.Connection = conn;
                 //tableRemindMeColorSchemes.Connection = conn;
 
                 if (!HasTable("Reminder", db))
@@ -330,6 +347,9 @@ namespace Data_Access_Layer
                 if (!HasTable("ReadMessages", db))
                     tableReadMessages.ExecuteNonQuery();
 
+                if (!HasTable("ButtonSpaces", db))
+                    tableButtonSpaces.ExecuteNonQuery();
+
                 /*This was testing a custom color scheme
                 if (!HasTable("RemindMeColorScheme", db))
                     tableRemindMeColorSchemes.ExecuteNonQuery();*/
@@ -357,6 +377,7 @@ namespace Data_Access_Layer
                 var avrProperties = typeof(AdvancedReminderProperties).GetProperties().Select(property => property.Name).ToArray();
                 var avrFilesFolders = typeof(AdvancedReminderFilesFolders).GetProperties().Select(property => property.Name).ToArray();
                 var readMessages = typeof(ReadMessages).GetProperties().Select(property => property.Name).ToArray();
+                var buttonSpaces = typeof(ButtonSpaces).GetProperties().Select(property => property.Name).ToArray();
                 //var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
@@ -411,6 +432,12 @@ namespace Data_Access_Layer
                 {
                     if (!HasColumn(column, "ReadMessages"))
                         db.Database.ExecuteSqlCommand("ALTER TABLE ReadMessages ADD COLUMN " + column + " " + GetReadMessagesColumnSqlType(column));
+                }
+
+                foreach (string column in buttonSpaces)
+                {
+                    if (!HasColumn(column, "ButtonSpaces"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE ButtonSpaces ADD COLUMN " + column + " " + GetButtonSpacesColumnSqlType(column));
                 }
 
                 /*This was testing a custom color scheme
@@ -606,6 +633,22 @@ namespace Data_Access_Layer
                 case "ReadMessageId": return "INTEGER NOT NULL";
                 case "ReadDate": return "TEXT NOT NULL";
                 case "MessageText": return "text NULL";
+                default: return "text NOT NULL";
+            }
+        }
+
+        private static string GetButtonSpacesColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {
+                case "Reminders": return "bigint DEFAULT(5) NOT NULL";
+                case "Timer": return "bigint DEFAULT(5) NOT NULL";
+                case "BackupImport": return "bigint DEFAULT(5) NOT NULL";
+                case "Settings": return "bigint DEFAULT(5) NOT NULL";
+                case "SoundEffects": return "bigint DEFAULT(5) NOT NULL";
+                case "ResizePopup": return "bigint DEFAULT(5) NOT NULL";
+                case "MessageCenter": return "bigint DEFAULT(5) NOT NULL";
+                case "DebugMode": return "bigint DEFAULT(5) NOT NULL";
                 default: return "text NOT NULL";
             }
         }

@@ -223,11 +223,11 @@ namespace RemindMe
         private void SetKeyCombinationLabel()
         {
             lblKeyCombination.Text = "protip: You can create a quick timer by pressing the key combination: ";
-            foreach (string m in BLHotkeys.TimerPopup.Modifiers.ToString().Split(','))
+            foreach (string m in BLLocalDatabase.Hotkey.TimerPopup.Modifiers.ToString().Split(','))
             {
                 lblKeyCombination.Text += m + " + ";
             }
-            lblKeyCombination.Text += BLHotkeys.TimerPopup.Key.ToString();            
+            lblKeyCombination.Text += BLLocalDatabase.Hotkey.TimerPopup.Key.ToString();            
         }
 
     

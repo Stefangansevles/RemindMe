@@ -51,6 +51,9 @@
     <Compile Include="AdvancedReminderProperties.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="ButtonSpaces.cs">
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="EmailAttempts.cs">
       <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
     </Compile>

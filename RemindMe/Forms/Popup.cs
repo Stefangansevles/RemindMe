@@ -28,9 +28,9 @@ namespace RemindMe
             this.Opacity = 0;
             this.rem = rem;
 
-            this.Size = new Size((int)BLPopupDimensions.GetPopupDimensions().FormWidth, (int)BLPopupDimensions.GetPopupDimensions().FormHeight);
-            lblTitle.Font = new Font(lblTitle.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontTitleSize, FontStyle.Bold);
-            lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLPopupDimensions.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
+            this.Size = new Size((int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormWidth, (int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormHeight);
+            lblTitle.Font = new Font(lblTitle.Font.FontFamily, BLLocalDatabase.PopupDimension.GetPopupDimensions().FontTitleSize, FontStyle.Bold);
+            lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
             this.Text = rem.Name;
 
             lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 10, 0);
@@ -72,9 +72,9 @@ namespace RemindMe
         {
             try
             {
-                BLIO.Log("Popup_load");
-                AdvancedReminderProperties avrProps = BLAVRProperties.GetAVRProperties(rem.Id);
-                List<AdvancedReminderFilesFolders> avrFF = BLAVRProperties.GetAVRFilesFolders(rem.Id);
+                BLIO.Log("Popup_load");                
+                AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+                List<AdvancedReminderFilesFolders> avrFF = BLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);
                 if (avrProps != null) //Not null? this reminder has advanced properties.
                 {
                     BLIO.Log("Reminder " + rem.Id + " has advanced reminder properties!");
@@ -172,7 +172,7 @@ namespace RemindMe
                 FlashWindowHelper.Start(this);
                 //this.MaximumSize = this.Size;
 
-                if (BLSettings.IsAlwaysOnTop())
+                if (BLLocalDatabase.Setting.IsAlwaysOnTop())
                 {
                     this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
                     this.TopLevel = true;

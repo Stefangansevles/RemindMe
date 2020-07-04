@@ -44,7 +44,7 @@ namespace RemindMe
                 string subject = tbSubject.Text;
                 string note = tbNote.Text;
                 
-                BLOnlineDatabase.InsertEmailAttempt(BLSettings.Settings.UniqueString, note, subject, email);
+                BLOnlineDatabase.InsertEmailAttempt(BLLocalDatabase.Setting.Settings.UniqueString, note, subject, email);
                 RemindMeMessageFormManager.MakeMessagePopup("Feedback Sent. Thank you!", 5);
                 tbEmail.Text = "";
                 tbSubject.Text = "";
@@ -82,7 +82,7 @@ namespace RemindMe
                 lvMessages.Items.Clear();
 
                 ListViewItem itm;
-                foreach (ReadMessages mes in BLReadMessages.Messages) //Thread? maybe?
+                foreach (ReadMessages mes in BLLocalDatabase.ReadMessage.Messages) //Thread? maybe?
                 {
                     itm = new ListViewItem(mes.MessageText);
                     itm.Tag = mes.ReadMessageId;
@@ -103,7 +103,7 @@ namespace RemindMe
                 {
                     RemindMeMessageFormManager.MakeMessagePopup("Could not show this message. It does not exist anymore", 4);
                     lvMessages.Items.Remove(itm);
-                    BLReadMessages.DeleteMessage(Convert.ToInt32(itm.Tag));
+                    BLLocalDatabase.ReadMessage.DeleteMessage(Convert.ToInt32(itm.Tag));
                     return; //Doesn't exist in the database anymore
                 }
 
@@ -122,7 +122,7 @@ namespace RemindMe
                     BLIO.Log("Attempting to show the user a RemindMe message FAILED. Notificationtype="+mess.NotificationType + "  Message="+mess.Message + "  Id="+mess.Id);
                     RemindMeMessageFormManager.MakeMessagePopup("Could not preview this message. Unknown notification type", 4);
                     lvMessages.Items.Remove(itm);                    
-                    BLReadMessages.DeleteMessage(mess.Id);
+                    BLLocalDatabase.ReadMessage.DeleteMessage(mess.Id);
                 }
                 
             }

@@ -271,7 +271,7 @@
             this.btnDebugMode.BackColor = System.Drawing.Color.Transparent;
             this.btnDebugMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDebugMode.BorderRadius = 0;
-            this.btnDebugMode.ButtonText = "     Debug mode";
+            this.btnDebugMode.ButtonText = "Debug mode";
             this.btnDebugMode.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDebugMode.DisabledColor = System.Drawing.Color.White;
             this.btnDebugMode.Dock = System.Windows.Forms.DockStyle.Top;
@@ -295,7 +295,7 @@
             this.btnDebugMode.selected = false;
             this.btnDebugMode.Size = new System.Drawing.Size(200, 48);
             this.btnDebugMode.TabIndex = 14;
-            this.btnDebugMode.Text = "     Debug mode";
+            this.btnDebugMode.Text = "Debug mode";
             this.btnDebugMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDebugMode.Textcolor = System.Drawing.Color.White;
             this.btnDebugMode.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -308,7 +308,7 @@
             this.btnSupport.BackColor = System.Drawing.Color.Transparent;
             this.btnSupport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSupport.BorderRadius = 0;
-            this.btnSupport.ButtonText = "     Message center";
+            this.btnSupport.ButtonText = "Message center";
             this.btnSupport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSupport.DisabledColor = System.Drawing.Color.White;
             this.btnSupport.Dock = System.Windows.Forms.DockStyle.Top;
@@ -332,7 +332,7 @@
             this.btnSupport.selected = false;
             this.btnSupport.Size = new System.Drawing.Size(200, 48);
             this.btnSupport.TabIndex = 13;
-            this.btnSupport.Text = "     Message center";
+            this.btnSupport.Text = "Message center";
             this.btnSupport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSupport.Textcolor = System.Drawing.Color.White;
             this.btnSupport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -344,7 +344,7 @@
             this.btnResizePopup.BackColor = System.Drawing.Color.Transparent;
             this.btnResizePopup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnResizePopup.BorderRadius = 0;
-            this.btnResizePopup.ButtonText = "     Resize popup";
+            this.btnResizePopup.ButtonText = "Resize popup";
             this.btnResizePopup.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnResizePopup.DisabledColor = System.Drawing.Color.White;
             this.btnResizePopup.Dock = System.Windows.Forms.DockStyle.Top;
@@ -368,7 +368,7 @@
             this.btnResizePopup.selected = false;
             this.btnResizePopup.Size = new System.Drawing.Size(200, 48);
             this.btnResizePopup.TabIndex = 12;
-            this.btnResizePopup.Text = "     Resize popup";
+            this.btnResizePopup.Text = "Resize popup";
             this.btnResizePopup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnResizePopup.Textcolor = System.Drawing.Color.White;
             this.btnResizePopup.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -380,7 +380,7 @@
             this.btnSoundEffects.BackColor = System.Drawing.Color.Transparent;
             this.btnSoundEffects.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSoundEffects.BorderRadius = 0;
-            this.btnSoundEffects.ButtonText = "     Sound effects";
+            this.btnSoundEffects.ButtonText = "Sound effects";
             this.btnSoundEffects.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSoundEffects.DisabledColor = System.Drawing.Color.White;
             this.btnSoundEffects.Dock = System.Windows.Forms.DockStyle.Top;
@@ -404,7 +404,7 @@
             this.btnSoundEffects.selected = false;
             this.btnSoundEffects.Size = new System.Drawing.Size(200, 48);
             this.btnSoundEffects.TabIndex = 10;
-            this.btnSoundEffects.Text = "     Sound effects";
+            this.btnSoundEffects.Text = "Sound effects";
             this.btnSoundEffects.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSoundEffects.Textcolor = System.Drawing.Color.White;
             this.btnSoundEffects.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -416,7 +416,7 @@
             this.btnWindowOverlay.BackColor = System.Drawing.Color.Transparent;
             this.btnWindowOverlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnWindowOverlay.BorderRadius = 0;
-            this.btnWindowOverlay.ButtonText = "     Settings";
+            this.btnWindowOverlay.ButtonText = "Settings";
             this.btnWindowOverlay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnWindowOverlay.DisabledColor = System.Drawing.Color.White;
             this.btnWindowOverlay.Dock = System.Windows.Forms.DockStyle.Top;
@@ -440,7 +440,7 @@
             this.btnWindowOverlay.selected = false;
             this.btnWindowOverlay.Size = new System.Drawing.Size(200, 48);
             this.btnWindowOverlay.TabIndex = 11;
-            this.btnWindowOverlay.Text = "     Settings";
+            this.btnWindowOverlay.Text = "Settings";
             this.btnWindowOverlay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnWindowOverlay.Textcolor = System.Drawing.Color.White;
             this.btnWindowOverlay.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -452,7 +452,7 @@
             this.btnBackupImport.BackColor = System.Drawing.Color.Transparent;
             this.btnBackupImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnBackupImport.BorderRadius = 0;
-            this.btnBackupImport.ButtonText = "     Backup / Import";
+            this.btnBackupImport.ButtonText = "Backup / Import";
             this.btnBackupImport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBackupImport.DisabledColor = System.Drawing.Color.White;
             this.btnBackupImport.Dock = System.Windows.Forms.DockStyle.Top;
@@ -476,7 +476,7 @@
             this.btnBackupImport.selected = false;
             this.btnBackupImport.Size = new System.Drawing.Size(200, 48);
             this.btnBackupImport.TabIndex = 9;
-            this.btnBackupImport.Text = "     Backup / Import";
+            this.btnBackupImport.Text = "Backup / Import";
             this.btnBackupImport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBackupImport.Textcolor = System.Drawing.Color.White;
             this.btnBackupImport.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -488,7 +488,7 @@
             this.btnTimer.BackColor = System.Drawing.Color.Transparent;
             this.btnTimer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnTimer.BorderRadius = 0;
-            this.btnTimer.ButtonText = "     Timer";
+            this.btnTimer.ButtonText = "Timer";
             this.btnTimer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTimer.DisabledColor = System.Drawing.Color.White;
             this.btnTimer.Dock = System.Windows.Forms.DockStyle.Top;
@@ -512,7 +512,7 @@
             this.btnTimer.selected = false;
             this.btnTimer.Size = new System.Drawing.Size(200, 48);
             this.btnTimer.TabIndex = 15;
-            this.btnTimer.Text = "     Timer";
+            this.btnTimer.Text = "Timer";
             this.btnTimer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTimer.Textcolor = System.Drawing.Color.White;
             this.btnTimer.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -524,7 +524,7 @@
             this.btnReminders.BackColor = System.Drawing.Color.DimGray;
             this.btnReminders.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnReminders.BorderRadius = 0;
-            this.btnReminders.ButtonText = "     Reminders";
+            this.btnReminders.ButtonText = "Reminders";
             this.btnReminders.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReminders.DisabledColor = System.Drawing.Color.White;
             this.btnReminders.Dock = System.Windows.Forms.DockStyle.Top;
@@ -548,7 +548,7 @@
             this.btnReminders.selected = true;
             this.btnReminders.Size = new System.Drawing.Size(200, 48);
             this.btnReminders.TabIndex = 6;
-            this.btnReminders.Text = "     Reminders";
+            this.btnReminders.Text = "Reminders";
             this.btnReminders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReminders.Textcolor = System.Drawing.Color.White;
             this.btnReminders.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -607,14 +607,8 @@
         }
 
         #endregion
-        private Bunifu.Framework.UI.BunifuFlatButton btnReminders;
         private Bunifu.Framework.UI.BunifuDragControl dragHeader;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
-        private Bunifu.Framework.UI.BunifuFlatButton btnBackupImport;
-        private Bunifu.Framework.UI.BunifuFlatButton btnResizePopup;
-        private Bunifu.Framework.UI.BunifuFlatButton btnWindowOverlay;
-        private Bunifu.Framework.UI.BunifuFlatButton btnSoundEffects;
-        private Bunifu.Framework.UI.BunifuFlatButton btnSupport;
         public System.Windows.Forms.NotifyIcon RemindMeIcon;
         private System.Windows.Forms.ContextMenuStrip RemindMeTrayIconMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsExit;
@@ -623,21 +617,27 @@
         private System.Windows.Forms.Label lblVersion;
         private Bunifu.Framework.UI.BunifuDragControl dragLogo;
         private System.Windows.Forms.Timer tmrFadeIn;
-        private Bunifu.Framework.UI.BunifuFlatButton btnDebugMode;
         private System.Windows.Forms.Timer tmrDebugMode;
         private System.Windows.Forms.Timer tmrUpdateRemindMe;
-        private Bunifu.Framework.UI.BunifuFlatButton btnTimer;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel pnlBanner;
         private System.Windows.Forms.Label lblPageNumber;
         private Bunifu.Framework.UI.BunifuCustomLabel lblMinimize;
         private Bunifu.Framework.UI.BunifuCustomLabel lblExit;
-        private Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
         private System.Windows.Forms.Timer tmrInitialHide;
         private System.Windows.Forms.Timer tmrCheckRemindMeMessages;
         private System.Windows.Forms.Timer tmrPingActivity;
         private System.Windows.Forms.Timer tmrDumpLogTxtContents;
         private System.Windows.Forms.Timer tmrEnableDatabaseAccess;
+        public Bunifu.Framework.UI.BunifuFlatButton btnReminders;
+        public Bunifu.Framework.UI.BunifuFlatButton btnBackupImport;
+        public Bunifu.Framework.UI.BunifuFlatButton btnResizePopup;
+        public Bunifu.Framework.UI.BunifuFlatButton btnWindowOverlay;
+        public Bunifu.Framework.UI.BunifuFlatButton btnSoundEffects;
+        public Bunifu.Framework.UI.BunifuFlatButton btnSupport;
+        public Bunifu.Framework.UI.BunifuFlatButton btnDebugMode;
+        public Bunifu.Framework.UI.BunifuFlatButton btnTimer;
+        public Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
     }
 }
 
