@@ -71,7 +71,10 @@ namespace RemindMe
                             Application.Restart();
                         }
                         else
+                        {
                             BLIO.Log("Installation complete! restartRemindMe = " + restartRemindMe);
+                            Form1.Instance.restartRemindMeUpdateToolStripMenuItem.Visible = true; //Give a "Restart" option on the RemindMe Icon
+                        }
 
                         hasUpdated = true;
                     }

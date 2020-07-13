@@ -905,6 +905,11 @@ namespace RemindMe
                 BLIO.Log("EnableDatabaseAccess FAILED. " + ex.GetType().ToString());
                 BLIO.WriteError(ex, "Error in tmrEnableDatabaseAccess_Tick");
             }
-        }     
+        }
+
+        private void restartRemindMeUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
     }
 }

@@ -84,7 +84,7 @@ namespace RemindMe
                 string logTxtPath = IOVariables.systemLog;
                 BLIO.Log("Closing ExceptionPopup...");
                 if (!customFeedback) //If the user didn't leave instructions of how this problem happened, just log the exception / stacktrace and logfile
-                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath);
+                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, "None.");
             }
             catch { }
         }
@@ -164,11 +164,6 @@ namespace RemindMe
         private void ExceptionPopup_FormClosed(object sender, FormClosedEventArgs e)
         {
             activePopups--;
-        }
-
-        private void tmrDispose_Tick(object sender, EventArgs e)
-        {
-            
         }
 
         private void tmrCheckForVersion_Tick(object sender, EventArgs e)

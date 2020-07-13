@@ -38,6 +38,7 @@
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.RemindMeIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.RemindMeTrayIconMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.restartRemindMeUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsExit = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dragLogo = new Bunifu.Framework.UI.BunifuDragControl(this.components);
@@ -149,12 +150,23 @@
             // 
             this.RemindMeTrayIconMenuStrip.BackColor = System.Drawing.Color.DimGray;
             this.RemindMeTrayIconMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restartRemindMeUpdateToolStripMenuItem,
             this.tsExit,
             this.showRemindMeToolStripMenuItem});
             this.RemindMeTrayIconMenuStrip.Name = "contextMenuStrip1";
             this.RemindMeTrayIconMenuStrip.ShowImageMargin = false;
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(133, 48);
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(190, 70);
             this.RemindMeTrayIconMenuStrip.Text = "contextmenustrip";
+            // 
+            // restartRemindMeUpdateToolStripMenuItem
+            // 
+            this.restartRemindMeUpdateToolStripMenuItem.Font = new System.Drawing.Font("Franklin Gothic Medium", 7F, System.Drawing.FontStyle.Bold);
+            this.restartRemindMeUpdateToolStripMenuItem.ForeColor = System.Drawing.Color.PaleGreen;
+            this.restartRemindMeUpdateToolStripMenuItem.Name = "restartRemindMeUpdateToolStripMenuItem";
+            this.restartRemindMeUpdateToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.restartRemindMeUpdateToolStripMenuItem.Text = "Restart RemindMe (Update)";
+            this.restartRemindMeUpdateToolStripMenuItem.Visible = false;
+            this.restartRemindMeUpdateToolStripMenuItem.Click += new System.EventHandler(this.restartRemindMeUpdateToolStripMenuItem_Click);
             // 
             // tsExit
             // 
@@ -163,7 +175,7 @@
             this.tsExit.Image = ((System.Drawing.Image)(resources.GetObject("tsExit.Image")));
             this.tsExit.ImageTransparentColor = System.Drawing.Color.Red;
             this.tsExit.Name = "tsExit";
-            this.tsExit.Size = new System.Drawing.Size(132, 22);
+            this.tsExit.Size = new System.Drawing.Size(189, 22);
             this.tsExit.Text = "Exit RemindMe";
             this.tsExit.Click += new System.EventHandler(this.tsExit_Click);
             // 
@@ -174,7 +186,7 @@
             this.showRemindMeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showRemindMeToolStripMenuItem.Image")));
             this.showRemindMeToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.showRemindMeToolStripMenuItem.Name = "showRemindMeToolStripMenuItem";
-            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.showRemindMeToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.showRemindMeToolStripMenuItem.Text = "Show RemindMe";
             this.showRemindMeToolStripMenuItem.Click += new System.EventHandler(this.showRemindMeToolStripMenuItem_Click);
             // 
@@ -638,6 +650,7 @@
         public Bunifu.Framework.UI.BunifuFlatButton btnDebugMode;
         public Bunifu.Framework.UI.BunifuFlatButton btnTimer;
         public Bunifu.Framework.UI.BunifuGradientPanel pnlSide;
+        public System.Windows.Forms.ToolStripMenuItem restartRemindMeUpdateToolStripMenuItem;
     }
 }
 

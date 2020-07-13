@@ -254,7 +254,10 @@ namespace Data_Access_Layer
                         settings.EnableReminderCountPopup = 1;
                         settings.EnableHourBeforeReminder = 1;
                         settings.HideReminderConfirmation = 0;
-                        settings.EnableQuickTimer = 1;
+                        settings.EnableQuickTimer = 1;                        
+                        settings.DefaultTimerSound = "";
+                        settings.EnableAdvancedReminders = 0;                        
+                        settings.RemindMeTheme = "Default";
                         UpdateSettings(settings);
                     }
                     else
