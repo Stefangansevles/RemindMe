@@ -1,4 +1,4 @@
-2.6.605
+2.6.606
 update: minor 
 silentUpdate: true
 

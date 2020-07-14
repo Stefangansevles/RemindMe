@@ -240,11 +240,19 @@ namespace RemindMe
         }
 
         private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
+            //If you preview in 5 seconds, then delete the reminder, it will preview the new reminder that is loaded into UCReminderItem, I'm aware of this and it is not something worth putting effort into            
             PreviewReminder();
         }
         private void PreviewReminder()
         {
+            if(rem == null)
+            {
+                BLIO.Log("Reminder in PreviewReminder() is null. Interesting... ;)");
+                RemindMeMessageFormManager.MakeMessagePopup("Could not preview that reminder. It doesn't exist anymore!", 4, "Error");
+                return;
+            }
+
             BLIO.Log("Previewing reminder with id " + rem.Id);
             Reminder previewRem = CopyReminder(rem);
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered

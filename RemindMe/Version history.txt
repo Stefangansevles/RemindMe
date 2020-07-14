@@ -1027,8 +1027,10 @@ RemindMe should no longer show error popups for errors that happen on a timer, a
 
 
 2.6.605
-- Fixed a small issue where first time users would get an error when loading RemindMe
+- Fixed a small issue where first time users would get an error when loading RemindMe 
 
+2.6.606
+- Fixed another small issue where first time users would get an error when loading the RemindMe Settings 
 
 
 

@@ -256,9 +256,12 @@ namespace RemindMe
             if (selectedItem != null)
             {
                 Songs selectedSong = (Songs)selectedItem.Value;
-                Settings set = BLLocalDatabase.Setting.Settings;
-                set.DefaultTimerSound = selectedSong.SongFilePath;
-                BLLocalDatabase.Setting.UpdateSettings(set);
+                if (selectedSong != null)
+                {
+                    Settings set = BLLocalDatabase.Setting.Settings;
+                    set.DefaultTimerSound = selectedSong.SongFilePath;
+                    BLLocalDatabase.Setting.UpdateSettings(set);
+                }
             }
         }
 
