@@ -297,6 +297,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="User controls\MaterialUserControls\MUCInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\MaterialUserControls\MUCInfo.Designer.cs">
+      <DependentUpon>MUCInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="User controls\Old user controls\Advanced Reminder User controls\AVR_UCBatch.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -533,6 +539,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User controls\MaterialUserControls\MUCInfo.resx">
+      <DependentUpon>MUCInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User controls\Old user controls\Advanced Reminder User controls\AVR_UCBatch.resx">
       <DependentUpon>AVR_UCBatch.cs</DependentUpon>
     </EmbeddedResource>
@@ -717,6 +726,8 @@
     <None Include="icons\light\duplicateWhite.png" />
     <None Include="icons\light\hideWhite.png" />
     <None Include="icons\light\permanentelyWhite.png" />
+    <None Include="icons\light\dollarWhite.png" />
+    <None Include="icons\light\githubWhite.png" />
     <Content Include="RemindMeIcon.ico" />
     <None Include="Resources\hide.png" />
     <None Include="Resources\show.png" />
@@ -811,6 +822,7 @@
     <None Include="Resources\test_tube_white.png" />
     <None Include="Resources\new.png" />
     <None Include="Resources\old.png" />
+    <None Include="Resources\img_326384.png" />
     <Content Include="x64\SQLite.Interop.dll" />
     <Content Include="x86\SQLite.Interop.dll" />
     <None Include="Resources\gray.jpg" />

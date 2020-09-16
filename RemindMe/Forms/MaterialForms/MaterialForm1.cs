@@ -54,6 +54,7 @@ namespace RemindMe
         private MUCSupport support;
         private MUCDebugMode debug;
         private MUCNewReminder newReminder;
+        private MUCInfo info;
 
         //If the user presses the end key quickly 3 times, enable debug mode
         private int endKeyPressed = 0;
@@ -224,6 +225,7 @@ namespace RemindMe
             support = new MUCSupport();
             debug = new MUCDebugMode();
             newReminder = new MUCNewReminder(reminders);
+            info = new MUCInfo();
 
             newReminder.Visible = false;
 
@@ -238,6 +240,7 @@ namespace RemindMe
             tabResizePopup.Controls.Add(popup);
             tabMessageCenter.Controls.Add(support);
             tabDebug.Controls.Add(debug);
+            tabInfo.Controls.Add(info);
 
 
 

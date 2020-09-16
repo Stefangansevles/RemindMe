@@ -55,6 +55,7 @@
             this.exitRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRemoveDebug = new System.Windows.Forms.Timer(this.components);
+            this.tabInfo = new System.Windows.Forms.TabPage();
             this.mainTabControl.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +70,7 @@
             this.mainTabControl.Controls.Add(this.tabResizePopup);
             this.mainTabControl.Controls.Add(this.tabMessageCenter);
             this.mainTabControl.Controls.Add(this.tabTheme);
+            this.mainTabControl.Controls.Add(this.tabInfo);
             this.mainTabControl.Controls.Add(this.tabDebug);
             this.mainTabControl.Depth = 0;
             this.mainTabControl.ImageList = this.drawerIconsList;
@@ -188,6 +190,7 @@
             this.drawerIconsList.Images.SetKeyName(7, "icons8-database-backup-24.png");
             this.drawerIconsList.Images.SetKeyName(8, "icons8-stopwatch-24.png");
             this.drawerIconsList.Images.SetKeyName(9, "icons8-bug-24.png");
+            this.drawerIconsList.Images.SetKeyName(10, "baseline_info_black_36dp.png");
             // 
             // tmrInitialHide
             // 
@@ -278,6 +281,16 @@
             this.tmrRemoveDebug.Interval = 2000;
             this.tmrRemoveDebug.Tick += new System.EventHandler(this.tmrRemoveDebug_Tick);
             // 
+            // tabInfo
+            // 
+            this.tabInfo.ImageKey = "baseline_info_black_36dp.png";
+            this.tabInfo.Location = new System.Drawing.Point(4, 27);
+            this.tabInfo.Name = "tabInfo";
+            this.tabInfo.Size = new System.Drawing.Size(830, 471);
+            this.tabInfo.TabIndex = 9;
+            this.tabInfo.Text = "Info";
+            this.tabInfo.UseVisualStyleBackColor = true;
+            // 
             // MaterialForm1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -325,6 +338,7 @@
         private System.Windows.Forms.ToolStripMenuItem showRemindMeToolStripMenuItem1;
         public System.Windows.Forms.ToolStripMenuItem restartRemindMeUpdateToolStripMenuItem1;
         private System.Windows.Forms.Timer tmrRemoveDebug;
+        private System.Windows.Forms.TabPage tabInfo;
     }
 }
 

@@ -1038,13 +1038,3 @@ RemindMe should no longer show error popups for errors that happen on a timer, a
   Maybe we want it to be today +3 instead if re-enabled?
 
 
-
-
-
-
-
-//OnPowerDown, re-enable the popup reminder
-- delete reminder, goes back to page1
-- back button on newreminder, back to page1
-- play sound button doesnt go ||
-remindmemessageform slide-in from right to left, grow in size? instead of fade-in
