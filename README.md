@@ -32,6 +32,8 @@ SQLite
 
 Entity Framework
 
+[MaterialSkin](https://github.com/IgnaceMaes/MaterialSkin) by IgnaceMaes and upgraded by donaldsteele and leocb. You guys are awesome for making this library!
+
 [Bunifu Framework (Used for UI)](https://bunifuframework.com/)
 
 [icons8 (some icons)] (https://icons8.com)
