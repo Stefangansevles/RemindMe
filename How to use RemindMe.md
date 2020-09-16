@@ -1,5 +1,9 @@
 # How do i use this program?
 
+# NOTE!
+
+The color scheme used in this example was Dark-red, but you can select a different one, or make your own! If you don't like these colors, feel free to change them!
+
 When you launch RemindMe for the first time, you will see an empty list
 ![](https://i.imgur.com/SJFx9LZ.png)
 
