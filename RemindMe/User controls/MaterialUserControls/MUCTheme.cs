@@ -43,11 +43,7 @@ namespace RemindMe
 
             }
 
-            cbPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo500.GetType()), Primary.Indigo500);
-            cbDarkPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo700.GetType()), Primary.Indigo700);
-            cbLightPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo100.GetType()), Primary.Indigo100);
-            cbAccent.SelectedIndex = Array.IndexOf(Enum.GetValues(Accent.Pink200.GetType()), Accent.Pink200);
-            cbTextShade.SelectedIndex = Array.IndexOf(Enum.GetValues(TextShade.WHITE.GetType()), TextShade.WHITE);
+           
         }
 
         private void colorSchemeIndexChanged(object sender, EventArgs e)
@@ -256,6 +252,15 @@ namespace RemindMe
             foreach (TextShade ts in (TextShade[])Enum.GetValues(typeof(TextShade)))
             {
                 cbTextShade.Items.Add(new ComboBoxItem(ts.ToString(), ts));
+            }
+
+            if (set.CurrentTheme == -1)
+            {
+                cbPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo500.GetType()), Primary.Indigo500);
+                cbDarkPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo700.GetType()), Primary.Indigo700);
+                cbLightPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo100.GetType()), Primary.Indigo100);
+                cbAccent.SelectedIndex = Array.IndexOf(Enum.GetValues(Accent.Pink200.GetType()), Accent.Pink200);
+                cbTextShade.SelectedIndex = Array.IndexOf(Enum.GetValues(TextShade.WHITE.GetType()), TextShade.WHITE);
             }
 
             if (firstUse)

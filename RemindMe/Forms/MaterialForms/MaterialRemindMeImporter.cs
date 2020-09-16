@@ -48,12 +48,26 @@ namespace RemindMe
             BLIO.Log("Form1 null: " + (Form1.Instance == null).ToString());
             BLIO.Log("Form1: " + Form1.Instance);
 
-            //if(isdarkmode) TODO!!!!, also colors etc load from database
+            
             // Initialize MaterialSkinManager
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.Indigo500, Primary.Indigo700, Primary.Indigo100, Accent.Pink200, TextShade.WHITE);
+
+            Themes theme = BLLocalDatabase.Theme.GetThemeById(BLLocalDatabase.Setting.Settings.CurrentTheme.Value);
+            if (theme != null)
+            {
+                Primary p = (Primary)Enum.Parse(typeof(Primary), theme.Primary.ToString());
+                Primary dp = (Primary)Enum.Parse(typeof(Primary), theme.DarkPrimary.ToString());
+                Primary lp = (Primary)Enum.Parse(typeof(Primary), theme.LightPrimary.ToString());
+                Accent acc = (Accent)Enum.Parse(typeof(Accent), theme.Accent.ToString());
+                TextShade ts = (TextShade)Enum.Parse(typeof(TextShade), theme.TextShade.ToString());
+
+
+                materialSkinManager.Theme = (MaterialSkinManager.Themes)theme.Mode;
+                materialSkinManager.ColorScheme = new ColorScheme(p, dp, lp, acc, ts);
+            }
+
+
             //This is the only other form that you need to set this for again(after form1) because it is ran differently, namely from program.cs
             //As Application.Run() instead of loading it from the current application
 

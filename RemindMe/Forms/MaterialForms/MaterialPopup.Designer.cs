@@ -33,9 +33,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.materialButton2 = new MaterialSkin.Controls.MaterialButton();
             this.tbPostpone = new MaterialSkin.Controls.MaterialTextBox();
             this.cbPostpone = new MaterialSkin.Controls.MaterialCheckbox();
+            this.materialButton2 = new MaterialSkin.Controls.MaterialButton();
             this.btnOk = new MaterialSkin.Controls.MaterialButton();
             this.pnlDateRepeatInformation = new System.Windows.Forms.Panel();
             this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
@@ -73,26 +73,6 @@
             this.pnlFooter.Size = new System.Drawing.Size(412, 33);
             this.pnlFooter.TabIndex = 0;
             // 
-            // materialButton2
-            // 
-            this.materialButton2.AutoSize = false;
-            this.materialButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton2.Depth = 0;
-            this.materialButton2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.materialButton2.DrawShadows = true;
-            this.materialButton2.HighEmphasis = true;
-            this.materialButton2.Icon = null;
-            this.materialButton2.Location = new System.Drawing.Point(239, 0);
-            this.materialButton2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton2.Name = "materialButton2";
-            this.materialButton2.Size = new System.Drawing.Size(80, 33);
-            this.materialButton2.TabIndex = 3;
-            this.materialButton2.Text = "Disable";
-            this.materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Text;
-            this.materialButton2.UseAccentColor = false;
-            this.materialButton2.UseVisualStyleBackColor = true;
-            // 
             // tbPostpone
             // 
             this.tbPostpone.BackColor = System.Drawing.SystemColors.Control;
@@ -129,6 +109,26 @@
             this.cbPostpone.Text = "Postpone  ";
             this.cbPostpone.UseVisualStyleBackColor = true;
             this.cbPostpone.CheckedChanged += new System.EventHandler(this.cbPostpone_OnChange_1);
+            // 
+            // materialButton2
+            // 
+            this.materialButton2.AutoSize = false;
+            this.materialButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButton2.Depth = 0;
+            this.materialButton2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.materialButton2.DrawShadows = true;
+            this.materialButton2.HighEmphasis = true;
+            this.materialButton2.Icon = null;
+            this.materialButton2.Location = new System.Drawing.Point(239, 0);
+            this.materialButton2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButton2.Name = "materialButton2";
+            this.materialButton2.Size = new System.Drawing.Size(80, 33);
+            this.materialButton2.TabIndex = 3;
+            this.materialButton2.Text = "Disable";
+            this.materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Text;
+            this.materialButton2.UseAccentColor = false;
+            this.materialButton2.UseVisualStyleBackColor = true;
             // 
             // btnOk
             // 
