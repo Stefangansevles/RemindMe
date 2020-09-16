@@ -27,5 +27,10 @@ namespace Database.Entity
         public Nullable<long> EnableAdvancedReminders { get; set; }
         public string UniqueString { get; set; }
         public string RemindMeTheme { get; set; }
+        public Nullable<long> DrawerUseColors { get; set; }
+        public Nullable<long> DrawerHighlight { get; set; }
+        public Nullable<long> DrawerBackground { get; set; }
+        public Nullable<long> CurrentTheme { get; set; }
+        public Nullable<long> MaterialDesign { get; set; }
     }
 }

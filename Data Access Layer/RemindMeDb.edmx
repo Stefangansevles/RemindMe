@@ -112,6 +112,11 @@
           <Property Name="EnableAdvancedReminders" Type="integer" />
           <Property Name="UniqueString" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="RemindMeTheme" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="DrawerUseColors" Type="integer" />
+          <Property Name="DrawerHighlight" Type="integer" />
+          <Property Name="DrawerBackground" Type="integer" />
+          <Property Name="CurrentTheme" Type="integer" />
+          <Property Name="MaterialDesign" Type="integer" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -120,6 +125,20 @@
           <Property Name="Id" Type="integer" Nullable="false" />
           <Property Name="SongFileName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="SongFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Primary" Type="integer" Nullable="false" />
+          <Property Name="DarkPrimary" Type="integer" Nullable="false" />
+          <Property Name="LightPrimary" Type="integer" Nullable="false" />
+          <Property Name="Accent" Type="integer" Nullable="false" />
+          <Property Name="TextShade" Type="integer" Nullable="false" />
+          <Property Name="Mode" Type="integer" />
+          <Property Name="ThemeName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="IsDefault" Type="integer" Nullable="false" />
         </EntityType>
         <EntityContainer Name="RemindMeDatabaseModelStoreContainer">
           <EntitySet Name="AdvancedReminderFilesFolders" EntityType="Self.AdvancedReminderFilesFolders" store:Type="Tables" />
@@ -132,6 +151,7 @@
           <EntitySet Name="Reminder" EntityType="Self.Reminder" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" store:Type="Tables" />
           <EntitySet Name="Songs" EntityType="Self.Songs" store:Type="Tables" />
+          <EntitySet Name="Themes" EntityType="Self.Themes" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -174,6 +194,11 @@
           <Property Name="EnableAdvancedReminders" Type="Int64" />
           <Property Name="UniqueString" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="RemindMeTheme" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DrawerUseColors" Type="Int64" />
+          <Property Name="DrawerHighlight" Type="Int64" />
+          <Property Name="DrawerBackground" Type="Int64" />
+          <Property Name="CurrentTheme" Type="Int64" />
+          <Property Name="MaterialDesign" Type="Int64" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -194,6 +219,7 @@
           <EntitySet Name="AdvancedReminderProperties" EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" />
           <EntitySet Name="ReadMessages" EntityType="RemindMeDatabaseModel.ReadMessages" />
           <EntitySet Name="ButtonSpaces" EntityType="RemindMeDatabaseModel.ButtonSpaces" />
+          <EntitySet Name="Themes" EntityType="RemindMeDatabaseModel.Themes" />
         </EntityContainer>
         <EntityType Name="PopupDimensions">
           <Key>
@@ -265,6 +291,20 @@
           <Property Name="MessageCenter" Type="Int64" Nullable="false" />
           <Property Name="DebugMode" Type="Int64" Nullable="false" />
         </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Primary" Type="Int64" Nullable="false" />
+          <Property Name="DarkPrimary" Type="Int64" Nullable="false" />
+          <Property Name="LightPrimary" Type="Int64" Nullable="false" />
+          <Property Name="Accent" Type="Int64" Nullable="false" />
+          <Property Name="TextShade" Type="Int64" Nullable="false" />
+          <Property Name="Mode" Type="Int64" />
+          <Property Name="ThemeName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Int64" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -296,6 +336,11 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="MaterialDesign" ColumnName="MaterialDesign" />
+                <ScalarProperty Name="CurrentTheme" ColumnName="CurrentTheme" />
+                <ScalarProperty Name="DrawerBackground" ColumnName="DrawerBackground" />
+                <ScalarProperty Name="DrawerHighlight" ColumnName="DrawerHighlight" />
+                <ScalarProperty Name="DrawerUseColors" ColumnName="DrawerUseColors" />
                 <ScalarProperty Name="RemindMeTheme" ColumnName="RemindMeTheme" />
                 <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
                 <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
@@ -393,6 +438,21 @@
                 <ScalarProperty Name="BackupImport" ColumnName="BackupImport" />
                 <ScalarProperty Name="Timer" ColumnName="Timer" />
                 <ScalarProperty Name="Reminders" ColumnName="Reminders" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themes">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.Themes">
+              <MappingFragment StoreEntitySet="Themes">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="ThemeName" ColumnName="ThemeName" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="TextShade" ColumnName="TextShade" />
+                <ScalarProperty Name="Accent" ColumnName="Accent" />
+                <ScalarProperty Name="LightPrimary" ColumnName="LightPrimary" />
+                <ScalarProperty Name="DarkPrimary" ColumnName="DarkPrimary" />
+                <ScalarProperty Name="Primary" ColumnName="Primary" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

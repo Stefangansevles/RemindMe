@@ -107,6 +107,11 @@
     <Property Name="EnableAdvancedReminders" Type="integer" />
     <Property Name="UniqueString" Type="nvarchar" MaxLength="2147483647" />
     <Property Name="RemindMeTheme" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+    <Property Name="DrawerUseColors" Type="integer" />
+    <Property Name="DrawerHighlight" Type="integer" />
+    <Property Name="DrawerBackground" Type="integer" />
+    <Property Name="CurrentTheme" Type="integer" />
+    <Property Name="MaterialDesign" Type="integer" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>
@@ -115,6 +120,20 @@
     <Property Name="Id" Type="integer" Nullable="false" />
     <Property Name="SongFileName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="SongFilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Themes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Primary" Type="integer" Nullable="false" />
+    <Property Name="DarkPrimary" Type="integer" Nullable="false" />
+    <Property Name="LightPrimary" Type="integer" Nullable="false" />
+    <Property Name="Accent" Type="integer" Nullable="false" />
+    <Property Name="TextShade" Type="integer" Nullable="false" />
+    <Property Name="Mode" Type="integer" />
+    <Property Name="ThemeName" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="IsDefault" Type="integer" Nullable="false" />
   </EntityType>
   <EntityContainer Name="RemindMeDatabaseModelStoreContainer">
     <EntitySet Name="AdvancedReminderFilesFolders" EntityType="Self.AdvancedReminderFilesFolders" store:Type="Tables" />
@@ -127,5 +146,6 @@
     <EntitySet Name="Reminder" EntityType="Self.Reminder" store:Type="Tables" />
     <EntitySet Name="Settings" EntityType="Self.Settings" store:Type="Tables" />
     <EntitySet Name="Songs" EntityType="Self.Songs" store:Type="Tables" />
+    <EntitySet Name="Themes" EntityType="Self.Themes" store:Type="Tables" />
   </EntityContainer>
 </Schema>

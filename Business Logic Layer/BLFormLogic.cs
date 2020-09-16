@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Data_Access_Layer;
 using WMPLib;
 using System.Drawing;
-
+using MaterialSkin.Controls;
 
 namespace Business_Logic_Layer
 {
@@ -20,7 +20,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="lv">The listview</param>
         /// <param name="rem">The reminder</param>
-        public static void AddReminderToListview(ListView lv, Reminder rem)
+        public static void AddReminderToListview(object lv, Reminder rem, bool material)
         {
             if (BLReminder.IsValidReminder(rem) != null)
             {
@@ -48,6 +48,8 @@ namespace Business_Logic_Layer
                 else
                     itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " (p)");
             }
+            if (material)
+                goto additems; //Skip adding other items to the listview, MaterialListView will stack them together and it will look bad
 
             if (rem.EveryXCustom == null)
             {
@@ -87,7 +89,11 @@ namespace Business_Logic_Layer
                 itm.ForeColor = Color.FromArgb(64, 64, 64);
             }
 
-            lv.Items.Add(itm);
+            additems:
+            if(material)
+                ((MaterialListView)lv).Items.Add(itm);
+            else
+                ((ListView)lv).Items.Add(itm);
         }
        
         /// <summary>
@@ -95,7 +101,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="lv">The listview</param>
         /// <param name="rem">The list of reminders</param>
-        public static void AddRemindersToListview(ListView lv, List<Reminder> reminderList)
+        public static void AddRemindersToListview(object lv, List<Reminder> reminderList, bool material)
         {
             List<Reminder> disabledReminders = new List<Reminder>(); //We're going to add the disabled reminders after all the enabled ones.  
             
@@ -115,14 +121,14 @@ namespace Business_Logic_Layer
             foreach (Reminder rem in list)
             {                
                 if (rem.Enabled == 1) //not disabled? add to listview
-                    AddReminderToListview(lv, rem);
+                    AddReminderToListview(lv, rem, material);
                 else
                     disabledReminders.Add(rem);
             }
 
             //Add disabled reminders to the bottom of the list
             foreach (Reminder rem in disabledReminders)
-                AddReminderToListview(lv, rem);
+                AddReminderToListview(lv, rem, material);
         }
 
         /// <summary>
@@ -130,10 +136,10 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="tb"></param>
         /// <returns></returns>
-        public static int GetTextboxMinutes(Bunifu.Framework.UI.BunifuMetroTextbox tb)
+        public static int GetTextboxMinutes(Control tb)
         {
             try
-            {
+            {                
                 int timerMinutes = 0;
 
                 //Text without the 'm'. We know the number after 'h' is in minutes, no need to keep it in the string

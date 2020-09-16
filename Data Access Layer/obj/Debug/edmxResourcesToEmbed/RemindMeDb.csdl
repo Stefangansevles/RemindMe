@@ -37,6 +37,11 @@
     <Property Name="EnableAdvancedReminders" Type="Int64" />
     <Property Name="UniqueString" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="RemindMeTheme" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="DrawerUseColors" Type="Int64" />
+    <Property Name="DrawerHighlight" Type="Int64" />
+    <Property Name="DrawerBackground" Type="Int64" />
+    <Property Name="CurrentTheme" Type="Int64" />
+    <Property Name="MaterialDesign" Type="Int64" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>
@@ -57,6 +62,7 @@
     <EntitySet Name="AdvancedReminderProperties" EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" />
     <EntitySet Name="ReadMessages" EntityType="RemindMeDatabaseModel.ReadMessages" />
     <EntitySet Name="ButtonSpaces" EntityType="RemindMeDatabaseModel.ButtonSpaces" />
+    <EntitySet Name="Themes" EntityType="RemindMeDatabaseModel.Themes" />
   </EntityContainer>
   <EntityType Name="PopupDimensions">
     <Key>
@@ -127,5 +133,19 @@
     <Property Name="ResizePopup" Type="Int64" Nullable="false" />
     <Property Name="MessageCenter" Type="Int64" Nullable="false" />
     <Property Name="DebugMode" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Themes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Primary" Type="Int64" Nullable="false" />
+    <Property Name="DarkPrimary" Type="Int64" Nullable="false" />
+    <Property Name="LightPrimary" Type="Int64" Nullable="false" />
+    <Property Name="Accent" Type="Int64" Nullable="false" />
+    <Property Name="TextShade" Type="Int64" Nullable="false" />
+    <Property Name="Mode" Type="Int64" />
+    <Property Name="ThemeName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Int64" Nullable="false" />
   </EntityType>
 </Schema>

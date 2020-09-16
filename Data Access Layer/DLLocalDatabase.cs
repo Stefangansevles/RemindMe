@@ -1,4 +1,5 @@
 ﻿using Database.Entity;
+using MaterialSkin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -306,7 +307,7 @@ namespace Data_Access_Layer
             private const int DEFAULT_FORM_WIDTH = 371;
             private const int DEFAULT_FORM_HEIGHT = 307;
             private const int DEFAULT_FONT_TITLE_SIZE = 14;
-            private const int DEFAULT_FONT_NOTE_SIZE = 9;
+            private const int DEFAULT_FONT_NOTE_SIZE = 14;
 
 
             public static PopupDimensions GetPopupDimensions()
@@ -777,6 +778,222 @@ namespace Data_Access_Layer
                 }
 
             }
+        }
+
+        /// <summary>
+        /// This class handles(creates/updates) settings in the database
+        /// </summary>
+        public class Theme
+        {
+
+            private Theme() { }
+
+
+            private static Themes theme;
+
+
+
+            public static Themes ThemesObj
+            {
+                get
+                {
+                    if (theme == null)
+                        RefreshThemes();
+
+                    return theme;
+                }
+
+            }
+
+
+            /// <summary>
+            /// Insert a hotkey combination into the SQLite database
+            /// </summary>
+            /// <param name="hotkey">The hotkey object</param>
+            public static void InsertTheme(Themes theme)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    if (db.Themes.Count() > 0)
+                        theme.Id = db.Themes.Max(i => i.Id) + 1;
+
+                    db.Themes.Add(theme);
+                    db.SaveChanges();
+                    db.Dispose();
+                }
+            }
+
+
+            public static Themes GetThemeById(long id)
+            {
+
+                Themes theme = null;
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    theme = (from g in db.Themes select g).Where(i => i.Id == id).SingleOrDefault();
+                    db.Dispose();
+                }
+                return theme;
+            }
+            
+
+            public static Themes DeleteThemeById(long id)
+            {
+                Themes theme = null;
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    theme = (from g in db.Themes select g).Where(i => i.Id == id).SingleOrDefault();
+                    db.Themes.Attach(theme);
+                    db.Themes.Remove(theme);
+
+                    db.SaveChanges();                                      
+                    db.Dispose();
+                }
+                return theme;
+            }
+
+
+            public static List<Themes> GetThemes()
+            {
+
+                List<Themes> themes = null;
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    themes = (from g in db.Themes select g).ToList();
+                    db.Dispose();
+                }
+                return themes;
+            }
+
+
+            private static void RefreshThemes()
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    int count = db.Themes.Where(o => o.Id >= 0).Count();
+                    if (count == 0)
+                    {
+                        theme = new Themes();
+                        theme.Primary = 0;
+                        theme.DarkPrimary = 0;
+                        theme.LightPrimary = 0;
+                        theme.Accent = 0;
+                        theme.TextShade = 0;                        
+                        UpdateTheme(theme);
+                    }
+                    else
+                        theme = (from s in db.Themes select s).ToList().FirstOrDefault();
+
+                    db.Dispose();
+                }
+            }
+            public static void UpdateTheme(Themes theme)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+
+                    var count = db.Themes.Where(o => o.Id >= 0).Count();
+                    if (count > 0)
+                    {
+                        db.Themes.Attach(theme);
+                        var entry = db.Entry(theme);
+                        entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                
+                        db.SaveChanges();                                      //push to database
+                        db.Dispose();
+                    }
+                    else
+                    {//The settings table is still empty
+                        db.Themes.Add(theme);
+                        db.SaveChanges();
+                        db.Dispose();
+                    }
+                }
+            }
+
+
+            public static void InsertDefaultThemes()
+            {                                
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    Themes theme = new Themes();
+                    theme.Mode = 1;
+                    theme.ThemeName = "Dark-Red";
+                    theme.IsDefault = 0;
+                    theme.TextShade = (long)TextShade.WHITE;
+
+                    theme.Primary = (long)Primary.Red700;
+                    theme.DarkPrimary = (long)Primary.Red900;
+                    theme.LightPrimary = (long)Primary.Red200;
+                    theme.Accent = (long)Accent.Red100;
+
+                    if (db.Themes.Count() > 0)
+                        theme.Id = db.Themes.Max(i => i.Id) + 1;
+                    else
+                        theme.Id = 0;
+
+                    db.Themes.Add(theme);
+                    db.SaveChanges();
+
+                    //----
+                    theme = new Themes();
+                    theme.Mode = 0;
+                    theme.ThemeName = "(Default) Blue-Light";
+                    theme.IsDefault = 1;
+                    theme.TextShade = (long)TextShade.WHITE;
+
+                    theme.Primary = (long)Primary.Indigo500;
+                    theme.DarkPrimary = (long)Primary.Indigo700;
+                    theme.LightPrimary = (long)Primary.Indigo100;
+                    theme.Accent = (long)Accent.Pink200;
+
+                    theme.Id = db.Themes.Max(i => i.Id) + 1;                    
+
+                    db.Themes.Add(theme);
+                    db.SaveChanges();
+
+                    //----
+                    theme = new Themes();
+                    theme.Mode = 0;
+                    theme.ThemeName = "(Default) Green-Light";
+                    theme.IsDefault = 1;
+                    theme.TextShade = (long)TextShade.WHITE;
+
+                    theme.Primary = (long)Primary.Green600;
+                    theme.DarkPrimary = (long)Primary.Green700;
+                    theme.LightPrimary = (long)Primary.Green200;
+                    theme.Accent = (long)Accent.Red100;
+
+                    theme.Id = db.Themes.Max(i => i.Id) + 1;
+
+                    db.Themes.Add(theme);
+                    db.SaveChanges();
+
+
+                    //----
+                    theme = new Themes();
+                    theme.Mode = 0;
+                    theme.ThemeName = "(Default) BlueGrey-Light";
+                    theme.IsDefault = 1;
+                    theme.TextShade = (long)TextShade.WHITE;
+
+                    theme.Primary = (long)Primary.BlueGrey800;
+                    theme.DarkPrimary = (long)Primary.BlueGrey900;
+                    theme.LightPrimary = (long)Primary.BlueGrey500;
+                    theme.Accent = (long)Accent.LightBlue200;
+
+                    theme.Id = db.Themes.Max(i => i.Id) + 1;
+
+                    db.Themes.Add(theme);
+                    db.SaveChanges();
+
+                    //lastly, dispose
+                    db.Dispose();
+                }
+            }
+
+
+
+
         }
     }
 }

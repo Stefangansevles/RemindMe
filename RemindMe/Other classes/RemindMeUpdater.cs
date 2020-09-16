@@ -65,7 +65,7 @@ namespace RemindMe
                         BLIO.Log("Attempting to remove UpdateFiles.zip...");
                         try { File.Delete(IOVariables.rootFolder + "UpdateFiles.zip"); } catch { }
 
-                        if (restartRemindMe && !Form1.Instance.Visible)
+                        if (restartRemindMe && ( (Form1.Instance != null && !Form1.Instance.Visible) || (MaterialForm1.Instance != null && !MaterialForm1.Instance.Visible) ))
                         {
                             BLIO.Log("Restarting RemindMe...");
                             Application.Restart();
@@ -73,7 +73,10 @@ namespace RemindMe
                         else
                         {
                             BLIO.Log("Installation complete! restartRemindMe = " + restartRemindMe);
-                            Form1.Instance.restartRemindMeUpdateToolStripMenuItem.Visible = true; //Give a "Restart" option on the RemindMe Icon
+                            if(Form1.Instance != null)
+                                Form1.Instance.restartRemindMeUpdateToolStripMenuItem.Visible = true; 
+                            else
+                                MaterialForm1.Instance.restartRemindMeUpdateToolStripMenuItem1.Visible = true; 
                         }
 
                         hasUpdated = true;
@@ -164,8 +167,10 @@ namespace RemindMe
                 //Minor = dont need to restart RemindMe immediately, Major = restart.                    
                 restartRemindMe = (lines.Count >= 2 && lines[1].ToLower().Contains("major")); 
 
-                if (lines.Count >= 3 && lines[2].ToLower().Contains("true")) //true = silent update, the user won't be aware of an update
+                if (Form1.Instance != null && lines.Count >= 3 && lines[2].ToLower().Contains("true")) //true = silent update, the user won't be aware of an update
                     UCReminders.Instance.showUpdateMessage = false;
+                else if(MaterialForm1.Instance != null && lines.Count >= 3 && lines[2].ToLower().Contains("true"))
+                    MUCReminders.Instance.showUpdateMessage = false;
 
                 return new Version(lines[0]);                
             }

@@ -28,7 +28,8 @@ namespace RemindMe.Other_classes
         public bool updateAllowed;
 
         //The timer instance of UCTimer
-        UCTimer ucTimer = Form1.Instance.ucTimer;
+        UCTimer ucTimer;
+        MUCTimer mucTimer;
 
         //Unique id to identify timers
         private int id;
@@ -44,7 +45,7 @@ namespace RemindMe.Other_classes
         /// <summary>
         /// Create a new TimerItem to create multiple running timers.
         /// </summary>
-        public TimerItem(DateTime popupDate,string text, int id)
+        public TimerItem(DateTime popupDate,string text, int id, string mode)
         {
             this.popupDate = popupDate;
             timer = new Timer();
@@ -52,7 +53,12 @@ namespace RemindMe.Other_classes
             timer.Tick += Timer_Tick;
             this.timerText = text;
             this.id = id;
-            
+
+            if(mode == "old")
+                ucTimer = Form1.Instance.ucTimer;
+            else
+                mucTimer = MaterialForm1.Instance.timer;
+
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -73,11 +79,22 @@ namespace RemindMe.Other_classes
                 Settings set = BLLocalDatabase.Setting.Settings;
                 rem.SoundFilePath = set.DefaultTimerSound;
 
-                Popup pop = new Popup(rem);
-                pop.Show();
+                if (MaterialForm1.Instance == null) {
+                    Popup pop = new Popup(rem);
+                    pop.Show();
+                }
+                else
+                {
+                    MaterialPopup pop = new MaterialPopup(rem);
+                    MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(pop);
+                    pop.Show();
+                }
 
                 //Let's remove this timer. It's served its purpose
-                ucTimer.RemoveTimer(this);
+                if (ucTimer != null)
+                    ucTimer.RemoveTimer(this);
+                else
+                    mucTimer.RemoveTimer(this);
                 
                 this.Dispose();
             }
@@ -127,9 +144,18 @@ namespace RemindMe.Other_classes
 
             if (updateAllowed)
             {
-                ucTimer.timerDuration = (popupDate-DateTime.Now).Seconds;
-                if (!ucTimer.tmrCountdown.Enabled)
-                    ucTimer.tmrCountdown.Start();
+                if (ucTimer != null)
+                {
+                    ucTimer.timerDuration = (popupDate - DateTime.Now).Seconds;
+                    if (!ucTimer.tmrCountdown.Enabled)
+                        ucTimer.tmrCountdown.Start();
+                }
+                else
+                {
+                    mucTimer.timerDuration = (popupDate - DateTime.Now).Seconds;
+                    if (!mucTimer.tmrCountdown.Enabled)
+                        mucTimer.tmrCountdown.Start();
+                }
             }
         }
         /// <summary>
@@ -147,9 +173,18 @@ namespace RemindMe.Other_classes
 
             if (updateAllowed)
             {
-                ucTimer.timerDuration = (popupDate - DateTime.Now).Seconds;
-                if (ucTimer.tmrCountdown.Enabled)
-                    ucTimer.tmrCountdown.Stop();
+                if (ucTimer != null)
+                {
+                    ucTimer.timerDuration = (popupDate - DateTime.Now).Seconds;
+                    if (ucTimer.tmrCountdown.Enabled)
+                        ucTimer.tmrCountdown.Stop();
+                }
+                else
+                {
+                    mucTimer.timerDuration = (popupDate - DateTime.Now).Seconds;
+                    if (mucTimer.tmrCountdown.Enabled)
+                        mucTimer.tmrCountdown.Stop();
+                }
             }
         }
 
@@ -193,7 +228,10 @@ namespace RemindMe.Other_classes
             {
                 handle.Dispose();
                 timer.Dispose();
-                ucTimer = null;
+                if (ucTimer != null)
+                    ucTimer = null;
+                else
+                    mucTimer = null;
             }
 
             disposed = true;

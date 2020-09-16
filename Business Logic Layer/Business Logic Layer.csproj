@@ -101,6 +101,10 @@
       <Project>{b15cf13c-05db-4346-adb0-704b0756c1e9}</Project>
       <Name>Database.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MaterialSkin\MaterialSkin.csproj">
+      <Project>{0490685f-50a3-401f-9553-2f3ff6aa1a21}</Project>
+      <Name>MaterialSkin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

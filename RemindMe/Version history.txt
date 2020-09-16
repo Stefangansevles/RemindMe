@@ -1032,6 +1032,11 @@ RemindMe should no longer show error popups for errors that happen on a timer, a
 2.6.606
 - Fixed another small issue where first time users would get an error when loading the RemindMe Settings 
 
+- new version TODO
+- postponed reminders are now correctly sorted into the list, ordered by date (fix this line)
+- on re-enable reminder, the date for every 3 days can be tomorrow, because it is doing +3+3+3+3+3 which ends up in tomorrow for example. 
+  Maybe we want it to be today +3 instead if re-enabled?
+
 
 
 
@@ -1039,3 +1044,7 @@ RemindMe should no longer show error popups for errors that happen on a timer, a
 
 
 //OnPowerDown, re-enable the popup reminder
+- delete reminder, goes back to page1
+- back button on newreminder, back to page1
+- play sound button doesnt go ||
+remindmemessageform slide-in from right to left, grow in size? instead of fade-in

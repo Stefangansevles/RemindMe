@@ -1,4 +1,5 @@
 ﻿using Business_Logic_Layer;
+using Database.Entity;
 using System;
 using System.Data.Entity.Infrastructure;
 using System.IO;
@@ -9,39 +10,63 @@ using System.Windows.Forms;
 namespace RemindMe
 {
     static class Program
-    { 
+    {
+        //default to true
+        private static bool isMaterial = true;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
-        {            
-            string resource1 = "RemindMe.Bunifu_UI_v1.5.3.dll";            
+        {
+
+            string resource1 = "RemindMe.Bunifu_UI_v1.5.3.dll";
             EmbeddedAssembly.Load(resource1, "Bunifu_UI_v1.5.3.dll");
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+
+            AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);                        
+            if (!BLLocalDatabase.HasAllTables())
+                isMaterial = true;
+            else
+            {
+                //See if the user wants Material Design or old RemindMe-Design (Default = Material)
+                Settings set = BLLocalDatabase.Setting.Settings;
+                if (set != null && set.MaterialDesign != null && set.MaterialDesign.HasValue) //not null               
+                    isMaterial = Convert.ToBoolean(BLLocalDatabase.Setting.Settings.MaterialDesign.Value);
+            }
+
+
 
             if (args.Length > 0)
             {//The user double-clicked an .remindme file! 
                 BLIO.Log("Detected the double clicking of a .remindme file!");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new RemindMeImporter(args[0]));
+
+                if (isMaterial)
+                    Application.Run(new MaterialRemindMeImporter(args[0]));
+                else
+                    Application.Run(new RemindMeImporter(args[0]));
             }
 
             using (Mutex mutex = new Mutex(false, "Global\\" + "RemindMe"))
             {
                 if (!mutex.WaitOne(0, false)) //one instance of remindme already running                                 
-                    return;                
+                    return;
 
                 // Set the unhandled exception mode to force all Windows Forms errors to go through our handler.                
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                 Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                Application.SetCompatibleTextRenderingDefault(true);
                 Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
 
                 // Add the event handler for handling non-UI thread exceptions to the event. 
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                Application.Run(new Form1());
+                if (isMaterial)
+                    Application.Run(new MaterialForm1());
+                else
+                    Application.Run(new Form1());
             }
 
         }
@@ -79,8 +104,12 @@ namespace RemindMe
             //that has an bunifu control in it(like a button), while there shouldn't be an exception.
             if (!(ex is System.Runtime.InteropServices.ExternalException) && ex.Source != "System.Drawing" && !ex.StackTrace.Contains("GDI+"))
             {
-                BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");                
-                new ExceptionPopup(ex,message).Show();
+                BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");   
+
+                if(isMaterial)
+                    new MaterialExceptionPopup(ex,message).Show();
+                else
+                    new ExceptionPopup(ex, message).Show();
             }
            
         }
@@ -88,6 +117,7 @@ namespace RemindMe
         //All uncaught exceptions will go here instead. We will replace the default windows popup with our own custom one and filter out what kind of exception is being thrown
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
+            //Here we just filter out some type of exceptions and give different messages, at the bottom is the super Exception, which can be anything.   
             BLIO.Log("Application_ThreadException [ " + e.Exception + " ]");
             if (e.Exception is ReminderException)
             {
@@ -115,13 +145,12 @@ namespace RemindMe
                 BLIO.WriteError(e.Exception, "Unauthorized!");
                 ShowError(e.Exception, "Unauthorized!", "RemindMe is not authorized for this action.\r\nThis can be resolved by running RemindMe in administrator-mode.");
             }
-
-            //Here we just filter out some type of exceptions and give different messages, at the bottom is the super Exception, which can be anything.              
+                      
             else if (e.Exception is FileNotFoundException)
             {
                 FileNotFoundException theException = (FileNotFoundException)e.Exception; //needs in instance to call .FileName
                 BLIO.WriteError(theException, "Could not find the file located at \"" + theException.FileName, false);
-                ShowError(e.Exception, "File not found.", "Could not find the file located at \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted the file?");
+                ShowError(e.Exception, "File not found.", "Could not find file \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted it?");
             }
           
             else if (e.Exception is System.Data.Entity.Core.EntityException || e.Exception is System.Data.Entity.Core.EntityCommandExecutionException)

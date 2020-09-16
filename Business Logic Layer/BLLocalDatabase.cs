@@ -10,7 +10,12 @@ using System.IO;
 namespace Business_Logic_Layer
 {
     public class BLLocalDatabase
-    {        
+    {
+        public static bool HasAllTables()
+        {
+            return DLDatabase.HasAllTables();
+        }
+
         public class ReadMessage
         {            
             private ReadMessage() { }
@@ -435,6 +440,49 @@ namespace Business_Logic_Layer
                 if(btn != null)
                     DLLocalDatabase.ButtonSpacing.UpdateButtonSpacing(btn);                
             }
+        }
+
+        public class Theme
+        {
+            private Theme() { }
+           
+            public static Themes GetThemeById(long id)
+            {
+                return DLLocalDatabase.Theme.GetThemeById(id);
+            }
+
+            public static Themes DeleteThemeById(long id)
+            {
+                return DLLocalDatabase.Theme.DeleteThemeById(id);
+            }
+
+            public static List<Themes> GetThemes()
+            {
+                return DLLocalDatabase.Theme.GetThemes();
+            }
+
+            public static void InsertTheme(Themes theme)
+            {
+                if (theme != null)
+                    DLLocalDatabase.Theme.InsertTheme(theme);
+            }
+            /// <summary>
+            /// Update the settings in the SQLite database
+            /// </summary>
+            /// <param name="set">The new settings object</param>
+            public static void UpdateTheme(Themes t)
+            {
+                if (t != null)
+                    DLLocalDatabase.Theme.UpdateTheme(t);
+            }
+
+            public static void InsertDefaultThemes()
+            {
+                DLLocalDatabase.Theme.InsertDefaultThemes();
+            }
+
+            
+
         }
     }
 }

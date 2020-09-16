@@ -32,7 +32,7 @@ namespace RemindMe
         /// <param name="item">The object you wish to add</param>
         public static void AddComboboxItem(ComboBoxItem item)
         {
-            items.Add(item);
+            items.Add(item); 
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace RemindMe
         {
             items.Remove(item);
         }
-        
+
         /// <summary>
         /// Get a specific comboboxitem
         /// </summary>
@@ -60,17 +60,12 @@ namespace RemindMe
         /// <returns>A comboboxitem with the given text and value. null if it doesnt exist</returns>
         public static ComboBoxItem GetComboBoxItem(string text, object value)
         {
-            Songs paramSong = (Songs)value;                        
-            if (paramSong != null)
-            {
-                foreach (ComboBoxItem cbItem in items)
-                {                    
-                    Songs cbItemSong = (Songs)cbItem.Value;
-                    if (cbItem.Text == text && cbItemSong.SongFilePath == paramSong.SongFilePath)
-                        return cbItem;
-                }
+            foreach (ComboBoxItem cbItem in items)
+            {                
+                if (cbItem.Text == text && cbItem.Value == value)
+                    return cbItem;
             }
-            
+
             return null;
         }
     }

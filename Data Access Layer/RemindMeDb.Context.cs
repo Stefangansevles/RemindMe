@@ -35,5 +35,6 @@ namespace Database.Entity
         public DbSet<AdvancedReminderProperties> AdvancedReminderProperties { get; set; }
         public DbSet<ReadMessages> ReadMessages { get; set; }
         public DbSet<ButtonSpaces> ButtonSpaces { get; set; }
+        public DbSet<Themes> Themes { get; set; }
     }
 }

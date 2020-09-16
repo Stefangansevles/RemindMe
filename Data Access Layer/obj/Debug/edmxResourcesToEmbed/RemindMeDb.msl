@@ -26,6 +26,11 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="MaterialDesign" ColumnName="MaterialDesign" />
+          <ScalarProperty Name="CurrentTheme" ColumnName="CurrentTheme" />
+          <ScalarProperty Name="DrawerBackground" ColumnName="DrawerBackground" />
+          <ScalarProperty Name="DrawerHighlight" ColumnName="DrawerHighlight" />
+          <ScalarProperty Name="DrawerUseColors" ColumnName="DrawerUseColors" />
           <ScalarProperty Name="RemindMeTheme" ColumnName="RemindMeTheme" />
           <ScalarProperty Name="UniqueString" ColumnName="UniqueString" />
           <ScalarProperty Name="EnableAdvancedReminders" ColumnName="EnableAdvancedReminders" />
@@ -123,6 +128,21 @@
           <ScalarProperty Name="BackupImport" ColumnName="BackupImport" />
           <ScalarProperty Name="Timer" ColumnName="Timer" />
           <ScalarProperty Name="Reminders" ColumnName="Reminders" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Themes">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.Themes">
+        <MappingFragment StoreEntitySet="Themes">
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="ThemeName" ColumnName="ThemeName" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+          <ScalarProperty Name="TextShade" ColumnName="TextShade" />
+          <ScalarProperty Name="Accent" ColumnName="Accent" />
+          <ScalarProperty Name="LightPrimary" ColumnName="LightPrimary" />
+          <ScalarProperty Name="DarkPrimary" ColumnName="DarkPrimary" />
+          <ScalarProperty Name="Primary" ColumnName="Primary" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

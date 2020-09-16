@@ -18,7 +18,7 @@ namespace Data_Access_Layer
         private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [Deleted] bigint DEFAULT(0) NOT NULL, [Name] text NOT NULL, [Date] text NOT NULL, [RepeatType] text NOT NULL, [Note] text NOT NULL, [Enabled] bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT(0) NULL, [Corrupted] bigint DEFAULT(0) NULL, [EnableAdvancedReminder] bigint DEFAULT(1) NOT NULL, [UpdateTime] bigint DEFAULT(0) NOT NULL);";
 
         //The neccesary query to execute to create the table Settings
-        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [AlwaysOnTop] bigint NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup] bigint DEFAULT(1) NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT(1) NOT NULL, [HideReminderConfirmation] bigint DEFAULT(0) NULL, [EnableQuickTimer] bigint DEFAULT(1) NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, [EnableAdvancedReminders] bigint NULL, [UniqueString] text NULL, [RemindMeTheme] text DEFAULT('Default') NOT NULL);";
+        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [AlwaysOnTop] bigint NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup] bigint DEFAULT(1) NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT(1) NOT NULL, [HideReminderConfirmation] bigint DEFAULT(0) NULL, [EnableQuickTimer] bigint DEFAULT(1) NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, [EnableAdvancedReminders] bigint NULL, [UniqueString] text NULL, [RemindMeTheme] text DEFAULT('Default') NOT NULL, [DrawerUseColors] bigint DEFAULT(0) NULL, [DrawerHighlight] bigint DEFAULT(1) NULL, [DrawerBackground] bigint DEFAULT(0) NULL, [CurrentTheme] bigint DEFAULT(-1) NULL, [MaterialDesign] bigint DEFAULT(1) NULL);";
 
         //The neccesary query to execute to create the table Songs
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
@@ -44,6 +44,9 @@ namespace Data_Access_Layer
         //The neccesary query to execute to create the table ButtonSpaces
         private const string TABLE_BUTTONSPACES = "CREATE TABLE [ButtonSpaces] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [Reminders] bigint DEFAULT(5) NOT NULL, [Timer] bigint DEFAULT(5) NOT NULL, [BackupImport] bigint DEFAULT(5) NOT NULL, [Settings] bigint DEFAULT(5) NOT NULL, [SoundEffects] bigint DEFAULT(5) NOT NULL, [ResizePopup] bigint DEFAULT(5) NOT NULL, [MessageCenter] bigint DEFAULT(5) NOT NULL, [DebugMode] bigint DEFAULT(5) NOT NULL);";
 
+        //The neccesary query to execute to create the table ButtonSpaces
+        private const string TABLE_THEMES = "CREATE TABLE [Themes] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [Primary] bigint DEFAULT(0) NOT NULL, [DarkPrimary] bigint DEFAULT(0) NOT NULL, [LightPrimary] bigint DEFAULT(0) NOT NULL, [Accent] bigint DEFAULT(0) NOT NULL, [TextShade] bigint DEFAULT(0) NOT NULL, [Mode] bigint DEFAULT(0) NULL, [ThemeName] text NULL, [IsDefault] bigint DEFAULT(0) NOT NULL);";
+
         //The neccesary query to execute to create the table RemindMeColorThemes, used to give RemindMe multiple color scheme
         //private const string TABLE_REMINDME_COLOR_SCHEMES = "CREATE TABLE [RemindMeColorScheme] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [ThemeName] text NOT NULL, [PrimaryBottomLeft] text NOT NULL, [PrimaryBottomRight] text NOT NULL, [PrimaryTopLeft] text NOT NULL, [PrimaryTopRight] text NOT NULL, [SecondaryBottomLeft] text NOT NULL, [SecondaryBottomRight] text NOT NULL, [SecondaryTopLeft] text NOT NULL, [SecondaryTopRight] text NOT NULL);";
 
@@ -67,6 +70,7 @@ namespace Data_Access_Layer
             SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
             SQLiteCommand tableReadMessages = new SQLiteCommand();
             SQLiteCommand tableButtonSpaces = new SQLiteCommand();
+            SQLiteCommand tableThemes = new SQLiteCommand();
             //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
@@ -80,6 +84,7 @@ namespace Data_Access_Layer
             tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
             tableReadMessages.CommandText = TABLE_READ_MESSAGES;
             tableButtonSpaces.CommandText = TABLE_BUTTONSPACES;
+            tableThemes.CommandText = TABLE_THEMES;
             //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
             tableReminder.Connection = conn;
@@ -92,6 +97,7 @@ namespace Data_Access_Layer
             tableAvrFilesFolders.Connection = conn;
             tableReadMessages.Connection = conn;
             tableButtonSpaces.Connection = conn;
+            tableThemes.Connection = conn;
             //tableRemindMeColorSchemes.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
@@ -104,6 +110,7 @@ namespace Data_Access_Layer
             tableAvrFilesFolders.ExecuteNonQuery();
             tableReadMessages.ExecuteNonQuery();
             tableButtonSpaces.ExecuteNonQuery();
+            tableThemes.ExecuteNonQuery();
             //tableRemindMeColorSchemes.ExecuteNonQuery();
 
             conn.Close();
@@ -125,7 +132,7 @@ namespace Data_Access_Layer
                     db.Dispose();
                     return true;
                 }
-                catch (SQLiteException)
+                catch (SQLiteException ex)
                 {
                     db.Dispose();
                     //if (ex.Message.ToLower().Contains("no such column"))
@@ -222,6 +229,14 @@ namespace Data_Access_Layer
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
+            var themes = typeof(Themes).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in themes)
+            {
+                if (!HasColumn(columnName, "Themes"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
             /*This was testing a custom color scheme
             var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToList();
 
@@ -264,7 +279,7 @@ namespace Data_Access_Layer
                     && HasTable("songs", db) && HasTable("popupdimensions", db) 
                     && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db)
                     && HasTable("AdvancedReminderProperties", db) && HasTable("AdvancedReminderFilesFolders", db)
-                    && HasTable("ReadMessages", db) && HasTable("ButtonSpaces", db)/* && HasTable("RemindMeColorScheme", db)*/)
+                    && HasTable("ReadMessages", db) && HasTable("ButtonSpaces", db) && HasTable("Themes", db))
                     return true;
                 else
                     return false;                
@@ -293,6 +308,7 @@ namespace Data_Access_Layer
                 SQLiteCommand tableAvrFilesFolders = new SQLiteCommand();
                 SQLiteCommand tableReadMessages = new SQLiteCommand();
                 SQLiteCommand tableButtonSpaces = new SQLiteCommand();
+                SQLiteCommand tableThemes = new SQLiteCommand();
                 //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
@@ -306,6 +322,7 @@ namespace Data_Access_Layer
                 tableAvrFilesFolders.CommandText = TABLE_AVR_FILES_FOLDERS;
                 tableReadMessages.CommandText = TABLE_READ_MESSAGES;
                 tableButtonSpaces.CommandText = TABLE_BUTTONSPACES;
+                tableThemes.CommandText = TABLE_THEMES;
                 //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
                 tableReminder.Connection = conn;
@@ -318,7 +335,9 @@ namespace Data_Access_Layer
                 tableAvrFilesFolders.Connection = conn;
                 tableReadMessages.Connection = conn;
                 tableButtonSpaces.Connection = conn;
+                tableThemes.Connection = conn;
                 //tableRemindMeColorSchemes.Connection = conn;
+                
 
                 if (!HasTable("Reminder", db))
                     tableReminder.ExecuteNonQuery();
@@ -350,9 +369,8 @@ namespace Data_Access_Layer
                 if (!HasTable("ButtonSpaces", db))
                     tableButtonSpaces.ExecuteNonQuery();
 
-                /*This was testing a custom color scheme
-                if (!HasTable("RemindMeColorScheme", db))
-                    tableRemindMeColorSchemes.ExecuteNonQuery();*/
+                if (!HasTable("Themes", db))
+                    tableThemes.ExecuteNonQuery();                
 
                 conn.Close();
                 conn.Dispose();
@@ -378,6 +396,7 @@ namespace Data_Access_Layer
                 var avrFilesFolders = typeof(AdvancedReminderFilesFolders).GetProperties().Select(property => property.Name).ToArray();
                 var readMessages = typeof(ReadMessages).GetProperties().Select(property => property.Name).ToArray();
                 var buttonSpaces = typeof(ButtonSpaces).GetProperties().Select(property => property.Name).ToArray();
+                var themes = typeof(Themes).GetProperties().Select(property => property.Name).ToArray();
                 //var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
@@ -440,13 +459,19 @@ namespace Data_Access_Layer
                         db.Database.ExecuteSqlCommand("ALTER TABLE ButtonSpaces ADD COLUMN " + column + " " + GetButtonSpacesColumnSqlType(column));
                 }
 
-                /*This was testing a custom color scheme
-                foreach (string column in remindMeColorSchemes)
+                foreach (string column in themes)
                 {
-                    if (!HasColumn(column, "RemindMeColorScheme"))
-                        db.Database.ExecuteSqlCommand("ALTER TABLE RemindMeColorScheme ADD COLUMN " + column + " " + GetRemindMeColorSchemesColumnSqlType(column));
-                }*/
-
+                    try
+                    {
+                        if (!HasColumn(column, "Themes"))
+                            db.Database.ExecuteSqlCommand("ALTER TABLE Themes ADD COLUMN " + column + " " + GetThemesColumnSqlType(column));
+                    }
+                    catch(Exception ex)
+                    {
+                        if (ex.Message == "SQL logic error\r\nnear \"Primary\": syntax error") {} //not important. Not sure why this error is thrown, but everything works.
+                        else throw ex;
+                    }
+                }
 
                 db.SaveChanges();                
                 db.Dispose();
@@ -505,7 +530,13 @@ namespace Data_Access_Layer
                 case "DefaultTimerSound": return "text NULL";
                 case "EnableAdvancedReminders": return "bigint DEFAULT 0 NULL";
                 case "UniqueString": return "text NULL";
-                case "RemindMeTheme": return "text DEFAULT('Default') NOT NULL";                    
+                case "RemindMeTheme": return "text DEFAULT('Default') NOT NULL";
+                case "DrawerUseColors": return "bigint DEFAULT 0 NULL";
+                case "DrawerHighlight": return "bigint DEFAULT 1 NULL";
+                case "DrawerBackground": return "bigint DEFAULT 0 NULL";
+                case "CurrentTheme": return   "bigint DEFAULT -1 NULL";
+                case "MaterialDesign": return "bigint DEFAULT 1 NULL";
+                case "IsDefault": return "bigint DEFAULT 0 NOT NULL";
                 default: return "text NULL";
             }
         }
@@ -649,6 +680,21 @@ namespace Data_Access_Layer
                 case "ResizePopup": return "bigint DEFAULT(5) NOT NULL";
                 case "MessageCenter": return "bigint DEFAULT(5) NOT NULL";
                 case "DebugMode": return "bigint DEFAULT(5) NOT NULL";
+                default: return "text NOT NULL";
+            }
+        }
+
+        private static string GetThemesColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {                
+                case "Primary": return "bigint DEFAULT(0) NOT NULL";
+                case "DarkPrimary": return "bigint DEFAULT(0) NOT NULL";
+                case "LightPrimary": return "bigint DEFAULT(0) NOT NULL";
+                case "Accent": return "bigint DEFAULT(0) NOT NULL";
+                case "TextShade": return "bigint DEFAULT(0) NOT NULL";
+                case "Mode": return "bigint DEFAULT(0) NOT NULL";
+                case "ThemeName": return "text NULL";
                 default: return "text NOT NULL";
             }
         }

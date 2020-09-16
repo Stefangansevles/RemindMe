@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.Entity", "Database
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupRemindMe17", "SetupRemindMe17\SetupRemindMe17.vdproj", "{184B29A2-44F7-47D8-AA28-4CA44B81EEC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialSkin", "MaterialSkin\MaterialSkin.csproj", "{0490685F-50A3-401F-9553-2F3FF6AA1A21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,14 @@ Global
 		{184B29A2-44F7-47D8-AA28-4CA44B81EEC0}.Debug|x86.ActiveCfg = Debug
 		{184B29A2-44F7-47D8-AA28-4CA44B81EEC0}.Release|Any CPU.ActiveCfg = Release
 		{184B29A2-44F7-47D8-AA28-4CA44B81EEC0}.Release|x86.ActiveCfg = Release
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Debug|x86.Build.0 = Debug|Any CPU
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Release|x86.ActiveCfg = Release|Any CPU
+		{0490685F-50A3-401F-9553-2F3FF6AA1A21}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
