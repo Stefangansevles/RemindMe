@@ -38,4 +38,4 @@ Entity Framework
 
 [Bunifu Framework (Used for UI)](https://bunifuframework.com/)
 
-[icons8 (some icons)] (https://icons8.com)
+[icons8 for some icons] (https://icons8.com)
