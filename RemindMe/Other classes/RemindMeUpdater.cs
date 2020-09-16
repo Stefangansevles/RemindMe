@@ -68,6 +68,10 @@ namespace RemindMe
                         if (restartRemindMe && ( (Form1.Instance != null && !Form1.Instance.Visible) || (MaterialForm1.Instance != null && !MaterialForm1.Instance.Visible) ))
                         {
                             BLIO.Log("Restarting RemindMe...");
+
+                            if (MaterialForm1.Instance != null)
+                                MaterialForm1.Instance.shouldClose = true;
+
                             Application.Restart();
                         }
                         else
