@@ -1,6 +1,8 @@
-![](https://i.imgur.com/ItFxRBU.png)
-
 # RemindMe
+
+![](https://i.imgur.com/9WJtbYV.gif)
+
+
 RemindMe is a windows desktop application that will notify you of events that you created using this application. RemindMe will create a popup on the middle of the monitor you have your mouse cursor on(if you have multiple monitors). The popup will always be on top(Can be changed in the settings)so that you will never miss it if you are on your computer/laptop at the time the reminder pops up
 
 You can install RemindMe by downloading the installer and running it. ([SetupRemindMe.msi](https://github.com/Stefangansevles/RemindMe/blob/master/SetupRemindMe.msi))
@@ -32,6 +34,8 @@ SQLite
 
 Entity Framework
 
+[MaterialSkin](https://github.com/IgnaceMaes/MaterialSkin) by IgnaceMaes and upgraded by donaldsteele and leocb. You guys are awesome for making this library!
+
 [Bunifu Framework (Used for UI)](https://bunifuframework.com/)
 
-[icons8 (some icons)] (https://icons8.com)
+[icons8 (used for some icons)](https://icons8.com)
