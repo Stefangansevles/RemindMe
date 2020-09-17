@@ -6,6 +6,8 @@
 
 RemindMe is a windows desktop application that will notify you of events that you created using this application. RemindMe will create a popup on the middle of the monitor you have your mouse cursor on(if you have multiple monitors). The popup will always be on top(Can be changed in the settings)so that you will never miss it if you are on your computer/laptop at the time the reminder pops up
 
+RemindMe can also be used to set quick timers, for example 1 hour, 5 minutes, etc. [Take a look how](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to%20use%20RemindMe.md#did-you-know)
+
 You can install RemindMe by downloading the installer and running it. ([SetupRemindMe.msi](https://github.com/Stefangansevles/RemindMe/blob/master/SetupRemindMe.msi))
 
 RemindMe lurks in the windows system tray and will not show itself until you double click the icon, or right click it and select show RemindMe
