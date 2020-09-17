@@ -131,7 +131,7 @@ namespace RemindMe
                     lvReminders.Items.Remove(item);
 
             
-            UCReminders.Instance.UpdateCurrentPage();
+            MUCReminders.Instance.UpdateCurrentPage();
         }
 
 

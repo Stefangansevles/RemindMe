@@ -120,6 +120,7 @@
             this.btnDisable.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Text;
             this.btnDisable.UseAccentColor = false;
             this.btnDisable.UseVisualStyleBackColor = true;
+            this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
             // 
             // btnPostpone
             // 
@@ -140,6 +141,7 @@
             this.btnPostpone.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Text;
             this.btnPostpone.UseAccentColor = false;
             this.btnPostpone.UseVisualStyleBackColor = true;
+            this.btnPostpone.Click += new System.EventHandler(this.btnPostpone_Click);
             // 
             // btnSkip
             // 
@@ -160,6 +162,7 @@
             this.btnSkip.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Text;
             this.btnSkip.UseAccentColor = false;
             this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
             // pnlReminderOptions
             // 

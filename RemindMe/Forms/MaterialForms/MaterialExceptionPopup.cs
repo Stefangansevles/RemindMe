@@ -102,7 +102,7 @@ namespace RemindMe
                 string logTxtPath = IOVariables.systemLog;
                 BLIO.Log("Closing ExceptionPopup...");
                 if (!customFeedback) //If the user didn't leave instructions of how this problem happened, just log the exception / stacktrace and logfile
-                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, "None.");
+                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, "NONE_SET");
             }
             catch { }
         }
@@ -116,7 +116,7 @@ namespace RemindMe
                 string textBoxText = tbFeedback.Text; //Cant access tbNote in a thread. save the text in a variable instead
 
                 if (string.IsNullOrWhiteSpace(textBoxText) || tbFeedback.ForeColor == Color.Gray)
-                    textBoxText = null;
+                    textBoxText = "NONE_SET";
 
                 BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, textBoxText);
 

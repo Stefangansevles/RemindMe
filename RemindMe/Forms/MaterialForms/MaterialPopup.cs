@@ -183,7 +183,7 @@ namespace RemindMe
                     BLIO.Log("Reminder has a postpone date.");
 
                     pbDate.BackgroundImage = Properties.Resources.RemindMeZzz;
-                    lblSmallDate.Text = Convert.ToDateTime(rem.PostponeDate) + " (Postponed)";
+                    lblSmallDate.Text = Convert.ToDateTime(rem.PostponeDate) + "";
                 }
 
                 //If some country has a longer date string, move the repeat icon/text more to the right so it doesnt overlap
