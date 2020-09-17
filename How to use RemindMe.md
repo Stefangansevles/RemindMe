@@ -92,3 +92,22 @@ Now that reminders are exported, we can import them. For this there are 2 method
 
 ![](https://i.imgur.com/6C1XB6W.png)
 
+
+# Did you know?
+
+RemindMe has a Timer system. You can access timer from the `Timer` tab
+
+
+![](https://i.imgur.com/SZNYLG9.png)
+
+BUT, if you go into settings and enable the quick timer hotkey (and set a combination)
+
+![](https://i.imgur.com/TOvkdrn.png)
+
+you can press the combination **anywhere!**, while gaming, watching a movie, anytime! For example, here I am playing a game, and decided to quickly set a timer
+
+![](https://i.imgur.com/OJ2wegp.gif)
+
+Also, if you want to quickly see how much time there is left on running timers, you can press the other key combination that you set in the settings. You can also press the "-" or "+" to add or subtract one minute quickly.
+
+![](https://i.imgur.com/iiv1igj.gif)
