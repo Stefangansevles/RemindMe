@@ -106,8 +106,9 @@ BUT, if you go into settings and enable the quick timer hotkey (and set a combin
 
 you can press the combination **anywhere!**, while gaming, watching a movie, anytime! For example, here I am playing a game, and decided to quickly set a timer
 
-![](https://i.imgur.com/OJ2wegp.gif)
+![Imgur](https://i.imgur.com/w8dzOoO.gif)
 
 Also, if you want to quickly see how much time there is left on running timers, you can press the other key combination that you set in the settings. You can also press the "-" or "+" to add or subtract one minute quickly.
 
-![](https://i.imgur.com/iiv1igj.gif)
+
+![Imgur](https://i.imgur.com/eDgxB80.gif)
