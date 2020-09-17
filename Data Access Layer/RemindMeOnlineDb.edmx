@@ -99,6 +99,20 @@
           <Property Name="ArchivedReminders" Type="int" />
           <Property Name="TotalReminders" Type="int" />
           <Property Name="SignIns" Type="int" Nullable="false" />
+          <Property Name="Material" Type="int" />
+        </EntityType>
+        <EntityType Name="UserThemes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NormalPrimary" Type="bigint" Nullable="false" />
+          <Property Name="DarkPrimary" Type="bigint" Nullable="false" />
+          <Property Name="LightPrimary" Type="bigint" Nullable="false" />
+          <Property Name="Accent" Type="bigint" Nullable="false" />
+          <Property Name="TextShade" Type="bigint" Nullable="false" />
+          <Property Name="Mode" Type="bigint" Nullable="false" />
+          <Property Name="ThemeName" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityContainer Name="remindmesqldbModelStoreContainer">
           <EntitySet Name="EmailAttempts" EntityType="Self.EmailAttempts" Schema="dbo" store:Type="Tables" />
@@ -108,6 +122,7 @@
           <EntitySet Name="RemindMeMessages" EntityType="Self.RemindMeMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UpdateLog" EntityType="Self.UpdateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserThemes" EntityType="Self.UserThemes" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -144,6 +159,7 @@
           <EntitySet Name="LocalErrorLog" EntityType="remindmesqldbModel.LocalErrorLog" />
           <EntitySet Name="Misc" EntityType="remindmesqldbModel.Misc" />
           <EntitySet Name="RemindMeMessages" EntityType="remindmesqldbModel.RemindMeMessages" />
+          <EntitySet Name="UserThemes" EntityType="remindmesqldbModel.UserThemes" />
         </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -160,6 +176,7 @@
           <Property Name="ArchivedReminders" Type="Int32" />
           <Property Name="TotalReminders" Type="Int32" />
           <Property Name="SignIns" Type="Int32" Nullable="false" />
+          <Property Name="Material" Type="Int32" />
         </EntityType>
         <EntityType Name="EmailAttempts">
           <Key>
@@ -217,6 +234,19 @@
           <Property Name="MeantForSpecificUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MeantForSpecificPerson" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="UserThemes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NormalPrimary" Type="Int64" Nullable="false" />
+          <Property Name="DarkPrimary" Type="Int64" Nullable="false" />
+          <Property Name="LightPrimary" Type="Int64" Nullable="false" />
+          <Property Name="Accent" Type="Int64" Nullable="false" />
+          <Property Name="TextShade" Type="Int64" Nullable="false" />
+          <Property Name="Mode" Type="Int64" Nullable="false" />
+          <Property Name="ThemeName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -251,6 +281,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="remindmesqldbModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Material" ColumnName="Material" />
                 <ScalarProperty Name="SignIns" ColumnName="SignIns" />
                 <ScalarProperty Name="TotalReminders" ColumnName="TotalReminders" />
                 <ScalarProperty Name="ArchivedReminders" ColumnName="ArchivedReminders" />
@@ -321,6 +352,20 @@
                 <ScalarProperty Name="NotificationDuration" ColumnName="NotificationDuration" />
                 <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserThemes">
+            <EntityTypeMapping TypeName="remindmesqldbModel.UserThemes">
+              <MappingFragment StoreEntitySet="UserThemes">
+                <ScalarProperty Name="ThemeName" ColumnName="ThemeName" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="TextShade" ColumnName="TextShade" />
+                <ScalarProperty Name="Accent" ColumnName="Accent" />
+                <ScalarProperty Name="LightPrimary" ColumnName="LightPrimary" />
+                <ScalarProperty Name="DarkPrimary" ColumnName="DarkPrimary" />
+                <ScalarProperty Name="NormalPrimary" ColumnName="NormalPrimary" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

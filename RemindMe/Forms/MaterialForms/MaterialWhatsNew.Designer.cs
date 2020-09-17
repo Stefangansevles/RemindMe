@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialWhatsNew));
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.pnlContent = new System.Windows.Forms.Panel();
             this.lblText = new System.Windows.Forms.Label();
@@ -131,6 +132,7 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pbIcon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MaterialWhatsNew";
             this.Text = "Update information";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialWhatsNew_FormClosing);

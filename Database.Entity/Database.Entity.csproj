@@ -136,6 +136,9 @@
     <Compile Include="Users.cs">
       <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserThemes.cs">
+      <DependentUpon>RemindMeOnlineDb.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="RemindmeDb.Context.tt">

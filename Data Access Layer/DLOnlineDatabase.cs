@@ -94,7 +94,55 @@ namespace Data_Access_Layer
                 return db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault() == null;                 
             }
         }
-       
+
+        public static void InsertTheme(Database.Entity.Themes theme)
+        {
+            try
+            {
+                using (remindmesqldbEntities db = new remindmesqldbEntities())
+                {
+                    int attemptCount = 0;
+                    while (!terminateDatabaseAccess && !CanConnect(db))
+                    {
+                        Thread.Sleep(500);
+                        if (attemptCount > MAX_ATTEMPTS)
+                            break;
+                    }
+                    db.Database.Connection.Open();
+
+                    UserThemes usrTheme = new UserThemes();
+                    usrTheme.NormalPrimary = theme.Primary;
+                    usrTheme.DarkPrimary = theme.DarkPrimary;
+                    usrTheme.LightPrimary = theme.LightPrimary;
+                    usrTheme.Accent = theme.Accent;
+                    usrTheme.TextShade = theme.TextShade;
+                    usrTheme.Mode = theme.Mode.Value;
+                    usrTheme.ThemeName = theme.ThemeName;
+
+                    db.UserThemes.Add(usrTheme);
+                    db.SaveChanges();
+
+                    db.Database.Connection.Close();
+                }
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+        }
 
         /// <summary>
         /// Inserts a user into the database to keep track of how many users RemindMe has (after version 2.6.02)
@@ -132,6 +180,7 @@ namespace Data_Access_Layer
                     usr.LastOnline = DateTime.UtcNow;
                     usr.SignIns++;
                     usr.RemindMeVersion = remindMeVersion;
+                    usr.Material = (int)DLLocalDatabase.Setting.Settings.MaterialDesign.Value;
                 }
 
                 usr.ActiveReminders = DLReminders.GetReminders().Where(r => r.Enabled == 1).Count();
@@ -191,6 +240,7 @@ namespace Data_Access_Layer
                         break;
                 }
                 db.Database.Connection.Open();
+                
                 EmailAttempts ea = new EmailAttempts();
                 ea.Username = Environment.UserName;
                 ea.UserId = uniqueString;

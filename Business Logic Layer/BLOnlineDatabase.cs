@@ -167,9 +167,22 @@ namespace Business_Logic_Layer
             {
                 if (id > -1)
                     DLOnlineDatabase.UpdateRemindMeMessageCount(id);
-            });
+            }).Start();
         }
 
+        /// <summary>
+        /// Adds another count to the amount of times a message is read
+        /// </summary>
+        /// <param name="id"></param>
+        public static void InsertTheme(Themes theme)
+        {
+            new Thread(() =>
+            {                
+                if(theme != null && theme.IsDefault == 0)
+                    DLOnlineDatabase.InsertTheme(theme);
+
+            }).Start();
+        }
 
         /// <summary>
         /// Gets the RemindMe messages from the database, sent by the creator of RemindMe

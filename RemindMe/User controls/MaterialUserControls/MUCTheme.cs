@@ -170,6 +170,7 @@ namespace RemindMe
             theme.Mode = (int)MaterialSkinManager.Instance.Theme;
 
             BLLocalDatabase.Theme.InsertTheme(theme);
+            BLOnlineDatabase.InsertTheme(theme);
 
             ComboBoxItem item = new ComboBoxItem(theme.ThemeName, theme.Id);
             cbLoadTheme.Items.Add(item);
@@ -180,6 +181,8 @@ namespace RemindMe
             Settings set = BLLocalDatabase.Setting.Settings;
             set.CurrentTheme = theme.Id;
             BLLocalDatabase.Setting.UpdateSettings(set);
+
+            
 
             MaterialMessageFormManager.MakeMessagePopup("Succesfully saved theme \"" + name + "\" under your saved themes.", 5);
         }

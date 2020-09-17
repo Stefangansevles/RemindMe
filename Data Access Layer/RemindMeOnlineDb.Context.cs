@@ -32,5 +32,6 @@ namespace Data_Access_Layer
         public virtual DbSet<LocalErrorLog> LocalErrorLog { get; set; }
         public virtual DbSet<Misc> Misc { get; set; }
         public virtual DbSet<RemindMeMessages> RemindMeMessages { get; set; }
+        public virtual DbSet<UserThemes> UserThemes { get; set; }
     }
 }
