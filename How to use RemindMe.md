@@ -111,4 +111,4 @@ you can press the combination **anywhere!**, while gaming, watching a movie, any
 Also, if you want to quickly see how much time there is left on running timers, you can press the other key combination that you set in the settings. You can also press the "-" or "+" to add or subtract one minute quickly.
 
 
-![Imgur](https://i.imgur.com/eDgxB80.gif)
+![Imgur](https://gyazo.com/c0f37cbd653af06b68259519858d986c.gif)
