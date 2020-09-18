@@ -79,6 +79,7 @@ namespace RemindMe
             releaseNotes.Add("3.0.0", "Large update! RemindMe has been redesigned to use google's Material Design UI. RemindMe now looks completely different! (But works mostly the same)\r\nIf you don't like the new design, you can always go back to the old design through the 'Theme' tab (Also check out the theme tab to restyle RemindMe to your liking ;) ). If you encounter any bugs please forward them to me :) you can do this through the message center or fill in an description when a bug happens");
             releaseNotes.Add("3.0.2", "- Minifix in case the Theme tab throws an error\r\n- RemindMe now has a new info tab");
             releaseNotes.Add("3.0.3", "The buttons DISABLE | POSTPONE | SKIP  are now working again on the message form (when a reminder is due in 1 hour)");
+            releaseNotes.Add("3.0.5", "Postponing reminders now works again! whoops :)");
         }
 
         public static Dictionary<string,string> ReleaseNotes
@@ -87,4 +88,5 @@ namespace RemindMe
         }
     }
 }
+
 

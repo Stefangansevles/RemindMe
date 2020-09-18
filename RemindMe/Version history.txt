@@ -1037,4 +1037,7 @@ RemindMe should no longer show error popups for errors that happen on a timer, a
 - on re-enable reminder, the date for every 3 days can be tomorrow, because it is doing +3+3+3+3+3 which ends up in tomorrow for example. 
   Maybe we want it to be today +3 instead if re-enabled?
 
+3.0.0 Huge update! RemindMe now uses material design
+
+3.0.5 - Postponing reminders now works again
 

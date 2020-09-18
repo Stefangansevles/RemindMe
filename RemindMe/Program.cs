@@ -2,6 +2,7 @@
 using Database.Entity;
 using System;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -125,6 +126,25 @@ namespace RemindMe
                 BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !", false);
                 ShowError(e.Exception, "Reminder error!", theException.Message);
                 UCReminders.Instance.UpdateCurrentPage();
+            }
+            else if (e.Exception is DbEntityValidationException)
+            {
+                Exception raise = (DbEntityValidationException)e.Exception;
+                DbEntityValidationException ex = (DbEntityValidationException)e.Exception;
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                BLIO.WriteError(raise, raise.Message, false);
+                ShowError(e.Exception, e.Exception.GetType().ToString(), raise.Message);
             }
             else if (e.Exception is ArgumentException)
             {

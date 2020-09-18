@@ -299,12 +299,12 @@ namespace RemindMe
                 if (cbPostpone.Checked)
                 {
                     BLIO.Log("Postponing reminder with id " + rem.Id);
-                    if (Convert.ToInt32(tbPostpone.Text) == 0)
+                    if (BLFormLogic.GetTextboxMinutes(tbPostpone) <= 0)
                         return;
 
                     DateTime newReminderTime = new DateTime();
 
-                    if (cbPostpone.Checked && tbPostpone.ForeColor == Color.White && !string.IsNullOrWhiteSpace(tbPostpone.Text)) //postpone option is x minutes                
+                    if (!string.IsNullOrWhiteSpace(tbPostpone.Text)) //postpone option is x minutes                
                     {
                         newReminderTime = DateTime.Now.AddMinutes(BLFormLogic.GetTextboxMinutes(tbPostpone));
                         rem.PostponeDate = newReminderTime.ToString();
