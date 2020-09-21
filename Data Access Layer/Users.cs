@@ -26,5 +26,6 @@ namespace Data_Access_Layer
         public Nullable<int> TotalReminders { get; set; }
         public int SignIns { get; set; }
         public Nullable<int> Material { get; set; }
+        public int AutoUpdate { get; set; }
     }
 }

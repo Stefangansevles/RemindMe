@@ -259,6 +259,7 @@ namespace Data_Access_Layer
                         settings.DefaultTimerSound = "";
                         settings.EnableAdvancedReminders = 0;                        
                         settings.RemindMeTheme = "Default";
+                        settings.AutoUpdate = 1;
                         UpdateSettings(settings);
                     }
                     else

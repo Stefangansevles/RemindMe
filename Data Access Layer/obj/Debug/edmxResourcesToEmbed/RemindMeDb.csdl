@@ -42,6 +42,7 @@
     <Property Name="DrawerBackground" Type="Int64" />
     <Property Name="CurrentTheme" Type="Int64" />
     <Property Name="MaterialDesign" Type="Int64" />
+    <Property Name="AutoUpdate" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

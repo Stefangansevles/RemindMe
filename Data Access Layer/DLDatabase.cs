@@ -18,7 +18,7 @@ namespace Data_Access_Layer
         private const string TABLE_REMINDER = "CREATE TABLE [Reminder] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [Deleted] bigint DEFAULT(0) NOT NULL, [Name] text NOT NULL, [Date] text NOT NULL, [RepeatType] text NOT NULL, [Note] text NOT NULL, [Enabled] bigint NOT NULL, [DayOfMonth]bigint NULL, [EveryXCustom] bigint NULL, [RepeatDays] text NULL, [SoundFilePath] text NULL, [PostponeDate] text NULL, [Hide] bigint DEFAULT(0) NULL, [Corrupted] bigint DEFAULT(0) NULL, [EnableAdvancedReminder] bigint DEFAULT(1) NOT NULL, [UpdateTime] bigint DEFAULT(0) NOT NULL);";
 
         //The neccesary query to execute to create the table Settings
-        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [AlwaysOnTop] bigint NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup] bigint DEFAULT(1) NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT(1) NOT NULL, [HideReminderConfirmation] bigint DEFAULT(0) NULL, [EnableQuickTimer] bigint DEFAULT(1) NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, [EnableAdvancedReminders] bigint NULL, [UniqueString] text NULL, [RemindMeTheme] text DEFAULT('Default') NOT NULL, [DrawerUseColors] bigint DEFAULT(0) NULL, [DrawerHighlight] bigint DEFAULT(1) NULL, [DrawerBackground] bigint DEFAULT(0) NULL, [CurrentTheme] bigint DEFAULT(-1) NULL, [MaterialDesign] bigint DEFAULT(1) NULL);";
+        private const string TABLE_SETTINGS = "CREATE TABLE [Settings] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [AlwaysOnTop] bigint NOT NULL, [StickyForm] bigint NOT NULL, [EnableReminderCountPopup] bigint DEFAULT(1) NOT NULL, [EnableHourBeforeReminder] bigint DEFAULT(1) NOT NULL, [HideReminderConfirmation] bigint DEFAULT(0) NULL, [EnableQuickTimer] bigint DEFAULT(1) NOT NULL, [LastVersion] text NULL, [DefaultTimerSound] text NULL, [EnableAdvancedReminders] bigint NULL, [UniqueString] text NULL, [RemindMeTheme] text DEFAULT('Default') NOT NULL, [DrawerUseColors] bigint DEFAULT(0) NULL, [DrawerHighlight] bigint DEFAULT(1) NULL, [DrawerBackground] bigint DEFAULT(0) NULL, [CurrentTheme] bigint DEFAULT(-1) NULL, [MaterialDesign] bigint DEFAULT(1) NULL, [AutoUpdate] bigint DEFAULT (1) NOT NULL);";
 
         //The neccesary query to execute to create the table Songs
         private const string TABLE_SONGS = "CREATE TABLE [Songs] ( [Id] INTEGER NOT NULL, [SongFileName]text NOT NULL, [SongFilePath]text NOT NULL, CONSTRAINT[sqlite_master_PK_Songs] PRIMARY KEY([Id]));";
@@ -537,6 +537,7 @@ namespace Data_Access_Layer
                 case "CurrentTheme": return   "bigint DEFAULT -1 NULL";
                 case "MaterialDesign": return "bigint DEFAULT 1 NULL";
                 case "IsDefault": return "bigint DEFAULT 0 NOT NULL";
+                case "AutoUpdate": return "bigint DEFAULT 1 NOT NULL";
                 default: return "text NULL";
             }
         }

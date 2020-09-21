@@ -22,7 +22,7 @@ namespace Business_Logic_Layer
         /// <summary>
         /// Writes an unique string to string.txt in the RemindMe folder if it does not exists
         /// </summary>
-        public static void WriteUniqueString()
+        public static void WriteUniqueString() //I didn't know about guid's at the time
         {
             new Thread(() =>
             {

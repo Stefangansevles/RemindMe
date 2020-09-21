@@ -100,6 +100,7 @@
           <Property Name="TotalReminders" Type="int" />
           <Property Name="SignIns" Type="int" Nullable="false" />
           <Property Name="Material" Type="int" />
+          <Property Name="AutoUpdate" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserThemes">
           <Key>
@@ -177,6 +178,7 @@
           <Property Name="TotalReminders" Type="Int32" />
           <Property Name="SignIns" Type="Int32" Nullable="false" />
           <Property Name="Material" Type="Int32" />
+          <Property Name="AutoUpdate" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EmailAttempts">
           <Key>
@@ -281,6 +283,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="remindmesqldbModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="AutoUpdate" ColumnName="AutoUpdate" />
                 <ScalarProperty Name="Material" ColumnName="Material" />
                 <ScalarProperty Name="SignIns" ColumnName="SignIns" />
                 <ScalarProperty Name="TotalReminders" ColumnName="TotalReminders" />

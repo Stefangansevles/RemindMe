@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialRemindMeBox));
             this.pnlFooterButtons = new System.Windows.Forms.Panel();
+            this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
             this.btnOk = new MaterialSkin.Controls.MaterialButton();
             this.pnlRemind = new System.Windows.Forms.Panel();
             this.cbDontRemind = new MaterialSkin.Controls.MaterialCheckbox();
@@ -40,7 +41,6 @@
             this.pnlMainGradient = new System.Windows.Forms.Panel();
             this.pbIcon = new System.Windows.Forms.PictureBox();
             this.lblText = new System.Windows.Forms.Label();
-            this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
             this.pnlFooterButtons.SuspendLayout();
             this.pnlRemind.SuspendLayout();
             this.pnlMainGradient.SuspendLayout();
@@ -59,6 +59,17 @@
             this.pnlFooterButtons.Name = "pnlFooterButtons";
             this.pnlFooterButtons.Size = new System.Drawing.Size(374, 70);
             this.pnlFooterButtons.TabIndex = 0;
+            // 
+            // materialProgressBar1
+            // 
+            this.materialProgressBar1.Depth = 0;
+            this.materialProgressBar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.materialProgressBar1.Location = new System.Drawing.Point(0, 0);
+            this.materialProgressBar1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialProgressBar1.Name = "materialProgressBar1";
+            this.materialProgressBar1.Size = new System.Drawing.Size(374, 5);
+            this.materialProgressBar1.TabIndex = 10;
+            this.materialProgressBar1.Value = 100;
             // 
             // btnOk
             // 
@@ -157,7 +168,8 @@
             // 
             this.pnlMainGradient.Controls.Add(this.pbIcon);
             this.pnlMainGradient.Controls.Add(this.lblText);
-            this.pnlMainGradient.Location = new System.Drawing.Point(0, 62);
+            this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlMainGradient.Location = new System.Drawing.Point(0, 63);
             this.pnlMainGradient.Name = "pnlMainGradient";
             this.pnlMainGradient.Size = new System.Drawing.Size(374, 125);
             this.pnlMainGradient.TabIndex = 1;
@@ -184,17 +196,6 @@
             this.lblText.Size = new System.Drawing.Size(32, 17);
             this.lblText.TabIndex = 4;
             this.lblText.Text = "Text";
-            // 
-            // materialProgressBar1
-            // 
-            this.materialProgressBar1.Depth = 0;
-            this.materialProgressBar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.materialProgressBar1.Location = new System.Drawing.Point(0, 0);
-            this.materialProgressBar1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialProgressBar1.Name = "materialProgressBar1";
-            this.materialProgressBar1.Size = new System.Drawing.Size(374, 5);
-            this.materialProgressBar1.TabIndex = 10;
-            this.materialProgressBar1.Value = 100;
             // 
             // MaterialRemindMeBox
             // 
