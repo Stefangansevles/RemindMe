@@ -39,6 +39,7 @@
             this.tabResizePopup = new System.Windows.Forms.TabPage();
             this.tabMessageCenter = new System.Windows.Forms.TabPage();
             this.tabTheme = new System.Windows.Forms.TabPage();
+            this.tabInfo = new System.Windows.Forms.TabPage();
             this.tabDebug = new System.Windows.Forms.TabPage();
             this.drawerIconsList = new System.Windows.Forms.ImageList(this.components);
             this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
@@ -55,7 +56,6 @@
             this.exitRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRemoveDebug = new System.Windows.Forms.Timer(this.components);
-            this.tabInfo = new System.Windows.Forms.TabPage();
             this.mainTabControl.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -165,6 +165,16 @@
             this.tabTheme.Text = "Theme";
             this.tabTheme.ToolTipText = "Set a custom theme for RemindMe!";
             this.tabTheme.UseVisualStyleBackColor = true;
+            // 
+            // tabInfo
+            // 
+            this.tabInfo.ImageKey = "baseline_info_black_36dp.png";
+            this.tabInfo.Location = new System.Drawing.Point(4, 27);
+            this.tabInfo.Name = "tabInfo";
+            this.tabInfo.Size = new System.Drawing.Size(830, 471);
+            this.tabInfo.TabIndex = 9;
+            this.tabInfo.Text = "Info";
+            this.tabInfo.UseVisualStyleBackColor = true;
             // 
             // tabDebug
             // 
@@ -281,16 +291,6 @@
             this.tmrRemoveDebug.Interval = 2000;
             this.tmrRemoveDebug.Tick += new System.EventHandler(this.tmrRemoveDebug_Tick);
             // 
-            // tabInfo
-            // 
-            this.tabInfo.ImageKey = "baseline_info_black_36dp.png";
-            this.tabInfo.Location = new System.Drawing.Point(4, 27);
-            this.tabInfo.Name = "tabInfo";
-            this.tabInfo.Size = new System.Drawing.Size(830, 471);
-            this.tabInfo.TabIndex = 9;
-            this.tabInfo.Text = "Info";
-            this.tabInfo.UseVisualStyleBackColor = true;
-            // 
             // MaterialForm1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -318,7 +318,6 @@
         private System.Windows.Forms.Timer tmrCheckRemindMeMessages;
         private System.Windows.Forms.Timer tmrDumpLogTxtContents;
         private System.Windows.Forms.Timer tmrEnableDatabaseAccess;
-        private System.Windows.Forms.Timer tmrUpdateRemindMe;
         private System.Windows.Forms.Timer tmrDebugMode;
         private System.Windows.Forms.Timer tmrFadeIn;
         private System.Windows.Forms.Timer tmrPingActivity;
@@ -339,6 +338,7 @@
         public System.Windows.Forms.ToolStripMenuItem restartRemindMeUpdateToolStripMenuItem1;
         private System.Windows.Forms.Timer tmrRemoveDebug;
         private System.Windows.Forms.TabPage tabInfo;
+        public System.Windows.Forms.Timer tmrUpdateRemindMe;
     }
 }
 

@@ -19,7 +19,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="ex">The exception that is going to be logged</param>
         /// <param name="exceptionDate">The date the exception is logged at</param>
-        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage = null)
+        public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage = "Invisible")
         {
             new Thread(() =>
             {

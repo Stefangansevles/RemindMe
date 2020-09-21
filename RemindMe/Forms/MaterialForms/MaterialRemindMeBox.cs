@@ -53,13 +53,16 @@ namespace RemindMe
 
 
             lblText.Text = description;
-            
+
 
 
 
             //Resize the form so that the entire text shows
             while (pnlMainGradient.Height < (lblText.Location.Y + lblText.Height))
+            {
                 this.Height += 35;
+                pnlMainGradient.Height += 35;
+            }
 
 
             Form1 remindme = (Form1)Application.OpenForms["Form1"];

@@ -74,6 +74,8 @@ namespace RemindMe
                 set.EnableHourBeforeReminder = 1;
                 set.EnableReminderCountPopup = 1;
                 set.EnableQuickTimer = 1;
+                set.CurrentTheme = -1;                
+                set.AutoUpdate = 1;
                 BLLocalDatabase.Setting.UpdateSettings(set);
             }
 
@@ -87,6 +89,7 @@ namespace RemindMe
             cbOneHourBeforeNotification.Checked = BLLocalDatabase.Setting.IsHourBeforeNotificationEnabled();
             cbQuicktimer.Checked = BLLocalDatabase.Setting.Settings.EnableQuickTimer == 1;
             cbAdvancedReminders.Checked = BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1;
+            cbAutoUpdate.Checked = BLLocalDatabase.Setting.Settings.AutoUpdate == 1;
 
             Hotkeys timerKey = BLLocalDatabase.Hotkey.TimerPopup;
             Hotkeys timerCheck = BLLocalDatabase.Hotkey.TimerCheck;
@@ -387,6 +390,32 @@ namespace RemindMe
                     return i;
             }
             return -1;
+        }
+
+        private void cbAutoUpdate_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings set = BLLocalDatabase.Setting.Settings;
+
+            if (!cbAutoUpdate.Checked)
+            {
+                if (MaterialRemindMeBox.Show("Attention!", "Are you sure you want to disable auto-update? Newer versions of RemindMe will contain new features and/or fixes to problems in previous versions\r\n\r\nIt is recommended to keep this feature on!", RemindMeBoxReason.YesNo) == DialogResult.Yes)
+                {
+                    //ask for confirmation
+                    set.AutoUpdate = 0;
+                    MaterialForm1.Instance.tmrUpdateRemindMe.Stop();
+                }
+                else
+                {
+                    cbAutoUpdate.Checked = true;
+                }
+            }
+            else
+            {
+                set.AutoUpdate = cbAutoUpdate.Checked ? 1 : 0;
+                MaterialForm1.Instance.tmrUpdateRemindMe.Start();
+            }
+
+            BLLocalDatabase.Setting.UpdateSettings(set);
         }
     }
 }

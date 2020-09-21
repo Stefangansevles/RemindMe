@@ -111,6 +111,7 @@ namespace RemindMe
         {
             try
             {
+                
                 BLIO.Log("btnOk pressed on ExceptionPopup. textbox text = " + tbFeedback.Text);
                 string logTxtPath = IOVariables.systemLog;
                 string textBoxText = tbFeedback.Text; //Cant access tbNote in a thread. save the text in a variable instead
@@ -120,7 +121,7 @@ namespace RemindMe
 
                 BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, textBoxText);
 
-                if (textBoxText != null && tbFeedback.ForeColor != Color.Gray)
+                if (textBoxText != null)
                     MaterialMessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
 
                 //Set this boolean to true so that when this popup closes, we won't try to add another db entry

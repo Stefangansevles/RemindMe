@@ -26,6 +26,7 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="AutoUpdate" ColumnName="AutoUpdate" />
           <ScalarProperty Name="MaterialDesign" ColumnName="MaterialDesign" />
           <ScalarProperty Name="CurrentTheme" ColumnName="CurrentTheme" />
           <ScalarProperty Name="DrawerBackground" ColumnName="DrawerBackground" />

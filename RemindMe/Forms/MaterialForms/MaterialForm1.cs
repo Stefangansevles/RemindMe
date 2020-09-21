@@ -510,7 +510,8 @@ namespace RemindMe
 
                 BLLocalDatabase.Song.InsertWindowsSystemSounds();
 
-                tmrUpdateRemindMe.Start();
+                if(BLLocalDatabase.Setting.Settings.AutoUpdate == 1) //I guess some users don't want it? :(
+                    tmrUpdateRemindMe.Start();
 
                 //If the setup still exists, delete it
                 System.IO.File.Delete(IOVariables.rootFolder + "SetupRemindMe.msi");

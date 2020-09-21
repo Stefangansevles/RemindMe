@@ -60,10 +60,9 @@ namespace Data_Access_Layer
                 ExceptionLog log = new ExceptionLog();
                 log.ExceptionDate = exceptionDate;
 
-                log.ExceptionMessage = ex.Message;               
+                log.ExceptionMessage = ex.Message;                               
+                log.CustomMessage = customMessage;                
 
-                if (customMessage != null)
-                    log.CustomMessage = customMessage;
 
                 if (pathToSystemLog != null && File.Exists(pathToSystemLog))
                     log.SystemLog = File.ReadAllText(pathToSystemLog).Replace(Environment.NewLine, "¤");//so we can do a find and replace ¤ to \r\n in notepad++ to make it more readable
@@ -169,6 +168,8 @@ namespace Data_Access_Layer
                     usr.UniqueString = uniqueString;
                     usr.LastOnline = DateTime.UtcNow;
                     usr.RemindMeVersion = remindMeVersion;
+                    usr.Material = 1;
+                    usr.AutoUpdate = 1;
 
                     db.Users.Add(usr);
                 }
@@ -181,6 +182,7 @@ namespace Data_Access_Layer
                     usr.SignIns++;
                     usr.RemindMeVersion = remindMeVersion;
                     usr.Material = (int)DLLocalDatabase.Setting.Settings.MaterialDesign.Value;
+                    usr.AutoUpdate = (int)DLLocalDatabase.Setting.Settings.AutoUpdate;
                 }
 
                 usr.ActiveReminders = DLReminders.GetReminders().Where(r => r.Enabled == 1).Count();

@@ -1039,5 +1039,10 @@ RemindMe should no longer show error popups for errors that happen on a timer, a
 
 3.0.0 Huge update! RemindMe now uses material design
 
-3.0.5 - Postponing reminders now works again
+3.0.5
+Postponing reminders now works again
+
+3.0.6
+Fixed an issue where remindme would be in an infinite loop if a remindmebox message was long, whoops.
+
 
