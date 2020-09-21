@@ -1046,4 +1046,7 @@ Postponing reminders now works again
 Fixed an issue where remindme would be in an infinite loop if a remindmebox message was long, whoops.
 auto-update can now be disabled
 
+3.0.7
+fixed an issue where 3.0.6 would cause remindme not to load
+
 
