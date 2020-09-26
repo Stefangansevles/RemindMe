@@ -80,6 +80,7 @@ namespace RemindMe
             releaseNotes.Add("3.0.2", "- Minifix in case the Theme tab throws an error\r\n- RemindMe now has a new info tab");
             releaseNotes.Add("3.0.3", "The buttons DISABLE | POSTPONE | SKIP  are now working again on the message form (when a reminder is due in 1 hour)");
             releaseNotes.Add("3.0.5", "Postponing reminders now works again! whoops :)");
+            releaseNotes.Add("3.0.8", "Added a failsafe for if an error happens before RemindMe has been initialized causing RemindMe to not launch");
         }
 
         public static Dictionary<string,string> ReleaseNotes

@@ -26,35 +26,44 @@ namespace RemindMe
             EmbeddedAssembly.Load(resource1, "Bunifu_UI_v1.5.3.dll");
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 
-            AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
-            BLIO.CreateDatabaseIfNotExist();
-
-            if (!BLLocalDatabase.HasAllTables())
-                isMaterial = true;
-            else
+            try
             {
-                //See if the user wants Material Design or old RemindMe-Design (Default = Material)
-                Settings set = BLLocalDatabase.Setting.Settings;
-                if (set != null && set.MaterialDesign != null && set.MaterialDesign.HasValue) //not null               
-                    isMaterial = Convert.ToBoolean(BLLocalDatabase.Setting.Settings.MaterialDesign.Value);
-            }
+                AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
+                BLIO.CreateDatabaseIfNotExist();
 
-
-
-            if (args.Length > 0)
-            {//The user double-clicked an .remindme file! 
-                BLIO.Log("Detected the double clicking of a .remindme file!");
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-
-                if (isMaterial)
-                    Application.Run(new MaterialRemindMeImporter(args[0]));
+                if (!BLLocalDatabase.HasAllTables())
+                    isMaterial = true;
                 else
-                    Application.Run(new RemindMeImporter(args[0]));
-            }
+                {
+                    //See if the user wants Material Design or old RemindMe-Design (Default = Material)
+                    Settings set = BLLocalDatabase.Setting.Settings;
+                    if (set != null && set.MaterialDesign != null && set.MaterialDesign.HasValue) //not null               
+                        isMaterial = Convert.ToBoolean(BLLocalDatabase.Setting.Settings.MaterialDesign.Value);
+                }
 
-            using (Mutex mutex = new Mutex(false, "Global\\" + "RemindMe"))
+
+
+
+                if (args.Length > 0)
+                {//The user double-clicked an .remindme file! 
+                    BLIO.Log("Detected the double clicking of a .remindme file!");
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+
+                    if (isMaterial)
+                        Application.Run(new MaterialRemindMeImporter(args[0]));
+                    else
+                        Application.Run(new RemindMeImporter(args[0]));
+                }
+            }
+            catch (Exception ex)
             {
+                BLIO.Log("!!!! EXCEPTION IN PROGRAM.CS !!!! (" + ex.GetType() + ")" );
+                BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
+            }
+            //This code should always execute!!!! Remember the 3.0.6 disaster? yeahhhhh...
+            using (Mutex mutex = new Mutex(false, "Global\\" + "RemindMe"))
+            {                
                 if (!mutex.WaitOne(0, false)) //one instance of remindme already running                                 
                     return;
 
