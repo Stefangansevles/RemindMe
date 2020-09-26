@@ -288,11 +288,22 @@ namespace RemindMe
         {
             if(MaterialRemindMeBox.Show("Are you sure you want to switch to the old RemindMe UI?", RemindMeBoxReason.YesNo) == DialogResult.Yes)
             {
-                Settings set = BLLocalDatabase.Setting.Settings;
-                set.MaterialDesign = 0;
-                BLLocalDatabase.Setting.UpdateSettings(set);
-                MaterialForm1.Instance.shouldClose = true;
-                Application.Restart();
+                bool doRestart = true;
+
+                if (MUCTimer.RunningTimers.Count > 0)
+                    if (MaterialRemindMeBox.Show("You have (" + MUCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)
+                        doRestart = false;
+
+                if (doRestart)
+                {
+                    Settings set = BLLocalDatabase.Setting.Settings;
+                    set.MaterialDesign = 0;
+                    BLLocalDatabase.Setting.UpdateSettings(set);
+                    MaterialForm1.Instance.shouldClose = true;
+
+                    MUCTimer.RunningTimers.Clear();
+                    Application.Restart();
+                }
             }
         }
 

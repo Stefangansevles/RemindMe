@@ -87,9 +87,9 @@
             this.lblTitle.Location = new System.Drawing.Point(115, 78);
             this.lblTitle.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(178, 19);
+            this.lblTitle.Size = new System.Drawing.Size(182, 19);
             this.lblTitle.TabIndex = 8;
-            this.lblTitle.Text = "What\'s new since version";
+            this.lblTitle.Text = "What\'s new since version ";
             // 
             // panel1
             // 

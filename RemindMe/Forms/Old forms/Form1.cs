@@ -796,9 +796,9 @@ namespace RemindMe
             BLIO.Log("Form1_FormClosing   ["+e.CloseReason+"]");
             BLIO.DumpLogTxt();
 
-            if (UCTimer.RunningTimers.Count > 0)            
-                if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)                
-                    e.Cancel = true;            
+            if (UCTimer.RunningTimers.Count > 0)
+                if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)
+                    e.Cancel = true;                
         }
         
         private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)

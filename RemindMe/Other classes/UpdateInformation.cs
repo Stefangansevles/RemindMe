@@ -81,6 +81,7 @@ namespace RemindMe
             releaseNotes.Add("3.0.3", "The buttons DISABLE | POSTPONE | SKIP  are now working again on the message form (when a reminder is due in 1 hour)");
             releaseNotes.Add("3.0.5", "Postponing reminders now works again! whoops :)");
             releaseNotes.Add("3.0.8", "Added a failsafe for if an error happens before RemindMe has been initialized causing RemindMe to not launch");
+            releaseNotes.Add("3.0.9", "- The old RemindMe interface (For the ones that are still using it) now shows the textbox again when editing/creating Reminders\r\n- Switching RemindMe themes (old/new) does no longer cause an error when you have running timers.");
         }
 
         public static Dictionary<string,string> ReleaseNotes

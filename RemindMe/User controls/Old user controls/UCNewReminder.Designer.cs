@@ -689,7 +689,6 @@
             this.pnlDayCheckBoxes.Controls.Add(this.cbSunday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbThursday);
             this.pnlDayCheckBoxes.Controls.Add(this.cbMonday);
-            this.pnlDayCheckBoxes.Controls.Add(this.tbNote);
             this.pnlDayCheckBoxes.Location = new System.Drawing.Point(148, 233);
             this.pnlDayCheckBoxes.Name = "pnlDayCheckBoxes";
             this.pnlDayCheckBoxes.Size = new System.Drawing.Size(366, 89);
@@ -913,7 +912,7 @@
             this.tbNote.BackColor = System.Drawing.Color.DimGray;
             this.tbNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tbNote.ForeColor = System.Drawing.Color.White;
-            this.tbNote.Location = new System.Drawing.Point(3, 16);
+            this.tbNote.Location = new System.Drawing.Point(148, 234);
             this.tbNote.Multiline = true;
             this.tbNote.Name = "tbNote";
             this.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -1229,6 +1228,7 @@
             this.Controls.Add(this.cbEveryXCustom);
             this.Controls.Add(this.numEveryXDays);
             this.Controls.Add(this.pnlDayCheckBoxes);
+            this.Controls.Add(this.tbNote);
             this.Controls.Add(this.lblEvery);
             this.Controls.Add(this.lblNote);
             this.Controls.Add(this.lblRepeat);

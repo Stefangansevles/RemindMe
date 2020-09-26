@@ -21,10 +21,22 @@ namespace RemindMe
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
-            Settings set = BLLocalDatabase.Setting.Settings;
-            set.MaterialDesign = 1;
-            BLLocalDatabase.Setting.UpdateSettings(set);
-            Application.Restart();
+            bool doRestart = true;
+
+            if(UCTimer.RunningTimers.Count > 0)            
+                if (RemindMeBox.Show("You have (" + UCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)                
+                    doRestart = false;
+
+            if (doRestart)
+            {
+                Settings set = BLLocalDatabase.Setting.Settings;
+                set.MaterialDesign = 1;
+                BLLocalDatabase.Setting.UpdateSettings(set);
+
+
+                UCTimer.RunningTimers.Clear();
+                Application.Restart();
+            }
         }
     }
 }

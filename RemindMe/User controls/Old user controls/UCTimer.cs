@@ -49,6 +49,7 @@ namespace RemindMe
         public static List<TimerItem> RunningTimers
         {
             get { return timers; }
+            set { timers = value; }
         }
 
         /// <summary>

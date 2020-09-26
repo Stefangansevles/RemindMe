@@ -1049,4 +1049,9 @@ auto-update can now be disabled
 3.0.7
 fixed an issue where 3.0.6 would cause remindme not to load
 
+3.0.8
+Broadened the try-catch so RemindMe _SHOULD_ always launch
 
+3.0.9
+- The old RemindMe interface (For the ones that are still using it) now shows the textbox again when editing/creating Reminders
+- Switching RemindMe themes (old/new) does not longer cause and error when you have running timers.
