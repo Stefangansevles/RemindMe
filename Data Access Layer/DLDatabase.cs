@@ -128,7 +128,7 @@ namespace Data_Access_Layer
             {
                 try
                 {
-                    var t = db.Database.SqlQuery<object>("SELECT " + columnName + " FROM " + table).ToList();
+                    var t = db.Database.SqlQuery<object>("SELECT " + columnName + " FROM [" + table + "]").ToList();
                     db.Dispose();
                     return true;
                 }
@@ -233,7 +233,7 @@ namespace Data_Access_Layer
 
             foreach (string columnName in themes)
             {
-                if (!HasColumn(columnName, "Themes"))
+                if (!HasColumn("["+columnName+"]", "Themes"))
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
@@ -259,7 +259,7 @@ namespace Data_Access_Layer
         {
             try
             {
-                var result = db.Database.ExecuteSqlCommand("select * from " + table);
+                var result = db.Database.ExecuteSqlCommand("select * from [" + table + "]");
                 return true;
             }
             catch(SQLiteException)
@@ -463,8 +463,8 @@ namespace Data_Access_Layer
                 {
                     try
                     {
-                        if (!HasColumn(column, "Themes"))
-                            db.Database.ExecuteSqlCommand("ALTER TABLE Themes ADD COLUMN " + column + " " + GetThemesColumnSqlType(column));
+                        if (!HasColumn("["+column+"]", "Themes"))
+                            db.Database.ExecuteSqlCommand("ALTER TABLE Themes ADD COLUMN [" + column + "] " + GetThemesColumnSqlType(column));
                     }
                     catch(Exception ex)
                     {

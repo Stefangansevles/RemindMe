@@ -213,7 +213,7 @@ namespace RemindMe
 
 
         private void MaterialForm1_Load(object sender, EventArgs e)
-        {            
+        {
             #region User controls
             reminders = new MUCReminders();
             mucSettings = new MUCSettings();
