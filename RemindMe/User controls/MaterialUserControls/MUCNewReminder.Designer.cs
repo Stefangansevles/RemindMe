@@ -76,6 +76,7 @@
             this.btnBack = new MaterialSkin.Controls.MaterialButton();
             this.btnRemoveDate = new MaterialSkin.Controls.MaterialButton();
             this.btnPlaySound = new MaterialSkin.Controls.MaterialButton();
+            this.tmrCheckbox = new System.Windows.Forms.Timer(this.components);
             this.groupRepeatRadiobuttons.SuspendLayout();
             this.pnlDayCheckBoxes.SuspendLayout();
             this.pnlUpdateTime.SuspendLayout();
@@ -601,6 +602,7 @@
             this.cbSound.IntegralHeight = false;
             this.cbSound.ItemHeight = 43;
             this.cbSound.Location = new System.Drawing.Point(341, 32);
+            this.cbSound.MaxDropDownItems = 4;
             this.cbSound.MouseState = MaterialSkin.MouseState.OUT;
             this.cbSound.Name = "cbSound";
             this.cbSound.Size = new System.Drawing.Size(297, 49);
@@ -653,6 +655,7 @@
             "Saturday",
             "Sunday"});
             this.cbEvery.Location = new System.Drawing.Point(97, 266);
+            this.cbEvery.MaxDropDownItems = 4;
             this.cbEvery.MouseState = MaterialSkin.MouseState.OUT;
             this.cbEvery.Name = "cbEvery";
             this.cbEvery.Size = new System.Drawing.Size(121, 35);
@@ -676,6 +679,7 @@
             this.cbMonthlyDays.IntegralHeight = false;
             this.cbMonthlyDays.ItemHeight = 29;
             this.cbMonthlyDays.Location = new System.Drawing.Point(304, 271);
+            this.cbMonthlyDays.MaxDropDownItems = 4;
             this.cbMonthlyDays.MouseState = MaterialSkin.MouseState.OUT;
             this.cbMonthlyDays.Name = "cbMonthlyDays";
             this.cbMonthlyDays.Size = new System.Drawing.Size(121, 35);
@@ -835,6 +839,11 @@
             this.btnPlaySound.UseVisualStyleBackColor = true;
             this.btnPlaySound.Click += new System.EventHandler(this.bunifuTileButton1_Click);
             // 
+            // tmrCheckbox
+            // 
+            this.tmrCheckbox.Interval = 350;
+            this.tmrCheckbox.Tick += new System.EventHandler(this.tmrCheckbox_Tick);
+            // 
             // MUCNewReminder
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -925,5 +934,6 @@
         private MaterialSkin.Controls.MaterialComboBox cbEvery;
         private MaterialSkin.Controls.MaterialComboBox cbMonthlyDays;
         private MaterialSkin.Controls.MaterialComboBox cbEveryXCustom;
+        private System.Windows.Forms.Timer tmrCheckbox;
     }
 }

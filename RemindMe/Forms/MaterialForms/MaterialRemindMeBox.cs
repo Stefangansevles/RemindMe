@@ -1,6 +1,7 @@
 ﻿using Business_Logic_Layer;
 using Database.Entity;
 using MaterialSkin.Controls;
+using RemindMe.Other_classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -57,13 +58,6 @@ namespace RemindMe
 
 
 
-            //Resize the form so that the entire text shows
-            while (pnlMainGradient.Height < (lblText.Location.Y + lblText.Height))
-            {
-                this.Height += 35;
-                pnlMainGradient.Height += 35;
-            }
-
 
             Form1 remindme = (Form1)Application.OpenForms["Form1"];
             if (remindme != null && remindme.Visible)
@@ -75,7 +69,29 @@ namespace RemindMe
             else
                 this.StartPosition = FormStartPosition.CenterScreen;
 
+            lblText.LinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.AccentColor;
+            lblText.ActiveLinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.LightPrimaryColor;
+
+            string timers = "Click here to convert these Timers into Reminders and close RemindMe";
+            if(lblText.Text.EndsWith(timers))
+            {
+                lblText.Links.Add(lblText.Text.IndexOf(timers), timers.Length);
+                lblText.LinkClicked += (s, ee) => { ImportRemindersFromTimers(); };
+            }
+
             BLIO.Log("RemindMeBox constructed");
+        }
+        private void ImportRemindersFromTimers()
+        {
+            
+            foreach (TimerItem tmr in MUCTimer.RunningTimers)
+            {
+                BLReminder.InsertReminder("Timer", tmr.PopupDate.ToString(), ReminderRepeatType.NONE.ToString(),
+                    null, null, tmr.TimerText + "\r\n\r\n(This reminder was generated from a previously running Timer)", true, BLLocalDatabase.Setting.Settings.DefaultTimerSound,0);
+            }
+
+            MaterialForm1.Instance.shouldClose = true;
+            btnYes_Click(null, null);         
         }
 
         [DllImport("gdi32.dll")]
@@ -173,7 +189,7 @@ namespace RemindMe
         }
 
         private void tmrFadeIn_Tick_1(object sender, EventArgs e)
-        {
+        {            
             this.Opacity += 0.06;
             if (this.Opacity >= 1)
                 tmrFadeIn.Stop();
@@ -189,6 +205,15 @@ namespace RemindMe
             lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
             if (MaterialForm1.MaterialSkinManager.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
                 lblText.ForeColor = Color.White;
+
+
+            //Resize the form so that the entire text shows
+            while (pnlMainGradient.Height < (lblText.Location.Y + lblText.Height))
+            {
+                this.Height += 35;
+                pnlMainGradient.Height += 35;
+            }
+
         }
     }
 

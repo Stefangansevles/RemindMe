@@ -133,6 +133,8 @@
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pbIcon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MaterialWhatsNew";
             this.Text = "Update information";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialWhatsNew_FormClosing);

@@ -44,7 +44,7 @@
             this.pbRepeat = new System.Windows.Forms.PictureBox();
             this.pbDate = new System.Windows.Forms.PictureBox();
             this.pnlText = new System.Windows.Forms.Panel();
-            this.lblNoteText = new System.Windows.Forms.Label();
+            this.lblNoteText = new System.Windows.Forms.LinkLabel();
             this.pnlFooter.SuspendLayout();
             this.pnlDateRepeatInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepeat)).BeginInit();
@@ -231,10 +231,12 @@
             // lblNoteText
             // 
             this.lblNoteText.AutoSize = true;
+            this.lblNoteText.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
+            this.lblNoteText.LinkColor = System.Drawing.Color.Red;
             this.lblNoteText.Location = new System.Drawing.Point(6, 0);
             this.lblNoteText.Name = "lblNoteText";
             this.lblNoteText.Size = new System.Drawing.Size(228, 13);
-            this.lblNoteText.TabIndex = 0;
+            this.lblNoteText.TabIndex = 1;
             this.lblNoteText.Text = "This label\'s font will become Roboto on runtime";
             // 
             // MaterialPopup
@@ -279,7 +281,7 @@
         private System.Windows.Forms.PictureBox pbRepeat;
         private System.Windows.Forms.PictureBox pbDate;
         private System.Windows.Forms.Panel pnlText;
-        public System.Windows.Forms.Label lblNoteText;
         private MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
+        private System.Windows.Forms.LinkLabel lblNoteText;
     }
 }

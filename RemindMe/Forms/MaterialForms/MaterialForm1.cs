@@ -725,8 +725,9 @@ namespace RemindMe
             BLIO.DumpLogTxt();
 
             if (MUCTimer.RunningTimers.Count > 0)
-            {
-                if (MaterialRemindMeBox.Show("You have (" + MUCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved", RemindMeBoxReason.YesNo) == DialogResult.No)
+            {      
+                
+                if (MaterialRemindMeBox.Show("You have (" + MUCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved\r\n\r\nClick here to convert these Timers into Reminders and close RemindMe", RemindMeBoxReason.YesNo) == DialogResult.No)
                 {
                     e.Cancel = true;
                     shouldClose = false;

@@ -217,10 +217,10 @@ namespace RemindMe
 
         }
         private void btnAddReminder_Click(object sender, EventArgs e)
-        {
+        {            
             BLIO.Log("btnAddReminder_Click");
             newReminderUc.Visible = true;
-            newReminderUc.Reminder = null;
+            newReminderUc.Reminder = null; //oof. this one causes remindme to get slow
             this.Visible = false;
         }
 

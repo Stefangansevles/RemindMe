@@ -1058,3 +1058,7 @@ Broadened the try-catch so RemindMe _SHOULD_ always launch
 
 3.0.10
 added [] around table names that could create errors, like "primary"
+
+3.0.11
+- Links on a reminder popup are now highlighted and clickable! (why wasn't this in before? idk)
+- You can now convert running timers into reminders when closing RemindMe if you have timers running.

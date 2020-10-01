@@ -39,8 +39,8 @@
             this.btnNo = new MaterialSkin.Controls.MaterialButton();
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.pnlMainGradient = new System.Windows.Forms.Panel();
+            this.lblText = new System.Windows.Forms.LinkLabel();
             this.pbIcon = new System.Windows.Forms.PictureBox();
-            this.lblText = new System.Windows.Forms.Label();
             this.pnlFooterButtons.SuspendLayout();
             this.pnlRemind.SuspendLayout();
             this.pnlMainGradient.SuspendLayout();
@@ -166,13 +166,23 @@
             // 
             // pnlMainGradient
             // 
-            this.pnlMainGradient.Controls.Add(this.pbIcon);
             this.pnlMainGradient.Controls.Add(this.lblText);
+            this.pnlMainGradient.Controls.Add(this.pbIcon);
             this.pnlMainGradient.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlMainGradient.Location = new System.Drawing.Point(0, 63);
+            this.pnlMainGradient.Location = new System.Drawing.Point(0, 43);
             this.pnlMainGradient.Name = "pnlMainGradient";
-            this.pnlMainGradient.Size = new System.Drawing.Size(374, 125);
+            this.pnlMainGradient.Size = new System.Drawing.Size(374, 145);
             this.pnlMainGradient.TabIndex = 1;
+            // 
+            // lblText
+            // 
+            this.lblText.AutoSize = true;
+            this.lblText.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
+            this.lblText.Location = new System.Drawing.Point(103, 24);
+            this.lblText.Name = "lblText";
+            this.lblText.Size = new System.Drawing.Size(28, 13);
+            this.lblText.TabIndex = 7;
+            this.lblText.Text = "Text";
             // 
             // pbIcon
             // 
@@ -184,18 +194,6 @@
             this.pbIcon.Size = new System.Drawing.Size(62, 58);
             this.pbIcon.TabIndex = 6;
             this.pbIcon.TabStop = false;
-            // 
-            // lblText
-            // 
-            this.lblText.AutoSize = true;
-            this.lblText.BackColor = System.Drawing.Color.Transparent;
-            this.lblText.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblText.ForeColor = System.Drawing.Color.Black;
-            this.lblText.Location = new System.Drawing.Point(103, 14);
-            this.lblText.Name = "lblText";
-            this.lblText.Size = new System.Drawing.Size(32, 17);
-            this.lblText.TabIndex = 4;
-            this.lblText.Text = "Text";
             // 
             // MaterialRemindMeBox
             // 
@@ -233,7 +231,7 @@
         private System.Windows.Forms.Timer tmrFadeIn;
         private System.Windows.Forms.Panel pnlMainGradient;
         private System.Windows.Forms.PictureBox pbIcon;
-        private System.Windows.Forms.Label lblText;
         private MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
+        private System.Windows.Forms.LinkLabel lblText;
     }
 }

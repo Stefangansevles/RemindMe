@@ -37,6 +37,7 @@
             this.btnSupport = new MaterialSkin.Controls.MaterialButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
+            this.lblPreviousVersions = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.materialLabel1.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel1.Location = new System.Drawing.Point(117, 11);
+            this.materialLabel1.Location = new System.Drawing.Point(113, 12);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(117, 29);
@@ -59,7 +60,7 @@
             this.lblVersion.Depth = 0;
             this.lblVersion.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.lblVersion.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
-            this.lblVersion.Location = new System.Drawing.Point(117, 42);
+            this.lblVersion.Location = new System.Drawing.Point(113, 43);
             this.lblVersion.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(74, 24);
@@ -72,7 +73,7 @@
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.materialLabel2.FontType = MaterialSkin.MaterialSkinManager.fontType.Subtitle2;
-            this.materialLabel2.Location = new System.Drawing.Point(117, 70);
+            this.materialLabel2.Location = new System.Drawing.Point(115, 71);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(206, 17);
@@ -134,7 +135,7 @@
             // 
             this.pictureBox1.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(11, -2);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 100);
             this.pictureBox1.TabIndex = 1;
@@ -152,9 +153,23 @@
             this.materialLabel4.TabIndex = 116;
             this.materialLabel4.Text = "Check out RemindMe on Github";
             // 
+            // lblPreviousVersions
+            // 
+            this.lblPreviousVersions.AutoSize = true;
+            this.lblPreviousVersions.LinkArea = new System.Windows.Forms.LinkArea(1, 10);
+            this.lblPreviousVersions.Location = new System.Drawing.Point(247, 49);
+            this.lblPreviousVersions.Name = "lblPreviousVersions";
+            this.lblPreviousVersions.Size = new System.Drawing.Size(320, 17);
+            this.lblPreviousVersions.TabIndex = 117;
+            this.lblPreviousVersions.TabStop = true;
+            this.lblPreviousVersions.Text = "(Click here to see the history of RemindMe\'s previous versions)";
+            this.lblPreviousVersions.UseCompatibleTextRendering = true;
+            this.lblPreviousVersions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblPreviousVersions_LinkClicked);
+            // 
             // MUCInfo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.lblPreviousVersions);
             this.Controls.Add(this.materialLabel4);
             this.Controls.Add(this.materialButton1);
             this.Controls.Add(this.btnSupport);
@@ -181,5 +196,6 @@
         private MaterialSkin.Controls.MaterialButton btnSupport;
         private MaterialSkin.Controls.MaterialButton materialButton1;
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
+        private System.Windows.Forms.LinkLabel lblPreviousVersions;
     }
 }

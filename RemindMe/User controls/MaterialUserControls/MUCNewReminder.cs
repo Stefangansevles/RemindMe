@@ -145,9 +145,7 @@ namespace RemindMe
             {
                 editableReminder = value;
                 ResetReminderForm();
-                FillControlsForEdit(editableReminder);
-
-               
+                FillControlsForEdit(editableReminder);               
             }
         }
 
@@ -448,22 +446,8 @@ namespace RemindMe
 
         private void cbDaysCheckedChangeEvent(object sender, EventArgs e)
         {
-            DateTime? selectedDateFromCheckboxes = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString()) ?? DateTime.Now;
-
-            dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
-            dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
-
-
-            if (IsDayCheckboxChecked(DateTime.Now.DayOfWeek))
-            {//Check if the checkbox of today's dayofweek is checked
-                //Then, if the selected time is in the FUTURE, we want to set the date to today.
-                if (Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now)
-                {
-                    dtpDate.Value = DateTime.Now;
-                    dtpDate.Value = DateTime.Now;
-                }
-            }
-
+            //attempt to make the animation smoother by not calculating things while the animation is in progress
+            tmrCheckbox.Start();            
         }
 
         /// <summary>
@@ -1641,6 +1625,27 @@ namespace RemindMe
         {
             btnPlaySound.Icon = imgPlayResume;
             tmrMusic.Stop();
+        }
+
+        private void tmrCheckbox_Tick(object sender, EventArgs e)
+        {
+            DateTime? selectedDateFromCheckboxes = BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString()) ?? DateTime.Now;
+
+            dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
+            dtpDate.Value = selectedDateFromCheckboxes ?? DateTime.Now;
+
+
+            if (IsDayCheckboxChecked(DateTime.Now.DayOfWeek))
+            {//Check if the checkbox of today's dayofweek is checked
+                //Then, if the selected time is in the FUTURE, we want to set the date to today.
+                if (Convert.ToDateTime(DateTime.Now.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now)
+                {
+                    dtpDate.Value = DateTime.Now;
+                    dtpDate.Value = DateTime.Now;
+                }
+            }
+
+            tmrCheckbox.Stop();
         }
     }
 }

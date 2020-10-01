@@ -5,12 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -51,7 +53,10 @@ namespace RemindMe
             lblNoteText.MouseClick += stopFlash_Event;
             this.MouseClick += stopFlash_Event;
             this.ResizeEnd += stopFlash_Event;
-            
+
+
+            lblNoteText.LinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.AccentColor;
+            lblNoteText.ActiveLinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.LightPrimaryColor;
             BLIO.Log("Popup constructed");            
         }
 
@@ -238,7 +243,12 @@ namespace RemindMe
 
                 lblNoteText.Text = Environment.NewLine + lblNoteText.Text;
 
-
+                List<string> links = GetLinks(lblNoteText.Text);
+                foreach (string link in links)
+                {
+                    lblNoteText.Links.Add(lblNoteText.Text.IndexOf(link), link.Length, link);                    
+                }
+                lblNoteText.LinkClicked += (s, ee) => Process.Start(ee.Link.LinkData.ToString());
 
                 if (rem.Date == null)
                     rem.Date = DateTime.Now.ToString();
@@ -265,6 +275,19 @@ namespace RemindMe
             //todo tbtime.Location = new Point(numPostponeTime.Location.X + numPostponeTime.Width + 3, numPostponeTime.Location.Y - 7);
             btnOk.Location = new Point(pnlFooter.Width - btnOk.Width - 3, pnlFooter.Height - btnOk.Height - 3);
 
+        }
+
+        public List<string> GetLinks(string message)
+        {
+            List<string> list = new List<string>();
+            Regex urlRx = new Regex(@"((https?|ftp|file)\://|www.)[A-Za-z0-9\.\-]+(/[A-Za-z0-9\?\&\=;\+!'\(\)\*\-\._~%]*)*", RegexOptions.IgnoreCase);
+
+            MatchCollection matches = urlRx.Matches(message);
+            foreach (Match match in matches)
+            {
+                list.Add(match.Value);
+            }
+            return list;
         }
 
         private void numPostponeTime_ValueChanged(object sender, EventArgs e)
