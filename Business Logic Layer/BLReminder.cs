@@ -25,9 +25,10 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <returns></returns>
         public static List<Reminder> GetReminders()
-        {
-            //currently no business logic
-            return DLReminders.GetReminders();
+        {            
+            List<Reminder> reminders = DLReminders.GetReminders();
+            GC.Collect();
+            return reminders;
         }
 
         /// <summary>
@@ -35,9 +36,10 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <returns></returns>
         public static List<Reminder> GetAllReminders()
-        {
-            //currently no business logic
-            return DLReminders.GetAllReminders();
+        {                      
+            List<Reminder> reminders = DLReminders.GetAllReminders();
+            GC.Collect();
+            return reminders;
         }
         /// <summary>
         /// Gets all (enabled) reminders which are happening today.
@@ -97,6 +99,10 @@ namespace Business_Logic_Layer
             {
                 return ex;
             }
+            finally
+            {
+                GC.Collect();
+            }
         }
         /// <summary>
         /// Get all reminders that are marked as deleted
@@ -104,7 +110,9 @@ namespace Business_Logic_Layer
         /// <returns></returns>
         public static List<Reminder> GetDeletedReminders()
         {
-            return DLReminders.GetDeletedReminders();
+            List<Reminder> reminders = DLReminders.GetDeletedReminders();
+            GC.Collect();
+            return reminders;            
         }
 
         /// <summary>
@@ -113,7 +121,9 @@ namespace Business_Logic_Layer
         /// <returns></returns>
         public static List<Reminder> GetArchivedReminders()
         {
-            return DLReminders.GetArchivedReminders();
+            List<Reminder> reminders = DLReminders.GetArchivedReminders();
+            GC.Collect();
+            return reminders;            
         }
 
 
@@ -125,6 +135,8 @@ namespace Business_Logic_Layer
         {
             if (rem != null && GetReminderById(rem.Id) != null) //Check if the reminder exists and isnt null
                 DLReminders.PermanentelyDeleteReminder(rem);
+
+            GC.Collect();
         }
 
         /// <summary>
@@ -133,7 +145,8 @@ namespace Business_Logic_Layer
         /// <param name="rem">The reminder you wish to archive</param>
         public static void ArchiveReminder(Reminder rem)
         {
-            ArchiveReminder(rem);
+            DLReminders.ArchiveReminder(rem);
+            GC.Collect();
         }
 
 
@@ -143,7 +156,8 @@ namespace Business_Logic_Layer
         public static void NotifyChange()
         {
             BLIO.Log("BLReminder.NotifyChange()");
-            DLReminders.NotifyChange();
+            DLReminders.NotifyChange();            
+            GC.Collect();            
         }
         /// <summary>
         /// Gets an reminder with the matching unique id.
@@ -154,7 +168,11 @@ namespace Business_Logic_Layer
         {
             BLIO.Log("BLReminder.GetReminderById(" + id + ")");
             if (id != -1)
-                return DLReminders.GetReminderById(id);
+            {
+                Reminder reminder = DLReminders.GetReminderById(id);
+                GC.Collect();
+                return reminder;               
+            }
             else
                 return null;
         }
@@ -183,6 +201,7 @@ namespace Business_Logic_Layer
                 default: if (rem.EveryXCustom != null) { UpdateReminderDateByRepeatType(rem); }
                     break;
             }
+             GC.Collect();
         }
 
         private static void SkipWorkdaysReminder(Reminder rem)

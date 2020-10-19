@@ -25,7 +25,7 @@ namespace RemindMe
         private Reminder rem;
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-
+        private bool xClose = true;
         public MaterialPopup(Reminder rem)
         {
             AddFont(Properties.Resources.Roboto_Medium);
@@ -40,7 +40,7 @@ namespace RemindMe
             //lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
             this.Text = rem.Name;
 
-            lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 10, 0);            
+            lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 20, 0);            
 
             
             
@@ -298,14 +298,18 @@ namespace RemindMe
         private void Popup2_SizeChanged(object sender, EventArgs e)
         {
             RepositionControls();
-            lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 10, 0);
+            lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 20, 0);
             var test = this.Height - (this.StatusBarHeight + this.ActionBarHeight);
             pnlText.Size = new Size(this.Width, (this.Height - 145));
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            rem = BLReminder.GetReminderById(rem.Id);
+            if (xClose)
+                xClose = false;
+
+            if (rem != null)
+                rem = BLReminder.GetReminderById(rem.Id);
 
             if (rem == null)
                 goto close;
@@ -365,13 +369,14 @@ namespace RemindMe
                     BLReminder.UpdateReminder(rem);
                 }
             }
-
-        close:
+            
+            close:
             MUCReminders.Instance.UpdateCurrentPage();
             BLIO.Log("Stopping media player & Closing popup");
-            myPlayer.controls.stop();
-            btnOk.Enabled = false;
+            myPlayer.controls.stop();            
             this.Close();
+
+            GC.Collect();
         }
 
         private void numPostponeTime_KeyUp(object sender, KeyEventArgs e)
@@ -423,6 +428,9 @@ namespace RemindMe
         {
             if (e.CloseReason == CloseReason.WindowsShutDown)
                 e.Cancel = true;
+
+            if (e.CloseReason == CloseReason.UserClosing && xClose)
+                btnOk_Click(sender, e);
 
             MaterialForm1.MaterialSkinManager.RemoveFormToManage(this);
         }

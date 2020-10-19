@@ -144,7 +144,10 @@ namespace RemindMe
             set
             {
                 editableReminder = value;
-                ResetReminderForm();
+
+                if(value != null)
+                    ResetReminderForm();
+
                 FillControlsForEdit(editableReminder);               
             }
         }
@@ -1199,7 +1202,9 @@ namespace RemindMe
                 ShowOrHideExclamation();
 
                 //MakeScrollingPopupMessage("Some fields are not valid. Please see the exclaminations");
+                
                 BLIO.Log("Could not create a reminder. some fields are not valid (MUCNewReminder)");
+                RemindMeBox.Show("Some fields are invalid. Could not create new Reminder.");
                 return;
             }
 
@@ -1395,6 +1400,8 @@ namespace RemindMe
             callback.Visible = true;
             this.Visible = false;
             saveState = false;
+
+            GC.Collect();
         }
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)

@@ -34,9 +34,6 @@
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.cbHideReminder = new MaterialSkin.Controls.MaterialSwitch();
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
-            this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
-            this.pnlRight = new System.Windows.Forms.Panel();
-            this.pnlLeft = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // btnConfirm
@@ -47,7 +44,7 @@
             this.btnConfirm.DrawShadows = true;
             this.btnConfirm.HighEmphasis = true;
             this.btnConfirm.Icon = global::RemindMe.Properties.Resources.saveWhite;
-            this.btnConfirm.Location = new System.Drawing.Point(13, 364);
+            this.btnConfirm.Location = new System.Drawing.Point(38, 320);
             this.btnConfirm.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnConfirm.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConfirm.Name = "btnConfirm";
@@ -93,7 +90,7 @@
             // 
             this.cbHideReminder.AutoSize = true;
             this.cbHideReminder.Depth = 0;
-            this.cbHideReminder.Location = new System.Drawing.Point(38, 317);
+            this.cbHideReminder.Location = new System.Drawing.Point(217, 318);
             this.cbHideReminder.Margin = new System.Windows.Forms.Padding(0);
             this.cbHideReminder.MouseLocation = new System.Drawing.Point(-1, -1);
             this.cbHideReminder.MouseState = MaterialSkin.MouseState.HOVER;
@@ -109,38 +106,10 @@
             this.tmrFadeIn.Interval = 10;
             this.tmrFadeIn.Tick += new System.EventHandler(this.tmrFadeIn_Tick);
             // 
-            // materialProgressBar1
-            // 
-            this.materialProgressBar1.Depth = 0;
-            this.materialProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.materialProgressBar1.Location = new System.Drawing.Point(0, 406);
-            this.materialProgressBar1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialProgressBar1.Name = "materialProgressBar1";
-            this.materialProgressBar1.Size = new System.Drawing.Size(590, 5);
-            this.materialProgressBar1.TabIndex = 132;
-            this.materialProgressBar1.Value = 100;
-            // 
-            // pnlRight
-            // 
-            this.pnlRight.Location = new System.Drawing.Point(586, 63);
-            this.pnlRight.Name = "pnlRight";
-            this.pnlRight.Size = new System.Drawing.Size(5, 344);
-            this.pnlRight.TabIndex = 133;
-            // 
-            // pnlLeft
-            // 
-            this.pnlLeft.Location = new System.Drawing.Point(0, 63);
-            this.pnlLeft.Name = "pnlLeft";
-            this.pnlLeft.Size = new System.Drawing.Size(5, 344);
-            this.pnlLeft.TabIndex = 134;
-            // 
             // MaterialAdvancedReminderForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(590, 411);
-            this.Controls.Add(this.pnlLeft);
-            this.Controls.Add(this.pnlRight);
-            this.Controls.Add(this.materialProgressBar1);
+            this.ClientSize = new System.Drawing.Size(590, 376);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.cbHideReminder);
             this.Controls.Add(this.materialLabel1);
@@ -150,8 +119,7 @@
             this.Name = "MaterialAdvancedReminderForm";
             this.Text = "Advanced Reminder functionality";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialAdvancedReminderForm_FormClosing);
-            this.Load += new System.EventHandler(this.MaterialAdvancedReminderForm_Load);
-            this.VisibleChanged += new System.EventHandler(this.MaterialAdvancedReminderForm_VisibleChanged);
+            this.Load += new System.EventHandler(this.MaterialAdvancedReminderForm_Load);            
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,8 +131,5 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialSwitch cbHideReminder;
         private System.Windows.Forms.Timer tmrFadeIn;
-        private MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
-        private System.Windows.Forms.Panel pnlRight;
-        private System.Windows.Forms.Panel pnlLeft;
     }
 }

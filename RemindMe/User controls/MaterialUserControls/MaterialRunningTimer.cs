@@ -45,16 +45,18 @@ namespace RemindMe
         }
         private void SetTimeRemainingTextLabel()
         {
-            TimeSpan time = TimeSpan.FromSeconds((double)tmr.SecondsRemaining);
+            TimeSpan time = (tmr.PopupDate - DateTime.Now);
             seconds = time.Seconds;
             minutes = time.Minutes;
-            hours = time.Hours;
+            hours = (time.Days * 24) + time.Hours;
+            
 
             secondText = "" + seconds;
             minuteText = "" + minutes;
             hourText = "" + hours;
 
             lblTimerTime.Text = TimerText;
+            lblTimerName.Location = new Point((lblTimerTime.Location.X + lblTimerTime.Width)+5, lblTimerName.Location.Y);
         }
 
 
@@ -75,12 +77,12 @@ namespace RemindMe
             lblTimerName.Text = tmr.TimerText;
             if (string.IsNullOrEmpty(lblTimerName.Text))
                 lblTimerName.Text = "( No name set )";
-
-            TimeSpan time = TimeSpan.FromSeconds((double)tmr.SecondsRemaining);
+            
+            TimeSpan time = (tmr.PopupDate - DateTime.Now);
 
             seconds = time.Seconds;
             minutes = time.Minutes;
-            hours = time.Hours;
+            hours = (time.Days * 24) + time.Hours;
 
             //Text that will show, example: 00:04:33
             secondText = "" + seconds;
@@ -88,6 +90,7 @@ namespace RemindMe
             hourText = "" + hours;
 
             lblTimerTime.Text = TimerText;
+            lblTimerName.Location = new Point((lblTimerTime.Location.X + lblTimerTime.Width) + 5, lblTimerName.Location.Y);
             tmrTickDownTime.Start();
 
             SetTimerIcon();
@@ -123,21 +126,22 @@ namespace RemindMe
                 if (minutes > 0)
                 {
                     minutes--;
-                    minutes = 59;
+                    seconds = 59;
                 }
                 else
                 {
                     if (hours > 0)
                     {
                         hours--;
-                        hours = 59;
-                        hours = 59;
+                        minutes = 59;
+                        seconds = 59;
                     }//Else probably no time left.
 
                 }
             }
 
             lblTimerTime.Text = TimerText;
+            lblTimerName.Location = new Point((lblTimerTime.Location.X + lblTimerTime.Width) + 5, lblTimerName.Location.Y);
 
 
             if (seconds == 0 && minutes == 0 && hours == 0)

@@ -75,7 +75,7 @@ namespace RemindMe
             else
                 shuffleIndex = 0;
             
-            MaterialForm1.Instance.Invalidate();
+            MaterialForm1.Instance.Invalidate();            
         }
 
         private void materialSwitch4_CheckedChanged(object sender, EventArgs e)
@@ -113,6 +113,8 @@ namespace RemindMe
             MaterialForm1.Instance.UpdateTheme(null);
 
             SetThemeText();
+
+            GC.Collect();
         }
 
         private void btnSaveTheme_Click(object sender, EventArgs e)
@@ -207,7 +209,9 @@ namespace RemindMe
             currentSelectedTheme = theme;
             Settings set = BLLocalDatabase.Setting.Settings;
             set.CurrentTheme = theme.Id;
-            BLLocalDatabase.Setting.UpdateSettings(set);            
+            BLLocalDatabase.Setting.UpdateSettings(set);
+
+            GC.Collect();
         }
 
 

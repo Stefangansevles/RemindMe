@@ -145,6 +145,8 @@ namespace Data_Access_Layer
                 rem = (from g in db.Reminder select g).Where(i => i.Id == id).SingleOrDefault();
                 db.Dispose();
             }
+
+            GC.Collect();
             return rem;
         }
 

@@ -382,6 +382,8 @@ namespace RemindMe
             SetPageButtonIcons(reminders);
             foreach (MUCReminderItem itm in pnlReminders.Controls)
                 itm.RefreshLabelFont();
+
+            GC.Collect();
         }
 
         public void SetPageButtonIcons(List<Reminder> reminders)
@@ -599,6 +601,8 @@ namespace RemindMe
             MaterialForm1.Instance.UpdatePageNumber(pageNumber);
             foreach (MUCReminderItem itm in pnlReminders.Controls)
                 itm.RefreshLabelFont();
+
+            GC.Collect();
         }
 
         public void RefreshPage()

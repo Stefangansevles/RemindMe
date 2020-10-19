@@ -221,6 +221,7 @@
             // 
             // pnlText
             // 
+            this.pnlText.AutoScroll = true;
             this.pnlText.Controls.Add(this.lblNoteText);
             this.pnlText.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlText.Location = new System.Drawing.Point(0, 78);

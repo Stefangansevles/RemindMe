@@ -1062,3 +1062,9 @@ added [] around table names that could create errors, like "primary"
 3.0.11
 - Links on a reminder popup are now highlighted and clickable! (why wasn't this in before? idk)
 - You can now convert running timers into reminders when closing RemindMe if you have timers running.
+
+
+3.0.12
+- Reminder popups with large texts now contain a vertical scrolling bar instead
+- Fixed a small issue where pressing the 'x' on a reminder (instead of the "OK" button) did not function correctly
+- Added a message informing you that some fields are still invalid when creating a reminder with invalid fields (for example date)

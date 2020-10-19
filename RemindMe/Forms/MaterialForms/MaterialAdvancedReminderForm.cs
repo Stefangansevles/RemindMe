@@ -72,13 +72,7 @@ namespace RemindMe
                 MaterialMessageFormManager.MakeMessagePopup("Advanced settings applied/updated", 5);
 
             Hide();
-        }
-
-        private void MaterialAdvancedReminderForm_VisibleChanged(object sender, EventArgs e)
-        {
-            pnlRight.BackColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.PrimaryColor;
-            pnlLeft.BackColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.PrimaryColor;
-        }
+        }        
 
         private void MaterialAdvancedReminderForm_FormClosing(object sender, FormClosingEventArgs e)
         {

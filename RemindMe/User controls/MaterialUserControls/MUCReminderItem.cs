@@ -183,6 +183,8 @@ namespace RemindMe
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
             btnDisable.Enabled = false;
+
+            GC.Collect();
         }
 
 
@@ -383,6 +385,10 @@ namespace RemindMe
                         BLIO.Log("Exception at BLOnlineDatabase.PreviewCount++. -> " + ex.Message);
                         BLIO.WriteError(ex, ex.Message, true);
                     }
+                    finally
+                    {
+                        GC.Collect();
+                    }
                 }
                 catch (ArgumentException ex)
                 {
@@ -448,6 +454,10 @@ namespace RemindMe
                 {
                     BLIO.Log("Exception at BLOnlineDatabase.DuplicateCount++. -> " + ex.Message);
                     BLIO.WriteError(ex, ex.Message, true);
+                }
+                finally
+                {
+                    GC.Collect();
                 }
             }).Start();
         }
@@ -519,6 +529,10 @@ namespace RemindMe
                         BLIO.Log("Exception at BLOnlineDatabase.HideCount++. -> " + ex.Message);
                         BLIO.WriteError(ex, ex.Message, true);
                     }
+                    finally
+                    {
+                        GC.Collect();
+                    }
                 }).Start();
             }
             else
@@ -576,6 +590,10 @@ namespace RemindMe
                     BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
                     BLIO.WriteError(ex, ex.Message, true);
                 }
+                finally
+                {
+                    GC.Collect();
+                }
             }).Start();
         }
 
@@ -614,6 +632,10 @@ namespace RemindMe
                     BLIO.Log("Exception at BLOnlineDatabase.SkipCount++. -> " + ex.Message);
                     BLIO.WriteError(ex, ex.Message, true);
                 }
+                finally
+                {
+                    GC.Collect();
+                }
             }).Start();
         }
 
@@ -640,6 +662,10 @@ namespace RemindMe
                     {
                         BLIO.Log("Exception at BLOnlineDatabase.PermanentelyDeleteCount++. -> " + ex.Message);
                         BLIO.WriteError(ex, ex.Message, true);
+                    }
+                    finally
+                    {
+                        GC.Collect();
                     }
                 }).Start();
             }
