@@ -291,13 +291,8 @@ namespace RemindMe
             }
 
             //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
-            if (rbNoRepeat.Checked || rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" && cbEveryXCustom.SelectedItem.ToString() == "Hours")
-                pnlUpdateTime.Visible = false;
-            else
-                pnlUpdateTime.Visible = true;
-
-            swUpdateTime.Checked = Convert.ToBoolean(rem.UpdateTime);
-            pnlUpdateTime.Visible = !(rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" || cbEveryXCustom.SelectedItem.ToString() == "Hours");
+            pnlUpdateTime.Visible = !rbNoRepeat.Checked;            
+            swUpdateTime.Checked = Convert.ToBoolean(rem.UpdateTime);            
         }
 
 
@@ -761,11 +756,7 @@ namespace RemindMe
             pnlUpdateTime.Location = new Point(pnlUpdateTime.Location.X, (tbNote.Location.Y + tbNote.Height));
 
             //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
-            if (rbNoRepeat.Checked || rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" && cbEveryXCustom.SelectedItem.ToString() == "Hours")
-                pnlUpdateTime.Visible = false;
-            else
-                pnlUpdateTime.Visible = true;
-
+            pnlUpdateTime.Visible = !rbNoRepeat.Checked;            
         }
 
         private void label13_Click(object sender, EventArgs e)
@@ -987,7 +978,7 @@ namespace RemindMe
 
 
             //Will be different based on what repeating method the user has selected
-            if (!string.IsNullOrWhiteSpace(tbReminderName.Text) && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now || rbNoRepeat.Checked)) //for the radiobuton rbnorepeat it doesn't matter if the datetime pickers have dates from the past, because it checks the added dates in the cbMultipleDates ComboBox
+            if (!string.IsNullOrWhiteSpace(tbReminderName.Text) && (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) > DateTime.Now /*|| rbNoRepeat.Checked*/)) //for the radiobuton rbnorepeat it doesn't matter if the datetime pickers have dates from the past, because it checks the added dates in the cbMultipleDates ComboBox
             {
                 ReminderRepeatType repeat = new ReminderRepeatType();
                 if (rbMonthly.Checked)
@@ -1189,22 +1180,14 @@ namespace RemindMe
             else
             {
                 if (string.IsNullOrWhiteSpace(tbReminderName.Text))
-                {//User didnt fill in a title
-                    //tbReminderName.LineIdleColor = Color.Red;                    
-                    //toolTip1.SetToolTip(pbExclamationTitle, "Please enter a title.");
-                }
+                    MaterialRemindMeBox.Show("Please give the Reminder a name.");
+                else if (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) < DateTime.Now)
+                    MaterialRemindMeBox.Show("You can't select a date in the past.\r\n("+ dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString() + ")");     //User selected a date in the past
                 else
-                {//if(!cbmonthly.selected) TODO
-                    tbReminderName.BackColor = Color.DimGray;                    
-                }
+                    MaterialRemindMeBox.Show("Some fields are invalid. Could not create new Reminder.");                                
 
-
-                ShowOrHideExclamation();
-
-                //MakeScrollingPopupMessage("Some fields are not valid. Please see the exclaminations");
-                
                 BLIO.Log("Could not create a reminder. some fields are not valid (MUCNewReminder)");
-                RemindMeBox.Show("Some fields are invalid. Could not create new Reminder.");
+                
                 return;
             }
 
@@ -1362,25 +1345,8 @@ namespace RemindMe
         private void ShowOrHideExclamation()
         {
 
-            if (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) < DateTime.Now)
-            {//User selected a date in the past
-               
-                
-            }
            
-
-
-            if (rbWorkDays.Checked)
-            {
-                /*Is the selected day a workday?                
-                if (dtpDate.Value.DayOfWeek != DayOfWeek.Saturday && dtpDate.Value.DayOfWeek != DayOfWeek.Sunday)
-                    pbExclamationWorkday.Visible = false;
-                else
-                {
-                   
-                    toolTip1.SetToolTip(pbExclamationWorkday, "The day you selected is not a work day.");
-                }*/
-            }
+           
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -1598,14 +1564,11 @@ namespace RemindMe
             tbNote.Location = new Point(groupRepeatRadiobuttons.Location.X, (groupRepeatRadiobuttons.Location.Y + groupRepeatRadiobuttons.Size.Height) + 3);
         }
         private void cbEveryXCustom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            pnlUpdateTime.Visible = !(rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" || cbEveryXCustom.SelectedItem.ToString() == "Hours");
+        {            
         }
 
         private void pnlUpdateTime_VisibleChanged(object sender, EventArgs e)
-        {
-            if (pnlUpdateTime.Visible)
-                pnlUpdateTime.Visible = !(rbEveryXCustom.Checked && cbEveryXCustom.SelectedItem.ToString() == "Minutes" || cbEveryXCustom.SelectedItem.ToString() == "Hours");
+        {            
         }
 
         private void btnAddDate_VisibleChanged(object sender, EventArgs e)

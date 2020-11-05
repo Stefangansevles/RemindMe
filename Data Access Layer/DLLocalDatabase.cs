@@ -95,7 +95,7 @@ namespace Data_Access_Layer
                 {
 
                     var count = db.Hotkeys.Where(o => o.Id >= hotkey.Id).Count();
-                    if (count == 1)
+                    if (count > 0)
                     {
                         db.Hotkeys.Attach(hotkey);
                         var entry = db.Entry(hotkey);

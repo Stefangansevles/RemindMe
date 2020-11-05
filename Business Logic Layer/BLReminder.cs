@@ -534,10 +534,16 @@ namespace Business_Logic_Layer
                         switch (rem.RepeatType.ToLower())
                         {
                             case "minutes":
-                                rem.Date = Convert.ToDateTime(rem.Date).AddMinutes((double)rem.EveryXCustom).ToString();
+                                if (rem.UpdateTime == 1)
+                                    rem.Date = DateTime.Now.AddMinutes((double)rem.EveryXCustom).ToString();
+                                else
+                                    rem.Date = Convert.ToDateTime(rem.Date).AddMinutes((double)rem.EveryXCustom).ToString();
                                 break;
                             case "hours":
-                                rem.Date = Convert.ToDateTime(rem.Date).AddHours((double)rem.EveryXCustom).ToString();
+                                if (rem.UpdateTime == 1)
+                                    rem.Date =DateTime.Now.AddHours((double)rem.EveryXCustom).ToString();
+                                else
+                                    rem.Date = Convert.ToDateTime(rem.Date).AddHours((double)rem.EveryXCustom).ToString();
                                 break;
                             case "days":
                                 rem.Date = Convert.ToDateTime(rem.Date).AddDays((double)rem.EveryXCustom).ToString();

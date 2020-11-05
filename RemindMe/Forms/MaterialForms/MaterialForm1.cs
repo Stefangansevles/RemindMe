@@ -575,9 +575,9 @@ namespace RemindMe
             //1. Has a fade-in like animation when showing
             //2. No longer shows flickery that occurs when drawing the form(windows-forms drawing issue)
             allowshowdisplay = true;
-            this.ShowInTaskbar = true;
+            this.ShowInTaskbar = true;            
             this.Show();
-            tmrFadeIn.Start(); ;
+            tmrFadeIn.Start();
             BLIO.Log("Show remindme toolstrip menu item clicked(not double-click). Showing remindme");
         }
 
@@ -727,7 +727,7 @@ namespace RemindMe
             if (MUCTimer.RunningTimers.Count > 0)
             {      
                 
-                if (MaterialRemindMeBox.Show("You have (" + MUCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved\r\n\r\nClick here to convert these Timers into Reminders and close RemindMe", RemindMeBoxReason.YesNo) == DialogResult.No)
+                if (MaterialRemindMeBox.Show("You have (" + MUCTimer.RunningTimers.Count + ") active timers running.\r\n\r\nAre you sure you wish to close RemindMe? These timers will not be saved\r\n\r\nClick here to convert these Timers into Reminders and close RemindMe", RemindMeBoxReason.YesNo,false,FormStartPosition.CenterScreen) == DialogResult.No)
                 {
                     e.Cancel = true;
                     shouldClose = false;

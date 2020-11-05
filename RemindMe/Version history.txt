@@ -1068,3 +1068,6 @@ added [] around table names that could create errors, like "primary"
 - Reminder popups with large texts now contain a vertical scrolling bar instead
 - Fixed a small issue where pressing the 'x' on a reminder (instead of the "OK" button) did not function correctly
 - Added a message informing you that some fields are still invalid when creating a reminder with invalid fields (for example date)
+
+3.0.13
+- Fixed an issue where you could not update the quick-timer and/or show-running-timers hotkey.

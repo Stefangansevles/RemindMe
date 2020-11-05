@@ -206,6 +206,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MaterialRemindMeBox";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.StatusBarHeight = 0;
             this.Text = "Attention!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialRemindMeBox_FormClosing);

@@ -85,6 +85,7 @@ namespace RemindMe
             releaseNotes.Add("3.0.10", "This version should no longer create errors when loading RemindMe when checking for stored settings and data");
             releaseNotes.Add("3.0.11", "- Links on a reminder popup are now highlighted and clickable! try it out by pasting a link into a reminder :)\r\n- You can now convert running timers into reminders when closing RemindMe if you have timers running.");
             releaseNotes.Add("3.0.12", "- Reminder popups with large texts now contain a vertical scrolling bar instead\r\n- Fixed a small issue where pressing the 'x' on a reminder(instead of the \"OK\" button) did not function correctly\r\n- Added a message informing you that some fields are still invalid when creating a reminder with invalid fields(for example date) ");
+            releaseNotes.Add("3.0.13", "- Fixed an issue where you could not update the quick-timer and/or show-running-timers hotkey.");
         }
 
         public static Dictionary<string,string> ReleaseNotes

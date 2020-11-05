@@ -34,7 +34,7 @@ namespace RemindMe
             AddFont(Properties.Resources.Roboto_Medium);
             
             showDontRemind = showDontRemindOption;
-
+            
             if (buttons == RemindMeBoxReason.YesNo)
             {
                 btnYes.Visible = true;
@@ -158,25 +158,28 @@ namespace RemindMe
             this.Close();
         }
 
-        public static DialogResult Show(string text, bool showDontRemindOption = false)
+        public static DialogResult Show(string text, bool showDontRemindOption = false, FormStartPosition position = FormStartPosition.CenterParent)
         {
             newMessageBox = new MaterialRemindMeBox(text, RemindMeBoxReason.OK, showDontRemindOption);
+            newMessageBox.StartPosition = position;
             MaterialForm1.MaterialSkinManager.AddFormToManage(newMessageBox);
             newMessageBox.ShowDialog();
             BLIO.Log("Closing RemindMeBox with result " + result);
             return result;
         }
-        public static DialogResult Show(string text, RemindMeBoxReason buttons, bool showDontRemindOption = false)
+        public static DialogResult Show(string text, RemindMeBoxReason buttons, bool showDontRemindOption = false, FormStartPosition position = FormStartPosition.CenterParent)
         {
             newMessageBox = new MaterialRemindMeBox(text, buttons, showDontRemindOption);
+            newMessageBox.StartPosition = position;
             MaterialForm1.MaterialSkinManager.AddFormToManage(newMessageBox);
             newMessageBox.ShowDialog();
             BLIO.Log("Closing RemindMeBox with result " + result);
             return result;
         }
-        public static DialogResult Show(string text, string title, RemindMeBoxReason buttons, bool showDontRemindOption = false)
+        public static DialogResult Show(string text, string title, RemindMeBoxReason buttons, bool showDontRemindOption = false, FormStartPosition position = FormStartPosition.CenterParent)
         {
             newMessageBox = new MaterialRemindMeBox(text, title, buttons, showDontRemindOption);
+            newMessageBox.StartPosition = position;
             MaterialForm1.MaterialSkinManager.AddFormToManage(newMessageBox);
             newMessageBox.ShowDialog();
             BLIO.Log("Closing RemindMeBox with result " + result);
