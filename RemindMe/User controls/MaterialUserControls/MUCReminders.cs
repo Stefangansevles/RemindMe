@@ -219,10 +219,16 @@ namespace RemindMe
         private void btnAddReminder_Click(object sender, EventArgs e)
         {            
             BLIO.Log("btnAddReminder_Click");
-            newReminderUc.Visible = true;            
-            newReminderUc.Reminder = null; 
             this.Visible = false;
+            newReminderUc.Reminder = null;
 
+            if (newReminderUc.AVRForm != null)
+            {
+                newReminderUc.AVRForm.Dispose();
+                newReminderUc.AVRForm = null;
+            }
+
+            newReminderUc.Visible = true;                       
             GC.Collect();
         }
 

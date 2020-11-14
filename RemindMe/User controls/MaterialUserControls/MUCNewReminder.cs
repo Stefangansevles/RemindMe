@@ -38,7 +38,7 @@ namespace RemindMe
 
         UserControl callback;
 
-        MaterialAdvancedReminderForm AVRForm;
+        public MaterialAdvancedReminderForm AVRForm;
 
         //If the user was editing an reminder, and selecter another screen from the left panel, we need to save this state
         public bool saveState = false;
@@ -1179,6 +1179,9 @@ namespace RemindMe
 
         private void CreateAdvancedReminderProperties(long remId)
         {
+            if (AVRForm == null)
+                return;
+
             Reminder rem = BLReminder.GetReminderById(remId);            
             BLReminder.EditReminder(rem);
 

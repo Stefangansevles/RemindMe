@@ -1074,3 +1074,6 @@ added [] around table names that could create errors, like "primary"
 
 3.0.20
 - Massive performance increasement. RemindMe's drawer now no longer lags and switching to and back the new reminder screen is also faster
+
+3.0.21
+- Fixed an issue where creating a reminder would show an error. Whoops..
