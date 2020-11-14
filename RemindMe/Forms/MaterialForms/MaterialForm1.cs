@@ -861,7 +861,7 @@ namespace RemindMe
         private void tmrRemoveDebug_Tick(object sender, EventArgs e)
         {            
             mainTabControl.Controls.Remove(tabDebug);
-            tmrRemoveDebug.Stop(); 
+            tmrRemoveDebug.Stop();
         }
     }
 }
