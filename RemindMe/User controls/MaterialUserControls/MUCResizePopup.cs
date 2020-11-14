@@ -72,9 +72,9 @@ namespace RemindMe
         /// </summary>
         private void refreshTrackbars()
         {            
-            trbWidth.IndicatorColor = MaterialForm1.MaterialSkinManager.ColorScheme.PrimaryColor;
-            trbHeight.IndicatorColor = MaterialForm1.MaterialSkinManager.ColorScheme.PrimaryColor;            
-            trbNoteFont.IndicatorColor = MaterialForm1.MaterialSkinManager.ColorScheme.PrimaryColor;
+            trbWidth.IndicatorColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.PrimaryColor;
+            trbHeight.IndicatorColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.PrimaryColor;            
+            trbNoteFont.IndicatorColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.PrimaryColor;
 
             trbWidth.BackgroudColor = Color.DarkGray;
             trbHeight.BackgroudColor = Color.DarkGray;            
@@ -248,7 +248,7 @@ namespace RemindMe
             if (testPop == null || testPop.IsDisposed)
             {
                 testPop = new MaterialPopup(testrem); //create a new instance    
-                MaterialForm1.MaterialSkinManager.AddFormToManage(testPop);
+                MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(testPop);
                 testPop.MaximumSize = new Size(int.MaxValue, int.MaxValue);
                 testPop.Width = (int)trbWidth.Value;
                 testPop.Height = (int)trbHeight.Value;                                                

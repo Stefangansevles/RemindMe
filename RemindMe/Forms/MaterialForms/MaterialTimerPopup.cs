@@ -22,8 +22,8 @@ namespace RemindMe
         private static MaterialTimerPopup instance = null;
 
         public MaterialTimerPopup()
-        {            
-            MaterialForm1.MaterialSkinManager.AddFormToManage(this);
+        {
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
 
             InitializeComponent();
             instance = this;

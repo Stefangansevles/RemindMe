@@ -55,7 +55,7 @@ namespace RemindMe
                 Primary lp = (Primary)Enum.Parse(typeof(Primary), cbLightPrimary.SelectedItem.ToString());
                 Accent acc = (Accent)Enum.Parse(typeof(Accent), cbAccent.SelectedItem.ToString());
                 TextShade ts = (TextShade)Enum.Parse(typeof(TextShade), cbTextShade.SelectedItem.ToString());
-                MaterialForm1.MaterialSkinManager.ColorScheme = new ColorScheme(p, dp, lp, acc, ts);
+                MaterialSkin.MaterialSkinManager.Instance.ColorScheme = new ColorScheme(p, dp, lp, acc, ts);
                 
                 //Make sure the form header also changes color
                 MaterialForm1.Instance.Invalidate();
@@ -107,14 +107,14 @@ namespace RemindMe
 
         private void materialButton7_Click(object sender, EventArgs e)
         {
-            MaterialForm1.MaterialSkinManager.Theme = MaterialForm1.MaterialSkinManager.Theme == MaterialSkinManager.Themes.DARK ? MaterialSkinManager.Themes.LIGHT : MaterialSkinManager.Themes.DARK;
+            //This timer is used to prevent lagging when spam-clicking
 
-            //Update all icons accordingly
-            MaterialForm1.Instance.UpdateTheme(null);
+            tmrChangeTheme.Stop();
 
-            SetThemeText();
-
-            GC.Collect();
+            MaterialSkin.MaterialSkinManager.Instance.Theme = MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkinManager.Themes.DARK ? MaterialSkinManager.Themes.LIGHT : MaterialSkinManager.Themes.DARK;
+            string text = btnTheme.Text == "Dark mode" ? "Light mode" : "Dark mode";
+            btnTheme.Text = text;
+            tmrChangeTheme.Start();
         }
 
         private void btnSaveTheme_Click(object sender, EventArgs e)
@@ -205,7 +205,9 @@ namespace RemindMe
             cbAccent.SelectedIndex = Array.IndexOf(Enum.GetValues(acc.GetType()), acc);
             cbTextShade.SelectedIndex = Array.IndexOf(Enum.GetValues(ts.GetType()), ts);
 
-            MaterialSkinManager.Instance.Theme = (MaterialSkinManager.Themes)theme.Mode;
+            if(MaterialSkinManager.Instance.Theme != (MaterialSkinManager.Themes)theme.Mode) //changing theme to the same theme is still expensive
+                MaterialSkinManager.Instance.Theme = (MaterialSkinManager.Themes)theme.Mode;
+
             currentSelectedTheme = theme;
             Settings set = BLLocalDatabase.Setting.Settings;
             set.CurrentTheme = theme.Id;
@@ -277,7 +279,7 @@ namespace RemindMe
         }
         private void SetThemeText()
         {
-            if (MaterialForm1.MaterialSkinManager.Theme == MaterialSkinManager.Themes.DARK)
+            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkinManager.Themes.DARK)
                 btnTheme.Text = "Light mode";
             else
                 btnTheme.Text = "Dark mode";
@@ -342,6 +344,18 @@ namespace RemindMe
                 cbLoadTheme.Text = "";
                 currentSelectedTheme = null;
             }
+        }
+
+        private void tmrChangeTheme_Tick(object sender, EventArgs e)
+        {
+            tmrChangeTheme.Stop();
+
+            //Update all icons accordingly
+            MaterialForm1.Instance.UpdateTheme(null);
+
+            SetThemeText();
+
+            GC.Collect();            
         }
     }
 }

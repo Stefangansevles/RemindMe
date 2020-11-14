@@ -60,13 +60,13 @@ namespace RemindMe
         {
             lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
 
-            if (MaterialForm1.MaterialSkinManager.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
                 lblText.ForeColor = Color.White;
         }
 
         private void MaterialWhatsNew_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MaterialForm1.MaterialSkinManager.RemoveFormToManage(this);
+            MaterialSkin.MaterialSkinManager.Instance.RemoveFormToManage(this);
         }
     }
 }

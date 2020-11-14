@@ -359,7 +359,7 @@ namespace RemindMe
 
         private void RemindMeMaterialMessageForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MaterialForm1.MaterialSkinManager.RemoveFormToManage(this);
+            MaterialSkin.MaterialSkinManager.Instance.RemoveFormToManage(this);
 
             closed = true;
             MaterialMessageFormManager.RepositionActivePopups();

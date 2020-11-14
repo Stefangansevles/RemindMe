@@ -1071,3 +1071,6 @@ added [] around table names that could create errors, like "primary"
 
 3.0.13
 - Fixed an issue where you could not update the quick-timer and/or show-running-timers hotkey.
+
+3.0.20
+- Massive performance increasement. RemindMe's drawer now no longer lags and switching to and back the new reminder screen is also faster

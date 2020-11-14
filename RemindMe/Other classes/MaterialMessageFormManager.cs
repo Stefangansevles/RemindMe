@@ -53,7 +53,7 @@ namespace RemindMe
         public static void MakeMessagePopup(string message, int popDelay, string title = "")
         {
             RemindMeMaterialMessageForm popupForm = new RemindMeMaterialMessageForm(message, popDelay);
-            MaterialForm1.MaterialSkinManager.AddFormToManage(popupForm);
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(popupForm);
             if (title != "")
                 popupForm.Title = title;
 

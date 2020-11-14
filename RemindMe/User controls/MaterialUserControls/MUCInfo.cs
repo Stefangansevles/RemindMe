@@ -20,15 +20,15 @@ namespace RemindMe
             AddFont(Properties.Resources.Roboto_Medium);
             lblVersion.Text += IOVariables.RemindMeVersion;
 
-            MaterialForm1.MaterialSkinManager.ThemeChanged += MaterialSkinManager_ThemeChanged;
+            MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += MaterialSkinManager_ThemeChanged;
 
             lblPreviousVersions.Font = new Font(pfc.Families[0], 14, FontStyle.Bold, GraphicsUnit.Pixel);
         }
 
         private void MaterialSkinManager_ThemeChanged(object sender)
         {
-            lblPreviousVersions.LinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.AccentColor;
-            lblPreviousVersions.ActiveLinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.LightPrimaryColor;
+            lblPreviousVersions.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+            lblPreviousVersions.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
         }
 
         [DllImport("gdi32.dll")]

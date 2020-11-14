@@ -51,14 +51,13 @@ namespace RemindMe
         {
             InitializeComponent();
 
-            AVRForm = new MaterialAdvancedReminderForm();
-            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(AVRForm);
+            
             
             this.callback = callback;
 
             FillSoundComboboxFromDatabase(cbSound);
 
-
+            //Causes massive performance issues with the drawer :(
             MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += Instance_ThemeChanged;
 
             imgStop = Properties.Resources.Stop;
@@ -93,13 +92,16 @@ namespace RemindMe
 
         private void Instance_ThemeChanged(object sender)
         {
-            //remove old one
-            MaterialSkin.MaterialSkinManager.Instance.RemoveFormToManage(AVRForm);
+            if (AVRForm == null)
+                return;
+
+            //remove old one            
             string batch = AVRForm.BatchScript;
             bool check = AVRForm.HideReminder;
-            
-            AVRForm = new MaterialAdvancedReminderForm();
-            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(AVRForm);
+
+            AVRForm.Close();
+            AVRForm.Dispose();
+            AVRForm = new MaterialAdvancedReminderForm();            
 
             AVRForm.BatchScript = batch;
             AVRForm.HideReminder = check;
@@ -268,27 +270,7 @@ namespace RemindMe
                         break;
                 }
             }
-
-
-            //Now, let's see if this reminder has any advanced properties
-            AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
-            List<AdvancedReminderFilesFolders> avrFF = BLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);
-            if (avrProps != null)
-            {
-                if (avrProps.ShowReminder.HasValue)
-                    AVRForm.HideReminder = !Convert.ToBoolean(avrProps.ShowReminder);
-
-                AVRForm.BatchScript = avrProps.BatchScript;                                             
-            }
-            if (avrFF != null)
-            {
-                Dictionary<string, string> filesFolders = new Dictionary<string, string>();
-                foreach (AdvancedReminderFilesFolders dic in avrFF)
-                {
-                    if (!filesFolders.ContainsKey(dic.Path))
-                        filesFolders.Add(dic.Path, dic.Action);
-                }                
-            }
+         
 
             //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
             pnlUpdateTime.Visible = !rbNoRepeat.Checked;            
@@ -1269,7 +1251,7 @@ namespace RemindMe
             MaterialRadioButton rb;
             foreach (Control c in this.Controls)
             {
-                if (c is TextBox || c is MaterialTextBox || c is MaterialMultiLineTextBox)
+                if (c is MaterialTextBox || c is MaterialMultiLineTextBox)
                 {
                     c.Text = "";                    
                 }
@@ -1310,8 +1292,7 @@ namespace RemindMe
 
             tbReminderName.ResetText();
             rbNoRepeat.Checked = true;
-            rbCheckedChangeEvent(null, null);
-            AVRForm = new MaterialAdvancedReminderForm();            
+            rbCheckedChangeEvent(null, null);            
             swUpdateTime.Checked = false;            
         }
 
@@ -1366,6 +1347,12 @@ namespace RemindMe
             callback.Visible = true;
             this.Visible = false;
             saveState = false;
+
+            if(AVRForm != null)
+            {
+                AVRForm.BatchScript = "";
+                AVRForm.HideReminder = false;                
+            }
 
             GC.Collect();
         }
@@ -1541,7 +1528,8 @@ namespace RemindMe
 
         private void btnAdvancedReminder_Click(object sender, EventArgs e)
         {
-            BLIO.Log("(MUCNewReminder)btnAdvancedReminder_Click");            
+            BLIO.Log("(MUCNewReminder)btnAdvancedReminder_Click");
+            
             AVRForm.ShowDialog();            
         }
 
@@ -1587,8 +1575,24 @@ namespace RemindMe
 
         private void btnAdvancedReminder_Click_1(object sender, EventArgs e)
         {
-            AVRForm.ShowDialog();
-            //AVRForm.ShowReminder == rem
+            if (AVRForm == null)
+            {
+                AVRForm = new MaterialAdvancedReminderForm();                
+            }
+
+            if (editableReminder != null)
+            {
+                AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(editableReminder.Id);
+                if (avrProps != null)
+                {
+                    if (avrProps.ShowReminder.HasValue)
+                        AVRForm.HideReminder = !Convert.ToBoolean(avrProps.ShowReminder);
+
+                    AVRForm.BatchScript = avrProps.BatchScript;
+                }
+            }
+
+            AVRForm.ShowDialog();            
         }
 
         private void tmrMusic_Tick_1(object sender, EventArgs e)

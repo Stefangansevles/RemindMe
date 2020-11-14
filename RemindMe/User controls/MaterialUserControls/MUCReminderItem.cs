@@ -28,7 +28,7 @@ namespace RemindMe
 
             AddFont(Properties.Resources.Roboto_Medium);
 
-            MaterialForm1.MaterialSkinManager.ThemeChanged += UpdateTheme;
+            MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += UpdateTheme;
             
 
             tpInformation.SetToolTip(btnSettings, "Click for more options");
@@ -80,7 +80,7 @@ namespace RemindMe
                 btnSettings.Image = Properties.Resources.gearDisabled;
                 btnDisable.Image = Properties.Resources.turnedOffTwo;
             }
-            else if (MaterialForm1.MaterialSkinManager.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+            else if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
             {
                 btnEdit.Image = Properties.Resources.EditPenWhite;
                 btnDelete.Image = Properties.Resources.Bin_white;
@@ -97,7 +97,7 @@ namespace RemindMe
                 toolStripMenuItem1.Image = Properties.Resources.permanentelyWhite;                 //permanentelydelete toolstrip
 
             }
-            else if (MaterialForm1.MaterialSkinManager.Theme == MaterialSkin.MaterialSkinManager.Themes.LIGHT)
+            else if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.LIGHT)
             {//Light
                 btnEdit.Image = Properties.Resources.editPenDark;
                 btnDelete.Image = Properties.Resources.binDark;
@@ -205,7 +205,7 @@ namespace RemindMe
         //Loads reminder data into the controls
         private void Enable()
         {
-            MaterialSkin.MaterialSkinManager.Themes theme = MaterialForm1.MaterialSkinManager.Theme;
+            MaterialSkin.MaterialSkinManager.Themes theme = MaterialSkin.MaterialSkinManager.Instance.Theme;
 
             lblReminderName.Visible = true;
             lblReminderNameDisabled.Visible = false;
@@ -365,7 +365,7 @@ namespace RemindMe
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered            
             
             MaterialPopup p = new MaterialPopup(previewRem);
-            MaterialForm1.MaterialSkinManager.AddFormToManage(p);
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(p);
             p.Show();
 
             
@@ -695,7 +695,7 @@ namespace RemindMe
         private void MUCReminderItem_VisibleChanged(object sender, EventArgs e)
         {
             btnShadow.BringToFront();
-            pnlSideColor.BackColor = MaterialForm1.MaterialSkinManager.ColorScheme.DarkPrimaryColor;
+            pnlSideColor.BackColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.DarkPrimaryColor;
 
             pnlSideColor.Visible = !MaterialForm1.Instance.DrawerUseColors;            
         }

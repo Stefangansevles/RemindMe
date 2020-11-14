@@ -52,7 +52,7 @@ namespace RemindMe
         {
             try
             {
-                MaterialSkin.MaterialSkinManager.Themes theme = MaterialForm1.MaterialSkinManager.Theme;
+                MaterialSkin.MaterialSkinManager.Themes theme = MaterialSkin.MaterialSkinManager.Instance.Theme;
 
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
@@ -212,16 +212,18 @@ namespace RemindMe
         private void MakeReminderPopup(Reminder rem)
         {
             MaterialPopup p = new MaterialPopup(rem);
-            MaterialForm1.MaterialSkinManager.AddFormToManage(p);
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(p);
             p.Show();
 
         }
         private void btnAddReminder_Click(object sender, EventArgs e)
         {            
             BLIO.Log("btnAddReminder_Click");
-            newReminderUc.Visible = true;
-            newReminderUc.Reminder = null; //oof. this one causes remindme to get slow
+            newReminderUc.Visible = true;            
+            newReminderUc.Reminder = null; 
             this.Visible = false;
+
+            GC.Collect();
         }
 
         public void EditReminder(Reminder rem)
@@ -388,7 +390,7 @@ namespace RemindMe
 
         public void SetPageButtonIcons(List<Reminder> reminders)
         {
-            MaterialSkin.MaterialSkinManager.Themes theme = MaterialForm1.MaterialSkinManager.Theme;
+            MaterialSkin.MaterialSkinManager.Themes theme = MaterialSkin.MaterialSkinManager.Instance.Theme;
 
             //Previous/next icons
             if ((pageNumber * 7) + 1 > reminders.Count)
@@ -417,7 +419,7 @@ namespace RemindMe
         //Display changes on the current page. (For example a deleted or enabled/disabled reminder)
         public void UpdateCurrentPage()
         {
-            MaterialSkin.MaterialSkinManager.Themes theme = MaterialForm1.MaterialSkinManager.Theme;
+            MaterialSkin.MaterialSkinManager.Themes theme = MaterialSkin.MaterialSkinManager.Instance.Theme;
 
             BLIO.Log("Starting UpdateCurrentPage()...");
             List<Reminder> reminders = BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList();
@@ -575,7 +577,7 @@ namespace RemindMe
                 reminderItemCounter++;
             }
 
-            MaterialSkin.MaterialSkinManager.Themes theme = MaterialForm1.MaterialSkinManager.Theme;
+            MaterialSkin.MaterialSkinManager.Themes theme = MaterialSkin.MaterialSkinManager.Instance.Theme;
 
             pageNumber++;
             if ((pageNumber * 7) + 1 > reminders.Count)

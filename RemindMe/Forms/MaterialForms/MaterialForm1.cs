@@ -205,12 +205,7 @@ namespace RemindMe
         {
             get { return instance; }
         }
-
-        public static MaterialSkinManager MaterialSkinManager
-        {
-            get { return materialSkinManager; }
-        }
-
+       
 
         private void MaterialForm1_Load(object sender, EventArgs e)
         {
@@ -671,9 +666,7 @@ namespace RemindMe
                     {
                         BLIO.Log("Debug mode enabled");
                         
-                        mainTabControl.Controls.Add(tabDebug);
-                        
-                        
+                        mainTabControl.Controls.Add(tabDebug);                                                
                     }
                 }
             }
@@ -866,7 +859,7 @@ namespace RemindMe
         }
 
         private void tmrRemoveDebug_Tick(object sender, EventArgs e)
-        {
+        {            
             mainTabControl.Controls.Remove(tabDebug);
             tmrRemoveDebug.Stop();
         }

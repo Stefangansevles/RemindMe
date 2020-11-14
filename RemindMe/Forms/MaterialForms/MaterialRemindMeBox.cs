@@ -69,8 +69,8 @@ namespace RemindMe
             else
                 this.StartPosition = FormStartPosition.CenterScreen;
 
-            lblText.LinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.AccentColor;
-            lblText.ActiveLinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.LightPrimaryColor;
+            lblText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+            lblText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
 
             string timers = "Click here to convert these Timers into Reminders and close RemindMe";
             if(lblText.Text.EndsWith(timers))
@@ -162,7 +162,7 @@ namespace RemindMe
         {
             newMessageBox = new MaterialRemindMeBox(text, RemindMeBoxReason.OK, showDontRemindOption);
             newMessageBox.StartPosition = position;
-            MaterialForm1.MaterialSkinManager.AddFormToManage(newMessageBox);
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(newMessageBox);
             newMessageBox.ShowDialog();
             BLIO.Log("Closing RemindMeBox with result " + result);
             return result;
@@ -171,7 +171,7 @@ namespace RemindMe
         {
             newMessageBox = new MaterialRemindMeBox(text, buttons, showDontRemindOption);
             newMessageBox.StartPosition = position;
-            MaterialForm1.MaterialSkinManager.AddFormToManage(newMessageBox);
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(newMessageBox);
             newMessageBox.ShowDialog();
             BLIO.Log("Closing RemindMeBox with result " + result);
             return result;
@@ -180,7 +180,7 @@ namespace RemindMe
         {
             newMessageBox = new MaterialRemindMeBox(text, title, buttons, showDontRemindOption);
             newMessageBox.StartPosition = position;
-            MaterialForm1.MaterialSkinManager.AddFormToManage(newMessageBox);
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(newMessageBox);
             newMessageBox.ShowDialog();
             BLIO.Log("Closing RemindMeBox with result " + result);
             return result;
@@ -200,13 +200,13 @@ namespace RemindMe
 
         private void MaterialRemindMeBox_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MaterialForm1.MaterialSkinManager.RemoveFormToManage(this);
+            MaterialSkin.MaterialSkinManager.Instance.RemoveFormToManage(this);
         }
 
         private void MaterialRemindMeBox_Load(object sender, EventArgs e)
         {
             lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
-            if (MaterialForm1.MaterialSkinManager.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
                 lblText.ForeColor = Color.White;
 
 

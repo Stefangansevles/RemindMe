@@ -55,8 +55,8 @@ namespace RemindMe
             this.ResizeEnd += stopFlash_Event;
 
 
-            lblNoteText.LinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.AccentColor;
-            lblNoteText.ActiveLinkColor = MaterialForm1.MaterialSkinManager.ColorScheme.LightPrimaryColor;
+            lblNoteText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+            lblNoteText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
             BLIO.Log("Popup constructed");            
         }
 
@@ -432,7 +432,7 @@ namespace RemindMe
             if (e.CloseReason == CloseReason.UserClosing && xClose)
                 btnOk_Click(sender, e);
 
-            MaterialForm1.MaterialSkinManager.RemoveFormToManage(this);
+            MaterialSkin.MaterialSkinManager.Instance.RemoveFormToManage(this);
         }
     }
 }

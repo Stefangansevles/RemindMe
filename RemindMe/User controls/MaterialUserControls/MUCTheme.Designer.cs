@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnDeleteTheme = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.cbLoadTheme = new MaterialSkin.Controls.MaterialComboBox();
@@ -44,6 +45,7 @@
             this.cbDarkPrimary = new MaterialSkin.Controls.MaterialComboBox();
             this.cbLightPrimary = new MaterialSkin.Controls.MaterialComboBox();
             this.swDrawerBackground = new MaterialSkin.Controls.MaterialSwitch();
+            this.tmrChangeTheme = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnDeleteTheme
@@ -359,6 +361,11 @@
             this.swDrawerBackground.UseVisualStyleBackColor = true;
             this.swDrawerBackground.CheckedChanged += new System.EventHandler(this.materialSwitch6_CheckedChanged);
             // 
+            // tmrChangeTheme
+            // 
+            this.tmrChangeTheme.Interval = 250;
+            this.tmrChangeTheme.Tick += new System.EventHandler(this.tmrChangeTheme_Tick);
+            // 
             // MUCTheme
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -404,5 +411,6 @@
         private MaterialSkin.Controls.MaterialComboBox cbLoadTheme;
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
         private MaterialSkin.Controls.MaterialButton btnDeleteTheme;
+        private System.Windows.Forms.Timer tmrChangeTheme;
     }
 }

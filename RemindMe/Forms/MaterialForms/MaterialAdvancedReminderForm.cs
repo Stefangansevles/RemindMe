@@ -14,7 +14,7 @@ namespace RemindMe
 {
     public partial class MaterialAdvancedReminderForm : MaterialForm
     {
-        public MaterialAdvancedReminderForm()//todo: addformtomanage
+        public MaterialAdvancedReminderForm()
         {
             this.Opacity = 0;
             MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
