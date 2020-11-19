@@ -65,7 +65,7 @@ namespace RemindMe
                         BLIO.Log("Attempting to remove UpdateFiles.zip...");
                         try { File.Delete(IOVariables.rootFolder + "UpdateFiles.zip"); } catch { }
 
-                        if (restartRemindMe && ( (Form1.Instance != null && !Form1.Instance.Visible) || (MaterialForm1.Instance != null && !MaterialForm1.Instance.Visible) ))
+                        if (restartRemindMe && ( (Form1.Instance != null && Form1.Instance.Opacity == 0) || (MaterialForm1.Instance != null && MaterialForm1.Instance.Opacity == 0) ))
                         {
                             BLIO.Log("Restarting RemindMe...");
 

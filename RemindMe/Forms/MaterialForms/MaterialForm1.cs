@@ -855,6 +855,7 @@ namespace RemindMe
 
         private void restartRemindMeUpdateToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            shouldClose = true;
             Application.Restart();
         }
 
