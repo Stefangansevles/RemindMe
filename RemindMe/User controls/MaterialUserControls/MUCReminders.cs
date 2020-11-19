@@ -708,7 +708,19 @@ namespace RemindMe
 
         private void tmrCheckForUpdates_Tick(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (showUpdateMessage && Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
+                {
+                    RemindMeMessageFormManager.MakeMessagePopup("RemindMe has updated.\r\nRestart RemindMe to load these changes directly.", 0);
+                    tmrCheckForUpdates.Stop();
+                }
+            }
+            catch (Exception ex)
+            {
+                BLIO.Log("CheckForUpdates FAILED. " + ex.GetType().ToString());
+                BLIO.WriteError(ex, "Error in tmrCheckForUpdates_Tick");
+            }
         }
     }
 }

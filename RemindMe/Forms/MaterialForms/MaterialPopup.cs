@@ -1,6 +1,7 @@
 ﻿using Business_Logic_Layer;
 using Database.Entity;
 using MaterialSkin.Controls;
+using RemindMe.Other_classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
+using TheArtOfDev.HtmlRenderer.WinForms;
 
 namespace RemindMe
 {
@@ -26,6 +28,7 @@ namespace RemindMe
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         private bool xClose = true;
+        private HtmlLabel htmlLblText = new HtmlLabel();
         public MaterialPopup(Reminder rem)
         {
             AddFont(Properties.Resources.Roboto_Medium);
@@ -40,26 +43,56 @@ namespace RemindMe
             //lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
             this.Text = rem.Name;
 
-            lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 20, 0);            
+            //lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 20, 0);
 
+
+            htmlLblText.AutoSizeHeightOnly = true;
+            htmlLblText.Width = this.Width - 8;
+            htmlLblText.Height = pnlText.Height;
+            htmlLblText.MaximumSize = new Size(htmlLblText.Width-30, 0);            
+            htmlLblText.Location = new Point(8,-5);
+            htmlLblText.Text = GetPopupHTMLText();
             
-            
+            pnlText.Controls.Add(htmlLblText);            
 
             tbPostpone.KeyDown += numericOnly_KeyDown;
             tbPostpone.KeyPress += numericOnly_KeyPress;
 
             //Assign the events that the user can raise while doing something on the popup. The stopflash event stops the taskbar icon from flashing            
-            this.MouseClick += stopFlash_Event;
-            lblNoteText.MouseClick += stopFlash_Event;
+            this.MouseClick += stopFlash_Event;            
             this.MouseClick += stopFlash_Event;
             this.ResizeEnd += stopFlash_Event;
 
 
-            lblNoteText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
-            lblNoteText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
+            //TODO: #53521 ?
+            Color t = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+            
+            //lblNoteText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+            //lblNoteText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
             BLIO.Log("Popup constructed");            
         }
 
+        private static String ColorToHex(Color c)
+        {
+            return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+        }
+
+        /// <summary>
+        /// Generates a HTML Paragraph with the desired text color, text size and reminder text.
+        /// </summary>
+        /// <param name="previewSize">Used when previewing font-size changes</param>
+        /// <returns></returns>
+        private string GetPopupHTMLText(float previewSize = 0)
+        {            
+            //White font if dark theme, Black text if light theme
+            string color = MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK ? "#e6e6e6" : "#323232";
+
+            float size = previewSize == 0 ? BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize : previewSize;
+
+            string reminderText = rem.Note != null ? rem.Note.Replace("\n", "<br>") : "( No text set )";
+            
+            return "<p style=\"color: " + color + "; font-size: " + Math.Round(size * 1.28) + "px;\">"+ reminderText + "</p>";            
+        }
         private void numericOnly_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar.ToString().ToLower() != "h") && (e.KeyChar.ToString().ToLower() != "m"))
@@ -112,16 +145,16 @@ namespace RemindMe
 
         public void ChangeFontSize(float size)
         {
-            lblNoteText.Font = new Font(pfc.Families[0], size, FontStyle.Regular, GraphicsUnit.Pixel);
+            htmlLblText.Text = GetPopupHTMLText(size);            
         }
+        
+      
         private void Popup2_Load(object sender, EventArgs e)
         {
             try
-            {
-                BLIO.Log("Popup_load");
-                lblNoteText.Font = new Font(pfc.Families[0], (float)BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize, FontStyle.Regular, GraphicsUnit.Pixel);
-
-
+            {                            
+                BLIO.Log("Popup_load");                                
+                
                 AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
                 List<AdvancedReminderFilesFolders> avrFF = BLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);
                 if (avrProps != null) //Not null? this reminder has advanced properties.
@@ -131,7 +164,7 @@ namespace RemindMe
 
                     if (!string.IsNullOrWhiteSpace(avrProps.BatchScript))
                     {
-                        if (!this.Visible)
+                        //if (!this.Visible)
                             MaterialMessageFormManager.MakeMessagePopup("Activating script of Reminder:\r\n \"" + rem.Name + "\"", 3);
 
                         BLIO.ExecuteBatch(avrProps.BatchScript);
@@ -234,21 +267,10 @@ namespace RemindMe
 
 
                 this.Text = rem.Name;
+                string hexColor = ColorToHex(MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor);
 
-                if (rem.Note != null)
-                    lblNoteText.Text = rem.Note.Replace("\\n", Environment.NewLine);
-
-                if (rem.Note == "")
-                    lblNoteText.Text = "( No text set )";
-
-                lblNoteText.Text = Environment.NewLine + lblNoteText.Text;
-
-                List<string> links = GetLinks(lblNoteText.Text);
-                foreach (string link in links)
-                {
-                    lblNoteText.Links.Add(lblNoteText.Text.IndexOf(link), link.Length, link);                    
-                }
-                lblNoteText.LinkClicked += (s, ee) => Process.Start(ee.Link.LinkData.ToString());
+                foreach (string link in GetLinks(htmlLblText.Text)) //Add <a href> to make it into an actual link
+                    htmlLblText.Text = htmlLblText.Text.Replace(link, "<a href=\""+link+ "\" style=\"color: " + hexColor + "\"> " +link+"</a>");
 
                 if (rem.Date == null)
                     rem.Date = DateTime.Now.ToString();
@@ -296,11 +318,11 @@ namespace RemindMe
         }
 
         private void Popup2_SizeChanged(object sender, EventArgs e)
-        {
-            RepositionControls();
-            lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 20, 0);
+        {            
+            RepositionControls();            
             var test = this.Height - (this.StatusBarHeight + this.ActionBarHeight);
-            pnlText.Size = new Size(this.Width, (this.Height - 145));
+            pnlText.Size = new Size(this.Width, (this.Height - 135));
+            htmlLblText.Size = new Size(this.Width, (this.Height - 135));
         }
 
         private void btnOk_Click(object sender, EventArgs e)

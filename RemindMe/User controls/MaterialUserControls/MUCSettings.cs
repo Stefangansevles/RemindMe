@@ -235,6 +235,8 @@ namespace RemindMe
 
             BLLocalDatabase.Setting.UpdateSettings(set);
             BLIO.Log("Advanced Reminder setting changed to: " + cbAdvancedReminders.Checked.ToString());
+
+            
         }
 
         private void label8_Click(object sender, EventArgs e)
@@ -416,6 +418,12 @@ namespace RemindMe
             }
 
             BLLocalDatabase.Setting.UpdateSettings(set);
+        }
+
+        private void cbAdvancedReminders_Click(object sender, EventArgs e)
+        {
+            if (cbAdvancedReminders.Checked)
+                MaterialRemindMeBox.Show("You now have access to advanced reminders.\r\nA new button has appeared at the top-right corner when creating/editing reminders.");
         }
     }
 }

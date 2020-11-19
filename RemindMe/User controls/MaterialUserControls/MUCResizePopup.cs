@@ -16,6 +16,31 @@ namespace RemindMe
 {
     public partial class MUCResizePopup : UserControl
     {
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
+        private static PrivateFontCollection pfc = new PrivateFontCollection();
+        private static uint cFonts = 0;
+        private static void AddFont(byte[] fontdata)
+        {
+            int fontLength; System.IntPtr dataPointer;
+
+            //We are going to need a pointer to the font data, so we are generating it here
+            dataPointer = Marshal.AllocCoTaskMem(fontdata.Length);
+
+
+            //Copying the fontdata into the memory designated by the pointer
+            Marshal.Copy(fontdata, 0, dataPointer, (int)fontdata.Length);
+
+            // Register the font with the system.
+            AddFontMemResourceEx(dataPointer, (uint)fontdata.Length, IntPtr.Zero, ref cFonts);
+
+            //Keep track of how many fonts we've added.
+            cFonts += 1;
+
+            //Finally, we can actually add the font to our collection
+            pfc.AddMemoryFont(dataPointer, (int)fontdata.Length);
+        }
+
         Reminder testrem;
         MaterialPopup testPop;
         PopupDimensions dimensions;
@@ -26,7 +51,7 @@ namespace RemindMe
             testrem = new Reminder();
             testrem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
             testrem.Name = "Test reminder";
-            testrem.Note = "This is some dummy text so that you can see how the text looks. Adding some spaces\r\nAnd some more\r\n\r\nSpaces.";
+            testrem.Note = "This is some <i>dummy text</i> so that you can see how the text looks. Adding some <b>spaces</b>\r\n<u>And some more</u>\r\n\r\nSpaces.";
             testrem.Id = -1;//mark it to be invalid
 
 
@@ -167,7 +192,10 @@ namespace RemindMe
         private void btnSave_Click(object sender, EventArgs e)
         {
             BLIO.Log("(MUCResizePopup)btnSave_Click");
-            testPop.Close();
+
+            if(testPop != null)
+                testPop.Close();
+
             SaveChanges();
             refreshTrackbars();
         }
@@ -269,30 +297,7 @@ namespace RemindMe
             refreshTrackbars();
         }
 
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
-        private static PrivateFontCollection pfc = new PrivateFontCollection();
-        private static uint cFonts = 0;
-        private static void AddFont(byte[] fontdata)
-        {
-            int fontLength; System.IntPtr dataPointer;
-
-            //We are going to need a pointer to the font data, so we are generating it here
-            dataPointer = Marshal.AllocCoTaskMem(fontdata.Length);
-
-
-            //Copying the fontdata into the memory designated by the pointer
-            Marshal.Copy(fontdata, 0, dataPointer, (int)fontdata.Length);
-
-            // Register the font with the system.
-            AddFontMemResourceEx(dataPointer, (uint)fontdata.Length, IntPtr.Zero, ref cFonts);
-
-            //Keep track of how many fonts we've added.
-            cFonts += 1;
-
-            //Finally, we can actually add the font to our collection
-            pfc.AddMemoryFont(dataPointer, (int)fontdata.Length);
-        }
+        
         private void trbNoteFont_ValueChanged(object sender, EventArgs e)
         {
             tbNoteFont.Text = trbNoteFont.Value.ToString();

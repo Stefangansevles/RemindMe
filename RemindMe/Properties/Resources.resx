@@ -169,11 +169,8 @@
   <data name="Save_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="eyeWhite1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\light\eyeWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RemindMeZzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RemindMeZzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\dark\italic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="plusDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\plusDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -181,11 +178,11 @@
   <data name="minusDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\minusDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Reset_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Reset_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="information-icon-6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\information-icon-6.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="italicWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\italicWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="duplicate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\duplicate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -202,6 +199,9 @@
   <data name="DimGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DimGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="boldWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\boldWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="old" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\old.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -211,8 +211,14 @@
   <data name="Enable_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Enable_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="zzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="if_070_Minus_183199" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\if_070_Minus_183199.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="skip forward1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skip forward1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="duplicate1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\duplicate1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,14 +232,17 @@
   <data name="palette" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\palette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Bellwhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bellwhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Reset_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reset_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gearDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gearDisabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Sound_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sound_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="whiteeye" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whiteeye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="permanentelyWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\light\permanentelyWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -243,6 +252,9 @@
   </data>
   <data name="disableDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\disableDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="underline" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\dark\underline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="prev" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\prev.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -328,9 +340,6 @@
   <data name="calendarWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendarWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="bell" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bell.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -372,6 +381,9 @@
   </data>
   <data name="bug" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bug.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2ArrowsUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2ArrowsUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nextDisabledDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\nextDisabledDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -417,6 +429,9 @@
   </data>
   <data name="play@2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\play@2x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="underlineWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\underlineWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="eyeWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\light\eyeWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -490,6 +505,9 @@
   <data name="NextGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NextGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="githubWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\githubWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="loadWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\light\loadWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -514,17 +532,14 @@
   <data name="zzzDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\zzzDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="zzzWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\light\zzzWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-stopwatch-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\Sidebar\icons8-stopwatch-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-test-tube-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-test-tube-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveIconBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveIconBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hide1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hide1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="infoWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\light\infoWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -538,8 +553,11 @@
   <data name="Edit_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Edit_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_2ArrowsUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2ArrowsUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="strikethrough-text-interface-option-button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\dark\strikethrough-text-interface-option-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eyeWhite1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\eyeWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="export" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -559,6 +577,9 @@
   <data name="Repeatwhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Repeatwhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PreviousGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PreviousGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Arrow_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Arrow_back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -577,11 +598,11 @@
   <data name="img_326384" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_326384.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="skip forward1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\skip forward1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="zzzWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\zzzWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="whiteeye" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\whiteeye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="hide1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hide1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pause@2x1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pause@2x1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -619,8 +640,8 @@
   <data name="codeWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\light\codeWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-stopwatch-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\Sidebar\icons8-stopwatch-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="permanentelyDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\permanentelyDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -631,6 +652,9 @@
   <data name="skipForwardDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\skipForwardDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="strikethroughWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\strikethroughWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="hideDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\hideDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -640,20 +664,23 @@
   <data name="bbuttonEDIT2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bbuttonEDIT2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PreviousGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PreviousGray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="RemindMeZzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemindMeZzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="zzz" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zzz.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Bellwhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bellwhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TestIconBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TestIconBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dark-green-check-mark-hi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dark-green-check-mark-hi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\dark\bold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nextDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\nextDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dark-green-check-mark-hi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dark-green-check-mark-hi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="zzzCancelDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\dark\zzzCancelDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -682,7 +709,10 @@
   <data name="plusWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\light\plusWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="githubWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\light\githubWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="imageLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\light\imageLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="imageDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\dark\imageDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

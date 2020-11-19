@@ -105,8 +105,30 @@ namespace RemindMe
 
             AVRForm.BatchScript = batch;
             AVRForm.HideReminder = check;
+
+            //Dark or light markup buttons
+            SetMarkupIcons();
         }
 
+        private void SetMarkupIcons()
+        {
+            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+            {//light icons
+                btnBold.Image = Properties.Resources.boldWhite;
+                btnItalic.Image = Properties.Resources.italicWhite;
+                btnStrikethrough.Image = Properties.Resources.strikethroughWhite;
+                btnUnderline.Image = Properties.Resources.underlineWhite;
+                btnImage.Image = Properties.Resources.imageLight;
+            }
+            else
+            {//dark icons
+                btnBold.Image = Properties.Resources.bold;
+                btnItalic.Image = Properties.Resources.italic;
+                btnStrikethrough.Image = Properties.Resources.strikethrough_text_interface_option_button;
+                btnUnderline.Image = Properties.Resources.underline;
+                btnImage.Image = Properties.Resources.imageDark;
+            }
+        }
         private void numericOnly_KeyPress(object sender, KeyPressEventArgs e)
         {           
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -738,7 +760,9 @@ namespace RemindMe
             pnlUpdateTime.Location = new Point(pnlUpdateTime.Location.X, (tbNote.Location.Y + tbNote.Height));
 
             //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
-            pnlUpdateTime.Visible = !rbNoRepeat.Checked;            
+            pnlUpdateTime.Visible = !rbNoRepeat.Checked;
+
+            pnlMarkupButtons.Location = new Point((tbNote.Location.X + tbNote.Width+4), tbNote.Location.Y);
         }
 
         private void label13_Click(object sender, EventArgs e)
@@ -1387,7 +1411,8 @@ namespace RemindMe
 
             if (editableReminder == null)
                 ResetReminderForm();
-            
+
+            SetMarkupIcons();
         }
 
         private void cbEvery_KeyUp(object sender, KeyEventArgs e)
@@ -1543,6 +1568,8 @@ namespace RemindMe
             if (callback != null && !callback.Visible && !this.Visible)
                 saveState = true;
 
+            SetMarkupIcons();
+
             if (this.Visible)
                 BLIO.Log("Control MUCNewReminder now visible");
         }
@@ -1623,6 +1650,51 @@ namespace RemindMe
             }
 
             tmrCheckbox.Stop();
+        }
+
+        private void btnImage_Click(object sender, EventArgs e)
+        {
+            string songPath = FSManager.Files.GetSelectedFileWithPath("Image files", "*.bmp; *.png; *.jpg; *.jpeg; *.gif; *.tif; *.tiff;");
+
+            if (songPath == "")//The user canceled out
+                return;
+
+            long width = BLLocalDatabase.PopupDimension.GetPopupDimensions().FormWidth;
+            long height = BLLocalDatabase.PopupDimension.GetPopupDimensions().FormHeight;
+            string imgSrc = "<img src=\"" + songPath + "\" width=\""+ width + "\"  height=\""+ ((height/2)-20) + "\">";
+            tbNote.AppendText(imgSrc);            
+        }
+
+        private void btnBold_Click(object sender, EventArgs e)
+        {
+            if (tbNote.SelectedText != "")
+                tbNote.Text = tbNote.Text.Remove(tbNote.SelectionStart, tbNote.SelectionLength).Insert(tbNote.SelectionStart, "<b>" + tbNote.SelectedText + "</b>");
+            else
+                tbNote.AppendText("<b></b>");
+        }
+
+        private void btnItalic_Click(object sender, EventArgs e)
+        {
+            if (tbNote.SelectedText != "")
+                tbNote.Text = tbNote.Text.Remove(tbNote.SelectionStart, tbNote.SelectionLength).Insert(tbNote.SelectionStart, "<i>" + tbNote.SelectedText + "</i>");
+            else
+                tbNote.AppendText("<i></i>");
+        }
+
+        private void btnUnderline_Click(object sender, EventArgs e)
+        {
+            if (tbNote.SelectedText != "")
+                tbNote.Text = tbNote.Text.Remove(tbNote.SelectionStart, tbNote.SelectionLength).Insert(tbNote.SelectionStart, "<u>" + tbNote.SelectedText + "</u>");
+            else
+                tbNote.AppendText("<u></u>");
+        }
+
+        private void btnStrikethrough_Click(object sender, EventArgs e)
+        {
+            if (tbNote.SelectedText != "")
+                tbNote.Text = tbNote.Text.Remove(tbNote.SelectionStart, tbNote.SelectionLength).Insert(tbNote.SelectionStart, "<s>" + tbNote.SelectedText + "</s>");
+            else
+                tbNote.AppendText("<s></s>");
         }
     }
 }

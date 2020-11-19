@@ -44,12 +44,10 @@
             this.pbRepeat = new System.Windows.Forms.PictureBox();
             this.pbDate = new System.Windows.Forms.PictureBox();
             this.pnlText = new System.Windows.Forms.Panel();
-            this.lblNoteText = new System.Windows.Forms.LinkLabel();
             this.pnlFooter.SuspendLayout();
             this.pnlDateRepeatInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepeat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDate)).BeginInit();
-            this.pnlText.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -222,23 +220,11 @@
             // pnlText
             // 
             this.pnlText.AutoScroll = true;
-            this.pnlText.Controls.Add(this.lblNoteText);
             this.pnlText.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlText.Location = new System.Drawing.Point(0, 78);
+            this.pnlText.Location = new System.Drawing.Point(0, 63);
             this.pnlText.Name = "pnlText";
-            this.pnlText.Size = new System.Drawing.Size(412, 165);
+            this.pnlText.Size = new System.Drawing.Size(412, 180);
             this.pnlText.TabIndex = 2;
-            // 
-            // lblNoteText
-            // 
-            this.lblNoteText.AutoSize = true;
-            this.lblNoteText.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
-            this.lblNoteText.LinkColor = System.Drawing.Color.Red;
-            this.lblNoteText.Location = new System.Drawing.Point(6, 0);
-            this.lblNoteText.Name = "lblNoteText";
-            this.lblNoteText.Size = new System.Drawing.Size(228, 13);
-            this.lblNoteText.TabIndex = 1;
-            this.lblNoteText.Text = "This label\'s font will become Roboto on runtime";
             // 
             // MaterialPopup
             // 
@@ -249,6 +235,7 @@
             this.Controls.Add(this.pnlFooter);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MaterialPopup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MaterialPopup";
@@ -261,8 +248,6 @@
             this.pnlDateRepeatInformation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepeat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDate)).EndInit();
-            this.pnlText.ResumeLayout(false);
-            this.pnlText.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -283,6 +268,5 @@
         private System.Windows.Forms.PictureBox pbDate;
         private System.Windows.Forms.Panel pnlText;
         private MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
-        private System.Windows.Forms.LinkLabel lblNoteText;
     }
 }

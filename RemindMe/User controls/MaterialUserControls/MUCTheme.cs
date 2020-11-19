@@ -341,8 +341,8 @@ namespace RemindMe
                 BLLocalDatabase.Setting.UpdateSettings(set);
 
                 cbLoadTheme.Items.Remove(cbLoadTheme.SelectedItem);
-                cbLoadTheme.Text = "";
-                currentSelectedTheme = null;
+                cbLoadTheme.Text = "";                
+                LoadTheme(BLLocalDatabase.Theme.GetThemes()[0]);
             }
         }
 

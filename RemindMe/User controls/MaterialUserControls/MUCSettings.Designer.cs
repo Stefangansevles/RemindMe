@@ -42,12 +42,12 @@
             this.tbTimerHotkey = new MaterialSkin.Controls.MaterialTextBox();
             this.tbCheckTimerHotKey = new MaterialSkin.Controls.MaterialTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
+            this.cbAutoUpdate = new MaterialSkin.Controls.MaterialCheckbox();
             this.btnRemoveSong = new MaterialSkin.Controls.MaterialButton();
             this.btnPreviewSong = new MaterialSkin.Controls.MaterialButton();
             this.cbSound = new MaterialSkin.Controls.MaterialComboBox();
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
-            this.cbAutoUpdate = new MaterialSkin.Controls.MaterialCheckbox();
-            this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -197,6 +197,7 @@
             this.cbAdvancedReminders.Text = "Enable advanced reminders";
             this.cbAdvancedReminders.UseVisualStyleBackColor = true;
             this.cbAdvancedReminders.CheckedChanged += new System.EventHandler(this.cbAdvancedReminders_OnChange);
+            this.cbAdvancedReminders.Click += new System.EventHandler(this.cbAdvancedReminders_Click);
             // 
             // materialLabel5
             // 
@@ -271,6 +272,35 @@
             this.panel1.Size = new System.Drawing.Size(800, 492);
             this.panel1.TabIndex = 12;
             // 
+            // materialLabel6
+            // 
+            this.materialLabel6.AutoSize = true;
+            this.materialLabel6.Depth = 0;
+            this.materialLabel6.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel6.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel6.Location = new System.Drawing.Point(11, 561);
+            this.materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel6.Name = "materialLabel6";
+            this.materialLabel6.Size = new System.Drawing.Size(60, 29);
+            this.materialLabel6.TabIndex = 121;
+            this.materialLabel6.Text = "Other";
+            // 
+            // cbAutoUpdate
+            // 
+            this.cbAutoUpdate.AutoSize = true;
+            this.cbAutoUpdate.Depth = 0;
+            this.cbAutoUpdate.Location = new System.Drawing.Point(9, 590);
+            this.cbAutoUpdate.Margin = new System.Windows.Forms.Padding(0);
+            this.cbAutoUpdate.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbAutoUpdate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbAutoUpdate.Name = "cbAutoUpdate";
+            this.cbAutoUpdate.Ripple = true;
+            this.cbAutoUpdate.Size = new System.Drawing.Size(289, 37);
+            this.cbAutoUpdate.TabIndex = 120;
+            this.cbAutoUpdate.Text = "Enable Auto-update (recommended)";
+            this.cbAutoUpdate.UseVisualStyleBackColor = true;
+            this.cbAutoUpdate.CheckedChanged += new System.EventHandler(this.cbAutoUpdate_CheckedChanged);
+            // 
             // btnRemoveSong
             // 
             this.btnRemoveSong.AutoSize = false;
@@ -337,35 +367,6 @@
             // tmrMusic
             // 
             this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
-            // 
-            // cbAutoUpdate
-            // 
-            this.cbAutoUpdate.AutoSize = true;
-            this.cbAutoUpdate.Depth = 0;
-            this.cbAutoUpdate.Location = new System.Drawing.Point(9, 590);
-            this.cbAutoUpdate.Margin = new System.Windows.Forms.Padding(0);
-            this.cbAutoUpdate.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbAutoUpdate.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbAutoUpdate.Name = "cbAutoUpdate";
-            this.cbAutoUpdate.Ripple = true;
-            this.cbAutoUpdate.Size = new System.Drawing.Size(289, 37);
-            this.cbAutoUpdate.TabIndex = 120;
-            this.cbAutoUpdate.Text = "Enable Auto-update (recommended)";
-            this.cbAutoUpdate.UseVisualStyleBackColor = true;
-            this.cbAutoUpdate.CheckedChanged += new System.EventHandler(this.cbAutoUpdate_CheckedChanged);
-            // 
-            // materialLabel6
-            // 
-            this.materialLabel6.AutoSize = true;
-            this.materialLabel6.Depth = 0;
-            this.materialLabel6.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel6.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel6.Location = new System.Drawing.Point(11, 561);
-            this.materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel6.Name = "materialLabel6";
-            this.materialLabel6.Size = new System.Drawing.Size(60, 29);
-            this.materialLabel6.TabIndex = 121;
-            this.materialLabel6.Text = "Other";
             // 
             // MUCSettings
             // 

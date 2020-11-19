@@ -79,9 +79,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Visual Studio 2015\Projects\FSManager\FSManager\bin\Debug\FSManager.dll</HintPath>
     </Reference>
+    <Reference Include="GFramework">
+      <HintPath>External DLL's\GFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="GFramework.WinForm">
+      <HintPath>External DLL's\GFramework.WinForm.dll</HintPath>
+    </Reference>
     <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External DLL's\HtmlRenderer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlRenderer.WinForms, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External DLL's\HtmlRenderer.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Deployment.WindowsInstaller">
       <HintPath>..\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
@@ -728,6 +742,16 @@
     <None Include="icons\light\permanentelyWhite.png" />
     <None Include="icons\light\dollarWhite.png" />
     <None Include="icons\light\githubWhite.png" />
+    <None Include="icons\dark\strikethrough-text-interface-option-button.png" />
+    <None Include="icons\dark\underline.png" />
+    <None Include="icons\dark\italic.png" />
+    <None Include="icons\dark\bold.png" />
+    <None Include="icons\light\boldWhite.png" />
+    <None Include="icons\light\italicWhite.png" />
+    <None Include="icons\light\strikethroughWhite.png" />
+    <None Include="icons\light\underlineWhite.png" />
+    <None Include="icons\light\imageLight.png" />
+    <None Include="icons\dark\imageDark.png" />
     <Content Include="RemindMeIcon.ico" />
     <None Include="Resources\hide.png" />
     <None Include="Resources\show.png" />
