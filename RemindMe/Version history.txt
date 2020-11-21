@@ -1082,5 +1082,9 @@ added [] around table names that could create errors, like "primary"
 - New feature: You can now insert HTML Text markup in reminders, like bold text, italic, underline and strikethrough. You can also add an image, if you would like to do so. Buttons for these markups have been added next to the text where you can enter text for a Reminder
 - Fix: Deleting a theme will no longer show an error 
 - Fix: Saving a new "resize popup" size without first previewing will no longer show an error
-
 Preview: https://i.imgur.com/UDCkSdj.png
+
+3.0.23
+- The bold/italic/strikethrough/underline options are now also possible through shortcuts, ctrl+b/i/s/u respectively
+- Cleaned up the code for creating/editing reminders which was long overdue
+- Added much more logging to help find potential bugs regarding the creation/editing process of a reminder

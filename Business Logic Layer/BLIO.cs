@@ -228,6 +228,9 @@ namespace Business_Logic_Layer
                     if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
                         return;
 
+                    
+                    Log("EXCEPTION -> " + ex.GetType().ToString() + " -> \"" + message + "\"" + "\r\n" + ex.ToString());
+
                     if (sendToOnlineDatabase && HasInternetAccess())
                     {
                         BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
@@ -241,8 +244,7 @@ namespace Business_Logic_Layer
                         {
                             sw.WriteLine("[" + DateTime.Now + "] - " + message + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine);
                         }
-
-                    Log("EXCEPTION -> " + ex.GetType().ToString() + " -> \"" + message + "\"" + "\r\n" + ex.ToString());
+                    
                     }
                 }
                 catch { }

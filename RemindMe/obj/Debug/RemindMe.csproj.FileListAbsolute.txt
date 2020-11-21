@@ -263,3 +263,5 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlRenderer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\HtmlRenderer.WinForms.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Newtonsoft.Json.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Newtonsoft.Json.xml

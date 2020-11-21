@@ -32,12 +32,31 @@
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.dtpTime = new System.Windows.Forms.DateTimePicker();
             this.groupRepeatRadiobuttons = new System.Windows.Forms.GroupBox();
+            this.rbNoRepeat = new MaterialSkin.Controls.MaterialRadioButton();
+            this.rbCustom = new MaterialSkin.Controls.MaterialRadioButton();
+            this.rbMonthly = new MaterialSkin.Controls.MaterialRadioButton();
+            this.rbWeekDays = new MaterialSkin.Controls.MaterialRadioButton();
+            this.rbWorkDays = new MaterialSkin.Controls.MaterialRadioButton();
+            this.rbDaily = new MaterialSkin.Controls.MaterialRadioButton();
             this.pnlDayCheckBoxes = new System.Windows.Forms.Panel();
+            this.cbSunday = new MaterialSkin.Controls.MaterialCheckbox();
+            this.cbThursday = new MaterialSkin.Controls.MaterialCheckbox();
+            this.cbSaturday = new MaterialSkin.Controls.MaterialCheckbox();
+            this.cbFriday = new MaterialSkin.Controls.MaterialCheckbox();
+            this.cbWednesday = new MaterialSkin.Controls.MaterialCheckbox();
+            this.cbTuesday = new MaterialSkin.Controls.MaterialCheckbox();
+            this.cbMonday = new MaterialSkin.Controls.MaterialCheckbox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
             this.pnlUpdateTime = new System.Windows.Forms.Panel();
+            this.swUpdateTime = new MaterialSkin.Controls.MaterialSwitch();
             this.tmrCheckbox = new System.Windows.Forms.Timer(this.components);
             this.pnlMarkupButtons = new System.Windows.Forms.Panel();
+            this.btnImage = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnStrikethrough = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnUnderline = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnItalic = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnBold = new Bunifu.Framework.UI.BunifuImageButton();
             this.cbEvery = new MaterialSkin.Controls.MaterialComboBox();
             this.cbEveryXCustom = new MaterialSkin.Controls.MaterialComboBox();
             this.cbMonthlyDays = new MaterialSkin.Controls.MaterialComboBox();
@@ -46,22 +65,8 @@
             this.btnAddMonthlyDay = new MaterialSkin.Controls.MaterialButton();
             this.numEveryXDays = new MaterialSkin.Controls.MaterialTextBox();
             this.disableRightclick = new MaterialSkin.Controls.MaterialContextMenuStrip();
-            this.swUpdateTime = new MaterialSkin.Controls.MaterialSwitch();
             this.btnRemoveMonthlyDay = new MaterialSkin.Controls.MaterialButton();
-            this.cbSunday = new MaterialSkin.Controls.MaterialCheckbox();
-            this.cbThursday = new MaterialSkin.Controls.MaterialCheckbox();
-            this.cbSaturday = new MaterialSkin.Controls.MaterialCheckbox();
-            this.cbFriday = new MaterialSkin.Controls.MaterialCheckbox();
-            this.cbWednesday = new MaterialSkin.Controls.MaterialCheckbox();
-            this.cbTuesday = new MaterialSkin.Controls.MaterialCheckbox();
-            this.cbMonday = new MaterialSkin.Controls.MaterialCheckbox();
             this.tbNote = new MaterialSkin.Controls.MaterialMultiLineTextBox();
-            this.rbNoRepeat = new MaterialSkin.Controls.MaterialRadioButton();
-            this.rbEveryXCustom = new MaterialSkin.Controls.MaterialRadioButton();
-            this.rbMonthly = new MaterialSkin.Controls.MaterialRadioButton();
-            this.rbMultipleDays = new MaterialSkin.Controls.MaterialRadioButton();
-            this.rbWorkDays = new MaterialSkin.Controls.MaterialRadioButton();
-            this.rbDaily = new MaterialSkin.Controls.MaterialRadioButton();
             this.btnAddDate = new MaterialSkin.Controls.MaterialButton();
             this.btnAddDays = new MaterialSkin.Controls.MaterialButton();
             this.tbReminderName = new MaterialSkin.Controls.MaterialTextBox();
@@ -72,11 +77,6 @@
             this.subtractDaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subtractMonthsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetTimeDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnImage = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnStrikethrough = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnUnderline = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnItalic = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnBold = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnAdvancedReminder = new MaterialSkin.Controls.MaterialButton();
             this.btnClear = new MaterialSkin.Controls.MaterialButton();
             this.btnConfirm = new MaterialSkin.Controls.MaterialButton();
@@ -87,12 +87,12 @@
             this.pnlDayCheckBoxes.SuspendLayout();
             this.pnlUpdateTime.SuspendLayout();
             this.pnlMarkupButtons.SuspendLayout();
-            this.AddDaysMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStrikethrough)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUnderline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItalic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBold)).BeginInit();
+            this.AddDaysMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtpDate
@@ -120,9 +120,9 @@
             // groupRepeatRadiobuttons
             // 
             this.groupRepeatRadiobuttons.Controls.Add(this.rbNoRepeat);
-            this.groupRepeatRadiobuttons.Controls.Add(this.rbEveryXCustom);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbCustom);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbMonthly);
-            this.groupRepeatRadiobuttons.Controls.Add(this.rbMultipleDays);
+            this.groupRepeatRadiobuttons.Controls.Add(this.rbWeekDays);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbWorkDays);
             this.groupRepeatRadiobuttons.Controls.Add(this.rbDaily);
             this.groupRepeatRadiobuttons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -132,6 +132,109 @@
             this.groupRepeatRadiobuttons.TabIndex = 118;
             this.groupRepeatRadiobuttons.TabStop = false;
             this.groupRepeatRadiobuttons.LocationChanged += new System.EventHandler(this.groupRepeatRadiobuttons_LocationChanged);
+            // 
+            // rbNoRepeat
+            // 
+            this.rbNoRepeat.AutoSize = true;
+            this.rbNoRepeat.Checked = true;
+            this.rbNoRepeat.Depth = 0;
+            this.rbNoRepeat.Location = new System.Drawing.Point(246, 53);
+            this.rbNoRepeat.Margin = new System.Windows.Forms.Padding(0);
+            this.rbNoRepeat.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rbNoRepeat.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rbNoRepeat.Name = "rbNoRepeat";
+            this.rbNoRepeat.Ripple = true;
+            this.rbNoRepeat.Size = new System.Drawing.Size(112, 37);
+            this.rbNoRepeat.TabIndex = 5;
+            this.rbNoRepeat.TabStop = true;
+            this.rbNoRepeat.Text = "Set date(s)";
+            this.rbNoRepeat.UseVisualStyleBackColor = true;
+            this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);
+            // 
+            // rbCustom
+            // 
+            this.rbCustom.AutoSize = true;
+            this.rbCustom.Depth = 0;
+            this.rbCustom.Location = new System.Drawing.Point(123, 53);
+            this.rbCustom.Margin = new System.Windows.Forms.Padding(0);
+            this.rbCustom.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rbCustom.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rbCustom.Name = "rbCustom";
+            this.rbCustom.Ripple = true;
+            this.rbCustom.Size = new System.Drawing.Size(90, 37);
+            this.rbCustom.TabIndex = 4;
+            this.rbCustom.TabStop = true;
+            this.rbCustom.Text = "Custom";
+            this.rbCustom.UseVisualStyleBackColor = true;
+            this.rbCustom.CheckedChanged += new System.EventHandler(this.rbEveryXCustom_CheckedChanged);
+            // 
+            // rbMonthly
+            // 
+            this.rbMonthly.AutoSize = true;
+            this.rbMonthly.Depth = 0;
+            this.rbMonthly.Location = new System.Drawing.Point(3, 53);
+            this.rbMonthly.Margin = new System.Windows.Forms.Padding(0);
+            this.rbMonthly.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rbMonthly.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rbMonthly.Name = "rbMonthly";
+            this.rbMonthly.Ripple = true;
+            this.rbMonthly.Size = new System.Drawing.Size(93, 37);
+            this.rbMonthly.TabIndex = 3;
+            this.rbMonthly.TabStop = true;
+            this.rbMonthly.Text = "Monthly";
+            this.rbMonthly.UseVisualStyleBackColor = true;
+            this.rbMonthly.CheckedChanged += new System.EventHandler(this.rbMonthly_CheckedChanged);
+            // 
+            // rbWeekDays
+            // 
+            this.rbWeekDays.AutoSize = true;
+            this.rbWeekDays.Depth = 0;
+            this.rbWeekDays.Location = new System.Drawing.Point(246, 16);
+            this.rbWeekDays.Margin = new System.Windows.Forms.Padding(0);
+            this.rbWeekDays.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rbWeekDays.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rbWeekDays.Name = "rbWeekDays";
+            this.rbWeekDays.Ripple = true;
+            this.rbWeekDays.Size = new System.Drawing.Size(107, 37);
+            this.rbWeekDays.TabIndex = 2;
+            this.rbWeekDays.TabStop = true;
+            this.rbWeekDays.Text = "Weekdays";
+            this.rbWeekDays.UseVisualStyleBackColor = true;
+            this.rbWeekDays.CheckedChanged += new System.EventHandler(this.rbMultipleDays_CheckedChanged);
+            // 
+            // rbWorkDays
+            // 
+            this.rbWorkDays.AutoSize = true;
+            this.rbWorkDays.Depth = 0;
+            this.rbWorkDays.Location = new System.Drawing.Point(123, 16);
+            this.rbWorkDays.Margin = new System.Windows.Forms.Padding(0);
+            this.rbWorkDays.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rbWorkDays.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rbWorkDays.Name = "rbWorkDays";
+            this.rbWorkDays.Ripple = true;
+            this.rbWorkDays.Size = new System.Drawing.Size(109, 37);
+            this.rbWorkDays.TabIndex = 1;
+            this.rbWorkDays.TabStop = true;
+            this.rbWorkDays.Text = "Work days";
+            this.rbWorkDays.UseVisualStyleBackColor = true;
+            this.rbWorkDays.CheckedChanged += new System.EventHandler(this.rbWorkDays_CheckedChanged);
+            // 
+            // rbDaily
+            // 
+            this.rbDaily.AutoSize = true;
+            this.rbDaily.Depth = 0;
+            this.rbDaily.Location = new System.Drawing.Point(3, 16);
+            this.rbDaily.Margin = new System.Windows.Forms.Padding(0);
+            this.rbDaily.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rbDaily.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rbDaily.Name = "rbDaily";
+            this.rbDaily.Ripple = true;
+            this.rbDaily.Size = new System.Drawing.Size(71, 37);
+            this.rbDaily.TabIndex = 0;
+            this.rbDaily.TabStop = true;
+            this.rbDaily.Text = "Daily";
+            this.rbDaily.UseVisualStyleBackColor = true;
+            this.rbDaily.CheckedChanged += new System.EventHandler(this.rbDaily_CheckedChanged);
             // 
             // pnlDayCheckBoxes
             // 
@@ -148,6 +251,111 @@
             this.pnlDayCheckBoxes.TabIndex = 120;
             this.pnlDayCheckBoxes.Visible = false;
             this.pnlDayCheckBoxes.VisibleChanged += new System.EventHandler(this.pnlDayCheckBoxes_VisibleChanged);
+            // 
+            // cbSunday
+            // 
+            this.cbSunday.AutoSize = true;
+            this.cbSunday.Depth = 0;
+            this.cbSunday.Location = new System.Drawing.Point(240, 42);
+            this.cbSunday.Margin = new System.Windows.Forms.Padding(0);
+            this.cbSunday.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbSunday.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbSunday.Name = "cbSunday";
+            this.cbSunday.Ripple = true;
+            this.cbSunday.Size = new System.Drawing.Size(89, 37);
+            this.cbSunday.TabIndex = 6;
+            this.cbSunday.Text = "Sunday";
+            this.cbSunday.UseVisualStyleBackColor = true;
+            // 
+            // cbThursday
+            // 
+            this.cbThursday.AutoSize = true;
+            this.cbThursday.Depth = 0;
+            this.cbThursday.Location = new System.Drawing.Point(358, 5);
+            this.cbThursday.Margin = new System.Windows.Forms.Padding(0);
+            this.cbThursday.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbThursday.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbThursday.Name = "cbThursday";
+            this.cbThursday.Ripple = true;
+            this.cbThursday.Size = new System.Drawing.Size(102, 37);
+            this.cbThursday.TabIndex = 5;
+            this.cbThursday.Text = "Thursday";
+            this.cbThursday.UseVisualStyleBackColor = true;
+            // 
+            // cbSaturday
+            // 
+            this.cbSaturday.AutoSize = true;
+            this.cbSaturday.Depth = 0;
+            this.cbSaturday.Location = new System.Drawing.Point(122, 42);
+            this.cbSaturday.Margin = new System.Windows.Forms.Padding(0);
+            this.cbSaturday.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbSaturday.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbSaturday.Name = "cbSaturday";
+            this.cbSaturday.Ripple = true;
+            this.cbSaturday.Size = new System.Drawing.Size(99, 37);
+            this.cbSaturday.TabIndex = 4;
+            this.cbSaturday.Text = "Saturday";
+            this.cbSaturday.UseVisualStyleBackColor = true;
+            // 
+            // cbFriday
+            // 
+            this.cbFriday.AutoSize = true;
+            this.cbFriday.Depth = 0;
+            this.cbFriday.Location = new System.Drawing.Point(5, 42);
+            this.cbFriday.Margin = new System.Windows.Forms.Padding(0);
+            this.cbFriday.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbFriday.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbFriday.Name = "cbFriday";
+            this.cbFriday.Ripple = true;
+            this.cbFriday.Size = new System.Drawing.Size(79, 37);
+            this.cbFriday.TabIndex = 3;
+            this.cbFriday.Text = "Friday";
+            this.cbFriday.UseVisualStyleBackColor = true;
+            // 
+            // cbWednesday
+            // 
+            this.cbWednesday.AutoSize = true;
+            this.cbWednesday.Depth = 0;
+            this.cbWednesday.Location = new System.Drawing.Point(240, 5);
+            this.cbWednesday.Margin = new System.Windows.Forms.Padding(0);
+            this.cbWednesday.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbWednesday.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbWednesday.Name = "cbWednesday";
+            this.cbWednesday.Ripple = true;
+            this.cbWednesday.Size = new System.Drawing.Size(117, 37);
+            this.cbWednesday.TabIndex = 2;
+            this.cbWednesday.Text = "Wednesday";
+            this.cbWednesday.UseVisualStyleBackColor = true;
+            // 
+            // cbTuesday
+            // 
+            this.cbTuesday.AutoSize = true;
+            this.cbTuesday.Depth = 0;
+            this.cbTuesday.Location = new System.Drawing.Point(122, 5);
+            this.cbTuesday.Margin = new System.Windows.Forms.Padding(0);
+            this.cbTuesday.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbTuesday.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbTuesday.Name = "cbTuesday";
+            this.cbTuesday.Ripple = true;
+            this.cbTuesday.Size = new System.Drawing.Size(96, 37);
+            this.cbTuesday.TabIndex = 1;
+            this.cbTuesday.Text = "Tuesday";
+            this.cbTuesday.UseVisualStyleBackColor = true;
+            // 
+            // cbMonday
+            // 
+            this.cbMonday.AutoSize = true;
+            this.cbMonday.Depth = 0;
+            this.cbMonday.Location = new System.Drawing.Point(5, 5);
+            this.cbMonday.Margin = new System.Windows.Forms.Padding(0);
+            this.cbMonday.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbMonday.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbMonday.Name = "cbMonday";
+            this.cbMonday.Ripple = true;
+            this.cbMonday.Size = new System.Drawing.Size(93, 37);
+            this.cbMonday.TabIndex = 0;
+            this.cbMonday.Text = "Monday";
+            this.cbMonday.UseVisualStyleBackColor = true;
             // 
             // toolTip1
             // 
@@ -170,6 +378,21 @@
             this.pnlUpdateTime.TabIndex = 128;
             this.pnlUpdateTime.VisibleChanged += new System.EventHandler(this.pnlUpdateTime_VisibleChanged);
             // 
+            // swUpdateTime
+            // 
+            this.swUpdateTime.AutoSize = true;
+            this.swUpdateTime.Depth = 0;
+            this.swUpdateTime.Location = new System.Drawing.Point(0, 2);
+            this.swUpdateTime.Margin = new System.Windows.Forms.Padding(0);
+            this.swUpdateTime.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.swUpdateTime.MouseState = MaterialSkin.MouseState.HOVER;
+            this.swUpdateTime.Name = "swUpdateTime";
+            this.swUpdateTime.Ripple = true;
+            this.swUpdateTime.Size = new System.Drawing.Size(209, 37);
+            this.swUpdateTime.TabIndex = 121;
+            this.swUpdateTime.Text = "Update reminder time";
+            this.swUpdateTime.UseVisualStyleBackColor = true;
+            // 
             // tmrCheckbox
             // 
             this.tmrCheckbox.Interval = 350;
@@ -186,6 +409,86 @@
             this.pnlMarkupButtons.Name = "pnlMarkupButtons";
             this.pnlMarkupButtons.Size = new System.Drawing.Size(44, 91);
             this.pnlMarkupButtons.TabIndex = 134;
+            // 
+            // btnImage
+            // 
+            this.btnImage.BackColor = System.Drawing.Color.Transparent;
+            this.btnImage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImage.Image = global::RemindMe.Properties.Resources.imageDark;
+            this.btnImage.ImageActive = null;
+            this.btnImage.ImageLocation = "";
+            this.btnImage.Location = new System.Drawing.Point(21, 0);
+            this.btnImage.Name = "btnImage";
+            this.btnImage.Size = new System.Drawing.Size(18, 18);
+            this.btnImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnImage.TabIndex = 141;
+            this.btnImage.TabStop = false;
+            this.btnImage.Zoom = -15;
+            this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
+            // 
+            // btnStrikethrough
+            // 
+            this.btnStrikethrough.BackColor = System.Drawing.Color.Transparent;
+            this.btnStrikethrough.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStrikethrough.Image = global::RemindMe.Properties.Resources.strikethrough_text_interface_option_button;
+            this.btnStrikethrough.ImageActive = null;
+            this.btnStrikethrough.ImageLocation = "";
+            this.btnStrikethrough.Location = new System.Drawing.Point(0, 72);
+            this.btnStrikethrough.Name = "btnStrikethrough";
+            this.btnStrikethrough.Size = new System.Drawing.Size(18, 18);
+            this.btnStrikethrough.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnStrikethrough.TabIndex = 140;
+            this.btnStrikethrough.TabStop = false;
+            this.btnStrikethrough.Zoom = -15;
+            this.btnStrikethrough.Click += new System.EventHandler(this.btnStrikethrough_Click);
+            // 
+            // btnUnderline
+            // 
+            this.btnUnderline.BackColor = System.Drawing.Color.Transparent;
+            this.btnUnderline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUnderline.Image = global::RemindMe.Properties.Resources.underline;
+            this.btnUnderline.ImageActive = null;
+            this.btnUnderline.ImageLocation = "";
+            this.btnUnderline.Location = new System.Drawing.Point(0, 48);
+            this.btnUnderline.Name = "btnUnderline";
+            this.btnUnderline.Size = new System.Drawing.Size(18, 18);
+            this.btnUnderline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnUnderline.TabIndex = 139;
+            this.btnUnderline.TabStop = false;
+            this.btnUnderline.Zoom = -15;
+            this.btnUnderline.Click += new System.EventHandler(this.btnUnderline_Click);
+            // 
+            // btnItalic
+            // 
+            this.btnItalic.BackColor = System.Drawing.Color.Transparent;
+            this.btnItalic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnItalic.Image = global::RemindMe.Properties.Resources.italic;
+            this.btnItalic.ImageActive = null;
+            this.btnItalic.ImageLocation = "";
+            this.btnItalic.Location = new System.Drawing.Point(0, 24);
+            this.btnItalic.Name = "btnItalic";
+            this.btnItalic.Size = new System.Drawing.Size(18, 18);
+            this.btnItalic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnItalic.TabIndex = 138;
+            this.btnItalic.TabStop = false;
+            this.btnItalic.Zoom = -15;
+            this.btnItalic.Click += new System.EventHandler(this.btnItalic_Click);
+            // 
+            // btnBold
+            // 
+            this.btnBold.BackColor = System.Drawing.Color.Transparent;
+            this.btnBold.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBold.Image = global::RemindMe.Properties.Resources.bold;
+            this.btnBold.ImageActive = null;
+            this.btnBold.ImageLocation = "";
+            this.btnBold.Location = new System.Drawing.Point(0, 0);
+            this.btnBold.Name = "btnBold";
+            this.btnBold.Size = new System.Drawing.Size(18, 18);
+            this.btnBold.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnBold.TabIndex = 137;
+            this.btnBold.TabStop = false;
+            this.btnBold.Zoom = -15;
+            this.btnBold.Click += new System.EventHandler(this.btnBold_Click);
             // 
             // cbEvery
             // 
@@ -368,21 +671,6 @@
             this.disableRightclick.Name = "disableRightclick";
             this.disableRightclick.Size = new System.Drawing.Size(61, 4);
             // 
-            // swUpdateTime
-            // 
-            this.swUpdateTime.AutoSize = true;
-            this.swUpdateTime.Depth = 0;
-            this.swUpdateTime.Location = new System.Drawing.Point(0, 2);
-            this.swUpdateTime.Margin = new System.Windows.Forms.Padding(0);
-            this.swUpdateTime.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.swUpdateTime.MouseState = MaterialSkin.MouseState.HOVER;
-            this.swUpdateTime.Name = "swUpdateTime";
-            this.swUpdateTime.Ripple = true;
-            this.swUpdateTime.Size = new System.Drawing.Size(209, 37);
-            this.swUpdateTime.TabIndex = 121;
-            this.swUpdateTime.Text = "Update reminder time";
-            this.swUpdateTime.UseVisualStyleBackColor = true;
-            // 
             // btnRemoveMonthlyDay
             // 
             this.btnRemoveMonthlyDay.AutoSize = false;
@@ -405,111 +693,6 @@
             this.btnRemoveMonthlyDay.Visible = false;
             this.btnRemoveMonthlyDay.Click += new System.EventHandler(this.btnRemoveMonthlyDay_Click);
             // 
-            // cbSunday
-            // 
-            this.cbSunday.AutoSize = true;
-            this.cbSunday.Depth = 0;
-            this.cbSunday.Location = new System.Drawing.Point(240, 42);
-            this.cbSunday.Margin = new System.Windows.Forms.Padding(0);
-            this.cbSunday.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbSunday.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbSunday.Name = "cbSunday";
-            this.cbSunday.Ripple = true;
-            this.cbSunday.Size = new System.Drawing.Size(89, 37);
-            this.cbSunday.TabIndex = 6;
-            this.cbSunday.Text = "Sunday";
-            this.cbSunday.UseVisualStyleBackColor = true;
-            // 
-            // cbThursday
-            // 
-            this.cbThursday.AutoSize = true;
-            this.cbThursday.Depth = 0;
-            this.cbThursday.Location = new System.Drawing.Point(358, 5);
-            this.cbThursday.Margin = new System.Windows.Forms.Padding(0);
-            this.cbThursday.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbThursday.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbThursday.Name = "cbThursday";
-            this.cbThursday.Ripple = true;
-            this.cbThursday.Size = new System.Drawing.Size(102, 37);
-            this.cbThursday.TabIndex = 5;
-            this.cbThursday.Text = "Thursday";
-            this.cbThursday.UseVisualStyleBackColor = true;
-            // 
-            // cbSaturday
-            // 
-            this.cbSaturday.AutoSize = true;
-            this.cbSaturday.Depth = 0;
-            this.cbSaturday.Location = new System.Drawing.Point(122, 42);
-            this.cbSaturday.Margin = new System.Windows.Forms.Padding(0);
-            this.cbSaturday.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbSaturday.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbSaturday.Name = "cbSaturday";
-            this.cbSaturday.Ripple = true;
-            this.cbSaturday.Size = new System.Drawing.Size(99, 37);
-            this.cbSaturday.TabIndex = 4;
-            this.cbSaturday.Text = "Saturday";
-            this.cbSaturday.UseVisualStyleBackColor = true;
-            // 
-            // cbFriday
-            // 
-            this.cbFriday.AutoSize = true;
-            this.cbFriday.Depth = 0;
-            this.cbFriday.Location = new System.Drawing.Point(5, 42);
-            this.cbFriday.Margin = new System.Windows.Forms.Padding(0);
-            this.cbFriday.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbFriday.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbFriday.Name = "cbFriday";
-            this.cbFriday.Ripple = true;
-            this.cbFriday.Size = new System.Drawing.Size(79, 37);
-            this.cbFriday.TabIndex = 3;
-            this.cbFriday.Text = "Friday";
-            this.cbFriday.UseVisualStyleBackColor = true;
-            // 
-            // cbWednesday
-            // 
-            this.cbWednesday.AutoSize = true;
-            this.cbWednesday.Depth = 0;
-            this.cbWednesday.Location = new System.Drawing.Point(240, 5);
-            this.cbWednesday.Margin = new System.Windows.Forms.Padding(0);
-            this.cbWednesday.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbWednesday.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbWednesday.Name = "cbWednesday";
-            this.cbWednesday.Ripple = true;
-            this.cbWednesday.Size = new System.Drawing.Size(117, 37);
-            this.cbWednesday.TabIndex = 2;
-            this.cbWednesday.Text = "Wednesday";
-            this.cbWednesday.UseVisualStyleBackColor = true;
-            // 
-            // cbTuesday
-            // 
-            this.cbTuesday.AutoSize = true;
-            this.cbTuesday.Depth = 0;
-            this.cbTuesday.Location = new System.Drawing.Point(122, 5);
-            this.cbTuesday.Margin = new System.Windows.Forms.Padding(0);
-            this.cbTuesday.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbTuesday.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbTuesday.Name = "cbTuesday";
-            this.cbTuesday.Ripple = true;
-            this.cbTuesday.Size = new System.Drawing.Size(96, 37);
-            this.cbTuesday.TabIndex = 1;
-            this.cbTuesday.Text = "Tuesday";
-            this.cbTuesday.UseVisualStyleBackColor = true;
-            // 
-            // cbMonday
-            // 
-            this.cbMonday.AutoSize = true;
-            this.cbMonday.Depth = 0;
-            this.cbMonday.Location = new System.Drawing.Point(5, 5);
-            this.cbMonday.Margin = new System.Windows.Forms.Padding(0);
-            this.cbMonday.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.cbMonday.MouseState = MaterialSkin.MouseState.HOVER;
-            this.cbMonday.Name = "cbMonday";
-            this.cbMonday.Ripple = true;
-            this.cbMonday.Size = new System.Drawing.Size(93, 37);
-            this.cbMonday.TabIndex = 0;
-            this.cbMonday.Text = "Monday";
-            this.cbMonday.UseVisualStyleBackColor = true;
-            // 
             // tbNote
             // 
             this.tbNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -527,109 +710,6 @@
             this.tbNote.Text = "";
             this.tbNote.LocationChanged += new System.EventHandler(this.tbNote_LocationChanged);
             this.tbNote.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbNote_KeyDown);
-            // 
-            // rbNoRepeat
-            // 
-            this.rbNoRepeat.AutoSize = true;
-            this.rbNoRepeat.Checked = true;
-            this.rbNoRepeat.Depth = 0;
-            this.rbNoRepeat.Location = new System.Drawing.Point(246, 53);
-            this.rbNoRepeat.Margin = new System.Windows.Forms.Padding(0);
-            this.rbNoRepeat.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.rbNoRepeat.MouseState = MaterialSkin.MouseState.HOVER;
-            this.rbNoRepeat.Name = "rbNoRepeat";
-            this.rbNoRepeat.Ripple = true;
-            this.rbNoRepeat.Size = new System.Drawing.Size(112, 37);
-            this.rbNoRepeat.TabIndex = 5;
-            this.rbNoRepeat.TabStop = true;
-            this.rbNoRepeat.Text = "Set date(s)";
-            this.rbNoRepeat.UseVisualStyleBackColor = true;
-            this.rbNoRepeat.CheckedChanged += new System.EventHandler(this.rbNoRepeat_CheckedChanged);
-            // 
-            // rbEveryXCustom
-            // 
-            this.rbEveryXCustom.AutoSize = true;
-            this.rbEveryXCustom.Depth = 0;
-            this.rbEveryXCustom.Location = new System.Drawing.Point(123, 53);
-            this.rbEveryXCustom.Margin = new System.Windows.Forms.Padding(0);
-            this.rbEveryXCustom.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.rbEveryXCustom.MouseState = MaterialSkin.MouseState.HOVER;
-            this.rbEveryXCustom.Name = "rbEveryXCustom";
-            this.rbEveryXCustom.Ripple = true;
-            this.rbEveryXCustom.Size = new System.Drawing.Size(90, 37);
-            this.rbEveryXCustom.TabIndex = 4;
-            this.rbEveryXCustom.TabStop = true;
-            this.rbEveryXCustom.Text = "Custom";
-            this.rbEveryXCustom.UseVisualStyleBackColor = true;
-            this.rbEveryXCustom.CheckedChanged += new System.EventHandler(this.rbEveryXCustom_CheckedChanged);
-            // 
-            // rbMonthly
-            // 
-            this.rbMonthly.AutoSize = true;
-            this.rbMonthly.Depth = 0;
-            this.rbMonthly.Location = new System.Drawing.Point(3, 53);
-            this.rbMonthly.Margin = new System.Windows.Forms.Padding(0);
-            this.rbMonthly.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.rbMonthly.MouseState = MaterialSkin.MouseState.HOVER;
-            this.rbMonthly.Name = "rbMonthly";
-            this.rbMonthly.Ripple = true;
-            this.rbMonthly.Size = new System.Drawing.Size(93, 37);
-            this.rbMonthly.TabIndex = 3;
-            this.rbMonthly.TabStop = true;
-            this.rbMonthly.Text = "Monthly";
-            this.rbMonthly.UseVisualStyleBackColor = true;
-            this.rbMonthly.CheckedChanged += new System.EventHandler(this.rbMonthly_CheckedChanged);
-            // 
-            // rbMultipleDays
-            // 
-            this.rbMultipleDays.AutoSize = true;
-            this.rbMultipleDays.Depth = 0;
-            this.rbMultipleDays.Location = new System.Drawing.Point(246, 16);
-            this.rbMultipleDays.Margin = new System.Windows.Forms.Padding(0);
-            this.rbMultipleDays.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.rbMultipleDays.MouseState = MaterialSkin.MouseState.HOVER;
-            this.rbMultipleDays.Name = "rbMultipleDays";
-            this.rbMultipleDays.Ripple = true;
-            this.rbMultipleDays.Size = new System.Drawing.Size(107, 37);
-            this.rbMultipleDays.TabIndex = 2;
-            this.rbMultipleDays.TabStop = true;
-            this.rbMultipleDays.Text = "Weekdays";
-            this.rbMultipleDays.UseVisualStyleBackColor = true;
-            this.rbMultipleDays.CheckedChanged += new System.EventHandler(this.rbMultipleDays_CheckedChanged);
-            // 
-            // rbWorkDays
-            // 
-            this.rbWorkDays.AutoSize = true;
-            this.rbWorkDays.Depth = 0;
-            this.rbWorkDays.Location = new System.Drawing.Point(123, 16);
-            this.rbWorkDays.Margin = new System.Windows.Forms.Padding(0);
-            this.rbWorkDays.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.rbWorkDays.MouseState = MaterialSkin.MouseState.HOVER;
-            this.rbWorkDays.Name = "rbWorkDays";
-            this.rbWorkDays.Ripple = true;
-            this.rbWorkDays.Size = new System.Drawing.Size(109, 37);
-            this.rbWorkDays.TabIndex = 1;
-            this.rbWorkDays.TabStop = true;
-            this.rbWorkDays.Text = "Work days";
-            this.rbWorkDays.UseVisualStyleBackColor = true;
-            this.rbWorkDays.CheckedChanged += new System.EventHandler(this.rbWorkDays_CheckedChanged);
-            // 
-            // rbDaily
-            // 
-            this.rbDaily.AutoSize = true;
-            this.rbDaily.Depth = 0;
-            this.rbDaily.Location = new System.Drawing.Point(3, 16);
-            this.rbDaily.Margin = new System.Windows.Forms.Padding(0);
-            this.rbDaily.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.rbDaily.MouseState = MaterialSkin.MouseState.HOVER;
-            this.rbDaily.Name = "rbDaily";
-            this.rbDaily.Ripple = true;
-            this.rbDaily.Size = new System.Drawing.Size(71, 37);
-            this.rbDaily.TabIndex = 0;
-            this.rbDaily.TabStop = true;
-            this.rbDaily.Text = "Daily";
-            this.rbDaily.UseVisualStyleBackColor = true;
-            this.rbDaily.CheckedChanged += new System.EventHandler(this.rbDaily_CheckedChanged);
             // 
             // btnAddDate
             // 
@@ -746,86 +826,6 @@
             this.resetTimeDateToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.resetTimeDateToolStripMenuItem.Text = "Reset Time/Date";
             this.resetTimeDateToolStripMenuItem.Click += new System.EventHandler(this.resetTimeDateToolStripMenuItem_Click);
-            // 
-            // btnImage
-            // 
-            this.btnImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImage.Image = global::RemindMe.Properties.Resources.imageDark;
-            this.btnImage.ImageActive = null;
-            this.btnImage.ImageLocation = "";
-            this.btnImage.Location = new System.Drawing.Point(21, 0);
-            this.btnImage.Name = "btnImage";
-            this.btnImage.Size = new System.Drawing.Size(18, 18);
-            this.btnImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnImage.TabIndex = 141;
-            this.btnImage.TabStop = false;
-            this.btnImage.Zoom = -15;
-            this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
-            // 
-            // btnStrikethrough
-            // 
-            this.btnStrikethrough.BackColor = System.Drawing.Color.Transparent;
-            this.btnStrikethrough.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnStrikethrough.Image = global::RemindMe.Properties.Resources.strikethrough_text_interface_option_button;
-            this.btnStrikethrough.ImageActive = null;
-            this.btnStrikethrough.ImageLocation = "";
-            this.btnStrikethrough.Location = new System.Drawing.Point(0, 72);
-            this.btnStrikethrough.Name = "btnStrikethrough";
-            this.btnStrikethrough.Size = new System.Drawing.Size(18, 18);
-            this.btnStrikethrough.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnStrikethrough.TabIndex = 140;
-            this.btnStrikethrough.TabStop = false;
-            this.btnStrikethrough.Zoom = -15;
-            this.btnStrikethrough.Click += new System.EventHandler(this.btnStrikethrough_Click);
-            // 
-            // btnUnderline
-            // 
-            this.btnUnderline.BackColor = System.Drawing.Color.Transparent;
-            this.btnUnderline.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUnderline.Image = global::RemindMe.Properties.Resources.underline;
-            this.btnUnderline.ImageActive = null;
-            this.btnUnderline.ImageLocation = "";
-            this.btnUnderline.Location = new System.Drawing.Point(0, 48);
-            this.btnUnderline.Name = "btnUnderline";
-            this.btnUnderline.Size = new System.Drawing.Size(18, 18);
-            this.btnUnderline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnUnderline.TabIndex = 139;
-            this.btnUnderline.TabStop = false;
-            this.btnUnderline.Zoom = -15;
-            this.btnUnderline.Click += new System.EventHandler(this.btnUnderline_Click);
-            // 
-            // btnItalic
-            // 
-            this.btnItalic.BackColor = System.Drawing.Color.Transparent;
-            this.btnItalic.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnItalic.Image = global::RemindMe.Properties.Resources.italic;
-            this.btnItalic.ImageActive = null;
-            this.btnItalic.ImageLocation = "";
-            this.btnItalic.Location = new System.Drawing.Point(0, 24);
-            this.btnItalic.Name = "btnItalic";
-            this.btnItalic.Size = new System.Drawing.Size(18, 18);
-            this.btnItalic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnItalic.TabIndex = 138;
-            this.btnItalic.TabStop = false;
-            this.btnItalic.Zoom = -15;
-            this.btnItalic.Click += new System.EventHandler(this.btnItalic_Click);
-            // 
-            // btnBold
-            // 
-            this.btnBold.BackColor = System.Drawing.Color.Transparent;
-            this.btnBold.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBold.Image = global::RemindMe.Properties.Resources.bold;
-            this.btnBold.ImageActive = null;
-            this.btnBold.ImageLocation = "";
-            this.btnBold.Location = new System.Drawing.Point(0, 0);
-            this.btnBold.Name = "btnBold";
-            this.btnBold.Size = new System.Drawing.Size(18, 18);
-            this.btnBold.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnBold.TabIndex = 137;
-            this.btnBold.TabStop = false;
-            this.btnBold.Zoom = -15;
-            this.btnBold.Click += new System.EventHandler(this.btnBold_Click);
             // 
             // btnAdvancedReminder
             // 
@@ -986,12 +986,12 @@
             this.pnlUpdateTime.ResumeLayout(false);
             this.pnlUpdateTime.PerformLayout();
             this.pnlMarkupButtons.ResumeLayout(false);
-            this.AddDaysMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStrikethrough)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUnderline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItalic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBold)).EndInit();
+            this.AddDaysMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1007,9 +1007,9 @@
         private MaterialSkin.Controls.MaterialButton btnRemoveDate;
         private System.Windows.Forms.GroupBox groupRepeatRadiobuttons;
         private MaterialSkin.Controls.MaterialRadioButton rbNoRepeat;
-        private MaterialSkin.Controls.MaterialRadioButton rbEveryXCustom;
+        private MaterialSkin.Controls.MaterialRadioButton rbCustom;
         private MaterialSkin.Controls.MaterialRadioButton rbMonthly;
-        private MaterialSkin.Controls.MaterialRadioButton rbMultipleDays;
+        private MaterialSkin.Controls.MaterialRadioButton rbWeekDays;
         private MaterialSkin.Controls.MaterialRadioButton rbWorkDays;
         private MaterialSkin.Controls.MaterialRadioButton rbDaily;
         private MaterialSkin.Controls.MaterialMultiLineTextBox tbNote;

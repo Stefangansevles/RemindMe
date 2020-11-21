@@ -89,6 +89,7 @@ namespace RemindMe
             releaseNotes.Add("3.0.20", "Massive performance increasement. RemindMe's drawer now no longer lags and switching to and back the new reminder screen is also faster");
             releaseNotes.Add("3.0.21", "Fixed an issue where creating a reminder would show an error. Whoops..");
             releaseNotes.Add("3.0.22", "- New feature: You can now insert HTML Text markup in reminders, like bold text, italic, underline and strikethrough. You can also add an image, if you would like to do so. Buttons for these markups have been added next to the text where you can enter text for a Reminder\r\n- Fix: Deleting a theme will no longer show an error\r\n- Fix: Saving a new 'resize popup' size without first previewing will no longer show an error");
+            releaseNotes.Add("3.0.23", "-You can now mark text as bold/italic etc through keyboard shortcuts, ctrl+b/i/u/s respectively\r\n-Some generic code improvements and a potential bugfix concerning the bold/italic text");
         }
 
         public static Dictionary<string,string> ReleaseNotes
