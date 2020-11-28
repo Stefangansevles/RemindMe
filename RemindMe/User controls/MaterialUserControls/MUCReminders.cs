@@ -712,9 +712,12 @@ namespace RemindMe
             {
                 if (showUpdateMessage && Directory.Exists(IOVariables.applicationFilesFolder + "\\old") && Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count() > 0)
                 {
-                    RemindMeMessageFormManager.MakeMessagePopup("RemindMe has updated.\r\nRestart RemindMe to load these changes directly.", 0);
+                    MaterialMessageFormManager.MakeMessagePopup("RemindMe has updated!\r\nRestart RemindMe to load these changes directly.", 0);
                     tmrCheckForUpdates.Stop();
                 }
+                else
+                    BLIO.Log("NOT showing update message. showUpdateMessage = " + showUpdateMessage + "\\old directory exists: " + Directory.Exists(IOVariables.applicationFilesFolder + "\\old")
+                        + "  \\old fileCount = " + Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count());
             }
             catch (Exception ex)
             {
