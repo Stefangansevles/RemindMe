@@ -46,8 +46,7 @@ namespace RemindMe
             numSeconds.KeyUp += numericUpDown_ValueChange;
             numMinutes.KeyUp += numericUpDown_ValueChange;
             numHours.KeyUp += numericUpDown_ValueChange;
-
-            lblTimerTitle.MaximumSize = new Size(pnlTimerTitle.Width - 15, 0);
+            
 
 
             //Don't allow typing characters in the numeric textbox
@@ -363,11 +362,9 @@ namespace RemindMe
             foreach (TimerItem itm in timers)
             {
                 if (itm.ID == id)
-                {
-                    lblTimerTitle.Text = "Timer: " + itm.TimerText;
+                {                    
 
-                    currentTimerItem = itm;
-                    lblTimerTitle.Visible = true;
+                    currentTimerItem = itm;                    
 
 
                     if (currentTimerItem.Running)
@@ -487,8 +484,7 @@ namespace RemindMe
             //Set the current timer to the first one in the list
             if (timers.Count > 0)
             {
-                currentTimerItem = timers[0];
-                lblTimerTitle.Visible = true;
+                currentTimerItem = timers[0];                
 
                 BLIO.Log("Setting values of (UCTimer) numericupdowns");
                 TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
@@ -501,8 +497,7 @@ namespace RemindMe
                 numSeconds.Text = "0";
                 numMinutes.Text = "0";
                 numHours.Text = "0";
-                btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;
-                lblTimerTitle.Visible = false;
+                btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;                
                 currentTimerItem = null;
             }
 

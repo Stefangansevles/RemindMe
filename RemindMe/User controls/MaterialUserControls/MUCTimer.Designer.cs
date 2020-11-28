@@ -30,28 +30,25 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlRunningTimers = new System.Windows.Forms.Panel();
-            this.lblNoTimers = new MaterialSkin.Controls.MaterialLabel();
-            this.btnTimerTemplate = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.lblKeyCombination = new MaterialSkin.Controls.MaterialLabel();
-            this.numHours = new MaterialSkin.Controls.MaterialTextBox();
-            this.disableRightclick = new MaterialSkin.Controls.MaterialContextMenuStrip();
-            this.numMinutes = new MaterialSkin.Controls.MaterialTextBox();
-            this.numSeconds = new MaterialSkin.Controls.MaterialTextBox();
-            this.pnlTimerTitle = new System.Windows.Forms.Panel();
-            this.lblTimerTitle = new MaterialSkin.Controls.MaterialLabel();
-            this.btnPlusMinutes = new MaterialSkin.Controls.MaterialButton();
-            this.btnPlusSeconds = new MaterialSkin.Controls.MaterialButton();
+            this.tmrCountdown = new System.Windows.Forms.Timer(this.components);
             this.btnMinSeconds = new MaterialSkin.Controls.MaterialButton();
+            this.btnPlusSeconds = new MaterialSkin.Controls.MaterialButton();
             this.btnMinMinutes = new MaterialSkin.Controls.MaterialButton();
+            this.btnPlusMinutes = new MaterialSkin.Controls.MaterialButton();
             this.btnMinHours = new MaterialSkin.Controls.MaterialButton();
             this.btnPlusHours = new MaterialSkin.Controls.MaterialButton();
+            this.numSeconds = new MaterialSkin.Controls.MaterialTextBox();
+            this.disableRightclick = new MaterialSkin.Controls.MaterialContextMenuStrip();
+            this.numMinutes = new MaterialSkin.Controls.MaterialTextBox();
+            this.numHours = new MaterialSkin.Controls.MaterialTextBox();
+            this.lblKeyCombination = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.lblNoTimers = new MaterialSkin.Controls.MaterialLabel();
+            this.btnDeleteTimer = new MaterialSkin.Controls.MaterialButton();
             this.btnPauseResumeTimer = new MaterialSkin.Controls.MaterialButton();
             this.btnNewTimer = new MaterialSkin.Controls.MaterialButton();
-            this.tmrCountdown = new System.Windows.Forms.Timer(this.components);
-            this.btnDeleteTimer = new MaterialSkin.Controls.MaterialButton();
+            this.btnTimerTemplate = new MaterialSkin.Controls.MaterialButton();
             this.pnlRunningTimers.SuspendLayout();
-            this.pnlTimerTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlRunningTimers
@@ -66,182 +63,10 @@
             this.pnlRunningTimers.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlRunningTimers_ControlAdded);
             this.pnlRunningTimers.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlRunningTimers_ControlRemoved);
             // 
-            // lblNoTimers
+            // tmrCountdown
             // 
-            this.lblNoTimers.AutoSize = true;
-            this.lblNoTimers.Depth = 0;
-            this.lblNoTimers.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblNoTimers.Location = new System.Drawing.Point(325, 6);
-            this.lblNoTimers.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblNoTimers.Name = "lblNoTimers";
-            this.lblNoTimers.Size = new System.Drawing.Size(156, 19);
-            this.lblNoTimers.TabIndex = 0;
-            this.lblNoTimers.Text = "No running timers yet!";
-            // 
-            // btnTimerTemplate
-            // 
-            this.btnTimerTemplate.AutoSize = false;
-            this.btnTimerTemplate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnTimerTemplate.Depth = 0;
-            this.btnTimerTemplate.DrawShadows = true;
-            this.btnTimerTemplate.HighEmphasis = true;
-            this.btnTimerTemplate.Icon = global::RemindMe.Properties.Resources.RemindMe;
-            this.btnTimerTemplate.Location = new System.Drawing.Point(16, 497);
-            this.btnTimerTemplate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnTimerTemplate.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnTimerTemplate.Name = "btnTimerTemplate";
-            this.btnTimerTemplate.Size = new System.Drawing.Size(112, 36);
-            this.btnTimerTemplate.TabIndex = 113;
-            this.btnTimerTemplate.Text = "text";
-            this.btnTimerTemplate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
-            this.btnTimerTemplate.UseAccentColor = false;
-            this.btnTimerTemplate.UseVisualStyleBackColor = true;
-            this.btnTimerTemplate.Visible = false;
-            // 
-            // materialLabel1
-            // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(99, 94);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(605, 19);
-            this.materialLabel1.TabIndex = 114;
-            this.materialLabel1.Text = "Want something short-term? Dont want to create a reminder for it? set a timer ins" +
-    "tead.";
-            // 
-            // lblKeyCombination
-            // 
-            this.lblKeyCombination.AutoSize = true;
-            this.lblKeyCombination.Depth = 0;
-            this.lblKeyCombination.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblKeyCombination.FontType = MaterialSkin.MaterialSkinManager.fontType.Caption;
-            this.lblKeyCombination.Location = new System.Drawing.Point(142, 115);
-            this.lblKeyCombination.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblKeyCombination.Name = "lblKeyCombination";
-            this.lblKeyCombination.Size = new System.Drawing.Size(387, 14);
-            this.lblKeyCombination.TabIndex = 116;
-            this.lblKeyCombination.Text = "protip: You can create multiple timers by pressing the key combination: ";
-            // 
-            // numHours
-            // 
-            this.numHours.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numHours.ContextMenuStrip = this.disableRightclick;
-            this.numHours.Depth = 0;
-            this.numHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.numHours.Hint = "Hours";
-            this.numHours.Location = new System.Drawing.Point(222, 185);
-            this.numHours.MaxLength = 50;
-            this.numHours.MouseState = MaterialSkin.MouseState.OUT;
-            this.numHours.Multiline = false;
-            this.numHours.Name = "numHours";
-            this.numHours.Size = new System.Drawing.Size(77, 50);
-            this.numHours.TabIndex = 119;
-            this.numHours.Text = "0";
-            // 
-            // disableRightclick
-            // 
-            this.disableRightclick.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
-            this.disableRightclick.Depth = 0;
-            this.disableRightclick.MouseState = MaterialSkin.MouseState.HOVER;
-            this.disableRightclick.Name = "disableRightclick";
-            this.disableRightclick.Size = new System.Drawing.Size(61, 4);
-            // 
-            // numMinutes
-            // 
-            this.numMinutes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numMinutes.ContextMenuStrip = this.disableRightclick;
-            this.numMinutes.Depth = 0;
-            this.numMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.numMinutes.Hint = "Minutes";
-            this.numMinutes.Location = new System.Drawing.Point(351, 184);
-            this.numMinutes.MaxLength = 50;
-            this.numMinutes.MouseState = MaterialSkin.MouseState.OUT;
-            this.numMinutes.Multiline = false;
-            this.numMinutes.Name = "numMinutes";
-            this.numMinutes.Size = new System.Drawing.Size(77, 50);
-            this.numMinutes.TabIndex = 120;
-            this.numMinutes.Text = "0";
-            this.numMinutes.TextChanged += new System.EventHandler(this.numMinutes_TextChanged);
-            // 
-            // numSeconds
-            // 
-            this.numSeconds.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numSeconds.ContextMenuStrip = this.disableRightclick;
-            this.numSeconds.Depth = 0;
-            this.numSeconds.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.numSeconds.Hint = "Seconds";
-            this.numSeconds.Location = new System.Drawing.Point(475, 184);
-            this.numSeconds.MaxLength = 50;
-            this.numSeconds.MouseState = MaterialSkin.MouseState.OUT;
-            this.numSeconds.Multiline = false;
-            this.numSeconds.Name = "numSeconds";
-            this.numSeconds.Size = new System.Drawing.Size(77, 50);
-            this.numSeconds.TabIndex = 121;
-            this.numSeconds.Text = "0";
-            this.numSeconds.TextChanged += new System.EventHandler(this.numSeconds_TextChanged);
-            // 
-            // pnlTimerTitle
-            // 
-            this.pnlTimerTitle.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlTimerTitle.Controls.Add(this.lblTimerTitle);
-            this.pnlTimerTitle.Location = new System.Drawing.Point(210, 318);
-            this.pnlTimerTitle.Name = "pnlTimerTitle";
-            this.pnlTimerTitle.Size = new System.Drawing.Size(330, 48);
-            this.pnlTimerTitle.TabIndex = 122;
-            // 
-            // lblTimerTitle
-            // 
-            this.lblTimerTitle.AutoSize = true;
-            this.lblTimerTitle.Depth = 0;
-            this.lblTimerTitle.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblTimerTitle.Location = new System.Drawing.Point(16, 14);
-            this.lblTimerTitle.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblTimerTitle.Name = "lblTimerTitle";
-            this.lblTimerTitle.Size = new System.Drawing.Size(50, 19);
-            this.lblTimerTitle.TabIndex = 0;
-            this.lblTimerTitle.Text = "Timer: ";
-            // 
-            // btnPlusMinutes
-            // 
-            this.btnPlusMinutes.AutoSize = false;
-            this.btnPlusMinutes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnPlusMinutes.Depth = 0;
-            this.btnPlusMinutes.DrawShadows = true;
-            this.btnPlusMinutes.HighEmphasis = true;
-            this.btnPlusMinutes.Icon = null;
-            this.btnPlusMinutes.Location = new System.Drawing.Point(436, 184);
-            this.btnPlusMinutes.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnPlusMinutes.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnPlusMinutes.Name = "btnPlusMinutes";
-            this.btnPlusMinutes.Size = new System.Drawing.Size(22, 22);
-            this.btnPlusMinutes.TabIndex = 125;
-            this.btnPlusMinutes.Text = "+";
-            this.btnPlusMinutes.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnPlusMinutes.UseAccentColor = false;
-            this.btnPlusMinutes.UseVisualStyleBackColor = true;
-            this.btnPlusMinutes.Click += new System.EventHandler(this.btnPlusMinutes_Click);
-            // 
-            // btnPlusSeconds
-            // 
-            this.btnPlusSeconds.AutoSize = false;
-            this.btnPlusSeconds.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnPlusSeconds.Depth = 0;
-            this.btnPlusSeconds.DrawShadows = true;
-            this.btnPlusSeconds.HighEmphasis = true;
-            this.btnPlusSeconds.Icon = null;
-            this.btnPlusSeconds.Location = new System.Drawing.Point(559, 185);
-            this.btnPlusSeconds.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnPlusSeconds.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnPlusSeconds.Name = "btnPlusSeconds";
-            this.btnPlusSeconds.Size = new System.Drawing.Size(22, 22);
-            this.btnPlusSeconds.TabIndex = 127;
-            this.btnPlusSeconds.Text = "+";
-            this.btnPlusSeconds.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnPlusSeconds.UseAccentColor = false;
-            this.btnPlusSeconds.UseVisualStyleBackColor = true;
-            this.btnPlusSeconds.Click += new System.EventHandler(this.btnPlusSeconds_Click);
+            this.tmrCountdown.Interval = 1000;
+            this.tmrCountdown.Tick += new System.EventHandler(this.tmrCountdown_Tick);
             // 
             // btnMinSeconds
             // 
@@ -263,6 +88,26 @@
             this.btnMinSeconds.UseVisualStyleBackColor = true;
             this.btnMinSeconds.Click += new System.EventHandler(this.btnMinSeconds_Click);
             // 
+            // btnPlusSeconds
+            // 
+            this.btnPlusSeconds.AutoSize = false;
+            this.btnPlusSeconds.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPlusSeconds.Depth = 0;
+            this.btnPlusSeconds.DrawShadows = true;
+            this.btnPlusSeconds.HighEmphasis = true;
+            this.btnPlusSeconds.Icon = null;
+            this.btnPlusSeconds.Location = new System.Drawing.Point(559, 185);
+            this.btnPlusSeconds.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnPlusSeconds.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnPlusSeconds.Name = "btnPlusSeconds";
+            this.btnPlusSeconds.Size = new System.Drawing.Size(22, 22);
+            this.btnPlusSeconds.TabIndex = 127;
+            this.btnPlusSeconds.Text = "+";
+            this.btnPlusSeconds.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnPlusSeconds.UseAccentColor = false;
+            this.btnPlusSeconds.UseVisualStyleBackColor = true;
+            this.btnPlusSeconds.Click += new System.EventHandler(this.btnPlusSeconds_Click);
+            // 
             // btnMinMinutes
             // 
             this.btnMinMinutes.AutoSize = false;
@@ -282,6 +127,26 @@
             this.btnMinMinutes.UseAccentColor = false;
             this.btnMinMinutes.UseVisualStyleBackColor = true;
             this.btnMinMinutes.Click += new System.EventHandler(this.btnMinMinutes_Click);
+            // 
+            // btnPlusMinutes
+            // 
+            this.btnPlusMinutes.AutoSize = false;
+            this.btnPlusMinutes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPlusMinutes.Depth = 0;
+            this.btnPlusMinutes.DrawShadows = true;
+            this.btnPlusMinutes.HighEmphasis = true;
+            this.btnPlusMinutes.Icon = null;
+            this.btnPlusMinutes.Location = new System.Drawing.Point(436, 184);
+            this.btnPlusMinutes.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnPlusMinutes.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnPlusMinutes.Name = "btnPlusMinutes";
+            this.btnPlusMinutes.Size = new System.Drawing.Size(22, 22);
+            this.btnPlusMinutes.TabIndex = 125;
+            this.btnPlusMinutes.Text = "+";
+            this.btnPlusMinutes.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnPlusMinutes.UseAccentColor = false;
+            this.btnPlusMinutes.UseVisualStyleBackColor = true;
+            this.btnPlusMinutes.Click += new System.EventHandler(this.btnPlusMinutes_Click);
             // 
             // btnMinHours
             // 
@@ -323,6 +188,122 @@
             this.btnPlusHours.UseVisualStyleBackColor = true;
             this.btnPlusHours.Click += new System.EventHandler(this.btnPlusHours_Click);
             // 
+            // numSeconds
+            // 
+            this.numSeconds.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numSeconds.ContextMenuStrip = this.disableRightclick;
+            this.numSeconds.Depth = 0;
+            this.numSeconds.Font = new System.Drawing.Font("Roboto", 12F);
+            this.numSeconds.Hint = "Seconds";
+            this.numSeconds.Location = new System.Drawing.Point(475, 184);
+            this.numSeconds.MaxLength = 50;
+            this.numSeconds.MouseState = MaterialSkin.MouseState.OUT;
+            this.numSeconds.Multiline = false;
+            this.numSeconds.Name = "numSeconds";
+            this.numSeconds.Size = new System.Drawing.Size(77, 50);
+            this.numSeconds.TabIndex = 121;
+            this.numSeconds.Text = "0";
+            this.numSeconds.TextChanged += new System.EventHandler(this.numSeconds_TextChanged);
+            // 
+            // disableRightclick
+            // 
+            this.disableRightclick.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.disableRightclick.Depth = 0;
+            this.disableRightclick.MouseState = MaterialSkin.MouseState.HOVER;
+            this.disableRightclick.Name = "disableRightclick";
+            this.disableRightclick.Size = new System.Drawing.Size(61, 4);
+            // 
+            // numMinutes
+            // 
+            this.numMinutes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numMinutes.ContextMenuStrip = this.disableRightclick;
+            this.numMinutes.Depth = 0;
+            this.numMinutes.Font = new System.Drawing.Font("Roboto", 12F);
+            this.numMinutes.Hint = "Minutes";
+            this.numMinutes.Location = new System.Drawing.Point(351, 184);
+            this.numMinutes.MaxLength = 50;
+            this.numMinutes.MouseState = MaterialSkin.MouseState.OUT;
+            this.numMinutes.Multiline = false;
+            this.numMinutes.Name = "numMinutes";
+            this.numMinutes.Size = new System.Drawing.Size(77, 50);
+            this.numMinutes.TabIndex = 120;
+            this.numMinutes.Text = "0";
+            this.numMinutes.TextChanged += new System.EventHandler(this.numMinutes_TextChanged);
+            // 
+            // numHours
+            // 
+            this.numHours.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numHours.ContextMenuStrip = this.disableRightclick;
+            this.numHours.Depth = 0;
+            this.numHours.Font = new System.Drawing.Font("Roboto", 12F);
+            this.numHours.Hint = "Hours";
+            this.numHours.Location = new System.Drawing.Point(222, 185);
+            this.numHours.MaxLength = 50;
+            this.numHours.MouseState = MaterialSkin.MouseState.OUT;
+            this.numHours.Multiline = false;
+            this.numHours.Name = "numHours";
+            this.numHours.Size = new System.Drawing.Size(77, 50);
+            this.numHours.TabIndex = 119;
+            this.numHours.Text = "0";
+            // 
+            // lblKeyCombination
+            // 
+            this.lblKeyCombination.AutoSize = true;
+            this.lblKeyCombination.Depth = 0;
+            this.lblKeyCombination.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblKeyCombination.FontType = MaterialSkin.MaterialSkinManager.fontType.Caption;
+            this.lblKeyCombination.Location = new System.Drawing.Point(142, 115);
+            this.lblKeyCombination.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblKeyCombination.Name = "lblKeyCombination";
+            this.lblKeyCombination.Size = new System.Drawing.Size(387, 14);
+            this.lblKeyCombination.TabIndex = 116;
+            this.lblKeyCombination.Text = "protip: You can create multiple timers by pressing the key combination: ";
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.Location = new System.Drawing.Point(99, 94);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(605, 19);
+            this.materialLabel1.TabIndex = 114;
+            this.materialLabel1.Text = "Want something short-term? Dont want to create a reminder for it? set a timer ins" +
+    "tead.";
+            // 
+            // lblNoTimers
+            // 
+            this.lblNoTimers.AutoSize = true;
+            this.lblNoTimers.Depth = 0;
+            this.lblNoTimers.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblNoTimers.Location = new System.Drawing.Point(325, 6);
+            this.lblNoTimers.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblNoTimers.Name = "lblNoTimers";
+            this.lblNoTimers.Size = new System.Drawing.Size(156, 19);
+            this.lblNoTimers.TabIndex = 0;
+            this.lblNoTimers.Text = "No running timers yet!";
+            // 
+            // btnDeleteTimer
+            // 
+            this.btnDeleteTimer.AutoSize = false;
+            this.btnDeleteTimer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteTimer.Depth = 0;
+            this.btnDeleteTimer.DrawShadows = false;
+            this.btnDeleteTimer.HighEmphasis = true;
+            this.btnDeleteTimer.Icon = global::RemindMe.Properties.Resources.Bin_white;
+            this.btnDeleteTimer.Location = new System.Drawing.Point(474, 261);
+            this.btnDeleteTimer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDeleteTimer.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDeleteTimer.Name = "btnDeleteTimer";
+            this.btnDeleteTimer.Size = new System.Drawing.Size(45, 38);
+            this.btnDeleteTimer.TabIndex = 118;
+            this.btnDeleteTimer.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnDeleteTimer.UseAccentColor = false;
+            this.btnDeleteTimer.UseVisualStyleBackColor = true;
+            this.btnDeleteTimer.Visible = false;
+            this.btnDeleteTimer.Click += new System.EventHandler(this.btnDeleteTimer_Click);
+            // 
             // btnPauseResumeTimer
             // 
             this.btnPauseResumeTimer.AutoSize = false;
@@ -362,30 +343,25 @@
             this.btnNewTimer.UseVisualStyleBackColor = true;
             this.btnNewTimer.Click += new System.EventHandler(this.btnNewTimer_Click);
             // 
-            // tmrCountdown
+            // btnTimerTemplate
             // 
-            this.tmrCountdown.Interval = 1000;
-            this.tmrCountdown.Tick += new System.EventHandler(this.tmrCountdown_Tick);
-            // 
-            // btnDeleteTimer
-            // 
-            this.btnDeleteTimer.AutoSize = false;
-            this.btnDeleteTimer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDeleteTimer.Depth = 0;
-            this.btnDeleteTimer.DrawShadows = false;
-            this.btnDeleteTimer.HighEmphasis = true;
-            this.btnDeleteTimer.Icon = global::RemindMe.Properties.Resources.Bin_white;
-            this.btnDeleteTimer.Location = new System.Drawing.Point(474, 261);
-            this.btnDeleteTimer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnDeleteTimer.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnDeleteTimer.Name = "btnDeleteTimer";
-            this.btnDeleteTimer.Size = new System.Drawing.Size(45, 38);
-            this.btnDeleteTimer.TabIndex = 118;
-            this.btnDeleteTimer.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnDeleteTimer.UseAccentColor = false;
-            this.btnDeleteTimer.UseVisualStyleBackColor = true;
-            this.btnDeleteTimer.Visible = false;
-            this.btnDeleteTimer.Click += new System.EventHandler(this.btnDeleteTimer_Click);
+            this.btnTimerTemplate.AutoSize = false;
+            this.btnTimerTemplate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnTimerTemplate.Depth = 0;
+            this.btnTimerTemplate.DrawShadows = true;
+            this.btnTimerTemplate.HighEmphasis = true;
+            this.btnTimerTemplate.Icon = global::RemindMe.Properties.Resources.RemindMe;
+            this.btnTimerTemplate.Location = new System.Drawing.Point(16, 497);
+            this.btnTimerTemplate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnTimerTemplate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnTimerTemplate.Name = "btnTimerTemplate";
+            this.btnTimerTemplate.Size = new System.Drawing.Size(112, 36);
+            this.btnTimerTemplate.TabIndex = 113;
+            this.btnTimerTemplate.Text = "text";
+            this.btnTimerTemplate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Outlined;
+            this.btnTimerTemplate.UseAccentColor = false;
+            this.btnTimerTemplate.UseVisualStyleBackColor = true;
+            this.btnTimerTemplate.Visible = false;
             // 
             // MUCTimer
             // 
@@ -396,7 +372,6 @@
             this.Controls.Add(this.btnPlusMinutes);
             this.Controls.Add(this.btnMinHours);
             this.Controls.Add(this.btnPlusHours);
-            this.Controls.Add(this.pnlTimerTitle);
             this.Controls.Add(this.numSeconds);
             this.Controls.Add(this.numMinutes);
             this.Controls.Add(this.numHours);
@@ -412,8 +387,6 @@
             this.Load += new System.EventHandler(this.UCTimer_Load);
             this.pnlRunningTimers.ResumeLayout(false);
             this.pnlRunningTimers.PerformLayout();
-            this.pnlTimerTitle.ResumeLayout(false);
-            this.pnlTimerTitle.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,8 +401,6 @@
         private MaterialSkin.Controls.MaterialLabel lblKeyCombination;
         private MaterialSkin.Controls.MaterialButton btnNewTimer;
         private MaterialSkin.Controls.MaterialButton btnPauseResumeTimer;
-        private System.Windows.Forms.Panel pnlTimerTitle;
-        private MaterialSkin.Controls.MaterialLabel lblTimerTitle;
         private MaterialSkin.Controls.MaterialButton btnPlusHours;
         private MaterialSkin.Controls.MaterialButton btnMinHours;
         private MaterialSkin.Controls.MaterialButton btnMinMinutes;

@@ -300,7 +300,16 @@ namespace RemindMe
                 }
             }
 
+            AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(editableReminder.Id);
+            //This reminder that is loaded for editing has advanced reminder properties. Be sure to also load these
+            if (avrProps != null)
+            {
+                if(AVRForm == null)
+                    AVRForm = new MaterialAdvancedReminderForm();
 
+                AVRForm.BatchScript = avrProps.BatchScript;
+                AVRForm.HideReminder = avrProps.ShowReminder == 1 ? false : true;
+            }
             //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
             pnlUpdateTime.Visible = !rbNoRepeat.Checked;
             swUpdateTime.Checked = Convert.ToBoolean(rem.UpdateTime);

@@ -30,20 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlActionButtons = new System.Windows.Forms.Panel();
-            this.btnSettings = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnDisable = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnDelete = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnEdit = new Bunifu.Framework.UI.BunifuImageButton();
             this.tpInformation = new System.Windows.Forms.ToolTip(this.components);
             this.pnlSideColor = new System.Windows.Forms.Panel();
-            this.pbDate = new System.Windows.Forms.PictureBox();
-            this.pbRepeat = new System.Windows.Forms.PictureBox();
             this.lblReminderNameDisabled = new System.Windows.Forms.Label();
             this.btnShadow = new MaterialSkin.Controls.MaterialButton();
             this.lblReminderName = new MaterialSkin.Controls.MaterialLabel();
             this.lblDate = new MaterialSkin.Controls.MaterialLabel();
             this.lblRepeat = new MaterialSkin.Controls.MaterialLabel();
             this.ReminderMenuStrip = new MaterialSkin.Controls.MaterialContextMenuStrip();
+            this.tooltipReminderNote = new System.Windows.Forms.ToolTip(this.components);
+            this.btnSettings = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnDisable = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnDelete = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnEdit = new Bunifu.Framework.UI.BunifuImageButton();
+            this.pbDate = new System.Windows.Forms.PictureBox();
+            this.pbRepeat = new System.Windows.Forms.PictureBox();
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewThisReminderNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewThisReminderIn5SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,15 +56,15 @@
             this.removePostponeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skipToNextDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tooltipReminderNote = new System.Windows.Forms.ToolTip(this.components);
+            this.tooltipAdvancedReminder = new System.Windows.Forms.ToolTip(this.components);
             this.pnlActionButtons.SuspendLayout();
+            this.ReminderMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDisable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepeat)).BeginInit();
-            this.ReminderMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlActionButtons
@@ -77,70 +78,6 @@
             this.pnlActionButtons.Name = "pnlActionButtons";
             this.pnlActionButtons.Size = new System.Drawing.Size(154, 50);
             this.pnlActionButtons.TabIndex = 124;
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
-            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSettings.Image = global::RemindMe.Properties.Resources.gearDark;
-            this.btnSettings.ImageActive = null;
-            this.btnSettings.ImageLocation = "";
-            this.btnSettings.Location = new System.Drawing.Point(11, 13);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(25, 25);
-            this.btnSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnSettings.TabIndex = 117;
-            this.btnSettings.TabStop = false;
-            this.btnSettings.Zoom = -15;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
-            // btnDisable
-            // 
-            this.btnDisable.BackColor = System.Drawing.Color.Transparent;
-            this.btnDisable.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDisable.Image = global::RemindMe.Properties.Resources.disableDark;
-            this.btnDisable.ImageActive = null;
-            this.btnDisable.ImageLocation = "";
-            this.btnDisable.Location = new System.Drawing.Point(47, 13);
-            this.btnDisable.Name = "btnDisable";
-            this.btnDisable.Size = new System.Drawing.Size(25, 25);
-            this.btnDisable.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnDisable.TabIndex = 116;
-            this.btnDisable.TabStop = false;
-            this.btnDisable.Zoom = -15;
-            this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.BackColor = System.Drawing.Color.Transparent;
-            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDelete.Image = global::RemindMe.Properties.Resources.binDark;
-            this.btnDelete.ImageActive = null;
-            this.btnDelete.ImageLocation = "";
-            this.btnDelete.Location = new System.Drawing.Point(83, 13);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(25, 25);
-            this.btnDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnDelete.TabIndex = 114;
-            this.btnDelete.TabStop = false;
-            this.btnDelete.Zoom = -15;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.BackColor = System.Drawing.Color.Transparent;
-            this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEdit.Image = global::RemindMe.Properties.Resources.editPenDark;
-            this.btnEdit.ImageActive = null;
-            this.btnEdit.ImageLocation = "";
-            this.btnEdit.Location = new System.Drawing.Point(119, 13);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(25, 25);
-            this.btnEdit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnEdit.TabIndex = 115;
-            this.btnEdit.TabStop = false;
-            this.btnEdit.Zoom = -15;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // tpInformation
             // 
@@ -158,27 +95,6 @@
             this.pnlSideColor.Name = "pnlSideColor";
             this.pnlSideColor.Size = new System.Drawing.Size(9, 62);
             this.pnlSideColor.TabIndex = 128;
-            // 
-            // pbDate
-            // 
-            this.pbDate.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
-            this.pbDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbDate.ImageLocation = "";
-            this.pbDate.Location = new System.Drawing.Point(14, 31);
-            this.pbDate.Name = "pbDate";
-            this.pbDate.Size = new System.Drawing.Size(23, 23);
-            this.pbDate.TabIndex = 121;
-            this.pbDate.TabStop = false;
-            // 
-            // pbRepeat
-            // 
-            this.pbRepeat.BackgroundImage = global::RemindMe.Properties.Resources.Repeatwhite;
-            this.pbRepeat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbRepeat.Location = new System.Drawing.Point(164, 31);
-            this.pbRepeat.Name = "pbRepeat";
-            this.pbRepeat.Size = new System.Drawing.Size(23, 23);
-            this.pbRepeat.TabIndex = 122;
-            this.pbRepeat.TabStop = false;
             // 
             // lblReminderNameDisabled
             // 
@@ -266,6 +182,99 @@
             this.ReminderMenuStrip.MouseState = MaterialSkin.MouseState.HOVER;
             this.ReminderMenuStrip.Name = "materialContextMenuStrip1";
             this.ReminderMenuStrip.Size = new System.Drawing.Size(298, 186);
+            // 
+            // tooltipReminderNote
+            // 
+            this.tooltipReminderNote.BackColor = System.Drawing.Color.Red;
+            this.tooltipReminderNote.ForeColor = System.Drawing.Color.Red;
+            this.tooltipReminderNote.OwnerDraw = true;
+            this.tooltipReminderNote.ShowAlways = true;
+            this.tooltipReminderNote.ToolTipTitle = "Reminder note";
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSettings.Image = global::RemindMe.Properties.Resources.gearDark;
+            this.btnSettings.ImageActive = null;
+            this.btnSettings.ImageLocation = "";
+            this.btnSettings.Location = new System.Drawing.Point(11, 13);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(25, 25);
+            this.btnSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnSettings.TabIndex = 117;
+            this.btnSettings.TabStop = false;
+            this.btnSettings.Zoom = -15;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnDisable
+            // 
+            this.btnDisable.BackColor = System.Drawing.Color.Transparent;
+            this.btnDisable.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDisable.Image = global::RemindMe.Properties.Resources.disableDark;
+            this.btnDisable.ImageActive = null;
+            this.btnDisable.ImageLocation = "";
+            this.btnDisable.Location = new System.Drawing.Point(47, 13);
+            this.btnDisable.Name = "btnDisable";
+            this.btnDisable.Size = new System.Drawing.Size(25, 25);
+            this.btnDisable.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnDisable.TabIndex = 116;
+            this.btnDisable.TabStop = false;
+            this.btnDisable.Zoom = -15;
+            this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.Transparent;
+            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDelete.Image = global::RemindMe.Properties.Resources.binDark;
+            this.btnDelete.ImageActive = null;
+            this.btnDelete.ImageLocation = "";
+            this.btnDelete.Location = new System.Drawing.Point(83, 13);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(25, 25);
+            this.btnDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnDelete.TabIndex = 114;
+            this.btnDelete.TabStop = false;
+            this.btnDelete.Zoom = -15;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.BackColor = System.Drawing.Color.Transparent;
+            this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEdit.Image = global::RemindMe.Properties.Resources.editPenDark;
+            this.btnEdit.ImageActive = null;
+            this.btnEdit.ImageLocation = "";
+            this.btnEdit.Location = new System.Drawing.Point(119, 13);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(25, 25);
+            this.btnEdit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnEdit.TabIndex = 115;
+            this.btnEdit.TabStop = false;
+            this.btnEdit.Zoom = -15;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // pbDate
+            // 
+            this.pbDate.BackgroundImage = global::RemindMe.Properties.Resources.RemindMe;
+            this.pbDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbDate.ImageLocation = "";
+            this.pbDate.Location = new System.Drawing.Point(14, 31);
+            this.pbDate.Name = "pbDate";
+            this.pbDate.Size = new System.Drawing.Size(23, 23);
+            this.pbDate.TabIndex = 121;
+            this.pbDate.TabStop = false;
+            // 
+            // pbRepeat
+            // 
+            this.pbRepeat.BackgroundImage = global::RemindMe.Properties.Resources.Repeatwhite;
+            this.pbRepeat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbRepeat.Location = new System.Drawing.Point(164, 31);
+            this.pbRepeat.Name = "pbRepeat";
+            this.pbRepeat.Size = new System.Drawing.Size(23, 23);
+            this.pbRepeat.TabIndex = 122;
+            this.pbRepeat.TabStop = false;
             // 
             // previewToolStripMenuItem
             // 
@@ -364,13 +373,13 @@
             this.toolStripMenuItem1.Text = "Permanentely remove reminder";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // tooltipReminderNote
+            // tooltipAdvancedReminder
             // 
-            this.tooltipReminderNote.BackColor = System.Drawing.Color.Red;
-            this.tooltipReminderNote.ForeColor = System.Drawing.Color.Red;
-            this.tooltipReminderNote.OwnerDraw = true;
-            this.tooltipReminderNote.ShowAlways = true;
-            this.tooltipReminderNote.ToolTipTitle = "Reminder note";
+            this.tooltipAdvancedReminder.AutoPopDelay = 10000;
+            this.tooltipAdvancedReminder.InitialDelay = 500;
+            this.tooltipAdvancedReminder.OwnerDraw = true;
+            this.tooltipAdvancedReminder.ReshowDelay = 100;
+            this.tooltipAdvancedReminder.ShowAlways = true;
             // 
             // MUCReminderItem
             // 
@@ -392,13 +401,13 @@
             this.MouseLeave += new System.EventHandler(this.MUCReminderItem_MouseLeave);
             this.MouseHover += new System.EventHandler(this.MUCReminderItem_MouseHover);
             this.pnlActionButtons.ResumeLayout(false);
+            this.ReminderMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDisable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbRepeat)).EndInit();
-            this.ReminderMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -433,5 +442,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Label lblReminderNameDisabled;
         private System.Windows.Forms.ToolTip tooltipReminderNote;
+        private System.Windows.Forms.ToolTip tooltipAdvancedReminder;
     }
 }

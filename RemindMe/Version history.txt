@@ -1093,3 +1093,12 @@ Preview: https://i.imgur.com/UDCkSdj.png
 3.0.24
 - Hovering over a reminder now shows the note text you have set on it(if there is a note)
 - Export/Import/Recovering reminders through the 'Backup / Import' now shows the reminder information better in the listview. The date is now shown as the actual date, instead of the time and it shows the repeating-type of the reminder
+
+3.0.25
+- Advanced Reminders now have a different icon
+- Hovering over an advanced reminder's icon shows the batch code
+
+
+-- Idea --
+let the user select how many reminders he/she wants on 1 page. then replace the  '7' with the localdb number
+and make sure that the selected reminders is like >= 2 && <= 10 or smt

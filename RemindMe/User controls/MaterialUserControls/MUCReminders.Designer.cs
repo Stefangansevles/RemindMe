@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.btnUnhideReminders = new MaterialSkin.Controls.MaterialButton();
-            this.btnNextPage = new MaterialSkin.Controls.MaterialButton();
-            this.btnPreviousPage = new MaterialSkin.Controls.MaterialButton();
-            this.btnAddReminder = new MaterialSkin.Controls.MaterialButton();
             this.pnlReminders = new System.Windows.Forms.Panel();
             this.tmrCheckReminder = new System.Windows.Forms.Timer(this.components);
             this.tmrClearMessageCache = new System.Windows.Forms.Timer(this.components);
             this.tmrCheckForUpdates = new System.Windows.Forms.Timer(this.components);
+            this.btnUnhideReminders = new MaterialSkin.Controls.MaterialButton();
+            this.btnNextPage = new MaterialSkin.Controls.MaterialButton();
+            this.btnPreviousPage = new MaterialSkin.Controls.MaterialButton();
+            this.btnAddReminder = new MaterialSkin.Controls.MaterialButton();
             this.pnlFooter.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +52,29 @@
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(806, 38);
             this.pnlFooter.TabIndex = 0;
+            // 
+            // pnlReminders
+            // 
+            this.pnlReminders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlReminders.Location = new System.Drawing.Point(0, 0);
+            this.pnlReminders.Name = "pnlReminders";
+            this.pnlReminders.Size = new System.Drawing.Size(806, 460);
+            this.pnlReminders.TabIndex = 1;
+            // 
+            // tmrCheckReminder
+            // 
+            this.tmrCheckReminder.Interval = 5000;
+            this.tmrCheckReminder.Tick += new System.EventHandler(this.tmrCheckReminder_Tick);
+            // 
+            // tmrClearMessageCache
+            // 
+            this.tmrClearMessageCache.Interval = 120000;
+            this.tmrClearMessageCache.Tick += new System.EventHandler(this.tmrClearMessageCache_Tick);
+            // 
+            // tmrCheckForUpdates
+            // 
+            this.tmrCheckForUpdates.Interval = 5000;
+            this.tmrCheckForUpdates.Tick += new System.EventHandler(this.tmrCheckForUpdates_Tick);
             // 
             // btnUnhideReminders
             // 
@@ -132,29 +155,6 @@
             this.btnAddReminder.UseAccentColor = false;
             this.btnAddReminder.UseVisualStyleBackColor = true;
             this.btnAddReminder.Click += new System.EventHandler(this.btnAddReminder_Click);
-            // 
-            // pnlReminders
-            // 
-            this.pnlReminders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlReminders.Location = new System.Drawing.Point(0, 0);
-            this.pnlReminders.Name = "pnlReminders";
-            this.pnlReminders.Size = new System.Drawing.Size(806, 460);
-            this.pnlReminders.TabIndex = 1;
-            // 
-            // tmrCheckReminder
-            // 
-            this.tmrCheckReminder.Interval = 5000;
-            this.tmrCheckReminder.Tick += new System.EventHandler(this.tmrCheckReminder_Tick);
-            // 
-            // tmrClearMessageCache
-            // 
-            this.tmrClearMessageCache.Interval = 120000;
-            this.tmrClearMessageCache.Tick += new System.EventHandler(this.tmrClearMessageCache_Tick);
-            // 
-            // tmrCheckForUpdates
-            // 
-            this.tmrCheckForUpdates.Interval = 5000;
-            this.tmrCheckForUpdates.Tick += new System.EventHandler(this.tmrCheckForUpdates_Tick);
             // 
             // MUCReminders
             // 

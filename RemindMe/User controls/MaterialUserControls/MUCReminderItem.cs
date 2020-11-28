@@ -47,13 +47,69 @@ namespace RemindMe
             this.MouseClick += rightClick_Settings;
             pnlActionButtons.MouseClick += rightClick_Settings;
 
+            SetTooltips();        
+        }
 
+        private void SetTooltips()
+        {
             tooltipReminderNote.SetToolTip(this, this.Reminder.Note.Replace("\\n", Environment.NewLine));
-            tooltipReminderNote.BackColor = this.BackColor;
-            tooltipReminderNote.ForeColor = Color.White;
+
+            //Unsubscribe to make sure you dont subscribe twice
+            tooltipReminderNote.Draw -= TooltipReminderNote_Draw;
+            tooltipReminderNote.Popup -= TooltipReminderNote_Popup;
+
             tooltipReminderNote.Draw += TooltipReminderNote_Draw;
             tooltipReminderNote.Popup += TooltipReminderNote_Popup;
 
+
+            AdvancedReminderProperties props = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+            if (props != null && !string.IsNullOrWhiteSpace(props.BatchScript))
+            {
+                tooltipAdvancedReminder.SetToolTip(pbDate, "This reminder has been configured to\r\nRun code on popup:\r\n\r\n" + props.BatchScript);
+
+                //Unsubscribe to make sure you dont subscribe twice
+                tooltipAdvancedReminder.Popup -= TooltipAdvancedReminder_Popup;
+                tooltipAdvancedReminder.Draw -= TooltipAdvancedReminder_Draw;
+
+                tooltipAdvancedReminder.Popup += TooltipAdvancedReminder_Popup;
+                tooltipAdvancedReminder.Draw += TooltipAdvancedReminder_Draw;
+            }
+            else
+                tooltipAdvancedReminder.SetToolTip(pbDate, "");            
+        }
+
+        private void TooltipAdvancedReminder_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            SolidBrush b;
+            AdvancedReminderProperties props = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+
+            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+            {
+                b = new SolidBrush(BACKGROUND_DARK);
+
+                g.FillRectangle(b, e.Bounds);
+
+                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_LIGHT);                
+            }
+            else
+            {
+                b = new SolidBrush(BACKGROUND_LIGHT);
+
+                g.FillRectangle(b, e.Bounds);
+
+                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_DARK);                
+            }
+
+            b.Dispose();
+            g.Dispose();            
+        }
+
+        private void TooltipAdvancedReminder_Popup(object sender, PopupEventArgs e)
+        {
+            AdvancedReminderProperties props = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+            e.ToolTipSize = TextRenderer.MeasureText("This reminder has been configured to\r\nRun code on popup:\r\n\r\n" + props.BatchScript, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel));
+            e.ToolTipSize = new Size(e.ToolTipSize.Width + 8, e.ToolTipSize.Height + 10);
         }
 
         private void TooltipReminderNote_Popup(object sender, PopupEventArgs e)
@@ -65,27 +121,25 @@ namespace RemindMe
         private void TooltipReminderNote_Draw(object sender, DrawToolTipEventArgs e)
         {
             Graphics g = e.Graphics;
-            if(MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+            SolidBrush b;
+            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
             {
-                SolidBrush b = new SolidBrush(BACKGROUND_DARK);              
+                b = new SolidBrush(BACKGROUND_DARK);              
 
                 g.FillRectangle(b, e.Bounds);                        
 
-                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_LIGHT);
-                                
-                b.Dispose();
+                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_LIGHT);                                                
             }
             else
             {
-                SolidBrush b = new SolidBrush(BACKGROUND_LIGHT);
+                b = new SolidBrush(BACKGROUND_LIGHT);
 
                 g.FillRectangle(b, e.Bounds);
 
-                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_DARK);
-
-                b.Dispose();
+                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_DARK);                
             }
             g.Dispose();
+            b.Dispose();
         }
 
         [DllImport("gdi32.dll")]
@@ -316,6 +370,10 @@ namespace RemindMe
                 lblDate.Font = font;
             }
 
+            AdvancedReminderProperties props = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+            if (props != null && !string.IsNullOrWhiteSpace(props.BatchScript))            
+                pbDate.BackgroundImage = Properties.Resources.terminal1;
+
             //If some country has a longer date string, move the repeat icon/text more to the right so it doesnt overlap
             while (lblDate.Bounds.IntersectsWith(pbRepeat.Bounds))
             {
@@ -325,6 +383,8 @@ namespace RemindMe
 
             lblReminderName.Text = rem.Name;
             lblRepeat.Text = BLReminder.GetRepeatTypeText(rem);
+
+            SetTooltips();
 
             /*if (rem.Enabled == 1)
             {
