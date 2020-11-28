@@ -93,7 +93,7 @@ Now that reminders are exported, we can import them. For this there are 2 method
 ![](https://i.imgur.com/6C1XB6W.png)
 
 
-# Did you know?
+# Did you know? | Timers
 
 RemindMe has a Timer system. You can access timer from the `Timer` tab
 
@@ -112,3 +112,33 @@ Also, if you want to quickly see how much time there is left on running timers, 
 
 
 ![Imgur](https://gyazo.com/c0f37cbd653af06b68259519858d986c.gif)
+
+# Did you know? | Advanced Reminders
+
+RemindMe can be configured to use Advanced Reminders. Advanced Reminders can execute batch code when the reminder pops up. You can do a lot of things with that, but I'll leave that up to you ;)
+
+To create an "Advanced Reminder", first select the option in the "settings" tab:
+
+![Imgur](https://i.imgur.com/83a0YQ8.png)
+
+Like the message suggests, you now have a new button when creating reminders:
+
+![Imgur](https://i.imgur.com/KHo1294.png)
+
+Press it, and you will be able to:
+
+1) Add batch code
+
+2) Hide the reminder so that it doesn't pop up visibly. This turns the reminder into a batch script that runs every x ... or however you configured it.
+
+![Imgur](https://i.imgur.com/Sz1BUco.png)
+
+I've pasted some example batch code to demonstrate it.
+
+The reminder will now also have a different icon to indicate that it is an Advanced Reminder with batch code enabled. When you hover over the icon you will be able to quickly see the batch code:
+
+![Imgur](https://i.imgur.com/jS3jNad.png)
+
+To demonstrate how it looks when it pops up, I've made a .gif
+
+![Imgur](https://imgur.com/C5gcAEV.gif)
