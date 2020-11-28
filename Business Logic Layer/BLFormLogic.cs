@@ -34,22 +34,11 @@ namespace Business_Logic_Layer
             itm.Tag = rem.Id; //Add the id as a tag(invisible)
 
 
-            if (rem.PostponeDate == null)
-            {
-                if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortDateString()))
-                    itm.SubItems.Add(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
-                else
-                    itm.SubItems.Add(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortDateString());
-            }
-            else
-            {
-                if (Convert.ToDateTime(DateTime.Today.ToShortDateString()) >= Convert.ToDateTime(Convert.ToDateTime(rem.PostponeDate).ToShortDateString()))
-                    itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortTimeString() + " (p)");
-                else
-                    itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " (p)");
-            }
-            if (material)
-                goto additems; //Skip adding other items to the listview, MaterialListView will stack them together and it will look bad
+            if (rem.PostponeDate == null)            
+                itm.SubItems.Add(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortDateString() + " " + Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());            
+            else            
+                itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString() + " (p)");           
+            
 
             if (rem.EveryXCustom == null)
             {
@@ -78,18 +67,21 @@ namespace Business_Logic_Layer
             else
                 itm.SubItems.Add("every " + rem.EveryXCustom + " " + rem.RepeatType);
 
-            if (rem.Enabled == 1)
+            if (!material)
             {
-                itm.SubItems.Add("True");
-                itm.ForeColor = Color.White;
-            }
-            else
-            {
-                itm.SubItems.Add("False");
-                itm.ForeColor = Color.FromArgb(64, 64, 64);
-            }
 
-            additems:
+                if (rem.Enabled == 1)
+                {
+                    itm.SubItems.Add("True");
+                    itm.ForeColor = Color.White;
+                }
+                else
+                {
+                    itm.SubItems.Add("False");
+                    itm.ForeColor = Color.FromArgb(64, 64, 64);
+                }
+            }
+            
             if(material)
                 ((MaterialListView)lv).Items.Add(itm);
             else

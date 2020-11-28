@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace RemindMe
 {
     /// <summary>
-    /// This class will handle updating RemindMe.
+    /// This class handles updating RemindMe.
     /// </summary>
     ///     
     class RemindMeUpdater

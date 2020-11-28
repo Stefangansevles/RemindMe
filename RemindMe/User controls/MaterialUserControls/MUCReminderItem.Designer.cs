@@ -55,6 +55,7 @@
             this.removePostponeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skipToNextDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tooltipReminderNote = new System.Windows.Forms.ToolTip(this.components);
             this.pnlActionButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDisable)).BeginInit();
@@ -264,7 +265,7 @@
             this.toolStripMenuItem1});
             this.ReminderMenuStrip.MouseState = MaterialSkin.MouseState.HOVER;
             this.ReminderMenuStrip.Name = "materialContextMenuStrip1";
-            this.ReminderMenuStrip.Size = new System.Drawing.Size(298, 208);
+            this.ReminderMenuStrip.Size = new System.Drawing.Size(298, 186);
             // 
             // previewToolStripMenuItem
             // 
@@ -363,6 +364,14 @@
             this.toolStripMenuItem1.Text = "Permanentely remove reminder";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // tooltipReminderNote
+            // 
+            this.tooltipReminderNote.BackColor = System.Drawing.Color.Red;
+            this.tooltipReminderNote.ForeColor = System.Drawing.Color.Red;
+            this.tooltipReminderNote.OwnerDraw = true;
+            this.tooltipReminderNote.ShowAlways = true;
+            this.tooltipReminderNote.ToolTipTitle = "Reminder note";
+            // 
             // MUCReminderItem
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -380,6 +389,8 @@
             this.Load += new System.EventHandler(this.MUCReminderItem_Load);
             this.VisibleChanged += new System.EventHandler(this.MUCReminderItem_VisibleChanged);
             this.DoubleClick += new System.EventHandler(this.bunifuGradientPanel1_DoubleClick);
+            this.MouseLeave += new System.EventHandler(this.MUCReminderItem_MouseLeave);
+            this.MouseHover += new System.EventHandler(this.MUCReminderItem_MouseHover);
             this.pnlActionButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDisable)).EndInit();
@@ -421,5 +432,6 @@
         private System.Windows.Forms.ToolStripMenuItem skipToNextDateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Label lblReminderNameDisabled;
+        private System.Windows.Forms.ToolTip tooltipReminderNote;
     }
 }

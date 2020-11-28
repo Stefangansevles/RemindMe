@@ -214,6 +214,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C89479FF8441E610794E438F8C674CB4"
+        "OwnerKey" = "8:_0B60EAF1669B4DD19B2ED834F173C6AA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CA178E1F1A3C3E0E7CD00BC5EA2FC48C"
         "OwnerKey" = "8:_0B60EAF1669B4DD19B2ED834F173C6AA"
         "MsmSig" = "8:_UNDEFINED"
@@ -384,6 +390,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8183DB93698BA96C8B6BE4259E36E544"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C89479FF8441E610794E438F8C674CB4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1198,6 +1210,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C89479FF8441E610794E438F8C674CB4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C89479FF8441E610794E438F8C674CB4"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2D28091A6FD94AD590C0AA8B04598AB5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CA178E1F1A3C3E0E7CD00BC5EA2FC48C"
             {
             "AssemblyRegister" = "3:1"
@@ -1589,24 +1632,24 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{9BB583BC-6018-4AB8-946E-33C83CB6C5DF}"
-        "PackageCode" = "8:{6D517BCA-2B0D-4955-9CCC-E3C1C9708226}"
+        "ProductCode" = "8:{83BF6CC0-9688-4E2E-9C64-320FCAD0C33C}"
+        "PackageCode" = "8:{68DCFB6C-4C97-4EBA-9672-491450BE6ED1}"
         "UpgradeCode" = "8:{026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.0.23"
+        "ProductVersion" = "8:3.0.24"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
-        "ARPHELPLINK" = "8:"
+        "ARPHELPLINK" = "8:https://github.com/Stefangansevles/RemindMe/issues"
         "Title" = "8:RemindMe"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Stefan Gansevles"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Creates reminders so you won't forget things."
-        "ARPURLINFOABOUT" = "8:"
+        "ARPURLINFOABOUT" = "8:https://github.com/Stefangansevles/RemindMe"
         "ARPPRODUCTICON" = "8:_27F61C53CCA44712AB2C2EC382DE02A5"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"

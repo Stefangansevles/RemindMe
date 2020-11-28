@@ -24,26 +24,66 @@ namespace RemindMe
         }
 
         private void cbAction_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {            
             switch (cbAction.SelectedItem.ToString())
             {
-                case "Export reminders": btnExport_Click(sender, e);
+                case "Export reminders":
+                    LoadExportReminders();
                     break;
-                case "Import reminders": btnImport_Click(sender, e);
+                case "Import reminders":
+                    LoadImportReminders();
                     break;
-                case "Recover deleted reminders": btnRecoverDeleted_Click(sender, e);
+                case "Recover deleted reminders":
+                    LoadDeletedReminders();
                     break;
-                case "Recover old reminders": btnRecoverOld_Click(sender, e);
+                case "Recover old reminders":
+                    LoadOldReminders();
                     break;
 
             }
+            if (lvReminders.Items.Count > 17)
+                chTitle.Width = 414;
+            else
+                chTitle.Width = 430;
         }
+     
+        private void LoadOldReminders()
+        {
+            BLIO.Log("Recover old button pressed. Loading reminders into listview");
+            
+            lvReminders.Items.Clear();
+            transferType = ReminderTransferType.RECOVER;
 
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetArchivedReminders().OrderBy(rem => rem.Name).ToList(), true);
+            BLIO.Log("Added old reminders to listview.");
+        }
+        private void LoadDeletedReminders()
+        {
+            BLIO.Log("Recover deleted button pressed. Loading reminders into listview");
 
-        private void btnImport_Click(object sender, EventArgs e)
+            lvReminders.Items.Clear();
+            transferType = ReminderTransferType.RECOVER;
+
+            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetDeletedReminders().OrderBy(rem => rem.Name).ToList(), true);
+            BLIO.Log("Added deleted reminders to listview.");
+        }
+        private void LoadExportReminders()
+        {
+            BLIO.Log("(MUCImportExport)btnExport_Click");
+            lvReminders.Items.Clear();            
+
+            BLIO.Log("Export button pressed. Loading reminders into listview");
+            if (BLReminder.GetReminders().Count > 0)
+            {
+                transferType = ReminderTransferType.EXPORT;
+                BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders(), true);
+            }
+            BLIO.Log("Added exportable reminders to listview.");
+        }
+        private void LoadImportReminders()
         {
             BLIO.Log("Import button pressed. Loading reminders into listview");
-            remindersFromRemindMeFile.Clear();            
+            remindersFromRemindMeFile.Clear();
             lvReminders.Items.Clear();
 
             string remindmeFile = FSManager.Files.GetSelectedFileWithPath("RemindMe backup file", "*.remindme");
@@ -83,20 +123,7 @@ namespace RemindMe
                 MaterialMessageFormManager.MakeMessagePopup("Error loading reminder(s)", 6);
             }
         }
-
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-            BLIO.Log("(MUCImportExport)btnExport_Click");            
-            lvReminders.Items.Clear();
-
-            BLIO.Log("Export button pressed. Loading reminders into listview");
-            if (BLReminder.GetReminders().Count > 0)
-            {
-                transferType = ReminderTransferType.EXPORT;
-                BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetReminders(), true);
-            }
-            BLIO.Log("Added exportable reminders to listview.");
-        }       
+           
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -333,33 +360,18 @@ namespace RemindMe
             RECOVER
         }
 
-        private void btnRecoverDeleted_Click(object sender, EventArgs e)
-        {
-            BLIO.Log("Recover deleted button pressed. Loading reminders into listview");
+    
 
-            lvReminders.Items.Clear();            
-            transferType = ReminderTransferType.RECOVER;
-
-            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetDeletedReminders().OrderBy(rem => rem.Name).ToList(), true);
-            BLIO.Log("Added deleted reminders to listview.");
-        }
-
-        private void btnRecoverOld_Click(object sender, EventArgs e)
-        {
-            BLIO.Log("Recover old button pressed. Loading reminders into listview");
-
-            lvReminders.Items.Clear();            
-            transferType = ReminderTransferType.RECOVER;
-
-            BLFormLogic.AddRemindersToListview(lvReminders, BLReminder.GetArchivedReminders().OrderBy(rem => rem.Name).ToList(), true);
-            BLIO.Log("Added old reminders to listview.");
-        }
+      
 
         private void MUCImportExport_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
                 BLIO.Log("Control MUCImportExport now visible");
         }
+
+
+       
     }
 
 

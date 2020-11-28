@@ -13,6 +13,7 @@ using Bunifu.Framework.UI;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Drawing.Text;
+using System.Drawing.Drawing2D;
 
 namespace RemindMe
 {
@@ -20,6 +21,12 @@ namespace RemindMe
     {
         //Fill this user control with the details of this reminder
         private Reminder rem;
+
+        private static readonly Color TEXT_HIGH_EMPHASIS_LIGHT = Color.FromArgb(222, 255, 255, 255); // Alpha 87%         
+        private static readonly Color TEXT_HIGH_EMPHASIS_DARK = Color.FromArgb(222, 0, 0, 0); // Alpha 87%
+
+        private static readonly Color BACKGROUND_LIGHT = Color.FromArgb(255, 255, 255, 255);        
+        private static readonly Color BACKGROUND_DARK = Color.FromArgb(255, 80, 80, 80);
 
         public MUCReminderItem(Reminder rem)
         {
@@ -39,8 +46,47 @@ namespace RemindMe
             //Assign right-click settings popup to these 2 panels
             this.MouseClick += rightClick_Settings;
             pnlActionButtons.MouseClick += rightClick_Settings;
+
+
+            tooltipReminderNote.SetToolTip(this, this.Reminder.Note.Replace("\\n", Environment.NewLine));
+            tooltipReminderNote.BackColor = this.BackColor;
+            tooltipReminderNote.ForeColor = Color.White;
+            tooltipReminderNote.Draw += TooltipReminderNote_Draw;
+            tooltipReminderNote.Popup += TooltipReminderNote_Popup;
+
         }
 
+        private void TooltipReminderNote_Popup(object sender, PopupEventArgs e)
+        {
+            e.ToolTipSize = TextRenderer.MeasureText(this.Reminder.Note.Replace("\\n", Environment.NewLine), new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel));
+            e.ToolTipSize = new Size(e.ToolTipSize.Width + 8, e.ToolTipSize.Height + 10);
+        }
+
+        private void TooltipReminderNote_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            if(MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+            {
+                SolidBrush b = new SolidBrush(BACKGROUND_DARK);              
+
+                g.FillRectangle(b, e.Bounds);                        
+
+                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_LIGHT);
+                                
+                b.Dispose();
+            }
+            else
+            {
+                SolidBrush b = new SolidBrush(BACKGROUND_LIGHT);
+
+                g.FillRectangle(b, e.Bounds);
+
+                TextRenderer.DrawText(e.Graphics, e.ToolTipText, new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel), new Point(e.Bounds.X + 5, e.Bounds.Y + 5), TEXT_HIGH_EMPHASIS_DARK);
+
+                b.Dispose();
+            }
+            g.Dispose();
+        }
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
@@ -716,6 +762,15 @@ namespace RemindMe
         {
             if(rem != null && rem.Enabled == 1)
                 lblReminderName.FontType = MaterialSkin.MaterialSkinManager.fontType.Subtitle2;
+        }
+
+        private void MUCReminderItem_MouseHover(object sender, EventArgs e)
+        {                        
+        }
+
+        private void MUCReminderItem_MouseLeave(object sender, EventArgs e)
+        {
+            //tooltipReminderNote.Hide(this);
         }
     }
 }

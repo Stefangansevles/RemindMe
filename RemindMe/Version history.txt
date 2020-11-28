@@ -1057,7 +1057,7 @@ Broadened the try-catch so RemindMe _SHOULD_ always launch
 - Switching RemindMe themes (old/new) does not longer cause and error when you have running timers.
 
 3.0.10
-added [] around table names that could create errors, like "primary"
+added [] around table names that could create errors, like "primary" (didnt end up working?)
 
 3.0.11
 - Links on a reminder popup are now highlighted and clickable! (why wasn't this in before? idk)
@@ -1088,3 +1088,8 @@ Preview: https://i.imgur.com/UDCkSdj.png
 - The bold/italic/strikethrough/underline options are now also possible through shortcuts, ctrl+b/i/s/u respectively
 - Cleaned up the code for creating/editing reminders which was long overdue
 - Added much more logging to help find potential bugs regarding the creation/editing process of a reminder
+
+
+3.0.24
+- Hovering over a reminder now shows the note text you have set on it(if there is a note)
+- Export/Import/Recovering reminders through the 'Backup / Import' now shows the reminder information better in the listview. The date is now shown as the actual date, instead of the time and it shows the repeating-type of the reminder
