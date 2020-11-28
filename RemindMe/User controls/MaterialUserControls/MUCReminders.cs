@@ -714,10 +714,7 @@ namespace RemindMe
                 {
                     MaterialMessageFormManager.MakeMessagePopup("RemindMe has updated!\r\nRestart RemindMe to load these changes directly.", 0);
                     tmrCheckForUpdates.Stop();
-                }
-                else
-                    BLIO.Log("NOT showing update message. showUpdateMessage = " + showUpdateMessage + "\\old directory exists: " + Directory.Exists(IOVariables.applicationFilesFolder + "\\old")
-                        + "  \\old fileCount = " + Directory.GetFiles(IOVariables.applicationFilesFolder + "\\old").Count());
+                }                
             }
             catch (Exception ex)
             {
