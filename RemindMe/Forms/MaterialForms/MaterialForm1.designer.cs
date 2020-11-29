@@ -56,6 +56,7 @@
             this.exitRemindMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showRemindMeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tmrRemoveDebug = new System.Windows.Forms.Timer(this.components);
+            this.tmrResetExceptionInserts = new System.Windows.Forms.Timer(this.components);
             this.mainTabControl.SuspendLayout();
             this.RemindMeTrayIconMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -291,6 +292,11 @@
             this.tmrRemoveDebug.Interval = 2000;
             this.tmrRemoveDebug.Tick += new System.EventHandler(this.tmrRemoveDebug_Tick);
             // 
+            // tmrResetExceptionInserts
+            // 
+            this.tmrResetExceptionInserts.Interval = 300000;
+            this.tmrResetExceptionInserts.Tick += new System.EventHandler(this.tmrResetExceptionInserts_Tick);
+            // 
             // MaterialForm1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -339,6 +345,7 @@
         private System.Windows.Forms.Timer tmrRemoveDebug;
         private System.Windows.Forms.TabPage tabInfo;
         public System.Windows.Forms.Timer tmrUpdateRemindMe;
+        private System.Windows.Forms.Timer tmrResetExceptionInserts;
     }
 }
 

@@ -144,6 +144,7 @@ namespace RemindMe
 
             //workaround
             tmrRemoveDebug.Start();
+            tmrResetExceptionInserts.Start();
 
             BLIO.Log("===  Initializing RemindMe Complete  ===");
         }
@@ -863,6 +864,12 @@ namespace RemindMe
         {            
             mainTabControl.Controls.Remove(tabDebug);
             tmrRemoveDebug.Stop(); 
+        }
+
+        private void tmrResetExceptionInserts_Tick(object sender, EventArgs e)
+        {
+            //A maximum of 5 exceptiosn can be inserted into the db every 5 minutes to prevent spam
+            BLOnlineDatabase.ResetExceptionInserts();
         }
     }
 }

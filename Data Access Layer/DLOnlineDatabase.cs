@@ -7,14 +7,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace Data_Access_Layer
 {
     public class DLOnlineDatabase
     {                
         private DLOnlineDatabase() { }
         private const int MAX_ATTEMPTS = 15;
+        private const int MAX_EXCEPTION_INSERTS = 5;
+        private static int exceptionInserts = 0;
         //If the db is unreachable, stop trying to connect to it.
-        private static bool terminateDatabaseAccess = false;
+        private static bool terminateDatabaseAccess = false;        
+        
         private static bool CanConnect(remindmesqldbEntities db)
         {
             if (terminateDatabaseAccess)
@@ -40,12 +44,22 @@ namespace Data_Access_Layer
                 terminateDatabaseAccess = false;
         }
         /// <summary>
+        /// Reset the amount of exceptions inserted, so that new exceptions can be inserted again to prevent spam
+        /// </summary>
+        public static void ResetExceptionInserts()
+        {
+            exceptionInserts = 0;
+        }
+        /// <summary>
         /// Logs an exception to the online database
         /// </summary>
         /// <param name="ex">The exception that is going to be logged</param>
         /// <param name="exceptionDate">The date the exception is logged at</param>
         public static void AddException(Exception ex, DateTime exceptionDate, string pathToSystemLog, string customMessage)
         {
+            if (exceptionInserts >= MAX_EXCEPTION_INSERTS) 
+                return;
+
             int attemptCount = 0;
             using (remindmesqldbEntities db = new remindmesqldbEntities())
             {
@@ -74,6 +88,7 @@ namespace Data_Access_Layer
 
                 db.ExceptionLog.Add(log);
                 db.SaveChanges();
+                exceptionInserts++;
             }
         }
 

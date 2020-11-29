@@ -14,6 +14,10 @@ namespace Business_Logic_Layer
     {
         private BLOnlineDatabase() {  }
 
+        public static void ResetExceptionInserts()
+        {
+            DLOnlineDatabase.ResetExceptionInserts();
+        }
         /// <summary>
         /// Logs an exception to the online database
         /// </summary>
