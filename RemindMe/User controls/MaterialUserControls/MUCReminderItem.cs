@@ -52,6 +52,9 @@ namespace RemindMe
 
         private void SetTooltips()
         {
+            if (this.Reminder == null)
+                return;
+
             tooltipReminderNote.SetToolTip(this, this.Reminder.Note.Replace("\\n", Environment.NewLine));
 
             //Unsubscribe to make sure you dont subscribe twice

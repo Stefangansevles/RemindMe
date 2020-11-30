@@ -91,30 +91,38 @@ namespace RemindMe
         /// </summary>
         private void TickDownTime()
         {
-            if (Convert.ToInt32(numSeconds.Text) > 0)
-                numSeconds.Text = "" + (Convert.ToInt32(numSeconds.Text) - 1);
-            else
+            try
             {
-                if (Convert.ToInt32(numMinutes.Text) > 0)
-                {
-                    numMinutes.Text = "" + (Convert.ToInt32(numMinutes.Text) - 1);
-                    numSeconds.Text = "59";
-                }
+                if (Convert.ToInt32(numSeconds.Text) > 0)
+                    numSeconds.Text = "" + (Convert.ToInt32(numSeconds.Text) - 1);
                 else
                 {
-                    if (Convert.ToInt32(numHours.Text) > 0)
+                    if (Convert.ToInt32(numMinutes.Text) > 0)
                     {
-                        numHours.Text = "" + (Convert.ToInt32(numHours.Text) - 1);
-                        numMinutes.Text = "59";
+                        numMinutes.Text = "" + (Convert.ToInt32(numMinutes.Text) - 1);
                         numSeconds.Text = "59";
-                    }//Else probably no time left.
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(numHours.Text) > 0)
+                        {
+                            numHours.Text = "" + (Convert.ToInt32(numHours.Text) - 1);
+                            numMinutes.Text = "59";
+                            numSeconds.Text = "59";
+                        }//Else probably no time left.
 
+                    }
                 }
-            }
 
-            
-            if (currentTimerItem == null || (currentTimerItem.PopupDate - DateTime.Now).TotalSeconds <= 0)            
-                tmrCountdown.Stop();            
+
+                if (currentTimerItem == null || (currentTimerItem.PopupDate - DateTime.Now).TotalSeconds <= 0)
+                    tmrCountdown.Stop();
+            }
+            catch(Exception ex)
+            {
+                BLIO.Log("TickDownTime FAILED. -> " + ex);
+                BLIO.WriteError(ex, "Failed to tick down time on this timer");
+            }
         }
 
 
@@ -125,7 +133,11 @@ namespace RemindMe
                 if (pnlRunningTimers.Controls.Count > 1)
                     numHours.Text = "" + (Convert.ToInt32(numHours.Text) + 1);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                BLIO.Log("btnPlusHours FAILED. -> " + ex);
+                BLIO.WriteError(ex, "Failed to add another hour to this timer");
+            }
         }
 
         private void num_KeyPress(object sender, KeyPressEventArgs e)
@@ -153,13 +165,18 @@ namespace RemindMe
 
         private void numSeconds_TextChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(numSeconds.Text) > 60)
+            if (string.IsNullOrWhiteSpace(numSeconds.Text))
+                numSeconds.Text = "0";
+            else if (Convert.ToInt32(numSeconds.Text) > 60)
                 numSeconds.Text = "60";
         }
 
         private void numMinutes_TextChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(numMinutes.Text) > 60)
+
+            if (string.IsNullOrWhiteSpace(numMinutes.Text))
+                numMinutes.Text = "0";
+            else if (Convert.ToInt32(numMinutes.Text) > 60)
                 numMinutes.Text = "60";
         }
 
@@ -294,8 +311,28 @@ namespace RemindMe
         {
             if (currentTimerItem == null)
                 return;
-
-            currentTimerItem.SecondsRemaining = Convert.ToInt32((Convert.ToInt32(numHours.Text) * 60 * 60) + (Convert.ToInt32(numMinutes.Text) * 60) + Convert.ToInt32(numSeconds.Text));
+            try
+            {
+                int secondsRemaining = Convert.ToInt32((Convert.ToInt32(numHours.Text) * 60 * 60) + (Convert.ToInt32(numMinutes.Text) * 60) + Convert.ToInt32(numSeconds.Text));
+                if(secondsRemaining < -5)
+                {
+                    BLIO.Log("Woah there.. Let's not assign this new time to this timer ;)");
+                    numHours.Text = numHours.Text.Substring(0, numHours.Text.Length - 2);
+                    return;
+                }
+                currentTimerItem.SecondsRemaining = secondsRemaining;
+            }
+            catch (OverflowException ex)
+            {
+                BLIO.Log("That number is a bit too large for this timer ;)");
+                numHours.Text = numHours.Text.Substring(0, numHours.Text.Length - 2);
+                numericUpDown_ValueChange(null, null);                
+            }
+            catch (Exception ex)
+            {
+                BLIO.Log("numericUpDown_valuechange collection FAILED. -> " + ex);
+                BLIO.WriteError(ex, "Failed to add time to this timer");
+            }
         }
 
         private void UCTimer_Load(object sender, EventArgs e)
@@ -460,69 +497,87 @@ namespace RemindMe
 
         private void btnDeleteTimer_Click(object sender, EventArgs e)
         {
-            //First, see what button is pressed
-            MaterialButton button = null;
-            foreach (Control c in pnlRunningTimers.Controls)
+            try
             {
-                if (c is MaterialButton)
+                BLIO.Log("Attempting to delete timer...");
+                //First, see what button is pressed
+                MaterialButton button = null;
+                foreach (Control c in pnlRunningTimers.Controls)
                 {
-                    button = (MaterialButton)c;
+                    if (c is MaterialButton)
+                    {
+                        button = (MaterialButton)c;
 
-                    if (button.Type == MaterialButton.MaterialButtonType.Contained)
-                        break;
+                        if (button.Type == MaterialButton.MaterialButtonType.Contained)
+                            break;
+                    }
+                }
+
+                //Now that we have the selected button stored in the "button" variable, let's work with it
+                //Get the id
+                BLIO.Log("Getting the ID of the button..");
+                int id = GetTimerButtonId(button);
+                BLIO.Log("Done! -> " + id + ". Getting the associated TimerItem...");
+                //Use the id to get the correct TimerItem from the "timers" collection, and delete it
+                TimerItem toRemoveItem = timers.Where(t => t.ID == id).ToList()[0];
+                BLIO.Log("Deleting TimerItem with popup date " + toRemoveItem.PopupDate + " ..."); 
+                RemoveTimer(toRemoveItem);
+                toRemoveItem.Dispose();
+                BLIO.Log("Successfully removed & disposed the TimerItem");
+                //Set the current timer to the first one in the list
+                if (timers.Count > 0)
+                {
+                    currentTimerItem = timers[0];
+
+                    BLIO.Log("Setting values of (UCTimer) numericupdowns");
+                    TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
+                    numSeconds.Text = "" + time.Seconds;
+                    numMinutes.Text = "" + time.Minutes;
+                    numHours.Text = "" + time.Hours;
+                }
+                else  //Nothing left
+                {
+                    numSeconds.Text = "0";
+                    numMinutes.Text = "0";
+                    numHours.Text = "0";
+                    btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;
+                    currentTimerItem = null;
+                }
+
+                //Set the pause/resume icon image depending on the current timer
+                if (currentTimerItem == null || currentTimerItem.Disposed)
+                    return;
+
+                tmrCountdown.Enabled = currentTimerItem.Running;
+
+                if (currentTimerItem.Running)
+                    btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;
+                else
+                    btnPauseResumeTimer.Icon = Properties.Resources.Play;
+
+                //Now make the current TimerItem button selected
+                foreach (Control c in pnlRunningTimers.Controls)
+                {
+                    if (c is MaterialButton)
+                    {
+                        button = (MaterialButton)c;
+
+                        if (GetTimerButtonId(button) == currentTimerItem.ID)
+                            button.Type = MaterialButton.MaterialButtonType.Contained; //This is our button                    
+                    }
                 }
             }
-
-            //Now that we have the selected button stored in the "button" variable, let's work with it
-            //Get the id
-            int id = GetTimerButtonId(button);
-            //Use the id to get the correct TimerItem from the "timers" collection, and delete it
-            TimerItem toRemoveItem = timers.Where(t => t.ID == id).ToList()[0];
-            RemoveTimer(toRemoveItem);
-            toRemoveItem.Dispose();
-
-            //Set the current timer to the first one in the list
-            if (timers.Count > 0)
+            catch(Exception ex)
             {
-                currentTimerItem = timers[0];                
-
-                BLIO.Log("Setting values of (UCTimer) numericupdowns");
-                TimeSpan time = TimeSpan.FromSeconds((double)currentTimerItem.SecondsRemaining);
-                numSeconds.Text = "" + time.Seconds;
-                numMinutes.Text = "" + time.Minutes;
-                numHours.Text = "" + time.Hours;
+                BLIO.Log("Deleting timer FAILED. -> " + ex);
+                BLIO.WriteError(ex, "Failed to delete this timer");
             }
-            else  //Nothing left
-            {
-                numSeconds.Text = "0";
-                numMinutes.Text = "0";
+        }
+
+        private void numHours_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(numHours.Text))
                 numHours.Text = "0";
-                btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;                
-                currentTimerItem = null;
-            }
-
-            //Set the pause/resume icon image depending on the current timer
-            if (currentTimerItem == null || currentTimerItem.Disposed)
-                return;
-
-            tmrCountdown.Enabled = currentTimerItem.Running;
-
-            if (currentTimerItem.Running)
-                btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;
-            else
-                btnPauseResumeTimer.Icon = Properties.Resources.Play;
-
-            //Now make the current TimerItem button selected
-            foreach (Control c in pnlRunningTimers.Controls)
-            {
-                if (c is MaterialButton)
-                {
-                    button = (MaterialButton)c;
-
-                    if (GetTimerButtonId(button) == currentTimerItem.ID)
-                        button.Type = MaterialButton.MaterialButtonType.Contained; //This is our button                    
-                }
-            }
         }
     }
 }

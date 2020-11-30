@@ -1099,6 +1099,11 @@ Preview: https://i.imgur.com/UDCkSdj.png
 - Hovering over an advanced reminder's icon shows the batch code
 
 
+3.0.28
+- Fixed an issue where setting tooltips would cause an error, which would then cause the reminder not to load in the list of reminders
+- Fixed an issue with running timers, entering very large numbers in the "hours" field now no longer causes the timer to instantly pop up
+
+
 -- Idea --
 let the user select how many reminders he/she wants on 1 page. then replace the  '7' with the localdb number
 and make sure that the selected reminders is like >= 2 && <= 10 or smt

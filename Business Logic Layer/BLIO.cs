@@ -200,7 +200,7 @@ namespace Business_Logic_Layer
 
             using (StreamWriter wr = new StreamWriter(IOVariables.batchFile))
             {
-                wr.Write("@echo **Executing advanced reminder script (RemindMe)**\r\n" + batch);
+                wr.Write("@echo **Executing advanced reminder script (RemindMe)**\r\n\r\n" + batch);
             }
 
             if(!File.Exists(IOVariables.batchFile))

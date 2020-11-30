@@ -41,13 +41,13 @@
             this.disableRightclick = new MaterialSkin.Controls.MaterialContextMenuStrip();
             this.numMinutes = new MaterialSkin.Controls.MaterialTextBox();
             this.numHours = new MaterialSkin.Controls.MaterialTextBox();
-            this.lblKeyCombination = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.lblNoTimers = new MaterialSkin.Controls.MaterialLabel();
             this.btnDeleteTimer = new MaterialSkin.Controls.MaterialButton();
             this.btnPauseResumeTimer = new MaterialSkin.Controls.MaterialButton();
             this.btnNewTimer = new MaterialSkin.Controls.MaterialButton();
+            this.lblKeyCombination = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.btnTimerTemplate = new MaterialSkin.Controls.MaterialButton();
+            this.lblNoTimers = new MaterialSkin.Controls.MaterialLabel();
             this.pnlRunningTimers.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -245,44 +245,7 @@
             this.numHours.Size = new System.Drawing.Size(77, 50);
             this.numHours.TabIndex = 119;
             this.numHours.Text = "0";
-            // 
-            // lblKeyCombination
-            // 
-            this.lblKeyCombination.AutoSize = true;
-            this.lblKeyCombination.Depth = 0;
-            this.lblKeyCombination.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblKeyCombination.FontType = MaterialSkin.MaterialSkinManager.fontType.Caption;
-            this.lblKeyCombination.Location = new System.Drawing.Point(142, 115);
-            this.lblKeyCombination.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblKeyCombination.Name = "lblKeyCombination";
-            this.lblKeyCombination.Size = new System.Drawing.Size(387, 14);
-            this.lblKeyCombination.TabIndex = 116;
-            this.lblKeyCombination.Text = "protip: You can create multiple timers by pressing the key combination: ";
-            // 
-            // materialLabel1
-            // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(99, 94);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(605, 19);
-            this.materialLabel1.TabIndex = 114;
-            this.materialLabel1.Text = "Want something short-term? Dont want to create a reminder for it? set a timer ins" +
-    "tead.";
-            // 
-            // lblNoTimers
-            // 
-            this.lblNoTimers.AutoSize = true;
-            this.lblNoTimers.Depth = 0;
-            this.lblNoTimers.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblNoTimers.Location = new System.Drawing.Point(325, 6);
-            this.lblNoTimers.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblNoTimers.Name = "lblNoTimers";
-            this.lblNoTimers.Size = new System.Drawing.Size(156, 19);
-            this.lblNoTimers.TabIndex = 0;
-            this.lblNoTimers.Text = "No running timers yet!";
+            this.numHours.TextChanged += new System.EventHandler(this.numHours_TextChanged);
             // 
             // btnDeleteTimer
             // 
@@ -343,6 +306,32 @@
             this.btnNewTimer.UseVisualStyleBackColor = true;
             this.btnNewTimer.Click += new System.EventHandler(this.btnNewTimer_Click);
             // 
+            // lblKeyCombination
+            // 
+            this.lblKeyCombination.AutoSize = true;
+            this.lblKeyCombination.Depth = 0;
+            this.lblKeyCombination.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblKeyCombination.FontType = MaterialSkin.MaterialSkinManager.fontType.Caption;
+            this.lblKeyCombination.Location = new System.Drawing.Point(142, 115);
+            this.lblKeyCombination.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblKeyCombination.Name = "lblKeyCombination";
+            this.lblKeyCombination.Size = new System.Drawing.Size(387, 14);
+            this.lblKeyCombination.TabIndex = 116;
+            this.lblKeyCombination.Text = "protip: You can create multiple timers by pressing the key combination: ";
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.Location = new System.Drawing.Point(99, 94);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(605, 19);
+            this.materialLabel1.TabIndex = 114;
+            this.materialLabel1.Text = "Want something short-term? Dont want to create a reminder for it? set a timer ins" +
+    "tead.";
+            // 
             // btnTimerTemplate
             // 
             this.btnTimerTemplate.AutoSize = false;
@@ -362,6 +351,18 @@
             this.btnTimerTemplate.UseAccentColor = false;
             this.btnTimerTemplate.UseVisualStyleBackColor = true;
             this.btnTimerTemplate.Visible = false;
+            // 
+            // lblNoTimers
+            // 
+            this.lblNoTimers.AutoSize = true;
+            this.lblNoTimers.Depth = 0;
+            this.lblNoTimers.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblNoTimers.Location = new System.Drawing.Point(325, 6);
+            this.lblNoTimers.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblNoTimers.Name = "lblNoTimers";
+            this.lblNoTimers.Size = new System.Drawing.Size(156, 19);
+            this.lblNoTimers.TabIndex = 0;
+            this.lblNoTimers.Text = "No running timers yet!";
             // 
             // MUCTimer
             // 
