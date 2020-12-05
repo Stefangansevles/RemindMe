@@ -35,7 +35,7 @@
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.tbPostpone = new MaterialSkin.Controls.MaterialTextBox();
             this.cbPostpone = new MaterialSkin.Controls.MaterialCheckbox();
-            this.materialButton2 = new MaterialSkin.Controls.MaterialButton();
+            this.btnDisable = new MaterialSkin.Controls.MaterialButton();
             this.btnOk = new MaterialSkin.Controls.MaterialButton();
             this.pnlDateRepeatInformation = new System.Windows.Forms.Panel();
             this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
@@ -63,7 +63,7 @@
             // 
             this.pnlFooter.Controls.Add(this.tbPostpone);
             this.pnlFooter.Controls.Add(this.cbPostpone);
-            this.pnlFooter.Controls.Add(this.materialButton2);
+            this.pnlFooter.Controls.Add(this.btnDisable);
             this.pnlFooter.Controls.Add(this.btnOk);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(0, 288);
@@ -108,25 +108,26 @@
             this.cbPostpone.UseVisualStyleBackColor = true;
             this.cbPostpone.CheckedChanged += new System.EventHandler(this.cbPostpone_OnChange_1);
             // 
-            // materialButton2
+            // btnDisable
             // 
-            this.materialButton2.AutoSize = false;
-            this.materialButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton2.Depth = 0;
-            this.materialButton2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.materialButton2.DrawShadows = true;
-            this.materialButton2.HighEmphasis = true;
-            this.materialButton2.Icon = null;
-            this.materialButton2.Location = new System.Drawing.Point(239, 0);
-            this.materialButton2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton2.Name = "materialButton2";
-            this.materialButton2.Size = new System.Drawing.Size(80, 33);
-            this.materialButton2.TabIndex = 3;
-            this.materialButton2.Text = "Disable";
-            this.materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Text;
-            this.materialButton2.UseAccentColor = false;
-            this.materialButton2.UseVisualStyleBackColor = true;
+            this.btnDisable.AutoSize = false;
+            this.btnDisable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDisable.Depth = 0;
+            this.btnDisable.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnDisable.DrawShadows = true;
+            this.btnDisable.HighEmphasis = true;
+            this.btnDisable.Icon = null;
+            this.btnDisable.Location = new System.Drawing.Point(239, 0);
+            this.btnDisable.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDisable.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDisable.Name = "btnDisable";
+            this.btnDisable.Size = new System.Drawing.Size(80, 33);
+            this.btnDisable.TabIndex = 3;
+            this.btnDisable.Text = "Disable";
+            this.btnDisable.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Text;
+            this.btnDisable.UseAccentColor = false;
+            this.btnDisable.UseVisualStyleBackColor = true;
+            this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
             // 
             // btnOk
             // 
@@ -259,7 +260,7 @@
         private System.Windows.Forms.Panel pnlFooter;
         private System.Windows.Forms.Panel pnlDateRepeatInformation;
         private MaterialSkin.Controls.MaterialButton btnOk;
-        private MaterialSkin.Controls.MaterialButton materialButton2;
+        private MaterialSkin.Controls.MaterialButton btnDisable;
         private MaterialSkin.Controls.MaterialTextBox tbPostpone;
         private MaterialSkin.Controls.MaterialCheckbox cbPostpone;
         private MaterialSkin.Controls.MaterialLabel lblRepeat;

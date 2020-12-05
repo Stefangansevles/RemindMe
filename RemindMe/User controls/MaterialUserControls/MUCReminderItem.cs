@@ -37,7 +37,7 @@ namespace RemindMe
 
             MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += UpdateTheme;
             
-
+            //todo: make black/white
             tpInformation.SetToolTip(btnSettings, "Click for more options");
             tpInformation.SetToolTip(btnDisable, "Enable/Disable the reminder");
             tpInformation.SetToolTip(btnDelete, "Delete a reminder");

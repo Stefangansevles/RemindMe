@@ -92,6 +92,7 @@ namespace RemindMe
             releaseNotes.Add("3.0.23", "-You can now mark text as bold/italic etc through keyboard shortcuts, ctrl+b/i/u/s respectively\r\n-Some generic code improvements and a potential bugfix concerning the bold/italic text");
             releaseNotes.Add("3.0.24", "Hovering over a reminder now shows the note text you have set on it(if there is a note)\r\n-Export / Import / Recovering reminders through the 'Backup / Import' now shows the reminder information better in the listview. The date is now shown as the actual date, instead of the time and it shows the repeating-type of the reminder");
             releaseNotes.Add("3.0.28", "- Fixed an issue where reminders would not load in the list of reminders");
+            releaseNotes.Add("3.0.29", "The disable button on a reminder now actually does something... oops..");
         }
 
         public static Dictionary<string,string> ReleaseNotes

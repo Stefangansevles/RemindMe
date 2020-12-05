@@ -456,5 +456,42 @@ namespace RemindMe
 
             MaterialSkin.MaterialSkinManager.Instance.RemoveFormToManage(this);
         }
+
+        private void btnDisable_Click(object sender, EventArgs e)
+        {
+            BLIO.Log("btnDisable clicked on reminder " + rem.Id);
+            if (xClose)
+                xClose = false;
+
+            if (rem != null)
+                rem = BLReminder.GetReminderById(rem.Id);
+
+            if (rem == null)
+                goto close;
+
+            if (rem.Id != -1 && rem.Deleted == 0) //Don't do stuff if the id is -1, invalid. the id is set to -1 when the user previews an reminder
+            {
+                if (BLReminder.GetReminderById(rem.Id) == null)
+                {
+                    //The reminder popped up, it existed, but when pressing disable it doesn't exist anymore (maybe the user deleted it or tempered with the .db file)
+                    BLIO.Log("DETECTED NONEXISTING REMINDER WITH ID " + rem.Id + ", Attempted to press OK on a reminder that somehow doesn't exist");
+                    goto close;
+                }
+
+                rem.Enabled = 0;
+                BLIO.Log("Reminder marked as disabled");
+                BLReminder.EditReminder(rem);
+                BLIO.Log("Disabled succesfully.");
+            }
+
+
+        close:
+            MUCReminders.Instance.UpdateCurrentPage();
+            BLIO.Log("Stopping media player & Closing popup");
+            myPlayer.controls.stop();
+            this.Close();
+
+            GC.Collect();
+        }
     }
 }
