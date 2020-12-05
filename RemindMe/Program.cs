@@ -22,7 +22,7 @@ namespace RemindMe
         static void Main(string[] args)
         {
 
-            string resource1 = "RemindMe.Bunifu_UI_v1.5.3.dll";
+            string resource1 = "RemindMe.External_DLL.Bunifu_UI_v1.5.3.dll";
             EmbeddedAssembly.Load(resource1, "Bunifu_UI_v1.5.3.dll");
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 

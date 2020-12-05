@@ -59,12 +59,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bunifu.UI.WinForms.BunifuScrollBar">
-      <HintPath>..\Bunifu.UI.WinForms.BunifuScrollBar.dll</HintPath>
-    </Reference>
     <Reference Include="Bunifu_UI_v1.5.3">
-      <HintPath>..\..\..\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>External DLL's\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
     <Reference Include="DotNetZip, Version=1.13.5.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.5\lib\net40\DotNetZip.dll</HintPath>
@@ -123,8 +119,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OSVersionInfo">
-      <HintPath>.\OSVersionInfo.dll</HintPath>
+    <Reference Include="OSVersionInfo, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External DLL's\OSVersionInfo.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -706,7 +703,10 @@
     <None Include="Resources\arrow.png" />
     <None Include="Resources\email1.png" />
     <None Include="Resources\loadingGif.gif" />
-    <EmbeddedResource Include="Bunifu_UI_v1.5.3.dll" />
+    <EmbeddedResource Include="External_DLL\Bunifu_UI_v1.5.3.dll" />
+    <Content Include="External_DLL\HtmlRenderer.dll" />
+    <Content Include="External_DLL\HtmlRenderer.WinForms.dll" />
+    <Content Include="External_DLL\OSVersionInfo.dll" />
     <Content Include="RemindMeIcon.ico" />
     <None Include="Resources\hide.png" />
     <None Include="Resources\show.png" />
