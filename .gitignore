@@ -118,3 +118,7 @@ Backup*/
 UpgradeLog*.XML
 WinForms/AdamsLair.WinForms.xml
 RemindMe/External_DLL/Bunifu_UI_v1.5.3.dll
+RemindMe/App.config
+RemindMe/Properties/Settings.Designer.cs
+RemindMe/Properties/Settings.settings
+Data Access Layer/App.config
