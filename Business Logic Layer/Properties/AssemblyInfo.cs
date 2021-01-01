@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StefanGansevles")]
 [assembly: AssemblyProduct("Business Logic Layer")]
-[assembly: AssemblyCopyright("© Copyright StefanGansevles 2020")]
+[assembly: AssemblyCopyright("© Copyright StefanGansevles 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
