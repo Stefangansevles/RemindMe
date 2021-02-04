@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlRunningTimers = new System.Windows.Forms.Panel();
-            this.lblNoTimers = new MaterialSkin.Controls.MaterialLabel();
             this.tmrCountdown = new System.Windows.Forms.Timer(this.components);
             this.btnMinSeconds = new MaterialSkin.Controls.MaterialButton();
             this.btnPlusSeconds = new MaterialSkin.Controls.MaterialButton();
@@ -48,6 +47,7 @@
             this.lblKeyCombination = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.btnTimerTemplate = new MaterialSkin.Controls.MaterialButton();
+            this.lblNoTimers = new MaterialSkin.Controls.MaterialLabel();
             this.pnlRunningTimers.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,18 +62,6 @@
             this.pnlRunningTimers.TabIndex = 112;
             this.pnlRunningTimers.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlRunningTimers_ControlAdded);
             this.pnlRunningTimers.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlRunningTimers_ControlRemoved);
-            // 
-            // lblNoTimers
-            // 
-            this.lblNoTimers.AutoSize = true;
-            this.lblNoTimers.Depth = 0;
-            this.lblNoTimers.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblNoTimers.Location = new System.Drawing.Point(325, 6);
-            this.lblNoTimers.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblNoTimers.Name = "lblNoTimers";
-            this.lblNoTimers.Size = new System.Drawing.Size(156, 19);
-            this.lblNoTimers.TabIndex = 0;
-            this.lblNoTimers.Text = "No running timers yet!";
             // 
             // tmrCountdown
             // 
@@ -339,10 +327,10 @@
             this.materialLabel1.Location = new System.Drawing.Point(99, 94);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(605, 19);
+            this.materialLabel1.Size = new System.Drawing.Size(608, 19);
             this.materialLabel1.TabIndex = 114;
-            this.materialLabel1.Text = "Want something short-term? Dont want to create a reminder for it? set a timer ins" +
-    "tead.";
+            this.materialLabel1.Text = "Want something short-term? Don\'t want to create a reminder for it? set a timer in" +
+    "stead.";
             // 
             // btnTimerTemplate
             // 
@@ -364,6 +352,18 @@
             this.btnTimerTemplate.UseAccentColor = false;
             this.btnTimerTemplate.UseVisualStyleBackColor = true;
             this.btnTimerTemplate.Visible = false;
+            // 
+            // lblNoTimers
+            // 
+            this.lblNoTimers.AutoSize = true;
+            this.lblNoTimers.Depth = 0;
+            this.lblNoTimers.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblNoTimers.Location = new System.Drawing.Point(325, 6);
+            this.lblNoTimers.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblNoTimers.Name = "lblNoTimers";
+            this.lblNoTimers.Size = new System.Drawing.Size(156, 19);
+            this.lblNoTimers.TabIndex = 0;
+            this.lblNoTimers.Text = "No running timers yet!";
             // 
             // MUCTimer
             // 

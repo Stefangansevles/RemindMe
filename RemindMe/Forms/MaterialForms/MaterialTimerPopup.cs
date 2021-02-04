@@ -35,7 +35,9 @@ namespace RemindMe
 
             tbTime.KeyDown += numericOnly_KeyDown;
             tbTime.KeyPress += numericOnly_KeyPress;
-                        
+
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
 
             BLIO.Log("TimerPopup created");
         }

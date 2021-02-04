@@ -235,6 +235,9 @@
         public bool DrawerAutoHide { get; set; }
 
         [Category("Drawer")]
+        public bool DisableDrawerSlide { get; set; }
+
+        [Category("Drawer")]
         public int DrawerIndicatorWidth { get; set; }
 
         private bool _drawerIsOpen;
@@ -390,6 +393,7 @@
             drawerControl.IsOpen = DrawerIsOpen;
             drawerControl.ShowIconsWhenHidden = DrawerShowIconsWhenHidden;
             drawerControl.AutoHide = DrawerAutoHide;
+            drawerControl.DisableDrawerSlide = DisableDrawerSlide;
             drawerControl.IndicatorWidth = DrawerIndicatorWidth;
             drawerControl.HighlightWithAccent = DrawerHighlightWithAccent;
             drawerControl.BackgroundWithAccent = DrawerBackgroundWithAccent;

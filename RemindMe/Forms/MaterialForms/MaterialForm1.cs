@@ -25,6 +25,9 @@ using JCS;
 using System.Globalization;
 using MaterialSkin.Controls;
 using MaterialSkin;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RemindMe
 {
@@ -66,7 +69,7 @@ namespace RemindMe
         public bool shouldClose = false;
 
         public MaterialForm1()
-        {
+        {            
             BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");
             BLIO.CreateSettings();
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
@@ -84,8 +87,7 @@ namespace RemindMe
                         if (tries >= 4)
                             BLIO.Log("something went terribly wrong... 4 tries and it still doesnt work..");
                     }
-
-                   
+                    
                     BLIO.Log("DB does not have all tables. Entered while loop to create.");
                     BLIO.CreateDatabaseIfNotExist();
                     Thread.Sleep(500);
@@ -145,6 +147,9 @@ namespace RemindMe
             //workaround
             tmrRemoveDebug.Start();
             tmrResetExceptionInserts.Start();
+
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
 
             BLIO.Log("===  Initializing RemindMe Complete  ===");
         }
@@ -207,9 +212,9 @@ namespace RemindMe
             get { return instance; }
         }
        
-
+     
         private void MaterialForm1_Load(object sender, EventArgs e)
-        {
+        {            
             #region User controls
             reminders = new MUCReminders();
             mucSettings = new MUCSettings();
@@ -225,7 +230,7 @@ namespace RemindMe
 
             newReminder.Visible = false;
 
-
+            
             tabReminders.Controls.Add(reminders);
             tabReminders.Controls.Add(newReminder);
             tabSettings.Controls.Add(mucSettings);

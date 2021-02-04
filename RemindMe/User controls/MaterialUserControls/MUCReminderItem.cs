@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Database.Entity;
 using Business_Logic_Layer;
-using Bunifu.Framework.UI;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Drawing.Text;
-using System.Drawing.Drawing2D;
+using System.Collections.Generic;
 
 namespace RemindMe
 {
@@ -181,7 +175,7 @@ namespace RemindMe
                 btnDelete.Image = Properties.Resources.Bin_Disabled;
                 btnEdit.Image = Properties.Resources.Edit_Disabled;
                 btnSettings.Image = Properties.Resources.gearDisabled;
-                btnDisable.Image = Properties.Resources.turnedOffTwo;
+                btnDisable.Image = Properties.Resources.turnedOffTwo;                
             }
             else if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
             {
@@ -198,7 +192,7 @@ namespace RemindMe
                 removePostponeToolStripMenuItem.Image = Properties.Resources.zzzCancelWhite;
                 skipToNextDateToolStripMenuItem.Image = Properties.Resources.skipWhite;                
                 toolStripMenuItem1.Image = Properties.Resources.permanentelyWhite;                 //permanentelydelete toolstrip
-
+                pbConditionalReminder.Image = Properties.Resources.wwwLight;                
             }
             else if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.LIGHT)
             {//Light
@@ -215,7 +209,10 @@ namespace RemindMe
                 removePostponeToolStripMenuItem.Image = Properties.Resources.zzzCancelDark;
                 skipToNextDateToolStripMenuItem.Image = Properties.Resources.skipForwardDark;
                 toolStripMenuItem1.Image = Properties.Resources.permanentelyDark;
+                pbConditionalReminder.Image = Properties.Resources.wwwDark;                
             }
+
+            BLFormLogic.SetImageAlpha(pbConditionalReminder, 50);
 
             if (this.Reminder != null && this.Reminder.Enabled == 0)
             {
@@ -237,10 +234,7 @@ namespace RemindMe
         public Reminder Reminder
         {
             get
-            {
-                if (rem != null)
-                    BLIO.Log("GET MUCReminderItem.Reminder (" + rem.Id + ")");
-
+            {                
                 return rem;
             }
             set
@@ -276,6 +270,8 @@ namespace RemindMe
             btnSettings.Image = Properties.Resources.gearDisabled;
             btnDisable.Image = Properties.Resources.turnedOffTwo;
             pbDate.BackgroundImage = Properties.Resources.RemindMe;
+            pbConditionalReminder.Visible = false;
+            
 
             //Reset location
             pbRepeat.Location = new Point(168, pbRepeat.Location.Y);
@@ -291,7 +287,7 @@ namespace RemindMe
         }
 
 
-
+        
 
         private void MUCReminderItem_Load(object sender, EventArgs e)
         {
@@ -321,6 +317,7 @@ namespace RemindMe
                 btnEdit.Image = Properties.Resources.EditPenWhite;
                 btnSettings.Image = Properties.Resources.gearWhite;                
                 btnDisable.Image = Properties.Resources.disableWhite;
+                pbConditionalReminder.Image = Properties.Resources.wwwLight;                
             }
             else
             {                
@@ -328,7 +325,10 @@ namespace RemindMe
                 btnEdit.Image = Properties.Resources.editPenDark;
                 btnSettings.Image = Properties.Resources.gearDark;
                 btnDisable.Image = Properties.Resources.disableDark;
+                pbConditionalReminder.Image = Properties.Resources.wwwDark;                
             }
+
+            BLFormLogic.SetImageAlpha(pbConditionalReminder, 50);
 
             //if the reminder is disabled, use this icon instead
             if (rem.Enabled == 0)
@@ -345,33 +345,45 @@ namespace RemindMe
             pbRepeat.Location = new Point(168, pbRepeat.Location.Y);
             lblRepeat.Location = new Point(195, lblRepeat.Location.Y);
 
-            DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
-
-            if (date.ToShortDateString() == DateTime.Now.ToShortDateString())
-                lblDate.Text = "Today  " + date.ToShortTimeString();
-            else
-                lblDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
-
-            //Postpone logic
-            if (rem.PostponeDate != null)
+            if (rem.HttpId == null)
             {
-                pbDate.BackgroundImage = Properties.Resources.RemindMeZzz;
-                Font font = new Font(lblRepeat.Font, FontStyle.Bold | FontStyle.Italic);
-                lblDate.Font = font;
+                pbConditionalReminder.Visible = false;
 
-                if (Convert.ToDateTime(rem.PostponeDate).ToShortDateString() == DateTime.Now.ToShortDateString())
-                    lblDate.Text = "Today " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString();
+                DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
+
+                if (date.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    lblDate.Text = "Today  " + date.ToShortTimeString();
                 else
-                    lblDate.Text = Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString();
+                    lblDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
 
+                //Postpone logic
+                if (rem.PostponeDate != null && !string.IsNullOrWhiteSpace(rem.PostponeDate))
+                {
+                    pbDate.BackgroundImage = Properties.Resources.RemindMeZzz;
+                    Font font = new Font(lblRepeat.Font, FontStyle.Bold | FontStyle.Italic);
+                    lblDate.Font = font;
 
+                    if (Convert.ToDateTime(rem.PostponeDate).ToShortDateString() == DateTime.Now.ToShortDateString())
+                        lblDate.Text = "Today " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString();
+                    else
+                        lblDate.Text = Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString();
+                }
+                else
+                {
+                    pbDate.BackgroundImage = Properties.Resources.RemindMe;
+                    Font font = new Font(lblRepeat.Font, FontStyle.Bold);
+                    lblDate.Font = font;
+                }
             }
             else
-            {
+            {                
+                pbConditionalReminder.Visible = true;
+                lblDate.Text = "Conditional";
                 pbDate.BackgroundImage = Properties.Resources.RemindMe;
-                Font font = new Font(lblRepeat.Font, FontStyle.Bold);
-                lblDate.Font = font;
             }
+            
+
+           
 
             AdvancedReminderProperties props = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
             if (props != null && !string.IsNullOrWhiteSpace(props.BatchScript))            
@@ -431,15 +443,20 @@ namespace RemindMe
             }
 
             BLReminder.EditReminder(rem);
-            MUCReminders.Instance.UpdateCurrentPage();
+            MUCReminders.Instance.UpdateCurrentPage(rem);
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {            
             BLIO.Log("Settings button clicked on reminder item (" + rem.Id + ")");
+            
             HideOrShowRemovePostponeMenuItem(rem);
             HideOrShowSkipForwardMenuItem(rem);
-            ReminderMenuStrip.Show(Cursor.Position);
+
+            postponeToolStripMenuItem.Visible = rem.HttpId == null;
+            skipToNextDateToolStripMenuItem.Visible = rem.HttpId == null;
+
+            ReminderMenuStrip.Show(Cursor.Position);            
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -451,8 +468,15 @@ namespace RemindMe
         {
             BLIO.Log("Delete button clicked on reminder item (" + rem.Id + ")");
             BLReminder.DeleteReminder(rem);
-            this.Reminder = null;
-            MUCReminders.Instance.UpdateCurrentPage();
+
+            Reminder copy = new Reminder(); // 
+            copy.Id = rem.Id;
+            copy.Deleted = rem.Deleted;
+            copy.HttpId = rem.HttpId;
+
+            this.Reminder = null;            
+            MUCReminders.Instance.UpdateCurrentPage(copy);
+            copy = null;
         }
 
         private void previewThisReminderNowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -528,6 +552,8 @@ namespace RemindMe
             copy.RepeatDays = rem.RepeatDays;
             copy.RepeatType = rem.RepeatType;
             copy.SoundFilePath = rem.SoundFilePath;
+            copy.UpdateTime = rem.UpdateTime;
+            copy.HttpId = rem.HttpId;
             return copy;
         }
 
@@ -548,7 +574,35 @@ namespace RemindMe
             BLIO.Log("Toolstrip option clicked: Duplicate (" + rem.Id + ")");
             BLIO.Log("Setting up the duplicating process...");
             BLIO.Log("duplicating reminder with id " + rem.Id);
-            BLReminder.PushReminderToDatabase(rem);
+            long oldRemId = rem.Id;
+            long newRemId = BLReminder.PushReminderToDatabase(rem);
+
+            AdvancedReminderProperties props = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
+            if (props != null)
+            {
+                props.Remid = newRemId;
+                BLLocalDatabase.AVRProperty.InsertAVRProperties(props);
+            }
+
+            HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(oldRemId);
+            long oldHttpId = req.Id;
+            if (req != null)
+            {
+                req.reminderId = newRemId;
+                long newHttpId = BLLocalDatabase.HttpRequest.InsertHttpRequest(req);
+                List<HttpRequestCondition> conditions = BLLocalDatabase.HttpRequestConditions.GetConditions(oldHttpId);
+                foreach(HttpRequestCondition cond in conditions)
+                {
+                    cond.RequestId = newHttpId;
+                    BLLocalDatabase.HttpRequestConditions.InsertCondition(cond);
+                }
+
+                //Now update the duplicated reminder with the httprequest            
+                Reminder dup = BLReminder.GetReminderById(newRemId);
+                dup.HttpId = req.Id;
+                BLReminder.EditReminder(dup);
+            }                        
+
             BLIO.Log("reminder duplicated.");
             MUCReminders.Instance.UpdateCurrentPage();
 
@@ -597,7 +651,7 @@ namespace RemindMe
         {
             //Check if there is even a single reminder that is not postponed from the selected reminders. We only want to show this option if every
             //selected reminder is postponed
-            bool hideMenuItem = rem.PostponeDate != null && rem.PostponeDate != "";
+            bool hideMenuItem = rem.PostponeDate != null && !string.IsNullOrWhiteSpace(rem.PostponeDate);
 
             //The option
             ToolStripItem removePostponeItem = ReminderMenuStrip.Items.Find("removePostponeToolStripMenuItem", false)[0];
@@ -758,7 +812,7 @@ namespace RemindMe
                 BLIO.Log("Reminder permanentely deleted.");
 
                 this.Reminder = null;
-                MUCReminders.Instance.UpdateCurrentPage();
+                MUCReminders.Instance.UpdateCurrentPage(rem);
 
                 new Thread(() =>
                 {
@@ -795,9 +849,7 @@ namespace RemindMe
             if (e.Button == MouseButtons.Right && rem != null)
             {
                 BLIO.Log("Right mouse button click on reminder item (" + rem.Id + ")");
-                HideOrShowRemovePostponeMenuItem(rem);
-                HideOrShowSkipForwardMenuItem(rem);
-                ReminderMenuStrip.Show(Cursor.Position);
+                btnSettings_Click(sender, e);
             }
         }
 

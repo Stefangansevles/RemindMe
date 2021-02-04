@@ -47,6 +47,12 @@ namespace Data_Access_Layer
         //The neccesary query to execute to create the table ButtonSpaces
         private const string TABLE_THEMES = "CREATE TABLE [Themes] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [Primary] bigint DEFAULT(0) NOT NULL, [DarkPrimary] bigint DEFAULT(0) NOT NULL, [LightPrimary] bigint DEFAULT(0) NOT NULL, [Accent] bigint DEFAULT(0) NOT NULL, [TextShade] bigint DEFAULT(0) NOT NULL, [Mode] bigint DEFAULT(0) NULL, [ThemeName] text NULL, [IsDefault] bigint DEFAULT(0) NOT NULL);";
 
+        //The neccesary query to execute to create the table HttpRequests
+        private const string TABLE_HTTP = "CREATE TABLE [HttpRequests] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [reminderId] bigint NOT NULL, [URL] text NOT NULL, [Type] text NOT NULL, [AcceptHeader] text NOT NULL, [ContentTypeHeader] text NOT NULL, [OtherHeaders] text NOT NULL, [Body] text NOT NULL, [Interval] bigint NOT NULL, [AfterPopup] text DEFAULT('Stop') NOT NULL);";
+
+        //The neccesary query to execute to create the table HttpRequestCondition
+        private const string TABLE_HTTP_CONDITION = "CREATE TABLE [HttpRequestCondition] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [RequestId] bigint NOT NULL, [Condition] text NOT NULL, [DataType] text NOT NULL, [Property] text NOT NULL, [Operator] text NOT NULL, [Value] text NOT NULL);";
+
         //The neccesary query to execute to create the table RemindMeColorThemes, used to give RemindMe multiple color scheme
         //private const string TABLE_REMINDME_COLOR_SCHEMES = "CREATE TABLE [RemindMeColorScheme] ([Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [ThemeName] text NOT NULL, [PrimaryBottomLeft] text NOT NULL, [PrimaryBottomRight] text NOT NULL, [PrimaryTopLeft] text NOT NULL, [PrimaryTopRight] text NOT NULL, [SecondaryBottomLeft] text NOT NULL, [SecondaryBottomRight] text NOT NULL, [SecondaryTopLeft] text NOT NULL, [SecondaryTopRight] text NOT NULL);";
 
@@ -71,6 +77,8 @@ namespace Data_Access_Layer
             SQLiteCommand tableReadMessages = new SQLiteCommand();
             SQLiteCommand tableButtonSpaces = new SQLiteCommand();
             SQLiteCommand tableThemes = new SQLiteCommand();
+            SQLiteCommand tableHttp = new SQLiteCommand();
+            SQLiteCommand tableHttpCon = new SQLiteCommand();
             //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
@@ -85,6 +93,8 @@ namespace Data_Access_Layer
             tableReadMessages.CommandText = TABLE_READ_MESSAGES;
             tableButtonSpaces.CommandText = TABLE_BUTTONSPACES;
             tableThemes.CommandText = TABLE_THEMES;
+            tableHttp.CommandText = TABLE_HTTP;
+            tableHttpCon.CommandText = TABLE_HTTP_CONDITION;
             //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
             tableReminder.Connection = conn;
@@ -98,6 +108,8 @@ namespace Data_Access_Layer
             tableReadMessages.Connection = conn;
             tableButtonSpaces.Connection = conn;
             tableThemes.Connection = conn;
+            tableHttp.Connection = conn;
+            tableHttpCon.Connection = conn;
             //tableRemindMeColorSchemes.Connection = conn;
 
             tableReminder.ExecuteNonQuery();
@@ -111,6 +123,8 @@ namespace Data_Access_Layer
             tableReadMessages.ExecuteNonQuery();
             tableButtonSpaces.ExecuteNonQuery();
             tableThemes.ExecuteNonQuery();
+            tableHttp.ExecuteNonQuery();
+            tableHttpCon.ExecuteNonQuery();
             //tableRemindMeColorSchemes.ExecuteNonQuery();
 
             conn.Close();
@@ -237,6 +251,22 @@ namespace Data_Access_Layer
                     return false; //aww damn! the user has an outdated .db file!                
             }
 
+            var http = typeof(HttpRequests).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in http)
+            {
+                if (!HasColumn("[" + columnName + "]", "HttpRequests"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
+            var httpCon = typeof(HttpRequestCondition).GetProperties().Select(property => property.Name).ToList();
+
+            foreach (string columnName in httpCon)
+            {
+                if (!HasColumn("[" + columnName + "]", "HttpRequestCondition"))
+                    return false; //aww damn! the user has an outdated .db file!                
+            }
+
             /*This was testing a custom color scheme
             var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToList();
 
@@ -279,7 +309,8 @@ namespace Data_Access_Layer
                     && HasTable("songs", db) && HasTable("popupdimensions", db) 
                     && HasTable("listviewcolumnsizes", db) && HasTable("hotkeys", db)
                     && HasTable("AdvancedReminderProperties", db) && HasTable("AdvancedReminderFilesFolders", db)
-                    && HasTable("ReadMessages", db) && HasTable("ButtonSpaces", db) && HasTable("Themes", db))
+                    && HasTable("ReadMessages", db) && HasTable("ButtonSpaces", db) && HasTable("Themes", db)
+                    && HasTable("HttpRequests", db) && HasTable("HttpRequestCondition", db))
                     return true;
                 else
                     return false;                
@@ -309,6 +340,8 @@ namespace Data_Access_Layer
                 SQLiteCommand tableReadMessages = new SQLiteCommand();
                 SQLiteCommand tableButtonSpaces = new SQLiteCommand();
                 SQLiteCommand tableThemes = new SQLiteCommand();
+                SQLiteCommand tableHttp = new SQLiteCommand();
+                SQLiteCommand tableHttpCon = new SQLiteCommand();
                 //SQLiteCommand tableRemindMeColorSchemes = new SQLiteCommand();
 
 
@@ -323,6 +356,8 @@ namespace Data_Access_Layer
                 tableReadMessages.CommandText = TABLE_READ_MESSAGES;
                 tableButtonSpaces.CommandText = TABLE_BUTTONSPACES;
                 tableThemes.CommandText = TABLE_THEMES;
+                tableHttp.CommandText = TABLE_HTTP;
+                tableHttpCon.CommandText = TABLE_HTTP_CONDITION;
                 //tableRemindMeColorSchemes.CommandText = TABLE_REMINDME_COLOR_SCHEMES;
 
                 tableReminder.Connection = conn;
@@ -336,8 +371,10 @@ namespace Data_Access_Layer
                 tableReadMessages.Connection = conn;
                 tableButtonSpaces.Connection = conn;
                 tableThemes.Connection = conn;
+                tableHttp.Connection = conn;
+                tableHttpCon.Connection = conn;
                 //tableRemindMeColorSchemes.Connection = conn;
-                
+
 
                 if (!HasTable("Reminder", db))
                     tableReminder.ExecuteNonQuery();
@@ -370,7 +407,13 @@ namespace Data_Access_Layer
                     tableButtonSpaces.ExecuteNonQuery();
 
                 if (!HasTable("Themes", db))
-                    tableThemes.ExecuteNonQuery();                
+                    tableThemes.ExecuteNonQuery();
+
+                if (!HasTable("HttpRequests", db))
+                    tableHttp.ExecuteNonQuery();
+
+                if (!HasTable("HttpRequestCondition", db))
+                    tableHttpCon.ExecuteNonQuery();
 
                 conn.Close();
                 conn.Dispose();
@@ -397,6 +440,8 @@ namespace Data_Access_Layer
                 var readMessages = typeof(ReadMessages).GetProperties().Select(property => property.Name).ToArray();
                 var buttonSpaces = typeof(ButtonSpaces).GetProperties().Select(property => property.Name).ToArray();
                 var themes = typeof(Themes).GetProperties().Select(property => property.Name).ToArray();
+                var http = typeof(HttpRequests).GetProperties().Select(property => property.Name).ToArray();
+                var httpCon = typeof(HttpRequestCondition).GetProperties().Select(property => property.Name).ToArray();
                 //var remindMeColorSchemes = typeof(RemindMeColorScheme).GetProperties().Select(property => property.Name).ToArray();
 
                 foreach (string column in reminderNames)
@@ -471,6 +516,18 @@ namespace Data_Access_Layer
                         if (ex.Message == "SQL logic error\r\nnear \"Primary\": syntax error") {} //not important. Not sure why this error is thrown, but everything works.
                         else throw ex;
                     }
+                }
+
+                foreach (string column in http)
+                {
+                    if (!HasColumn(column, "HttpRequests"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE HttpRequests ADD COLUMN " + column + " " + GetHttpColumnSqlType(column));
+                }
+
+                foreach (string column in httpCon)
+                {
+                    if (!HasColumn(column, "HttpRequestCondition"))
+                        db.Database.ExecuteSqlCommand("ALTER TABLE HttpRequestCondition ADD COLUMN " + column + " " + GetHttpConditionColumnSqlType(column));
                 }
 
                 db.SaveChanges();                
@@ -696,6 +753,39 @@ namespace Data_Access_Layer
                 case "TextShade": return "bigint DEFAULT(0) NOT NULL";
                 case "Mode": return "bigint DEFAULT(0) NOT NULL";
                 case "ThemeName": return "text NULL";
+                default: return "text NOT NULL";
+            }
+        }
+
+        private static string GetHttpColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {
+                case "Id": return "INTEGER NOT NULL";
+                case "reminderId": return "bigint NOT NULL";
+                case "URL": return "text NOT NULL";
+                case "Type": return "text NOT NULL";
+                case "AcceptHeader": return "text NOT NULL";
+                case "ContentTypeHeader": return "text NOT NULL";
+                case "OtherHeaders": return "text NOT NULL";
+                case "Body": return "text NOT NULL";
+                case "Interval": return " bigint NOT NULL";
+                case "AfterPopup": return "text DEFAULT('Stop') NOT NULL";
+                default: return "text NOT NULL";
+            }
+        }
+
+        private static string GetHttpConditionColumnSqlType(string columnName)
+        {
+            switch (columnName)
+            {
+                case "Id": return "INTEGER NOT NULL";
+                case "RequestId": return "bigint NOT NULL";                
+                case "Condition": return "text NOT NULL";
+                case "DataType": return "text NOT NULL";
+                case "Property": return "text NOT NULL";
+                case "Operator": return "text NOT NULL";
+                case "Value": return "text NOT NULL";                             
                 default: return "text NOT NULL";
             }
         }

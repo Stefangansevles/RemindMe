@@ -14,16 +14,25 @@ namespace RemindMe
 {
     public partial class MaterialAdvancedReminderForm : MaterialForm
     {
-        public MaterialAdvancedReminderForm()
+        private MUCHTTPRequest mucHttpRequest;
+        private MUCNewReminder ucParent;
+        public MaterialAdvancedReminderForm(MUCNewReminder parent)
         {
             this.Opacity = 0;
             MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
-            InitializeComponent();                                
-            BLIO.Log("Advanced reminder form created!");            
+            InitializeComponent();
+
+            ucParent = parent;
+            mucHttpRequest = new MUCHTTPRequest(parent);
+            tabHTTP.Controls.Add(mucHttpRequest);
+
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+            BLIO.Log("Advanced reminder form created!");                      
         }
 
         private void MaterialAdvancedReminderForm_Load(object sender, EventArgs e)
-        {
+        {            
             BLIO.Log("Advanced Reminder Form loaded");
             MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
             if (remindme != null)
@@ -34,13 +43,19 @@ namespace RemindMe
             }
             else
                 this.StartPosition = FormStartPosition.CenterScreen;
-
-            tmrFadeIn.Start();
+            
+            tmrFadeIn.Start();           
         }
 
         public string BatchScript
         {
-            get { return tbBatch.Text; }
+            get
+            {
+                if (tbBatch.Text.StartsWith("!!")) //default warning text
+                    return string.Empty;
+                else
+                    return tbBatch.Text;
+            }
             set { tbBatch.Text = value; }
         }
         public bool HideReminder
@@ -49,8 +64,14 @@ namespace RemindMe
             set { cbHideReminder.Checked = value; }
         }
 
-        private void tbBatch_KeyDown(object sender, KeyEventArgs e)
+        
+        public MUCHTTPRequest HttpRequest
         {
+            get { return mucHttpRequest; }
+        }
+
+        private void tbBatch_KeyDown(object sender, KeyEventArgs e)
+        {            
             if (e.Control && e.KeyCode == Keys.A)
             {
                 //Ctrl+a = select all
@@ -71,7 +92,8 @@ namespace RemindMe
             if(tbBatch.Text.Length > 0 || cbHideReminder.Checked)
                 MaterialMessageFormManager.MakeMessagePopup("Advanced settings applied/updated", 5);
 
-            Hide();
+            ucParent.AdvancedReminderFormCallback();
+            this.Hide();            
         }        
 
         private void MaterialAdvancedReminderForm_FormClosing(object sender, FormClosingEventArgs e)

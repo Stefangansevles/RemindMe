@@ -28,14 +28,17 @@ namespace RemindMe
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         private bool xClose = true;
-        private HtmlLabel htmlLblText = new HtmlLabel();
+        private HtmlLabel htmlLblText = new HtmlLabel();        
         public MaterialPopup(Reminder rem)
         {
-            AddFont(Properties.Resources.Roboto_Medium);
-
-            BLIO.Log("Constructing Popup reminderId = " + rem.Id);            
+            BLIO.Log("Constructing Popup reminderId = " + rem.Id);
+            AddFont(Properties.Resources.Roboto_Medium);            
             InitializeComponent();
+
+            if (MaterialForm1.Instance.Visible)            
+                BLFormLogic.CenterFormToParent(this, MaterialForm1.Instance);            
             
+
             this.Opacity = 0;
             this.rem = rem;
 
@@ -131,7 +134,7 @@ namespace RemindMe
             pfc.AddMemoryFont(dataPointer, (int)fontdata.Length);
         }
 
-
+       
         /// <summary>
         /// Stops the flashing of the taskbar icon
         /// </summary>
@@ -153,8 +156,8 @@ namespace RemindMe
         {
             try
             {                            
-                BLIO.Log("Popup_load");                                
-                
+                BLIO.Log("Popup_load");                
+
                 AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
                 List<AdvancedReminderFilesFolders> avrFF = BLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);
                 if (avrProps != null) //Not null? this reminder has advanced properties.
@@ -209,11 +212,18 @@ namespace RemindMe
                     return;
                 }
 
-                BLIO.Log("Attempting to parse date...");
-                DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
-                BLIO.Log("Date succesfully converted (" + date + ")");
+                if (rem.HttpId == null)
+                {
+                    BLIO.Log("Attempting to parse date...");
+                    DateTime date = Convert.ToDateTime(rem.Date.Split(',')[0]);
+                    BLIO.Log("Date succesfully converted (" + date + ")");
 
-                lblSmallDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
+                    lblSmallDate.Text = date.ToShortDateString() + " " + date.ToShortTimeString();
+                }
+                else
+                    lblSmallDate.Text = "Conditional";
+
+
                 lblRepeat.Text = BLReminder.GetRepeatTypeText(rem);
 
                 if (!string.IsNullOrWhiteSpace(rem.PostponeDate))
@@ -272,7 +282,7 @@ namespace RemindMe
                 foreach (string link in GetLinks(htmlLblText.Text)) //Add <a href> to make it into an actual link
                     htmlLblText.Text = htmlLblText.Text.Replace(link, "<a href=\""+link+ "\" style=\"color: " + hexColor + "\"> " +link+"</a>");
 
-                if (rem.Date == null)
+                if (rem.Date == null && rem.HttpId == null)
                     rem.Date = DateTime.Now.ToString();
             }
             catch (Exception ex)
@@ -336,6 +346,23 @@ namespace RemindMe
             if (rem == null)
                 goto close;
 
+            if(rem.HttpId != null)
+            {
+                //Conditional reminder
+                HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(rem.Id);
+                if (req.AfterPopup == "Stop")
+                {
+                    rem.Deleted = 1;
+                    BLReminder.EditReminder(rem);
+                    goto close;
+                }
+                else if(req.AfterPopup == "Repeat")
+                {
+                    goto close;
+                }
+                //else .... ?
+            }
+
             if (rem.Id != -1 && rem.Deleted == 0) //Don't do stuff if the id is -1, invalid. the id is set to -1 when the user previews an reminder
             {
                 if (BLReminder.GetReminderById(rem.Id) == null)
@@ -393,7 +420,7 @@ namespace RemindMe
             }
             
             close:
-            MUCReminders.Instance.UpdateCurrentPage();
+            MUCReminders.Instance.UpdateCurrentPage(rem);
             BLIO.Log("Stopping media player & Closing popup");
             myPlayer.controls.stop();            
             this.Close();

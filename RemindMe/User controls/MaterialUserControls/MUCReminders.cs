@@ -12,6 +12,7 @@ using Business_Logic_Layer;
 using Database.Entity;
 using System.IO;
 using System.Threading;
+using Newtonsoft.Json.Linq;
 
 namespace RemindMe
 {
@@ -27,6 +28,7 @@ namespace RemindMe
         private static int dayOfStartRemindMe = DateTime.Now.Day;
 
         private List<string> popupMessages = new List<string>();
+        private Dictionary<Reminder, System.Windows.Forms.Timer> httpTimers = new Dictionary<Reminder, System.Windows.Forms.Timer>();
 
         //The "page" we're on. If the user has 10 reminders and presses "next page", he should see 3 reminders (7 reminders max on 1 page, second page shows the last 3). 
         //The page number will be 2 in that case
@@ -40,6 +42,31 @@ namespace RemindMe
             InitializeComponent();
             instance = this;
         }
+
+
+        /// <summary>
+        /// Gets the timer object from the KeyValuePair<Reminder, Timer>
+        /// </summary>        
+        /// <returns></returns>
+        private System.Windows.Forms.Timer GetTimer(Reminder rem)
+        {
+            var kvp = httpTimers.Where(r => r.Key.Id == rem.Id).FirstOrDefault();
+            return kvp.Value;
+        }
+        private void RemoveTimer(Reminder rem)
+        {
+            Reminder del = httpTimers.Where(r => r.Key.Id == rem.Id).FirstOrDefault().Key;
+            System.Windows.Forms.Timer timer = httpTimers.Where(r => r.Key.Id == rem.Id).FirstOrDefault().Value;
+
+            if (del != null)
+                httpTimers.Remove(del);
+
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Dispose();
+            }
+        }
         public static MUCReminders Instance
         {
             get
@@ -48,10 +75,69 @@ namespace RemindMe
             }
 
         }
+        private async void ExecuteHttpRequest(object sender, EventArgs e, HttpRequests http, Reminder rem)
+        {
+            try
+            {               
+                if (!BLIO.HasInternetAccess())                    
+                {
+                    BLIO.Log("Cancelling ExecuteHttpRequest(). No internet access");
+                    return;
+                }
+
+                BLIO.Log("ExecuteHttpRequest timer tick! [ " + http.URL + " ]");
+                if (httpTimers.Where(t => t.Key.Id == rem.Id) == null)
+                {
+                    BLIO.Log("Attempted to ExecuteHttpRequest() from a timer that no longer exists. Cancelling.");
+                    return;
+                }
+                
+                JObject response = await BLIO.HttpRequest(http.Type, http.URL, http.OtherHeaders, http.AcceptHeader, http.ContentTypeHeader, http.Body);                
+
+
+                
+
+                List<HttpCondition> conditions = new List<HttpCondition>();                
+                foreach(HttpRequestCondition cond in BLLocalDatabase.HttpRequestConditions.GetConditions(http.Id))                
+                    conditions.Add(new HttpCondition(cond, response));                
+
+                bool conditionMet = conditions.Count > 0;
+                foreach (HttpCondition con in conditions) //Check for ALL conditions and see if all of them return true
+                {
+                    if (!con.Evaluate())
+                        conditionMet = false;
+                }
+
+                if (conditionMet)
+                {
+                    //All conditions returned true!
+
+                    MakeReminderPopup(rem);
+
+                    if (http.AfterPopup == "Stop")
+                    {
+                        var timer = GetTimer(rem);
+                        if (timer != null)
+                        {
+                            timer.Stop();
+
+                            //remove from dictionary
+                            httpTimers.Remove(rem);
+                        }
+                    }
+                }
+                else BLIO.Log("ExecuteHttpRequest returned FALSE");
+            }
+            catch(Exception ex)
+            {
+                BLIO.Log("ExecuteHttpRequest() Failed. " + ex.GetType().ToString());
+            }
+        }
+        
         public void Initialize()
         {
             try
-            {
+            {                
                 MaterialSkin.MaterialSkinManager.Themes theme = MaterialSkin.MaterialSkinManager.Instance.Theme;
 
                 Stopwatch stopwatch = new Stopwatch();
@@ -100,13 +186,15 @@ namespace RemindMe
 
 
                 int counter = 0;
+                //List<Reminder> reminders = BLReminder.GetOrderedReminders();
+                List<Reminder> conditionalReminders = BLReminder.GetReminders(true).Where(r => r.HttpId != null).Where(r => r.Hide == 0).Where(r => r.Enabled == 1).ToList();
                 List<Reminder> activeReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).ToList();
                 List<Reminder> disabledReminders = BLReminder.GetReminders().Where(r => r.Hide == 0).OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).ToList();
 
                 //we've got postponed reminders, now do this
                 if (BLReminder.GetReminders().Where(r => !string.IsNullOrWhiteSpace(r.PostponeDate)).ToList().Count > 0)
                     activeReminders = OrderPostponedReminders();
-
+                
                 foreach (Reminder rem in activeReminders)
                 {
                     if (pnlReminders.Controls.Count >= 7) break; //Only 7 reminders on 1 page
@@ -118,7 +206,17 @@ namespace RemindMe
 
                     counter++;
                 }
+                foreach (Reminder rem in conditionalReminders)
+                {
+                    if (pnlReminders.Controls.Count >= 7) break; //Only 7 reminders on 1 page
 
+                    pnlReminders.Controls.Add(new MUCReminderItem(rem));
+
+                    if (counter > 0)
+                        pnlReminders.Controls[counter].Location = new Point(0, pnlReminders.Controls[counter - 1].Location.Y + pnlReminders.Controls[counter - 1].Size.Height);
+
+                    counter++;
+                }
                 foreach (Reminder rem in disabledReminders)
                 {
                     if (pnlReminders.Controls.Count >= 7) break;
@@ -136,7 +234,7 @@ namespace RemindMe
                     for (int i = (activeReminders.Count + disabledReminders.Count); i < 7; i++)
                     {
                         pnlReminders.Controls.Add(new MUCReminderItem(null));
-
+                        
                         if (counter > 0)
                             pnlReminders.Controls[counter].Location = new Point(0, pnlReminders.Controls[counter - 1].Location.Y + pnlReminders.Controls[counter - 1].Size.Height);
 
@@ -161,6 +259,20 @@ namespace RemindMe
                 itm.pnlSideColor.Size = new Size(itm.pnlSideColor.Width, itm.pnlSideColor.Height - 4);
                 itm.pnlSideColor.Location = new Point(itm.pnlSideColor.Location.X, itm.pnlSideColor.Location.Y + 4);
 
+
+                //Http requests
+                foreach (Reminder rem in conditionalReminders)
+                {
+                    HttpRequests httpObj = BLLocalDatabase.HttpRequest.GetHttpRequestById((long)rem.Id);
+
+                    System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();                    
+                    timer.Interval = Convert.ToInt32(httpObj.Interval * 60000);
+                    timer.Tick += (object s, EventArgs a) => ExecuteHttpRequest(s, a, httpObj, rem);
+
+                    httpTimers.Add(rem, timer);
+                    timer.Start();
+                }
+
                 stopwatch.Stop();
                 BLIO.Log("MUCReminders Initialize took " + stopwatch.ElapsedMilliseconds + " ms");
             }
@@ -170,6 +282,8 @@ namespace RemindMe
                 BLIO.Log("Message -> " + ex.Message);
             }
         }
+
+      
 
         /// <summary>
         /// Change this user controls's icons based on the theme
@@ -361,9 +475,7 @@ namespace RemindMe
             if (pageNumber <= 1) //Can't go to the previous page if we're on the first one
                 return;
 
-            List<Reminder> reminders = BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList();
-            reminders.AddRange(BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0));
-            //^ All reminders in one list with the disabled ones at the end of the list
+            List<Reminder> reminders = BLReminder.GetOrderedReminders();
 
             int reminderItemCounter = 0;
             for (int i = (pageNumber - 2) * 7; i < ((pageNumber - 2) * 7) + 7; i++)
@@ -384,8 +496,7 @@ namespace RemindMe
                     break;
             }
 
-            pageNumber--;
-            MaterialForm1.Instance.UpdatePageNumber(pageNumber);
+            pageNumber--;            
 
             SetPageButtonIcons(reminders);
             foreach (MUCReminderItem itm in pnlReminders.Controls)
@@ -422,14 +533,19 @@ namespace RemindMe
             }
         }
 
-        //Display changes on the current page. (For example a deleted or enabled/disabled reminder)
-        public void UpdateCurrentPage()
-        {
+        /// <summary>
+        /// Display changes on the current page. (For example a deleted or enabled/disabled reminder)
+        /// </summary>
+        /// <param name="editedReminder">If a reminder has been edited, this object will contain that reminder</param>
+        public void UpdateCurrentPage(Reminder editedReminder = null)
+        {            
             MaterialSkin.MaterialSkinManager.Themes theme = MaterialSkin.MaterialSkinManager.Instance.Theme;
 
             BLIO.Log("Starting UpdateCurrentPage()...");
-            List<Reminder> reminders = BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList();
-            reminders.AddRange(BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0));
+
+            //Reminder list containing normal reminders and conditional reminders, enabled and disabled
+            List<Reminder> reminders = BLReminder.GetOrderedReminders();
+
             //^ All reminders in one list with the disabled ones at the end of the list
             BLIO.Log(reminders.Count + " reminders loaded");
 
@@ -523,6 +639,62 @@ namespace RemindMe
             if (Instance != null)
                 Instance.tmrCheckReminder.Start();
 
+
+            if (editedReminder != null && editedReminder.HttpId != null)
+            {
+                //This object has been altered. Deleted, Perma-deleted, edited OR disabled
+                if (BLReminder.GetReminderById(editedReminder.Id) == null || editedReminder.Deleted > 0 || editedReminder.Enabled == 0)
+                {
+                    //perma-deleted, soft-deleted or turned off
+                    if(GetTimer(editedReminder) != null)
+                        GetTimer(editedReminder).Stop();
+                    RemoveTimer(editedReminder);                    
+                }
+                else //Reminder is still active, so it probably has been edited
+                {
+                    HttpRequests httpObj = BLLocalDatabase.HttpRequest.GetHttpRequestById((long)editedReminder.Id);                    
+                    var kvp = httpTimers.Where(r => r.Key.Id == editedReminder.Id).FirstOrDefault();
+                    if (kvp.Key != null)
+                    {
+                        //Already exist, stop timer, change & restart
+                        RemoveTimer(editedReminder);                        
+                        var timer = new System.Windows.Forms.Timer();
+                        timer.Interval = Convert.ToInt32(httpObj.Interval * 60000);
+                        timer.Tick += (object s, EventArgs a) => ExecuteHttpRequest(s, a, httpObj, editedReminder);
+                        timer.Start();
+                        httpTimers.Add(editedReminder, timer);
+                    }
+                    else if(editedReminder.Enabled == 1) //Reminder has been re-enabled
+                    {
+                        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                        httpTimers.Add(editedReminder, timer);
+                        timer.Interval = Convert.ToInt32(httpObj.Interval * 60000);
+                        timer.Tick += (object s, EventArgs a) => ExecuteHttpRequest(s, a, httpObj, editedReminder);
+                        timer.Start();
+                    }                    
+                }
+            }
+            else
+            {
+                //Http requests
+                foreach (Reminder rem in BLReminder.GetReminders(true).Where(r => r.HttpId != null).Where(r => r.Enabled == 1))
+                {
+                    HttpRequests httpObj = BLLocalDatabase.HttpRequest.GetHttpRequestById((long)rem.Id);
+
+                    if (GetTimer(rem) == null)
+                    {
+                        //Don't add duplicates                                        
+                        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                        httpTimers.Add(rem, timer);
+                        timer.Interval = Convert.ToInt32(httpObj.Interval * 60000);
+                        timer.Tick += (object s, EventArgs a) => ExecuteHttpRequest(s, a, httpObj, rem);
+                        timer.Start();
+                    }
+                }
+            }
+
+
+
             BLIO.Log("UpdateCurrentPage() completed.");
         }
 
@@ -559,11 +731,9 @@ namespace RemindMe
         private void btnNextPage_Click(object sender, EventArgs e)
         {
             BLIO.Log("btnNextPage_Click");
-            
 
-            List<Reminder> reminders = BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList();
-            reminders.AddRange(BLReminder.GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0));
-            //^ All reminders in one list with the disabled ones at the end of the list
+
+            List<Reminder> reminders = BLReminder.GetOrderedReminders();
 
 
             if ((pageNumber * 7) + 1 > reminders.Count)

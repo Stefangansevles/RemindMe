@@ -52,8 +52,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>RemindMeIcon.ico</ApplicationIcon>
+    <ApplicationIcon>img\.ico_icons\RemindMeIcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -285,6 +286,7 @@
     <Compile Include="Forms\Old forms\TimerPopup.Designer.cs">
       <DependentUpon>TimerPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Other classes\HttpCondition.cs" />
     <Compile Include="Other classes\MaterialMessageFormManager.cs" />
     <Compile Include="Other classes\MessageFormManager.cs" />
     <Compile Include="Forms\Old forms\Form1.cs">
@@ -316,6 +318,12 @@
     </Compile>
     <Compile Include="User controls\MaterialUserControls\MUCInfo.Designer.cs">
       <DependentUpon>MUCInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\MaterialUserControls\MUCHTTPRequest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User controls\MaterialUserControls\MUCHTTPRequest.Designer.cs">
+      <DependentUpon>MUCHTTPRequest.cs</DependentUpon>
     </Compile>
     <Compile Include="User controls\Old user controls\Advanced Reminder User controls\AVR_UCBatch.cs">
       <SubType>UserControl</SubType>
@@ -553,6 +561,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User controls\MaterialUserControls\MUCHTTPRequest.resx">
+      <DependentUpon>MUCHTTPRequest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User controls\MaterialUserControls\MUCInfo.resx">
       <DependentUpon>MUCInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -707,6 +718,14 @@
     <Content Include="External_DLL\HtmlRenderer.dll" />
     <Content Include="External_DLL\HtmlRenderer.WinForms.dll" />
     <Content Include="External_DLL\OSVersionInfo.dll" />
+    <None Include="icons\light\lightningBolt.png" />
+    <None Include="icons\black\www.png" />
+    <None Include="icons\dark\wwwDark.png" />
+    <None Include="icons\light\wwwLight.png" />
+    <None Include="img\.png_icons\RemindMeZzz.png" />
+    <None Include="img\.ico_icons\RemindMeIcon.ico" />
+    <None Include="img\.png_icons\RemindMe.png" />
+    <None Include="img\.png_icons\RemindMeTimer.png" />
     <Content Include="RemindMeIcon.ico" />
     <None Include="Resources\hide.png" />
     <None Include="Resources\show.png" />

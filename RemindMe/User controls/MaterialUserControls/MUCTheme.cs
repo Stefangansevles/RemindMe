@@ -38,7 +38,7 @@ namespace RemindMe
                 if (theme != null)
                 {
                     LoadTheme(theme);
-                    return; //Dont do the code below
+                    return;
                 }
 
             }

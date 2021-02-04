@@ -60,6 +60,9 @@
         public bool AutoHide { get; set; }
 
         [Category("Drawer")]
+        public bool DisableDrawerSlide { get; set; }
+
+        [Category("Drawer")]
         private bool _useColors;
 
         public bool UseColors
@@ -522,18 +525,25 @@
 
         public new void Show()
         {
-            _isOpen = true;
-            DrawerStateChanged?.Invoke(this);
-            DrawerBeginOpen?.Invoke(this);
-            _showHideAnimManager.StartNewAnimation(AnimationDirection.Out);
+            if (!DisableDrawerSlide)
+            {
+                _isOpen = true;
+                DrawerStateChanged?.Invoke(this);
+                DrawerBeginOpen?.Invoke(this);
+
+                _showHideAnimManager.StartNewAnimation(AnimationDirection.Out);
+            }                
         }
 
         public new void Hide()
         {
-            _isOpen = false;
-            DrawerStateChanged?.Invoke(this);
-            DrawerBeginClose?.Invoke(this);
-            _showHideAnimManager.StartNewAnimation(AnimationDirection.In);
+            if (!DisableDrawerSlide)
+            {
+                _isOpen = false;
+                DrawerStateChanged?.Invoke(this);
+                DrawerBeginClose?.Invoke(this);
+                _showHideAnimManager.StartNewAnimation(AnimationDirection.In);
+            }
         }
 
         public void Toggle()

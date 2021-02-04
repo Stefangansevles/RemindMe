@@ -79,6 +79,12 @@
     <Compile Include="Hotkeys.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="HttpRequestCondition.cs">
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HttpRequests.cs">
+      <DependentUpon>RemindmeDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="ListviewColumnSizes.cs">
       <DependentUpon>RemindmeDb.tt</DependentUpon>
     </Compile>

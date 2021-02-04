@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Reminder">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
         <MappingFragment StoreEntitySet="Reminder">
+          <ScalarProperty Name="HttpId" ColumnName="HttpId" />
           <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
           <ScalarProperty Name="EnableAdvancedReminder" ColumnName="EnableAdvancedReminder" />
           <ScalarProperty Name="Corrupted" ColumnName="Corrupted" />
@@ -144,6 +145,35 @@
           <ScalarProperty Name="LightPrimary" ColumnName="LightPrimary" />
           <ScalarProperty Name="DarkPrimary" ColumnName="DarkPrimary" />
           <ScalarProperty Name="Primary" ColumnName="Primary" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HttpRequests">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.HttpRequests">
+        <MappingFragment StoreEntitySet="HttpRequests">
+          <ScalarProperty Name="AfterPopup" ColumnName="AfterPopup" />
+          <ScalarProperty Name="Interval" ColumnName="Interval" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="OtherHeaders" ColumnName="OtherHeaders" />
+          <ScalarProperty Name="ContentTypeHeader" ColumnName="ContentTypeHeader" />
+          <ScalarProperty Name="AcceptHeader" ColumnName="AcceptHeader" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="reminderId" ColumnName="reminderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HttpRequestCondition">
+      <EntityTypeMapping TypeName="RemindMeDatabaseModel.HttpRequestCondition">
+        <MappingFragment StoreEntitySet="HttpRequestCondition">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Operator" ColumnName="Operator" />
+          <ScalarProperty Name="Property" ColumnName="Property" />
+          <ScalarProperty Name="DataType" ColumnName="DataType" />
+          <ScalarProperty Name="Condition" ColumnName="Condition" />
+          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

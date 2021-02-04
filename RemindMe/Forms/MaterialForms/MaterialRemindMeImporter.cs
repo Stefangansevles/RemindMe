@@ -76,6 +76,10 @@ namespace RemindMe
             this.remindmeFile = reminderFile;
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             tmrFadeIn.Start();
+
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+
             BLIO.Log("RemindMeImporter constructed");
         }
 

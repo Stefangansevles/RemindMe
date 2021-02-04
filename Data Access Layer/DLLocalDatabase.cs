@@ -713,6 +713,7 @@ namespace Data_Access_Layer
                     db.Dispose();
                 }
             }
+           
         }
 
         public class ButtonSpacing
@@ -995,6 +996,264 @@ namespace Data_Access_Layer
 
 
 
+        }
+
+        
+        public class HttpRequest
+        {
+
+            private HttpRequest() { }
+
+
+            /// <summary>
+            /// Get the http-request (advanced reminder) for a reminder
+            /// </summary>
+            /// <param name="remId">The id of the reminder</param>
+            /// <returns></returns>
+            public static HttpRequests GetHttpRequest(long remId)
+            {
+                HttpRequests http = null;
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    http = (from g in db.HttpRequests select g).Where(r => r.reminderId == remId).SingleOrDefault();
+                    db.Dispose();
+                }
+                return http;
+            }
+
+            /// <summary>
+            /// Get all http-requests (advanced reminder) 
+            /// </summary>
+            /// <param name="remId">The id of the reminder</param>
+            /// <returns></returns>
+            public static List<HttpRequests> GetHttpRequests()
+            {
+                List<HttpRequests> http = null;
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    http = (from g in db.HttpRequests select g).ToList();
+                    db.Dispose();
+                }
+                return http;
+            }
+
+            /// <summary>
+            /// Insert advanced Reminder HttpRequest into the database
+            /// </summary>
+            /// <param name="http">The avr object</param>
+            /// <returns></returns>
+            public static long InsertHttpRequest(HttpRequests http)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    if (db.HttpRequests.Where(r => r.reminderId == http.reminderId).Count() > 0)
+                    {
+                        //Exists already. update.                    
+                        db.HttpRequests.Attach(http);
+                        var entry = db.Entry(http);
+                        entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                                                            
+                        db.SaveChanges();
+                        db.Dispose();
+                    }
+                    else
+                    {
+                        if (db.HttpRequests.Count() > 0)
+                            http.Id = db.HttpRequests.Max(i => i.Id) + 1;
+
+                        db.HttpRequests.Add(http);
+                        db.SaveChanges();
+                        db.Dispose();
+                    }
+
+                }
+                return http.Id;
+            }            
+
+            /// <summary>
+            /// Delete advanced reminder file(s)/folder(s) options (delete/open) for a specific reminder
+            /// </summary>
+            /// <param name="id">The ID of the avr record in the SQLite database</param>
+            public static void DeleteHttpRequestByReminderId(long id)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    foreach (HttpRequests http in db.HttpRequests.Where(r => r.reminderId == id).ToList())
+                    {
+                        db.HttpRequests.Attach(http);
+                        db.HttpRequests.Remove(http);
+                    }
+
+                    db.SaveChanges();
+                    db.Dispose();
+                }
+            }
+            /// <summary>
+            /// Delete advanced reminder file(s)/folder(s) options (delete/open) for a specific reminder
+            /// </summary>
+            /// <param name="id">The ID of the avr record in the SQLite database</param>
+            public static void DeleteHttpRequestById(long id)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    foreach (HttpRequests http in db.HttpRequests.Where(r => r.Id == id).ToList())
+                    {
+                        db.HttpRequests.Attach(http);
+                        db.HttpRequests.Remove(http);
+                    }
+
+                    db.SaveChanges();
+                    db.Dispose();
+                }
+            }
+            public static void UpdateHttpRequest(HttpRequests http)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+
+                    var count = db.HttpRequests.Where(o => o.Id >= 0).Count();
+                    if (count > 0)
+                    {
+                        db.HttpRequests.Attach(http);
+                        var entry = db.Entry(http);
+                        entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                
+                        db.SaveChanges();                                      //push to database
+                        db.Dispose();
+                    }
+                    else
+                    {//The settings table is still empty
+                        db.HttpRequests.Add(http);
+                        db.SaveChanges();
+                        db.Dispose();
+                    }
+                }
+            }
+        }
+
+        public class HttpRequestConditions
+        {
+
+            private HttpRequestConditions() { }
+
+
+            /// <summary>
+            /// Get the HttpRequest conditions for a HttpRequest
+            /// </summary>
+            /// <param name="requestId">The id of the parent HttpRequest</param>
+            /// <returns></returns>
+            public static List<HttpRequestCondition> GetConditions(long requestId)
+            {
+                List<HttpRequestCondition> conditions = new List<HttpRequestCondition>();
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    conditions = (from g in db.HttpRequestCondition select g).Where(r => r.RequestId == requestId).ToList();
+                    db.Dispose();
+                }
+                return conditions;
+            }
+
+            /// <summary>
+            /// Get the HttpRequest conditions for a HttpRequest
+            /// </summary>
+            /// <param name="requestId">The id of the parent HttpRequest</param>
+            /// <returns></returns>
+            public static HttpRequestCondition GetCondition(long id)
+            {
+                HttpRequestCondition condition = new HttpRequestCondition();
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    condition = (from g in db.HttpRequestCondition select g).Where(r => r.Id == id).SingleOrDefault();
+                    db.Dispose();
+                }
+                return condition;
+            }
+
+            /// <summary>
+            /// Insert a new Request condition into the db
+            /// </summary>
+            /// <param name="condition"></param>
+            /// <returns></returns>
+            public static long InsertCondition(HttpRequestCondition condition)
+            {                
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    /*if (db.HttpRequestCondition.Where(r => r.Id == condition.Id).Count() > 0)
+                    {
+                        throw new ArgumentException("Could not insert HttpRequestCondition with ID " + condition.Id + " because it already exists");
+                    }
+                    else*/
+                    {
+                        if (db.HttpRequestCondition.Count() > 0)
+                            condition.Id = db.HttpRequests.Max(i => i.Id) + 1;                        
+
+                        db.HttpRequestCondition.Add(condition);
+                        db.SaveChanges();
+                        db.Dispose();
+                    }
+
+                }
+                return condition.Id;
+            }
+
+            /// <summary>
+            /// Delete a single condition by its id
+            /// </summary>
+            /// <param name="id"></param>
+            public static void DeleteConditionById(long id)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    foreach (HttpRequestCondition cond in db.HttpRequestCondition.Where(r => r.Id == id).ToList())
+                    {
+                        db.HttpRequestCondition.Attach(cond);
+                        db.HttpRequestCondition.Remove(cond);
+                    }
+
+                    db.SaveChanges();
+                    db.Dispose();
+                }
+            }
+            
+            /// <summary>
+            /// Delete all conditions that are paired to a HttpRequest
+            /// </summary>
+            /// <param name="httpRequestId"></param>
+            public static void DeleteConditionsForHttpRequest(long httpRequestId)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+                    foreach (HttpRequestCondition cond in db.HttpRequestCondition.Where(r => r.RequestId == httpRequestId).ToList())
+                    {
+                        db.HttpRequestCondition.Attach(cond);
+                        db.HttpRequestCondition.Remove(cond);
+                    }
+
+                    db.SaveChanges();
+                    db.Dispose();
+                }
+            }
+
+            public static void UpdateHttpRequest(HttpRequestCondition cond)
+            {
+                using (RemindMeDbEntities db = new RemindMeDbEntities())
+                {
+
+                    var count = db.HttpRequestCondition.Where(o => o.Id >= 0).Count();
+                    if (count > 0)
+                    {
+                        db.HttpRequestCondition.Attach(cond);
+                        var entry = db.Entry(cond);
+                        entry.State = System.Data.Entity.EntityState.Modified; //Mark it for update                                
+                        db.SaveChanges();                                      //push to database
+                        db.Dispose();
+                    }
+                    else
+                    {//The settings table is still empty
+                        db.HttpRequestCondition.Add(cond);
+                        db.SaveChanges();
+                        db.Dispose();
+                    }
+                }
+            }
         }
     }
 }

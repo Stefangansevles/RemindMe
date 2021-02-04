@@ -484,5 +484,110 @@ namespace Business_Logic_Layer
             
 
         }
+
+        public class HttpRequest
+        {
+            private HttpRequest() { }
+
+            public static HttpRequests GetHttpRequestById(long id)
+            {
+                return DLLocalDatabase.HttpRequest.GetHttpRequest(id);
+            }
+
+            public static void DeleteHttpRequestByReminderId(long id)
+            {
+                DLLocalDatabase.HttpRequest.DeleteHttpRequestByReminderId(id);
+            }
+            public static void DeleteHttpRequestById(long id)
+            {
+                DLLocalDatabase.HttpRequest.DeleteHttpRequestById(id);
+            }
+            public static List<HttpRequests> GetHttpRequests()
+            {
+                return DLLocalDatabase.HttpRequest.GetHttpRequests();
+            }
+
+            public static long InsertHttpRequest(HttpRequests http)
+            {
+                if (http != null)
+                    return DLLocalDatabase.HttpRequest.InsertHttpRequest(http);
+                else return -1;
+            }
+            /// <summary>
+            /// Update the settings in the SQLite database
+            /// </summary>
+            /// <param name="set">The new settings object</param>
+            public static void UpdateTheme(HttpRequests http)
+            {
+                if (http != null)
+                    DLLocalDatabase.HttpRequest.UpdateHttpRequest(http);
+            }        
+        }
+
+        public class HttpRequestConditions
+        {
+            private HttpRequestConditions() { }
+
+            /// <summary>
+            /// Get the HttpRequest conditions for a HttpRequest
+            /// </summary>
+            /// <param name="requestId">The id of the parent HttpRequest</param>
+            /// <returns></returns>
+            public static List<HttpRequestCondition> GetConditions(long requestId)
+            {
+                return DLLocalDatabase.HttpRequestConditions.GetConditions(requestId);
+            }
+
+            /// <summary>
+            /// Get the HttpRequest conditions for a HttpRequest
+            /// </summary>
+            /// <param name="requestId">The id of the parent HttpRequest</param>
+            /// <returns></returns>
+            public static HttpRequestCondition GetCondition(long id)
+            {
+                return DLLocalDatabase.HttpRequestConditions.GetCondition(id);
+            }
+
+            /// <summary>
+            /// Insert a new Request condition into the db
+            /// </summary>
+            /// <param name="condition"></param>
+            /// <returns></returns>
+            public static long InsertCondition(HttpRequestCondition condition)
+            {
+                if (condition != null)
+                {
+                    condition.Property = condition.Property.Trim(); //remove whitespace
+
+                    return DLLocalDatabase.HttpRequestConditions.InsertCondition(condition);
+                }
+                else
+                    return -1;
+            }
+
+            /// <summary>
+            /// Delete a single condition by its id
+            /// </summary>
+            /// <param name="id"></param>
+            public static void DeleteConditionById(long id)
+            {
+                DLLocalDatabase.HttpRequestConditions.DeleteConditionById(id);
+            }
+
+            /// <summary>
+            /// Delete all conditions that are paired to a HttpRequest
+            /// </summary>
+            /// <param name="httpRequestId"></param>
+            public static void DeleteConditionsForHttpRequest(long httpRequestId)
+            {
+                DLLocalDatabase.HttpRequestConditions.DeleteConditionsForHttpRequest(httpRequestId);
+            }
+
+            public static void UpdateHttpRequest(HttpRequestCondition cond)
+            {
+                if(cond != null)
+                    DLLocalDatabase.HttpRequestConditions.UpdateHttpRequest(cond);
+            }
+        }
     }
 }

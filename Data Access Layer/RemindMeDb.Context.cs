@@ -36,5 +36,7 @@ namespace Database.Entity
         public DbSet<ReadMessages> ReadMessages { get; set; }
         public DbSet<ButtonSpaces> ButtonSpaces { get; set; }
         public DbSet<Themes> Themes { get; set; }
+        public DbSet<HttpRequests> HttpRequests { get; set; }
+        public DbSet<HttpRequestCondition> HttpRequestCondition { get; set; }
     }
 }

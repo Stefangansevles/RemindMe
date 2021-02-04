@@ -87,7 +87,11 @@ namespace RemindMe
             numEveryXDays.KeyPress += numericOnly_KeyPress;
 
 
-            AddDaysMenuStrip.Renderer = new MyToolStripMenuRenderer();
+            AddDaysMenuStrip.Renderer = new MyToolStripMenuRenderer();            
+        }
+
+        public void DisableDatePickers()
+        {
 
         }
 
@@ -102,7 +106,7 @@ namespace RemindMe
 
             AVRForm.Close();
             AVRForm.Dispose();
-            AVRForm = new MaterialAdvancedReminderForm();
+            AVRForm = new MaterialAdvancedReminderForm(this);
 
             AVRForm.BatchScript = batch;
             AVRForm.HideReminder = check;
@@ -198,14 +202,25 @@ namespace RemindMe
             //reposition the textbox under the groupbox. null,null because we're not doing anything with the parameters
             pnlDayCheckBoxes_VisibleChanged(null, null);
 
-            dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
-            DateTime remDate = Convert.ToDateTime(rem.Date.Split(',')[0]);
+            if (rem.HttpId == null)
+            {
+                dtpTime.Value = Convert.ToDateTime(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
+                DateTime remDate = Convert.ToDateTime(rem.Date.Split(',')[0]);
 
-            //Due to some really weird bug in winforms, the .checked has to be set to true(even though it already is true) to fix a problem where the
-            //datetimepicker does not show the text matching it's value
-            dtpDate.Checked = true;
-            dtpDate.Value = remDate;
+                //Due to some really weird bug in winforms, the .checked has to be set to true(even though it already is true) to fix a problem where the
+                //datetimepicker does not show the text matching it's value
+                dtpDate.Checked = true;
+                dtpDate.Value = remDate;
+            }
+            else
+            {
+                rbDaily.Checked = true; //trigger checkedchange event
+                rbDaily.Checked = false;
 
+                dtpDate.Enabled = false;
+                dtpTime.Enabled = false;
+                groupRepeatRadiobuttons.Enabled = false;
+            }
 
             FillSoundComboboxFromDatabase(cbSound);
             tbNote.Text = rem.Note.Replace("\\n", Environment.NewLine);             
@@ -227,13 +242,7 @@ namespace RemindMe
                     if (reminderItem != null)
                         cbSound.SelectedItem = reminderItem;
                 }
-
-
-
             }
-
-
-
 
             switch (rem.RepeatType)
             {
@@ -301,14 +310,30 @@ namespace RemindMe
             }
 
             AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(editableReminder.Id);
+            HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(editableReminder.Id);
             //This reminder that is loaded for editing has advanced reminder properties. Be sure to also load these
             if (avrProps != null)
             {
                 if(AVRForm == null)
-                    AVRForm = new MaterialAdvancedReminderForm();
+                    AVRForm = new MaterialAdvancedReminderForm(this);
 
                 AVRForm.BatchScript = avrProps.BatchScript;
                 AVRForm.HideReminder = avrProps.ShowReminder == 1 ? false : true;
+            }
+            if(req != null)
+            {
+                if (AVRForm == null)
+                    AVRForm = new MaterialAdvancedReminderForm(this);
+                
+                AVRForm.HttpRequest.URL = req.URL;
+                AVRForm.HttpRequest.Type = req.Type;
+                AVRForm.HttpRequest.AcceptHeader = req.AcceptHeader;
+                AVRForm.HttpRequest.ContentTypeHeader = req.ContentTypeHeader;
+                AVRForm.HttpRequest.OtherHeaders = req.OtherHeaders;
+                AVRForm.HttpRequest.Body = req.Body;                
+                AVRForm.HttpRequest.Interval = req.Interval;
+                AVRForm.HttpRequest.AfterPopup = req.AfterPopup;
+                AVRForm.HttpRequest.Conditions = BLLocalDatabase.HttpRequestConditions.GetConditions(req.Id);
             }
             //Only allow the setting of UpdateTime if the repeat type is NOT multiple dates(which is "NONE")
             pnlUpdateTime.Visible = !rbNoRepeat.Checked;
@@ -1347,7 +1372,7 @@ namespace RemindMe
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 //User wants to create a new reminder. Cool! 
                 BLIO.Log("User pressed confirm at reminder user control. Attempting to create/edit a reminder (MUCNewReminder)");
 
@@ -1359,7 +1384,8 @@ namespace RemindMe
                 }
 
                 //Is the selected date in the future?
-                if ((Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) <= DateTime.Now))
+                if ( (AVRForm != null && string.IsNullOrEmpty(AVRForm.HttpRequest.URL)) && //don't check for date if it's an HTTP conditional reminder
+                    (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) <= DateTime.Now))
                 {
                     if (rbNoRepeat.Checked && cbMultipleDates.Items.Count > 0) { }  //ignore
                     else
@@ -1376,8 +1402,8 @@ namespace RemindMe
                     editableReminder.SoundFilePath = GetSelectedSoundFile();
                     editableReminder.Note = tbNote.Text.Replace(Environment.NewLine, "<br>");
                 }
-
-                long remId = -1;
+         
+               long remId = -1;
                 if (rbDaily.Checked)
                     remId = CreateDailyReminder(editableReminder);
 
@@ -1396,9 +1422,24 @@ namespace RemindMe
                 else if (rbNoRepeat.Checked)
                     remId = CreateSetDatesReminder(editableReminder);
 
+
+                Reminder r = null;
+                if (AVRForm != null && !string.IsNullOrEmpty(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
+                {                    
+                    remId = CreateDailyReminder(editableReminder);
+                    r = BLReminder.GetReminderById(remId);
+
+                    //HTTP Conditional reminder, remove date                    
+                    r.Date = "";
+                    r.PostponeDate = "";
+                    r.RepeatType = ReminderRepeatType.CONDITIONAL.ToString();
+                    BLReminder.EditReminder(r);
+                }
+               
+
                 //Apply AVR properties, if there are any
                 CreateAdvancedReminderProperties(remId);
-               
+
                 //Something went wrong. The respective method will show an error message.
                 if (remId == -1)
                     return;
@@ -1413,22 +1454,37 @@ namespace RemindMe
                         BLIO.WriteError(ex, ex.Message, true);
                     }
                 }).Start();
-                
 
-                if(editableReminder != null)
+
+                string oldReminderName;
+                string oldReminderNote;
+                string oldSoundFilePath;
+                if (editableReminder != null)
                 {
+                    oldReminderName = editableReminder.Name;
+                    oldReminderNote = editableReminder.Note;
+                    oldSoundFilePath = editableReminder.SoundFilePath;
+
                     //We can edit the reminder now, it has already been inserted/updated
                     editableReminder.Name = "Hidden"; //privacy
                     editableReminder.Note = "Hidden"; //privacy
 
-                    if (File.Exists(editableReminder.SoundFilePath))
+                    if (File.Exists(editableReminder.SoundFilePath)) 
                         editableReminder.SoundFilePath = "Hidden"; //privacy. if the file DOESNT exist, we do want to inspect it
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(editableReminder));
+                    //Now that the logging is done, revert the name/note
+                    editableReminder.Name = oldReminderName; 
+                    editableReminder.Note = oldReminderNote;
+                    editableReminder.SoundFilePath = oldSoundFilePath;
                 }
                 else if(remId != -1)
                 {
                     Reminder rem = BLReminder.GetReminderById(remId);
+
+                    oldReminderName = rem.Name;
+                    oldReminderNote = rem.Note;
+                    oldSoundFilePath = rem.SoundFilePath;
 
                     rem.Name = "Hidden"; //privacy
                     rem.Note = "Hidden"; //privacy
@@ -1437,9 +1493,12 @@ namespace RemindMe
                         rem.SoundFilePath = "Hidden"; //privacy. if the file DOESNT exist, we do want to inspect it
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(rem));
-                }
-                
-               
+                    //Now that the logging is done, revert the name/note
+                    rem.Name = oldReminderName;
+                    rem.Note = oldReminderNote;
+                    rem.SoundFilePath = oldSoundFilePath;
+                }                                
+
                 BLReminder.NotifyChange();
                 btnBack_Click(sender, e);
             }
@@ -1458,6 +1517,7 @@ namespace RemindMe
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(editableReminder));
                     BLIO.WriteError(ex, "CREATE/EDIT_REMINDER FAIL!" + ex.GetType());
+                    MaterialRemindMeBox.Show("Editing Reminder failed :(");
                 }
                 else
                 {
@@ -1469,13 +1529,45 @@ namespace RemindMe
             }
         }
 
+        public void AdvancedReminderFormCallback()
+        {
+            BLIO.Log("Returning from the Advanced Reminder form");
+
+            //If the user has an URL in the HTTP section of the Advanced Reminder Form. Disable the date pickers
+            dtpDate.Enabled = string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL);
+            dtpTime.Enabled = string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL);
+            groupRepeatRadiobuttons.Enabled = string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL);
+
+            if (!dtpDate.Enabled)
+            {
+                MaterialMessageFormManager.MakeMessagePopup("Advanced Reminder options applied! The date-pickers have been disabled, and the reminder will " +
+                    "pop up when the HTTP condition is met.", 8);
+
+                rbDaily.Checked = true;
+                rbDaily.Checked = false;
+            }
+            else
+            {
+                //If the user is coming back from API configuration, and the reminder is no longer an API reminder, select rbNoRepeat if there are none selected
+                bool noneSelected = true;
+                foreach(Control c in groupRepeatRadiobuttons.Controls)
+                {
+                    MaterialRadioButton rb = (MaterialRadioButton)c;
+                    if (rb.Checked)
+                        noneSelected = false;
+                }
+                if(noneSelected)
+                    rbNoRepeat.Checked = true;
+            }
+                
+        }
         private void CreateAdvancedReminderProperties(long remId)
         {
             if (AVRForm == null)
                 return;
 
             Reminder rem = BLReminder.GetReminderById(remId);
-            BLReminder.EditReminder(rem);
+            BLReminder.EditReminder(rem); //?
 
             //Create AVR properties and insert them into the database
             AdvancedReminderProperties avr = BLLocalDatabase.AVRProperty.GetAVRProperties(remId);
@@ -1485,6 +1577,52 @@ namespace RemindMe
             avr.BatchScript = AVRForm.BatchScript;
             avr.Remid = remId; //Link this reminder to it
             BLLocalDatabase.AVRProperty.InsertAVRProperties(avr);
+
+            //Http section
+            if (!string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
+            {
+                HttpRequests http = BLLocalDatabase.HttpRequest.GetHttpRequestById(remId);
+                if (http == null) { http = new HttpRequests(); }
+
+                http.reminderId = remId;
+                http.URL = AVRForm.HttpRequest.URL;
+                http.Type = AVRForm.HttpRequest.Type;
+                http.AcceptHeader = AVRForm.HttpRequest.AcceptHeader;
+                http.ContentTypeHeader = AVRForm.HttpRequest.ContentTypeHeader;
+                http.OtherHeaders = AVRForm.HttpRequest.OtherHeaders;
+                http.Body = AVRForm.HttpRequest.Body;                
+                http.Interval = AVRForm.HttpRequest.Interval;
+                http.AfterPopup = AVRForm.HttpRequest.AfterPopup;
+
+                BLLocalDatabase.HttpRequest.InsertHttpRequest(http);
+                rem.HttpId = http.Id;
+                BLReminder.EditReminder(rem);
+
+                //Delete the current conditionRows, code below will re-insert them in case the amount of rows changed
+                BLLocalDatabase.HttpRequestConditions.DeleteConditionsForHttpRequest(http.Id);
+
+                //Now we have both the remId, and httpid. lets give the row the correct ID's
+                foreach (HttpRequestCondition cond in AVRForm.HttpRequest.Conditions)
+                {
+                    cond.RequestId = http.Id;
+                    BLLocalDatabase.HttpRequestConditions.InsertCondition(cond);
+                }
+            }
+            else if(string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL))
+            {
+                long httpId = (long)rem.HttpId;
+                BLLocalDatabase.HttpRequestConditions.DeleteConditionsForHttpRequest(httpId);
+                BLLocalDatabase.HttpRequest.DeleteHttpRequestById(httpId);
+
+                rem.HttpId = null;
+                rem.PostponeDate = null;
+
+                if(editableReminder != null)
+                    editableReminder.HttpId = null;
+
+                BLReminder.EditReminder(rem);
+                
+            }
         }
 
         /// <summary>
@@ -1573,7 +1711,11 @@ namespace RemindMe
                         cb.Items.Clear();
                         cb.Text = "";
                     }
-                }                
+                }             
+                if (c is GroupBox)
+                {
+                    c.Enabled = true;
+                }
 
                 /*if (c is MaterialRadioButton)
                 {
@@ -1614,6 +1756,8 @@ namespace RemindMe
 
 
             FillSoundComboboxFromDatabase(cbSound);
+
+            AVRForm = null;
         }
 
 
@@ -1638,18 +1782,17 @@ namespace RemindMe
             myPlayer.controls.stop();
             tmrMusic.Stop();
 
-            //Refresh listview with the newly made reminder                        
-            MUCReminders.Instance.UpdateCurrentPage();
+            //Refresh listview with the newly made reminder   
+            if(sender == btnConfirm)
+                MUCReminders.Instance.UpdateCurrentPage(editableReminder);
+            else
+                MUCReminders.Instance.UpdateCurrentPage();
 
             callback.Visible = true;
             this.Visible = false;
             saveState = false;
 
-            if (AVRForm != null)
-            {
-                AVRForm.BatchScript = "";
-                AVRForm.HideReminder = false;
-            }
+            AVRForm = null;
 
             GC.Collect();
         }
@@ -1890,11 +2033,13 @@ namespace RemindMe
             }
         }
 
+
         private void btnAdvancedReminder_Click_1(object sender, EventArgs e)
         {            
+            
             if (AVRForm == null)
             {
-                AVRForm = new MaterialAdvancedReminderForm();
+                AVRForm = new MaterialAdvancedReminderForm(this);                
             }
 
             if (editableReminder != null)
@@ -1906,10 +2051,30 @@ namespace RemindMe
                         AVRForm.HideReminder = !Convert.ToBoolean(avrProps.ShowReminder);
 
                     AVRForm.BatchScript = avrProps.BatchScript;
+                    
+                    HttpRequests http = BLLocalDatabase.HttpRequest.GetHttpRequestById(editableReminder.Id);
+                    if (http != null)
+                    {
+                        AVRForm.HttpRequest.URL = http.URL;
+                        AVRForm.HttpRequest.Type = http.Type;
+                        AVRForm.HttpRequest.AcceptHeader = http.AcceptHeader;
+                        AVRForm.HttpRequest.ContentTypeHeader = http.ContentTypeHeader;
+                        AVRForm.HttpRequest.OtherHeaders = http.OtherHeaders;
+                        AVRForm.HttpRequest.Body = http.Body;                        
+                        AVRForm.HttpRequest.Interval = http.Interval;
+                        //The conditions seem to load correctly already?
+                    }
                 }
             }
-
             AVRForm.ShowDialog();
+
+            /*if (!AVRForm.Loaded)
+                AVRForm.ShowDialog();
+            else
+            {
+                AVRForm.Opacity = 100;
+                AVRForm.ShowInTaskbar = true;                
+            }*/
         }
 
         private void tmrMusic_Tick_1(object sender, EventArgs e)

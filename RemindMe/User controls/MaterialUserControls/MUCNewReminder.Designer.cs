@@ -951,6 +951,7 @@
             // MUCNewReminder
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.pnlMarkupButtons);
             this.Controls.Add(this.cbEvery);
             this.Controls.Add(this.cbEveryXCustom);
@@ -963,7 +964,6 @@
             this.Controls.Add(this.btnRemoveMonthlyDay);
             this.Controls.Add(this.btnAdvancedReminder);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.pnlDayCheckBoxes);
             this.Controls.Add(this.tbNote);

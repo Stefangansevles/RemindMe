@@ -59,6 +59,10 @@ namespace RemindMe
                     tbPrompt.KeyDown += numericOnly_KeyDown;
                     break;                
             }
+
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+
             BLIO.Log("RemindMePrompt constructed");
         }
 

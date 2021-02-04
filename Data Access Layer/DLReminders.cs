@@ -27,13 +27,14 @@ namespace Data_Access_Layer
         //Instead of connecting with the database everytime, we fill this list and return it when the user calls GetReminders(). 
         private static List<Reminder> localReminders;
 
-        
 
+     
         /// <summary>
         /// Gets all "existing" reminders from the database (Not the deleted/archived ones)
         /// </summary>
+        /// <param name="includeConditionalReminders">Wether to include conditional (HTTP) reminders or not. These do not have a date</param>
         /// <returns></returns>
-        public static List<Reminder> GetReminders()
+        public static List<Reminder> GetReminders(bool includeConditionalReminders = false)
         {
             FixOldReminders();
 
@@ -44,7 +45,10 @@ namespace Data_Access_Layer
             
             //If the list was null, it now returns the list of reminders from the database.
             //If it wasn't null, it will return the list as it was last known, which should be how the database is.
-            return localReminders.Where(r => r.Deleted == 0 && r.Corrupted == 0).ToList(); //only return "existing" reminders
+            if(!includeConditionalReminders)
+                return localReminders.Where(r => r.Deleted == 0 && r.Corrupted == 0).Where(r => r.HttpId == null).ToList(); //only return "existing" reminders
+            else
+                return localReminders.Where(r => r.Deleted == 0 && r.Corrupted == 0).ToList(); //only return "existing" reminders
         }
 
         /// <summary>
@@ -235,9 +239,15 @@ namespace Data_Access_Layer
                 db.Reminder.Attach(rem);
                 db.Reminder.Remove(rem);
 
+                //Remove attached foreign properties
                 DLLocalDatabase.AVRProperty.DeleteAvrFilesFoldersById(rem.Id);
                 DLLocalDatabase.AVRProperty.DeleteAvrProperties(rem.Id);
-                
+                DLLocalDatabase.HttpRequest.DeleteHttpRequestByReminderId(rem.Id);
+
+                if(rem.HttpId != null)
+                    DLLocalDatabase.HttpRequestConditions.DeleteConditionsForHttpRequest((long)rem.HttpId);
+
+
                 SaveAndCloseDataBase(db);
             }
 

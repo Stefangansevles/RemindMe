@@ -102,11 +102,11 @@ D:\Users\rs\Documents\1panic\Business Logic Layer\obj\Debug\Business Logic Layer
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll.config
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Bunifu_UI_v1.5.3.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Database.Entity.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgilityPack.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\MaterialSkin.dll
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Newtonsoft.Json.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.dll.config
@@ -115,6 +115,7 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Databas
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\MaterialSkin.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgilityPack.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgilityPack.xml
+D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Newtonsoft.Json.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.xml
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll.config
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csprojAssemblyReference.cache

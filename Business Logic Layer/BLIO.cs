@@ -10,6 +10,10 @@ using System.Timers;
 using System.Net;
 using HtmlAgilityPack;
 using System.Management;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace Business_Logic_Layer
 {
@@ -251,7 +255,72 @@ namespace Business_Logic_Layer
 
             }).Start();
            
-        }     
-       
+        }
+
+        public static async Task<JObject> HttpRequest(string method, string uri, string headers = "{ }", string accept = "", string contentType = "", string body = "{ }")
+        {
+            try
+            {
+                Log("Starting " + method + " for " + uri);
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                request.UserAgent = "RemindMe application";
+                request.Method = method;
+
+                if (!string.IsNullOrWhiteSpace(accept))
+                    request.Accept = accept;
+
+                if (!string.IsNullOrWhiteSpace(contentType))
+                    request.ContentType = contentType;
+
+                //Parse user-input headers into JSON
+                JObject jsonHeaders = JObject.Parse(headers);
+
+                //Initialize collection
+                WebHeaderCollection headerCollection = new WebHeaderCollection();
+                foreach (var header in jsonHeaders)
+                {
+                    if (!WebHeaderCollection.IsRestricted(header.Key))
+                        headerCollection.Add(header.Key, header.Value.ToString());
+                    else
+                        Log("Detected restricted header " + header.Key);
+                }
+
+                //Set the headers
+                request.Headers = headerCollection;
+
+                if (method == "POST")
+                {
+                    //Add Body
+                    byte[] bodyBytes = Encoding.UTF8.GetBytes(body);
+                    request.ContentLength = bodyBytes.Length;
+                    request.GetRequestStream().Write(bodyBytes, 0, bodyBytes.Length);
+                }
+
+
+
+                using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string bod = await reader.ReadToEndAsync();
+                        return (JObject)JsonConvert.DeserializeObject(bod);
+                    }
+                    else
+                    {
+                        Log(method + " Failed with status code " + response.StatusCode.ToString());
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(method + " [ " + uri + " ] Failed! Exception " + ex.GetType().ToString());
+                return null;
+            }
+        }             
     }
 }

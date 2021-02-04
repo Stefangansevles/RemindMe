@@ -20,6 +20,7 @@
     <Property Name="Corrupted" Type="Int64" />
     <Property Name="EnableAdvancedReminder" Type="Int64" Nullable="false" />
     <Property Name="UpdateTime" Type="Int64" Nullable="false" />
+    <Property Name="HttpId" Type="Decimal" Precision="53" Scale="0" />
   </EntityType>
   <EntityType Name="Settings">
     <Key>
@@ -64,6 +65,8 @@
     <EntitySet Name="ReadMessages" EntityType="RemindMeDatabaseModel.ReadMessages" />
     <EntitySet Name="ButtonSpaces" EntityType="RemindMeDatabaseModel.ButtonSpaces" />
     <EntitySet Name="Themes" EntityType="RemindMeDatabaseModel.Themes" />
+    <EntitySet Name="HttpRequests" EntityType="RemindMeDatabaseModel.HttpRequests" />
+    <EntitySet Name="HttpRequestCondition" EntityType="RemindMeDatabaseModel.HttpRequestCondition" />
   </EntityContainer>
   <EntityType Name="PopupDimensions">
     <Key>
@@ -148,5 +151,32 @@
     <Property Name="Mode" Type="Int64" />
     <Property Name="ThemeName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
     <Property Name="IsDefault" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HttpRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="reminderId" Type="Int64" Nullable="false" />
+    <Property Name="URL" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="AcceptHeader" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="ContentTypeHeader" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="OtherHeaders" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Body" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Interval" Type="Int64" Nullable="false" />
+    <Property Name="AfterPopup" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="HttpRequestCondition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="RequestId" Type="Int64" Nullable="false" />
+    <Property Name="Condition" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="DataType" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Property" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Operator" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

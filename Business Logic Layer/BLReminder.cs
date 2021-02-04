@@ -21,13 +21,34 @@ namespace Business_Logic_Layer
         private BLReminder() { }
 
         /// <summary>
-        /// Gets all non-deleted/archived reminders from the database
+        /// Gets all "existing" reminders from the database (Not the deleted/archived ones)
         /// </summary>
+        /// <param name="includeConditionalReminders">Wether to include conditional (HTTP) reminders or not. These do not have a date</param>
         /// <returns></returns>
-        public static List<Reminder> GetReminders()
+        public static List<Reminder> GetReminders(bool includeConditionalReminders = false)
         {            
-            List<Reminder> reminders = DLReminders.GetReminders();
+            List<Reminder> reminders = DLReminders.GetReminders(includeConditionalReminders);
             GC.Collect();
+            return reminders;
+        }
+
+        /// <summary>
+        /// Orders reminders, ready to be served to the reminder list
+        /// </summary>
+        /// <returns>A list of ordered reminders, normal reminders first, then HTTP conditional reminders, then disabled reminders. Normal reminders are ordered by date</returns>
+        public static List<Reminder> GetOrderedReminders()
+        {
+            List<Reminder> reminders = new List<Reminder>();
+
+            //Add active reminders
+            reminders.AddRange(GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).ToList());
+            //Add conditional (HTTP) reminders
+            reminders.AddRange(GetReminders(true).OrderBy(r => r.HttpId).Where(r => r.Enabled == 1).Where(r => r.Hide == 0).Where(r => r.HttpId != null).ToList());
+            //Add disabled reminders
+            reminders.AddRange(GetReminders().OrderBy(r => Convert.ToDateTime(r.Date.Split(',')[0])).Where(r => r.Enabled == 0).Where(r => r.Hide == 0).ToList());
+            //Add disabled conditional reminders
+            reminders.AddRange(GetReminders(true).OrderBy(r => r.HttpId).Where(r => r.Enabled == 0).Where(r => r.Hide == 0).Where(r => r.HttpId != null).ToList());
+
             return reminders;
         }
 
@@ -667,12 +688,15 @@ namespace Business_Logic_Layer
             {
                 DateTime date;
 
-                //Check all possible dates
-                foreach (string stringDate in rem.Date.Split(','))
-                    date = Convert.ToDateTime(stringDate);
+                if (rem.HttpId == null)
+                {
+                    //Check all possible dates
+                    foreach (string stringDate in rem.Date.Split(','))
+                        date = Convert.ToDateTime(stringDate);
 
-                if (rem.PostponeDate != null)
-                    date = Convert.ToDateTime(rem.PostponeDate.Split(',')[0]);
+                    if (rem.PostponeDate != null)
+                        date = Convert.ToDateTime(rem.PostponeDate.Split(',')[0]);
+                }
 
 
                 if (rem.Enabled > 1 || rem.Enabled < 0)
@@ -711,6 +735,11 @@ namespace Business_Logic_Layer
 
                 AdvancedReminderProperties avrProps = DLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
                 List<AdvancedReminderFilesFolders> avrFF = DLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);
+
+                if (rem.HttpId != null)
+                {
+                    HttpRequests req = DLLocalDatabase.HttpRequest.GetHttpRequest(rem.Id);
+                }
 
             }
             catch (Exception ex)
@@ -933,7 +962,14 @@ namespace Business_Logic_Layer
                 case "MONTHLY": return "Monthly";
                 case "WORKDAYS": return "Work days";
                 case "NONE": return "No repeat";
-
+                case "CONDITIONAL":
+                    HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(rem.Id);
+                    if (req.AfterPopup == "Stop")
+                        return "No repeat";
+                    else if (req.AfterPopup == "Repeat")
+                        return "Interval";
+                    else
+                        return req.AfterPopup;
                 case "MULTIPLE_DAYS":
                     string dayString = "";
                     foreach (string day in rem.RepeatDays.Split(','))

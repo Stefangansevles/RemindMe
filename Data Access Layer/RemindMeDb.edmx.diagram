@@ -13,9 +13,11 @@
         <EntityTypeShape EntityType="RemindMeDatabaseModel.Hotkeys" Width="1.5" PointX="7.125" PointY="3.75" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.AdvancedReminderFilesFolders" Width="1.5" PointX="10.625" PointY="3.375" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.AdvancedReminderProperties" Width="1.5" PointX="10.625" PointY="1.25" />
-        <EntityTypeShape EntityType="RemindMeDatabaseModel.ReadMessages" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="RemindMeDatabaseModel.ReadMessages" Width="1.5" PointX="0.75" PointY="5.25" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.ButtonSpaces" Width="1.5" PointX="8.875" PointY="3.75" />
         <EntityTypeShape EntityType="RemindMeDatabaseModel.Themes" Width="1.5" PointX="8.625" PointY="0.75" />
+        <EntityTypeShape EntityType="RemindMeDatabaseModel.HttpRequests" Width="1.5" PointX="4.75" PointY="5.875" />
+        <EntityTypeShape EntityType="RemindMeDatabaseModel.HttpRequestCondition" Width="1.5" PointX="6.25" PointY="5.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

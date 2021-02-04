@@ -46,7 +46,10 @@ namespace RemindMe
 
                 if (!string.IsNullOrWhiteSpace(message))
                     lblMessage.Text = "Problem description: " + message;
-                                
+
+                this.MaximumSize = this.Size;
+                this.MinimumSize = this.Size;
+
                 BLIO.Log("Constructing ExceptionPopup complete");
             }
             else

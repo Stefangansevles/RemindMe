@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindmeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RemindMeDatabaseModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\schultenbrau\AppData\Local\RemindMe\RemindMeDatabase.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdvancedReminderFilesFolders">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,6 +45,33 @@
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Key" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Modifiers" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HttpRequestCondition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestId" Type="integer" Nullable="false" />
+          <Property Name="Condition" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="DataType" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Property" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Operator" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HttpRequests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reminderId" Type="integer" Nullable="false" />
+          <Property Name="URL" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AcceptHeader" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="ContentTypeHeader" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="OtherHeaders" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Body" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Interval" Type="integer" Nullable="false" />
+          <Property Name="AfterPopup" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="ListviewColumnSizes">
           <Key>
@@ -95,6 +122,7 @@
           <Property Name="Corrupted" Type="integer" />
           <Property Name="EnableAdvancedReminder" Type="integer" Nullable="false" />
           <Property Name="UpdateTime" Type="integer" Nullable="false" />
+          <Property Name="HttpId" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -146,6 +174,8 @@
           <EntitySet Name="AdvancedReminderProperties" EntityType="Self.AdvancedReminderProperties" store:Type="Tables" />
           <EntitySet Name="ButtonSpaces" EntityType="Self.ButtonSpaces" store:Type="Tables" />
           <EntitySet Name="Hotkeys" EntityType="Self.Hotkeys" store:Type="Tables" />
+          <EntitySet Name="HttpRequestCondition" EntityType="Self.HttpRequestCondition" store:Type="Tables" />
+          <EntitySet Name="HttpRequests" EntityType="Self.HttpRequests" store:Type="Tables" />
           <EntitySet Name="ListviewColumnSizes" EntityType="Self.ListviewColumnSizes" store:Type="Tables" />
           <EntitySet Name="PopupDimensions" EntityType="Self.PopupDimensions" store:Type="Tables" />
           <EntitySet Name="ReadMessages" EntityType="Self.ReadMessages" store:Type="Tables" />
@@ -177,7 +207,8 @@
           <Property Name="Hide" Type="Int64" />
           <Property Name="Corrupted" Type="Int64" />
           <Property Name="EnableAdvancedReminder" Type="Int64" Nullable="false" />
-          <Property Name="UpdateTime" Type="Int64" Nullable="false" />          
+          <Property Name="UpdateTime" Type="Int64" Nullable="false" />
+          <Property Name="HttpId" Type="Decimal" Precision="53" Scale="0" />          
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -222,6 +253,8 @@
           <EntitySet Name="ReadMessages" EntityType="RemindMeDatabaseModel.ReadMessages" />
           <EntitySet Name="ButtonSpaces" EntityType="RemindMeDatabaseModel.ButtonSpaces" />
           <EntitySet Name="Themes" EntityType="RemindMeDatabaseModel.Themes" />
+          <EntitySet Name="HttpRequests" EntityType="RemindMeDatabaseModel.HttpRequests" />
+          <EntitySet Name="HttpRequestCondition" EntityType="RemindMeDatabaseModel.HttpRequestCondition" />
         </EntityContainer>
         <EntityType Name="PopupDimensions">
           <Key>
@@ -307,6 +340,33 @@
           <Property Name="ThemeName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="IsDefault" Type="Int64" Nullable="false" />
         </EntityType>
+        <EntityType Name="HttpRequests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="reminderId" Type="Int64" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="AcceptHeader" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ContentTypeHeader" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="OtherHeaders" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Interval" Type="Int64" Nullable="false" />
+          <Property Name="AfterPopup" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HttpRequestCondition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="RequestId" Type="Int64" Nullable="false" />
+          <Property Name="Condition" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DataType" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Property" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Operator" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -316,6 +376,7 @@
           <EntitySetMapping Name="Reminder">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Reminder">
               <MappingFragment StoreEntitySet="Reminder">                                                                
+                <ScalarProperty Name="HttpId" ColumnName="HttpId" />
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="EnableAdvancedReminder" ColumnName="EnableAdvancedReminder" />
                 <ScalarProperty Name="Corrupted" ColumnName="Corrupted" />
@@ -456,6 +517,35 @@
                 <ScalarProperty Name="LightPrimary" ColumnName="LightPrimary" />
                 <ScalarProperty Name="DarkPrimary" ColumnName="DarkPrimary" />
                 <ScalarProperty Name="Primary" ColumnName="Primary" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HttpRequests">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.HttpRequests">
+              <MappingFragment StoreEntitySet="HttpRequests">
+                <ScalarProperty Name="AfterPopup" ColumnName="AfterPopup" />
+                <ScalarProperty Name="Interval" ColumnName="Interval" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="OtherHeaders" ColumnName="OtherHeaders" />
+                <ScalarProperty Name="ContentTypeHeader" ColumnName="ContentTypeHeader" />
+                <ScalarProperty Name="AcceptHeader" ColumnName="AcceptHeader" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="reminderId" ColumnName="reminderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HttpRequestCondition">
+            <EntityTypeMapping TypeName="RemindMeDatabaseModel.HttpRequestCondition">
+              <MappingFragment StoreEntitySet="HttpRequestCondition">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Property" ColumnName="Property" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

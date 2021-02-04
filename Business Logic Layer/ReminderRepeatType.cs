@@ -28,7 +28,11 @@
         /// <summary>
         /// The reminder will show up every x amount of x, custom. Can be every 5 months, every 3 minutes, etc
         /// </summary>
-        CUSTOM
+        CUSTOM,
+        /// <summary>
+        /// The reminder will show up when a condition is met on the response data of a HTTP request
+        /// </summary>
+        CONDITIONAL
 
     }
 }

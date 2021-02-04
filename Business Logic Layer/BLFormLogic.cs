@@ -7,6 +7,7 @@ using Data_Access_Layer;
 using WMPLib;
 using System.Drawing;
 using MaterialSkin.Controls;
+using System.Drawing.Imaging;
 
 namespace Business_Logic_Layer
 {
@@ -15,6 +16,7 @@ namespace Business_Logic_Layer
         private BLFormLogic() { }
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
         
+
         /// <summary>
         /// Adds an reminder to the listview, showing the details of that reminder.
         /// </summary>
@@ -33,16 +35,19 @@ namespace Business_Logic_Layer
             ListViewItem itm = new ListViewItem(rem.Name);
             itm.Tag = rem.Id; //Add the id as a tag(invisible)
 
+            if (rem.HttpId == null)
+            {
+                if (rem.PostponeDate == null)
+                    itm.SubItems.Add(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortDateString() + " " + Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());
+                else
+                    itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString() + " (p)");
+            }
+            else
+                itm.SubItems.Add("Conditional");
 
-            if (rem.PostponeDate == null)            
-                itm.SubItems.Add(Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortDateString() + " " + Convert.ToDateTime(rem.Date.Split(',')[0]).ToShortTimeString());            
-            else            
-                itm.SubItems.Add(Convert.ToDateTime(rem.PostponeDate).ToShortDateString() + " " + Convert.ToDateTime(rem.PostponeDate).ToShortTimeString() + " (p)");           
-            
 
             if (rem.EveryXCustom == null)
             {
-
                 if (rem.RepeatType == ReminderRepeatType.MULTIPLE_DAYS.ToString())
                 {
                     string cutOffString = "";
@@ -109,7 +114,9 @@ namespace Business_Logic_Layer
                 }
             }
                       
-            List<Reminder> list = reminderList.OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
+            List<Reminder> list = reminderList.Where(r => r.HttpId == null).OrderBy(t => Convert.ToDateTime(t.Date.Split(',')[0])).ToList();
+            list.AddRange(reminderList.Where(r => r.HttpId != null));
+
             foreach (Reminder rem in list)
             {                
                 if (rem.Enabled == 1) //not disabled? add to listview
@@ -123,6 +130,44 @@ namespace Business_Logic_Layer
                 AddReminderToListview(lv, rem, material);
         }
 
+        public static void SetImageAlpha(PictureBox pb, int alpha)
+        {
+            if (pb.Image == null)
+                return;
+
+            var original = (Bitmap)pb.Image.Clone();
+            pb.BackColor = Color.Transparent;
+            pb.Image = SetAlpha((Bitmap)original, alpha);
+        }
+        private static Bitmap SetAlpha(Image bmpIn, int alpha)
+        {
+            Bitmap bmpOut = new Bitmap(bmpIn.Width, bmpIn.Height);
+            float a = alpha / 255f;
+            Rectangle r = new Rectangle(0, 0, bmpIn.Width, bmpIn.Height);
+
+            float[][] matrixItems = {
+        new float[] {1, 0, 0, 0, 0},
+        new float[] {0, 1, 0, 0, 0},
+        new float[] {0, 0, 1, 0, 0},
+        new float[] {0, 0, 0, a, 0},
+        new float[] {0, 0, 0, 0, 1}};
+
+            ColorMatrix colorMatrix = new ColorMatrix(matrixItems);
+
+            ImageAttributes imageAtt = new ImageAttributes();
+            imageAtt.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+            using (Graphics g = Graphics.FromImage(bmpOut))
+                g.DrawImage(bmpIn, r, r.X, r.Y, r.Width, r.Height, GraphicsUnit.Pixel, imageAtt);
+
+            return bmpOut;
+        }
+
+        public static void CenterFormToParent(Form c, Form parent)
+        {            
+            c.StartPosition = FormStartPosition.Manual;
+            c.Location = new Point(parent.Location.X + ((parent.Width / 2) - c.Width / 2), parent.Location.Y + ((parent.Height / 2) - (c.Height / 2)));
+        }
         /// <summary>
         /// Gets the amount of minutes from a bunifu textbox string. Includes formats like h, for example 1h30 returns 90
         /// </summary>
