@@ -1,5 +1,5 @@
-3.1.0
-update: major
+3.1.01
+update: minor
 silentUpdate: false
 
 //minor = don't restart. major = restart

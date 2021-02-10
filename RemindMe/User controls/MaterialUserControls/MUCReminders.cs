@@ -336,7 +336,7 @@ namespace RemindMe
             this.Visible = false;
             newReminderUc.Reminder = null;
 
-            if (newReminderUc.AVRForm != null)
+            if (newReminderUc.AVRForm != null && !newReminderUc.AVRForm.IsDisposed)
             {
                 newReminderUc.AVRForm.Dispose();
                 newReminderUc.AVRForm = null;
@@ -878,7 +878,7 @@ namespace RemindMe
         }
 
         private void MUCReminders_Load(object sender, EventArgs e)
-        {
+        {            
             tmrCheckForUpdates.Start();
             SetPageButtonIcons(BLReminder.GetReminders());
         }

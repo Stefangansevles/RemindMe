@@ -1108,3 +1108,8 @@ Preview: https://i.imgur.com/UDCkSdj.png
 
 3.1.0
 - RemindMe now has API Support!! Users can create new 'Conditional' reminders, where the reminder will pop up once 1(or more) customized conditions have been met
+
+3.1.01
+- Fixed a bug where sometimes you would not be able to edit an existing reminder
+- Improved performance of RemindMe after using RemindMe for a while (disposing AdvancedReminderForm instead of setting to null)
+- When creating "Set dates" reminders, RemindMe will now only automatically add the selected date if the list of added dates is empty. 

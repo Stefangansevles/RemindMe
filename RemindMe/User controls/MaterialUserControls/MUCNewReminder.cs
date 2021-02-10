@@ -314,7 +314,7 @@ namespace RemindMe
             //This reminder that is loaded for editing has advanced reminder properties. Be sure to also load these
             if (avrProps != null)
             {
-                if(AVRForm == null)
+                if((AVRForm != null && AVRForm.IsDisposed) || AVRForm == null)
                     AVRForm = new MaterialAdvancedReminderForm(this);
 
                 AVRForm.BatchScript = avrProps.BatchScript;
@@ -1334,7 +1334,7 @@ namespace RemindMe
                     DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());
 
                     //If the user pressed confirm, but didnt "+" the date yet, we'll do it for him. 
-                    if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)
+                    if (cbMultipleDates.Items.Count == 0 && selectedDate > DateTime.Now)
                     {
                         cbMultipleDates.Items.Add(selectedDate);
                     }
@@ -1422,6 +1422,9 @@ namespace RemindMe
                 else if (rbNoRepeat.Checked)
                     remId = CreateSetDatesReminder(editableReminder);
 
+                //Something went wrong. The respective method will show an error message.
+                if (remId == -1)
+                    return;
 
                 Reminder r = null;
                 if (AVRForm != null && !string.IsNullOrEmpty(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
@@ -1440,10 +1443,7 @@ namespace RemindMe
                 //Apply AVR properties, if there are any
                 CreateAdvancedReminderProperties(remId);
 
-                //Something went wrong. The respective method will show an error message.
-                if (remId == -1)
-                    return;
-
+                
                 //Log an entry to the database, for data!
                 new Thread(() =>
                 {
@@ -1610,17 +1610,21 @@ namespace RemindMe
             }
             else if(string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL))
             {
-                long httpId = (long)rem.HttpId;
-                BLLocalDatabase.HttpRequestConditions.DeleteConditionsForHttpRequest(httpId);
-                BLLocalDatabase.HttpRequest.DeleteHttpRequestById(httpId);
+                if (rem.HttpId.HasValue)
+                {
+                    long httpId = (long)rem.HttpId.Value;
+                    BLLocalDatabase.HttpRequestConditions.DeleteConditionsForHttpRequest(httpId);
+                    BLLocalDatabase.HttpRequest.DeleteHttpRequestById(httpId);
 
-                rem.HttpId = null;
-                rem.PostponeDate = null;
+                    rem.HttpId = null;
+                    rem.PostponeDate = null;
 
-                if(editableReminder != null)
-                    editableReminder.HttpId = null;
+                    if (editableReminder != null)
+                        editableReminder.HttpId = null;
 
-                BLReminder.EditReminder(rem);
+                    BLReminder.EditReminder(rem);
+                }
+                
                 
             }
         }
@@ -1757,7 +1761,8 @@ namespace RemindMe
 
             FillSoundComboboxFromDatabase(cbSound);
 
-            AVRForm = null;
+            if(AVRForm != null)
+                AVRForm.Dispose();            
         }
 
 
@@ -1792,7 +1797,8 @@ namespace RemindMe
             this.Visible = false;
             saveState = false;
 
-            AVRForm = null;
+            if (AVRForm != null)
+                AVRForm.Dispose();
 
             GC.Collect();
         }
@@ -2037,7 +2043,7 @@ namespace RemindMe
         private void btnAdvancedReminder_Click_1(object sender, EventArgs e)
         {            
             
-            if (AVRForm == null)
+            if (AVRForm == null || (AVRForm != null && AVRForm.IsDisposed))
             {
                 AVRForm = new MaterialAdvancedReminderForm(this);                
             }

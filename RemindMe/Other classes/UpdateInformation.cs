@@ -94,6 +94,7 @@ namespace RemindMe
             releaseNotes.Add("3.0.28", "- Fixed an issue where reminders would not load in the list of reminders");
             releaseNotes.Add("3.0.29", "The disable button on a reminder now actually does something... oops..");
             releaseNotes.Add("3.1.0", "RemindMe now has a new type of Advanced Reminder, namely Conditional Reminders!\r\nThese reminders will retrieve data from an developer API of the users choise and will pop-up once 1 (or more) configurable conditions have been met.\r\nThis feature is meant for advanced users. If you're tech savvy and familiair with API's, check out the advanced reminder section for an updated interface.");
+            releaseNotes.Add("3.1.01", "- Fixed a bug where sometimes you would not be able to edit an existing reminder\r\n- Improved performance of RemindMe after using RemindMe for a while\r\n-When creating \"Set dates\" reminders, RemindMe will now only automatically add the selected date if the list of added dates is empty. ");
         }
 
         public static Dictionary<string,string> ReleaseNotes
