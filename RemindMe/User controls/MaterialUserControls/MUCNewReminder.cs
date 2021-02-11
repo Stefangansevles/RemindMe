@@ -1423,7 +1423,7 @@ namespace RemindMe
                     remId = CreateSetDatesReminder(editableReminder);
 
                 //Something went wrong. The respective method will show an error message.
-                if (remId == -1)
+                if (remId == -1 && !AVRForm.HttpRequest.ValidHttpConfiguration)
                     return;
 
                 Reminder r = null;
