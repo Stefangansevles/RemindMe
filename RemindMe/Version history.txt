@@ -1113,3 +1113,9 @@ Preview: https://i.imgur.com/UDCkSdj.png
 - Fixed a bug where sometimes you would not be able to edit an existing reminder
 - Improved performance of RemindMe after using RemindMe for a while (disposing AdvancedReminderForm instead of setting to null)
 - When creating "Set dates" reminders, RemindMe will now only automatically add the selected date if the list of added dates is empty. 
+
+3.1.02
+- Small fix where editing conditional reminders would not work.
+
+3.1.03
+- Improved the logic for checking wether reminders are valid when pressing the 'save' button

@@ -1312,7 +1312,14 @@ namespace RemindMe
                 if (existingReminder == null)
                 {
                     //Creating a NEW reminder
-                    DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());                    
+                    DateTime selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString());   
+                    
+                    /*if(selectedDate <= DateTime.Now && cbMultipleDates.Items.Count == 0)
+                    { //User pressed confirm without pressing "+" beforehand, AND the date is in the past.
+                        MaterialRemindMeBox.Show("You can't select a date in the past.\r\n(" + dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString() + ")");
+                        return -1;
+                    }*/
+
                     if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)
                         cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him/her(yes, there are 2 genders).                                              
 
@@ -1383,17 +1390,20 @@ namespace RemindMe
                     return;
                 }
 
-                //Is the selected date in the future?
-                if ( (AVRForm != null && string.IsNullOrEmpty(AVRForm.HttpRequest.URL)) && //don't check for date if it's an HTTP conditional reminder
-                    (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) <= DateTime.Now))
+                //Is the selected date in the future?                
+                if(AVRForm == null || string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL))
                 {
+                    //This reminder is NOT a conditional reminder. we do need to check on the date                   
                     if (rbNoRepeat.Checked && cbMultipleDates.Items.Count > 0) { }  //ignore
                     else
                     {
-                        MaterialRemindMeBox.Show("You can't select a date in the past.\r\n(" + dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString() + ")");
-                        return;
+                        if (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) <= DateTime.Now)
+                        {
+                            MaterialRemindMeBox.Show("You can't select a date in the past.\r\n(" + dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString() + ")");
+                            return;
+                        }
                     }
-                }
+                }//else this reminder is a conditional reminder, don't check on date.
 
                 //Edit these fields ONCE here, instead of in every Create() method.
                 if (editableReminder != null)
@@ -1422,9 +1432,9 @@ namespace RemindMe
                 else if (rbNoRepeat.Checked)
                     remId = CreateSetDatesReminder(editableReminder);
 
-                //Something went wrong. The respective method will show an error message.
-                if (remId == -1 && !AVRForm.HttpRequest.ValidHttpConfiguration)
-                    return;
+                //Something went wrong. The respective method will show an error message.     
+                if(remId == -1 && (AVRForm == null || (AVRForm != null && string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL))) )                
+                    return;                
 
                 Reminder r = null;
                 if (AVRForm != null && !string.IsNullOrEmpty(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
@@ -1563,7 +1573,7 @@ namespace RemindMe
         }
         private void CreateAdvancedReminderProperties(long remId)
         {
-            if (AVRForm == null)
+            if (AVRForm == null || remId == -1)
                 return;
 
             Reminder rem = BLReminder.GetReminderById(remId);
@@ -1705,7 +1715,7 @@ namespace RemindMe
                 {
                     DateTimePicker pick = (DateTimePicker)c;
                     pick.Enabled = true;
-                    pick.Value = DateTime.Now.AddMinutes(1);
+                    pick.Value = DateTime.Now.AddMinutes(10);
                 }
                 if (c is MaterialComboBox)
                 {
@@ -1756,7 +1766,7 @@ namespace RemindMe
             cbSound.Text = "";
             cbEveryXCustom.SelectedItem = cbEveryXCustom.Items[2]; //days
 
-            dtpTime.Value = Convert.ToDateTime(DateTime.Now.ToString("HH:mm")).AddMinutes(1); //Add 1 minute so the exclamination won't show
+            dtpTime.Value = Convert.ToDateTime(DateTime.Now.ToString("HH:mm")).AddMinutes(10); //Add 1 minute so the exclamination won't show
 
 
             FillSoundComboboxFromDatabase(cbSound);
