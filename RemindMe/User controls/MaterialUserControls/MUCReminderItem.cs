@@ -453,9 +453,17 @@ namespace RemindMe
             HideOrShowRemovePostponeMenuItem(rem);
             HideOrShowSkipForwardMenuItem(rem);
 
-            postponeToolStripMenuItem.Visible = rem.HttpId == null;
-            skipToNextDateToolStripMenuItem.Visible = rem.HttpId == null;
+            ToolStripItem skipToNextDateItem = ReminderMenuStrip.Items.Find("skipToNextDateToolStripMenuItem", false)[0];
+            ToolStripItem removePostPoneItem = ReminderMenuStrip.Items.Find("removePostponeToolStripMenuItem", false)[0];
+            ToolStripItem postPoneItem = ReminderMenuStrip.Items.Find("postponeToolStripMenuItem", false)[0];
 
+            if (rem.HttpId != null)
+            { //conditional reminder, don't ever show these options
+                skipToNextDateItem.Visible = false;
+                postPoneItem.Visible = false;
+                removePostPoneItem.Visible = false;
+            }
+            
             ReminderMenuStrip.Show(Cursor.Position);            
         }
 

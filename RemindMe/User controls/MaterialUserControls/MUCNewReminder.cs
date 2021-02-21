@@ -321,8 +321,8 @@ namespace RemindMe
                 AVRForm.HideReminder = avrProps.ShowReminder == 1 ? false : true;
             }
             if(req != null)
-            {
-                if (AVRForm == null)
+            {                
+                if ((AVRForm != null && AVRForm.IsDisposed) || AVRForm == null)
                     AVRForm = new MaterialAdvancedReminderForm(this);
                 
                 AVRForm.HttpRequest.URL = req.URL;
@@ -1391,17 +1391,14 @@ namespace RemindMe
                 }
 
                 //Is the selected date in the future?                
-                if(AVRForm == null || string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL))
+                if (AVRForm == null || string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL))
                 {
                     //This reminder is NOT a conditional reminder. we do need to check on the date                   
                     if (rbNoRepeat.Checked && cbMultipleDates.Items.Count > 0) { }  //ignore
-                    else
+                    else if (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) <= DateTime.Now)
                     {
-                        if (Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()) <= DateTime.Now)
-                        {
-                            MaterialRemindMeBox.Show("You can't select a date in the past.\r\n(" + dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString() + ")");
-                            return;
-                        }
+                        MaterialRemindMeBox.Show("You can't select a date in the past.\r\n(" + dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString() + ")");
+                        return;
                     }
                 }//else this reminder is a conditional reminder, don't check on date.
 
@@ -1433,11 +1430,11 @@ namespace RemindMe
                     remId = CreateSetDatesReminder(editableReminder);
 
                 //Something went wrong. The respective method will show an error message.     
-                if(remId == -1 && (AVRForm == null || (AVRForm != null && string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL))) )                
+                if(remId == -1 && (AVRForm == null || string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL)))                
                     return;                
 
                 Reminder r = null;
-                if (AVRForm != null && !string.IsNullOrEmpty(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
+                if (AVRForm != null && !string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
                 {                    
                     remId = CreateDailyReminder(editableReminder);
                     r = BLReminder.GetReminderById(remId);
@@ -1507,7 +1504,22 @@ namespace RemindMe
                     rem.Name = oldReminderName;
                     rem.Note = oldReminderNote;
                     rem.SoundFilePath = oldSoundFilePath;
-                }                                
+                }
+                else
+                {
+                    //remId = -1 and no reminder has been created. This happens when the user adds Conditional reminder information that is invalid, then goes
+                    //to the batch tab and saves&exits out of the AVR form like that. The reminder isn't valid, and the conditional requirements arent valid either.
+                    if (AVRForm != null && !AVRForm.HttpRequest.ValidHttpConfiguration)
+                    {
+                        MaterialRemindMeBox.Show("Could not save this reminder. You have invalid conditional reminder settings (API configuration)\r\nReset the form or validate the configuration.");                        
+                        return;
+                    }
+                    else if (AVRForm == null || AVRForm.HttpRequest.ValidHttpConfiguration) //What?
+                    {
+                        BLIO.Log("Something really weird happened");
+                        BLIO.WriteError(new Exception("Something really weird happened"), "Something really weird happened");
+                    }
+                }
 
                 BLReminder.NotifyChange();
                 btnBack_Click(sender, e);
@@ -1522,9 +1534,7 @@ namespace RemindMe
 
                     if (File.Exists(editableReminder.SoundFilePath))
                         editableReminder.SoundFilePath = ""; //privacy. if the file DOESNT exist, we do want to inspect it
-
                     
-
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(editableReminder));
                     BLIO.WriteError(ex, "CREATE/EDIT_REMINDER FAIL!" + ex.GetType());
                     MaterialRemindMeBox.Show("Editing Reminder failed :(");
