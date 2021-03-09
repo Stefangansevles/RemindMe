@@ -101,7 +101,7 @@
             this.dtpDate.Location = new System.Drawing.Point(93, 88);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(242, 26);
-            this.dtpDate.TabIndex = 112;
+            this.dtpDate.TabIndex = 2;
             // 
             // dtpTime
             // 
@@ -114,7 +114,7 @@
             this.dtpTime.Name = "dtpTime";
             this.dtpTime.ShowUpDown = true;
             this.dtpTime.Size = new System.Drawing.Size(297, 26);
-            this.dtpTime.TabIndex = 111;
+            this.dtpTime.TabIndex = 3;
             this.dtpTime.Value = new System.DateTime(2016, 9, 4, 12, 0, 0, 0);
             // 
             // groupRepeatRadiobuttons
@@ -145,7 +145,7 @@
             this.rbNoRepeat.Name = "rbNoRepeat";
             this.rbNoRepeat.Ripple = true;
             this.rbNoRepeat.Size = new System.Drawing.Size(112, 37);
-            this.rbNoRepeat.TabIndex = 5;
+            this.rbNoRepeat.TabIndex = 10;
             this.rbNoRepeat.TabStop = true;
             this.rbNoRepeat.Text = "Set date(s)";
             this.rbNoRepeat.UseVisualStyleBackColor = true;
@@ -162,7 +162,7 @@
             this.rbCustom.Name = "rbCustom";
             this.rbCustom.Ripple = true;
             this.rbCustom.Size = new System.Drawing.Size(90, 37);
-            this.rbCustom.TabIndex = 4;
+            this.rbCustom.TabIndex = 9;
             this.rbCustom.TabStop = true;
             this.rbCustom.Text = "Custom";
             this.rbCustom.UseVisualStyleBackColor = true;
@@ -179,7 +179,7 @@
             this.rbMonthly.Name = "rbMonthly";
             this.rbMonthly.Ripple = true;
             this.rbMonthly.Size = new System.Drawing.Size(93, 37);
-            this.rbMonthly.TabIndex = 3;
+            this.rbMonthly.TabIndex = 8;
             this.rbMonthly.TabStop = true;
             this.rbMonthly.Text = "Monthly";
             this.rbMonthly.UseVisualStyleBackColor = true;
@@ -196,7 +196,7 @@
             this.rbWeekDays.Name = "rbWeekDays";
             this.rbWeekDays.Ripple = true;
             this.rbWeekDays.Size = new System.Drawing.Size(107, 37);
-            this.rbWeekDays.TabIndex = 2;
+            this.rbWeekDays.TabIndex = 7;
             this.rbWeekDays.TabStop = true;
             this.rbWeekDays.Text = "Weekdays";
             this.rbWeekDays.UseVisualStyleBackColor = true;
@@ -213,7 +213,7 @@
             this.rbWorkDays.Name = "rbWorkDays";
             this.rbWorkDays.Ripple = true;
             this.rbWorkDays.Size = new System.Drawing.Size(109, 37);
-            this.rbWorkDays.TabIndex = 1;
+            this.rbWorkDays.TabIndex = 6;
             this.rbWorkDays.TabStop = true;
             this.rbWorkDays.Text = "Work days";
             this.rbWorkDays.UseVisualStyleBackColor = true;
@@ -230,7 +230,7 @@
             this.rbDaily.Name = "rbDaily";
             this.rbDaily.Ripple = true;
             this.rbDaily.Size = new System.Drawing.Size(71, 37);
-            this.rbDaily.TabIndex = 0;
+            this.rbDaily.TabIndex = 5;
             this.rbDaily.TabStop = true;
             this.rbDaily.Text = "Daily";
             this.rbDaily.UseVisualStyleBackColor = true;
@@ -596,7 +596,7 @@
             this.cbMultipleDates.MouseState = MaterialSkin.MouseState.OUT;
             this.cbMultipleDates.Name = "cbMultipleDates";
             this.cbMultipleDates.Size = new System.Drawing.Size(545, 49);
-            this.cbMultipleDates.TabIndex = 130;
+            this.cbMultipleDates.TabIndex = 4;
             this.cbMultipleDates.VisibleChanged += new System.EventHandler(this.cbMultipleDates_VisibleChanged);
             // 
             // cbSound
@@ -619,7 +619,7 @@
             this.cbSound.MouseState = MaterialSkin.MouseState.OUT;
             this.cbSound.Name = "cbSound";
             this.cbSound.Size = new System.Drawing.Size(297, 49);
-            this.cbSound.TabIndex = 129;
+            this.cbSound.TabIndex = 1;
             this.cbSound.SelectedIndexChanged += new System.EventHandler(this.cbSound_SelectedIndexChanged);
             // 
             // btnAddMonthlyDay
@@ -942,7 +942,7 @@
             this.btnPlaySound.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPlaySound.Name = "btnPlaySound";
             this.btnPlaySound.Size = new System.Drawing.Size(44, 37);
-            this.btnPlaySound.TabIndex = 113;
+            this.btnPlaySound.TabIndex = 2;
             this.btnPlaySound.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnPlaySound.UseAccentColor = false;
             this.btnPlaySound.UseVisualStyleBackColor = true;

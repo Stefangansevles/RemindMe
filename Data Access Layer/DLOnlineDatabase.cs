@@ -185,6 +185,11 @@ namespace Data_Access_Layer
                     usr.RemindMeVersion = remindMeVersion;
                     usr.Material = 1;
                     usr.AutoUpdate = 1;
+                    usr.ActiveReminders = 0;
+                    usr.DisabledReminders = 0;
+                    usr.DeletedReminders = 0;
+                    usr.ArchivedReminders = 0;
+                    usr.TotalReminders = 0;
 
                     db.Users.Add(usr);
                 }
