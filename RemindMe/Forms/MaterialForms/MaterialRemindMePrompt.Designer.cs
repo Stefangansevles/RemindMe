@@ -140,6 +140,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MaterialRemindMePrompt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Attention!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialRemindMePrompt_FormClosing);
             this.Load += new System.EventHandler(this.RemindMePrompt_Load);

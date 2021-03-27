@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
 using TheArtOfDev.HtmlRenderer.WinForms;
+using Newtonsoft.Json.Linq;
 
 namespace RemindMe
 {
@@ -54,7 +55,7 @@ namespace RemindMe
             htmlLblText.Height = pnlText.Height;
             htmlLblText.MaximumSize = new Size(htmlLblText.Width-30, 0);            
             htmlLblText.Location = new Point(8,-5);
-            htmlLblText.Text = GetPopupHTMLText();
+            
             
             pnlText.Controls.Add(htmlLblText);            
 
@@ -85,17 +86,72 @@ namespace RemindMe
         /// </summary>
         /// <param name="previewSize">Used when previewing font-size changes</param>
         /// <returns></returns>
-        private string GetPopupHTMLText(float previewSize = 0)
+        private async Task<string> GetPopupHTMLText(float previewSize = 0)
         {            
             //White font if dark theme, Black text if light theme
             string color = MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK ? "#e6e6e6" : "#323232";
 
             float size = previewSize == 0 ? BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize : previewSize;
 
-            string reminderText = rem.Note != null ? rem.Note.Replace("\n", "<br>") : "( No text set )";
-            
+            string reminderText = rem.Note != null ? rem.Note.Replace("\n", "<br>") : "( No text set )";            
+
+            if (reminderText.Contains("API{"))
+                reminderText = await TransformAPITextToValue(reminderText);
+
             return "<p style=\"color: " + color + "; font-size: " + Math.Round(size * 1.28) + "px;\">"+ reminderText + "</p>";            
         }
+
+        /// <summary>
+        /// Transforms the part of the textbox string "API{url,data}" to the data from the API
+        /// </summary>
+        /// <param name="reminderText">The reminder text</param>
+        /// <returns>The reminder text with the API{} replaced with the actual API value</returns>
+        private async Task<string> TransformAPITextToValue(string reminderText)
+        {
+        startMethod:
+            try
+            {
+                int startIndex = reminderText.IndexOf("API{");
+                int endIndex = -1;
+
+                bool found = false;
+                int count = 1;
+                while (!found)
+                {
+                    if (reminderText[startIndex + count] == '}')
+                    {
+                        endIndex = startIndex + count;
+                        found = true;
+                    }
+                    else
+                        count++;
+                }
+
+                //[url, dataToPick]
+                string[] data = (reminderText.Substring(startIndex + 4, endIndex - (startIndex + 4))).Split(',');
+                JObject response = await BLIO.HttpRequest("GET", data[0]);
+
+                //This is the API value the user is requesting. Replace API{url,data} with this.
+                string value = response.SelectTokens(data[1]).Select(t => t.Value<string>()).ToList()[0];
+
+                StringBuilder stringBuilder = new StringBuilder(reminderText);
+                stringBuilder.Remove(startIndex, endIndex - (startIndex) + 1);
+                stringBuilder.Insert(startIndex, value);
+                reminderText = stringBuilder.ToString();
+
+                //Still contains another API{} ? again...
+                if (reminderText.Contains("API{"))
+                    goto startMethod;
+
+                return reminderText;
+            }
+            catch (Exception ex)
+            {                
+                BLIO.WriteError(ex, "TransformAPITextToValue() failed with " + ex.GetType().ToString());
+                return reminderText;
+            }
+        }
+
         private void numericOnly_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar.ToString().ToLower() != "h") && (e.KeyChar.ToString().ToLower() != "m"))
@@ -146,17 +202,19 @@ namespace RemindMe
             FlashWindowHelper.Stop(this);
         }
 
-        public void ChangeFontSize(float size)
+        public async void ChangeFontSize(float size)
         {
-            htmlLblText.Text = GetPopupHTMLText(size);            
+            htmlLblText.Text = await GetPopupHTMLText(size);            
         }
         
       
-        private void Popup2_Load(object sender, EventArgs e)
+        private async void Popup2_Load(object sender, EventArgs e)
         {
             try
             {                            
-                BLIO.Log("Popup_load");                
+                BLIO.Log("Popup_load");
+
+                htmlLblText.Text = await GetPopupHTMLText();
 
                 AdvancedReminderProperties avrProps = BLLocalDatabase.AVRProperty.GetAVRProperties(rem.Id);
                 List<AdvancedReminderFilesFolders> avrFF = BLLocalDatabase.AVRProperty.GetAVRFilesFolders(rem.Id);

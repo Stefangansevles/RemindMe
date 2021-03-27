@@ -59,7 +59,7 @@ namespace RemindMe
 
 
 
-            Form1 remindme = (Form1)Application.OpenForms["Form1"];
+            MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
             if (remindme != null && remindme.Visible)
             {
                 //Place the message box in the middle of remindme

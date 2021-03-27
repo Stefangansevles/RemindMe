@@ -39,6 +39,14 @@ namespace RemindMe
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
 
+            this.TopMost = true;
+            this.BringToFront();
+            this.Focus();
+            this.ActiveControl = tbTime;
+
+            if (!this.Focused)            
+                this.Activate();            
+
             BLIO.Log("TimerPopup created");
         }
 

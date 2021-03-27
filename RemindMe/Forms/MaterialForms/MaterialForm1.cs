@@ -431,7 +431,7 @@ namespace RemindMe
 
                 BLIO.Log("Timer hotkey combination pressed!");
                 MaterialTimerPopup quickTimer = new MaterialTimerPopup();
-                quickTimer.Show();
+                quickTimer.ShowDialog();
             }
             if (MaterialTimerCheck.Instance == null && MUCTimer.RunningTimers.Count > 0 && e.Modifiers.ToString().Replace(" ", string.Empty) == timerCheckHotKey.Modifiers && e.KeyCode.ToString() == timerCheckHotKey.Key)
             {

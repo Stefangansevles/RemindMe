@@ -1735,6 +1735,12 @@ namespace RemindMe
                         cb.Items.Clear();
                         cb.Text = "";
                     }
+                    else if (c.Name == "cbSound")
+                    {
+                        MaterialComboBox cb = (MaterialComboBox)c;
+                        cb.SelectedItem = null;
+                        //cb.Text = "";
+                    }
                 }             
                 if (c is GroupBox)
                 {
@@ -1839,6 +1845,7 @@ namespace RemindMe
         private void btnClear_Click(object sender, EventArgs e)
         {
             BLIO.Log("Clearing reminder form (MUCNewReminder)");
+            string test = tbNote.Text;            
             ResetReminderForm();
         }
 
