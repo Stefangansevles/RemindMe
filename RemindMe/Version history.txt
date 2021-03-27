@@ -1119,3 +1119,12 @@ Preview: https://i.imgur.com/UDCkSdj.png
 
 3.1.03
 - Improved the logic for checking wether reminders are valid when pressing the 'save' button
+
+3.1.04
+- Attempt on bugfix "80040154 Class not registered"
+
+3.1.05
+- The selected sound (when creating a new reminder) now properly resets to nothing selected.
+- Attempted to improve the forcing of getting input focus on timer popups
+- Fixed a bug where duplicating a normal reminder would still work, but it would throw an error
+- new advanced feature to display api data in a reminder's note(for details, see github)
