@@ -592,10 +592,10 @@ namespace RemindMe
                 BLLocalDatabase.AVRProperty.InsertAVRProperties(props);
             }
 
-            HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(oldRemId);
-            long oldHttpId = req.Id;
+            HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(oldRemId);            
             if (req != null)
             {
+                long oldHttpId = req.Id;
                 req.reminderId = newRemId;
                 long newHttpId = BLLocalDatabase.HttpRequest.InsertHttpRequest(req);
                 List<HttpRequestCondition> conditions = BLLocalDatabase.HttpRequestConditions.GetConditions(oldHttpId);

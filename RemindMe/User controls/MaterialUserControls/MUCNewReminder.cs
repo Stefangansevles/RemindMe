@@ -1844,8 +1844,7 @@ namespace RemindMe
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            BLIO.Log("Clearing reminder form (MUCNewReminder)");
-            string test = tbNote.Text;            
+            BLIO.Log("Clearing reminder form (MUCNewReminder)");           
             ResetReminderForm();
         }
 
