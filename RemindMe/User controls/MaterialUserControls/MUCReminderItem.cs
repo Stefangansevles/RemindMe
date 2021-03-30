@@ -492,26 +492,28 @@ namespace RemindMe
             //If you preview in 5 seconds, then delete the reminder, it will preview the new reminder that is loaded into MUCReminderItem, I'm aware of this and it is not something worth putting effort into            
             PreviewReminder();            
         }
-        private void PreviewReminder()
+        private async void PreviewReminder(int delay = 0)
         {
-            if (rem == null)
+            //Set the reminder first, so that switching pages doesn't preview a different reminder.
+            Reminder previewRem = CopyReminder(rem);
+
+            if (delay > 0)
+                await Task.Delay(delay);
+
+            if (previewRem == null)
             {
                 BLIO.Log("Reminder in PreviewReminder() is null. Interesting... ;)");
                 MaterialMessageFormManager.MakeMessagePopup("Could not preview that reminder. It doesn't exist anymore!", 4, "Error");
                 return;
             }
 
-            BLIO.Log("Previewing reminder with id " + rem.Id);
-            Reminder previewRem = CopyReminder(rem);
+            BLIO.Log("Previewing reminder with id " + previewRem.Id);            
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered            
             
             MaterialPopup p = new MaterialPopup(previewRem);
             MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(p);
             p.Show();
-
-            
-            
-
+                        
             new Thread(() =>
             {
                 //Log an entry to the database, for data!                
@@ -565,16 +567,14 @@ namespace RemindMe
             return copy;
         }
 
-        private async void previewThisReminderIn5SecondsToolStripMenuItem_ClickAsync(object sender, EventArgs e)
-        {
-            await Task.Delay(5000);
-            PreviewReminder();
+        private void previewThisReminderIn5SecondsToolStripMenuItem_ClickAsync(object sender, EventArgs e)
+        {            
+            PreviewReminder(5000);
         }
 
-        private async void previewThisReminderIn10SecondsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            await Task.Delay(10000);
-            PreviewReminder();
+        private void previewThisReminderIn10SecondsToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            PreviewReminder(10000);
         }
 
         private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)

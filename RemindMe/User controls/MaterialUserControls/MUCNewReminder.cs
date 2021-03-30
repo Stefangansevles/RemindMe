@@ -1434,8 +1434,8 @@ namespace RemindMe
                     return;                
 
                 Reminder r = null;
-                if (AVRForm != null && !string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
-                {                    
+                if ((AVRForm != null && !AVRForm.IsDisposed) && !string.IsNullOrWhiteSpace(AVRForm.HttpRequest.URL) && AVRForm.HttpRequest.ValidHttpConfiguration)
+                {
                     remId = CreateDailyReminder(editableReminder);
                     r = BLReminder.GetReminderById(remId);
 
@@ -1583,7 +1583,7 @@ namespace RemindMe
         }
         private void CreateAdvancedReminderProperties(long remId)
         {
-            if (AVRForm == null || remId == -1)
+            if (AVRForm == null || remId == -1 || AVRForm.IsDisposed)
                 return;
 
             Reminder rem = BLReminder.GetReminderById(remId);

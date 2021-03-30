@@ -241,8 +241,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MaterialPopup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialPopup_FormClosing);
-            this.Load += new System.EventHandler(this.Popup2_Load);
-            this.SizeChanged += new System.EventHandler(this.Popup2_SizeChanged);
+            this.Load += new System.EventHandler(this.Popup_Load);
+            this.SizeChanged += new System.EventHandler(this.Popup_SizeChanged);
             this.pnlFooter.ResumeLayout(false);
             this.pnlFooter.PerformLayout();
             this.pnlDateRepeatInformation.ResumeLayout(false);

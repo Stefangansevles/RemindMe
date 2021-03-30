@@ -236,7 +236,7 @@ namespace RemindMe
         }
         
       
-        private async void Popup2_Load(object sender, EventArgs e)
+        private void Popup_Load(object sender, EventArgs e)
         {
             try
             {                            
@@ -421,7 +421,7 @@ namespace RemindMe
             
         }
 
-        private void Popup2_SizeChanged(object sender, EventArgs e)
+        private void Popup_SizeChanged(object sender, EventArgs e)
         {            
             RepositionControls();            
             var test = this.Height - (this.StatusBarHeight + this.ActionBarHeight);
