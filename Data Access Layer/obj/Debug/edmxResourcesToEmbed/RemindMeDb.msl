@@ -27,6 +27,7 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="TimerVolume" ColumnName="TimerVolume" />
           <ScalarProperty Name="AutoUpdate" ColumnName="AutoUpdate" />
           <ScalarProperty Name="MaterialDesign" ColumnName="MaterialDesign" />
           <ScalarProperty Name="CurrentTheme" ColumnName="CurrentTheme" />

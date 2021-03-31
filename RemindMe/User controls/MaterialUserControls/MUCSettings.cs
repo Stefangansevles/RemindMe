@@ -76,6 +76,7 @@ namespace RemindMe
                 set.EnableQuickTimer = 1;
                 set.CurrentTheme = -1;                
                 set.AutoUpdate = 1;
+                set.TimerVolume = 100;
                 BLLocalDatabase.Setting.UpdateSettings(set);
             }
 
@@ -123,6 +124,25 @@ namespace RemindMe
 
             cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLLocalDatabase.Setting.Settings.DefaultTimerSound), BLLocalDatabase.Song.GetSongByFullPath(BLLocalDatabase.Setting.Settings.DefaultTimerSound)));
             cbSound.Text = Path.GetFileNameWithoutExtension(BLLocalDatabase.Setting.Settings.DefaultTimerSound);
+
+
+            trbVolume.Refresh();
+            trbVolume.Value = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
+            //Because for some reason it doesn't trigger it onload due to FileNotFound exception ?? #JustBunifuThings..
+            trbVolume_ValueChanged(sender,e);
+            refreshTrackbars();
+        }
+
+        /// <summary>
+        /// Bunifu trackbar looks good but is a bit buggy, invalidating it kinda fixes it
+        /// </summary>
+        private void refreshTrackbars()
+        {
+            trbVolume.IndicatorColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.PrimaryColor;            
+
+            trbVolume.BackgroudColor = Color.DarkGray;            
+
+            trbVolume.Invalidate();            
         }
 
         private void cbPopupType_SelectedIndexChanged(object sender, EventArgs e)
@@ -285,7 +305,7 @@ namespace RemindMe
             if (btnPreviewSong.Icon == imgStop)
             {
                 btnPreviewSong.Icon = imgPlayResume;
-                myPlayer.controls.stop();
+                myPlayer.controls.stop();                
                 tmrMusic.Stop();
                 return;
             }
@@ -301,7 +321,7 @@ namespace RemindMe
                 myPlayer.URL = selectedSong.SongFilePath;
                 //Get media info so we know when the song ends
                 mediaInfo = myPlayer.newMedia(myPlayer.URL);
-
+                
                 //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
                 if (mediaInfo.duration > 0)
                     tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
@@ -311,6 +331,7 @@ namespace RemindMe
 
                 BLIO.Log("Playing sound... (MUCSettings)");
                 myPlayer.controls.play();
+                myPlayer.settings.volume = trbVolume.Value;
             }
         }
 
@@ -324,6 +345,8 @@ namespace RemindMe
         {
             if (this.Visible)
                 BLIO.Log("Control MUCSettings now visible");
+
+            refreshTrackbars();
         }
 
         private void tbCheckTimerHotKey_KeyUp(object sender, KeyEventArgs e)
@@ -424,6 +447,25 @@ namespace RemindMe
         {
             if (cbAdvancedReminders.Checked)
                 MaterialRemindMeBox.Show("You now have access to advanced reminders.\r\nA new button has appeared at the top-right corner when creating/editing reminders.");
+        }
+
+        private void trbVolume_ValueChanged(object sender, EventArgs e)
+        {
+            tmrSaveTimerVolume.Stop();
+
+            lblVolume.Text = "Timer volume: " + trbVolume.Value + "%";
+            trbVolume.Invalidate();
+
+            tmrSaveTimerVolume.Start();
+        }
+
+        private void tmrSaveTimerVolume_Tick(object sender, EventArgs e)
+        {
+            Settings set = BLLocalDatabase.Setting.Settings;
+            set.TimerVolume = trbVolume.Value;
+            BLLocalDatabase.Setting.UpdateSettings(set);
+
+            tmrSaveTimerVolume.Stop();            
         }
     }
 }

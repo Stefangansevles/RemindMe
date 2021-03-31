@@ -260,6 +260,7 @@ namespace Data_Access_Layer
                         settings.EnableAdvancedReminders = 0;                        
                         settings.RemindMeTheme = "Default";
                         settings.AutoUpdate = 1;
+                        settings.TimerVolume = 100;
                         UpdateSettings(settings);
                     }
                     else

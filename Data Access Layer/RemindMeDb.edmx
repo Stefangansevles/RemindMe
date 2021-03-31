@@ -146,6 +146,7 @@
           <Property Name="CurrentTheme" Type="integer" />
           <Property Name="MaterialDesign" Type="integer" />
           <Property Name="AutoUpdate" Type="integer" Nullable="false" />
+          <Property Name="TimerVolume" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -232,6 +233,7 @@
           <Property Name="CurrentTheme" Type="Int64" />
           <Property Name="MaterialDesign" Type="Int64" />
           <Property Name="AutoUpdate" Type="Int64" Nullable="false" />
+          <Property Name="TimerVolume" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -399,6 +401,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="TimerVolume" ColumnName="TimerVolume" />
                 <ScalarProperty Name="AutoUpdate" ColumnName="AutoUpdate" />
                 <ScalarProperty Name="MaterialDesign" ColumnName="MaterialDesign" />
                 <ScalarProperty Name="CurrentTheme" ColumnName="CurrentTheme" />

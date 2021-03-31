@@ -42,12 +42,15 @@
             this.tbTimerHotkey = new MaterialSkin.Controls.MaterialTextBox();
             this.tbCheckTimerHotKey = new MaterialSkin.Controls.MaterialTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.trbVolume = new Bunifu.Framework.UI.BunifuSlider();
+            this.lblVolume = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             this.cbAutoUpdate = new MaterialSkin.Controls.MaterialCheckbox();
             this.btnRemoveSong = new MaterialSkin.Controls.MaterialButton();
             this.btnPreviewSong = new MaterialSkin.Controls.MaterialButton();
             this.cbSound = new MaterialSkin.Controls.MaterialComboBox();
             this.tmrMusic = new System.Windows.Forms.Timer(this.components);
+            this.tmrSaveTimerVolume = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -250,6 +253,8 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.trbVolume);
+            this.panel1.Controls.Add(this.lblVolume);
             this.panel1.Controls.Add(this.materialLabel6);
             this.panel1.Controls.Add(this.cbAutoUpdate);
             this.panel1.Controls.Add(this.btnRemoveSong);
@@ -272,13 +277,40 @@
             this.panel1.Size = new System.Drawing.Size(800, 492);
             this.panel1.TabIndex = 12;
             // 
+            // trbVolume
+            // 
+            this.trbVolume.BackColor = System.Drawing.Color.Transparent;
+            this.trbVolume.BackgroudColor = System.Drawing.Color.DarkGray;
+            this.trbVolume.BorderRadius = 0;
+            this.trbVolume.IndicatorColor = System.Drawing.Color.SeaGreen;
+            this.trbVolume.Location = new System.Drawing.Point(11, 542);
+            this.trbVolume.MaximumValue = 100;
+            this.trbVolume.Name = "trbVolume";
+            this.trbVolume.Size = new System.Drawing.Size(153, 30);
+            this.trbVolume.TabIndex = 131;
+            this.trbVolume.Value = 0;
+            this.trbVolume.ValueChanged += new System.EventHandler(this.trbVolume_ValueChanged);
+            // 
+            // lblVolume
+            // 
+            this.lblVolume.AutoSize = true;
+            this.lblVolume.Depth = 0;
+            this.lblVolume.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblVolume.FontType = MaterialSkin.MaterialSkinManager.fontType.Subtitle1;
+            this.lblVolume.Location = new System.Drawing.Point(171, 545);
+            this.lblVolume.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblVolume.Name = "lblVolume";
+            this.lblVolume.Size = new System.Drawing.Size(136, 19);
+            this.lblVolume.TabIndex = 130;
+            this.lblVolume.Text = "Timer volume: 25%";
+            // 
             // materialLabel6
             // 
             this.materialLabel6.AutoSize = true;
             this.materialLabel6.Depth = 0;
             this.materialLabel6.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.materialLabel6.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel6.Location = new System.Drawing.Point(11, 561);
+            this.materialLabel6.Location = new System.Drawing.Point(11, 591);
             this.materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel6.Name = "materialLabel6";
             this.materialLabel6.Size = new System.Drawing.Size(60, 29);
@@ -289,7 +321,7 @@
             // 
             this.cbAutoUpdate.AutoSize = true;
             this.cbAutoUpdate.Depth = 0;
-            this.cbAutoUpdate.Location = new System.Drawing.Point(9, 590);
+            this.cbAutoUpdate.Location = new System.Drawing.Point(9, 620);
             this.cbAutoUpdate.Margin = new System.Windows.Forms.Padding(0);
             this.cbAutoUpdate.MouseLocation = new System.Drawing.Point(-1, -1);
             this.cbAutoUpdate.MouseState = MaterialSkin.MouseState.HOVER;
@@ -368,6 +400,11 @@
             // 
             this.tmrMusic.Tick += new System.EventHandler(this.tmrMusic_Tick);
             // 
+            // tmrSaveTimerVolume
+            // 
+            this.tmrSaveTimerVolume.Interval = 500;
+            this.tmrSaveTimerVolume.Tick += new System.EventHandler(this.tmrSaveTimerVolume_Tick);
+            // 
             // MUCSettings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -402,5 +439,8 @@
         private System.Windows.Forms.Timer tmrMusic;
         private MaterialSkin.Controls.MaterialLabel materialLabel6;
         private MaterialSkin.Controls.MaterialCheckbox cbAutoUpdate;
+        private MaterialSkin.Controls.MaterialLabel lblVolume;
+        private Bunifu.Framework.UI.BunifuSlider trbVolume;
+        private System.Windows.Forms.Timer tmrSaveTimerVolume;
     }
 }

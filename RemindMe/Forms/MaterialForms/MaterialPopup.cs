@@ -343,6 +343,10 @@ namespace RemindMe
                     {
                         BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
                         myPlayer.URL = rem.SoundFilePath;
+
+                        if (rem.Id == -1) //timer, set the volume set by the user
+                            myPlayer.settings.volume = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
+
                         myPlayer.controls.play();
                         BLIO.Log("Playing sound");
                     }
