@@ -33,5 +33,6 @@ namespace Database.Entity
         public Nullable<long> CurrentTheme { get; set; }
         public Nullable<long> MaterialDesign { get; set; }
         public long AutoUpdate { get; set; }
+        public long TimerVolume { get; set; }
     }
 }

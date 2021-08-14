@@ -44,6 +44,7 @@
     <Property Name="CurrentTheme" Type="Int64" />
     <Property Name="MaterialDesign" Type="Int64" />
     <Property Name="AutoUpdate" Type="Int64" Nullable="false" />
+    <Property Name="TimerVolume" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="Songs">
     <Key>

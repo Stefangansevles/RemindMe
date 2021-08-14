@@ -730,8 +730,15 @@ namespace RemindMe
                 {
                     e.Cancel = true;
                     shouldClose = false;
+                    return;
                 }
             }
+
+            //Makes the mouseclick a little bit less laggy
+            new Thread(() =>
+            {
+                Environment.Exit(0);
+            }).Start();            
         }
 
         private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)

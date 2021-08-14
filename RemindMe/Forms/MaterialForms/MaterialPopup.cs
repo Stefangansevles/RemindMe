@@ -116,6 +116,32 @@ namespace RemindMe
 
                     try
                     {
+                        //if !hasinternetaccess Thread.Sleep(250); , 8 times, then error
+                        
+                        if(!BLIO.HasInternetAccess())
+                        {
+                            retryCount++;
+
+                            if (retryCount <= 8)
+                            {
+                                Thread.Sleep(250);
+                                goto startMethod;
+                            }
+                            else
+                            {
+                                htmlLblText.Invoke((MethodInvoker)(() =>
+                                {
+                                    htmlLblText.Text = "An error occured."  + rem.Note;
+                                }));
+
+                                return;
+                            }
+                        }
+
+                        retryCount = 0;
+
+                        //Interner access!
+
                         int startIndex = reminderText.IndexOf("API{");
                         int endIndex = -1;
 
@@ -135,7 +161,7 @@ namespace RemindMe
                         //[url, dataToPick]
                         string[] data = (reminderText.Substring(startIndex + 4, endIndex - (startIndex + 4))).Split(',');
                         JObject response = await BLIO.HttpRequest("GET", data[0]);
-
+                        
                         //This is the API value the user is requesting. Replace API{url,data} with this.
                         string value = response.SelectTokens(data[1]).Select(t => t.Value<string>()).ToList()[0];
 
@@ -144,7 +170,11 @@ namespace RemindMe
                         stringBuilder.Insert(startIndex, value);
                         reminderText = stringBuilder.ToString();
 
-
+                        //TODO if response.status != 200   stringBuilder.Insert(startIndex, "Error occured");
+                        //Bitcoin: $60,001
+                        //Superfarm: Error
+                        //Reef: $0,04
+                        //
 
                         //Still contains another API{} ? again...
                         if (reminderText.Contains("API{"))
@@ -156,7 +186,7 @@ namespace RemindMe
                         }));
                         //return reminderText;
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         retryCount++;
 
@@ -164,6 +194,9 @@ namespace RemindMe
                         {
                             Thread.Sleep(250);
                             goto startMethod;
+                        } else
+                        {                           
+                            htmlLblText.Text = "An error occured. (" + ex.GetType().ToString() + ")\r\n" + rem.Note;
                         }
                     }
 
@@ -236,7 +269,7 @@ namespace RemindMe
         }
         
       
-        private async void Popup2_Load(object sender, EventArgs e)
+        private void Popup_Load(object sender, EventArgs e)
         {
             try
             {                            
@@ -343,6 +376,10 @@ namespace RemindMe
                     {
                         BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
                         myPlayer.URL = rem.SoundFilePath;
+
+                        if (rem.Id == -1) //timer, set the volume set by the user
+                            myPlayer.settings.volume = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
+
                         myPlayer.controls.play();
                         BLIO.Log("Playing sound");
                     }
@@ -421,7 +458,7 @@ namespace RemindMe
             
         }
 
-        private void Popup2_SizeChanged(object sender, EventArgs e)
+        private void Popup_SizeChanged(object sender, EventArgs e)
         {            
             RepositionControls();            
             var test = this.Height - (this.StatusBarHeight + this.ActionBarHeight);

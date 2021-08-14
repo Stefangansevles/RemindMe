@@ -136,7 +136,6 @@ namespace Business_Logic_Layer
         {
             try
             {
-
                 Directory.CreateDirectory(Path.GetDirectoryName(IOVariables.systemLog));
 
                 File.WriteAllText(IOVariables.systemLog, ""); //Clear log

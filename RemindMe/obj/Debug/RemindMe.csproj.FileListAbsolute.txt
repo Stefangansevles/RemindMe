@@ -162,8 +162,9 @@ D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.pdb
 D:\Users\rs\Documents\1panic\RemindMe\bin\Debug\Data Access Layer.dll.config
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\1panic\RemindMe\obj\Debug\RemindMe.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe.config
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.exe
+D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.pdb
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Database.Entity.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\DotNetZip.dll
@@ -264,4 +265,3 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.Cor
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.csproj.CopyComplete
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.exe
 D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\RemindMe.pdb
-D:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\RemindMe.pdb

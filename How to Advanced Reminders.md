@@ -85,6 +85,20 @@ Conditional reminders are loaded into the list after normal reminders, so you mi
 
 Looping over arrays inside a JSON API response is not yet implemented. This might get implemented in the future.
 
+### Also...
+
+It is also possible to show the API data in an reminder's note text. You can do this by including ```API{url,path}``` in the reminder's note. For example:
+
+```API{https://prices.runescape.wiki/api/v1/osrs/latest?id=9050,data.9050.low}``` This will call the api, and display the data ```data.9050.low```
+
+To show some examples, see the following screenshot (Edit mode)
+
+<img src="https://i.imgur.com/XDLsXSG.png" width="50%"></img>
+
+This will result in:
+
+<img src="https://i.imgur.com/0cOmeWY.png" width="50%"></img>
+
 ### Note
 
 The "hide reminder" function from the "batch" tab will also work in combination with API reminders. Once the API condition has been met, you can configure it to execute the batch
