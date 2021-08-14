@@ -74,6 +74,7 @@ namespace RemindMe
         public static void MakeMessagePopup(string message, int popDelay, Reminder rem)
         {
             RemindMeMaterialMessageForm popupForm = new RemindMeMaterialMessageForm(message, popDelay, rem);
+            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(popupForm);
             popupForm.Show();
 
             popupForms.Add(popupForm); //Add the popupform            

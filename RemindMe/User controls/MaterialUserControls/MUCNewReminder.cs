@@ -1137,34 +1137,26 @@ namespace RemindMe
             try
             {
                 BLIO.Log("CreateWeekdaysReminder(" + (existingReminder == null ? "NEW" : "EDIT") + ")");
+
+                if(!IsAtLeastOneWeeklyCheckboxSelected())
+                {
+                    MaterialRemindMeBox.Show("Select at least one day.");
+                    return -1;
+                }
+
                 if (existingReminder == null)
                 {
                     //Creating a NEW reminder                
-                    if (IsAtLeastOneWeeklyCheckboxSelected())
-                    {
-                        string commaSeperatedDays = GetCommaSeperatedDayCheckboxesString();
-                        string selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
-                        int updatetime = swUpdateTime.Checked ? 1 : 0;
-                        return BLReminder.InsertReminder(tbReminderName.Text, selectedDate, ReminderRepeatType.MULTIPLE_DAYS.ToString(), null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "<br>"), true, GetSelectedSoundFile(), updatetime);
-                    }
-                    else
-                    {
-                        MaterialRemindMeBox.Show("Select at least one day.");
-                        return -1;
-                    }
+                    string commaSeperatedDays = GetCommaSeperatedDayCheckboxesString();
+                    string selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
+                    int updatetime = swUpdateTime.Checked ? 1 : 0;
+                    return BLReminder.InsertReminder(tbReminderName.Text, selectedDate, ReminderRepeatType.MULTIPLE_DAYS.ToString(), null, commaSeperatedDays, tbNote.Text.Replace(Environment.NewLine, "<br>"), true, GetSelectedSoundFile(), updatetime);
                 }
                 else
                 {
                     //Editing an existing reminder                
                     existingReminder.RepeatType = ReminderRepeatType.MULTIPLE_DAYS.ToString();
-
-                    if (IsAtLeastOneWeeklyCheckboxSelected())
-                        existingReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();//Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString();
-                    else
-                    {
-                        MaterialRemindMeBox.Show("Select at least one day.");
-                        return -1;
-                    }
+                    existingReminder.Date = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();//Convert.ToDateTime(BLDateTime.GetEarliestDateFromListOfStringDays(GetCommaSeperatedDayCheckboxesString())).ToShortDateString() + " " + dtpTime.Value.ToShortTimeString();
                     existingReminder.RepeatDays = GetCommaSeperatedDayCheckboxesString();
                     existingReminder.UpdateTime = swUpdateTime.Checked ? 1 : 0;
                     RemoveUnusedPropertiesFromReminders(existingReminder);
@@ -1194,6 +1186,13 @@ namespace RemindMe
             try
             {
                 BLIO.Log("CreateMonthlyReminder(" + (existingReminder == null ? "NEW" : "EDIT") + ")");
+
+                if (cbMonthlyDays.Items.Count <= 0)
+                {
+                    MaterialRemindMeBox.Show("Select at least one monthly day");
+                    return -1;
+                }
+
                 if (existingReminder == null)
                 {
                     //Creating a NEW reminder                
@@ -1202,27 +1201,14 @@ namespace RemindMe
                         cbMonthlyDays.Items.Add(cbEvery.SelectedItem);
 
                     int updatetime = swUpdateTime.Checked ? 1 : 0;
-
-                    if (cbMonthlyDays.Items.Count > 0)
-                        return BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), ReminderRepeatType.MONTHLY.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "<br>"), true, GetSelectedSoundFile(), updatetime);
-                    else
-                    {
-                        MaterialRemindMeBox.Show("Select at least one monthly day");
-                        return -1;
-                    }
+                    
+                    return BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMonthlyDaysComboBox(), ReminderRepeatType.MONTHLY.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "<br>"), true, GetSelectedSoundFile(), updatetime);
                 }
                 else
                 {
                     //Editing an existing reminder                
-                    existingReminder.RepeatType = ReminderRepeatType.MONTHLY.ToString();
-
-                    if (cbMonthlyDays.Items.Count > 0)
-                        existingReminder.Date = GetDatesStringFromMonthlyDaysComboBox();
-                    else
-                    {
-                        MaterialRemindMeBox.Show("Select at least one monthly day");
-                        return -1;
-                    }
+                    existingReminder.RepeatType = ReminderRepeatType.MONTHLY.ToString();                    
+                    existingReminder.Date = GetDatesStringFromMonthlyDaysComboBox();                   
                     existingReminder.UpdateTime = swUpdateTime.Checked ? 1 : 0;
                     RemoveUnusedPropertiesFromReminders(existingReminder);
 
@@ -1251,23 +1237,23 @@ namespace RemindMe
             try
             {
                 BLIO.Log("CreateCustomReminder(" + (existingReminder == null ? "NEW" : "EDIT") + ")");
+
+                //Do some checks first. Did the user fill in a number? (every <number> days/weeks etc)
+                if (string.IsNullOrEmpty(numEveryXDays.Text))
+                {
+                    MaterialRemindMeBox.Show("Select an amount (left of the \"" + cbEveryXCustom.SelectedItem.ToString() + "\" selection field)");
+                    return -1;
+                }
+                //Did the user try and be smart and fill in a negative or 0 number?
+                else if (Convert.ToInt32(numEveryXDays.Text) <= 0)
+                {
+                    MaterialRemindMeBox.Show("Please select a number greater than 0");
+                    return -1;
+                }
+
                 if (existingReminder == null)
                 {
-                    //Creating a NEW reminder             
-
-                    //Did the user fill in a number? (every <number> days/weeks etc)
-                    if (string.IsNullOrEmpty(numEveryXDays.Text))
-                    {
-                        MaterialRemindMeBox.Show("Select an amount (left of the \"" + cbEveryXCustom.SelectedItem.ToString() + "\" selection field)");
-                        return -1;
-                    }
-                    //Did the user try and be smart and fill in a negative or 0 number?
-                    else if (Convert.ToInt32(numEveryXDays.Text) <= 0)
-                    {
-                        MaterialRemindMeBox.Show("Please select a number greater than 0");
-                        return -1;
-                    }
-
+                    //Creating a NEW reminder                                 
                     int updateTime = swUpdateTime.Checked ? 1 : 0;
                     int everyXY = Convert.ToInt32(numEveryXDays.Text);
                     string selectedDate = Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString();
@@ -1309,6 +1295,8 @@ namespace RemindMe
             try
             {
                 BLIO.Log("CreateSetDatesReminder(" + (existingReminder == null ? "NEW" : "EDIT") + ")");
+
+
                 if (existingReminder == null)
                 {
                     //Creating a NEW reminder
@@ -1321,7 +1309,7 @@ namespace RemindMe
                     }*/
 
                     if (!cbMultipleDates.Items.Contains(selectedDate) && selectedDate > DateTime.Now)
-                        cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him/her(yes, there are 2 genders).                                              
+                        cbMultipleDates.Items.Add(selectedDate);//If the user pressed confirm, but didnt "+" the date yet, we'll do it for him/her ;).                                              
 
                     if (cbMultipleDates.Items.Count > 0)
                         return BLReminder.InsertReminder(tbReminderName.Text, GetDatesStringFromMultipleDatesComboBox(), ReminderRepeatType.NONE.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "<br>"), true, GetSelectedSoundFile());

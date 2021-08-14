@@ -412,6 +412,7 @@
             this.Name = "MUCSettings";
             this.Size = new System.Drawing.Size(806, 498);
             this.Load += new System.EventHandler(this.UCWindowOverlay_Load);
+            this.VisibleChanged += new System.EventHandler(this.MUCSettings_VisibleChanged);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
