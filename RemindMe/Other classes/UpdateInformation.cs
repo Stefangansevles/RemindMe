@@ -98,6 +98,7 @@ namespace RemindMe
             releaseNotes.Add("3.1.04", "- Attempt on bugfix \"80040154 Class not registered\"");
             releaseNotes.Add("3.1.05", "- The selected sound(when creating a new reminder) now properly resets to nothing selected.\r\n- Attempted to improve the forcing of getting input focus on timer popups\r\n- Fixed a bug where duplicating a normal reminder would still work, but it would throw an error\r\n- new advanced feature to display api data in a reminder's note(for details, see github)");
             releaseNotes.Add("3.1.06", "- You can now change the volume of the timer sound effect by going into the settings(where you set the timer sound effect)\r\n- Fixed the popup location of the RemindMe prompt & changed the popup location for the Timer popup if RemindMe is visible");
+            releaseNotes.Add("3.1.07", "MissingMethod error fix");
         }
 
         public static Dictionary<string,string> ReleaseNotes

@@ -755,18 +755,19 @@ namespace RemindMe
                         {
                             this.BeginInvoke(new MethodInvoker(delegate //This is required to show windows forms (the messages) on a new thread
                             {
-                                BLIO.Log("RemindMe detected an unread message!");
-                                //User hasn't read it yet. great! Mark the message as read
-                                BLLocalDatabase.ReadMessage.MarkMessageRead(message);
+                                BLIO.Log("RemindMe detected an unread message!");                                
                                 BLIO.Log("Message marked as read.");
 
                                 if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
                                 {
-                                    BLIO.Log("This message is specifically for me!");
-                                    //This message is meant for a specific user.
+
 
                                     if (BLLocalDatabase.Setting.Settings.UniqueString == message.MeantForSpecificPerson)
+                                    {
+                                        BLIO.Log("This message is specifically for me!");
+                                        //This message is meant for a specific user.
                                         PopupRemindMeMessage(message);
+                                    }
 
                                 }
                                 else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
@@ -804,6 +805,9 @@ namespace RemindMe
         private void PopupRemindMeMessage(RemindMeMessages mess)
         {
             //Update the counter on the message
+            
+            BLLocalDatabase.ReadMessage.MarkMessageRead(mess);
+
             BLIO.Log("Attempting to update an message with id " + mess.Id);
             BLOnlineDatabase.UpdateRemindMeMessageCount(mess.Id);
 

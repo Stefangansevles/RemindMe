@@ -1,4 +1,4 @@
-3.1.06
+3.1.07
 update: minor
 silentUpdate: false
 
