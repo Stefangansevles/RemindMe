@@ -84,7 +84,8 @@
             this.cbPopupType.ItemHeight = 43;
             this.cbPopupType.Items.AddRange(new object[] {
             "Always on top (Recommended)",
-            "Minimized"});
+            "Minimized",
+            "Sound Only"});
             this.cbPopupType.Location = new System.Drawing.Point(11, 43);
             this.cbPopupType.MaxDropDownItems = 4;
             this.cbPopupType.MouseState = MaterialSkin.MouseState.OUT;

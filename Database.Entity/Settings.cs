@@ -16,7 +16,6 @@ namespace Database.Entity
      public partial class Settings
     {
         public long Id { get; set; }
-        public long AlwaysOnTop { get; set; }
         public long StickyForm { get; set; }
         public long EnableReminderCountPopup { get; set; }
         public long EnableHourBeforeReminder { get; set; }
@@ -34,5 +33,6 @@ namespace Database.Entity
         public Nullable<long> MaterialDesign { get; set; }
         public long AutoUpdate { get; set; }
         public long TimerVolume { get; set; }
+        public string PopupType { get; set; }
     }
 }

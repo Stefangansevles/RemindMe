@@ -512,6 +512,8 @@ namespace RemindMe
             
             MaterialPopup p = new MaterialPopup(previewRem);
             MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(p);
+            p.TopMost = true; 
+            p.TopLevel = true;
             p.Show();
                         
             new Thread(() =>

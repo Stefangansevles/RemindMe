@@ -16,7 +16,7 @@ namespace RemindMe
 {
     public partial class MUCSettings : UserControl
     {
-        private int alwaysOnTop = 1;
+        private string popupType = "AlwaysOnTop";
 
         //Used to play a sound
         private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
@@ -69,7 +69,7 @@ namespace RemindMe
             if (BLLocalDatabase.Setting.Settings == null)
             {
                 Settings set = new Settings();
-                set.AlwaysOnTop = alwaysOnTop;
+                set.PopupType = popupType;
                 set.StickyForm = 0;
                 set.EnableHourBeforeReminder = 1;
                 set.EnableReminderCountPopup = 1;
@@ -79,12 +79,13 @@ namespace RemindMe
                 set.TimerVolume = 100;
                 BLLocalDatabase.Setting.UpdateSettings(set);
             }
-
-            //Since we're not going to change the contents of this combobox anyway, we're just going to do it like this
-            if (BLLocalDatabase.Setting.IsAlwaysOnTop())
+            
+            if (BLLocalDatabase.Setting.Settings.PopupType == "AlwaysOnTop")
                 cbPopupType.SelectedItem = cbPopupType.Items[0];
-            else
+            else if (BLLocalDatabase.Setting.Settings.PopupType == "Minimized")
                 cbPopupType.SelectedItem = cbPopupType.Items[1];
+            else if(BLLocalDatabase.Setting.Settings.PopupType == "SoundOnly") 
+                cbPopupType.SelectedItem = cbPopupType.Items[2];            
 
             cbRemindMeMessages.Checked = BLLocalDatabase.Setting.IsReminderCountPopupEnabled();
             cbOneHourBeforeNotification.Checked = BLLocalDatabase.Setting.IsHourBeforeNotificationEnabled();
@@ -147,20 +148,21 @@ namespace RemindMe
 
         private void cbPopupType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            if (cbPopupType.SelectedItem.ToString() == "Always on top (Recommended)")
+            switch (cbPopupType.SelectedItem.ToString())
             {
-                alwaysOnTop = 1;
-                BLIO.Log("Popup type selected index changed to always on top.");
-            }
-            else
-            {
-                alwaysOnTop = 0;
-                BLIO.Log("Popup type selected index changed to minimized.");
+                case "Always on top (Recommended)":
+                    popupType = "AlwaysOnTop";
+                    break;
+                case "Minimized":
+                    popupType = "Minimized";
+                    break;
+                case "Sound Only":
+                    popupType = "SoundOnly";
+                    break;
             }
 
             Settings set = BLLocalDatabase.Setting.Settings;
-            set.AlwaysOnTop = alwaysOnTop;
+            set.PopupType = popupType;
 
             BLLocalDatabase.Setting.UpdateSettings(set);
             BLIO.Log("Updated popup type.");

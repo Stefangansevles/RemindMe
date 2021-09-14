@@ -92,7 +92,8 @@
             this.cbPopupType.ItemHeight = 13;
             this.cbPopupType.Items.AddRange(new object[] {
             "Always on top (Recommended)",
-            "Minimized"});
+            "Minimized",
+            "Sound Only"});
             this.cbPopupType.Location = new System.Drawing.Point(117, 44);
             this.cbPopupType.Name = "cbPopupType";
             this.cbPopupType.Size = new System.Drawing.Size(215, 21);

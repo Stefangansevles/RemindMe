@@ -82,17 +82,7 @@ namespace Business_Logic_Layer
         }
         public class Setting
         {
-            private Setting() { }
-            /// <summary>
-            /// Reads the settings from the database and checks if reminders should be set to always on top.
-            /// </summary>
-            /// <returns>True if reminders are set to be always on top, false if not</returns>
-            public static bool IsAlwaysOnTop()
-            {                
-                //no business logic (yet)            
-                return DLLocalDatabase.Setting.IsAlwaysOnTop();
-            }
-
+            private Setting() { }          
 
             /// <summary>
             /// Reads the settings from the database and checks if reminders should be set to always on top.

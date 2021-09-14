@@ -27,6 +27,7 @@
     <EntitySetMapping Name="Settings">
       <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
         <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="PopupType" ColumnName="PopupType" />
           <ScalarProperty Name="TimerVolume" ColumnName="TimerVolume" />
           <ScalarProperty Name="AutoUpdate" ColumnName="AutoUpdate" />
           <ScalarProperty Name="MaterialDesign" ColumnName="MaterialDesign" />
@@ -44,7 +45,6 @@
           <ScalarProperty Name="EnableHourBeforeReminder" ColumnName="EnableHourBeforeReminder" />
           <ScalarProperty Name="EnableReminderCountPopup" ColumnName="EnableReminderCountPopup" />
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="AlwaysOnTop" ColumnName="AlwaysOnTop" />
           <ScalarProperty Name="StickyForm" ColumnName="StickyForm" />
         </MappingFragment>
       </EntityTypeMapping>

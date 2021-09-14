@@ -128,8 +128,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="integer" Nullable="false" />
-          <Property Name="AlwaysOnTop" Type="integer" Nullable="false" />
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PopupType" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="StickyForm" Type="integer" Nullable="false" />
           <Property Name="EnableReminderCountPopup" Type="integer" Nullable="false" />
           <Property Name="EnableHourBeforeReminder" Type="integer" Nullable="false" />
@@ -216,7 +216,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" />
-          <Property Name="AlwaysOnTop" Type="Int64" Nullable="false" />
           <Property Name="StickyForm" Type="Int64" Nullable="false" />
           <Property Name="EnableReminderCountPopup" Type="Int64" Nullable="false" />
           <Property Name="EnableHourBeforeReminder" Type="Int64" Nullable="false" />
@@ -234,6 +233,7 @@
           <Property Name="MaterialDesign" Type="Int64" />
           <Property Name="AutoUpdate" Type="Int64" Nullable="false" />
           <Property Name="TimerVolume" Type="Int64" Nullable="false" />
+          <Property Name="PopupType" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Songs">
           <Key>
@@ -401,6 +401,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="RemindMeDatabaseModel.Settings">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="PopupType" ColumnName="PopupType" />
                 <ScalarProperty Name="TimerVolume" ColumnName="TimerVolume" />
                 <ScalarProperty Name="AutoUpdate" ColumnName="AutoUpdate" />
                 <ScalarProperty Name="MaterialDesign" ColumnName="MaterialDesign" />
@@ -418,7 +419,6 @@
                 <ScalarProperty Name="EnableHourBeforeReminder" ColumnName="EnableHourBeforeReminder" />
                 <ScalarProperty Name="EnableReminderCountPopup" ColumnName="EnableReminderCountPopup" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AlwaysOnTop" ColumnName="AlwaysOnTop" />
                 <ScalarProperty Name="StickyForm" ColumnName="StickyForm" />
               </MappingFragment>
             </EntityTypeMapping>

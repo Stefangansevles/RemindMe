@@ -123,8 +123,8 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="integer" Nullable="false" />
-    <Property Name="AlwaysOnTop" Type="integer" Nullable="false" />
+    <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PopupType" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
     <Property Name="StickyForm" Type="integer" Nullable="false" />
     <Property Name="EnableReminderCountPopup" Type="integer" Nullable="false" />
     <Property Name="EnableHourBeforeReminder" Type="integer" Nullable="false" />

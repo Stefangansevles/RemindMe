@@ -172,7 +172,7 @@ namespace RemindMe
                 FlashWindowHelper.Start(this);
                 //this.MaximumSize = this.Size;
 
-                if (BLLocalDatabase.Setting.IsAlwaysOnTop())
+                if (BLLocalDatabase.Setting.Settings.PopupType == "AlwaysOnTop")
                 {
                     this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
                     this.TopLevel = true;

@@ -32,7 +32,7 @@ namespace RemindMe
         private HtmlLabel htmlLblText = new HtmlLabel();        
         public MaterialPopup(Reminder rem)
         {
-            BLIO.Log("Constructing Popup reminderId = " + rem.Id);
+            BLIO.Log("Constructing Popup reminderId = " + rem.Id);          
             AddFont(Properties.Resources.Roboto_Medium);            
             InitializeComponent();
 
@@ -40,9 +40,8 @@ namespace RemindMe
                 BLFormLogic.CenterFormToParent(this, MaterialForm1.Instance);            
             
 
-            this.Opacity = 0;
+            this.Opacity = 0;            
             this.rem = rem;
-
             this.Size = new Size((int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormWidth, (int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormHeight);            
             //lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
             this.Text = rem.Name;
@@ -275,6 +274,18 @@ namespace RemindMe
             {                            
                 BLIO.Log("Popup_load");
 
+                if (BLLocalDatabase.Setting.Settings.PopupType == "SoundOnly")
+                {
+                    //Dont initialize, just play sound                    
+                    PlayReminderSound();
+
+                    if (rem.Id != -1) //Dont stop logic when the user is previewing an reminder
+                    {
+                        btnOk_Click(sender, e);
+                        return;
+                    }
+                }
+
                 string reminderText = rem.Note != null ? rem.Note.Replace("\n", "<br>") : "( No text set )";
                 //White font if dark theme, Black text if light theme
                 string color = MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK ? "#e6e6e6" : "#323232";
@@ -368,42 +379,23 @@ namespace RemindMe
                     lblRepeat.Location = new Point(lblRepeat.Location.X + 5, lblRepeat.Location.Y);
                 }
 
-                //Play the sound
-                if (rem.SoundFilePath != null && rem.SoundFilePath != "")
-                {
-
-                    if (System.IO.File.Exists(rem.SoundFilePath))
-                    {
-                        BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
-                        myPlayer.URL = rem.SoundFilePath;
-
-                        if (rem.Id == -1) //timer, set the volume set by the user
-                            myPlayer.settings.volume = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
-
-                        myPlayer.controls.play();
-                        BLIO.Log("Playing sound");
-                    }
-                    else
-                    {
-                        BLIO.Log("SoundFilePath not null / empty but doesn't exist on the hard drive!");
-                        MaterialRemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxReason.OK);
-                        //make sure its removed from the reminder
-                        rem.SoundFilePath = "";
-                    }
-                }
+                PlayReminderSound();
 
                 FlashWindowHelper.Start(this);
                 //this.MaximumSize = this.Size;
 
-                if (BLLocalDatabase.Setting.IsAlwaysOnTop())
+                if (BLLocalDatabase.Setting.Settings.PopupType == "AlwaysOnTop")
                 {
                     this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
                     this.TopLevel = true;
                 }
                 else
                 {
-                    this.TopMost = false;
-                    this.WindowState = FormWindowState.Minimized;
+                    if (rem.Id != -1) //previewreminders should be topmost
+                    {
+                        this.TopMost = false;
+                        this.WindowState = FormWindowState.Minimized;
+                    }
                 }
 
 
@@ -426,7 +418,32 @@ namespace RemindMe
             }
         }        
 
+        private void PlayReminderSound()
+        {
+            //Play the sound
+            if (rem.SoundFilePath != null && rem.SoundFilePath != "")
+            {
 
+                if (System.IO.File.Exists(rem.SoundFilePath))
+                {
+                    BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
+                    myPlayer.URL = rem.SoundFilePath;
+
+                    if (rem.Id == -1) //timer, set the volume set by the user
+                        myPlayer.settings.volume = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
+
+                    myPlayer.controls.play();
+                    BLIO.Log("Playing sound");
+                }
+                else
+                {
+                    BLIO.Log("SoundFilePath not null / empty but doesn't exist on the hard drive!");
+                    MaterialRemindMeBox.Show("Could not play " + Path.GetFileNameWithoutExtension(rem.SoundFilePath) + " located at \"" + rem.SoundFilePath + "\" \r\nDid you move,rename or delete the file ?\r\nThe sound effect has been removed from this reminder. If you wish to re-add it, select it from the drop-down list.", RemindMeBoxReason.OK);
+                    //make sure its removed from the reminder
+                    rem.SoundFilePath = "";
+                }
+            }
+        }
         private void RepositionControls()
         {
             //give new locations to the controls if the size changes.                                    
@@ -453,11 +470,7 @@ namespace RemindMe
             return list;
         }
 
-        private void numPostponeTime_ValueChanged(object sender, EventArgs e)
-        {
-            
-        }
-
+   
         private void Popup_SizeChanged(object sender, EventArgs e)
         {            
             RepositionControls();            
@@ -553,7 +566,10 @@ namespace RemindMe
             close:
             MUCReminders.Instance.UpdateCurrentPage(rem);
             BLIO.Log("Stopping media player & Closing popup");
-            myPlayer.controls.stop();            
+
+            if (BLLocalDatabase.Setting.Settings.PopupType != "SoundOnly")
+                myPlayer.controls.stop();
+            
             this.Close();
 
             GC.Collect();
