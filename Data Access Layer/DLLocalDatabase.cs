@@ -222,8 +222,7 @@ namespace Data_Access_Layer
             {
                 using (RemindMeDbEntities db = new RemindMeDbEntities())
                 {
-                    int count = db.Settings.Where(o => o.Id >= 0).Count();
-                    Settings sss = db.Settings.Where(o => o.Id >= 0).FirstOrDefault();
+                    int count = db.Settings.Where(o => o.Id >= 0).Count();                    
                     if (count == 0)
                     {
                         settings = new Settings();
