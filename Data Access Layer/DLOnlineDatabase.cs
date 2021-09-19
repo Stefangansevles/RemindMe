@@ -13,9 +13,9 @@ namespace Data_Access_Layer
     public class DLOnlineDatabase
     {                
         private DLOnlineDatabase() { }
-        private const int MAX_ATTEMPTS = 15;
+        private const int MAX_ATTEMPTS = 2;
         private const int MAX_EXCEPTION_INSERTS = 5;
-        private static int exceptionInserts = 0;
+        private static int exceptionInserts = 0;        
         //If the db is unreachable, stop trying to connect to it.
         private static bool terminateDatabaseAccess = false;        
         
@@ -25,16 +25,15 @@ namespace Data_Access_Layer
                 return false;
 
             try
-            {
+            {                
                 terminateDatabaseAccess = !db.Database.Exists();
 
                 if (terminateDatabaseAccess)
                     return false;
 
-                db.Database.Connection.Open();
-                db.Database.Connection.Close();
+                                
             }
-            catch { return false; }
+            catch(Exception ex) { return false; } //TODO: this might increase cpu usage a bit if connecting to the database fails
 
             return true;
         }
@@ -70,7 +69,7 @@ namespace Data_Access_Layer
                         break;
                 }
 
-                db.Database.Connection.Open();
+                
                 ExceptionLog log = new ExceptionLog();
                 log.ExceptionDate = exceptionDate;
 
@@ -103,7 +102,7 @@ namespace Data_Access_Layer
                     if (attemptCount > MAX_ATTEMPTS)
                         break;
                 }
-                db.Database.Connection.Open();
+                
 
                 return db.Users.Where(u => u.UniqueString == uniqueString).SingleOrDefault() == null;                 
             }
@@ -122,7 +121,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
 
                     UserThemes usrTheme = new UserThemes();
                     usrTheme.NormalPrimary = theme.Primary;
@@ -134,9 +133,7 @@ namespace Data_Access_Layer
                     usrTheme.ThemeName = theme.ThemeName;
 
                     db.UserThemes.Add(usrTheme);
-                    db.SaveChanges();
-
-                    db.Database.Connection.Close();
+                    db.SaveChanges();                    
                 }
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
@@ -173,7 +170,7 @@ namespace Data_Access_Layer
                     if (attemptCount > MAX_ATTEMPTS)
                         break;
                 }
-                db.Database.Connection.Open();
+                
                 Users usr;
                 //If the user doesn't exist in the db yet...
                 if (db.Users.Where(u => u.UniqueString == uniqueString).Count() == 0)
@@ -226,7 +223,7 @@ namespace Data_Access_Layer
                     if (attemptCount > MAX_ATTEMPTS)
                         break;
                 }
-                db.Database.Connection.Open();
+                
                 Users usr;
                 //If the user doesn't exist in the db yet...
                 if (db.Users.Where(u => u.UniqueString == uniqueStringOld).Count() > 0)
@@ -260,8 +257,7 @@ namespace Data_Access_Layer
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
                         break;
-                }
-                db.Database.Connection.Open();
+                }                
                 
                 EmailAttempts ea = new EmailAttempts();
                 ea.Username = Environment.UserName;
@@ -294,8 +290,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     List<Database.Entity.RemindMeMessages> list = new List<Database.Entity.RemindMeMessages>();
                     Database.Entity.RemindMeMessages message;
 
@@ -338,7 +333,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     return db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
                 }
             }
@@ -360,8 +355,7 @@ namespace Data_Access_Layer
                     Thread.Sleep(500);
                     if (attemptCount > MAX_ATTEMPTS)
                         break;
-                }
-                db.Database.Connection.Open();
+                }                
                 RemindMeMessages mess = db.RemindMeMessages.Where(m => m.Id == id).FirstOrDefault();
                 mess.ReadByAmountOfUsers++;
                 db.SaveChanges();
@@ -384,7 +378,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.MessageCount;
                 }
@@ -399,8 +393,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.MessageCount = value;
                     db.SaveChanges();
@@ -422,8 +415,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     return db.ExceptionLog.Count();
                 }
             }
@@ -446,7 +438,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.TimersCreated;
                 }
@@ -461,8 +453,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     misc.TimersCreated = value;
                     db.SaveChanges();
@@ -486,7 +477,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.RemindersCreated;
                 }
@@ -501,8 +492,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.RemindersCreated = value;
                     db.SaveChanges();
@@ -525,8 +515,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.ImportCount;
                 }
@@ -541,8 +530,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.ImportCount = value;
                     db.SaveChanges();
@@ -565,8 +553,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.ExportCount;
                 }
@@ -581,8 +568,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.ExportCount = value;
                     db.SaveChanges();
@@ -605,8 +591,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.RecoverCount;
                 }
@@ -621,8 +606,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.RecoverCount = value;
                     db.SaveChanges();
@@ -642,8 +626,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PreviewCount;
                 }
@@ -658,8 +641,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.PreviewCount = value;
                     db.SaveChanges();
@@ -679,7 +661,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.DuplicateCount;
                 }
@@ -694,8 +676,7 @@ namespace Data_Access_Layer
                         Thread.Sleep(500);
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
-                    }
-                    db.Database.Connection.Open();
+                    }                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.DuplicateCount = value;
                     db.SaveChanges();
@@ -715,7 +696,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.HideCount;
                 }
@@ -731,7 +712,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.HideCount = value;
                     db.SaveChanges();
@@ -751,7 +732,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PostponeCount;
                 }
@@ -767,7 +748,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.PostponeCount = value;
                     db.SaveChanges();
@@ -787,7 +768,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.SkipCount;
                 }
@@ -803,7 +784,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.SkipCount = value;
                     db.SaveChanges();
@@ -823,7 +804,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault(m => m.Id == 1);
                     return misc.PermanentelyDeleteCount;
                 }
@@ -839,7 +820,7 @@ namespace Data_Access_Layer
                         if (attemptCount > MAX_ATTEMPTS)
                             break;
                     }
-                    db.Database.Connection.Open();
+                    
                     Misc misc = db.Misc.SingleOrDefault();
                     misc.PermanentelyDeleteCount = value;
                     db.SaveChanges();
