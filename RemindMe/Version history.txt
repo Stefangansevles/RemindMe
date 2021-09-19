@@ -1131,3 +1131,6 @@ Preview: https://i.imgur.com/UDCkSdj.png
 
 3.1.08
 New Popup type for reminders in settings: Sound Only. Reminders will not pop-up and instead only play their selected sound if you select this option in the settings.
+
+3.1.10
+Fixed a cpu usage issue

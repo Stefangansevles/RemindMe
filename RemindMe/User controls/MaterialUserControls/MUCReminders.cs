@@ -365,6 +365,7 @@ namespace RemindMe
         {
             try
             {
+                bool isHourBeforeNotificationEnabled = BLLocalDatabase.Setting.IsHourBeforeNotificationEnabled();
                 if (BLReminder.GetReminders().Where(r => r.Enabled == 1).ToList().Count <= 0)
                 {
                     tmrCheckReminder.Stop(); //No existing reminders? no enabled reminders? stop timer.
@@ -386,10 +387,10 @@ namespace RemindMe
 
 
                 //We will check for reminders here every 5 seconds.
-                foreach (Reminder rem in BLReminder.GetReminders())
+                foreach (Reminder rem in BLReminder.GetReminders().Where(r => r.Enabled == 1).ToList())
                 {
                     //Create the popup. Do the other stuff afterwards.
-                    if ((rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now && rem.Enabled == 1) || (Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1))
+                    if ((rem.PostponeDate != null && Convert.ToDateTime(rem.PostponeDate) <= DateTime.Now) || (Convert.ToDateTime(rem.Date.Split(',')[0]) <= DateTime.Now && rem.PostponeDate == null && rem.Enabled == 1))
                     {
                         //temporarily disable it. When the user postpones the reminder, it will be re-enabled.
                         rem.Enabled = 0;
@@ -400,7 +401,7 @@ namespace RemindMe
                     else
                     {
                         // -- In this part we will create popups at the users right bottom corner of the screen saying x reminder is happening in 1 hour or x minutes -- \\
-                        if (BLLocalDatabase.Setting.IsHourBeforeNotificationEnabled() && rem.Enabled == 1)
+                        if (isHourBeforeNotificationEnabled)
                         {
                             DateTime theDateToCheckOn; //Like this we dont need an if ánd an else with the same code
                             if (rem.PostponeDate != null)

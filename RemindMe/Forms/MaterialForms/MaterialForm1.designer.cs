@@ -215,7 +215,7 @@
             // 
             // tmrDumpLogTxtContents
             // 
-            this.tmrDumpLogTxtContents.Interval = 2000;
+            this.tmrDumpLogTxtContents.Interval = 10000;
             this.tmrDumpLogTxtContents.Tick += new System.EventHandler(this.tmrDumpLogTxtContents_Tick);
             // 
             // tmrEnableDatabaseAccess

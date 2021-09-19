@@ -539,10 +539,10 @@ namespace RemindMe
                 this.Show();
                 tmrInitialHide.Start();
 
-                Random r = new Random();
-                tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
-                tmrCheckRemindMeMessages.Start();
-                BLIO.Log("tmrCheckRemindMeMessages.Interval = " + tmrCheckRemindMeMessages.Interval / 1000 + " seconds.");
+                //Random r = new Random();
+                //tmrCheckRemindMeMessages.Interval = (r.Next(60, 300)) * 1000; //Random interval between 1 and 5 minutes
+                //tmrCheckRemindMeMessages.Start();
+                //BLIO.Log("tmrCheckRemindMeMessages.Interval = " + tmrCheckRemindMeMessages.Interval / 1000 + " seconds.");
 
 
                 stopwatch.Stop();
