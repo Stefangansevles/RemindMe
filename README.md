@@ -13,11 +13,11 @@ RemindMe is a windows desktop application that will notify you of events that yo
 
 # Did you know?
 
-1) RemindMe can also be used to set quick timers, for example 1 hour, 5 minutes, etc. [Take a look how](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to:%20Use%20RemindMe.md#did-you-know--timers)
+1) RemindMe can also be used to set quick timers, for example 1 hour, 5 minutes, etc. [Take a look how](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to%20Use%20RemindMe.md#did-you-know--timers)
 
-2) RemindMe can create Advanced Reminders which opens up the possibility to **execute batch code** when the reminder pops up! I'll leave the possibilities with that up to you ;) [Take a look how](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to:%20Advanced%20Reminders.md#2-windows-batch-script-code)
+2) RemindMe can create Advanced Reminders which opens up the possibility to **execute batch code** when the reminder pops up! I'll leave the possibilities with that up to you ;) [Take a look how](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to%20Advanced%20Reminders.md#2-windows-batch-script-code)
 
-3) RemindMe can create Advanced **conditional** Reminders which ping an API to evaluate 1, or more conditions! [Click here to read more](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to:%20Advanced%20Reminders.md#1-api-support)
+3) RemindMe can create Advanced **conditional** Reminders which ping an API to evaluate 1, or more conditions! [Click here to read more](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to%20Advanced%20Reminders.md#1-api-support)
 
 You can install RemindMe by downloading the installer and running it. ([SetupRemindMe.msi](https://github.com/Stefangansevles/RemindMe/blob/master/SetupRemindMe.msi))
 
