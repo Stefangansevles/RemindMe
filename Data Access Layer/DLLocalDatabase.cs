@@ -16,9 +16,9 @@ namespace Data_Access_Layer
 
 
             /// <summary>
-            /// Reads the settings from the database and checks if reminders should be set to always on top.
+            /// Reads the selected hotkeys combination to launch a new Timer popup.
             /// </summary>
-            /// <returns>True if reminders are set to be always on top, false if not</returns>
+            /// <returns>A HotKeys object containing the key combination required to launch a new Timer popup (For example ctrl+shift+r) </returns>
             public static Hotkeys TimerPopup
             {
                 get
@@ -41,10 +41,11 @@ namespace Data_Access_Layer
                     UpdateHotkey(value);
                 }
             }
+
             /// <summary>
-            /// Reads the settings from the database and checks if reminders should be set to always on top.
+            /// Reads the selected hotkeys combination to launch the TimerCheck window, containing the running timer(s)
             /// </summary>
-            /// <returns>True if reminders are set to be always on top, false if not</returns>
+            /// <returns>A HotKeys object containing the key combination required to launch the TimerCheck window (For example ctrl+shift+e) </returns>
             public static Hotkeys TimerCheck
             {
                 get

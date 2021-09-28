@@ -34,7 +34,7 @@ namespace Business_Logic_Layer
         /// </summary>
         /// <param name="Date">The string containing a date in a valid format</param>
         /// <returns></returns>
-        public static string ConvertDateTimeStringToCurrentCulture(string date,string languageCode)
+        public static string ConvertDateTimeStringToCurrentCulture(string date, string languageCode)
         {
             //Same language code? just return the same date. No converting needed
             if (CultureInfo.CurrentCulture.IetfLanguageTag == languageCode)

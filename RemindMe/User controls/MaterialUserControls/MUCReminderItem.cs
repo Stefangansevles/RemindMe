@@ -111,6 +111,9 @@ namespace RemindMe
 
         private void TooltipReminderNote_Popup(object sender, PopupEventArgs e)
         {
+            if (this.Reminder == null)
+                return;
+
             e.ToolTipSize = TextRenderer.MeasureText(this.Reminder.Note.Replace("\\n", Environment.NewLine), new Font(pfc.Families[0], 13f, FontStyle.Regular, GraphicsUnit.Pixel));
             e.ToolTipSize = new Size(e.ToolTipSize.Width + 8, e.ToolTipSize.Height + 10);
         }

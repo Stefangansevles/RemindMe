@@ -21,18 +21,18 @@ namespace Business_Logic_Layer
             private ReadMessage() { }
 
             /// <summary>
-            /// Gets the column sizes of the Listview in the SQLite database 
+            /// Gets all read messages by the user
             /// </summary>
-            /// <returns></returns>
             public static List<ReadMessages> Messages
             {                
                 get { return DLLocalDatabase.ReadMessage.Messages; }
             }
 
             /// <summary>
-            /// Inserts the reminder into the database.
+            /// Marks an message as read.
             /// </summary>
-            /// <param name="rem">The reminder you want added into the database</param>
+            /// <param name="message">The message to be marked</param>
+            /// <returns></returns>
             public static bool MarkMessageRead(Database.Entity.RemindMeMessages message)
             {
                 try

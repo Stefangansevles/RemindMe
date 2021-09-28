@@ -19,6 +19,11 @@ namespace Data_Access_Layer
         //If the db is unreachable, stop trying to connect to it.
         private static bool terminateDatabaseAccess = false;        
         
+        /// <summary>
+        /// Checks wether RemindMe can make a connection to the online SQL Database.
+        /// </summary>
+        /// <param name="db">The entities object representing the database</param>
+        /// <returns>True if a connection can be made, false if not</returns>
         private static bool CanConnect(remindmesqldbEntities db)
         {
             if (terminateDatabaseAccess)

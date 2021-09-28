@@ -175,9 +175,9 @@ namespace Business_Logic_Layer
         }
 
         /// <summary>
-        /// Adds another count to the amount of times a message is read
+        /// Inserts a user-made theme into the database
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="theme"></param>
         public static void InsertTheme(Themes theme)
         {
             new Thread(() =>

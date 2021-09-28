@@ -131,7 +131,10 @@ namespace Business_Logic_Layer
             }
         }
 
-
+        /// <summary>
+        /// Writes the system log to a .txt file
+        /// </summary>
+        /// <returns></returns>
         public static int DumpLogTxt()
         {
             try
