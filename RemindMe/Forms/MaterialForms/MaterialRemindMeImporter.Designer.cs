@@ -38,12 +38,19 @@
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tmrFadeIn = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pnlCalendarEvent = new System.Windows.Forms.Panel();
+            this.lvCalendarItems = new MaterialSkin.Controls.MaterialListView();
+            this.chSummary = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chCalendarDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lblItemsSelected = new MaterialSkin.Controls.MaterialLabel();
             this.pnlFooterButtons.SuspendLayout();
+            this.pnlCalendarEvent.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlFooterButtons
             // 
             this.pnlFooterButtons.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlFooterButtons.Controls.Add(this.lblItemsSelected);
             this.pnlFooterButtons.Controls.Add(this.btnCancel);
             this.pnlFooterButtons.Controls.Add(this.btnImport);
             this.pnlFooterButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -113,6 +120,7 @@
             this.lvReminders.TabIndex = 3;
             this.lvReminders.UseCompatibleStateImageBehavior = false;
             this.lvReminders.View = System.Windows.Forms.View.Details;
+            this.lvReminders.SelectedIndexChanged += new System.EventHandler(this.lvReminders_SelectedIndexChanged);
             // 
             // chTitle
             // 
@@ -133,11 +141,70 @@
             // 
             this.timer1.Interval = 10;
             // 
+            // pnlCalendarEvent
+            // 
+            this.pnlCalendarEvent.Controls.Add(this.lvCalendarItems);
+            this.pnlCalendarEvent.Location = new System.Drawing.Point(0, 64);
+            this.pnlCalendarEvent.Name = "pnlCalendarEvent";
+            this.pnlCalendarEvent.Size = new System.Drawing.Size(416, 236);
+            this.pnlCalendarEvent.TabIndex = 4;
+            this.pnlCalendarEvent.Visible = false;
+            // 
+            // lvCalendarItems
+            // 
+            this.lvCalendarItems.AutoSizeTable = false;
+            this.lvCalendarItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lvCalendarItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvCalendarItems.CheckBoxes = true;
+            this.lvCalendarItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chSummary,
+            this.chCalendarDate});
+            this.lvCalendarItems.Depth = 0;
+            this.lvCalendarItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvCalendarItems.FullRowSelect = true;
+            this.lvCalendarItems.HideSelection = false;
+            this.lvCalendarItems.LabelWrap = false;
+            this.lvCalendarItems.Location = new System.Drawing.Point(0, 0);
+            this.lvCalendarItems.MinimumSize = new System.Drawing.Size(200, 100);
+            this.lvCalendarItems.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.lvCalendarItems.MouseState = MaterialSkin.MouseState.OUT;
+            this.lvCalendarItems.Name = "lvCalendarItems";
+            this.lvCalendarItems.OwnerDraw = true;
+            this.lvCalendarItems.Size = new System.Drawing.Size(416, 236);
+            this.lvCalendarItems.TabIndex = 0;
+            this.lvCalendarItems.UseCompatibleStateImageBehavior = false;
+            this.lvCalendarItems.View = System.Windows.Forms.View.Details;
+            this.lvCalendarItems.SelectedIndexChanged += new System.EventHandler(this.lvCalendarItems_SelectedIndexChanged);
+            // 
+            // chSummary
+            // 
+            this.chSummary.Text = "Summary";
+            this.chSummary.Width = 230;
+            // 
+            // chCalendarDate
+            // 
+            this.chCalendarDate.Text = "Date";
+            this.chCalendarDate.Width = 150;
+            // 
+            // lblItemsSelected
+            // 
+            this.lblItemsSelected.AutoSize = true;
+            this.lblItemsSelected.Depth = 0;
+            this.lblItemsSelected.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblItemsSelected.Location = new System.Drawing.Point(12, 23);
+            this.lblItemsSelected.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblItemsSelected.Name = "lblItemsSelected";
+            this.lblItemsSelected.Size = new System.Drawing.Size(102, 19);
+            this.lblItemsSelected.TabIndex = 1;
+            this.lblItemsSelected.Text = "Items selected";
+            this.lblItemsSelected.Visible = false;
+            // 
             // MaterialRemindMeImporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(416, 354);
+            this.Controls.Add(this.pnlCalendarEvent);
             this.Controls.Add(this.lvReminders);
             this.Controls.Add(this.pnlFooterButtons);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -147,6 +214,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialRemindMeImporter_FormClosing);
             this.Load += new System.EventHandler(this.RemindMeImporter_Load);
             this.pnlFooterButtons.ResumeLayout(false);
+            this.pnlFooterButtons.PerformLayout();
+            this.pnlCalendarEvent.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -161,5 +230,10 @@
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.Timer tmrFadeIn;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel pnlCalendarEvent;
+        private MaterialSkin.Controls.MaterialListView lvCalendarItems;
+        private System.Windows.Forms.ColumnHeader chSummary;
+        private System.Windows.Forms.ColumnHeader chCalendarDate;
+        private MaterialSkin.Controls.MaterialLabel lblItemsSelected;
     }
 }

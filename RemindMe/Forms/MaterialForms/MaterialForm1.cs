@@ -153,6 +153,21 @@ namespace RemindMe
 
             BLIO.Log("===  Initializing RemindMe Complete  ===");
         }
+
+        public void ShowRemindMe()
+        {
+            //Instead of calling .Show() on a form with 100% opacity making it visible instantly, we call .Show() on the form with 0% opacity.
+            //The form will be drawn invisibly, and then increase the opacity until it reaches 100%. This way RemindMe's form:
+            //1. Has a fade-in like animation when showing
+            //2. No longer shows flickery that occurs when drawing the form(windows-forms drawing issue)
+            allowshowdisplay = true;
+            ShowInTaskbar = true;                       
+            this.TopMost = true;            
+            
+            Show();
+            tmrFadeIn.Start();
+        }
+
         /// <summary>
         /// Logs windows version info
         /// </summary>
@@ -212,7 +227,11 @@ namespace RemindMe
             get { return instance; }
         }
        
-     
+        public void AddIcsEvent(string pathToIcs)
+        {
+            BLReminder.InsertReminder("Just a test brah", DateTime.Now.AddHours(3).ToShortTimeString(), "none", null, "", "coole note//"+ pathToIcs, true, "");
+        }
+
         private void MaterialForm1_Load(object sender, EventArgs e)
         {            
             #region User controls
@@ -226,8 +245,9 @@ namespace RemindMe
             support = new MUCSupport();
             debug = new MUCDebugMode();
             newReminder = new MUCNewReminder(reminders);
+            
             info = new MUCInfo();
-
+            
             newReminder.Visible = false;
 
             
@@ -264,9 +284,7 @@ namespace RemindMe
                     materialSkinManager.ColorScheme = new ColorScheme((Primary)(int)selectedTheme.Primary, (Primary)(int)selectedTheme.DarkPrimary, (Primary)(int)selectedTheme.LightPrimary, (Accent)(int)selectedTheme.Accent, (TextShade)(int)selectedTheme.TextShade);
                 }
                 
-            }
-            
-
+            }            
             #endregion
         }
 
@@ -571,14 +589,7 @@ namespace RemindMe
                 return;
             }
 
-            //Instead of calling .Show() on a form with 100% opacity making it visible instantly, we call .Show() on the form with 0% opacity.
-            //The form will be drawn invisibly, and then increase the opacity until it reaches 100%. This way RemindMe's form:
-            //1. Has a fade-in like animation when showing
-            //2. No longer shows flickery that occurs when drawing the form(windows-forms drawing issue)
-            allowshowdisplay = true;
-            this.ShowInTaskbar = true;            
-            this.Show();
-            tmrFadeIn.Start();
+            ShowRemindMe();
             BLIO.Log("Show remindme toolstrip menu item clicked(not double-click). Showing remindme");
         }
 
@@ -591,13 +602,8 @@ namespace RemindMe
                 BLIO.Log("Remindme was already visible though..");
                 return;
             }
-            allowshowdisplay = true;
-            this.ShowInTaskbar = true;            
 
-            this.TopMost = true;
-            this.Show();
-            
-            tmrFadeIn.Start();
+            ShowRemindMe();
             BLIO.Log("Showing RemindMe");
                       
         }

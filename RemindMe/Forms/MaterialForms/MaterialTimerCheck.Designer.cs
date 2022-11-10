@@ -45,11 +45,11 @@
             this.lblExit.BackColor = System.Drawing.Color.Transparent;
             this.lblExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblExit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblExit.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExit.ForeColor = System.Drawing.Color.White;
-            this.lblExit.Location = new System.Drawing.Point(297, 0);
+            this.lblExit.Location = new System.Drawing.Point(296, 0);
             this.lblExit.Name = "lblExit";
-            this.lblExit.Size = new System.Drawing.Size(18, 18);
+            this.lblExit.Size = new System.Drawing.Size(19, 18);
             this.lblExit.TabIndex = 6;
             this.lblExit.Text = "X";
             this.lblExit.Click += new System.EventHandler(this.lblExit_Click);

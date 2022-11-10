@@ -123,3 +123,25 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Acces
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CopyComplete
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Data Access Layer.dll.config
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Data Access Layer.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Data Access Layer.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Database.Entity.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\EntityFramework.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\EntityFramework.SqlServer.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\MaterialSkin.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.EF6.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.Linq.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Database.Entity.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\Database.Entity.dll.config
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\MaterialSkin.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\EntityFramework.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\EntityFramework.SqlServer.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\bin\Debug\System.Data.SQLite.dll.config
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.AssemblyReference.cache
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CoreCompileInputs.cache
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.csproj.CopyComplete
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Data Access Layer\obj\Debug\Data Access Layer.pdb

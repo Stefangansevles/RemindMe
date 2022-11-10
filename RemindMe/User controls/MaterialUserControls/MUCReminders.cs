@@ -330,7 +330,7 @@ namespace RemindMe
             p.Show();
 
         }
-        private void btnAddReminder_Click(object sender, EventArgs e)
+        public void btnAddReminder_Click(object sender, EventArgs e)
         {            
             BLIO.Log("btnAddReminder_Click");
             this.Visible = false;

@@ -982,13 +982,21 @@ namespace RemindMe
             if (cbMultipleDates.SelectedItem != null)
             {
                 BLIO.Log("attempting to remove date from reminder");
+                int currIndex = cbMultipleDates.Items.IndexOf(cbMultipleDates.SelectedItem);
                 //MakeScrollingPopupMessage(cbMultipleDates.SelectedItem.ToString() + "\r\nRemoved from this reminder");
                 cbMultipleDates.Items.Remove(cbMultipleDates.SelectedItem);
                 BLIO.Log("date removed");
 
-                //Make it so that it doesn't have a selected item and remove the text.
-                cbMultipleDates.SelectedItem = null;
-                cbMultipleDates.Text = "";
+                if (currIndex - 1 >= 0)
+                {
+                    cbMultipleDates.SelectedItem = cbMultipleDates.Items[currIndex - 1];
+                }
+                else
+                {
+                    //Make it so that it doesn't have a selected item and remove the text.
+                    cbMultipleDates.SelectedItem = null;
+                    cbMultipleDates.Text = "";
+                }
             }
         }
         private bool IsAtLeastOneWeeklyCheckboxSelected()
@@ -1451,9 +1459,7 @@ namespace RemindMe
                 }).Start();
 
 
-                string oldReminderName;
-                string oldReminderNote;
-                string oldSoundFilePath;
+                string oldReminderName, oldReminderNote, oldSoundFilePath;
                 if (editableReminder != null)
                 {
                     oldReminderName = editableReminder.Name;

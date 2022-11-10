@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RemindMe</RootNamespace>
     <AssemblyName>RemindMe</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
@@ -63,6 +63,9 @@
     <Reference Include="Bunifu_UI_v1.5.3">
       <HintPath>External DLL's\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
+    <Reference Include="CGenT.Sprache, Version=1.0.0.0, Culture=neutral, PublicKeyToken=21cab3f7ca4a6a0f, processorArchitecture=MSIL">
+      <HintPath>..\packages\CGenT.Sprache.Release.1.0.0.1\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\CGenT.Sprache.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetZip, Version=1.13.5.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.5\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
@@ -94,6 +97,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>External DLL's\HtmlRenderer.WinForms.dll</HintPath>
     </Reference>
+    <Reference Include="Ical.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=65c0446cd019ea53, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.4.2.0\lib\netstandard2.0\Ical.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Deployment.WindowsInstaller">
       <HintPath>..\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
     </Reference>
@@ -117,8 +123,11 @@
       <HintPath>..\packages\WindowsAPICodePack.1.1.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.3.0.0\lib\netstandard2.0\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="OSVersionInfo, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -140,6 +149,9 @@
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

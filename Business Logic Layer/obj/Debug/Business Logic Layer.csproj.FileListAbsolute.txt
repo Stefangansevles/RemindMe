@@ -126,3 +126,30 @@ D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Busines
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CopyComplete
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 D:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll.config
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Business Logic Layer.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Database.Entity.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgilityPack.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\MaterialSkin.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Newtonsoft.Json.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.dll.config
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Database.Entity.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Database.Entity.dll.config
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\MaterialSkin.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgilityPack.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgilityPack.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Newtonsoft.Json.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll.config
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.AssemblyReference.cache
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop.WindowsInstaller.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop.WMPLib.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CoreCompileInputs.cache
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CopyComplete
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb

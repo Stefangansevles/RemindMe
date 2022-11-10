@@ -261,7 +261,7 @@
             this.showRemindMeToolStripMenuItem1});
             this.RemindMeTrayIconMenuStrip.MouseState = MaterialSkin.MouseState.HOVER;
             this.RemindMeTrayIconMenuStrip.Name = "materialContextMenuStrip1";
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(232, 70);
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(232, 92);
             // 
             // restartRemindMeUpdateToolStripMenuItem1
             // 

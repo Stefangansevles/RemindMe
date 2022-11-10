@@ -1,5 +1,6 @@
 ﻿using Business_Logic_Layer;
 using Database.Entity;
+using Ical.Net.CalendarComponents;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
@@ -33,7 +34,7 @@ namespace RemindMe
         private static extern int RegisterWindowMessage(string message);
         #endregion Dll Imports
 
-        private string remindmeFile;
+        private string importFile;
         private List<Reminder> remindersFromRemindMeFile = new List<Reminder>();
 
         private static TimeZone time = TimeZone.CurrentTimeZone;
@@ -73,7 +74,7 @@ namespace RemindMe
 
             InitializeComponent();
             this.Opacity = 0;
-            this.remindmeFile = reminderFile;
+            this.importFile = reminderFile;
             AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
             tmrFadeIn.Start();
 
@@ -91,6 +92,17 @@ namespace RemindMe
 
 
             return remindersFromRemindMeFile.Where(r => selectedIds.Contains(r.Id)).ToList();
+
+        }
+
+        private List<CalendarEvent> GetSelectedCalendarEventsFromListview()
+        {
+            List<CalendarEvent> selectedEvents = new List<CalendarEvent>(); //get all selected id's from the listview reminders
+            foreach (ListViewItem item in lvCalendarItems.SelectedItems)
+                selectedEvents.Add((CalendarEvent)item.Tag);
+
+
+            return selectedEvents;
 
         }
 
@@ -115,7 +127,7 @@ namespace RemindMe
         }
 
  
-        private void btnImport_Click(object sender, EventArgs e)
+        private void ImportReminders()
         {
             try
             {
@@ -149,6 +161,47 @@ namespace RemindMe
             }
         }
 
+        private void ImportCalendarItems()
+        {
+            try
+            {
+                if (lvCalendarItems.SelectedItems.Count > 0)
+                {
+                    foreach (CalendarEvent cal in GetSelectedCalendarEventsFromListview())
+                    {
+                        DateTime date = new DateTime(cal.DtStart.Year, cal.DtStart.Month, cal.DtStart.Day, cal.DtStart.Hour, cal.DtStart.Minute, cal.DtStart.Second);
+                        long id = BLReminder.InsertReminder(cal.Summary, date.ToString(), ReminderRepeatType.NONE.ToString(), null, "", cal.Description, true, "");                                                
+                        BLIO.Log("Pushing reminder with id " + id + " To the database");
+                    }
+
+                    //Let remindme know that the listview should be refreshed                                        
+                    BLIO.Log("Sending message WM_RELOAD_REMINDERS ....");
+                    PostMessage((IntPtr)HWND_BROADCAST, WM_RELOAD_REMINDERS, new IntPtr(0xCDCD), new IntPtr(0xEFEF));
+                    this.Close();
+                }
+                else
+                {
+                    MaterialMessageFormManager.MakeMessagePopup("Please select at least one event.", 3);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MaterialExceptionPopup pop = new MaterialExceptionPopup(ex, "Error inserting calendar events " + ex.ToString());
+                pop.Show();
+                BLIO.WriteError(ex, "Error inserting calendar events");
+            }
+        }
+        private void btnImport_Click(object sender, EventArgs e)
+        {            
+            if(pnlCalendarEvent.Visible)
+            {
+                ImportCalendarItems();
+                return;
+            }                          
+            ImportReminders();          
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
@@ -161,60 +214,84 @@ namespace RemindMe
             this.MaximumSize = this.Size;
 
 
-            if (!HasFileAccess(this.remindmeFile)) //Do not attempt to launch the importer form if we can't open the file
+            if (!HasFileAccess(this.importFile)) //Do not attempt to launch the importer form if we can't open the file
             {
                 BLIO.Log("Error opening .remindme file, no rights");
-                MaterialRemindMeBox.Show("Can not open this .remindme file from " + Path.GetDirectoryName(this.remindmeFile) + ". Insufficient rights.", RemindMeBoxReason.OK);
+                MaterialRemindMeBox.Show($"Can not open this {Path.GetExtension(this.importFile)} file from " + Path.GetDirectoryName(this.importFile) + ". Insufficient rights.", RemindMeBoxReason.OK);
                 this.Close();
             }
             else
             {
                 try
                 {
-                    BLIO.Log("Deserializing reminders.....");
-                    List<object> deSerializedReminders = BLReminder.DeserializeRemindersFromFile(remindmeFile);
-                    BLIO.Log(deSerializedReminders.Count - 1 + " reminders deserialized!");
-                    this.Text += " (" + (deSerializedReminders.Count - 1) + " Reminders)"; //-1 because of country code
-                    foreach (object rem in deSerializedReminders)
+                    if(Path.GetExtension(this.importFile) == ".ics")
                     {
-                        if (rem.GetType() == typeof(Reminder))
-                        {
-                            Reminder reminder = (Reminder)rem;
-                            BLIO.Log(reminder.Name + " Loaded into RemindMeImporter from the .remindme file.");
-                            remindersFromRemindMeFile.Add((Reminder)rem);
-                        }
-                        else
-                        {
-                            BLIO.Log("Language code" + languageCode + " read from the .remindme file!");
-                            languageCode = rem.ToString(); //The language code stored in the .remindme file, "en-Us" for example
-                        }
-                    }
+                        this.Text = "Import calendar event";                        
+                        lvReminders.Visible = false;
+                        pnlCalendarEvent.Visible = true;
 
-                    if (languageCode != "") //Don't need to do this when exporting.
-                    {
-                        BLIO.Log("Going through the reminder list once more....");
-                        foreach (object rem in remindersFromRemindMeFile)
+                        string contents = System.IO.File.ReadAllText(this.importFile);
+                        Ical.Net.Calendar calendar = Ical.Net.Calendar.Load(contents);                        
+                        for(int i = 0; i < calendar.Events.Count; i++)
                         {
-                            if (rem.GetType() == typeof(Reminder))
-                            {
-                                Reminder remm = (Reminder)rem;
-                                //Fix the date if the .remindme file has a different time format than the current system
-                                BLIO.Log("(" + remm.Name + ") Fixing the date to match the language code " + languageCode);
-                                remm.Date = BLDateTime.ConvertDateTimeStringToCurrentCulture(remm.Date, languageCode);
-                            }
-                        }
-                    }
-
-                    if (remindersFromRemindMeFile != null)
-                    {
-                        BLIO.Log("Adding the reminders from the .remindme file to the listview....");
-                        BLFormLogic.AddRemindersToListview(lvReminders, remindersFromRemindMeFile, true);
-                        BLIO.Log("Done!");
+                            ListViewItem lvi;
+                            lvi = calendar.Events[i].Summary.Length > 30 ? new ListViewItem(calendar.Events[i].Summary.Substring(0, 30) + "...") 
+                                : lvi = new ListViewItem(calendar.Events[i].Summary);
+                           
+                            DateTime date = new DateTime(calendar.Events[i].DtStart.Year, calendar.Events[i].DtStart.Month, calendar.Events[i].DtStart.Day, calendar.Events[i].DtStart.Hour, calendar.Events[i].DtStart.Minute, calendar.Events[i].DtStart.Second);
+                            lvi.SubItems.Add(date.ToString());
+                            lvi.Tag = calendar.Events[i];
+                            lvCalendarItems.Items.Add(lvi);
+                        }                        
+                        lvCalendarItems.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);                                                
                     }
                     else
                     {
-                        BLIO.Log("Failed to load reminders.");
-                        this.Text = "Failed to load reminders.";
+                        BLIO.Log("Deserializing reminders.....");
+                        List<object> deSerializedReminders = BLReminder.DeserializeRemindersFromFile(importFile);
+                        BLIO.Log(deSerializedReminders.Count - 1 + " reminders deserialized!");
+                        this.Text += " (" + (deSerializedReminders.Count - 1) + " Reminders)"; //-1 because of country code
+                        foreach (object rem in deSerializedReminders)
+                        {
+                            if (rem.GetType() == typeof(Reminder))
+                            {
+                                Reminder reminder = (Reminder)rem;
+                                BLIO.Log(reminder.Name + " Loaded into RemindMeImporter from the .remindme file.");
+                                remindersFromRemindMeFile.Add((Reminder)rem);
+                            }
+                            else
+                            {
+                                BLIO.Log("Language code" + languageCode + " read from the .remindme file!");
+                                languageCode = rem.ToString(); //The language code stored in the .remindme file, "en-Us" for example
+                            }
+                        }
+
+                        if (languageCode != "") //Don't need to do this when exporting.
+                        {
+                            BLIO.Log("Going through the reminder list once more....");
+                            foreach (object rem in remindersFromRemindMeFile)
+                            {
+                                if (rem.GetType() == typeof(Reminder))
+                                {
+                                    Reminder remm = (Reminder)rem;
+                                    //Fix the date if the .remindme file has a different time format than the current system
+                                    BLIO.Log("(" + remm.Name + ") Fixing the date to match the language code " + languageCode);
+                                    remm.Date = BLDateTime.ConvertDateTimeStringToCurrentCulture(remm.Date, languageCode);
+                                }
+                            }
+                        }
+
+                        if (remindersFromRemindMeFile != null)
+                        {
+                            BLIO.Log("Adding the reminders from the .remindme file to the listview....");
+                            BLFormLogic.AddRemindersToListview(lvReminders, remindersFromRemindMeFile, true);
+                            BLIO.Log("Done!");
+                        }
+                        else
+                        {
+                            BLIO.Log("Failed to load reminders.");
+                            this.Text = "Failed to load reminders.";
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -249,6 +326,19 @@ namespace RemindMe
         private void MaterialRemindMeImporter_FormClosing(object sender, FormClosingEventArgs e)
         {
             MaterialSkinManager.Instance.RemoveFormToManage(this);
+        }
+
+        private void lvCalendarItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblItemsSelected.Text = $"{lvCalendarItems.SelectedItems.Count} Items selected";
+            lblItemsSelected.Visible = lvCalendarItems.SelectedItems.Count > 0;
+        }
+
+        private void lvReminders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            lblItemsSelected.Text = $"{lvReminders.SelectedItems.Count} Reminders selected";
+            lblItemsSelected.Visible = lvReminders.SelectedItems.Count > 0;            
         }
     }
 }
