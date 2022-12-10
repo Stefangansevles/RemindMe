@@ -44,8 +44,7 @@ namespace RemindMe
                 string subject = tbSubject.Text;
                 string note = tbNote.Text;
                 
-                BLOnlineDatabase.InsertEmailAttempt(BLLocalDatabase.Setting.Settings.UniqueString, note, subject, email);
-                RemindMeMessageFormManager.MakeMessagePopup("Feedback Sent. Thank you!", 5);
+                RemindMeMessageFormManager.MakeMessagePopup("online_database_removed", 5);
                 tbEmail.Text = "";
                 tbSubject.Text = "";
                 tbNote.Text = "";
@@ -94,38 +93,6 @@ namespace RemindMe
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
             BLIO.Log("(UCSupport)bunifuFlatButton1_Click [btnView]");
-            if (lvMessages.SelectedItems.Count > 0)
-            {
-                ListViewItem itm = lvMessages.SelectedItems[0];                
-
-                RemindMeMessages mess = BLOnlineDatabase.GetRemindMeMessageById(Convert.ToInt32(itm.Tag));
-                if (mess == null)
-                {
-                    RemindMeMessageFormManager.MakeMessagePopup("Could not show this message. It does not exist anymore", 4);
-                    lvMessages.Items.Remove(itm);
-                    BLLocalDatabase.ReadMessage.DeleteMessage(Convert.ToInt32(itm.Tag));
-                    return; //Doesn't exist in the database anymore
-                }
-
-                if (mess.NotificationType == "REMINDMEBOX")
-                {
-                    BLIO.Log("Attempting to show the user a RemindMe message(REMINDMEBOX)...");
-                    RemindMeBox.Show("A Message from the creator of RemindMe", mess.Message.Replace("¤", Environment.NewLine), RemindMeBoxReason.OK);
-                }
-                else if (mess.NotificationType == "REMINDMEMESSAGEFORM")
-                {
-                    BLIO.Log("Attempting to show the user a RemindMe message(REMINDMEMESSAGEFORM)...");
-                    RemindMeMessageFormManager.MakeMessagePopup(mess.Message.Replace("¤", Environment.NewLine), mess.NotificationDuration.Value);
-                }
-                else
-                {
-                    BLIO.Log("Attempting to show the user a RemindMe message FAILED. Notificationtype="+mess.NotificationType + "  Message="+mess.Message + "  Id="+mess.Id);
-                    RemindMeMessageFormManager.MakeMessagePopup("Could not preview this message. Unknown notification type", 4);
-                    lvMessages.Items.Remove(itm);                    
-                    BLLocalDatabase.ReadMessage.DeleteMessage(mess.Id);
-                }
-                
-            }
         }
 
         private void tbSubject_Enter(object sender, EventArgs e)

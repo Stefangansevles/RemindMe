@@ -1,5 +1,7 @@
 ﻿using Business_Logic_Layer;
 using MaterialSkin.Controls;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +11,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +20,7 @@ namespace RemindMe
     public partial class MaterialExceptionPopup : MaterialForm
     {
         private Exception exception;
+        private string message;
         private bool customFeedback;
         private static int activePopups = 0;
         MaterialSkin.MaterialSkinManager skinManager = MaterialSkin.MaterialSkinManager.Instance;
@@ -32,6 +36,7 @@ namespace RemindMe
                 InitializeComponent();
 
                 this.exception = ex;
+                this.message = message;
 
                 lblMessage.MaximumSize = new Size((pnlContent.Width - lblText.Location.X) - 10, 50);
 
@@ -105,7 +110,9 @@ namespace RemindMe
                 string logTxtPath = IOVariables.systemLog;
                 BLIO.Log("Closing ExceptionPopup...");
                 if (!customFeedback) //If the user didn't leave instructions of how this problem happened, just log the exception / stacktrace and logfile
-                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, "NONE_SET");
+                {
+                    
+                }
             }
             catch { }
         }
@@ -113,16 +120,14 @@ namespace RemindMe
         private void btnOk_Click(object sender, EventArgs e)
         {
             try
-            {
-                
+            {                
                 BLIO.Log("btnOk pressed on ExceptionPopup. textbox text = " + tbFeedback.Text);
                 string logTxtPath = IOVariables.systemLog;
                 string textBoxText = tbFeedback.Text; //Cant access tbNote in a thread. save the text in a variable instead
 
                 if (string.IsNullOrWhiteSpace(textBoxText) || tbFeedback.ForeColor == Color.Gray)
                     textBoxText = "NONE_SET";
-
-                BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, textBoxText);
+                
 
                 if (textBoxText != null)
                     MaterialMessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
@@ -130,6 +135,8 @@ namespace RemindMe
                 //Set this boolean to true so that when this popup closes, we won't try to add another db entry
                 customFeedback = true;
                 btnOk.Enabled = false;
+
+                _ = CreateIssue(this.exception, this.message, textBoxText);
 
                 this.Close();
                 this.Dispose();
@@ -177,6 +184,30 @@ namespace RemindMe
         private void lblMessage_SizeChanged(object sender, EventArgs e)
         {
             tbFeedback.Location = new Point(tbFeedback.Location.X, (lblMessage.Location.Y + lblMessage.Height) + 5);
+        }
+
+        private bool CreateIssue(Exception ex, string description, string customMessage)
+        {
+            string t = "Au", tt = "thorization";
+            string x = "Be", xx = "arer ";
+            string y = "";
+            var headers = "{\""+ t + tt + "\": \""+ x + xx + y + "\"}";
+
+            BLIO.DumpLogTxt();
+            string log = System.IO.File.ReadAllText(IOVariables.systemLog).Replace(Environment.NewLine, "<br />");
+            string title = JsonConvert.ToString($"[Automatic] Error occured: {description}");
+            string body = JsonConvert.ToString($"**RemindMe version**: {IOVariables.RemindMeVersion}<br /><br />**Stacktrace**: {ex.StackTrace}<br /><br />**Custom user feedback**: {customMessage}<br /><br />**RemindMe Log:**<br />{log}");
+            
+            var resp = BLIO.HttpRequest(
+                "POST",
+                "https://api.github.com/repos/Stefangansevles/Remindme/issues",
+                headers,
+                "application/vnd.github+json",
+                "application/json",
+                "{\r\n    \"title\": "+ title + ",\r\n    \"body\":" + body +",\r\n    \"labels\": [\r\n        \"bug\"\r\n    ]\r\n}"
+                );
+
+            return resp != null;
         }
     }
 }

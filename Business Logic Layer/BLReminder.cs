@@ -96,20 +96,6 @@ namespace Business_Logic_Layer
                 if (!string.IsNullOrEmpty(path))
                     SerializeRemindersToFile(reminders, path + "\\Backup reminders " + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".remindme");
 
-                new Thread(() =>
-                {
-                    //Log an entry to the database, for data!                    
-                    try
-                    {
-                        BLOnlineDatabase.ExportCount++;
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        BLIO.Log("Exception at BLOnlineDatabase.ExportCount++. -> " + ex.Message);
-                        BLIO.WriteError(ex, ex.Message, true);
-                    }
-                }).Start();
-
                 return null;
             }
             catch (UnauthorizedAccessException ex)

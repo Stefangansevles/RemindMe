@@ -35,12 +35,12 @@
             this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.btnOk = new MaterialSkin.Controls.MaterialButton();
+            this.pbInfo = new System.Windows.Forms.PictureBox();
             this.lblMessage = new System.Windows.Forms.Label();
             this.pnlContent = new System.Windows.Forms.Panel();
-            this.pbInfo = new System.Windows.Forms.PictureBox();
             this.pnlFooterButtons.SuspendLayout();
-            this.pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbInfo)).BeginInit();
+            this.pnlContent.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblText
@@ -125,6 +125,16 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // pbInfo
+            // 
+            this.pbInfo.BackgroundImage = global::RemindMe.Properties.Resources.infoDark;
+            this.pbInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbInfo.Location = new System.Drawing.Point(10, 20);
+            this.pbInfo.Name = "pbInfo";
+            this.pbInfo.Size = new System.Drawing.Size(25, 25);
+            this.pbInfo.TabIndex = 5;
+            this.pbInfo.TabStop = false;
+            // 
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
@@ -146,16 +156,6 @@
             this.pnlContent.Size = new System.Drawing.Size(453, 141);
             this.pnlContent.TabIndex = 6;
             // 
-            // pbInfo
-            // 
-            this.pbInfo.BackgroundImage = global::RemindMe.Properties.Resources.infoDark;
-            this.pbInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbInfo.Location = new System.Drawing.Point(10, 20);
-            this.pbInfo.Name = "pbInfo";
-            this.pbInfo.Size = new System.Drawing.Size(25, 25);
-            this.pbInfo.TabIndex = 5;
-            this.pbInfo.TabStop = false;
-            // 
             // MaterialExceptionPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,9 +171,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialExceptionPopup_FormClosing);
             this.Load += new System.EventHandler(this.ExceptionPopup_Load);
             this.pnlFooterButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbInfo)).EndInit();
             this.pnlContent.ResumeLayout(false);
             this.pnlContent.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbInfo)).EndInit();
             this.ResumeLayout(false);
 
         }

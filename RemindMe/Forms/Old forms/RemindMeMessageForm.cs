@@ -275,20 +275,6 @@ namespace RemindMe
 
             UCReminders.Instance.UpdateCurrentPage();
 
-            new Thread(() =>
-            {
-                //Log an entry to the database, for data!                                
-                try
-                {
-                    BLOnlineDatabase.PostponeCount++;
-                }
-                catch (ArgumentException ex)
-                {
-                    BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
-                    BLIO.WriteError(ex, ex.Message, true);
-                }
-            }).Start();
-
             btnPostpone.Enabled = false; //bypass bunifu bug            
             this.Dispose();
         }

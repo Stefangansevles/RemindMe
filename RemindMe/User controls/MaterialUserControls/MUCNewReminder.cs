@@ -10,13 +10,13 @@ using System.Windows.Forms;
 using Business_Logic_Layer;
 using Database.Entity;
 using System.Runtime.InteropServices;
-using WMPLib;
 using System.IO;
 using System.Reflection;
 using System.Globalization;
 using System.Threading;
 using MaterialSkin.Controls;
 using Newtonsoft.Json;
+using NAudio.Wave;
 
 namespace RemindMe
 {
@@ -29,11 +29,7 @@ namespace RemindMe
         Image imgStop;
 
         //The start playing preview sound icon
-        Image imgPlayResume;
-
-        //Used to play a sound
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        IWMPMedia mediaInfo;
+        Image imgPlayResume;                        
 
         private Reminder editableReminder = null;
 
@@ -426,26 +422,19 @@ namespace RemindMe
 
                 if (btnPlaySound.Icon == imgPlayResume)
                 {
-
                     if (selectedItem != null)
                     {
-                        if (System.IO.File.Exists(selectedSong.SongFilePath))
+                        if (File.Exists(selectedSong.SongFilePath))
                         {
                             BLIO.Log("selected sound file exists on hard drive (MUCNewReminder)");
                             btnPlaySound.Icon = imgStop;
 
-                            myPlayer.URL = selectedSong.SongFilePath;
-                            mediaInfo = myPlayer.newMedia(myPlayer.URL);
+                            int duration = BLIO.PlaySound(selectedSong.SongFilePath);
 
                             //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
-                            if (mediaInfo.duration > 0)
-                                tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
-                            else
-                                tmrMusic.Interval = 1000;
-                            tmrMusic.Start();
+                            tmrMusic.Interval = duration;
 
-                            BLIO.Log("Playing sound... (MUCNewReminder)");
-                            myPlayer.controls.play();
+                            tmrMusic.Start();                                                        
                         }
                         else
                         {
@@ -475,7 +464,7 @@ namespace RemindMe
                 else
                 {
                     btnPlaySound.Icon = imgPlayResume;
-                    myPlayer.controls.stop();
+                    BLIO.StopSound();
                     tmrMusic.Stop();
                 }
             }
@@ -1324,7 +1313,7 @@ namespace RemindMe
                     else
                     {
                         MissingMemberException ex = new MissingMemberException("Could not create a new reminder with type 'Set Dates' without a date");
-                        BLIO.WriteError(ex, ex.Message, true);
+                        BLIO.WriteError(ex, ex.Message);
                         MaterialRemindMeBox.Show("Could not create a new reminder with type 'Set Dates' without a date");
                         return -1;
                     }
@@ -1351,7 +1340,7 @@ namespace RemindMe
                     else
                     {
                         MissingMemberException ex = new MissingMemberException("Could not create a new reminder with type 'Set Dates' without a date (MODE_EDIT)");
-                        BLIO.WriteError(ex, ex.Message, true);
+                        BLIO.WriteError(ex, ex.Message);
                         MaterialRemindMeBox.Show("Could not create a new reminder with type 'Set Dates' without a date");
                         return -1;
                     }
@@ -1445,19 +1434,6 @@ namespace RemindMe
 
                 //Apply AVR properties, if there are any
                 CreateAdvancedReminderProperties(remId);
-
-                
-                //Log an entry to the database, for data!
-                new Thread(() =>
-                {
-                    try { BLOnlineDatabase.RemindersCreated++; }
-                    catch (ArgumentException ex)
-                    {
-                        BLIO.Log("Exception at BLOnlineDatabase.RemindersCreated++. -> " + ex.Message);
-                        BLIO.WriteError(ex, ex.Message, true);
-                    }
-                }).Start();
-
 
                 string oldReminderName, oldReminderNote, oldSoundFilePath;
                 if (editableReminder != null)
@@ -1801,10 +1777,7 @@ namespace RemindMe
             BLIO.Log("User pressed back (MUCNewReminder)");
             btnPlaySound.Icon = imgPlayResume;
 
-            if (myPlayer.controls.currentPosition != 0)
-                BLIO.Log("stopping music");
-
-            myPlayer.controls.stop();
+            BLIO.StopSound();
             tmrMusic.Stop();
 
             //Refresh listview with the newly made reminder   
@@ -1941,7 +1914,7 @@ namespace RemindMe
                     //Fill selectedFiles with the selected files AND the current files, 
                     //and check if it is not already in the list
 
-                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.ogg; *.3gp; *.aac; *.flac; *.webm; *.aiff; *.wma; *.alac;").ToList();
+                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.aiff;").ToList();
 
                     if (selectedFiles.Count == 1 && selectedFiles[0] == "")
                         return;

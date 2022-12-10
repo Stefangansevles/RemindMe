@@ -79,14 +79,7 @@ namespace RemindMe
 
         private void ExceptionPopup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
-                string logTxtPath = IOVariables.systemLog;
-                BLIO.Log("Closing ExceptionPopup...");
-                if (!customFeedback) //If the user didn't leave instructions of how this problem happened, just log the exception / stacktrace and logfile
-                    BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, "None.");
-            }
-            catch { }
+            
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -100,8 +93,6 @@ namespace RemindMe
                 if (string.IsNullOrWhiteSpace(textBoxText) || tbFeedback.ForeColor == Color.Gray)
                     textBoxText = null;
                 
-                BLOnlineDatabase.AddException(exception, DateTime.UtcNow, logTxtPath, textBoxText);
-
                 if(textBoxText != null && tbFeedback.ForeColor != Color.Gray)
                     RemindMeMessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
 

@@ -381,8 +381,6 @@ namespace RemindMe
                     UpdateCurrentPage();
                     dayOfStartRemindMe = DateTime.Now.Day;
                     MaterialMessageFormManager.MakeTodaysRemindersPopup();
-                    //Update lastOnline. If you keep RemindMe running and put your pc to sleep instead of turning it off, it would never get updated without this                
-                    BLOnlineDatabase.InsertOrUpdateUser(BLLocalDatabase.Setting.Settings.UniqueString);
                 }
 
 
@@ -826,20 +824,6 @@ namespace RemindMe
                     BLIO.Log("Deserialized reminder and inserted it into RemindMe");
                 }
             }
-
-            new Thread(() =>
-            {
-                //Log an entry to the database, for data!                
-                try
-                {
-                    BLOnlineDatabase.ImportCount++;
-                }
-                catch (ArgumentException ex)
-                {
-                    BLIO.Log("Exception at BLOnlineDatabase.ImportCount++ MUCReminders.cs . -> " + ex.Message);
-                    BLIO.WriteError(ex, ex.Message, true);
-                }
-            }).Start();
 
             //finally, refresh the listview
             UpdateCurrentPage();

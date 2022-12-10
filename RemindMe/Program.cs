@@ -59,7 +59,6 @@ namespace RemindMe
             catch (Exception ex)
             {
                 BLIO.Log("!!!! EXCEPTION IN PROGRAM.CS !!!! (" + ex.GetType() + ")" );
-                BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
             }
             //This code should always execute!!!! Remember the 3.0.6 disaster? yeahhhhh...
             using (Mutex mutex = new Mutex(false, "Global\\" + "RemindMe"))
@@ -109,7 +108,7 @@ namespace RemindMe
         /// </summary>
         /// <param name="ex">The exception that happened</param>
         /// <param name="message">An message that could decribe the error</param>
-        /// <param name="description">NO LONGER BEING USED</param>
+        /// <param name="description">Further description of the error</param>
         private static void ShowError(Exception ex, string message, string description)
         {
             //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
@@ -119,7 +118,7 @@ namespace RemindMe
                 BLIO.Log("\r\n=====EXCEPTION!!=====\r\n" + ex.GetType().ToString() + "\r\n" + ex.StackTrace + "\r\n");   
 
                 if(isMaterial)
-                    new MaterialExceptionPopup(ex,message).Show();
+                    new MaterialExceptionPopup(ex,$"{message} - {description}").Show();
                 else
                     new ExceptionPopup(ex, message).Show();
             }
@@ -134,7 +133,7 @@ namespace RemindMe
             if (e.Exception is ReminderException)
             {
                 ReminderException theException = (ReminderException)e.Exception;
-                BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !", false);
+                BLIO.WriteError(e.Exception, "Error with this reminder (" + theException.Reminder.Name + ") !");
                 ShowError(e.Exception, "Reminder error!", theException.Message);
                 UCReminders.Instance.UpdateCurrentPage();
             }
@@ -154,19 +153,19 @@ namespace RemindMe
                         raise = new InvalidOperationException(message, raise);
                     }
                 }
-                BLIO.WriteError(raise, raise.Message, false);
+                BLIO.WriteError(raise, raise.Message);
                 ShowError(e.Exception, e.Exception.GetType().ToString(), raise.Message);
             }
             else if (e.Exception is ArgumentException)
             {
                 ArgumentException theException = (ArgumentException)e.Exception;
-                BLIO.WriteError(theException, "Invalid argument.", false);
+                BLIO.WriteError(theException, "Invalid argument.");
                 ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
             }
             else if (e.Exception is DirectoryNotFoundException)
             {
                 DirectoryNotFoundException theException = (DirectoryNotFoundException)e.Exception;
-                BLIO.WriteError(theException, "Folder not found.", false);
+                BLIO.WriteError(theException, "Folder not found.");
                 ShowError(e.Exception, e.Exception.GetType().ToString(), theException.Message);
             }
 
@@ -180,13 +179,13 @@ namespace RemindMe
             else if (e.Exception is FileNotFoundException)
             {
                 FileNotFoundException theException = (FileNotFoundException)e.Exception; //needs in instance to call .FileName
-                BLIO.WriteError(theException, "Could not find the file located at \"" + theException.FileName, false);
+                BLIO.WriteError(theException, "Could not find the file located at \"" + theException.FileName);
                 ShowError(e.Exception, "File not found.", "Could not find file \"" + theException.FileName + "\"\r\nHave you moved,renamed or deleted it?");
             }
           
             else if (e.Exception is System.Data.Entity.Core.EntityException || e.Exception is System.Data.Entity.Core.EntityCommandExecutionException)
             {
-                BLIO.WriteError(e.Exception, "System.Data.Entity.Core exception", false);
+                BLIO.WriteError(e.Exception, "System.Data.Entity.Core exception");
                 ShowError(e.Exception, "System.Data.Entity.Core.EntityException", "There was a problem executing SQL!");
             }
 
@@ -198,43 +197,43 @@ namespace RemindMe
 
             else if (e.Exception is ArgumentNullException)
             {
-                BLIO.WriteError(e.Exception, "Null argument", false);
+                BLIO.WriteError(e.Exception, "Null argument");
                 ShowError(e.Exception, "Null argument", "Null argument exception! Whoops! this is not on your end!");
             }
 
             else if (e.Exception is NullReferenceException)
             {
-                BLIO.WriteError(e.Exception, "Null reference", false);
+                BLIO.WriteError(e.Exception, "Null reference");
                 ShowError(e.Exception, "Null reference", "Null reference exception! Whoops! this is not on your end!");
             }
 
             else if (e.Exception.GetType().ToString() == "SQLiteException") //SQLiteException could not be found error, fkin weird
             {
                 
-                BLIO.WriteError(e.Exception, "SQLite Database exception", false);
+                BLIO.WriteError(e.Exception, "SQLite Database exception");
                 ShowError(e.Exception, "SQLite Database exception", "Remindme has encountered a database error!\r\nThis might or might not be on your end. It can be on your end if you modified the database file");
             }
 
             else if (e.Exception is PathTooLongException)
             {
-                BLIO.WriteError(e.Exception, "The path to the file is too long.", false);
+                BLIO.WriteError(e.Exception, "The path to the file is too long.");
                 ShowError(e.Exception, "File Path too long.", "The path to the file is too long!.");
             }
 
             else if (e.Exception is StackOverflowException)
             {
-                BLIO.WriteError(e.Exception, "StackOverFlowException", false);
+                BLIO.WriteError(e.Exception, "StackOverFlowException");
                 ShowError(e.Exception, "StackOverFlowException", "RemindMe has encountered a stackoverflow! This is probably not your fault. Sorry!");
             }
 
             else if (e.Exception is OutOfMemoryException)
             {
-                BLIO.WriteError(e.Exception, "Out of Memory", false);
+                BLIO.WriteError(e.Exception, "Out of Memory");
                 ShowError(e.Exception, "Out of Memory", "RemindMe is out of memory!");
             }
             else if (e.Exception is DbUpdateConcurrencyException)
             {
-                BLIO.WriteError(e.Exception, "Database error.", false);
+                BLIO.WriteError(e.Exception, "Database error.");
                 ShowError(e.Exception, "Database error!", "Database error encountered!");
             }
             else if (e.Exception is IOException)
@@ -247,7 +246,7 @@ namespace RemindMe
 
             else if (e.Exception is Exception)
             {
-                BLIO.WriteError(e.Exception, "Unknown exception in main.", false);
+                BLIO.WriteError(e.Exception, "Unknown exception in main.");
                 ShowError(e.Exception, "Unknown", "Unknown exception in main.");
             }
             

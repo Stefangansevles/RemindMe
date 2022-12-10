@@ -10,16 +10,11 @@ using System.Windows.Forms;
 using Database.Entity;
 using Business_Logic_Layer;
 using System.IO;
-using WMPLib;
 
 namespace RemindMe
 {
     public partial class UCSound : UserControl
-    {
-        //Used to play a sound
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        private IWMPMedia mediaInfo;
-
+    {        
         private Image imgPlay = Properties.Resources.Play;
         private Image imgStop = Properties.Resources.Stop;
         public UCSound()
@@ -85,7 +80,7 @@ namespace RemindMe
         {
             BLIO.Log("(UCSound)btnAddFiles_Click");
             int songsAdded = 0;
-            List<string> songPaths = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.ogg; *.3gp; *.aac; *.flac; *.webm; *.aiff; *.wma; *.alac;").ToList();
+            List<string> songPaths = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.aiff;").ToList();
 
             if (songPaths.Count == 1 && songPaths[0] == "")//The user canceled out
                 return;
@@ -98,11 +93,6 @@ namespace RemindMe
 
             foreach (string songPath in songPaths)
             {
-                myPlayer.URL = songPath;
-                mediaInfo = myPlayer.newMedia(myPlayer.URL);
-                myPlayer.controls.play();
-                myPlayer.controls.stop();
-
                 Songs song = new Songs();
                 song.SongFileName = Path.GetFileName(songPath);
                 song.SongFilePath = songPath;
@@ -156,24 +146,14 @@ namespace RemindMe
 
                 if (btnPreview.Iconimage == imgPlay)
                 {
-                    if (System.IO.File.Exists(selectedSong.SongFilePath))
+                    if (File.Exists(selectedSong.SongFilePath))
                     {
                         BLIO.Log("Sound file exists on the hard drive");
                         btnPreview.Iconimage = imgStop;
 
-                        myPlayer.URL = selectedSong.SongFilePath;
-                        mediaInfo = myPlayer.newMedia(myPlayer.URL);
-
-                        //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
-                        if (mediaInfo.duration > 0)
-                            tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
-                        else
-                            tmrMusic.Interval = 1000;
+                        int duration = BLIO.PlaySound(selectedSong.SongFilePath);
+                        tmrMusic.Interval = duration;
                         tmrMusic.Start();
-
-
-                        myPlayer.controls.play();
-                        BLIO.Log("Playing sound.");
                     }
                     else
                         RemindMeMessageFormManager.MakeMessagePopup("Could not preview the selected song. Does it still exist?", 4);
@@ -182,7 +162,7 @@ namespace RemindMe
                 {
                     BLIO.Log("Stopping sound");
                     btnPreview.Iconimage = imgPlay;
-                    myPlayer.controls.stop();
+                    BLIO.StopSound();
                     tmrMusic.Stop();
                 }
             }
@@ -200,17 +180,16 @@ namespace RemindMe
             if (e.KeyCode == Keys.Enter)
             {
                 btnPreview.Iconimage = imgPlay;
-                myPlayer.controls.stop();
+                BLIO.StopSound();
                 tmrMusic.Stop();
                 btnPreview_Click(sender, e);
-            }
-                
+            }            
         }
 
         private void lvSoundFiles_DoubleClick(object sender, EventArgs e)
         {
             btnPreview.Iconimage = imgPlay;
-            myPlayer.controls.stop();
+            BLIO.StopSound();
             tmrMusic.Stop();
             btnPreview_Click(sender, e);
         }

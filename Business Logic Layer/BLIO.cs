@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Text;
+using NAudio.Wave;
 
 namespace Business_Logic_Layer
 {
@@ -21,63 +22,7 @@ namespace Business_Logic_Layer
     {
         private static int noInternetNotLoggedCounter = 0;               
         public static List<string> systemLog = new List<string>();                
-        private BLIO() { }
-
-        /// <summary>
-        /// Writes an unique string to string.txt in the RemindMe folder if it does not exists
-        /// </summary>
-        public static void WriteUniqueString() //I didn't know about guid's at the time
-        {
-            new Thread(() =>
-            {
-                if (!HasInternetAccess())
-                    return;
-
-                
-                Settings set = BLLocalDatabase.Setting.Settings;
-                try
-                {
-                    //Change a 200-character string to a 10 character string. saves db space and 200 is just unnecesary
-                    if (set.UniqueString != null && set.UniqueString.Length == 200)
-                    {
-                        string uniqueStringOld = set.UniqueString;
-
-                        set.UniqueString = GenerateString();
-
-                        while (!BLOnlineDatabase.IsUniqueString(set.UniqueString))
-                        {
-                            set.UniqueString = GenerateString();
-                        }
-                        
-                        DLOnlineDatabase.TransformUniqueString(uniqueStringOld, set.UniqueString, IOVariables.RemindMeVersion);
-                    }
-                    else if (string.IsNullOrWhiteSpace(set.UniqueString))
-                    {
-                        string uniqueString = GenerateString();
-
-                        Log("No unique string detected. Generated unique string.");
-
-
-                        while (!BLOnlineDatabase.IsUniqueString(uniqueString))
-                        {
-                            //This shouldn't even happen, because the likelihood is insanely small, but hey, if it does happen, generate a new ID
-                            Log("unique string NOT unique. generating new id...");
-                            uniqueString = GenerateString();
-                        }
-                        set.UniqueString = uniqueString;
-                    }
-                    else
-                        Log("WriteUniqueString() ignored.");
-                }
-                catch (Exception ex)
-                {
-                    Log("WriteUniqueString failed -> " + ex.GetType().ToString());
-                    WriteError(ex, "WriteUniqueString failed -> " + ex.GetType().ToString(), true);
-                }
-
-                BLLocalDatabase.Setting.UpdateSettings(set);
-            }).Start();
-        }
+        private BLIO() { }       
         private static string GenerateString()
         {            
             Random random = new Random();
@@ -129,6 +74,38 @@ namespace Business_Logic_Layer
                 Log("No internet access!");
                 return false;
             }
+        }
+        public static WaveOut CurrentReader {get;set;}
+
+        public static void StopSound()
+        {
+            if(CurrentReader != null)
+            {
+                CurrentReader.Stop();
+                CurrentReader.Dispose();
+            }
+        }
+        public static int PlaySound(string path, int volume = 100)
+        {            
+            var waveOut = new WaveOut();
+            try
+            {
+                var reader = new AudioFileReader(path);
+                int duration = (int)reader.TotalTime.TotalMilliseconds;
+                waveOut.Init(reader);
+                CurrentReader = waveOut;
+
+                Log("Playing sound... (MUCNewReminder)");                
+                waveOut.Volume = (float)(volume / 100m); //nAudio expects 0.0 - 1.0
+                waveOut.Play();                
+
+                return duration;
+            }
+            catch(Exception ex)
+            {
+                WriteError(ex, $"Playing sound file {path} failed. Sound file '{path}' Exists: {File.Exists(path)}");
+                return -1;
+            }                                   
         }
 
         /// <summary>
@@ -222,41 +199,21 @@ namespace Business_Logic_Layer
         /// <param name="ex">The occured exception</param>
         /// <param name="message">A short message i.e "Error while loading reminders"</param>
         /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
-        /// <param name="sendToOnlineDatabase">Determines wether WriteError() is allowed to send the error to the online database this is true by default</param>
-        public static void WriteError(Exception ex, string message,bool sendToOnlineDatabase = true)
-        {            
-            new Thread(() =>
+        public static void WriteError(Exception ex, string message)
+        {
+            //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
+            //that has an bunifu control in it(like a button), while there shouldn't be an exception.
+            if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
+                return;
+
+
+            Log("EXCEPTION -> " + ex.GetType().ToString() + " -> \"" + message + "\"" + "\r\n" + ex.ToString());
+
+            using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
+            using (StreamWriter sw = new StreamWriter(fs))
             {
-                try
-                {
-                    //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
-                    //that has an bunifu control in it(like a button), while there shouldn't be an exception.
-                    if ((ex is System.Runtime.InteropServices.ExternalException) && ex.Source == "System.Drawing" && ex.Message.Contains("GDI+"))
-                        return;
-
-                    
-                    Log("EXCEPTION -> " + ex.GetType().ToString() + " -> \"" + message + "\"" + "\r\n" + ex.ToString());
-
-                    if (sendToOnlineDatabase && HasInternetAccess())
-                    {
-                        BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
-                    }
-                    else
-                    {
-                        //Only write to the errorlog.txt if writing to the database failed, since we insert the errorlog into the database
-                        //at a different time when above doesn't fail
-                        using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
-                        using (StreamWriter sw = new StreamWriter(fs))
-                        {
-                            sw.WriteLine("[" + DateTime.Now + "] - " + message + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine);
-                        }
-                    
-                    }
-                }
-                catch { }
-
-            }).Start();
-           
+                sw.WriteLine("[" + DateTime.Now + "] - " + message + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine);
+            }
         }
 
         public static async Task<JObject> HttpRequest(string method, string uri, string headers = "{ }", string accept = "", string contentType = "", string body = "{ }")
@@ -266,8 +223,7 @@ namespace Business_Logic_Layer
                 Log("Starting " + method + " for " + uri);
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-                request.UserAgent = "RemindMe application";
+                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;                
                 request.Method = method;
 
                 if (!string.IsNullOrWhiteSpace(accept))
@@ -280,7 +236,7 @@ namespace Business_Logic_Layer
                 JObject jsonHeaders = JObject.Parse(headers);
 
                 //Initialize collection
-                WebHeaderCollection headerCollection = new WebHeaderCollection();
+                WebHeaderCollection headerCollection = new WebHeaderCollection();                
                 foreach (var header in jsonHeaders)
                 {
                     if (!WebHeaderCollection.IsRestricted(header.Key))
@@ -291,24 +247,27 @@ namespace Business_Logic_Layer
 
                 //Set the headers
                 request.Headers = headerCollection;
-              
+                request.UserAgent = "RemindMe-application";
+
                 if (method == "POST")
                 {
                     //Add Body
                     byte[] bodyBytes = Encoding.UTF8.GetBytes(body);
-                    request.ContentLength = bodyBytes.Length;
-                    request.GetRequestStream().Write(bodyBytes, 0, bodyBytes.Length);
-                }
-
-
+                    request.ContentLength = bodyBytes.Length;                    
+                    using (var dataStream = request.GetRequestStream())
+                    {
+                        dataStream.Write(bodyBytes, 0, bodyBytes.Length);
+                    }
+                }               
 
                 using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
                 using (Stream stream = response.GetResponseStream())
                 using (StreamReader reader = new StreamReader(stream))
                 {
-                    if (response.StatusCode == HttpStatusCode.OK)
+                    if ((int)response.StatusCode >= 200 && (int)response.StatusCode < 300)
                     {
                         string bod = await reader.ReadToEndAsync();
+                        Log(method + " succeeded with status code " + response.StatusCode.ToString());
                         return (JObject)JsonConvert.DeserializeObject(bod);
                     }
                     else

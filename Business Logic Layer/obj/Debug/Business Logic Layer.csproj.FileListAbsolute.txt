@@ -133,7 +133,18 @@ E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Ac
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Database.Entity.dll
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\HtmlAgilityPack.dll
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\MaterialSkin.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Microsoft.CSharp.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Microsoft.VisualBasic.dll
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Newtonsoft.Json.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.DataSetExtensions.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Drawing.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Management.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Net.Http.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Windows.Forms.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Xml.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Xml.Linq.dll
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.pdb
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Data Access Layer.dll.config
@@ -147,9 +158,23 @@ E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Data.SQLite.dll.config
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.AssemblyReference.cache
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop.WindowsInstaller.dll
-E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop.WMPLib.dll
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.ResolveComReference.cache
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CoreCompileInputs.cache
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.csproj.CopyComplete
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.dll
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Business Logic Layer.pdb
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Vlc.DotNet.Core.Interops.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Microsoft.Win32.Registry.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.Asio.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.Core.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.Midi.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.Wasapi.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.WinForms.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.WinMM.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Security.AccessControl.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Security.Principal.Windows.dll
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Microsoft.Win32.Registry.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Security.AccessControl.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Security.Principal.Windows.xml

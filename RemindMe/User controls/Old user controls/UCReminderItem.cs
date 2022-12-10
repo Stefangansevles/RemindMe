@@ -247,27 +247,6 @@ namespace RemindMe
             previewRem.Id = -1; //give the >temporary< reminder an invalid id, so that the real reminder won't be altered
             Popup p = new Popup(previewRem);
             p.Show();
-            new Thread(() =>
-            {
-                //Log an entry to the database, for data!                
-                try
-                {                    
-                    try
-                    {
-                        BLOnlineDatabase.PreviewCount++;
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        BLIO.Log("Exception at BLOnlineDatabase.PreviewCount++. -> " + ex.Message);
-                        BLIO.WriteError(ex, ex.Message, true);
-                    }
-                }
-                catch (ArgumentException ex)
-                {
-                    BLIO.Log("Exception at BLOnlineDatabase.PreviewCount++. -> " + ex.Message);
-                    BLIO.WriteError(ex, ex.Message, true);
-                }
-            }).Start();
         }
         private Reminder CopyReminder(Reminder rem)
         {
@@ -311,20 +290,6 @@ namespace RemindMe
             BLReminder.PushReminderToDatabase(rem);
             BLIO.Log("reminder duplicated.");
             UCReminders.Instance.UpdateCurrentPage();
-
-            new Thread(() =>
-            {
-                //Log an entry to the database, for data!                
-                try
-                {
-                    BLOnlineDatabase.DuplicateCount++;
-                }
-                catch (ArgumentException ex)
-                {
-                    BLIO.Log("Exception at BLOnlineDatabase.DuplicateCount++. -> " + ex.Message);
-                    BLIO.WriteError(ex, ex.Message, true);
-                }
-            }).Start();
         }
         /// <summary>
         /// When right-clicking reminder(s), this method will hide the skip to next date option if one of the reminder(s) does not have a next date.
@@ -381,20 +346,6 @@ namespace RemindMe
                 BLReminder.EditReminder(rem);
                 this.Reminder = null;
                 UCReminders.Instance.UpdateCurrentPage();
-
-                new Thread(() =>
-                {
-                    //Log an entry to the database, for data!                    
-                    try
-                    {
-                        BLOnlineDatabase.HideCount++;
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        BLIO.Log("Exception at BLOnlineDatabase.HideCount++. -> " + ex.Message);
-                        BLIO.WriteError(ex, ex.Message, true);
-                    }
-                }).Start();
             }
             else
                 BLIO.Log("Attempting to hide reminder(s) failed.");
@@ -439,20 +390,6 @@ namespace RemindMe
             BLReminder.EditReminder(rem);//Push changes
 
             UCReminders.Instance.UpdateCurrentPage();
-
-            new Thread(() =>
-            {
-                //Log an entry to the database, for data!                                
-                try
-                {
-                    BLOnlineDatabase.PostponeCount++;
-                }
-                catch (ArgumentException ex)
-                {
-                    BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
-                    BLIO.WriteError(ex, ex.Message, true);
-                }
-            }).Start();
         }
 
         private void removePostponeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -477,20 +414,6 @@ namespace RemindMe
 
             //Refresh to show changes
             UCReminders.Instance.UpdateCurrentPage();
-
-            new Thread(() =>
-            {
-                //Log an entry to the database, for data!                
-                try
-                {
-                    BLOnlineDatabase.SkipCount++;
-                }
-                catch (ArgumentException ex)
-                {
-                    BLIO.Log("Exception at BLOnlineDatabase.SkipCount++. -> " + ex.Message);
-                    BLIO.WriteError(ex, ex.Message, true);
-                }
-            }).Start();
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -504,20 +427,6 @@ namespace RemindMe
 
                 this.Reminder = null;
                 UCReminders.Instance.UpdateCurrentPage();
-
-                new Thread(() =>
-                {
-                    //Log an entry to the database, for data!                    
-                    try
-                    {
-                        BLOnlineDatabase.PermanentelyDeleteCount++;
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        BLIO.Log("Exception at BLOnlineDatabase.PermanentelyDeleteCount++. -> " + ex.Message);
-                        BLIO.WriteError(ex, ex.Message, true);
-                    }
-                }).Start();
             }
             else
                 BLIO.Log("Permanent deletion of reminder " + rem.Id + " cancelled.");

@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using Business_Logic_Layer;
 using Database.Entity;
 using System.Runtime.InteropServices;
-using WMPLib;
 using System.IO;
 using System.Reflection;
 using System.Globalization;
@@ -29,10 +28,6 @@ namespace RemindMe
 
         //The start playing preview sound icon
         Image imgPlayResume;
-
-        //Used to play a sound
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        IWMPMedia mediaInfo;
 
         private Reminder editableReminder = null;
 
@@ -393,18 +388,9 @@ namespace RemindMe
                             BLIO.Log("selected sound file exists on hard drive (UCNewReminder)");
                             btnPlaySound.Image = imgStop;
 
-                            myPlayer.URL = selectedSong.SongFilePath;
-                            mediaInfo = myPlayer.newMedia(myPlayer.URL);
-
-                            //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
-                            if (mediaInfo.duration > 0)
-                                tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
-                            else
-                                tmrMusic.Interval = 1000;
+                            int duration = BLIO.PlaySound(selectedSong.SongFilePath);
+                            tmrMusic.Interval = duration;
                             tmrMusic.Start();
-
-                            BLIO.Log("Playing sound... (UCNewReminder)");
-                            myPlayer.controls.play();
                         }
                         else
                         {
@@ -434,7 +420,7 @@ namespace RemindMe
                 else
                 {
                     btnPlaySound.Image = imgPlayResume;
-                    myPlayer.controls.stop();
+                    BLIO.StopSound();
                     tmrMusic.Stop();
                 }
             }
@@ -1081,20 +1067,6 @@ namespace RemindMe
                     else
                         remId = BLReminder.InsertReminder(tbReminderName.Text, Convert.ToDateTime(dtpDate.Value.ToShortDateString() + " " + dtpTime.Value.ToShortTimeString()).ToString(), repeat.ToString(), null, null, tbNote.Text.Replace(Environment.NewLine, "\\n"), true, soundPath, Convert.ToInt32(swUpdateTime.Value));
 
-
-                    new Thread(() =>
-                    {
-                        //Log an entry to the database, for data!
-                        try
-                        {
-                            BLOnlineDatabase.RemindersCreated++;
-                        }
-                        catch(ArgumentException ex)
-                        {
-                            BLIO.Log("Exception at BLOnlineDatabase.RemindersCreated++. -> " + ex.Message);
-                            BLIO.WriteError(ex, ex.Message, true);
-                        }
-                    }).Start();
                     BLIO.Log("New reminder succesfully created! (UCNewReminder)");
                 }
                 else
@@ -1414,11 +1386,8 @@ namespace RemindMe
         {
             BLIO.Log("User pressed back (UCNewReminder)");            
             btnPlaySound.Image = imgPlayResume;
-                                    
-            if(myPlayer.controls.currentPosition != 0)
-                BLIO.Log("stopping music");
 
-            myPlayer.controls.stop();
+            BLIO.StopSound();
             tmrMusic.Stop();
 
             //Refresh listview with the newly made reminder                        
@@ -1545,7 +1514,7 @@ namespace RemindMe
                     //Fill selectedFiles with the selected files AND the current files, 
                     //and check if it is not already in the list
 
-                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.ogg; *.3gp; *.aac; *.flac; *.webm; *.aiff; *.wma; *.alac;").ToList();
+                    List<string> selectedFiles = FSManager.Files.GetSelectedFilesWithPath("Sound files", "*.mp3; *.wav; *.aiff;").ToList();
 
                     if (selectedFiles.Count == 1 && selectedFiles[0] == "")
                         return;

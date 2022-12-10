@@ -17,7 +17,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WMPLib;
 using TheArtOfDev.HtmlRenderer.WinForms;
 using Newtonsoft.Json.Linq;
 
@@ -25,9 +24,7 @@ namespace RemindMe
 {
     public partial class MaterialPopup : MaterialForm
     {
-        private Reminder rem;
-        //Used to play a sound
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
+        private Reminder rem;        
         private bool xClose = true;
         private HtmlLabel htmlLblText = new HtmlLabel();        
         public MaterialPopup(Reminder rem)
@@ -423,17 +420,15 @@ namespace RemindMe
             //Play the sound
             if (rem.SoundFilePath != null && rem.SoundFilePath != "")
             {
-
-                if (System.IO.File.Exists(rem.SoundFilePath))
-                {
+                if (File.Exists(rem.SoundFilePath))
+                {                    
                     BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
-                    myPlayer.URL = rem.SoundFilePath;
+                    int volume = 100;
 
                     if (rem.Id == -1) //timer, set the volume set by the user
-                        myPlayer.settings.volume = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
-
-                    myPlayer.controls.play();
-                    BLIO.Log("Playing sound");
+                        volume = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
+                    
+                    BLIO.PlaySound(rem.SoundFilePath, volume);                    
                 }
                 else
                 {
@@ -541,19 +536,6 @@ namespace RemindMe
                     BLIO.Log("Postpone date assigned to reminder");
                     rem.Enabled = 1;
                     BLReminder.EditReminder(rem);
-                    new Thread(() =>
-                    {
-                        //Log an entry to the database, for data!                                                    
-                        try
-                        {
-                            BLOnlineDatabase.PostponeCount++;
-                        }
-                        catch (ArgumentException ex)
-                        {
-                            BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
-                            BLIO.WriteError(ex, ex.Message, true);
-                        }
-                    }).Start();
                     BLIO.Log("Reminder postponed!");
                 }
                 else
@@ -567,9 +549,9 @@ namespace RemindMe
             MUCReminders.Instance.UpdateCurrentPage(rem);
             BLIO.Log("Stopping media player & Closing popup");
 
-            if (BLLocalDatabase.Setting.Settings.PopupType != "SoundOnly")
-                myPlayer.controls.stop();
-            
+            if (rem.Id != -1 && BLLocalDatabase.Setting.Settings.PopupType != "SoundOnly")
+                BLIO.StopSound();
+
             this.Close();
 
             GC.Collect();
@@ -662,7 +644,7 @@ namespace RemindMe
         close:
             MUCReminders.Instance.UpdateCurrentPage();
             BLIO.Log("Stopping media player & Closing popup");
-            myPlayer.controls.stop();
+            BLIO.StopSound();
             this.Close();
 
             GC.Collect();

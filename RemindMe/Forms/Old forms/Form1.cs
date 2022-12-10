@@ -195,7 +195,6 @@ namespace RemindMe
                     {
                         Thread.Sleep(5000);
                         BLIO.Log("Trying to update user after PC Sleep...");
-                        BLOnlineDatabase.InsertOrUpdateUser(BLLocalDatabase.Setting.Settings.UniqueString);
                         BLIO.Log("User updated.");
                     });
                     t.Start();                    
@@ -317,24 +316,6 @@ namespace RemindMe
                     RemindMeMessageFormManager.MakeMessagePopup(BLReminder.GetReminders().Count - currentReminderCount + " Reminder(s) succesfully imported!", 3);
                     BLIO.Log("Created reminders succesfully imported message popup (WndProc)");
                 }
-
-                if ((BLReminder.GetReminders().Count - currentReminderCount) > 0)
-                {
-                    new Thread(() =>
-                    {
-                        //Log an entry to the database, for data!                                                
-                        try
-                        {
-                            BLOnlineDatabase.ImportCount++;
-                        }
-                        catch (ArgumentException ex)
-                        {
-                            BLIO.Log("Exception at BLOnlineDatabase.ImportCount++ Form1.cs . -> " + ex.Message);
-                            BLIO.WriteError(ex, ex.Message, true);
-                        }
-                    }).Start();
-                }
-
             }
 
             base.WndProc(ref m);
@@ -426,9 +407,6 @@ namespace RemindMe
                 if (Path.GetDirectoryName(Application.ExecutablePath).EndsWith("\\Debug"))
                     lblVersion.Text += " - DEV BUILD";
 
-                //set unique user string            
-                BLIO.WriteUniqueString();
-
                 //Default view should be reminders
                 pnlMain.Controls.Add(ucReminders);
 
@@ -472,7 +450,6 @@ namespace RemindMe
                     //wait a bit, then call the update timer once. It then runs every 5 minutes
                     Thread.Sleep(5000);
                     tmrUpdateRemindMe_Tick(null, null);
-                    BLOnlineDatabase.InsertOrUpdateUser(set.UniqueString);
 
                     if (set.LastVersion == null)
                         set.LastVersion = IOVariables.RemindMeVersion;
@@ -501,7 +478,6 @@ namespace RemindMe
             catch (Exception ex)
             {
                 BLIO.Log("Exception in formLoadAsync() -> " + ex.GetType().ToString());
-                BLOnlineDatabase.AddException(ex, DateTime.Now, IOVariables.systemLog);
             }
 
             
@@ -803,69 +779,12 @@ namespace RemindMe
         
         private void tmrCheckRemindMeMessages_Tick(object sender, EventArgs e)
         {
-            new Thread(() =>
-            {
-                try
-                {                    
-                    //Check for messages sent by me every minute
-                    foreach (RemindMeMessages message in BLOnlineDatabase.RemindMeMessages)
-                    {
-                        //first, check if this user has already read this message.
-                        if (BLLocalDatabase.ReadMessage.Messages.Where(m => m.ReadMessageId == message.Id).Count() == 0)
-                        {
-                            this.BeginInvoke(new MethodInvoker(delegate //This is required to show windows forms (the messages) on a new thread
-                            {
-                                BLIO.Log("RemindMe detected an unread message!");
-                            //User hasn't read it yet. great! Mark the message as read
-                            BLLocalDatabase.ReadMessage.MarkMessageRead(message);
-                                BLIO.Log("Message marked as read.");
-                                
-                                if (!string.IsNullOrWhiteSpace(message.MeantForSpecificPerson))
-                                {
-                                    BLIO.Log("This message is specifically for me!");
-                                //This message is meant for a specific user.
-
-                                if (BLLocalDatabase.Setting.Settings.UniqueString == message.MeantForSpecificPerson)
-                                        PopupRemindMeMessage(message);
-
-                                }
-                                else if (!string.IsNullOrWhiteSpace(message.MeantForSpecificVersion))
-                                {
-                                    BLIO.Log("This message is specifically for the currently running RemindMe version (" + message.MeantForSpecificVersion + ")");
-                                //This message is meant for a specific RemindMe version. Only show this message if the user: Hasn't read this message AND: has this RemindMe version
-                                if (IOVariables.RemindMeVersion == message.MeantForSpecificVersion)
-                                    {
-                                    //Show the message
-                                    PopupRemindMeMessage(message);
-                                    }
-                                }
-                                else
-                                {
-                                    BLIO.Log("This is a global message. creating popup...");
-                                //A global message, not meant for a specific RemindMe version nor user
-                                PopupRemindMeMessage(message);
-                                    BLIO.Log("popup created");
-                                }
-
-                            }));
-                        }
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    BLIO.Log("CheckRemindMeMessages FAILED. " + ex.GetType().ToString());
-                    BLIO.WriteError(ex, "Error in tmrCheckRemindMeMessages_Tick");
-                }
-            }).Start();
-            
         }
 
         private void PopupRemindMeMessage(RemindMeMessages mess)
         {
             //Update the counter on the message
             BLIO.Log("Attempting to update an message with id " + mess.Id);
-            BLOnlineDatabase.UpdateRemindMeMessageCount(mess.Id);
 
             switch (mess.NotificationType)
             {
@@ -880,19 +799,6 @@ namespace RemindMe
 
         private void tmrPingActivity_Tick(object sender, EventArgs e)
         {
-            try
-            {
-                if (BLIO.LastLogMessage != null && !BLIO.LastLogMessage.Contains("Updating user"))
-                    BLIO.Log("Pinging online status");
-
-                //Update LastOnline
-                BLOnlineDatabase.InsertOrUpdateUser(BLLocalDatabase.Setting.Settings.UniqueString);
-            }
-            catch (Exception ex)
-            {
-                BLIO.Log("PingActivity FAILED. " + ex.GetType().ToString());
-                BLIO.WriteError(ex, "Error in tmrPingActivity_Tick");
-            }
         }     
 
         int currentLogCount = 0;
@@ -912,17 +818,7 @@ namespace RemindMe
 
         private void tmrEnableDatabaseAccess_Tick(object sender, EventArgs e)
         {
-            try
-            {
-                //If we could not connect to the database, the Data Access Layer will no longer try to connect to the database again. 
-                //This timer will re-enable this every 10 minutes, just in case the database is no longer available. Then, if it is available again, continue as usual.
-                BLOnlineDatabase.ReAllowDatabaseAccess();
-            }
-            catch (Exception ex)
-            {
-                BLIO.Log("EnableDatabaseAccess FAILED. " + ex.GetType().ToString());
-                BLIO.WriteError(ex, "Error in tmrEnableDatabaseAccess_Tick");
-            }
+         
         }
 
         private void restartRemindMeUpdateToolStripMenuItem_Click(object sender, EventArgs e)

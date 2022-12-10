@@ -100,7 +100,8 @@ namespace RemindMe
             releaseNotes.Add("3.1.06", "- You can now change the volume of the timer sound effect by going into the settings(where you set the timer sound effect)\r\n- Fixed the popup location of the RemindMe prompt & changed the popup location for the Timer popup if RemindMe is visible");
             releaseNotes.Add("3.1.07", "MissingMethod error fix");
             releaseNotes.Add("3.1.08", "New Popup type for reminders in settings: Sound Only. Reminders will not pop-up and instead only play their selected sound if you select this option in the settings.");
-            releaseNotes.Add("3.1.12", "- Added support for .ics files");
+            releaseNotes.Add("3.1.12", "Added support for .ics files");
+            releaseNotes.Add("3.1.13", "Windows Media Player is no longer required. RemindMe will no longer crash if you attempt to launch it without having WMP installed on your device.");
         }
 
         public static Dictionary<string,string> ReleaseNotes

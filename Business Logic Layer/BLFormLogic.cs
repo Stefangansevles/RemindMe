@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Data_Access_Layer;
-using WMPLib;
 using System.Drawing;
 using MaterialSkin.Controls;
 using System.Drawing.Imaging;
@@ -13,10 +11,7 @@ namespace Business_Logic_Layer
 {
     public class BLFormLogic
     {
-        private BLFormLogic() { }
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        
-
+        private BLFormLogic() { }                
         /// <summary>
         /// Adds an reminder to the listview, showing the details of that reminder.
         /// </summary>

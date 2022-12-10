@@ -26,9 +26,9 @@ namespace RemindMe
         private void btnOpenErrorPrompt_Click(object sender, EventArgs e)
         {
             BLIO.Log("btnOpenErrorPrompt_Click");
-            string text = MaterialRemindMePrompt.ShowText("Enter a message");
-            MaterialExceptionPopup pop = new MaterialExceptionPopup(new ReminderException("Test", null), text);
-            pop.Show();
+            //string text = MaterialRemindMePrompt.ShowText("Enter a message");
+            //MaterialExceptionPopup pop = new MaterialExceptionPopup(new ReminderException("Test", null), text);
+            //pop.Show();
         }
 
         private void btnAppdataFolder_Click(object sender, EventArgs e)

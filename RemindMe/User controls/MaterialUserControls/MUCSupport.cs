@@ -44,7 +44,6 @@ namespace RemindMe
                 string subject = tbSubject.Text;
                 string note = tbNote.Text;
 
-                BLOnlineDatabase.InsertEmailAttempt(BLLocalDatabase.Setting.Settings.UniqueString, note, subject, email);
                 MaterialMessageFormManager.MakeMessagePopup("Feedback Sent. Thank you!", 5);
                 tbEmail.Text = "";
                 tbSubject.Text = "";

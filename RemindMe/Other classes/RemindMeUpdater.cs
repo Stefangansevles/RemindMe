@@ -39,9 +39,9 @@ namespace RemindMe
                     //Download the updated files
                     DownloadFile("https://github.com/Stefangansevles/RemindMe/raw/master/Update/UpdateFiles.zip", IOVariables.rootFolder + "UpdateFiles.zip");
 
-                    ZipFile zip = new ZipFile(IOVariables.rootFolder + "UpdateFiles.zip");
+                    Ionic.Zip.ZipFile zip = new Ionic.Zip.ZipFile(IOVariables.rootFolder + "UpdateFiles.zip");
                     
-                    if (zip == null || !ZipFile.IsZipFile(IOVariables.rootFolder + "UpdateFiles.zip"))
+                    if (zip == null || !Ionic.Zip.ZipFile.IsZipFile(IOVariables.rootFolder + "UpdateFiles.zip"))
                     {
                         BLIO.Log("UpdateRemindMe ABORTED. Zip is null or invalid.");
                         return;

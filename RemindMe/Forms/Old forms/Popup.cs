@@ -11,15 +11,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WMPLib;
 
 namespace RemindMe
 {
     public partial class Popup : Form
     {
-        private Reminder rem;
-        //Used to play a sound
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
+        private Reminder rem;                
         
         public Popup(Reminder rem)
         {
@@ -156,9 +153,7 @@ namespace RemindMe
                     if (System.IO.File.Exists(rem.SoundFilePath))
                     {
                         BLIO.Log("SoundFilePath not null / empty and exists on the hard drive!");
-                        myPlayer.URL = rem.SoundFilePath;
-                        myPlayer.controls.play();
-                        BLIO.Log("Playing sound");
+                        BLIO.PlaySound(rem.SoundFilePath);                                                                        
                     }
                     else
                     {
@@ -291,19 +286,6 @@ namespace RemindMe
                     BLIO.Log("Postpone date assigned to reminder");
                     rem.Enabled = 1;
                     BLReminder.EditReminder(rem);
-                    new Thread(() =>
-                    {
-                        //Log an entry to the database, for data!                                                    
-                        try
-                        {
-                            BLOnlineDatabase.PostponeCount++;
-                        }
-                        catch (ArgumentException ex)
-                        {
-                            BLIO.Log("Exception at BLOnlineDatabase.PostponeCount++. -> " + ex.Message);
-                            BLIO.WriteError(ex, ex.Message, true);
-                        }
-                    }).Start();
                     BLIO.Log("Reminder postponed!");
                 }
                 else
@@ -316,7 +298,7 @@ namespace RemindMe
             close:
             UCReminders.Instance.UpdateCurrentPage();
             BLIO.Log("Stopping media player & Closing popup");
-            myPlayer.controls.stop();
+            BLIO.StopSound();
             btnOk.Enabled = false;
             this.Close();
         }

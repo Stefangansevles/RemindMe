@@ -10,17 +10,12 @@ using System.Windows.Forms;
 using Business_Logic_Layer;
 using Database.Entity;
 using System.IO;
-using WMPLib;
 
 namespace RemindMe
 {
     public partial class MUCSettings : UserControl
     {
-        private string popupType = "AlwaysOnTop";
-
-        //Used to play a sound
-        private static WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-        IWMPMedia mediaInfo;
+        private string popupType = "AlwaysOnTop";        
 
         //The stop playing preview sound icon
         Image imgStop;
@@ -307,7 +302,7 @@ namespace RemindMe
             if (btnPreviewSong.Icon == imgStop)
             {
                 btnPreviewSong.Icon = imgPlayResume;
-                myPlayer.controls.stop();                
+                BLIO.StopSound();
                 tmrMusic.Stop();
                 return;
             }
@@ -319,21 +314,9 @@ namespace RemindMe
                 //Set the image to "Stop", since we're going to play a song. Give the user the option to stop it
                 btnPreviewSong.Icon = imgStop;
 
-                //Give the player the path to the file
-                myPlayer.URL = selectedSong.SongFilePath;
-                //Get media info so we know when the song ends
-                mediaInfo = myPlayer.newMedia(myPlayer.URL);
-                
-                //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
-                if (mediaInfo.duration > 0)
-                    tmrMusic.Interval = (int)(mediaInfo.duration * 1000);
-                else
-                    tmrMusic.Interval = 1000;
-                tmrMusic.Start();
-
-                BLIO.Log("Playing sound... (MUCSettings)");
-                myPlayer.controls.play();
-                myPlayer.settings.volume = trbVolume.Value;
+                int duration = BLIO.PlaySound(selectedSong.SongFilePath, trbVolume.Value);
+                tmrMusic.Interval = duration;
+                tmrMusic.Start();                
             }
         }
 

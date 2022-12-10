@@ -43,7 +43,6 @@
             this.tabDebug = new System.Windows.Forms.TabPage();
             this.drawerIconsList = new System.Windows.Forms.ImageList(this.components);
             this.tmrInitialHide = new System.Windows.Forms.Timer(this.components);
-            this.tmrCheckRemindMeMessages = new System.Windows.Forms.Timer(this.components);
             this.tmrDumpLogTxtContents = new System.Windows.Forms.Timer(this.components);
             this.tmrEnableDatabaseAccess = new System.Windows.Forms.Timer(this.components);
             this.tmrUpdateRemindMe = new System.Windows.Forms.Timer(this.components);
@@ -208,11 +207,6 @@
             this.tmrInitialHide.Interval = 1000;
             this.tmrInitialHide.Tick += new System.EventHandler(this.tmrInitialHide_Tick);
             // 
-            // tmrCheckRemindMeMessages
-            // 
-            this.tmrCheckRemindMeMessages.Interval = 5000;
-            this.tmrCheckRemindMeMessages.Tick += new System.EventHandler(this.tmrCheckRemindMeMessages_Tick);
-            // 
             // tmrDumpLogTxtContents
             // 
             this.tmrDumpLogTxtContents.Interval = 10000;
@@ -261,7 +255,7 @@
             this.showRemindMeToolStripMenuItem1});
             this.RemindMeTrayIconMenuStrip.MouseState = MaterialSkin.MouseState.HOVER;
             this.RemindMeTrayIconMenuStrip.Name = "materialContextMenuStrip1";
-            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(232, 92);
+            this.RemindMeTrayIconMenuStrip.Size = new System.Drawing.Size(232, 70);
             // 
             // restartRemindMeUpdateToolStripMenuItem1
             // 
@@ -321,7 +315,6 @@
         #endregion
         private System.Windows.Forms.ImageList drawerIconsList;
         private System.Windows.Forms.Timer tmrInitialHide;
-        private System.Windows.Forms.Timer tmrCheckRemindMeMessages;
         private System.Windows.Forms.Timer tmrDumpLogTxtContents;
         private System.Windows.Forms.Timer tmrEnableDatabaseAccess;
         private System.Windows.Forms.Timer tmrDebugMode;
