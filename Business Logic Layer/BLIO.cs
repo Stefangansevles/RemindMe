@@ -279,7 +279,7 @@ namespace Business_Logic_Layer
             }
             catch (Exception ex)
             {
-                Log(method + " [ " + uri + " ] Failed! Exception " + ex.GetType().ToString());
+                Log(method + " [ " + uri + " ] Failed! Exception " + ex.GetType().ToString() + " - " + ex.ToString());
                 return null;
             }
         }             
