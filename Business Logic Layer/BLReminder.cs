@@ -949,8 +949,8 @@ namespace Business_Logic_Layer
                 case "WORKDAYS": return "Work days";
                 case "NONE": return "No repeat";
                 case "CONDITIONAL":
-                    HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(rem.Id);
-                    if (req.AfterPopup == "Stop")
+                    HttpRequests req = BLLocalDatabase.HttpRequest.GetHttpRequestById(rem.Id);                    
+                    if (req == null || req.AfterPopup == "Stop")
                         return "No repeat";
                     else if (req.AfterPopup == "Repeat")
                         return "Interval";

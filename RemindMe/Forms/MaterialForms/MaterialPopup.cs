@@ -270,13 +270,11 @@ namespace RemindMe
             try
             {                            
                 BLIO.Log("Popup_load");
-
+                PlayReminderSound();
                 if (BLLocalDatabase.Setting.Settings.PopupType == "SoundOnly")
                 {
-                    //Dont initialize, just play sound                    
-                    PlayReminderSound();
-
-                    if (rem.Id != -1) //Dont stop logic when the user is previewing an reminder
+                    //Dont initialize, just play sound                                        
+                    if (rem.Id != -1)
                     {
                         btnOk_Click(sender, e);
                         return;
@@ -374,9 +372,7 @@ namespace RemindMe
                 {
                     pbRepeat.Location = new Point(pbRepeat.Location.X + 5, pbRepeat.Location.Y);
                     lblRepeat.Location = new Point(lblRepeat.Location.X + 5, lblRepeat.Location.Y);
-                }
-
-                PlayReminderSound();
+                }                
 
                 FlashWindowHelper.Start(this);
                 //this.MaximumSize = this.Size;
@@ -548,9 +544,7 @@ namespace RemindMe
             close:
             MUCReminders.Instance.UpdateCurrentPage(rem);
             BLIO.Log("Stopping media player & Closing popup");
-
-            if (rem.Id != -1 && BLLocalDatabase.Setting.Settings.PopupType != "SoundOnly")
-                BLIO.StopSound();
+            BLIO.StopSound();
 
             this.Close();
 

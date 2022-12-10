@@ -349,3 +349,4 @@ E:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\Microsoft.Win32.Reg
 E:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\NAudio.xml
 E:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Security.AccessControl.xml
 E:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\bin\Debug\System.Security.Principal.Windows.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\RemindMe\obj\Debug\Interop.WMPLib.dll

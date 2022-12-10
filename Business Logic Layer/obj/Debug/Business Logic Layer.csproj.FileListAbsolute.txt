@@ -178,3 +178,4 @@ E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\Microso
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\NAudio.xml
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Security.AccessControl.xml
 E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\bin\Debug\System.Security.Principal.Windows.xml
+E:\Users\rs\Documents\[C#] RemindMe (git)\Business Logic Layer\obj\Debug\Interop.WMPLib.dll
