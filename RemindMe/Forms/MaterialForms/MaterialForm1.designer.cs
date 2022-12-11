@@ -37,7 +37,6 @@
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.tabSoundEffects = new System.Windows.Forms.TabPage();
             this.tabResizePopup = new System.Windows.Forms.TabPage();
-            this.tabMessageCenter = new System.Windows.Forms.TabPage();
             this.tabTheme = new System.Windows.Forms.TabPage();
             this.tabInfo = new System.Windows.Forms.TabPage();
             this.tabDebug = new System.Windows.Forms.TabPage();
@@ -68,7 +67,6 @@
             this.mainTabControl.Controls.Add(this.tabSettings);
             this.mainTabControl.Controls.Add(this.tabSoundEffects);
             this.mainTabControl.Controls.Add(this.tabResizePopup);
-            this.mainTabControl.Controls.Add(this.tabMessageCenter);
             this.mainTabControl.Controls.Add(this.tabTheme);
             this.mainTabControl.Controls.Add(this.tabInfo);
             this.mainTabControl.Controls.Add(this.tabDebug);
@@ -144,16 +142,6 @@
             this.tabResizePopup.TabIndex = 5;
             this.tabResizePopup.Text = "Resize popup";
             this.tabResizePopup.UseVisualStyleBackColor = true;
-            // 
-            // tabMessageCenter
-            // 
-            this.tabMessageCenter.ImageKey = "icons8-sent-24.png";
-            this.tabMessageCenter.Location = new System.Drawing.Point(4, 27);
-            this.tabMessageCenter.Name = "tabMessageCenter";
-            this.tabMessageCenter.Size = new System.Drawing.Size(830, 471);
-            this.tabMessageCenter.TabIndex = 6;
-            this.tabMessageCenter.Text = "Message center";
-            this.tabMessageCenter.UseVisualStyleBackColor = true;
             // 
             // tabTheme
             // 
@@ -328,7 +316,6 @@
         public System.Windows.Forms.TabPage tabSettings;
         public System.Windows.Forms.TabPage tabSoundEffects;
         public System.Windows.Forms.TabPage tabResizePopup;
-        public System.Windows.Forms.TabPage tabMessageCenter;
         public System.Windows.Forms.TabPage tabTheme;
         public System.Windows.Forms.TabPage tabDebug;
         private MaterialSkin.Controls.MaterialContextMenuStrip RemindMeTrayIconMenuStrip;

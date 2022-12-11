@@ -79,12 +79,26 @@ namespace Business_Logic_Layer
 
         public static void StopSound()
         {
-            if(CurrentReader != null)
+            try
             {
-                CurrentReader.Stop();
-                CurrentReader.Dispose();
+                if (CurrentReader != null)
+                {
+                    CurrentReader.Stop();
+                    CurrentReader.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteError(ex, "Stopping sound file failed?");
             }
         }
+
+        /// <summary>
+        /// Plays a sound
+        /// </summary>
+        /// <param name="path">Path to the audio file</param>
+        /// <param name="volume">Volume level 0-100</param>
+        /// <returns>Returns the duration of the audio file in miliseconds</returns>
         public static int PlaySound(string path, int volume = 100)
         {            
             var waveOut = new WaveOut();

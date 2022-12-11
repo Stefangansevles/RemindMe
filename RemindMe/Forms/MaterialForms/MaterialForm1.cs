@@ -53,8 +53,7 @@ namespace RemindMe
         public  MUCTimer timer;
         private MUCImportExport importExport;
         private MUCSound sound;
-        private MUCResizePopup popup;
-        private MUCSupport support;
+        private MUCResizePopup popup;        
         private MUCDebugMode debug;
         private MUCNewReminder newReminder;
         private MUCInfo info;
@@ -234,7 +233,6 @@ namespace RemindMe
             importExport = new MUCImportExport();
             sound = new MUCSound();
             popup = new MUCResizePopup();
-            support = new MUCSupport();
             debug = new MUCDebugMode();
             newReminder = new MUCNewReminder(reminders);
             
@@ -251,7 +249,6 @@ namespace RemindMe
             tabBackupImport.Controls.Add(importExport);
             tabSoundEffects.Controls.Add(sound);
             tabResizePopup.Controls.Add(popup);
-            tabMessageCenter.Controls.Add(support);
             tabDebug.Controls.Add(debug);
             tabInfo.Controls.Add(info);
 

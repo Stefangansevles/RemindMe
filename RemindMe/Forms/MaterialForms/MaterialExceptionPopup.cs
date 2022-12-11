@@ -126,11 +126,13 @@ namespace RemindMe
                 string textBoxText = tbFeedback.Text; //Cant access tbNote in a thread. save the text in a variable instead
 
                 if (string.IsNullOrWhiteSpace(textBoxText) || tbFeedback.ForeColor == Color.Gray)
+                {
                     textBoxText = "NONE_SET";
-                
-
-                if (textBoxText != null)
+                } 
+                else
+                {
                     MaterialMessageFormManager.MakeMessagePopup("Feedback sent.\r\nThank you for taking the time!", 5);
+                }
 
                 //Set this boolean to true so that when this popup closes, we won't try to add another db entry
                 customFeedback = true;
@@ -204,7 +206,7 @@ namespace RemindMe
                 headers,
                 "application/vnd.github+json",
                 "application/json",
-                "{\r\n    \"title\": "+ title + ",\r\n    \"body\":" + body +",\r\n    \"labels\": [\r\n        \"bug\"\r\n    ]\r\n}"
+                "{\r\n    \"title\": "+ title + ",\r\n    \"body\":" + body + ",\r\n    \"labels\": [\r\n        \"bug\"\r\n    ], \"assignees\": [\r\n        \"Stefangansevles\"\r\n    ]\r\n}"
                 );
 
             return resp != null;

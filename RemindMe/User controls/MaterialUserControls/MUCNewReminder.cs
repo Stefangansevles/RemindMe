@@ -426,14 +426,17 @@ namespace RemindMe
                     {
                         if (File.Exists(selectedSong.SongFilePath))
                         {
-                            BLIO.Log("selected sound file exists on hard drive (MUCNewReminder)");
-                            btnPlaySound.Icon = imgStop;
-
+                            BLIO.Log("selected sound file exists on hard drive (MUCNewReminder)");                            
                             int duration = BLIO.PlaySound(selectedSong.SongFilePath);
+                            if (duration == -1)
+                            {
+                                MaterialMessageFormManager.MakeMessagePopup($"Could not preview the selected song. This type of file({Path.GetExtension(selectedSong.SongFilePath)}) is not supported.", 4);
+                                return;
+                            }
 
+                            btnPlaySound.Icon = imgStop;
                             //Start the timer. the timer ticks when the song ends. The timer will then reset the picture of the play button                        
                             tmrMusic.Interval = duration;
-
                             tmrMusic.Start();                                                        
                         }
                         else

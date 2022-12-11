@@ -102,6 +102,7 @@ namespace RemindMe
             releaseNotes.Add("3.1.08", "New Popup type for reminders in settings: Sound Only. Reminders will not pop-up and instead only play their selected sound if you select this option in the settings.");
             releaseNotes.Add("3.1.12", "Added support for .ics files");
             releaseNotes.Add("3.1.13", "Windows Media Player is no longer required. RemindMe will no longer crash if you attempt to launch it without having WMP installed on your device.");
+            releaseNotes.Add("3.1.16", "Fixed some issues causing errors");
         }
 
         public static Dictionary<string,string> ReleaseNotes

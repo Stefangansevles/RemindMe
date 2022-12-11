@@ -148,10 +148,16 @@ namespace RemindMe
                 {
                     if (System.IO.File.Exists(selectedSong.SongFilePath))
                     {
-                        BLIO.Log("Sound file exists on the hard drive");
-                        btnPreview.Icon = imgStop;
+                        BLIO.Log("Sound file exists on the hard drive");                        
 
                         int duration = BLIO.PlaySound(selectedSong.SongFilePath);
+                        if(duration == -1)
+                        {
+                            MaterialMessageFormManager.MakeMessagePopup($"Could not preview the selected song. This type of file({Path.GetExtension(selectedSong.SongFilePath)}) is not supported.", 4);
+                            return;
+                        }
+
+                        btnPreview.Icon = imgStop;
                         tmrMusic.Interval = duration;
                         tmrMusic.Start();
                     }

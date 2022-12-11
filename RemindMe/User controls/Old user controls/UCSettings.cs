@@ -288,9 +288,15 @@ namespace RemindMe
             {
                 BLIO.Log("selected sound file exists on hard drive (UCsettings)");
                 //Set the image to "Stop", since we're going to play a song. Give the user the option to stop it
-                btnPreviewSong.Image = imgStop;
+
 
                 int duration = BLIO.PlaySound(selectedSong.SongFilePath);
+                if (duration == -1)
+                {
+                    RemindMeMessageFormManager.MakeMessagePopup($"Could not preview the selected song. This type of file({Path.GetExtension(selectedSong.SongFilePath)}) is not supported.", 4);
+                    return;
+                }
+                btnPreviewSong.Image = imgStop;
                 tmrMusic.Interval = duration;
                 tmrMusic.Start();
             }
