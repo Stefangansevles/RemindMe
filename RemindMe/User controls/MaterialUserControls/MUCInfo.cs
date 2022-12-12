@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing.Text;
+using Business_Logic_Layer;
 
 namespace RemindMe
 {
@@ -16,13 +17,20 @@ namespace RemindMe
     {
         public MUCInfo()
         {
-            InitializeComponent();
-            AddFont(Properties.Resources.Roboto_Medium);
-            lblVersion.Text += IOVariables.RemindMeVersion;
+            try
+            {
+                InitializeComponent();
+                AddFont(Properties.Resources.Roboto_Medium);
+                lblVersion.Text += IOVariables.RemindMeVersion;
 
-            MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += MaterialSkinManager_ThemeChanged;
+                MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += MaterialSkinManager_ThemeChanged;
 
-            lblPreviousVersions.Font = new Font(pfc.Families[0], 14, FontStyle.Bold, GraphicsUnit.Pixel);
+                lblPreviousVersions.Font = new Font(pfc.Families[0], 14, FontStyle.Bold, GraphicsUnit.Pixel);
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCInfo failed!");
+            }
         }
 
         private void MaterialSkinManager_ThemeChanged(object sender)

@@ -19,7 +19,14 @@ namespace RemindMe
         private Image imgStop = Properties.Resources.Stop;
         public MUCSound()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCSound failed!");
+            }            
         }
 
 
@@ -46,24 +53,38 @@ namespace RemindMe
         }
         private void LoadSongs()
         {
-            lvSoundFiles.Items.Clear();
-            List<Songs> songs = BLLocalDatabase.Song.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").ToList();
-            songs = songs.OrderBy(s => s.SongFilePath).ToList();
-            if (songs != null && songs.Count > 0)
+            try
             {
-
-                foreach (Songs sng in songs)
+                lvSoundFiles.Items.Clear();
+                List<Songs> songs = BLLocalDatabase.Song.GetSongs().Where(s => Path.GetDirectoryName(s.SongFilePath).ToLower() != "c:\\windows\\media").ToList();
+                songs = songs.OrderBy(s => s.SongFilePath).ToList();
+                if (songs != null && songs.Count > 0)
                 {
-                    ListViewItem item = new ListViewItem(sng.SongFilePath);
-                    item.Tag = sng.Id;
-                    lvSoundFiles.Items.Add(item);
+
+                    foreach (Songs sng in songs)
+                    {
+                        ListViewItem item = new ListViewItem(sng.SongFilePath);
+                        item.Tag = sng.Id;
+                        lvSoundFiles.Items.Add(item);
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                BLIO.WriteError(ex, "Loading songs failed");
             }
         }
         private void MUCSound_Load(object sender, EventArgs e)
         {
-            LoadSongs();
-            btnPreview.Icon = imgPlay;
+            try
+            {
+                LoadSongs();
+                btnPreview.Icon = imgPlay;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCSound Load failed!");
+            }
         }
 
         private bool ListViewContains(string songPath)

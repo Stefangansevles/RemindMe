@@ -46,44 +46,51 @@ namespace RemindMe
         /// <param name="callback">The usercontrol you should go back to when pressing the back button from MUCNewReminder</param>
         public MUCNewReminder(UserControl callback)
         {
-            InitializeComponent();
-
-            
-
-            this.callback = callback;
-
-            FillSoundComboboxFromDatabase(cbSound);
-
-            //Causes massive performance issues with the drawer :(
-            MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += Instance_ThemeChanged;
-
-            imgStop = Properties.Resources.Stop;
-            imgPlayResume = Properties.Resources.Play;
-
-            btnPlaySound.Icon = imgPlayResume;
-
-            //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will fire
-            cbMonday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbTuesday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbWednesday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbThursday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbFriday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbSaturday.CheckedChanged += cbDaysCheckedChangeEvent;
-            cbSunday.CheckedChanged += cbDaysCheckedChangeEvent;
-
-            rbDaily.CheckedChanged += rbCheckedChangeEvent;
-            rbMonthly.CheckedChanged += rbCheckedChangeEvent;
-            rbWeekDays.CheckedChanged += rbCheckedChangeEvent;
-            rbNoRepeat.CheckedChanged += rbCheckedChangeEvent;
-            rbCustom.CheckedChanged += rbCheckedChangeEvent;
-            rbWorkDays.CheckedChanged += rbCheckedChangeEvent;
+            try
+            {
+                InitializeComponent();
 
 
-            numEveryXDays.KeyDown += numericOnly_KeyDown;
-            numEveryXDays.KeyPress += numericOnly_KeyPress;
+
+                this.callback = callback;
+
+                FillSoundComboboxFromDatabase(cbSound);
+
+                //Causes massive performance issues with the drawer :(
+                MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += Instance_ThemeChanged;
+
+                imgStop = Properties.Resources.Stop;
+                imgPlayResume = Properties.Resources.Play;
+
+                btnPlaySound.Icon = imgPlayResume;
+
+                //Subscribe all day checkboxes to our custom checked changed event, so that whenever any of these checkboxes change, the cbDaysCheckedChangeEvent will fire
+                cbMonday.CheckedChanged += cbDaysCheckedChangeEvent;
+                cbTuesday.CheckedChanged += cbDaysCheckedChangeEvent;
+                cbWednesday.CheckedChanged += cbDaysCheckedChangeEvent;
+                cbThursday.CheckedChanged += cbDaysCheckedChangeEvent;
+                cbFriday.CheckedChanged += cbDaysCheckedChangeEvent;
+                cbSaturday.CheckedChanged += cbDaysCheckedChangeEvent;
+                cbSunday.CheckedChanged += cbDaysCheckedChangeEvent;
+
+                rbDaily.CheckedChanged += rbCheckedChangeEvent;
+                rbMonthly.CheckedChanged += rbCheckedChangeEvent;
+                rbWeekDays.CheckedChanged += rbCheckedChangeEvent;
+                rbNoRepeat.CheckedChanged += rbCheckedChangeEvent;
+                rbCustom.CheckedChanged += rbCheckedChangeEvent;
+                rbWorkDays.CheckedChanged += rbCheckedChangeEvent;
 
 
-            AddDaysMenuStrip.Renderer = new MyToolStripMenuRenderer();            
+                numEveryXDays.KeyDown += numericOnly_KeyDown;
+                numEveryXDays.KeyPress += numericOnly_KeyPress;
+
+
+                AddDaysMenuStrip.Renderer = new MyToolStripMenuRenderer();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCNewReminder failed!");
+            }
         }
 
         public void DisableDatePickers()
@@ -1820,14 +1827,21 @@ namespace RemindMe
 
         private void MUCNewReminder_Load(object sender, EventArgs e)
         {
-            cbEvery.LocationChanged += cbEvery_VisibleChanged;
-            dtpTime.Format = DateTimePickerFormat.Custom;
-            btnAdvancedReminder.Visible = BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1;
+            try
+            {
+                cbEvery.LocationChanged += cbEvery_VisibleChanged;
+                dtpTime.Format = DateTimePickerFormat.Custom;
+                btnAdvancedReminder.Visible = BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1;
 
-            if (editableReminder == null)
-                ResetReminderForm();
+                if (editableReminder == null)
+                    ResetReminderForm();
 
-            SetMarkupIcons();
+                SetMarkupIcons();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCNewReminder Load failed!");
+            }
         }
 
         private void cbEvery_KeyUp(object sender, KeyEventArgs e)

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Text;
 using NAudio.Wave;
+using System.Runtime.CompilerServices;
 
 namespace Business_Logic_Layer
 {
@@ -23,12 +24,7 @@ namespace Business_Logic_Layer
         private static int noInternetNotLoggedCounter = 0;               
         public static List<string> systemLog = new List<string>();                
         private BLIO() { }       
-        private static string GenerateString()
-        {            
-            Random random = new Random();
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
-        }
+
         /// <summary>
         /// Log an entry to the system log
         /// </summary>
@@ -117,7 +113,7 @@ namespace Business_Logic_Layer
             }
             catch(Exception ex)
             {
-                WriteError(ex, $"Playing sound file {path} failed. Sound file '{path}' Exists: {File.Exists(path)}");
+                WriteError(ex, $"Playing sound file {path} failed. Sound file Exists = {File.Exists(path)}");
                 return -1;
             }                                   
         }
@@ -213,7 +209,7 @@ namespace Business_Logic_Layer
         /// <param name="ex">The occured exception</param>
         /// <param name="message">A short message i.e "Error while loading reminders"</param>
         /// <param name="showErrorPopup">true to pop up an additional windows form to show the user that an error has occured</param>
-        public static void WriteError(Exception ex, string message)
+        public static void WriteError(Exception ex, string message, [CallerMemberName] string caller = null)
         {
             //The bunifu framework makes a better looking ui, but it also throws annoying null reference exceptions when disposing an form/usercontrol
             //that has an bunifu control in it(like a button), while there shouldn't be an exception.
@@ -221,7 +217,7 @@ namespace Business_Logic_Layer
                 return;
 
 
-            Log("EXCEPTION -> " + ex.GetType().ToString() + " -> \"" + message + "\"" + "\r\n" + ex.ToString());
+            Log($"Function {caller} failed! - {message} - {ex.GetType()} - Stacktrace: {ex}");
 
             using (FileStream fs = new FileStream(IOVariables.errorLog, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))

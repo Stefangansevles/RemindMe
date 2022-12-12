@@ -26,22 +26,36 @@ namespace RemindMe
         private int rowCount = 1;
         public MUCHTTPRequest(MUCNewReminder parent)
         {
-            InitializeComponent();            
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            try
+            {
+                InitializeComponent();
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            client = new HttpClient();
-            this.parent = parent;            
+                client = new HttpClient();
+                this.parent = parent;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCHTTPRequest failed!");
+            }
         }
 
         private void MUCHTTPRequest_Load(object sender, EventArgs e)
         {
-            //Set the default to 'GET'
-            cbType.SelectedItem = cbType.Items[0];
+            try
+            {
+                //Set the default to 'GET'
+                cbType.SelectedItem = cbType.Items[0];
 
-            //Numeric only
-            tbInterval.KeyPress += num_KeyPress;
-            tbInterval.KeyDown += num_KeyDown;
+                //Numeric only
+                tbInterval.KeyPress += num_KeyPress;
+                tbInterval.KeyDown += num_KeyDown;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCHTTPRequest Load failed!");
+            }
         }
 
         private async void btnTest_Click(object sender, EventArgs e)

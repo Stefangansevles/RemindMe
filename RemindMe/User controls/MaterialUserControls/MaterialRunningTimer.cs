@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RemindMe.Other_classes;
 using MaterialSkin;
+using Business_Logic_Layer;
 
 namespace RemindMe
 {
@@ -74,28 +75,35 @@ namespace RemindMe
 
         private void RunningTimer_Load(object sender, EventArgs e)
         {
-            lblTimerName.Text = tmr.TimerText;
-            if (string.IsNullOrEmpty(lblTimerName.Text))
-                lblTimerName.Text = "( No name set )";
-            
-            TimeSpan time = (tmr.PopupDate - DateTime.Now);
+            try
+            {
+                lblTimerName.Text = tmr.TimerText;
+                if (string.IsNullOrEmpty(lblTimerName.Text))
+                    lblTimerName.Text = "( No name set )";
 
-            seconds = time.Seconds;
-            minutes = time.Minutes;
-            hours = (time.Days * 24) + time.Hours;
+                TimeSpan time = (tmr.PopupDate - DateTime.Now);
 
-            //Text that will show, example: 00:04:33
-            secondText = "" + seconds;
-            minuteText = "" + minutes;
-            hourText = "" + hours;
+                seconds = time.Seconds;
+                minutes = time.Minutes;
+                hours = (time.Days * 24) + time.Hours;
 
-            lblTimerTime.Text = TimerText;
-            lblTimerName.Location = new Point((lblTimerTime.Location.X + lblTimerTime.Width) + 5, lblTimerName.Location.Y);
-            tmrTickDownTime.Start();
+                //Text that will show, example: 00:04:33
+                secondText = "" + seconds;
+                minuteText = "" + minutes;
+                hourText = "" + hours;
 
-            SetTimerIcon();
+                lblTimerTime.Text = TimerText;
+                lblTimerName.Location = new Point((lblTimerTime.Location.X + lblTimerTime.Width) + 5, lblTimerName.Location.Y);
+                tmrTickDownTime.Start();
 
-            MaterialSkinManager.Instance.ThemeChanged += Instance_ThemeChanged;
+                SetTimerIcon();
+
+                MaterialSkinManager.Instance.ThemeChanged += Instance_ThemeChanged;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "RunningTimer Load failed!");
+            }
         }
         private void SetTimerIcon()
         {

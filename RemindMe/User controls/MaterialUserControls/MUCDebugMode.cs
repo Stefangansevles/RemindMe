@@ -19,7 +19,14 @@ namespace RemindMe
         List<string> localCacheList = new List<string>();
         public MUCDebugMode()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCDebugMode failed!");
+            }
         }
 
 
@@ -45,9 +52,16 @@ namespace RemindMe
 
         private void MUCDebugMode_Load(object sender, EventArgs e)
         {
-            tmrDetails.Start();
-            tmrLog.Start();
-            localCacheList.AddRange(BLIO.systemLog);
+            try
+            {
+                tmrDetails.Start();
+                tmrLog.Start();
+                localCacheList.AddRange(BLIO.systemLog);
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCDebugMode Load failed!");
+            }
         }
 
         /// <summary>

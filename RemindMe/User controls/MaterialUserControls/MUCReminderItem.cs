@@ -24,24 +24,31 @@ namespace RemindMe
 
         public MUCReminderItem(Reminder rem)
         {
-            InitializeComponent();
-            this.Reminder = rem;
+            try
+            {
+                InitializeComponent();
+                this.Reminder = rem;
 
-            AddFont(Properties.Resources.Roboto_Medium);
+                AddFont(Properties.Resources.Roboto_Medium);
 
-            MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += UpdateTheme;
-            
-            //todo: make black/white
-            tpInformation.SetToolTip(btnSettings, "Click for more options");
-            tpInformation.SetToolTip(btnDisable, "Enable/Disable the reminder");
-            tpInformation.SetToolTip(btnDelete, "Delete a reminder");
-            tpInformation.SetToolTip(btnEdit, "Edit a reminder");
+                MaterialSkin.MaterialSkinManager.Instance.ThemeChanged += UpdateTheme;
 
-            //Assign right-click settings popup to these 2 panels
-            this.MouseClick += rightClick_Settings;
-            pnlActionButtons.MouseClick += rightClick_Settings;
+                //todo: make black/white
+                tpInformation.SetToolTip(btnSettings, "Click for more options");
+                tpInformation.SetToolTip(btnDisable, "Enable/Disable the reminder");
+                tpInformation.SetToolTip(btnDelete, "Delete a reminder");
+                tpInformation.SetToolTip(btnEdit, "Edit a reminder");
 
-            SetTooltips();        
+                //Assign right-click settings popup to these 2 panels
+                this.MouseClick += rightClick_Settings;
+                pnlActionButtons.MouseClick += rightClick_Settings;
+
+                SetTooltips();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCReminderItem failed!");
+            }
         }
 
         private void SetTooltips()
@@ -294,14 +301,19 @@ namespace RemindMe
 
         private void MUCReminderItem_Load(object sender, EventArgs e)
         {
-            lblReminderNameDisabled.Font = new Font(pfc.Families[0], 14f, FontStyle.Strikeout, GraphicsUnit.Pixel);
+            try
+            {
+                lblReminderNameDisabled.Font = new Font(pfc.Families[0], 14f, FontStyle.Strikeout, GraphicsUnit.Pixel);
 
-            if (this.Reminder != null)
-                Enable();
-            else
-                Disable();
-
-            
+                if (this.Reminder != null)
+                    Enable();
+                else
+                    Disable();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCReminderItem Load failed!");
+            }
         }
 
         //Loads reminder data into the controls

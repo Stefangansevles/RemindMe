@@ -20,7 +20,14 @@ namespace RemindMe
         private List<Reminder> remindersFromRemindMeFile = new List<Reminder>();
         public MUCImportExport()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCImportExport failed!");
+            }
         }
 
         private void cbAction_SelectedIndexChanged(object sender, EventArgs e)

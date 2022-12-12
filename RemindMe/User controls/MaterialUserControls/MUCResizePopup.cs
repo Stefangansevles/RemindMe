@@ -46,34 +46,41 @@ namespace RemindMe
         PopupDimensions dimensions;
         public MUCResizePopup()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            testrem = new Reminder();
-            testrem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
-            testrem.Name = "Test reminder";
-            testrem.Note = "This is some <i>dummy text</i> so that you can see how the text looks. Adding some <b>spaces</b>\r\n<u>And some more</u>\r\n\r\nSpaces.";
-            testrem.Id = -1;//mark it to be invalid
-
-
-            tbHeight.KeyPress += numericOnly_KeyPress;
-            tbHeight.KeyDown += numericOnly_KeyDown;
-
-            tbWidth.KeyPress += numericOnly_KeyPress;
-            tbWidth.KeyDown += numericOnly_KeyDown;
-
-            tbNoteFont.KeyPress += numericOnly_KeyPress;
-            tbNoteFont.KeyDown += numericOnly_KeyDown;
-            
+                testrem = new Reminder();
+                testrem.Date = Convert.ToDateTime("2010-10-10 00:00:00").ToString();
+                testrem.Name = "Test reminder";
+                testrem.Note = "This is some <i>dummy text</i> so that you can see how the text looks. Adding some <b>spaces</b>\r\n<u>And some more</u>\r\n\r\nSpaces.";
+                testrem.Id = -1;//mark it to be invalid
 
 
-            trbHeight.MouseUp += Trackbar_Value_End;
-            trbWidth.MouseUp += Trackbar_Value_End;
-            trbNoteFont.MouseUp += Trackbar_Value_End;
-            
-            trbWidth.MaximumValue = Screen.GetWorkingArea(this).Width;
-            trbHeight.MaximumValue = Screen.GetWorkingArea(this).Height;
+                tbHeight.KeyPress += numericOnly_KeyPress;
+                tbHeight.KeyDown += numericOnly_KeyDown;
 
-            FillValues();
+                tbWidth.KeyPress += numericOnly_KeyPress;
+                tbWidth.KeyDown += numericOnly_KeyDown;
+
+                tbNoteFont.KeyPress += numericOnly_KeyPress;
+                tbNoteFont.KeyDown += numericOnly_KeyDown;
+
+
+
+                trbHeight.MouseUp += Trackbar_Value_End;
+                trbWidth.MouseUp += Trackbar_Value_End;
+                trbNoteFont.MouseUp += Trackbar_Value_End;
+
+                trbWidth.MaximumValue = Screen.GetWorkingArea(this).Width;
+                trbHeight.MaximumValue = Screen.GetWorkingArea(this).Height;
+
+                FillValues();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCResizePopup failed!");
+            }
         }
 
         private void numericOnly_KeyPress(object sender, KeyPressEventArgs e)
@@ -130,12 +137,19 @@ namespace RemindMe
 
         private void MUCResizePopup_Load(object sender, EventArgs e)
         {
-            trbHeight.Refresh();
-            trbWidth.Refresh();            
-            trbNoteFont.Refresh();
-            //refreshTrackbars();
+            try
+            {
+                trbHeight.Refresh();
+                trbWidth.Refresh();
+                trbNoteFont.Refresh();
+                //refreshTrackbars();
 
-            AddFont(Properties.Resources.Roboto_Medium);
+                AddFont(Properties.Resources.Roboto_Medium);
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCResizePopup Load failed!");
+            }
         }
 
        

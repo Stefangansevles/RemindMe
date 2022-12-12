@@ -29,35 +29,42 @@ namespace RemindMe
         private int timerIdCounter = 1;
         public MUCTimer()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;
+                btnPauseResumeTimer.Icon = Properties.Resources.pause_2x1;
 
-            //Link events to the global event
-            btnPlusHours.Click += numericUpDown_ValueChange;
-            btnPlusMinutes.Click += numericUpDown_ValueChange;
-            btnPlusSeconds.Click += numericUpDown_ValueChange;
+                //Link events to the global event
+                btnPlusHours.Click += numericUpDown_ValueChange;
+                btnPlusMinutes.Click += numericUpDown_ValueChange;
+                btnPlusSeconds.Click += numericUpDown_ValueChange;
 
-            btnMinHours.Click += numericUpDown_ValueChange;
-            btnMinMinutes.Click += numericUpDown_ValueChange;
-            btnMinSeconds.Click += numericUpDown_ValueChange;
+                btnMinHours.Click += numericUpDown_ValueChange;
+                btnMinMinutes.Click += numericUpDown_ValueChange;
+                btnMinSeconds.Click += numericUpDown_ValueChange;
 
-            //The user can change the time of an timer with these numeric up-downs. When the user attempts to do that, link the event to the global numericUpDown_ValueChange
-            numSeconds.KeyUp += numericUpDown_ValueChange;
-            numMinutes.KeyUp += numericUpDown_ValueChange;
-            numHours.KeyUp += numericUpDown_ValueChange;
-            
+                //The user can change the time of an timer with these numeric up-downs. When the user attempts to do that, link the event to the global numericUpDown_ValueChange
+                numSeconds.KeyUp += numericUpDown_ValueChange;
+                numMinutes.KeyUp += numericUpDown_ValueChange;
+                numHours.KeyUp += numericUpDown_ValueChange;
 
 
-            //Don't allow typing characters in the numeric textbox
-            numHours.KeyPress += num_KeyPress;
-            numHours.KeyDown += num_KeyDown;
 
-            numMinutes.KeyPress += num_KeyPress;
-            numMinutes.KeyDown += num_KeyDown;
+                //Don't allow typing characters in the numeric textbox
+                numHours.KeyPress += num_KeyPress;
+                numHours.KeyDown += num_KeyDown;
 
-            numSeconds.KeyPress += num_KeyPress;
-            numSeconds.KeyDown += num_KeyDown;
+                numMinutes.KeyPress += num_KeyPress;
+                numMinutes.KeyDown += num_KeyDown;
+
+                numSeconds.KeyPress += num_KeyPress;
+                numSeconds.KeyDown += num_KeyDown;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCTimer failed!");
+            }
         }
 
         private void SubtractSecond(MaterialTextBox tb)
@@ -324,7 +331,14 @@ namespace RemindMe
 
         private void UCTimer_Load(object sender, EventArgs e)
         {
-            SetKeyCombinationLabel();
+            try
+            {
+                SetKeyCombinationLabel();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCTimer_Load failed!");
+            }
         }
         private void SetKeyCombinationLabel()
         {

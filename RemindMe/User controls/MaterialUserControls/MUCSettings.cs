@@ -24,9 +24,16 @@ namespace RemindMe
 
         public MUCSettings()
         {
-            InitializeComponent();            
-            imgStop = Properties.Resources.Stop;
-            imgPlayResume = Properties.Resources.Play;
+            try
+            {
+                InitializeComponent();
+                imgStop = Properties.Resources.Stop;
+                imgPlayResume = Properties.Resources.Play;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCSettings failed!");
+            }        
         }
         
 
@@ -61,72 +68,79 @@ namespace RemindMe
 
         private void UCWindowOverlay_Load(object sender, EventArgs e)
         {
-            if (BLLocalDatabase.Setting.Settings == null)
+            try
             {
-                Settings set = new Settings();
-                set.PopupType = popupType;
-                set.StickyForm = 0;
-                set.EnableHourBeforeReminder = 1;
-                set.EnableReminderCountPopup = 1;
-                set.EnableQuickTimer = 1;
-                set.CurrentTheme = -1;                
-                set.AutoUpdate = 1;
-                set.TimerVolume = 100;
-                BLLocalDatabase.Setting.UpdateSettings(set);
-            }
-            
-            if (BLLocalDatabase.Setting.Settings.PopupType == "AlwaysOnTop")
-                cbPopupType.SelectedItem = cbPopupType.Items[0];
-            else if (BLLocalDatabase.Setting.Settings.PopupType == "Minimized")
-                cbPopupType.SelectedItem = cbPopupType.Items[1];
-            else if(BLLocalDatabase.Setting.Settings.PopupType == "SoundOnly") 
-                cbPopupType.SelectedItem = cbPopupType.Items[2];            
-
-            cbRemindMeMessages.Checked = BLLocalDatabase.Setting.IsReminderCountPopupEnabled();
-            cbOneHourBeforeNotification.Checked = BLLocalDatabase.Setting.IsHourBeforeNotificationEnabled();
-            cbQuicktimer.Checked = BLLocalDatabase.Setting.Settings.EnableQuickTimer == 1;
-            cbAdvancedReminders.Checked = BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1;
-            cbAutoUpdate.Checked = BLLocalDatabase.Setting.Settings.AutoUpdate == 1;
-
-            Hotkeys timerKey = BLLocalDatabase.Hotkey.TimerPopup;
-            Hotkeys timerCheck = BLLocalDatabase.Hotkey.TimerCheck;
-            foreach (string m in timerKey.Modifiers.Split(','))
-                tbTimerHotkey.Text += m + " + ";
-            tbTimerHotkey.Text += timerKey.Key;
-
-            foreach (string m in timerCheck.Modifiers.Split(','))
-                tbCheckTimerHotKey.Text += m + " + ";
-            tbCheckTimerHotKey.Text += timerCheck.Key;
-
-            //Fill the combobox to select a timer popup sound with data
-            FillSoundCombobox();
-            //Set the item the user selected as text           
-            string def = BLLocalDatabase.Setting.Settings.DefaultTimerSound;
-            if (def == null) //User has no default sound combobox
-            {
-                foreach (ComboBoxItem itm in cbSound.Items)
+                if (BLLocalDatabase.Setting.Settings == null)
                 {
-                    if (itm.Text.ToLower().Contains("unlock")) //Set the default timer sound to windows unlock 
+                    Settings set = new Settings();
+                    set.PopupType = popupType;
+                    set.StickyForm = 0;
+                    set.EnableHourBeforeReminder = 1;
+                    set.EnableReminderCountPopup = 1;
+                    set.EnableQuickTimer = 1;
+                    set.CurrentTheme = -1;
+                    set.AutoUpdate = 1;
+                    set.TimerVolume = 100;
+                    BLLocalDatabase.Setting.UpdateSettings(set);
+                }
+
+                if (BLLocalDatabase.Setting.Settings.PopupType == "AlwaysOnTop")
+                    cbPopupType.SelectedItem = cbPopupType.Items[0];
+                else if (BLLocalDatabase.Setting.Settings.PopupType == "Minimized")
+                    cbPopupType.SelectedItem = cbPopupType.Items[1];
+                else if (BLLocalDatabase.Setting.Settings.PopupType == "SoundOnly")
+                    cbPopupType.SelectedItem = cbPopupType.Items[2];
+
+                cbRemindMeMessages.Checked = BLLocalDatabase.Setting.IsReminderCountPopupEnabled();
+                cbOneHourBeforeNotification.Checked = BLLocalDatabase.Setting.IsHourBeforeNotificationEnabled();
+                cbQuicktimer.Checked = BLLocalDatabase.Setting.Settings.EnableQuickTimer == 1;
+                cbAdvancedReminders.Checked = BLLocalDatabase.Setting.Settings.EnableAdvancedReminders == 1;
+                cbAutoUpdate.Checked = BLLocalDatabase.Setting.Settings.AutoUpdate == 1;
+
+                Hotkeys timerKey = BLLocalDatabase.Hotkey.TimerPopup;
+                Hotkeys timerCheck = BLLocalDatabase.Hotkey.TimerCheck;
+                foreach (string m in timerKey.Modifiers.Split(','))
+                    tbTimerHotkey.Text += m + " + ";
+                tbTimerHotkey.Text += timerKey.Key;
+
+                foreach (string m in timerCheck.Modifiers.Split(','))
+                    tbCheckTimerHotKey.Text += m + " + ";
+                tbCheckTimerHotKey.Text += timerCheck.Key;
+
+                //Fill the combobox to select a timer popup sound with data
+                FillSoundCombobox();
+                //Set the item the user selected as text           
+                string def = BLLocalDatabase.Setting.Settings.DefaultTimerSound;
+                if (def == null) //User has no default sound combobox
+                {
+                    foreach (ComboBoxItem itm in cbSound.Items)
                     {
-                        Songs sng = (Songs)itm.Value;
-                        Settings set = BLLocalDatabase.Setting.Settings;
-                        set.DefaultTimerSound = sng.SongFilePath;
-                        BLLocalDatabase.Setting.UpdateSettings(set);
+                        if (itm.Text.ToLower().Contains("unlock")) //Set the default timer sound to windows unlock 
+                        {
+                            Songs sng = (Songs)itm.Value;
+                            Settings set = BLLocalDatabase.Setting.Settings;
+                            set.DefaultTimerSound = sng.SongFilePath;
+                            BLLocalDatabase.Setting.UpdateSettings(set);
+                        }
                     }
                 }
+                if (BLLocalDatabase.Setting.Settings.DefaultTimerSound == null)//Still null? well damn.
+                    return;
+
+                cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLLocalDatabase.Setting.Settings.DefaultTimerSound), BLLocalDatabase.Song.GetSongByFullPath(BLLocalDatabase.Setting.Settings.DefaultTimerSound)));
+                cbSound.Text = Path.GetFileNameWithoutExtension(BLLocalDatabase.Setting.Settings.DefaultTimerSound);
+
+
+                trbVolume.Refresh();
+                trbVolume.Value = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
+                //Because for some reason it doesn't trigger it onload due to FileNotFound exception ?? #JustBunifuThings..
+                trbVolume_ValueChanged(sender, e);
+                refreshTrackbars();
             }
-            if (BLLocalDatabase.Setting.Settings.DefaultTimerSound == null)//Still null? well damn.
-                return;
-
-            cbSound.Items.Add(new ComboBoxItem(Path.GetFileNameWithoutExtension(BLLocalDatabase.Setting.Settings.DefaultTimerSound), BLLocalDatabase.Song.GetSongByFullPath(BLLocalDatabase.Setting.Settings.DefaultTimerSound)));
-            cbSound.Text = Path.GetFileNameWithoutExtension(BLLocalDatabase.Setting.Settings.DefaultTimerSound);
-
-
-            trbVolume.Refresh();
-            trbVolume.Value = (int)BLLocalDatabase.Setting.Settings.TimerVolume;
-            //Because for some reason it doesn't trigger it onload due to FileNotFound exception ?? #JustBunifuThings..
-            trbVolume_ValueChanged(sender,e);
-            refreshTrackbars();
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCSettings Load failed!");
+            }
         }
 
         /// <summary>

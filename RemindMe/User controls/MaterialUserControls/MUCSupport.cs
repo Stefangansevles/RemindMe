@@ -19,7 +19,14 @@ namespace RemindMe
     {
         public MUCSupport()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCSupport failed!");
+            }
         }
 
         private void btnSend_Click(object sender, EventArgs e)

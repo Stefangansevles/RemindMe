@@ -18,32 +18,32 @@ namespace RemindMe
         private Themes currentSelectedTheme = null;
         public MUCTheme()
         {
-            InitializeComponent();
-
-            cbPrimary.SelectedIndexChanged += colorSchemeIndexChanged;
-            cbDarkPrimary.SelectedIndexChanged += colorSchemeIndexChanged;
-            cbLightPrimary.SelectedIndexChanged += colorSchemeIndexChanged;
-            cbAccent.SelectedIndexChanged += colorSchemeIndexChanged;
-            cbTextShade.SelectedIndexChanged += colorSchemeIndexChanged;
-
-            
-            
-            
-
-            //Load theme from DB
-            Settings set = BLLocalDatabase.Setting.Settings;
-            if (set.CurrentTheme.HasValue && set.CurrentTheme.Value != -1) //Theres a theme
+            try
             {
-                Themes theme = BLLocalDatabase.Theme.GetThemeById(set.CurrentTheme.Value);
-                if (theme != null)
+                InitializeComponent();
+
+                cbPrimary.SelectedIndexChanged += colorSchemeIndexChanged;
+                cbDarkPrimary.SelectedIndexChanged += colorSchemeIndexChanged;
+                cbLightPrimary.SelectedIndexChanged += colorSchemeIndexChanged;
+                cbAccent.SelectedIndexChanged += colorSchemeIndexChanged;
+                cbTextShade.SelectedIndexChanged += colorSchemeIndexChanged;
+
+                //Load theme from DB
+                Settings set = BLLocalDatabase.Setting.Settings;
+                if (set.CurrentTheme.HasValue && set.CurrentTheme.Value != -1) //Theres a theme
                 {
-                    LoadTheme(theme);
-                    return;
+                    Themes theme = BLLocalDatabase.Theme.GetThemeById(set.CurrentTheme.Value);
+                    if (theme != null)
+                    {
+                        LoadTheme(theme);
+                        return;
+                    }
                 }
-
             }
-
-           
+            catch(Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCTheme failed!");
+            }
         }
 
         private void colorSchemeIndexChanged(object sender, EventArgs e)
@@ -154,127 +154,148 @@ namespace RemindMe
         }
 
         private void SaveNewTheme(string name)
-        {            
-            if (string.IsNullOrWhiteSpace(name))
-                return;
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                    return;
 
-            Themes theme = new Themes();
-            theme.Primary = (int)Enum.Parse(typeof(Primary), cbPrimary.SelectedItem.ToString());
-            theme.DarkPrimary = (int)Enum.Parse(typeof(Primary), cbDarkPrimary.SelectedItem.ToString());
-            theme.LightPrimary = (int)Enum.Parse(typeof(Primary), cbLightPrimary.SelectedItem.ToString());
+                Themes theme = new Themes();
+                theme.Primary = (int)Enum.Parse(typeof(Primary), cbPrimary.SelectedItem.ToString());
+                theme.DarkPrimary = (int)Enum.Parse(typeof(Primary), cbDarkPrimary.SelectedItem.ToString());
+                theme.LightPrimary = (int)Enum.Parse(typeof(Primary), cbLightPrimary.SelectedItem.ToString());
 
-            theme.Accent = (int)Enum.Parse(typeof(Accent), cbAccent.SelectedItem.ToString());
+                theme.Accent = (int)Enum.Parse(typeof(Accent), cbAccent.SelectedItem.ToString());
 
-            theme.TextShade = (int)Enum.Parse(typeof(TextShade), cbTextShade.SelectedItem.ToString());
+                theme.TextShade = (int)Enum.Parse(typeof(TextShade), cbTextShade.SelectedItem.ToString());
 
-            theme.ThemeName = name;
+                theme.ThemeName = name;
 
-            theme.Mode = (int)MaterialSkinManager.Instance.Theme;
+                theme.Mode = (int)MaterialSkinManager.Instance.Theme;
 
-            BLLocalDatabase.Theme.InsertTheme(theme);
+                BLLocalDatabase.Theme.InsertTheme(theme);
 
-            ComboBoxItem item = new ComboBoxItem(theme.ThemeName, theme.Id);
-            cbLoadTheme.Items.Add(item);
-            cbLoadTheme.SelectedItem = item;
+                ComboBoxItem item = new ComboBoxItem(theme.ThemeName, theme.Id);
+                cbLoadTheme.Items.Add(item);
+                cbLoadTheme.SelectedItem = item;
 
-            currentSelectedTheme = theme;
-            //Update the settings table
-            Settings set = BLLocalDatabase.Setting.Settings;
-            set.CurrentTheme = theme.Id;
-            BLLocalDatabase.Setting.UpdateSettings(set);
+                currentSelectedTheme = theme;
+                //Update the settings table
+                Settings set = BLLocalDatabase.Setting.Settings;
+                set.CurrentTheme = theme.Id;
+                BLLocalDatabase.Setting.UpdateSettings(set);
 
-            
-
-            MaterialMessageFormManager.MakeMessagePopup("Succesfully saved theme \"" + name + "\" under your saved themes.", 5);
+                MaterialMessageFormManager.MakeMessagePopup("Succesfully saved theme \"" + name + "\" under your saved themes.", 5);
+            }
+            catch (Exception ex)
+            {                
+                BLIO.WriteError(ex, "Could not Save new theme.");
+                MaterialMessageFormManager.MakeMessagePopup($"Could not save new theme {name}", 5);
+            }            
         }
 
         private void LoadTheme(Themes theme)
         {
+            try
+            {
+                Primary p = (Primary)Enum.Parse(typeof(Primary), theme.Primary.ToString());
+                Primary dp = (Primary)Enum.Parse(typeof(Primary), theme.DarkPrimary.ToString());
+                Primary lp = (Primary)Enum.Parse(typeof(Primary), theme.LightPrimary.ToString());
+                Accent acc = (Accent)Enum.Parse(typeof(Accent), theme.Accent.ToString());
+                TextShade ts = (TextShade)Enum.Parse(typeof(TextShade), theme.TextShade.ToString());
 
-            Primary p = (Primary)Enum.Parse(typeof(Primary), theme.Primary.ToString());
-            Primary dp = (Primary)Enum.Parse(typeof(Primary), theme.DarkPrimary.ToString());
-            Primary lp = (Primary)Enum.Parse(typeof(Primary), theme.LightPrimary.ToString());
-            Accent acc = (Accent)Enum.Parse(typeof(Accent), theme.Accent.ToString());
-            TextShade ts = (TextShade)Enum.Parse(typeof(TextShade), theme.TextShade.ToString());
+                cbPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(p.GetType()), p);
+                cbDarkPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(dp.GetType()), dp);
+                cbLightPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(lp.GetType()), lp);
 
-            cbPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(p.GetType()), p);
-            cbDarkPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(dp.GetType()), dp);
-            cbLightPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(lp.GetType()), lp);
+                cbAccent.SelectedIndex = Array.IndexOf(Enum.GetValues(acc.GetType()), acc);
+                cbTextShade.SelectedIndex = Array.IndexOf(Enum.GetValues(ts.GetType()), ts);
 
-            cbAccent.SelectedIndex = Array.IndexOf(Enum.GetValues(acc.GetType()), acc);
-            cbTextShade.SelectedIndex = Array.IndexOf(Enum.GetValues(ts.GetType()), ts);
+                if (MaterialSkinManager.Instance.Theme != (MaterialSkinManager.Themes)theme.Mode) //changing theme to the same theme is still expensive
+                    MaterialSkinManager.Instance.Theme = (MaterialSkinManager.Themes)theme.Mode;
 
-            if(MaterialSkinManager.Instance.Theme != (MaterialSkinManager.Themes)theme.Mode) //changing theme to the same theme is still expensive
-                MaterialSkinManager.Instance.Theme = (MaterialSkinManager.Themes)theme.Mode;
-
-            currentSelectedTheme = theme;
-            Settings set = BLLocalDatabase.Setting.Settings;
-            set.CurrentTheme = theme.Id;
-            BLLocalDatabase.Setting.UpdateSettings(set);
-
-            GC.Collect();
+                currentSelectedTheme = theme;
+                Settings set = BLLocalDatabase.Setting.Settings;
+                set.CurrentTheme = theme.Id;
+                BLLocalDatabase.Setting.UpdateSettings(set);
+            }
+            catch(Exception ex)
+            {
+                string message = theme != null ? $"Loading theme {theme.ThemeName} with ID {theme.Id} failed" : "Loading theme failed because parameter `theme` is null";
+                BLIO.WriteError(ex, message);
+            }
+            finally
+            {
+                GC.Collect();
+            }
         }
 
 
         private void MUCTheme_Load(object sender, EventArgs e)
         {
-            Settings set = BLLocalDatabase.Setting.Settings;
-
-            //Load preferences from DB
-            swColors.Checked = Convert.ToBoolean(set.DrawerUseColors);
-            swDrawerBackground.Checked = Convert.ToBoolean(set.DrawerBackground);
-
-            if (set.DrawerHighlight == null) set.DrawerHighlight = 1;
-
-            swDrawerHighlight.Checked = Convert.ToBoolean(set.DrawerHighlight);
-
-            bool firstUse = false;
-            if (BLLocalDatabase.Theme.GetThemes().Count == 0)
+            try
             {
-                BLLocalDatabase.Theme.InsertDefaultThemes(); //This should really only happen once, on first startup                
-                firstUse = true;
-            }
+                Settings set = BLLocalDatabase.Setting.Settings;
 
-            foreach (Themes theme in BLLocalDatabase.Theme.GetThemes())
-            {
-                ComboBoxItem item = new ComboBoxItem(theme.ThemeName, theme.Id);
-                cbLoadTheme.Items.Add(item);
+                //Load preferences from DB
+                swColors.Checked = Convert.ToBoolean(set.DrawerUseColors);
+                swDrawerBackground.Checked = Convert.ToBoolean(set.DrawerBackground);
 
-                if (currentSelectedTheme != null && currentSelectedTheme.Id == theme.Id)
+                if (set.DrawerHighlight == null) set.DrawerHighlight = 1;
+
+                swDrawerHighlight.Checked = Convert.ToBoolean(set.DrawerHighlight);
+
+                bool firstUse = false;
+                if (BLLocalDatabase.Theme.GetThemes().Count == 0)
                 {
-                    //select this one
-                    cbLoadTheme.SelectedItem = item;
+                    BLLocalDatabase.Theme.InsertDefaultThemes(); //This should really only happen once, on first startup                
+                    firstUse = true;
                 }
-            }
 
-            foreach (Primary prim in (Primary[])Enum.GetValues(typeof(Primary)))
+                foreach (Themes theme in BLLocalDatabase.Theme.GetThemes())
+                {
+                    ComboBoxItem item = new ComboBoxItem(theme.ThemeName, theme.Id);
+                    cbLoadTheme.Items.Add(item);
+
+                    if (currentSelectedTheme != null && currentSelectedTheme.Id == theme.Id)
+                    {
+                        //select this one
+                        cbLoadTheme.SelectedItem = item;
+                    }
+                }
+
+                foreach (Primary prim in (Primary[])Enum.GetValues(typeof(Primary)))
+                {
+                    cbPrimary.Items.Add(new ComboBoxItem(prim.ToString(), prim));
+                    cbDarkPrimary.Items.Add(new ComboBoxItem(prim.ToString(), prim));
+                    cbLightPrimary.Items.Add(new ComboBoxItem(prim.ToString(), prim));
+                }
+                foreach (Accent acc in (Accent[])Enum.GetValues(typeof(Accent)))
+                {
+                    cbAccent.Items.Add(new ComboBoxItem(acc.ToString(), acc));
+                }
+                foreach (TextShade ts in (TextShade[])Enum.GetValues(typeof(TextShade)))
+                {
+                    cbTextShade.Items.Add(new ComboBoxItem(ts.ToString(), ts));
+                }
+
+                if (set.CurrentTheme == -1)
+                {
+                    cbPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo500.GetType()), Primary.Indigo500);
+                    cbDarkPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo700.GetType()), Primary.Indigo700);
+                    cbLightPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo100.GetType()), Primary.Indigo100);
+                    cbAccent.SelectedIndex = Array.IndexOf(Enum.GetValues(Accent.Pink200.GetType()), Accent.Pink200);
+                    cbTextShade.SelectedIndex = Array.IndexOf(Enum.GetValues(TextShade.WHITE.GetType()), TextShade.WHITE);
+                }
+
+                if (firstUse)
+                    LoadTheme(BLLocalDatabase.Theme.GetThemes()[0]); //dark-red
+
+            }
+            catch (Exception ex)
             {
-                cbPrimary.Items.Add(new ComboBoxItem(prim.ToString(), prim));
-                cbDarkPrimary.Items.Add(new ComboBoxItem(prim.ToString(), prim));
-                cbLightPrimary.Items.Add(new ComboBoxItem(prim.ToString(), prim));
+                BLIO.WriteError(ex, "MUCTheme Load failed!");
             }
-            foreach (Accent acc in (Accent[])Enum.GetValues(typeof(Accent)))
-            {
-                cbAccent.Items.Add(new ComboBoxItem(acc.ToString(), acc));
-            }
-            foreach (TextShade ts in (TextShade[])Enum.GetValues(typeof(TextShade)))
-            {
-                cbTextShade.Items.Add(new ComboBoxItem(ts.ToString(), ts));
-            }
-
-            if (set.CurrentTheme == -1)
-            {
-                cbPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo500.GetType()), Primary.Indigo500);
-                cbDarkPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo700.GetType()), Primary.Indigo700);
-                cbLightPrimary.SelectedIndex = Array.IndexOf(Enum.GetValues(Primary.Indigo100.GetType()), Primary.Indigo100);
-                cbAccent.SelectedIndex = Array.IndexOf(Enum.GetValues(Accent.Pink200.GetType()), Accent.Pink200);
-                cbTextShade.SelectedIndex = Array.IndexOf(Enum.GetValues(TextShade.WHITE.GetType()), TextShade.WHITE);
-            }
-
-            if (firstUse)
-                LoadTheme(BLLocalDatabase.Theme.GetThemes()[0]); //dark-red
-
-
         }
         private void SetThemeText()
         {

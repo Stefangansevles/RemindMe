@@ -39,8 +39,15 @@ namespace RemindMe
         public bool showUpdateMessage = true;
         public MUCReminders()
         {
-            InitializeComponent();
-            instance = this;
+            try
+            {
+                InitializeComponent();
+                instance = this;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MUCReminders failed!");
+            }
         }
 
 
@@ -863,9 +870,16 @@ namespace RemindMe
         }
 
         private void MUCReminders_Load(object sender, EventArgs e)
-        {            
-            tmrCheckForUpdates.Start();
-            SetPageButtonIcons(BLReminder.GetReminders());
+        {
+            try
+            {
+                tmrCheckForUpdates.Start();
+                SetPageButtonIcons(BLReminder.GetReminders());
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MUCReminders Load failed!");
+            }
         }
 
         private void tmrCheckForUpdates_Tick(object sender, EventArgs e)
