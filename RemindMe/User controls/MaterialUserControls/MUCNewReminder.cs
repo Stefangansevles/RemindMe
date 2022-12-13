@@ -1458,7 +1458,7 @@ namespace RemindMe
 
                     if (File.Exists(editableReminder.SoundFilePath))
                         editableReminder.SoundFilePath = "*"; //privacy. if the file DOESNT exist, we do want to inspect it
-                    else
+                    else if (editableReminder != null)
                         editableReminder.SoundFilePath = BLIO.AnonymizePath(editableReminder.SoundFilePath);
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(editableReminder));
@@ -1480,7 +1480,7 @@ namespace RemindMe
 
                     if (File.Exists(rem.SoundFilePath))
                         rem.SoundFilePath = "*"; //privacy. if the file DOESNT exist, we do want to inspect it
-                    else
+                    else if(editableReminder != null)
                         editableReminder.SoundFilePath = BLIO.AnonymizePath(editableReminder.SoundFilePath);
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(rem));
@@ -1518,7 +1518,7 @@ namespace RemindMe
 
                     if (File.Exists(editableReminder.SoundFilePath))
                         editableReminder.SoundFilePath = ""; //privacy. if the file DOESNT exist, we do want to inspect it
-                    else
+                    else if (editableReminder != null)
                         editableReminder.SoundFilePath = BLIO.AnonymizePath(editableReminder.SoundFilePath);
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(editableReminder));
