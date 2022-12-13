@@ -1161,3 +1161,6 @@ V3.1.16
 - Github issues are now not created if an issue with the same title already exists
 - Github title will have [c] appended if user included a message
 - Anonomyzed the path to files when they are logged aswell
+
+3.1.19
+- Added exception type to github issue name

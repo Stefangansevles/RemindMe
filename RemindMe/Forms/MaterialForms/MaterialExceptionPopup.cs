@@ -222,9 +222,8 @@ namespace RemindMe
         private async Task<bool> CreateIssue(Exception ex, string description, string customMessage)
         {
             try
-            {
-                
-                string title = JsonConvert.ToString($"[Automatic] {(customMessage == "NONE_SET" ? "" : "[C]")} Error occured: {description}");                
+            {                
+                string title = JsonConvert.ToString($"[Automatic] {(customMessage == "NONE_SET" ? "" : "[C]")} Error occured: {description} ({ex.GetType()})");                
                 var exists = await IssueExists(title);
                 if (!exists)
                 {
