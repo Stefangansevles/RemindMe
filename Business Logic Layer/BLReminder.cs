@@ -857,7 +857,7 @@ namespace Business_Logic_Layer
             mess += "DayOfMonth:    "   + rem.DayOfMonth + "\r\n";
             mess += "EveryXCustom:    " + rem.EveryXCustom + "\r\n";
             mess += "RepeatDays:    "   + rem.RepeatDays + "\r\n";
-            mess += "SoundFilePath:    "+ rem.SoundFilePath + "\r\n";
+            mess += "SoundFilePath:    "+ BLIO.AnonymizePath(rem.SoundFilePath) + "\r\n";
             mess += "PostponeDate:    " + rem.PostponeDate + "\r\n";
             mess += "Hide:    "         + rem.Hide + "\r\n";
             mess += "Corrupted:    "    + rem.Corrupted + "\r\n";

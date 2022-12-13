@@ -18,33 +18,47 @@ namespace RemindMe
         private MUCNewReminder ucParent;
         public MaterialAdvancedReminderForm(MUCNewReminder parent)
         {
-            this.Opacity = 0;
-            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
-            InitializeComponent();
+            try
+            {
+                this.Opacity = 0;
+                MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
+                InitializeComponent();
 
-            ucParent = parent;
-            mucHttpRequest = new MUCHTTPRequest(parent);
-            tabHTTP.Controls.Add(mucHttpRequest);
+                ucParent = parent;
+                mucHttpRequest = new MUCHTTPRequest(parent);
+                tabHTTP.Controls.Add(mucHttpRequest);
 
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
-            BLIO.Log("Advanced reminder form created!");                      
+                this.MaximumSize = this.Size;
+                this.MinimumSize = this.Size;
+                BLIO.Log("Advanced reminder form created!");
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MaterialAdvancedReminderForm failed!");
+            }
         }
 
         private void MaterialAdvancedReminderForm_Load(object sender, EventArgs e)
-        {            
-            BLIO.Log("Advanced Reminder Form loaded");
-            MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
-            if (remindme != null)
+        {
+            try
             {
-                //Place the message box in the middle of remindme
-                this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                BLIO.Log("Advanced Reminder Form loaded");
+                MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
+                if (remindme != null)
+                {
+                    //Place the message box in the middle of remindme
+                    this.StartPosition = FormStartPosition.Manual;
+                    this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                }
+                else
+                    this.StartPosition = FormStartPosition.CenterScreen;
+
+                tmrFadeIn.Start();
             }
-            else
-                this.StartPosition = FormStartPosition.CenterScreen;
-            
-            tmrFadeIn.Start();           
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MaterialAdvancedReminderForm_Load failed!");
+            }
         }
 
         public string BatchScript

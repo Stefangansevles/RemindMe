@@ -1134,3 +1134,30 @@ New Popup type for reminders in settings: Sound Only. Reminders will not pop-up 
 
 3.1.10
 Fixed a cpu usage issue
+
+V3.1.12
+Added support for .ics files
+
+V3.1.13
+Removed online database functions, Removed WMP requirement.
+
+V3.1.14
+Fixed nillpointer
+
+V3.1.15
+Fixed issue posting
+
+V3.1.16
+- Removed send-message tab
+- "feedback sent, thank you" only visible if the user actually put in text
+- Added assignee to git issue creation
+- Playing an unsupported sound file now shows a message instead of an caught exception
+
+3.1.17
+- Added a lot of logging and try/catches for more logging
+- Attempt to fix indexoutofbound exception
+
+3.1.18
+- Github issues are now not created if an issue with the same title already exists
+- Github title will have [c] appended if user included a message
+- Anonomyzed the path to files when they are logged aswell

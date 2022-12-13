@@ -68,89 +68,96 @@ namespace RemindMe
         public bool shouldClose = false;
 
         public MaterialForm1()
-        {            
-            BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");
-            BLIO.CreateSettings();
-            AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
+        {
+            try
+            {
+                BLIO.Log("===  Initializing RemindMe Version " + IOVariables.RemindMeVersion + "  ===");
+                BLIO.CreateSettings();
+                AppDomain.CurrentDomain.SetData("DataDirectory", IOVariables.databaseFile);
 
-            int tries = 0;
-            bool done = false;
-            while (!done || !BLLocalDatabase.HasAllTables())
-            {               
-                try
+                int tries = 0;
+                bool done = false;
+                while (!done || !BLLocalDatabase.HasAllTables())
                 {
-                    tries++;
-                    if (tries >= 4 || BLLocalDatabase.HasAllTables())
+                    try
                     {
-                        done = true;
-                        if (tries >= 4)
-                            BLIO.Log("something went terribly wrong... 4 tries and it still doesnt work..");
+                        tries++;
+                        if (tries >= 4 || BLLocalDatabase.HasAllTables())
+                        {
+                            done = true;
+                            if (tries >= 4)
+                                BLIO.Log("something went terribly wrong... 4 tries and it still doesnt work..");
+                        }
+
+                        BLIO.Log("DB does not have all tables. Entered while loop to create.");
+                        BLIO.CreateDatabaseIfNotExist();
+                        Thread.Sleep(500);
                     }
-                    
-                    BLIO.Log("DB does not have all tables. Entered while loop to create.");
-                    BLIO.CreateDatabaseIfNotExist();
-                    Thread.Sleep(500);
-                }
-                catch(Exception ex)
-                {
+                    catch (Exception ex)
+                    {
 
+                    }
                 }
+
+                LogWindowsInfo(); //Windows version info etc
+                LogCultureInfo(); //Datetime info in their country
+                Cleanup();
+
+
+
+                this.Opacity = 0;
+                InitializeComponent();
+
+                // Initialize MaterialSkinManager
+                materialSkinManager = MaterialSkinManager.Instance;
+                materialSkinManager.ThemeChanged += UpdateTheme;
+                materialSkinManager.AddFormToManage(this);
+
+                instance = this;
+
+                m_GlobalHook = Hook.GlobalEvents();
+                m_GlobalHook.KeyDown += GlobalKeyPressDown;
+                m_GlobalHook.KeyUp += GlobalKeyPressUp;
+
+                //Set the Renderer of the menustrip to our custom renderer, which sets the highlight and border collor to DimGray, which is the same
+                //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
+                //toolstrip items white.
+                RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
+
+
+                UpdateInformation.Initialize();
+
+                //dont show debug
+
+
+
+                formLoad();
+
+                SystemEvents.PowerModeChanged += OnPowerChange;
+
+                RemindMeIcon.Visible = true;
+
+                //Update LastOnline every 5 minutes
+                tmrPingActivity.Start();
+
+                tmrDumpLogTxtContents.Start();
+
+                tmrEnableDatabaseAccess.Start();
+
+
+                //workaround
+                tmrRemoveDebug.Start();
+                tmrResetExceptionInserts.Start();
+
+                this.MaximumSize = this.Size;
+                this.MinimumSize = this.Size;
+
+                BLIO.Log("===  Initializing RemindMe Complete  ===");
             }
-            
-            LogWindowsInfo(); //Windows version info etc
-            LogCultureInfo(); //Datetime info in their country
-            Cleanup();
-            
-            
-
-            this.Opacity = 0;
-            InitializeComponent();
-
-            // Initialize MaterialSkinManager
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.ThemeChanged += UpdateTheme;
-            materialSkinManager.AddFormToManage(this);
-
-            instance = this;
-
-            m_GlobalHook = Hook.GlobalEvents();
-            m_GlobalHook.KeyDown += GlobalKeyPressDown;
-            m_GlobalHook.KeyUp += GlobalKeyPressUp;
-
-            //Set the Renderer of the menustrip to our custom renderer, which sets the highlight and border collor to DimGray, which is the same
-            //As the menu's themselves, which means you will not see any highlighting color or border. This renderer also makes the text of the selected
-            //toolstrip items white.
-            RemindMeTrayIconMenuStrip.Renderer = new MyToolStripMenuRenderer();
-
-
-            UpdateInformation.Initialize();
-
-            //dont show debug
-            
-            
-
-            formLoad();
-
-            SystemEvents.PowerModeChanged += OnPowerChange;
-
-            RemindMeIcon.Visible = true;
-
-            //Update LastOnline every 5 minutes
-            tmrPingActivity.Start();
-
-            tmrDumpLogTxtContents.Start();
-
-            tmrEnableDatabaseAccess.Start();
-
-
-            //workaround
-            tmrRemoveDebug.Start();
-            tmrResetExceptionInserts.Start();
-
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
-
-            BLIO.Log("===  Initializing RemindMe Complete  ===");
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MaterialForm1 failed!");
+            }
         }
 
         public void ShowRemindMe()
@@ -224,57 +231,64 @@ namespace RemindMe
         }
 
         private void MaterialForm1_Load(object sender, EventArgs e)
-        {
-            #region User controls
-            reminders = new MUCReminders();
-            mucSettings = new MUCSettings();
-            theme = new MUCTheme();
-            timer = new MUCTimer();
-            importExport = new MUCImportExport();
-            sound = new MUCSound();
-            popup = new MUCResizePopup();
-            debug = new MUCDebugMode();
-            newReminder = new MUCNewReminder(reminders);
-            
-            info = new MUCInfo();
-            
-            newReminder.Visible = false;
+        {            
+            try
+            {                
+                #region User controls
+                reminders = new MUCReminders();
+                mucSettings = new MUCSettings();
+                theme = new MUCTheme();
+                timer = new MUCTimer();
+                importExport = new MUCImportExport();
+                sound = new MUCSound();
+                popup = new MUCResizePopup();
+                debug = new MUCDebugMode();
+                newReminder = new MUCNewReminder(reminders);
 
-            
-            tabReminders.Controls.Add(reminders);
-            tabReminders.Controls.Add(newReminder);
-            tabSettings.Controls.Add(mucSettings);
-            tabTheme.Controls.Add(theme);
-            tabTimer.Controls.Add(timer);
-            tabBackupImport.Controls.Add(importExport);
-            tabSoundEffects.Controls.Add(sound);
-            tabResizePopup.Controls.Add(popup);
-            tabDebug.Controls.Add(debug);
-            tabInfo.Controls.Add(info);
+                info = new MUCInfo();
+
+                newReminder.Visible = false;
 
 
+                tabReminders.Controls.Add(reminders);
+                tabReminders.Controls.Add(newReminder);
+                tabSettings.Controls.Add(mucSettings);
+                tabTheme.Controls.Add(theme);
+                tabTimer.Controls.Add(timer);
+                tabBackupImport.Controls.Add(importExport);
+                tabSoundEffects.Controls.Add(sound);
+                tabResizePopup.Controls.Add(popup);
+                tabDebug.Controls.Add(debug);
+                tabInfo.Controls.Add(info);
 
 
-            reminders.Initialize();
 
-            long? id = BLLocalDatabase.Setting.Settings.CurrentTheme;
-            if (id.HasValue && id != -1)
-            {
-                Themes selectedTheme = BLLocalDatabase.Theme.GetThemeById(id.Value);
-                if(selectedTheme == null)
+
+                reminders.Initialize();
+
+                long? id = BLLocalDatabase.Setting.Settings.CurrentTheme;
+                if (id.HasValue && id != -1)
                 {
-                    //Selected theme has been deleted
-                    BLIO.Log("Attempted to load a Theme that has been deleted. Theme with ID " + id.Value + " does not exist anymore");
+                    Themes selectedTheme = BLLocalDatabase.Theme.GetThemeById(id.Value);
+                    if (selectedTheme == null)
+                    {
+                        //Selected theme has been deleted
+                        BLIO.Log("Attempted to load a Theme that has been deleted. Theme with ID " + id.Value + " does not exist anymore");
+                    }
+                    else
+                    {
+                        //Load theme from selectedTheme (local Db)       
+                        materialSkinManager.Theme = (MaterialSkinManager.Themes)(int)selectedTheme.Mode;
+                        materialSkinManager.ColorScheme = new ColorScheme((Primary)(int)selectedTheme.Primary, (Primary)(int)selectedTheme.DarkPrimary, (Primary)(int)selectedTheme.LightPrimary, (Accent)(int)selectedTheme.Accent, (TextShade)(int)selectedTheme.TextShade);
+                    }
+
                 }
-                else
-                {                    
-                    //Load theme from selectedTheme (local Db)       
-                    materialSkinManager.Theme = (MaterialSkinManager.Themes)(int)selectedTheme.Mode;
-                    materialSkinManager.ColorScheme = new ColorScheme((Primary)(int)selectedTheme.Primary, (Primary)(int)selectedTheme.DarkPrimary, (Primary)(int)selectedTheme.LightPrimary, (Accent)(int)selectedTheme.Accent, (TextShade)(int)selectedTheme.TextShade);
-                }
-                
+                #endregion
             }
-            #endregion                        
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MaterialForm1_Load failed!");
+            }            
         }
 
         public void UpdateTheme(object sender)

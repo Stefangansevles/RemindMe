@@ -28,58 +28,61 @@ namespace RemindMe
         private static bool showDontRemind;
         private MaterialRemindMeBox(string description, RemindMeBoxReason buttons, bool showDontRemindOption)
         {
-            BLIO.Log("Constructing RemindMeBox(" + description + "");
-            //We will use the default "Attention" title text
-            InitializeComponent();
-            AddFont(Properties.Resources.Roboto_Medium);
-            
-            showDontRemind = showDontRemindOption;
-            
-            if (buttons == RemindMeBoxReason.YesNo)
+            try
             {
-                btnYes.Visible = true;
-                btnNo.Visible = true;
+                BLIO.Log("Constructing RemindMeBox(" + description + "");
+                //We will use the default "Attention" title text
+                InitializeComponent();
+                AddFont(Properties.Resources.Roboto_Medium);
+
+                showDontRemind = showDontRemindOption;
+
+                if (buttons == RemindMeBoxReason.YesNo)
+                {
+                    btnYes.Visible = true;
+                    btnNo.Visible = true;
+                }
+                else
+                    btnOk.Visible = true;
+
+                if (showDontRemind)
+                    pnlRemind.Visible = true;
+
+                this.description = description;
+
+                this.Opacity = 0;
+                tmrFadeIn.Start();
+                lblText.MaximumSize = new Size((pnlMainGradient.Width - lblText.Location.X) - 10, 0);
+
+
+                lblText.Text = description;
+
+                MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
+                if (remindme != null && remindme.Visible)
+                {
+                    //Place the message box in the middle of remindme
+                    this.StartPosition = FormStartPosition.Manual;
+                    this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                }
+                else
+                    this.StartPosition = FormStartPosition.CenterScreen;
+
+                lblText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+                lblText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
+
+                string timers = "Click here to convert these Timers into Reminders and close RemindMe";
+                if (lblText.Text.EndsWith(timers))
+                {
+                    lblText.Links.Add(lblText.Text.IndexOf(timers), timers.Length);
+                    lblText.LinkClicked += (s, ee) => { ImportRemindersFromTimers(); };
+                }
+
+                BLIO.Log("RemindMeBox constructed");
             }
-            else
-                btnOk.Visible = true;
-
-            if (showDontRemind)
-                pnlRemind.Visible = true;
-
-            this.description = description;
-
-            this.Opacity = 0;
-            tmrFadeIn.Start();
-            lblText.MaximumSize = new Size((pnlMainGradient.Width - lblText.Location.X) - 10, 0);            
-
-
-            lblText.Text = description;
-
-
-
-
-
-            MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
-            if (remindme != null && remindme.Visible)
+            catch (Exception ex)
             {
-                //Place the message box in the middle of remindme
-                this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                BLIO.WriteError(ex, "Initialization of MaterialRemindMeBox failed!");
             }
-            else
-                this.StartPosition = FormStartPosition.CenterScreen;
-
-            lblText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
-            lblText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
-
-            string timers = "Click here to convert these Timers into Reminders and close RemindMe";
-            if(lblText.Text.EndsWith(timers))
-            {
-                lblText.Links.Add(lblText.Text.IndexOf(timers), timers.Length);
-                lblText.LinkClicked += (s, ee) => { ImportRemindersFromTimers(); };
-            }
-
-            BLIO.Log("RemindMeBox constructed");
         }
         private void ImportRemindersFromTimers()
         {
@@ -205,18 +208,24 @@ namespace RemindMe
 
         private void MaterialRemindMeBox_Load(object sender, EventArgs e)
         {
-            lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
-            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
-                lblText.ForeColor = Color.White;
-
-
-            //Resize the form so that the entire text shows
-            while (pnlMainGradient.Height < (lblText.Location.Y + lblText.Height))
+            try
             {
-                this.Height += 35;
-                pnlMainGradient.Height += 35;
-            }
+                lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
+                if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+                    lblText.ForeColor = Color.White;
 
+
+                //Resize the form so that the entire text shows
+                while (pnlMainGradient.Height < (lblText.Location.Y + lblText.Height))
+                {
+                    this.Height += 35;
+                    pnlMainGradient.Height += 35;
+                }
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MaterialRemindMeBox_Load failed!");
+            }
         }
     }
 

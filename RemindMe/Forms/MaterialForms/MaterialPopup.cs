@@ -29,46 +29,53 @@ namespace RemindMe
         private HtmlLabel htmlLblText = new HtmlLabel();        
         public MaterialPopup(Reminder rem)
         {
-            BLIO.Log("Constructing Popup reminderId = " + rem.Id);          
-            AddFont(Properties.Resources.Roboto_Medium);            
-            InitializeComponent();
+            try
+            {
+                BLIO.Log("Constructing Popup reminderId = " + rem.Id);
+                AddFont(Properties.Resources.Roboto_Medium);
+                InitializeComponent();
 
-            if (MaterialForm1.Instance.Visible)            
-                BLFormLogic.CenterFormToParent(this, MaterialForm1.Instance);            
-            
-
-            this.Opacity = 0;            
-            this.rem = rem;
-            this.Size = new Size((int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormWidth, (int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormHeight);            
-            //lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
-            this.Text = rem.Name;
-
-            //lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 20, 0);
+                if (MaterialForm1.Instance.Visible)
+                    BLFormLogic.CenterFormToParent(this, MaterialForm1.Instance);
 
 
-            htmlLblText.AutoSizeHeightOnly = true;
-            htmlLblText.Width = this.Width - 8;
-            htmlLblText.Height = pnlText.Height;
-            htmlLblText.MaximumSize = new Size(htmlLblText.Width-30, 0);            
-            htmlLblText.Location = new Point(8,-5);            
+                this.Opacity = 0;
+                this.rem = rem;
+                this.Size = new Size((int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormWidth, (int)BLLocalDatabase.PopupDimension.GetPopupDimensions().FormHeight);
+                //lblNoteText.Font = new Font(lblNoteText.Font.FontFamily, BLLocalDatabase.PopupDimension.GetPopupDimensions().FontNoteSize, FontStyle.Bold);
+                this.Text = rem.Name;
 
-            pnlText.Controls.Add(htmlLblText);            
-
-            tbPostpone.KeyDown += numericOnly_KeyDown;
-            tbPostpone.KeyPress += numericOnly_KeyPress;
-
-            //Assign the events that the user can raise while doing something on the popup. The stopflash event stops the taskbar icon from flashing            
-            this.MouseClick += stopFlash_Event;            
-            this.MouseClick += stopFlash_Event;
-            this.ResizeEnd += stopFlash_Event;
+                //lblNoteText.MaximumSize = new Size((pnlText.Width - lblNoteText.Location.X) - 20, 0);
 
 
-            //TODO: #53521 ?
-            Color t = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
-            
-            //lblNoteText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
-            //lblNoteText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
-            BLIO.Log("Popup constructed");            
+                htmlLblText.AutoSizeHeightOnly = true;
+                htmlLblText.Width = this.Width - 8;
+                htmlLblText.Height = pnlText.Height;
+                htmlLblText.MaximumSize = new Size(htmlLblText.Width - 30, 0);
+                htmlLblText.Location = new Point(8, -5);
+
+                pnlText.Controls.Add(htmlLblText);
+
+                tbPostpone.KeyDown += numericOnly_KeyDown;
+                tbPostpone.KeyPress += numericOnly_KeyPress;
+
+                //Assign the events that the user can raise while doing something on the popup. The stopflash event stops the taskbar icon from flashing            
+                this.MouseClick += stopFlash_Event;
+                this.MouseClick += stopFlash_Event;
+                this.ResizeEnd += stopFlash_Event;
+
+
+                //TODO: #53521 ?
+                Color t = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+
+                //lblNoteText.LinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.AccentColor;
+                //lblNoteText.ActiveLinkColor = MaterialSkin.MaterialSkinManager.Instance.ColorScheme.LightPrimaryColor;
+                BLIO.Log("Popup constructed");
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MaterialPopup failed!");
+            }
         }
 
         private static String ColorToHex(Color c)
@@ -156,8 +163,9 @@ namespace RemindMe
 
                         //[url, dataToPick]
                         string[] data = (reminderText.Substring(startIndex + 4, endIndex - (startIndex + 4))).Split(',');
-                        JObject response = await BLIO.HttpRequest("GET", data[0]);
-                        
+                        var resp = await BLIO.HttpRequest("GET", data[0]);
+                        JObject response = (JObject)resp;
+
                         //This is the API value the user is requesting. Replace API{url,data} with this.
                         string value = response.SelectTokens(data[1]).Select(t => t.Value<string>()).ToList()[0];
 
@@ -406,7 +414,7 @@ namespace RemindMe
                 ReminderException remEx = new ReminderException(BLReminder.ToString(rem), rem);
                 remEx.StackTrace = ex.StackTrace; //Copy the stacktrace                
 
-                BLIO.WriteError(remEx, "Error loading reminder popup");
+                BLIO.WriteError(remEx, "MaterialPopup_Load failed!");
                 BLIO.Log("Popup_load FAILED. Exception -> " + ex.Message);
             }
         }        

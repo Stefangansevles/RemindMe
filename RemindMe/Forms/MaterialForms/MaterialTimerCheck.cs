@@ -1,4 +1,5 @@
-﻿using MaterialSkin;
+﻿using Business_Logic_Layer;
+using MaterialSkin;
 using MaterialSkin.Controls;
 using RemindMe.Other_classes;
 using System;
@@ -22,20 +23,34 @@ namespace RemindMe
         /// </summary>        
         public MaterialTimerCheck()
         {
-            this.StatusBarHeight = 0;
-            InitializeComponent();
-            this.MaximumSize = new Size(315, 375);
-            instance = this;
+            try
+            {
+                this.StatusBarHeight = 0;
+                InitializeComponent();
+                this.MaximumSize = new Size(315, 375);
+                instance = this;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MaterialTimerCheck failed!");
+            }
         }
 
         private void TimerCheck_Load(object sender, EventArgs e)
         {
-            this.TopMost = true; //Will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the it.
-            this.TopLevel = true;
+            try
+            {
+                this.TopMost = true; //Will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the it.
+                this.TopLevel = true;
 
-            PlaceTimers();
+                PlaceTimers();
 
-            this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - this.Height - 5);
+                this.Location = new Point(Screen.GetWorkingArea(this).Width - this.Width - 5, Screen.GetWorkingArea(this).Height - this.Height - 5);
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "TimerCheck_Load failed!");
+            }
         }
 
         public void PlaceTimers()

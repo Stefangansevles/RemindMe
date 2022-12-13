@@ -89,6 +89,23 @@ namespace Business_Logic_Layer
             }
         }
 
+        public static string AnonymizePath(string input)
+        {
+            try
+            {
+                string newString = "";                
+                foreach (string part in input.Split('\\'))
+                {
+                    newString += @"*\";
+                }
+                return $"{Path.GetPathRoot(input)}{newString}{Path.GetFileName(input)}";
+            }
+            catch(Exception ex)
+            {
+                BLIO.WriteError(ex, $"Failed to anonymize input {input}");
+                return input;
+            }
+        }
         /// <summary>
         /// Plays a sound
         /// </summary>
@@ -226,7 +243,7 @@ namespace Business_Logic_Layer
             }
         }
 
-        public static async Task<JObject> HttpRequest(string method, string uri, string headers = "{ }", string accept = "", string contentType = "", string body = "{ }")
+        public static async Task<object> HttpRequest(string method, string uri, string headers = "{ }", string accept = "", string contentType = "", string body = "{ }")
         {
             try
             {
@@ -278,7 +295,7 @@ namespace Business_Logic_Layer
                     {
                         string bod = await reader.ReadToEndAsync();
                         Log(method + " succeeded with status code " + response.StatusCode.ToString());
-                        return (JObject)JsonConvert.DeserializeObject(bod);
+                        return JsonConvert.DeserializeObject(bod);
                     }
                     else
                     {

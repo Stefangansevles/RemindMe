@@ -1453,11 +1453,13 @@ namespace RemindMe
                     oldSoundFilePath = editableReminder.SoundFilePath;
 
                     //We can edit the reminder now, it has already been inserted/updated
-                    editableReminder.Name = "Hidden"; //privacy
-                    editableReminder.Note = "Hidden"; //privacy
+                    editableReminder.Name = "*"; //privacy
+                    editableReminder.Note = "*"; //privacy
 
-                    if (File.Exists(editableReminder.SoundFilePath)) 
-                        editableReminder.SoundFilePath = "Hidden"; //privacy. if the file DOESNT exist, we do want to inspect it
+                    if (File.Exists(editableReminder.SoundFilePath))
+                        editableReminder.SoundFilePath = "*"; //privacy. if the file DOESNT exist, we do want to inspect it
+                    else
+                        editableReminder.SoundFilePath = BLIO.AnonymizePath(editableReminder.SoundFilePath);
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(editableReminder));
                     //Now that the logging is done, revert the name/note
@@ -1473,11 +1475,13 @@ namespace RemindMe
                     oldReminderNote = rem.Note;
                     oldSoundFilePath = rem.SoundFilePath;
 
-                    rem.Name = "Hidden"; //privacy
-                    rem.Note = "Hidden"; //privacy
+                    rem.Name = "*"; //privacy
+                    rem.Note = "*"; //privacy
 
                     if (File.Exists(rem.SoundFilePath))
-                        rem.SoundFilePath = "Hidden"; //privacy. if the file DOESNT exist, we do want to inspect it
+                        rem.SoundFilePath = "*"; //privacy. if the file DOESNT exist, we do want to inspect it
+                    else
+                        editableReminder.SoundFilePath = BLIO.AnonymizePath(editableReminder.SoundFilePath);
 
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(rem));
                     //Now that the logging is done, revert the name/note
@@ -1514,7 +1518,9 @@ namespace RemindMe
 
                     if (File.Exists(editableReminder.SoundFilePath))
                         editableReminder.SoundFilePath = ""; //privacy. if the file DOESNT exist, we do want to inspect it
-                    
+                    else
+                        editableReminder.SoundFilePath = BLIO.AnonymizePath(editableReminder.SoundFilePath);
+
                     BLIO.Log("==Reminder information==\r\n" + JsonConvert.SerializeObject(editableReminder));
                     BLIO.WriteError(ex, "CREATE/EDIT_REMINDER FAIL!" + ex.GetType());
                     MaterialRemindMeBox.Show("Editing Reminder failed :(");

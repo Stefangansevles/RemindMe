@@ -188,28 +188,71 @@ namespace RemindMe
             tbFeedback.Location = new Point(tbFeedback.Location.X, (lblMessage.Location.Y + lblMessage.Height) + 5);
         }
 
-        private bool CreateIssue(Exception ex, string description, string customMessage)
+        private string GitHeader
         {
-            string t = "Au", tt = "thorization";
-            string x = "Be", xx = "arer ";
-            string y = "";
-            var headers = "{\""+ t + tt + "\": \""+ x + xx + y + "\"}";
+            get
+            {
+                string t = "Au", tt = "thorization";
+                string x = "Be", xx = "arer ";
+                string y = "";
+                return "{\"" + t + tt + "\": \"" + x + xx + y + "\"}";                
+            }
+        }
+        private async Task<bool> IssueExists(string title)
+        {
+            try
+            {
+                var response = (JArray)await BLIO.HttpRequest(
+                    "GET",
+                    "https://api.github.com/repos/Stefangansevles/Remindme/issues",
+                    GitHeader,
+                    "application/vnd.github+json",
+                    "application/json"
+                    );                
+                                
+                var issues = response.Values<JToken>().ToList();
+                return issues.Where(iss => JsonConvert.ToString(iss.SelectToken("title").ToString()) == title).Count() > 0;
+            }
+            catch(Exception ex)
+            {
+                BLIO.WriteError(ex, "Failed to get GitHub issues");
+                return false;
+            }
+        }
+        private async Task<bool> CreateIssue(Exception ex, string description, string customMessage)
+        {
+            try
+            {
+                
+                string title = JsonConvert.ToString($"[Automatic] {(customMessage == "NONE_SET" ? "" : "[C]")} Error occured: {description}");                
+                var exists = await IssueExists(title);
+                if (!exists)
+                {
+                    BLIO.Log($"Creating Github issue for {title}");
 
-            BLIO.DumpLogTxt();
-            string log = System.IO.File.ReadAllText(IOVariables.systemLog).Replace(Environment.NewLine, "<br />");
-            string title = JsonConvert.ToString($"[Automatic] Error occured: {description}");
-            string body = JsonConvert.ToString($"**RemindMe version**: {IOVariables.RemindMeVersion}<br /><br />**Stacktrace**: {ex.StackTrace}<br /><br />**Custom user feedback**: {customMessage}<br /><br />**RemindMe Log:**<br />{log}");
-            
-            var resp = BLIO.HttpRequest(
-                "POST",
-                "https://api.github.com/repos/Stefangansevles/Remindme/issues",
-                headers,
-                "application/vnd.github+json",
-                "application/json",
-                "{\r\n    \"title\": "+ title + ",\r\n    \"body\":" + body + ",\r\n    \"labels\": [\r\n        \"bug\"\r\n    ], \"assignees\": [\r\n        \"Stefangansevles\"\r\n    ]\r\n}"
-                );
+                    BLIO.DumpLogTxt();
+                    bool isMaterial = Convert.ToBoolean(BLLocalDatabase.Setting.Settings.MaterialDesign.Value);
+                    string log = System.IO.File.ReadAllText(IOVariables.systemLog).Replace(Environment.NewLine, "<br />");
+                    string body = JsonConvert.ToString($"**RemindMe version**: {IOVariables.RemindMeVersion} {(!isMaterial ? "(Old RemindMe)" : "")}<br /><br />**Stacktrace**: {ex.StackTrace}<br /><br />**Custom user feedback**: {customMessage}<br /><br />**RemindMe Log:**<br />{log}");
 
-            return resp != null;
+                    var resp = BLIO.HttpRequest(
+                    "POST",
+                    "https://api.github.com/repos/Stefangansevles/Remindme/issues",
+                    GitHeader,
+                    "application/vnd.github+json",
+                    "application/json",
+                    "{\r\n    \"title\": " + title + ",\r\n    \"body\":" + body + ",\r\n    \"labels\": [\r\n        \"bug\"\r\n    ], \"assignees\": [\r\n        \"Stefangansevles\"\r\n    ]\r\n}"
+                    );
+                    return resp != null;
+                }
+
+                return false;
+            }
+            catch(Exception cEx)
+            {
+                BLIO.WriteError(ex, $"Failed to create GitHub issue for {ex.GetType()} - {cEx}");
+                return false;
+            }
         }
     }
 }

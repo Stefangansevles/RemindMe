@@ -31,39 +31,46 @@ namespace RemindMe
         private Point location;
         public RemindMeMaterialMessageForm(string message, int timeout)
         {
-            BLIO.Log("Constructing RemindMeMessageForm (" + message + ")");
-            this.StatusBarHeight = 0;            
-            InitializeComponent();                        
+            try
+            {
+                BLIO.Log("Constructing RemindMeMessageForm (" + message + ")");
+                this.StatusBarHeight = 0;
+                InitializeComponent();
 
-            //Not visible                   
-            this.Opacity = 0.0;
+                //Not visible                   
+                this.Opacity = 0.0;
 
-            AddFont(Properties.Resources.Roboto_Medium);
-            
-            lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
-            lblExit.Font = new Font(pfc.Families[0], 15f, FontStyle.Bold, GraphicsUnit.Pixel);            
+                AddFont(Properties.Resources.Roboto_Medium);
 
-            //Make it so that the text won't go out of bounds horizontally, so the panel has to grow vertically
-            lblText.MaximumSize = new Size(pnlText.Width - 15, 0);
-            //Set the text
-            lblText.Text = message;
-            //Enlarge the panel if needed
-            FitPanel(pnlText);
+                lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
+                lblExit.Font = new Font(pfc.Families[0], 15f, FontStyle.Bold, GraphicsUnit.Pixel);
+
+                //Make it so that the text won't go out of bounds horizontally, so the panel has to grow vertically
+                lblText.MaximumSize = new Size(pnlText.Width - 15, 0);
+                //Set the text
+                lblText.Text = message;
+                //Enlarge the panel if needed
+                FitPanel(pnlText);
 
 
-            SetLocation();
+                SetLocation();
 
-            this.LocationChanged += RemindMeMaterialMessageForm_PositionChanged;
-            this.timeout = timeout;
+                this.LocationChanged += RemindMeMaterialMessageForm_PositionChanged;
+                this.timeout = timeout;
 
-            //If the timeout in seconds is "0", don't make the form dissapear at all
-            disableFadeout = timeout == 0;
+                //If the timeout in seconds is "0", don't make the form dissapear at all
+                disableFadeout = timeout == 0;
 
-            //Start the timer that will "slowly" make the form more transparent
-            tmrFadein.Start();
-            pnlText.Focus();
+                //Start the timer that will "slowly" make the form more transparent
+                tmrFadein.Start();
+                pnlText.Focus();
 
-            BLIO.Log("RemindMeMessageForm constructed");
+                BLIO.Log("RemindMeMessageForm constructed");
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of RemindMeMaterialMessageForm failed!");
+            }
         }
 
         private void SetLocation()
@@ -280,11 +287,18 @@ namespace RemindMe
 
         private void RemindMeMessageForm_Load(object sender, EventArgs e)
         {
-            this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
-            this.TopLevel = true;
-            pnlText.Focus();
-                       
-            timer1.Start();
+            try
+            {
+                this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
+                this.TopLevel = true;
+                pnlText.Focus();
+
+                timer1.Start();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "RemindMeMessageForm_Load failed!");
+            }
         }
 
 

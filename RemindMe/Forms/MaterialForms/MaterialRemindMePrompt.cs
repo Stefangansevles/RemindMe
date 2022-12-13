@@ -21,38 +21,45 @@ namespace RemindMe
         private static int minutes;
         public MaterialRemindMePrompt(string title, PromptReason reason)
         {
-            BLIO.Log("Constructing RemindMePrompt (" + title + ")");
-            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
-            InitializeComponent();
-            promptReason = reason;
-            this.Opacity = 0;
-            lblText.MaximumSize = new Size((pnlMain.Width - lblText.Location.X) - 10, 0);            
-
-            this.Text = title;
-
-
-            tmrFadeIn.Start();
-
-            strReturnValue = "";
-            intReturnValue = 0;
-            minutes = 0;
-
-            switch(reason)
+            try
             {
-                case PromptReason.MINUTES:
-                    tbPrompt.KeyPress += timeOnly_KeyPress;
-                    tbPrompt.KeyDown += numericOnly_KeyDown;
-                    break;
-                case PromptReason.NUMERIC:
-                    tbPrompt.KeyPress += numericOnly_KeyPress;
-                    tbPrompt.KeyDown += numericOnly_KeyDown;
-                    break;                
+                BLIO.Log("Constructing RemindMePrompt (" + title + ")");
+                MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
+                InitializeComponent();
+                promptReason = reason;
+                this.Opacity = 0;
+                lblText.MaximumSize = new Size((pnlMain.Width - lblText.Location.X) - 10, 0);
+
+                this.Text = title;
+
+
+                tmrFadeIn.Start();
+
+                strReturnValue = "";
+                intReturnValue = 0;
+                minutes = 0;
+
+                switch (reason)
+                {
+                    case PromptReason.MINUTES:
+                        tbPrompt.KeyPress += timeOnly_KeyPress;
+                        tbPrompt.KeyDown += numericOnly_KeyDown;
+                        break;
+                    case PromptReason.NUMERIC:
+                        tbPrompt.KeyPress += numericOnly_KeyPress;
+                        tbPrompt.KeyDown += numericOnly_KeyDown;
+                        break;
+                }
+
+                this.MaximumSize = this.Size;
+                this.MinimumSize = this.Size;
+
+                BLIO.Log("RemindMePrompt constructed");
             }
-
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
-
-            BLIO.Log("RemindMePrompt constructed");
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MaterialRemindMePrompt failed!");
+            }
         }
 
         public MaterialRemindMePrompt(string title, string description, PromptReason reason) : this(title, reason)

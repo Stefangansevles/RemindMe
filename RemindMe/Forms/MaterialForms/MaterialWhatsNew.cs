@@ -1,4 +1,5 @@
-﻿using MaterialSkin.Controls;
+﻿using Business_Logic_Layer;
+using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,13 +18,20 @@ namespace RemindMe
     {
         public MaterialWhatsNew(string lastVersion, string data)
         {
-            AddFont(Properties.Resources.Roboto_Medium);
-            InitializeComponent();
+            try
+            {
+                AddFont(Properties.Resources.Roboto_Medium);
+                InitializeComponent();
 
-            lblText.MaximumSize = new Size((pnlContent.Width - lblText.Location.X) - 35, 0);
+                lblText.MaximumSize = new Size((pnlContent.Width - lblText.Location.X) - 35, 0);
 
-            lblTitle.Text += lastVersion;
-            lblText.Text = data;
+                lblTitle.Text += lastVersion;
+                lblText.Text = data;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MaterialWhatsNew failed!");
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -58,10 +66,17 @@ namespace RemindMe
 
         private void MaterialWhatsNew_Load(object sender, EventArgs e)
         {
-            lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
+            try
+            {
+                lblText.Font = new Font(pfc.Families[0], 14f, FontStyle.Regular, GraphicsUnit.Pixel);
 
-            if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
-                lblText.ForeColor = Color.White;
+                if (MaterialSkin.MaterialSkinManager.Instance.Theme == MaterialSkin.MaterialSkinManager.Themes.DARK)
+                    lblText.ForeColor = Color.White;
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "MaterialWhatsNew_Load failed!");
+            }
         }
 
         private void MaterialWhatsNew_FormClosing(object sender, FormClosingEventArgs e)

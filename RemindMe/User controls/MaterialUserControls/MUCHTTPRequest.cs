@@ -66,7 +66,7 @@ namespace RemindMe
                 if (string.IsNullOrWhiteSpace(tbHeaders.Text))
                     tbHeaders.Text = "{ }";
 
-                JObject response = null;
+                object response = null;
                 switch (cbType.SelectedItem.ToString())
                 {
                     case "GET": response = await BLIO.HttpRequest("GET", tbUrl.Text, tbHeaders.Text);
@@ -83,7 +83,7 @@ namespace RemindMe
                     {
                         foreach (var cond in Conditions)
                         {
-                            HttpCondition condit = new HttpCondition(cond, response);
+                            HttpCondition condit = new HttpCondition(cond, (JObject)response);
                             message += "Condition " + count + ": " + condit.Evaluate() + "\r\n";
 
                             count++;

@@ -23,44 +23,51 @@ namespace RemindMe
 
         public MaterialTimerPopup()
         {
-            MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
-
-            InitializeComponent();
-
-            instance = this;
-            this.Opacity = 0;
-
-            //Set the location within the remindme window. 
-            //This prompt can be moved, but inititally will be set to the middle of the location of RemindMe
-            MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
-            if (remindme != null && remindme.Visible)
+            try
             {
-                this.StartPosition = FormStartPosition.Manual;
-                this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                MaterialSkin.MaterialSkinManager.Instance.AddFormToManage(this);
+
+                InitializeComponent();
+
+                instance = this;
+                this.Opacity = 0;
+
+                //Set the location within the remindme window. 
+                //This prompt can be moved, but inititally will be set to the middle of the location of RemindMe
+                MaterialForm1 remindme = (MaterialForm1)Application.OpenForms["MaterialForm1"];
+                if (remindme != null && remindme.Visible)
+                {
+                    this.StartPosition = FormStartPosition.Manual;
+                    this.Location = new Point(remindme.Location.X + ((remindme.Width / 2) - this.Width / 2), remindme.Location.Y + ((remindme.Height / 2) - (this.Height / 2)));
+                }
+                else
+                    this.StartPosition = FormStartPosition.CenterScreen;
+
+                tmrFadeIn.Start();
+                tbTime.KeyUp += TimerPopup_KeyUp;
+                tbNote.KeyUp += TimerPopup_KeyUp;
+                this.KeyUp += TimerPopup_KeyUp;
+
+                tbTime.KeyDown += numericOnly_KeyDown;
+                tbTime.KeyPress += numericOnly_KeyPress;
+
+                this.MaximumSize = this.Size;
+                this.MinimumSize = this.Size;
+
+                this.TopMost = true;
+                this.BringToFront();
+                this.Focus();
+                this.ActiveControl = tbTime;
+
+                if (!this.Focused)
+                    this.Activate();
+
+                BLIO.Log("TimerPopup created");
             }
-            else
-                this.StartPosition = FormStartPosition.CenterScreen;
-
-            tmrFadeIn.Start();
-            tbTime.KeyUp += TimerPopup_KeyUp;
-            tbNote.KeyUp += TimerPopup_KeyUp;
-            this.KeyUp += TimerPopup_KeyUp;
-
-            tbTime.KeyDown += numericOnly_KeyDown;
-            tbTime.KeyPress += numericOnly_KeyPress;
-
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
-
-            this.TopMost = true;
-            this.BringToFront();
-            this.Focus();
-            this.ActiveControl = tbTime;
-
-            if (!this.Focused)            
-                this.Activate();            
-
-            BLIO.Log("TimerPopup created");
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "Initialization of MaterialTimerPopup failed!");
+            }
         }
 
         private void numericOnly_KeyPress(object sender, KeyPressEventArgs e)
@@ -168,12 +175,19 @@ namespace RemindMe
 
         private void TimerPopup_Load(object sender, EventArgs e)
         {
-            this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
-            this.TopLevel = true;
-            this.BringToFront();
-            this.ActiveControl = tbTime;
-            tbTime.Focus();
-            this.Activate();
+            try
+            {
+                this.TopMost = true; //Popup will be always on top. no matter what you are doing, playing a game, watching a video, you will ALWAYS see the popup.
+                this.TopLevel = true;
+                this.BringToFront();
+                this.ActiveControl = tbTime;
+                tbTime.Focus();
+                this.Activate();
+            }
+            catch (Exception ex)
+            {
+                BLIO.WriteError(ex, "TimerPopup_Load failed!");
+            }
         }
 
         private void lblExit_MouseEnter(object sender, EventArgs e)

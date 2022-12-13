@@ -2273,7 +2273,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:v4.6.1   "
+                "FrameworkVersion" = "8:v4.6.1    "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=671728"
                 }
@@ -7414,15 +7414,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemindMe"
-        "ProductCode" = "8:{E22E6308-4190-4FE2-B946-F8B63426A812}"
-        "PackageCode" = "8:{601C552D-0D79-409F-BF37-AE65A3B75D2D}"
+        "ProductCode" = "8:{AF656DA3-46CC-49A2-90B3-42F75D9B90DD}"
+        "PackageCode" = "8:{CBF9322A-F04F-4254-870D-42EA903905DE}"
         "UpgradeCode" = "8:{026AD2C2-A1B9-4D88-91FE-D0E8C55594D8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.1.17"
+        "ProductVersion" = "8:3.1.18"
         "Manufacturer" = "8:StefanGansevlesPrograms"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/Stefangansevles/RemindMe/issues"

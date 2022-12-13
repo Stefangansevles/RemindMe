@@ -99,10 +99,12 @@ namespace RemindMe
                     return;
                 }
                 
-                JObject response = await BLIO.HttpRequest(http.Type, http.URL, http.OtherHeaders, http.AcceptHeader, http.ContentTypeHeader, http.Body);                
+                object resp = await BLIO.HttpRequest(http.Type, http.URL, http.OtherHeaders, http.AcceptHeader, http.ContentTypeHeader, http.Body);
+                JObject response = (JObject)resp;
 
 
-                
+
+
 
                 List<HttpCondition> conditions = new List<HttpCondition>();                
                 foreach(HttpRequestCondition cond in BLLocalDatabase.HttpRequestConditions.GetConditions(http.Id))                
