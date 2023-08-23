@@ -35,8 +35,6 @@ For a step-by-step guide with images, [click here](https://github.com/Stefangans
 # Your input is welcomed
 Found a problem with RemindMe, or do you have a good idea? Feel free to [post this here](https://github.com/Stefangansevles/RemindMe/issues)
 
-# Free!
-RemindMe is completely free! I have put a lot of love *and coffee* into this project and seeing people use it besides myself is already heartwarming. Thank you for using RemindMe and enjoy using RemindMe if you do! If you do feel like buying me a coffee, you can do that here https://www.buymeacoffee.com/RemindMe and it would be appreciated :)
 
 If you want to clone RemindMe and run it yourself, take a look at [the how-to](https://github.com/Stefangansevles/RemindMe/blob/master/How%20to%20Run%20RemindMe%20locally.md)
 
